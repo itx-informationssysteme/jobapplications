@@ -1,0 +1,32 @@
+{
+    "name": "itx/jobs",
+    "type": "typo3-cms-extension",
+    "description": "This extension enables you to manage job postings, the application form and the incoming applications.",
+    "authors": [
+        {
+            "name": "Stefanie D\u00f6ll",
+            "role": "Developer"
+        },
+        {
+            "name": "Benjamin Jasper",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "typo3/cms-core": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "ITX\\Jobs\\": "Classes"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ITX\\Jobs\\Tests\\": "Tests"
+        }
+    },
+    "replace": {
+        "itx/jobs": "self.version",
+        "typo3-ter/jobs": "self.version"
+    }
+}

@@ -1,0 +1,66 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<label for="title">
+	<f:translate key="tx_jobs_domain_model_posting.title" />
+</label><br />
+	<f:form.textfield property="title" /><br />
+<label for="datePosted">
+	<f:translate key="tx_jobs_domain_model_posting.date_posted" />
+</label><br />
+	<f:form.textfield property="datePosted" value="{posting.datePosted->f:format.date()}" /><br />
+<label for="careerLevel">
+	<f:translate key="tx_jobs_domain_model_posting.career_level" />
+</label><br />
+	<f:form.textfield property="careerLevel" /><br />
+<label for="division">
+	<f:translate key="tx_jobs_domain_model_posting.division" />
+</label><br />
+	<f:form.textfield property="division" /><br />
+<label for="employmentType">
+	<f:translate key="tx_jobs_domain_model_posting.employment_type" />
+</label><br />
+	<f:form.textfield property="employmentType" /><br />
+<label for="termsOfEmployment">
+	<f:translate key="tx_jobs_domain_model_posting.terms_of_employment" />
+</label><br />
+	<f:form.textfield property="termsOfEmployment" /><br />
+<label for="companyDescription">
+	<f:translate key="tx_jobs_domain_model_posting.company_description" />
+</label><br />
+	<f:form.textarea property="companyDescription" cols="40" rows="15" /><br />
+<label for="jobDescription">
+	<f:translate key="tx_jobs_domain_model_posting.job_description" />
+</label><br />
+	<f:form.textarea property="jobDescription" cols="40" rows="15" /><br />
+<label for="roleDescription">
+	<f:translate key="tx_jobs_domain_model_posting.role_description" />
+</label><br />
+	<f:form.textarea property="roleDescription" cols="40" rows="15" /><br />
+<label for="skillRequirements">
+	<f:translate key="tx_jobs_domain_model_posting.skill_requirements" />
+</label><br />
+	<f:form.textarea property="skillRequirements" cols="40" rows="15" /><br />
+<label for="benefits">
+	<f:translate key="tx_jobs_domain_model_posting.benefits" />
+</label><br />
+	<f:form.textarea property="benefits" cols="40" rows="15" /><br />
+<label for="baseSalary">
+	<f:translate key="tx_jobs_domain_model_posting.base_salary" />
+</label><br />
+	<f:form.textfield property="baseSalary" /><br />
+<label for="validThrough">
+	<f:translate key="tx_jobs_domain_model_posting.valid_through" />
+</label><br />
+	<f:form.textfield property="validThrough" value="{posting.validThrough->f:format.date()}" /><br />
+<label for="requiredDocuments">
+	<f:translate key="tx_jobs_domain_model_posting.required_documents" />
+</label><br />
+	<f:form.textarea property="requiredDocuments" cols="40" rows="15" /><br />
+<label for="id">
+	<f:translate key="tx_jobs_domain_model_posting.id" />
+</label><br />
+	<f:form.textfield property="id" /><br />
+<label for="companyInformation">
+	<f:translate key="tx_jobs_domain_model_posting.company_information" />
+</label><br />
+	<f:form.textarea property="companyInformation" cols="40" rows="15" /><br />
+</html>

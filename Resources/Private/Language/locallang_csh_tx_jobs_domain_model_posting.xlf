@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:jobs/Resources/Private/Language/locallang_csh" date="2019-10-17T10:10:12Z" product-name="jobs">
+		<header/>
+		<body>
+			<trans-unit id="title.description" resname="title.description">
+				<source>title</source>
+			</trans-unit>
+			<trans-unit id="date_posted.description" resname="date_posted.description">
+				<source>datePosted</source>
+			</trans-unit>
+			<trans-unit id="career_level.description" resname="career_level.description">
+				<source>careerLevel</source>
+			</trans-unit>
+			<trans-unit id="division.description" resname="division.description">
+				<source>division</source>
+			</trans-unit>
+			<trans-unit id="employment_type.description" resname="employment_type.description">
+				<source>employmentType</source>
+			</trans-unit>
+			<trans-unit id="terms_of_employment.description" resname="terms_of_employment.description">
+				<source>termsOfEmployment</source>
+			</trans-unit>
+			<trans-unit id="company_description.description" resname="company_description.description">
+				<source>companyDescription</source>
+			</trans-unit>
+			<trans-unit id="job_description.description" resname="job_description.description">
+				<source>jobDescription</source>
+			</trans-unit>
+			<trans-unit id="role_description.description" resname="role_description.description">
+				<source>roleDescription</source>
+			</trans-unit>
+			<trans-unit id="skill_requirements.description" resname="skill_requirements.description">
+				<source>skillRequirements</source>
+			</trans-unit>
+			<trans-unit id="benefits.description" resname="benefits.description">
+				<source>benefits</source>
+			</trans-unit>
+			<trans-unit id="base_salary.description" resname="base_salary.description">
+				<source>baseSalary</source>
+			</trans-unit>
+			<trans-unit id="valid_through.description" resname="valid_through.description">
+				<source>validThrough</source>
+			</trans-unit>
+			<trans-unit id="required_documents.description" resname="required_documents.description">
+				<source>requiredDocuments</source>
+			</trans-unit>
+			<trans-unit id="id.description" resname="id.description">
+				<source>id</source>
+			</trans-unit>
+			<trans-unit id="company_information.description" resname="company_information.description">
+				<source>companyInformation</source>
+			</trans-unit>
+			<trans-unit id="applications.description" resname="applications.description">
+				<source>applications</source>
+			</trans-unit>
+			<trans-unit id="location.description" resname="location.description">
+				<source>location</source>
+			</trans-unit>
+			<trans-unit id="contact.description" resname="contact.description">
+				<source>contact</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

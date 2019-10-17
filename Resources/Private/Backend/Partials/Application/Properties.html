@@ -1,0 +1,108 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<table class="tx-jobs" >
+	<tr>
+		<td>
+			<f:translate key="tx_jobs_domain_model_application.salutation" />
+		</td>
+		<td>
+			{application.salutation}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_jobs_domain_model_application.first_name" />
+		</td>
+		<td>
+			{application.firstName}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_jobs_domain_model_application.last_name" />
+		</td>
+		<td>
+			{application.lastName}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_jobs_domain_model_application.email" />
+		</td>
+		<td>
+			{application.email}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_jobs_domain_model_application.phone" />
+		</td>
+		<td>
+			{application.phone}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_jobs_domain_model_application.address" />
+		</td>
+		<td>
+			{application.address}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_jobs_domain_model_application.salary_expectation" />
+		</td>
+		<td>
+			{application.salaryExpectation}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_jobs_domain_model_application.earliest_date_of_joining" />
+		</td>
+		<td>
+			{application.earliestDateOfJoining -> f:format.date()}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_jobs_domain_model_application.cv" />
+		</td>
+		<td>
+			{application.cv.originalResource.name}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_jobs_domain_model_application.cover_letter" />
+		</td>
+		<td>
+			{application.coverLetter.originalResource.name}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_jobs_domain_model_application.testimonials" />
+		</td>
+		<td>
+			{application.testimonials.originalResource.name}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_jobs_domain_model_application.other_files" />
+		</td>
+		<td>
+			{application.otherFiles.originalResource.name}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_jobs_domain_model_application.privacy_agreement" />
+		</td>
+		<td>
+			{application.privacyAgreement}
+		</td>
+	</tr>
+</table>
+</html>

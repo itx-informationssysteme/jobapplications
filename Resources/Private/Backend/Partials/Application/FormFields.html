@@ -1,0 +1,54 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<label for="salutation">
+	<f:translate key="tx_jobs_domain_model_application.salutation" />
+</label><br />
+	<f:form.textfield property="salutation" /><br />
+<label for="firstName">
+	<f:translate key="tx_jobs_domain_model_application.first_name" />
+</label><br />
+	<f:form.textfield property="firstName" /><br />
+<label for="lastName">
+	<f:translate key="tx_jobs_domain_model_application.last_name" />
+</label><br />
+	<f:form.textfield property="lastName" /><br />
+<label for="email">
+	<f:translate key="tx_jobs_domain_model_application.email" />
+</label><br />
+	<f:form.textfield type="email" property="email" /><br />
+<label for="phone">
+	<f:translate key="tx_jobs_domain_model_application.phone" />
+</label><br />
+	<f:form.textfield property="phone" /><br />
+<label for="address">
+	<f:translate key="tx_jobs_domain_model_application.address" />
+</label><br />
+	<f:form.textarea property="address" cols="40" rows="15" /><br />
+<label for="salaryExpectation">
+	<f:translate key="tx_jobs_domain_model_application.salary_expectation" />
+</label><br />
+	<f:form.textfield property="salaryExpectation" /><br />
+<label for="earliestDateOfJoining">
+	<f:translate key="tx_jobs_domain_model_application.earliest_date_of_joining" />
+</label><br />
+	<f:form.textfield property="earliestDateOfJoining" value="{application.earliestDateOfJoining->f:format.date()}" /><br />
+<label for="cv">
+	<f:translate key="tx_jobs_domain_model_application.cv" />
+</label><br />
+	<span>File upload is not implemented!</span><br /><br />
+<label for="coverLetter">
+	<f:translate key="tx_jobs_domain_model_application.cover_letter" />
+</label><br />
+	<span>File upload is not implemented!</span><br /><br />
+<label for="testimonials">
+	<f:translate key="tx_jobs_domain_model_application.testimonials" />
+</label><br />
+	<span>File upload is not implemented!</span><br /><br />
+<label for="otherFiles">
+	<f:translate key="tx_jobs_domain_model_application.other_files" />
+</label><br />
+	<span>File upload is not implemented!</span><br /><br />
+<label for="privacyAgreement">
+	<f:translate key="tx_jobs_domain_model_application.privacy_agreement" />
+</label><br />
+	<f:form.checkbox property="privacyAgreement" value="1" /><br />
+</html>

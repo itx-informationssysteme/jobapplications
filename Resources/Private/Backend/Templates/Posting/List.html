@@ -1,0 +1,68 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+
+This Template is responsible for creating a table of domain objects.
+
+If you modify this template, do not forget to change the overwrite settings
+in /Configuration/ExtensionBuilder/settings.yaml:
+  Resources:
+    Private:
+      Templates:
+        List.html: keep
+
+Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+
+<f:section name="content">
+<h1>Listing for Posting</h1>
+
+<f:flashMessages />
+
+<table  class="tx_jobs" >
+	<tr>
+		<th><f:translate key="tx_jobs_domain_model_posting.title" /></th>
+		<th><f:translate key="tx_jobs_domain_model_posting.date_posted" /></th>
+		<th><f:translate key="tx_jobs_domain_model_posting.career_level" /></th>
+		<th><f:translate key="tx_jobs_domain_model_posting.division" /></th>
+		<th><f:translate key="tx_jobs_domain_model_posting.employment_type" /></th>
+		<th><f:translate key="tx_jobs_domain_model_posting.terms_of_employment" /></th>
+		<th><f:translate key="tx_jobs_domain_model_posting.company_description" /></th>
+		<th><f:translate key="tx_jobs_domain_model_posting.job_description" /></th>
+		<th><f:translate key="tx_jobs_domain_model_posting.role_description" /></th>
+		<th><f:translate key="tx_jobs_domain_model_posting.skill_requirements" /></th>
+		<th><f:translate key="tx_jobs_domain_model_posting.benefits" /></th>
+		<th><f:translate key="tx_jobs_domain_model_posting.base_salary" /></th>
+		<th><f:translate key="tx_jobs_domain_model_posting.valid_through" /></th>
+		<th><f:translate key="tx_jobs_domain_model_posting.required_documents" /></th>
+		<th><f:translate key="tx_jobs_domain_model_posting.id" /></th>
+		<th><f:translate key="tx_jobs_domain_model_posting.company_information" /></th>
+		<th> </th>
+		<th> </th>
+	</tr>
+
+	<f:for each="{postings}" as="posting">
+		<tr>
+			<td><f:link.action action="show" arguments="{posting : posting}"> {posting.title}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{posting : posting}"> {posting.datePosted -> f:format.date()}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{posting : posting}"> {posting.careerLevel}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{posting : posting}"> {posting.division}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{posting : posting}"> {posting.employmentType}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{posting : posting}"> {posting.termsOfEmployment}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{posting : posting}"> {posting.companyDescription}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{posting : posting}"> {posting.jobDescription}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{posting : posting}"> {posting.roleDescription}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{posting : posting}"> {posting.skillRequirements}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{posting : posting}"> {posting.benefits}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{posting : posting}"> {posting.baseSalary}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{posting : posting}"> {posting.validThrough -> f:format.date()}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{posting : posting}"> {posting.requiredDocuments}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{posting : posting}"> {posting.id}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{posting : posting}"> {posting.companyInformation}</f:link.action></td>
+			<td><f:link.action action="edit" arguments="{posting : posting}">Edit</f:link.action></td>
+			<td><f:link.action action="delete" arguments="{posting : posting}">Delete</f:link.action></td>
+		</tr>
+		</f:for>
+</table>
+
+<f:link.action action="new">New Posting</f:link.action>
+	</f:section>
+</html>
