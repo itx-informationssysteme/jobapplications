@@ -391,5 +391,10 @@ return [
             ]
         ],
     
+        'posting' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
     ],
 ];

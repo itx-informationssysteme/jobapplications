@@ -4,17 +4,6 @@ defined('TYPO3_MODE') || die('Access denied.');
 call_user_func(
     function()
     {
-		\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-			'ITX.jobs',
-			'Frontend',
-			[
-				'Posting' => 'list, show'
-			],
-			// non-cacheable actions
-			[
-				'Posting' => '',
-			]
-);
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
             'ITX.Jobs',
@@ -30,7 +19,7 @@ call_user_func(
                 'backend', // Submodule key
                 '', // Position
                 [
-                    'Posting' => 'list, show, new, create, edit, update, delete, ','Contact' => 'list, show, new, create, edit, update, delete','Location' => 'list, show, new, create, edit, update, delete','Application' => 'list, show, new, create, edit, update, delete',
+                    'Posting' => 'list, show, ',
                 ],
                 [
                     'access' => 'user,group',

@@ -2,14 +2,6 @@
 <table class="tx-jobs" >
 	<tr>
 		<td>
-			<f:translate key="tx_jobs_domain_model_posting.title" />
-		</td>
-		<td>
-		{posting.title}
-		</td>
-	</tr>
-	<tr>
-		<td>
 			<f:translate key="tx_jobs_domain_model_posting.date_posted" />
 		</td>
 		<td>
@@ -127,6 +119,26 @@
 		</td>
 		<td>
 		{posting.companyInformation}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_jobs_domain_model_posting.location" />
+		</td>
+		<td>
+			{posting.location.name}<br>
+			{posting.location.address}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_jobs_domain_model_posting.contact" />
+		</td>
+		<td>
+			{posting.contact.name}<br>
+			{posting.contact.division}<br>
+			{posting.contact.phone}<br>
+			{posting.contact.email}
 		</td>
 	</tr>
 </table>

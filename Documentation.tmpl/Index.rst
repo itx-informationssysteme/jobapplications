@@ -56,7 +56,7 @@ Jobs
 :License:
    This extension documentation is published under the `CC BY-NC-SA 4.0 <https://creativecommons.org/licenses/by-nc-sa/4.0/>`__ (Creative Commons) license
 
-This extension enables you to manage job postings, the application form and the incoming applications.
+This extension enables you to manage job postings, the application form and incoming applications.
 
 **TYPO3**
 

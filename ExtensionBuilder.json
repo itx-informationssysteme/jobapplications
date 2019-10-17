@@ -12,9 +12,9 @@
                 "actionGroup": {
                     "_default0_list": true,
                     "_default1_show": true,
-                    "_default2_new_create": true,
-                    "_default3_edit_update": true,
-                    "_default4_delete": true,
+                    "_default2_new_create": false,
+                    "_default3_edit_update": false,
+                    "_default4_delete": false,
                     "customActions": [
                         ""
                     ]
@@ -196,17 +196,6 @@
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
                             "propertyIsRequired": false,
-                            "propertyName": "id",
-                            "propertyType": "String",
-                            "uid": "484558059435"
-                        },
-                        {
-                            "allowedFileTypes": "",
-                            "maxItems": "1",
-                            "propertyDescription": "",
-                            "propertyIsExcludeField": true,
-                            "propertyIsL10nModeExclude": false,
-                            "propertyIsRequired": false,
                             "propertyName": "companyInformation",
                             "propertyType": "Text",
                             "uid": "1018041863571"
@@ -221,9 +210,9 @@
                             "propertyIsExcludeField": true,
                             "relationDescription": "",
                             "relationName": "applications",
-                            "relationType": "zeroToOne",
+                            "relationType": "zeroToMany",
                             "relationWire": "[wired]",
-                            "renderType": "selectSingle",
+                            "renderType": "inline",
                             "uid": "346437037446"
                         },
                         {
@@ -232,7 +221,7 @@
                             "propertyIsExcludeField": true,
                             "relationDescription": "",
                             "relationName": "location",
-                            "relationType": "zeroToOne",
+                            "relationType": "manyToOne",
                             "relationWire": "[wired]",
                             "renderType": "selectSingle",
                             "uid": "893007274590"
@@ -243,9 +232,9 @@
                             "propertyIsExcludeField": true,
                             "relationDescription": "",
                             "relationName": "contact",
-                            "relationType": "zeroToMany",
+                            "relationType": "manyToOne",
                             "relationWire": "[wired]",
-                            "renderType": "inline",
+                            "renderType": "selectSingle",
                             "uid": "1331896812635"
                         }
                     ]
@@ -262,11 +251,11 @@
             "name": "New Model Object",
             "value": {
                 "actionGroup": {
-                    "_default0_list": true,
-                    "_default1_show": true,
-                    "_default2_new_create": true,
-                    "_default3_edit_update": true,
-                    "_default4_delete": true,
+                    "_default0_list": false,
+                    "_default1_show": false,
+                    "_default2_new_create": false,
+                    "_default3_edit_update": false,
+                    "_default4_delete": false,
                     "customActions": []
                 },
                 "name": "Contact",
@@ -346,11 +335,11 @@
             "name": "New Model Object",
             "value": {
                 "actionGroup": {
-                    "_default0_list": true,
-                    "_default1_show": true,
-                    "_default2_new_create": true,
-                    "_default3_edit_update": true,
-                    "_default4_delete": true,
+                    "_default0_list": false,
+                    "_default1_show": false,
+                    "_default2_new_create": false,
+                    "_default3_edit_update": false,
+                    "_default4_delete": false,
                     "customActions": []
                 },
                 "name": "Location",
@@ -408,11 +397,11 @@
             "name": "New Model Object",
             "value": {
                 "actionGroup": {
-                    "_default0_list": true,
-                    "_default1_show": true,
-                    "_default2_new_create": true,
-                    "_default3_edit_update": true,
-                    "_default4_delete": true,
+                    "_default0_list": false,
+                    "_default1_show": false,
+                    "_default2_new_create": false,
+                    "_default3_edit_update": false,
+                    "_default4_delete": false,
                     "customActions": []
                 },
                 "name": "Application",
@@ -595,7 +584,7 @@
                 "tabLabel": "Jobs"
             }
         ],
-        "description": "This extension enables you to manage job postings, the application form and the incoming applications.",
+        "description": "This extension enables you to manage job postings, the application form and incoming applications.",
         "emConf": {
             "category": "plugin",
             "custom_category": "",
@@ -610,7 +599,7 @@
         },
         "extensionKey": "jobs",
         "name": "Jobs",
-        "originalExtensionKey": "jobs_extension",
+        "originalExtensionKey": "jobs",
         "originalVendorName": "ITX",
         "persons": [
             {
@@ -679,7 +668,7 @@
         }
     ],
     "log": {
-        "last_modified": "2019-10-17 10:10",
+        "last_modified": "2019-10-17 04:49",
         "extension_builder_version": "9.10.2",
         "be_user": " (1)"
     }

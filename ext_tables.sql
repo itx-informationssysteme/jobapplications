@@ -17,11 +17,10 @@ CREATE TABLE tx_jobs_domain_model_posting (
 	base_salary varchar(255) DEFAULT '' NOT NULL,
 	valid_through date DEFAULT NULL,
 	required_documents text,
-	id varchar(255) DEFAULT '' NOT NULL,
 	company_information text,
-	applications int(11) unsigned DEFAULT '0',
+	applications int(11) unsigned DEFAULT '0' NOT NULL,
 	location int(11) unsigned DEFAULT '0',
-	contact int(11) unsigned DEFAULT '0' NOT NULL,
+	contact int(11) unsigned DEFAULT '0',
 
 );
 
@@ -29,8 +28,6 @@ CREATE TABLE tx_jobs_domain_model_posting (
 # Table structure for table 'tx_jobs_domain_model_contact'
 #
 CREATE TABLE tx_jobs_domain_model_contact (
-
-	posting int(11) unsigned DEFAULT '0' NOT NULL,
 
 	name varchar(255) DEFAULT '' NOT NULL,
 	email varchar(255) DEFAULT '' NOT NULL,
@@ -54,6 +51,8 @@ CREATE TABLE tx_jobs_domain_model_location (
 #
 CREATE TABLE tx_jobs_domain_model_application (
 
+	posting int(11) unsigned DEFAULT '0' NOT NULL,
+
 	salutation int(11) DEFAULT '0' NOT NULL,
 	first_name varchar(255) DEFAULT '' NOT NULL,
 	last_name varchar(255) DEFAULT '' NOT NULL,
@@ -71,9 +70,9 @@ CREATE TABLE tx_jobs_domain_model_application (
 );
 
 #
-# Table structure for table 'tx_jobs_domain_model_contact'
+# Table structure for table 'tx_jobs_domain_model_application'
 #
-CREATE TABLE tx_jobs_domain_model_contact (
+CREATE TABLE tx_jobs_domain_model_application (
 
 	posting int(11) unsigned DEFAULT '0' NOT NULL,
 

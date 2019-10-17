@@ -33,7 +33,6 @@ Otherwise your changes will be overwritten the next time you save the extension 
 		<th><f:translate key="tx_jobs_domain_model_posting.base_salary" /></th>
 		<th><f:translate key="tx_jobs_domain_model_posting.valid_through" /></th>
 		<th><f:translate key="tx_jobs_domain_model_posting.required_documents" /></th>
-		<th><f:translate key="tx_jobs_domain_model_posting.id" /></th>
 		<th><f:translate key="tx_jobs_domain_model_posting.company_information" /></th>
 		<th> </th>
 		<th> </th>
@@ -55,7 +54,6 @@ Otherwise your changes will be overwritten the next time you save the extension 
 			<td><f:link.action action="show" arguments="{posting : posting}"> {posting.baseSalary}</f:link.action></td>
 			<td><f:link.action action="show" arguments="{posting : posting}"> {posting.validThrough -> f:format.date()}</f:link.action></td>
 			<td><f:link.action action="show" arguments="{posting : posting}"> {posting.requiredDocuments}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{posting : posting}"> {posting.id}</f:link.action></td>
 			<td><f:link.action action="show" arguments="{posting : posting}"> {posting.companyInformation}</f:link.action></td>
 			<td><f:link.action action="edit" arguments="{posting : posting}">Edit</f:link.action></td>
 			<td><f:link.action action="delete" arguments="{posting : posting}">Delete</f:link.action></td>

@@ -380,31 +380,6 @@ class PostingTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function getIdReturnsInitialValueForString()
-    {
-        self::assertSame(
-            '',
-            $this->subject->getId()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function setIdForStringSetsId()
-    {
-        $this->subject->setId('Conceived at T3CON10');
-
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'id',
-            $this->subject
-        );
-    }
-
-    /**
-     * @test
-     */
     public function getCompanyInformationReturnsInitialValueForString()
     {
         self::assertSame(
@@ -432,8 +407,9 @@ class PostingTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
      */
     public function getApplicationsReturnsInitialValueForApplication()
     {
+        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         self::assertEquals(
-            null,
+            $newObjectStorage,
             $this->subject->getApplications()
         );
     }
@@ -441,16 +417,52 @@ class PostingTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setApplicationsForApplicationSetsApplications()
+    public function setApplicationsForObjectStorageContainingApplicationSetsApplications()
     {
-        $applicationsFixture = new \ITX\Jobs\Domain\Model\Application();
-        $this->subject->setApplications($applicationsFixture);
+        $application = new \ITX\Jobs\Domain\Model\Application();
+        $objectStorageHoldingExactlyOneApplications = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $objectStorageHoldingExactlyOneApplications->attach($application);
+        $this->subject->setApplications($objectStorageHoldingExactlyOneApplications);
 
         self::assertAttributeEquals(
-            $applicationsFixture,
+            $objectStorageHoldingExactlyOneApplications,
             'applications',
             $this->subject
         );
+    }
+
+    /**
+     * @test
+     */
+    public function addApplicationToObjectStorageHoldingApplications()
+    {
+        $application = new \ITX\Jobs\Domain\Model\Application();
+        $applicationsObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+            ->setMethods(['attach'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $applicationsObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($application));
+        $this->inject($this->subject, 'applications', $applicationsObjectStorageMock);
+
+        $this->subject->addApplication($application);
+    }
+
+    /**
+     * @test
+     */
+    public function removeApplicationFromObjectStorageHoldingApplications()
+    {
+        $application = new \ITX\Jobs\Domain\Model\Application();
+        $applicationsObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+            ->setMethods(['detach'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $applicationsObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($application));
+        $this->inject($this->subject, 'applications', $applicationsObjectStorageMock);
+
+        $this->subject->removeApplication($application);
     }
 
     /**
@@ -484,9 +496,8 @@ class PostingTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
      */
     public function getContactReturnsInitialValueForContact()
     {
-        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         self::assertEquals(
-            $newObjectStorage,
+            null,
             $this->subject->getContact()
         );
     }
@@ -494,51 +505,15 @@ class PostingTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function setContactForObjectStorageContainingContactSetsContact()
+    public function setContactForContactSetsContact()
     {
-        $contact = new \ITX\Jobs\Domain\Model\Contact();
-        $objectStorageHoldingExactlyOneContact = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $objectStorageHoldingExactlyOneContact->attach($contact);
-        $this->subject->setContact($objectStorageHoldingExactlyOneContact);
+        $contactFixture = new \ITX\Jobs\Domain\Model\Contact();
+        $this->subject->setContact($contactFixture);
 
         self::assertAttributeEquals(
-            $objectStorageHoldingExactlyOneContact,
+            $contactFixture,
             'contact',
             $this->subject
         );
-    }
-
-    /**
-     * @test
-     */
-    public function addContactToObjectStorageHoldingContact()
-    {
-        $contact = new \ITX\Jobs\Domain\Model\Contact();
-        $contactObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
-            ->setMethods(['attach'])
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $contactObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($contact));
-        $this->inject($this->subject, 'contact', $contactObjectStorageMock);
-
-        $this->subject->addContact($contact);
-    }
-
-    /**
-     * @test
-     */
-    public function removeContactFromObjectStorageHoldingContact()
-    {
-        $contact = new \ITX\Jobs\Domain\Model\Contact();
-        $contactObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
-            ->setMethods(['detach'])
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $contactObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($contact));
-        $this->inject($this->subject, 'contact', $contactObjectStorageMock);
-
-        $this->subject->removeContact($contact);
     }
 }

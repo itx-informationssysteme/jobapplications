@@ -118,25 +118,11 @@ class Posting extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $requiredDocuments = '';
 
     /**
-     * id
-     * 
-     * @var string
-     */
-    protected $id = '';
-
-    /**
      * companyInformation
      * 
      * @var string
      */
     protected $companyInformation = '';
-
-    /**
-     * applications
-     * 
-     * @var \ITX\Jobs\Domain\Model\Application
-     */
-    protected $applications = null;
 
     /**
      * location
@@ -146,10 +132,17 @@ class Posting extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $location = null;
 
     /**
+     * applications
+     * 
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobs\Domain\Model\Application>
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
+     */
+    protected $applications = null;
+
+    /**
      * contact
      * 
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobs\Domain\Model\Contact>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
+     * @var \ITX\Jobs\Domain\Model\Contact
      */
     protected $contact = null;
 
@@ -173,7 +166,7 @@ class Posting extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected function initStorageObjects()
     {
-        $this->contact = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->applications = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
 
     /**
@@ -471,27 +464,6 @@ class Posting extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Returns the id
-     * 
-     * @return string id
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Sets the id
-     * 
-     * @param string $id
-     * @return void
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
      * Returns the companyInformation
      * 
      * @return string companyInformation
@@ -510,27 +482,6 @@ class Posting extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setCompanyInformation($companyInformation)
     {
         $this->companyInformation = $companyInformation;
-    }
-
-    /**
-     * Returns the applications
-     * 
-     * @return \ITX\Jobs\Domain\Model\Application applications
-     */
-    public function getApplications()
-    {
-        return $this->applications;
-    }
-
-    /**
-     * Sets the applications
-     * 
-     * @param \ITX\Jobs\Domain\Model\Application $applications
-     * @return void
-     */
-    public function setApplications(\ITX\Jobs\Domain\Model\Application $applications)
-    {
-        $this->applications = $applications;
     }
 
     /**
@@ -555,31 +506,52 @@ class Posting extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Adds a Contact
+     * Adds a Application
      * 
-     * @param \ITX\Jobs\Domain\Model\Contact $contact
+     * @param \ITX\Jobs\Domain\Model\Application $application
      * @return void
      */
-    public function addContact(\ITX\Jobs\Domain\Model\Contact $contact)
+    public function addApplication(\ITX\Jobs\Domain\Model\Application $application)
     {
-        $this->contact->attach($contact);
+        $this->applications->attach($application);
     }
 
     /**
-     * Removes a Contact
+     * Removes a Application
      * 
-     * @param \ITX\Jobs\Domain\Model\Contact $contactToRemove The Contact to be removed
+     * @param \ITX\Jobs\Domain\Model\Application $applicationToRemove The Application to be removed
      * @return void
      */
-    public function removeContact(\ITX\Jobs\Domain\Model\Contact $contactToRemove)
+    public function removeApplication(\ITX\Jobs\Domain\Model\Application $applicationToRemove)
     {
-        $this->contact->detach($contactToRemove);
+        $this->applications->detach($applicationToRemove);
+    }
+
+    /**
+     * Returns the applications
+     * 
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobs\Domain\Model\Application> $applications
+     */
+    public function getApplications()
+    {
+        return $this->applications;
+    }
+
+    /**
+     * Sets the applications
+     * 
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobs\Domain\Model\Application> $applications
+     * @return void
+     */
+    public function setApplications(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $applications)
+    {
+        $this->applications = $applications;
     }
 
     /**
      * Returns the contact
      * 
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobs\Domain\Model\Contact> contact
+     * @return \ITX\Jobs\Domain\Model\Contact $contact
      */
     public function getContact()
     {
@@ -589,10 +561,10 @@ class Posting extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the contact
      * 
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobs\Domain\Model\Contact> $contact
+     * @param \ITX\Jobs\Domain\Model\Contact $contact
      * @return void
      */
-    public function setContact(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $contact)
+    public function setContact(\ITX\Jobs\Domain\Model\Contact $contact)
     {
         $this->contact = $contact;
     }

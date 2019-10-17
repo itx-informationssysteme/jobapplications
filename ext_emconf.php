@@ -12,7 +12,7 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Jobs',
-    'description' => 'This extension enables you to manage job postings, the application form and the incoming applications.',
+    'description' => 'This extension enables you to manage job postings, the application form and incoming applications.',
     'category' => 'plugin',
     'author' => 'Stefanie Döll, Benjamin Jasper',
     'author_email' => '',

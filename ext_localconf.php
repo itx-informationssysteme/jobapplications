@@ -9,17 +9,11 @@ call_user_func(
             'ITX.Jobs',
             'Frontend',
             [
-                'Posting' => 'list, show, new, create, edit, update, delete, ',
-                'Contact' => 'list, show, new, create, edit, update, delete',
-                'Location' => 'list, show, new, create, edit, update, delete',
-                'Application' => 'list, show, new, create, edit, update, delete'
+                'Posting' => 'list, show, '
             ],
             // non-cacheable actions
             [
-                'Posting' => 'create, update, delete, ',
-                'Contact' => 'create, update, delete',
-                'Location' => 'create, update, delete',
-                'Application' => 'create, update, delete'
+                'Posting' => ''
             ]
         );
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="EXT:jobs/Resources/Private/Language/locallang_db" date="2019-10-17T10:10:12Z" product-name="jobs">
+	<file source-language="en" datatype="plaintext" original="EXT:jobs/Resources/Private/Language/locallang_db" date="2019-10-17T16:49:36Z" product-name="jobs">
 		<header/>
 		<body>
 			<trans-unit id="tx_jobs_domain_model_posting" resname="tx_jobs_domain_model_posting">
@@ -47,9 +47,6 @@
 			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_posting.required_documents" resname="tx_jobs_domain_model_posting.required_documents">
 				<source>Required Documents</source>
-			</trans-unit>
-			<trans-unit id="tx_jobs_domain_model_posting.id" resname="tx_jobs_domain_model_posting.id">
-				<source>Id</source>
 			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_posting.company_information" resname="tx_jobs_domain_model_posting.company_information">
 				<source>Company Information</source>

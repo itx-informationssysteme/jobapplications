@@ -1,7 +1,7 @@
 {
     "name": "itx/jobs",
     "type": "typo3-cms-extension",
-    "description": "This extension enables you to manage job postings, the application form and the incoming applications.",
+    "description": "This extension enables you to manage job postings, the application form and incoming applications.",
     "authors": [
         {
             "name": "Stefanie D\u00f6ll",

@@ -13,11 +13,10 @@
 	Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
 	<f:section name="content">
-		<h1>Single View for Posting</h1>
+		<h3>{posting.title}</h3>
 
 		<f:flashMessages />
 		<f:render partial="Posting/Properties" arguments="{posting:posting}" />
 		<f:link.action action="list">Back to list</f:link.action><br />
-		<f:link.action action="new">New Posting</f:link.action>
 	</f:section>
 </html>
