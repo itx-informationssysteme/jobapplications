@@ -13,15 +13,15 @@
   Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
   <f:section name="content">
-    <h1>New Application</h1>
-
+    <h3>New Application</h3>
+  	<span>UID {postingUid}</span>
     <f:flashMessages />
 
     <f:render partial="FormErrors" />
 
-    <f:form action="create"  enctype="multipart/form-data"  name="newApplication" object="{newApplication}">
-    <f:render partial="Application/FormFields" />
-    <f:form.submit value="Create new" />
+    <f:form action="create" enctype="multipart/form-data"  name="newApplication" object="{newApplication}" arguments="{postingUid: postingUid}">
+    	<f:render partial="Application/FormFields" />
+    	<f:form.submit value="Create new" />
     </f:form>
   </f:section>
 </html>

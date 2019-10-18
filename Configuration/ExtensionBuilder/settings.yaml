@@ -49,13 +49,12 @@ overwriteSettings:
   Configuration:
     #TCA merge not possible - use overrides directory
     #TypoScript: keep
-
   Resources:
     Private:
-      #Language: merge
       Templates:
-        List.html: keep
-        Show.html: keep
+      List.html: keep
+      Show.html: keep
+
 
   user_extension.svg: keep
 

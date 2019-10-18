@@ -19,7 +19,7 @@ call_user_func(
                 'backend', // Submodule key
                 '', // Position
                 [
-                    'Posting' => 'list, show, ',
+                    'Posting' => 'list, show, ','Application' => 'new, create',
                 ],
                 [
                     'access' => 'user,group',

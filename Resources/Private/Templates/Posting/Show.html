@@ -17,6 +17,10 @@
 
 		<f:flashMessages />
 		<f:render partial="Posting/Properties" arguments="{posting:posting}" />
-		<f:link.action action="list">Back to list</f:link.action><br />
+		<div class="row">
+			<f:link.action action="list">Back to list</f:link.action>
+			<f:link.action class="btn btn-primary m-auto" controller="Application" action="new" arguments="{postingUid:posting.uid}">Apply now</f:link.action>
+		</div>
+
 	</f:section>
 </html>

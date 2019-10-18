@@ -125,19 +125,19 @@ class Posting extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $companyInformation = '';
 
     /**
-     * location
-     * 
-     * @var \ITX\Jobs\Domain\Model\Location
-     */
-    protected $location = null;
-
-    /**
      * applications
      * 
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobs\Domain\Model\Application>
      * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      */
     protected $applications = null;
+
+    /**
+     * location
+     * 
+     * @var \ITX\Jobs\Domain\Model\Location
+     */
+    protected $location = null;
 
     /**
      * contact

@@ -399,7 +399,7 @@
                 "actionGroup": {
                     "_default0_list": false,
                     "_default1_show": false,
-                    "_default2_new_create": false,
+                    "_default2_new_create": true,
                     "_default3_edit_update": false,
                     "_default4_delete": false,
                     "customActions": []
@@ -409,7 +409,7 @@
                     "addDeletedField": true,
                     "addHiddenField": true,
                     "addStarttimeEndtimeFields": true,
-                    "aggregateRoot": false,
+                    "aggregateRoot": true,
                     "categorizable": false,
                     "description": "",
                     "mapToTable": "",
@@ -668,7 +668,7 @@
         }
     ],
     "log": {
-        "last_modified": "2019-10-17 04:49",
+        "last_modified": "2019-10-18 10:11",
         "extension_builder_version": "9.10.2",
         "be_user": " (1)"
     }
