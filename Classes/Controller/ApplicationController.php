@@ -34,8 +34,8 @@ class ApplicationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      */
     public function newAction()
     {
-    	$postingUid = $this->request->getArgument('postingUid');
-		$this->addFlashMessage('Arguments: '.$postingUid);
+        $postingUid = $this->request->getArgument('postingUid');
+        $this->view->assign("postingUid", $postingUid);
     }
 
     /**
@@ -46,7 +46,10 @@ class ApplicationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      */
     public function createAction(\ITX\Jobs\Domain\Model\Application $newApplication)
     {
+		$postingUid = $this->request->getArgument("postingUid");
+		$newApplication->setPosting($postingUid);
         $this->applicationRepository->add($newApplication);
-		$this->addFlashMessage($this->request->getArgument($newApplication), '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        $this->addFlashMessage("Success");
+        $this->redirect("list", "Posting");
     }
 }

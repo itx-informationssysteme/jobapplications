@@ -20,10 +20,10 @@ return [
         'iconfile' => 'EXT:jobs/Resources/Public/Icons/tx_jobs_domain_model_posting.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, date_posted, career_level, division, employment_type, terms_of_employment, company_description, job_description, role_description, skill_requirements, benefits, base_salary, valid_through, required_documents, company_information, applications, location, contact',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, date_posted, career_level, division, employment_type, terms_of_employment, company_description, job_description, role_description, skill_requirements, benefits, base_salary, valid_through, required_documents, company_information, location, contact',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, date_posted, career_level, division, employment_type, terms_of_employment, company_description, job_description, role_description, skill_requirements, benefits, base_salary, valid_through, required_documents, company_information, applications, location, contact, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, date_posted, career_level, division, employment_type, terms_of_employment, company_description, job_description, role_description, skill_requirements, benefits, base_salary, valid_through, required_documents, company_information, location, contact, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -303,24 +303,6 @@ return [
                 'rows' => 15,
                 'eval' => 'trim'
             ]
-        ],
-        'applications' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.applications',
-            'config' => [
-                'type' => 'inline',
-                'foreign_table' => 'tx_jobs_domain_model_application',
-                'foreign_field' => 'posting',
-                'maxitems' => 9999,
-                'appearance' => [
-                    'collapseAll' => 0,
-                    'levelLinksPosition' => 'top',
-                    'showSynchronizationLink' => 1,
-                    'showPossibleLocalizationRecords' => 1,
-                    'showAllLocalizationLink' => 1
-                ],
-            ],
-
         ],
         'location' => [
             'exclude' => true,

@@ -209,17 +209,6 @@
                             "lazyLoading": false,
                             "propertyIsExcludeField": true,
                             "relationDescription": "",
-                            "relationName": "applications",
-                            "relationType": "zeroToMany",
-                            "relationWire": "[wired]",
-                            "renderType": "inline",
-                            "uid": "346437037446"
-                        },
-                        {
-                            "foreignRelationClass": "",
-                            "lazyLoading": false,
-                            "propertyIsExcludeField": true,
-                            "relationDescription": "",
                             "relationName": "location",
                             "relationType": "manyToOne",
                             "relationWire": "[wired]",
@@ -566,7 +555,19 @@
                     ]
                 },
                 "relationGroup": {
-                    "relations": []
+                    "relations": [
+                        {
+                            "foreignRelationClass": "",
+                            "lazyLoading": false,
+                            "propertyIsExcludeField": true,
+                            "relationDescription": "",
+                            "relationName": "posting",
+                            "relationType": "manyToOne",
+                            "relationWire": "[wired]",
+                            "renderType": "selectSingle",
+                            "uid": "262419381774"
+                        }
+                    ]
                 }
             }
         }
@@ -633,7 +634,7 @@
         {
             "src": {
                 "moduleId": 0,
-                "terminal": "relationWire_2",
+                "terminal": "relationWire_1",
                 "uid": "1331896812635"
             },
             "tgt": {
@@ -645,7 +646,7 @@
         {
             "src": {
                 "moduleId": 0,
-                "terminal": "relationWire_1",
+                "terminal": "relationWire_0",
                 "uid": "893007274590"
             },
             "tgt": {
@@ -656,19 +657,19 @@
         },
         {
             "src": {
-                "moduleId": 0,
+                "moduleId": 3,
                 "terminal": "relationWire_0",
-                "uid": "346437037446"
+                "uid": "262419381774"
             },
             "tgt": {
-                "moduleId": 3,
+                "moduleId": 0,
                 "terminal": "SOURCES",
-                "uid": "433173479672"
+                "uid": "241478345089"
             }
         }
     ],
     "log": {
-        "last_modified": "2019-10-18 10:11",
+        "last_modified": "2019-10-18 02:03",
         "extension_builder_version": "9.10.2",
         "be_user": " (1)"
     }

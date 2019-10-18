@@ -354,4 +354,30 @@ class ApplicationTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
             $this->subject
         );
     }
+
+    /**
+     * @test
+     */
+    public function getPostingReturnsInitialValueForPosting()
+    {
+        self::assertEquals(
+            null,
+            $this->subject->getPosting()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setPostingForPostingSetsPosting()
+    {
+        $postingFixture = new \ITX\Jobs\Domain\Model\Posting();
+        $this->subject->setPosting($postingFixture);
+
+        self::assertAttributeEquals(
+            $postingFixture,
+            'posting',
+            $this->subject
+        );
+    }
 }

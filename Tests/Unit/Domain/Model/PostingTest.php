@@ -405,69 +405,6 @@ class PostingTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function getApplicationsReturnsInitialValueForApplication()
-    {
-        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        self::assertEquals(
-            $newObjectStorage,
-            $this->subject->getApplications()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function setApplicationsForObjectStorageContainingApplicationSetsApplications()
-    {
-        $application = new \ITX\Jobs\Domain\Model\Application();
-        $objectStorageHoldingExactlyOneApplications = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $objectStorageHoldingExactlyOneApplications->attach($application);
-        $this->subject->setApplications($objectStorageHoldingExactlyOneApplications);
-
-        self::assertAttributeEquals(
-            $objectStorageHoldingExactlyOneApplications,
-            'applications',
-            $this->subject
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function addApplicationToObjectStorageHoldingApplications()
-    {
-        $application = new \ITX\Jobs\Domain\Model\Application();
-        $applicationsObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
-            ->setMethods(['attach'])
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $applicationsObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($application));
-        $this->inject($this->subject, 'applications', $applicationsObjectStorageMock);
-
-        $this->subject->addApplication($application);
-    }
-
-    /**
-     * @test
-     */
-    public function removeApplicationFromObjectStorageHoldingApplications()
-    {
-        $application = new \ITX\Jobs\Domain\Model\Application();
-        $applicationsObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
-            ->setMethods(['detach'])
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $applicationsObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($application));
-        $this->inject($this->subject, 'applications', $applicationsObjectStorageMock);
-
-        $this->subject->removeApplication($application);
-    }
-
-    /**
-     * @test
-     */
     public function getLocationReturnsInitialValueForLocation()
     {
         self::assertEquals(

@@ -36,9 +36,6 @@ class PostingController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function listAction()
     {
         $postings = $this->postingRepository->findAll();
-
-
-
         $this->view->assign('postings', $postings);
     }
 

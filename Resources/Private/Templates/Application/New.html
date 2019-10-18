@@ -19,9 +19,10 @@
 
     <f:render partial="FormErrors" />
 
-    <f:form action="create" enctype="multipart/form-data"  name="newApplication" object="{newApplication}" arguments="{postingUid: postingUid}">
+    <f:form action="create" enctype="multipart/form-data" name="newApplication" object="{newApplication}" arguments="{postingUid: postingUid}">
     	<f:render partial="Application/FormFields" />
-    	<f:form.submit value="Create new" />
+    	<f:form.submit class="btn btn-primary" value="Create new" />
     </f:form>
+    <f:debug>{_all}</f:debug>
   </f:section>
 </html>

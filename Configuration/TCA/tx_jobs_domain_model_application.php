@@ -20,10 +20,10 @@ return [
         'iconfile' => 'EXT:jobs/Resources/Public/Icons/tx_jobs_domain_model_application.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, salutation, first_name, last_name, email, phone, address, salary_expectation, earliest_date_of_joining, cv, cover_letter, testimonials, other_files, privacy_agreement',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, salutation, first_name, last_name, email, phone, address, salary_expectation, earliest_date_of_joining, cv, cover_letter, testimonials, other_files, privacy_agreement, posting',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, salutation, first_name, last_name, email, phone, address, salary_expectation, earliest_date_of_joining, cv, cover_letter, testimonials, other_files, privacy_agreement, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, salutation, first_name, last_name, email, phone, address, salary_expectation, earliest_date_of_joining, cv, cover_letter, testimonials, other_files, privacy_agreement, posting, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -390,11 +390,17 @@ return [
                 'default' => 0,
             ]
         ],
-    
         'posting' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.posting',
             'config' => [
-                'type' => 'passthrough',
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'tx_jobs_domain_model_posting',
+                'minitems' => 0,
+                'maxitems' => 1,
             ],
         ],
+    
     ],
 ];

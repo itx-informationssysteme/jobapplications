@@ -125,14 +125,6 @@ class Posting extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $companyInformation = '';
 
     /**
-     * applications
-     * 
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobs\Domain\Model\Application>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
-     */
-    protected $applications = null;
-
-    /**
      * location
      * 
      * @var \ITX\Jobs\Domain\Model\Location
@@ -166,7 +158,6 @@ class Posting extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected function initStorageObjects()
     {
-        $this->applications = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
 
     /**
@@ -503,49 +494,6 @@ class Posting extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setLocation(\ITX\Jobs\Domain\Model\Location $location)
     {
         $this->location = $location;
-    }
-
-    /**
-     * Adds a Application
-     * 
-     * @param \ITX\Jobs\Domain\Model\Application $application
-     * @return void
-     */
-    public function addApplication(\ITX\Jobs\Domain\Model\Application $application)
-    {
-        $this->applications->attach($application);
-    }
-
-    /**
-     * Removes a Application
-     * 
-     * @param \ITX\Jobs\Domain\Model\Application $applicationToRemove The Application to be removed
-     * @return void
-     */
-    public function removeApplication(\ITX\Jobs\Domain\Model\Application $applicationToRemove)
-    {
-        $this->applications->detach($applicationToRemove);
-    }
-
-    /**
-     * Returns the applications
-     * 
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobs\Domain\Model\Application> $applications
-     */
-    public function getApplications()
-    {
-        return $this->applications;
-    }
-
-    /**
-     * Sets the applications
-     * 
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobs\Domain\Model\Application> $applications
-     * @return void
-     */
-    public function setApplications(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $applications)
-    {
-        $this->applications = $applications;
     }
 
     /**

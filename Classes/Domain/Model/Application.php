@@ -115,6 +115,13 @@ class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $privacyAgreement = false;
 
     /**
+     * posting
+     * 
+     * @var int
+     */
+    protected $posting = null;
+
+    /**
      * Returns the salutation
      * 
      * @return int salutation
@@ -395,5 +402,26 @@ class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function isPrivacyAgreement()
     {
         return $this->privacyAgreement;
+    }
+
+    /**
+     * Returns the posting
+     * 
+     * @return int $posting
+     */
+    public function getPosting()
+    {
+        return $this->posting;
+    }
+
+    /**
+     * Sets the posting
+     * 
+     * @param int $posting
+     * @return void
+     */
+    public function setPosting(int $posting)
+    {
+        $this->posting = $posting;
     }
 }

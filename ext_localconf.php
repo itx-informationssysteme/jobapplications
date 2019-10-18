@@ -9,7 +9,7 @@ call_user_func(
             'ITX.Jobs',
             'Frontend',
             [
-                'Posting' => 'list, show',
+                'Posting' => 'list, show, ',
                 'Application' => 'new, create'
             ],
             // non-cacheable actions
