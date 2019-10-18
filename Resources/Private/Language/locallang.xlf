@@ -132,6 +132,15 @@
             <trans-unit id="fe.posting.button.detailview" resname="fe.posting.button.detailview">
                 <source>Details</source>
             </trans-unit>
+			<trans-unit id="fe.application.selector.mr" resname="fe.application.selector.mr">
+				<source>Mr.</source>
+			</trans-unit>
+			<trans-unit id="fe.application.selector.mrs" resname="fe.application.selector.mrs">
+				<source>Mrs.</source>
+			</trans-unit>
+			<trans-unit id="fe.application.selector.div" resname="fe.application.selector.div">
+				<source>Divers</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

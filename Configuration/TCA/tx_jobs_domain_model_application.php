@@ -123,7 +123,10 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['-- Label --', 0],
+                    ['------', 0],
+					['Herr', 1],
+					['Frau', 2],
+					['Divers', 3]
                 ],
                 'size' => 1,
                 'maxitems' => 1,

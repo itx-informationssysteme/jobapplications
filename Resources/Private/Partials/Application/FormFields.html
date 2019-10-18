@@ -2,15 +2,35 @@
 <label for="salutation">
 	<f:translate key="tx_jobs_domain_model_application.salutation" />
 </label><br />
-	<f:form.textfield property="salutation" /><br />
-<label for="firstName">
-	<f:translate key="tx_jobs_domain_model_application.first_name" />
-</label><br />
-	<f:form.textfield property="firstName" /><br />
-<label for="lastName">
-	<f:translate key="tx_jobs_domain_model_application.last_name" />
-</label><br />
-	<f:form.textfield property="lastName" /><br />
+	<select class="custom-select">
+		<option selected>--Please Choose--</option>
+		<option value="1"><f:translate key="fe.application.selector.mr"/></option>
+		<option value="2"><f:translate key="fe.application.selector.mrs"/></option>
+		<option value="3"><f:translate key="fe.application.selector.div"/></option>
+	</select>
+<div class="row mx-0">
+	<div class="col-6 p-0">
+		<div class="row mx-0">
+			<label for="firstName">
+				<f:translate key="tx_jobs_domain_model_application.first_name" />
+			</label>
+		</div>
+		<div class="row mx-0">
+			<f:form.textfield property="firstName" class="w-75" />
+		</div>
+	</div>
+	<div class="col-6 p-0">
+		<div class="row mx-0">
+			<label for="lastName">
+				<f:translate key="tx_jobs_domain_model_application.last_name" />
+			</label>
+		</div>
+		<div class="row mx-0">
+			<f:form.textfield property="lastName" class="w-75" />
+		</div>
+	</div>
+</div>
+
 <label for="email">
 	<f:translate key="tx_jobs_domain_model_application.email" />
 </label><br />
@@ -22,7 +42,7 @@
 <label for="address">
 	<f:translate key="tx_jobs_domain_model_application.address" />
 </label><br />
-	<f:form.textarea property="address" cols="40" rows="15" /><br />
+	<f:form.textarea property="address" cols="40" rows="5" /><br />
 <label for="salaryExpectation">
 	<f:translate key="tx_jobs_domain_model_application.salary_expectation" />
 </label><br />
