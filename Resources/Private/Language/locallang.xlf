@@ -129,9 +129,18 @@
 			<trans-unit id="fe.posting.page.title" resname="fe.posting.page.title">
                 <source>Open Positions</source>
             </trans-unit>
+			<trans-unit id="fe.posting.page.noPositions" resname="fe.posting.page.noPositions">
+				<source>There are no open positions at the moment.</source>
+			</trans-unit>
             <trans-unit id="fe.posting.button.detailview" resname="fe.posting.button.detailview">
                 <source>Details</source>
             </trans-unit>
+			<trans-unit id="fe.posting.button.cta" resname="fe.posting.button.cta">
+				<source>Apply now</source>
+			</trans-unit>
+			<trans-unit id="fe.application.selector.chooseMessage" resname="fe.application.selector.chooseMessage">
+				<source>--Please Choose--</source>
+			</trans-unit>
 			<trans-unit id="fe.application.selector.mr" resname="fe.application.selector.mr">
 				<source>Mr.</source>
 			</trans-unit>
@@ -140,6 +149,15 @@
 			</trans-unit>
 			<trans-unit id="fe.application.selector.div" resname="fe.application.selector.div">
 				<source>Divers</source>
+			</trans-unit>
+			<trans-unit id="fe.posting.show.backlink" resname="fe.posting.show.backlink">
+				<source>Back to list</source>
+			</trans-unit>
+			<trans-unit id="fe.application.new.title" resname="fe.application.new.title">
+				<source>Apply as</source>
+			</trans-unit>
+			<trans-unit id="fe.application.new.submit" resname="fe.application.new.submit">
+				<source>Send Application</source>
 			</trans-unit>
 		</body>
 	</file>

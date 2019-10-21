@@ -1,52 +1,63 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<label for="salutation">
-	<f:translate key="tx_jobs_domain_model_application.salutation" />
-</label><br />
-	<select class="custom-select">
-		<option selected>--Please Choose--</option>
-		<option value="1"><f:translate key="fe.application.selector.mr"/></option>
-		<option value="2"><f:translate key="fe.application.selector.mrs"/></option>
-		<option value="3"><f:translate key="fe.application.selector.div"/></option>
-	</select>
-<div class="row mx-0">
-	<div class="col-6 p-0">
-		<div class="row mx-0">
-			<label for="firstName">
-				<f:translate key="tx_jobs_domain_model_application.first_name" />
-			</label>
-		</div>
-		<div class="row mx-0">
-			<f:form.textfield property="firstName" class="w-75" />
-		</div>
-	</div>
-	<div class="col-6 p-0">
-		<div class="row mx-0">
-			<label for="lastName">
-				<f:translate key="tx_jobs_domain_model_application.last_name" />
-			</label>
-		</div>
-		<div class="row mx-0">
-			<f:form.textfield property="lastName" class="w-75" />
-		</div>
+<div class="form-row">
+	<div class="form-group col-md-3">
+		<label for="salutation">
+			<f:translate key="tx_jobs_domain_model_application.salutation" />
+		</label>
+		<f:form.select class="form-control" name="salutation" property="salutation" prependOptionLabel="{f:translate(key: 'fe.application.selector.chooseMessage')}" additionalAttributes="{required:'required'}">
+			<f:form.select.option value="1"><f:translate key="fe.application.selector.mr"/></f:form.select.option>
+			<f:form.select.option value="2"><f:translate key="fe.application.selector.mrs"/></f:form.select.option>
+			<f:form.select.option value="3"><f:translate key="fe.application.selector.div"/></f:form.select.option>
+		</f:form.select>
 	</div>
 </div>
 
-<label for="email">
-	<f:translate key="tx_jobs_domain_model_application.email" />
-</label><br />
-	<f:form.textfield type="email" property="email" /><br />
-<label for="phone">
-	<f:translate key="tx_jobs_domain_model_application.phone" />
-</label><br />
-	<f:form.textfield property="phone" /><br />
-<label for="address">
-	<f:translate key="tx_jobs_domain_model_application.address" />
-</label><br />
-	<f:form.textarea property="address" cols="40" rows="5" /><br />
-<label for="salaryExpectation">
-	<f:translate key="tx_jobs_domain_model_application.salary_expectation" />
-</label><br />
-	<f:form.textfield property="salaryExpectation" /><br />
+<div class="form-row">
+	<div class="form-group col-md-6">
+		<label for="firstName">
+			<f:translate key="tx_jobs_domain_model_application.first_name"/>
+		</label>
+		<f:form.textfield property="firstName" class="form-control" required="true"/>
+	</div>
+	<div class="form-group col-md-6">
+		<label for="lastName">
+			<f:translate key="tx_jobs_domain_model_application.last_name"/>
+		</label>
+		<f:form.textfield class="form-control" property="lastName" required="true"/>
+	</div>
+</div>
+<div class="form-row">
+	<div class="form-group col-md-6">
+		<label for="email">
+			<f:translate key="tx_jobs_domain_model_application.email" />
+		</label>
+		<f:form.textfield type="email" property="email" class="form-control" required="true" />
+	</div>
+	<div class="form-group col-md-6">
+		<label for="phone">
+			<f:translate key="tx_jobs_domain_model_application.phone" />
+		</label>
+		<f:form.textfield property="phone" class="form-control" />
+	</div>
+</div>
+<div class="form-row">
+	<div class="form-group col-md-8">
+		<label for="address">
+			<f:translate key="tx_jobs_domain_model_application.address" />
+		</label>
+		<f:form.textarea class="form-control" property="address" cols="40" rows="5" />
+	</div>
+</div>
+<f:if condition="{settings.showSalarayExpectation}">
+	<div class="form-row">
+		<div class="form-group col-md-4">
+			<label for="salaryExpectation">
+				<f:translate key="tx_jobs_domain_model_application.salary_expectation" />
+			</label>
+			<f:form.textfield property="salaryExpectation" class="form-control"/>
+		</div>
+	</div>
+</f:if>
 <label for="earliestDateOfJoining">
 	<f:translate key="tx_jobs_domain_model_application.earliest_date_of_joining" />
 </label><br />
@@ -67,8 +78,12 @@
 	<f:translate key="tx_jobs_domain_model_application.other_files" />
 </label><br />
 	<span>File upload is not implemented!</span><br /><br />
-<label for="privacyAgreement">
-	<f:translate key="tx_jobs_domain_model_application.privacy_agreement" />
-</label><br />
-	<f:form.checkbox property="privacyAgreement" value="1" /><br />
+<div class="form-row">
+	<div class="form-check">
+		<f:form.checkbox class="form-check-input" property="privacyAgreement" value="1" additionalAttributes="{required:'required'}"/>
+		<label class="form-check-label" for="privacyAgreement">
+			<f:translate key="tx_jobs_domain_model_application.privacy_agreement" />
+		</label>
+	</div>
+</div>
 </html>

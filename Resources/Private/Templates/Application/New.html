@@ -16,15 +16,16 @@
     <div class="row">
       <div class="col"></div>
       <div class="col-6">
-        <h3>New Application</h3>
-        <span>{postingTitle}</span>
+        <h3><f:translate key="fe.application.new.title"/>&nbsp;{postingTitle}</h3>
         <f:flashMessages />
 
         <f:render partial="FormErrors" />
 
         <f:form action="create" enctype="multipart/form-data" name="newApplication" object="{newApplication}" arguments="{postingUid: postingUid}">
           <f:render partial="Application/FormFields" />
-          <f:form.submit class="btn btn-primary" value="Create new" />
+          <div class="row">
+            <f:form.submit class="btn btn-primary mx-auto" value="{f:translate(key='fe.application.new.submit')}" />
+          </div>
         </f:form>
       </div>
       <div class="col"></div>

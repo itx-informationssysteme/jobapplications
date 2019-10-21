@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <table class="tx-jobs" >
+	<f:if condition="{posting.datePosted}">
 	<tr>
 		<td>
 			<f:translate key="tx_jobs_domain_model_posting.date_posted" />
@@ -8,6 +9,8 @@
 		{posting.datePosted -> f:format.date()}
 		</td>
 	</tr>
+	</f:if>
+	<f:if condition="{posting.careerLevel}">
 	<tr>
 		<td>
 			<f:translate key="tx_jobs_domain_model_posting.career_level" />
@@ -16,6 +19,8 @@
 		{posting.careerLevel}
 		</td>
 	</tr>
+	</f:if>
+	<f:if condition="{posting.division}">
 	<tr>
 		<td>
 			<f:translate key="tx_jobs_domain_model_posting.division" />
@@ -24,6 +29,8 @@
 		{posting.division}
 		</td>
 	</tr>
+	</f:if>
+	<f:if condition="{posting.employmentType}">
 	<tr>
 		<td>
 			<f:translate key="tx_jobs_domain_model_posting.employment_type" />
@@ -32,6 +39,8 @@
 		{posting.employmentType}
 		</td>
 	</tr>
+	</f:if>
+	<f:if condition="{posting.termsOfEmployment}">
 	<tr>
 		<td>
 			<f:translate key="tx_jobs_domain_model_posting.terms_of_employment" />
@@ -40,6 +49,8 @@
 		{posting.termsOfEmployment}
 		</td>
 	</tr>
+	</f:if>
+	<f:if condition="{posting.companyDescription}">
 	<tr>
 		<td>
 			<f:translate key="tx_jobs_domain_model_posting.company_description" />
@@ -49,6 +60,8 @@
 
 		</td>
 	</tr>
+	</f:if>
+	<f:if condition="{posting.jobDescription}">
 	<tr>
 		<td>
 			<f:translate key="tx_jobs_domain_model_posting.job_description" />
@@ -57,6 +70,8 @@
 			<f:format.raw>{posting.jobDescription}</f:format.raw>
 		</td>
 	</tr>
+	</f:if>
+	<f:if condition="{posting.roleDescription}">
 	<tr>
 		<td>
 			<f:translate key="tx_jobs_domain_model_posting.role_description" />
@@ -65,6 +80,8 @@
 			<f:format.raw>{posting.roleDescription}</f:format.raw>
 		</td>
 	</tr>
+	</f:if>
+	<f:if condition="{posting.skillRequirements}">
 	<tr>
 		<td>
 			<f:translate key="tx_jobs_domain_model_posting.skill_requirements" />
@@ -73,6 +90,8 @@
 			<f:format.raw>{posting.skillRequirements}</f:format.raw>
 		</td>
 	</tr>
+	</f:if>
+	<f:if condition="{posting.benefits}">
 	<tr>
 		<td>
 			<f:translate key="tx_jobs_domain_model_posting.benefits" />
@@ -81,6 +100,8 @@
 			<f:format.raw>{posting.benefits}</f:format.raw>
 		</td>
 	</tr>
+	</f:if>
+	<f:if condition="{posting.baseSalary}">
 	<tr>
 		<td>
 			<f:translate key="tx_jobs_domain_model_posting.base_salary" />
@@ -89,6 +110,8 @@
 		{posting.baseSalary}
 		</td>
 	</tr>
+	</f:if>
+	<f:if condition="{posting.validThrough}">
 	<tr>
 		<td>
 			<f:translate key="tx_jobs_domain_model_posting.valid_through" />
@@ -97,6 +120,8 @@
 		{posting.validThrough -> f:format.date()}
 		</td>
 	</tr>
+	</f:if>
+	<f:if condition="{posting.requiredDocuments}">
 	<tr>
 		<td>
 			<f:translate key="tx_jobs_domain_model_posting.required_documents" />
@@ -105,6 +130,8 @@
 		{posting.requiredDocuments}
 		</td>
 	</tr>
+	</f:if>
+	<f:if condition="{posting.companyInformation}">
 	<tr>
 		<td>
 			<f:translate key="tx_jobs_domain_model_posting.company_information" />
@@ -113,6 +140,8 @@
 		{posting.companyInformation}
 		</td>
 	</tr>
+	</f:if>
+	<f:if condition="{posting.location}">
 	<tr>
 		<td>
 			<f:translate key="tx_jobs_domain_model_posting.location" />
@@ -122,6 +151,8 @@
 			{posting.location.address}
 		</td>
 	</tr>
+	</f:if>
+	<f:if condition="{posting.contact}">
 	<tr>
 		<td>
 			<f:translate key="tx_jobs_domain_model_posting.contact" />
@@ -133,5 +164,6 @@
 			{posting.contact.email}
 		</td>
 	</tr>
+	</f:if>
 </table>
 </html>

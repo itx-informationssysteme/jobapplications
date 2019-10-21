@@ -34,8 +34,10 @@ class ApplicationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      */
     public function newAction()
     {
-        $postingUid = $this->request->getArgument('postingUid');
+        $postingUid = $this->request->getArgument("postingUid");
         $this->view->assign("postingUid", $postingUid);
+        $title = $this->request->getArgument("postingTitle");
+        $this->view->assign("postingTitle", $title);
     }
 
     /**

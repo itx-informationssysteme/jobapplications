@@ -14,42 +14,48 @@
 
 	<f:section name="content">
 		<div class="container">
-			<h3><f:translate key="fe.posting.page.title"/></h3>
-
 			<f:flashMessages />
-			<div class="row">
-				<f:for each="{postings}" as="posting">
-					<div class="col-12 col-md-4">
-						<div class="card">
-							<div class="row">
-								<div class="col"></div>
-								<div class="col-9">
-									<div class="card-img-top" alt="posting-picture"></div>
-									<div class="card-title mt-3"><f:link.action action="show" arguments="{posting : posting}">{posting.title}</f:link.action></div>
-									<div class="card-body p-0 pb-3">
-										<div class="row">
-											<div class="col"><f:translate key="tx_jobs_domain_model_posting.career_level"/>:</div>
-											<div class="col-md-auto"><span>{posting.careerLevel}</span></div>
+			<h3><f:translate key="fe.posting.page.title"/></h3>
+			<f:if condition="{postings -> f:count()} > 0">
+				<f:then>
+					<div class="row">
+						<f:for each="{postings}" as="posting">
+							<div class="col-12 col-md-4">
+								<div class="card my-3">
+									<div class="row">
+										<div class="col"></div>
+										<div class="col-9">
+											<div class="card-img-top" alt="posting-picture"></div>
+											<div class="card-title mt-3"><f:link.action action="show" arguments="{posting : posting}">{posting.title}</f:link.action></div>
+											<div class="card-body p-0 pb-3">
+												<div class="row">
+													<div class="col"><f:translate key="tx_jobs_domain_model_posting.career_level"/>:</div>
+													<div class="col-md-auto"><span>{posting.careerLevel}</span></div>
+												</div>
+												<div class="row">
+													<div class="col"><f:translate key="tx_jobs_domain_model_posting.location"/>:</div>
+													<div class="col-md-auto"><span>{posting.location.name}</span></div>
+												</div>
+												<div class="row">
+													<div class="col"><f:translate key="tx_jobs_domain_model_posting.date_posted"/>:</div>
+													<div class="col-md-auto"><span>{posting.datePosted -> f:format.date()}</span></div>
+												</div>
+												<div class="row mt-3">
+													<f:link.action action="show" arguments="{posting : posting}" class="btn btn-primary m-auto"><f:translate key="fe.posting.button.detailview"/></f:link.action>
+												</div>
+											</div>
 										</div>
-										<div class="row">
-											<div class="col"><f:translate key="tx_jobs_domain_model_posting.location"/>:</div>
-											<div class="col-md-auto"><span>{posting.location.name}</span></div>
-										</div>
-										<div class="row">
-											<div class="col"><f:translate key="tx_jobs_domain_model_posting.date_posted"/>:</div>
-											<div class="col-md-auto"><span>{posting.datePosted -> f:format.date()}</span></div>
-										</div>
-										<div class="row mt-3">
-											<f:link.action action="show" arguments="{posting : posting}" class="btn btn-primary m-auto"><f:translate key="fe.posting.button.detailview"/></f:link.action>
-										</div>
+										<div class="col"></div>
 									</div>
 								</div>
-								<div class="col"></div>
 							</div>
-						</div>
+						</f:for>
 					</div>
-				</f:for>
-			</div>
+				</f:then>
+				<f:else>
+					<span><f:translate key="fe.posting.page.noPositions"/></span>
+				</f:else>
+			</f:if>
 		</div>
 	</f:section>
 </html>

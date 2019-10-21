@@ -52,9 +52,9 @@ overwriteSettings:
   Resources:
     Private:
       Templates:
-      List.html: keep
-      Show.html: keep
-
+        List.html: keep
+        Show.html: keep
+        New.html: keep
 
   user_extension.svg: keep
 

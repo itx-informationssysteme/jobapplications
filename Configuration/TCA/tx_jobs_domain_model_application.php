@@ -123,10 +123,10 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['------', 0],
-					['Herr', 1],
-					['Frau', 2],
-					['Divers', 3]
+                    ['LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.application.selector.chooseMessage', 0],
+					['LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.application.selector.mr', 1],
+					['LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.application.selector.mrs', 2],
+					['LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.application.selector.div', 3]
                 ],
                 'size' => 1,
                 'maxitems' => 1,
