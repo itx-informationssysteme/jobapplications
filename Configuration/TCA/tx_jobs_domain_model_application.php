@@ -16,14 +16,14 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'first_name,last_name,email,phone,address,salary_expectation',
+        'searchFields' => 'first_name,last_name,email,phone,address_street_and_number,address_addition,address_city,address_country,salary_expectation',
         'iconfile' => 'EXT:jobs/Resources/Public/Icons/tx_jobs_domain_model_application.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, salutation, first_name, last_name, email, phone, address, salary_expectation, earliest_date_of_joining, cv, cover_letter, testimonials, other_files, privacy_agreement, posting',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, salutation, first_name, last_name, email, phone, address_street_and_number, address_addition, address_post_code, address_city, address_country, salary_expectation, earliest_date_of_joining, cv, cover_letter, testimonials, other_files, privacy_agreement, posting',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, salutation, first_name, last_name, email, phone, address, salary_expectation, earliest_date_of_joining, cv, cover_letter, testimonials, other_files, privacy_agreement, posting, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, salutation, first_name, last_name, email, phone, address_street_and_number, address_addition, address_post_code, address_city, address_country, salary_expectation, earliest_date_of_joining, cv, cover_letter, testimonials, other_files, privacy_agreement, posting, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -169,15 +169,51 @@ return [
                 'eval' => 'trim'
             ],
         ],
-        'address' => [
+        'address_street_and_number' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.address',
+            'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.address_street_and_number',
             'config' => [
                 'type' => 'text',
                 'cols' => 40,
                 'rows' => 15,
                 'eval' => 'trim'
             ]
+        ],
+        'address_addition' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.address_addition',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+        ],
+        'address_post_code' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.address_post_code',
+            'config' => [
+                'type' => 'input',
+                'size' => 4,
+                'eval' => 'int'
+            ]
+        ],
+        'address_city' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.address_city',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+        ],
+        'address_country' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.address_country',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ],
         ],
         'salary_expectation' => [
             'exclude' => true,

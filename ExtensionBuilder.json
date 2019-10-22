@@ -199,6 +199,28 @@
                             "propertyName": "companyInformation",
                             "propertyType": "Text",
                             "uid": "1018041863571"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "detailViewImage",
+                            "propertyType": "Image",
+                            "uid": "335862752109"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "listViewImage",
+                            "propertyType": "Image",
+                            "uid": "104787933575"
                         }
                     ]
                 },
@@ -368,6 +390,28 @@
                             "propertyName": "address",
                             "propertyType": "Text",
                             "uid": "554303228752"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "latitude",
+                            "propertyType": "String",
+                            "uid": "1516118495371"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "londitude",
+                            "propertyType": "String",
+                            "uid": "237660706973"
                         }
                     ]
                 },
@@ -471,9 +515,53 @@
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
                             "propertyIsRequired": false,
-                            "propertyName": "address",
+                            "propertyName": "addressStreetAndNumber",
                             "propertyType": "Text",
                             "uid": "1348840739526"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "addressAddition",
+                            "propertyType": "String",
+                            "uid": "725285802543"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "addressPostCode",
+                            "propertyType": "Integer",
+                            "uid": "1362037907997"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "addressCity",
+                            "propertyType": "String",
+                            "uid": "873014489795"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "addressCountry",
+                            "propertyType": "String",
+                            "uid": "1307150943997"
                         },
                         {
                             "allowedFileTypes": "",
@@ -669,7 +757,7 @@
         }
     ],
     "log": {
-        "last_modified": "2019-10-18 02:03",
+        "last_modified": "2019-10-21 04:03",
         "extension_builder_version": "9.10.2",
         "be_user": " (1)"
     }

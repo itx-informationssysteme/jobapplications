@@ -74,4 +74,54 @@ class LocationTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
             $this->subject
         );
     }
+
+    /**
+     * @test
+     */
+    public function getLatitudeReturnsInitialValueForString()
+    {
+        self::assertSame(
+            '',
+            $this->subject->getLatitude()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setLatitudeForStringSetsLatitude()
+    {
+        $this->subject->setLatitude('Conceived at T3CON10');
+
+        self::assertAttributeEquals(
+            'Conceived at T3CON10',
+            'latitude',
+            $this->subject
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getLonditudeReturnsInitialValueForString()
+    {
+        self::assertSame(
+            '',
+            $this->subject->getLonditude()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setLonditudeForStringSetsLonditude()
+    {
+        $this->subject->setLonditude('Conceived at T3CON10');
+
+        self::assertAttributeEquals(
+            'Conceived at T3CON10',
+            'londitude',
+            $this->subject
+        );
+    }
 }

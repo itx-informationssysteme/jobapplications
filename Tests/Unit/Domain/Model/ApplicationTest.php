@@ -153,24 +153,124 @@ class ApplicationTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function getAddressReturnsInitialValueForString()
+    public function getAddressStreetAndNumberReturnsInitialValueForString()
     {
         self::assertSame(
             '',
-            $this->subject->getAddress()
+            $this->subject->getAddressStreetAndNumber()
         );
     }
 
     /**
      * @test
      */
-    public function setAddressForStringSetsAddress()
+    public function setAddressStreetAndNumberForStringSetsAddressStreetAndNumber()
     {
-        $this->subject->setAddress('Conceived at T3CON10');
+        $this->subject->setAddressStreetAndNumber('Conceived at T3CON10');
 
         self::assertAttributeEquals(
             'Conceived at T3CON10',
-            'address',
+            'addressStreetAndNumber',
+            $this->subject
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getAddressAdditionReturnsInitialValueForString()
+    {
+        self::assertSame(
+            '',
+            $this->subject->getAddressAddition()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setAddressAdditionForStringSetsAddressAddition()
+    {
+        $this->subject->setAddressAddition('Conceived at T3CON10');
+
+        self::assertAttributeEquals(
+            'Conceived at T3CON10',
+            'addressAddition',
+            $this->subject
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getAddressPostCodeReturnsInitialValueForInt()
+    {
+        self::assertSame(
+            0,
+            $this->subject->getAddressPostCode()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setAddressPostCodeForIntSetsAddressPostCode()
+    {
+        $this->subject->setAddressPostCode(12);
+
+        self::assertAttributeEquals(
+            12,
+            'addressPostCode',
+            $this->subject
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getAddressCityReturnsInitialValueForString()
+    {
+        self::assertSame(
+            '',
+            $this->subject->getAddressCity()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setAddressCityForStringSetsAddressCity()
+    {
+        $this->subject->setAddressCity('Conceived at T3CON10');
+
+        self::assertAttributeEquals(
+            'Conceived at T3CON10',
+            'addressCity',
+            $this->subject
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getAddressCountryReturnsInitialValueForString()
+    {
+        self::assertSame(
+            '',
+            $this->subject->getAddressCountry()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setAddressCountryForStringSetsAddressCountry()
+    {
+        $this->subject->setAddressCountry('Conceived at T3CON10');
+
+        self::assertAttributeEquals(
+            'Conceived at T3CON10',
+            'addressCountry',
             $this->subject
         );
     }

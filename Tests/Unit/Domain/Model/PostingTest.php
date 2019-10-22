@@ -405,6 +405,58 @@ class PostingTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
+    public function getDetailViewImageReturnsInitialValueForFileReference()
+    {
+        self::assertEquals(
+            null,
+            $this->subject->getDetailViewImage()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setDetailViewImageForFileReferenceSetsDetailViewImage()
+    {
+        $fileReferenceFixture = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
+        $this->subject->setDetailViewImage($fileReferenceFixture);
+
+        self::assertAttributeEquals(
+            $fileReferenceFixture,
+            'detailViewImage',
+            $this->subject
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getListViewImageReturnsInitialValueForFileReference()
+    {
+        self::assertEquals(
+            null,
+            $this->subject->getListViewImage()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setListViewImageForFileReferenceSetsListViewImage()
+    {
+        $fileReferenceFixture = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
+        $this->subject->setListViewImage($fileReferenceFixture);
+
+        self::assertAttributeEquals(
+            $fileReferenceFixture,
+            'listViewImage',
+            $this->subject
+        );
+    }
+
+    /**
+     * @test
+     */
     public function getLocationReturnsInitialValueForLocation()
     {
         self::assertEquals(

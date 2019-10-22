@@ -139,6 +139,22 @@ class Posting extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $contact = null;
 
     /**
+     * detailViewImage
+     * 
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
+     */
+    protected $detailViewImage = null;
+
+    /**
+     * listViewImage
+     * 
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
+     */
+    protected $listViewImage = null;
+
+    /**
      * __construct
      */
     public function __construct()
@@ -515,5 +531,47 @@ class Posting extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setContact(\ITX\Jobs\Domain\Model\Contact $contact)
     {
         $this->contact = $contact;
+    }
+
+    /**
+     * Returns the detailViewImage
+     * 
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference $detailViewImage
+     */
+    public function getDetailViewImage()
+    {
+        return $this->detailViewImage;
+    }
+
+    /**
+     * Sets the detailViewImage
+     * 
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $detailViewImage
+     * @return void
+     */
+    public function setDetailViewImage(\TYPO3\CMS\Extbase\Domain\Model\FileReference $detailViewImage)
+    {
+        $this->detailViewImage = $detailViewImage;
+    }
+
+    /**
+     * Returns the listViewImage
+     * 
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference $listViewImage
+     */
+    public function getListViewImage()
+    {
+        return $this->listViewImage;
+    }
+
+    /**
+     * Sets the listViewImage
+     * 
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $listViewImage
+     * @return void
+     */
+    public function setListViewImage(\TYPO3\CMS\Extbase\Domain\Model\FileReference $listViewImage)
+    {
+        $this->listViewImage = $listViewImage;
     }
 }

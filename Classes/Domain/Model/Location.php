@@ -34,6 +34,20 @@ class Location extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $address = '';
 
     /**
+     * latitude
+     * 
+     * @var string
+     */
+    protected $latitude = '';
+
+    /**
+     * londitude
+     * 
+     * @var string
+     */
+    protected $londitude = '';
+
+    /**
      * Returns the name
      * 
      * @return string name
@@ -73,5 +87,47 @@ class Location extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setAddress($address)
     {
         $this->address = $address;
+    }
+
+    /**
+     * Returns the latitude
+     * 
+     * @return string $latitude
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Sets the latitude
+     * 
+     * @param string $latitude
+     * @return void
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+    }
+
+    /**
+     * Returns the londitude
+     * 
+     * @return string $londitude
+     */
+    public function getLonditude()
+    {
+        return $this->londitude;
+    }
+
+    /**
+     * Sets the londitude
+     * 
+     * @param string $londitude
+     * @return void
+     */
+    public function setLonditude($londitude)
+    {
+        $this->londitude = $londitude;
     }
 }

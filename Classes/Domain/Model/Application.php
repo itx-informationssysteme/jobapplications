@@ -55,11 +55,11 @@ class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $phone = '';
 
     /**
-     * address
+     * addressStreetAndNumber
      * 
      * @var string
      */
-    protected $address = '';
+    protected $addressStreetAndNumber = '';
 
     /**
      * salaryExpectation
@@ -117,9 +117,37 @@ class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * posting
      * 
-     * @var int
+     * @var \ITX\Jobs\Domain\Model\Posting
      */
     protected $posting = null;
+
+    /**
+     * addressAddition
+     * 
+     * @var string
+     */
+    protected $addressAddition = '';
+
+    /**
+     * addressPostCode
+     * 
+     * @var int
+     */
+    protected $addressPostCode = 0;
+
+    /**
+     * addressCity
+     * 
+     * @var string
+     */
+    protected $addressCity = '';
+
+    /**
+     * addressCountry
+     * 
+     * @var string
+     */
+    protected $addressCountry = '';
 
     /**
      * Returns the salutation
@@ -224,27 +252,6 @@ class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setPhone($phone)
     {
         $this->phone = $phone;
-    }
-
-    /**
-     * Returns the address
-     * 
-     * @return string address
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
-     * Sets the address
-     * 
-     * @param string $address
-     * @return void
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
     }
 
     /**
@@ -423,5 +430,110 @@ class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setPosting(int $posting)
     {
         $this->posting = $posting;
+    }
+
+    /**
+     * Returns the addressStreetAndNumber
+     * 
+     * @return string addressStreetAndNumber
+     */
+    public function getAddressStreetAndNumber()
+    {
+        return $this->addressStreetAndNumber;
+    }
+
+    /**
+     * Sets the addressStreetAndNumber
+     * 
+     * @param string $addressStreetAndNumber
+     * @return void
+     */
+    public function setAddressStreetAndNumber($addressStreetAndNumber)
+    {
+        $this->addressStreetAndNumber = $addressStreetAndNumber;
+    }
+
+    /**
+     * Returns the addressAddition
+     * 
+     * @return string $addressAddition
+     */
+    public function getAddressAddition()
+    {
+        return $this->addressAddition;
+    }
+
+    /**
+     * Sets the addressAddition
+     * 
+     * @param string $addressAddition
+     * @return void
+     */
+    public function setAddressAddition($addressAddition)
+    {
+        $this->addressAddition = $addressAddition;
+    }
+
+    /**
+     * Returns the addressPostCode
+     * 
+     * @return int $addressPostCode
+     */
+    public function getAddressPostCode()
+    {
+        return $this->addressPostCode;
+    }
+
+    /**
+     * Sets the addressPostCode
+     * 
+     * @param int $addressPostCode
+     * @return void
+     */
+    public function setAddressPostCode($addressPostCode)
+    {
+        $this->addressPostCode = $addressPostCode;
+    }
+
+    /**
+     * Returns the addressCity
+     * 
+     * @return string $addressCity
+     */
+    public function getAddressCity()
+    {
+        return $this->addressCity;
+    }
+
+    /**
+     * Sets the addressCity
+     * 
+     * @param string $addressCity
+     * @return void
+     */
+    public function setAddressCity($addressCity)
+    {
+        $this->addressCity = $addressCity;
+    }
+
+    /**
+     * Returns the addressCountry
+     * 
+     * @return string $addressCountry
+     */
+    public function getAddressCountry()
+    {
+        return $this->addressCountry;
+    }
+
+    /**
+     * Sets the addressCountry
+     * 
+     * @param string $addressCountry
+     * @return void
+     */
+    public function setAddressCountry($addressCountry)
+    {
+        $this->addressCountry = $addressCountry;
     }
 }

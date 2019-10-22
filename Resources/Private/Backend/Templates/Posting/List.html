@@ -34,6 +34,8 @@ Otherwise your changes will be overwritten the next time you save the extension 
 		<th><f:translate key="tx_jobs_domain_model_posting.valid_through" /></th>
 		<th><f:translate key="tx_jobs_domain_model_posting.required_documents" /></th>
 		<th><f:translate key="tx_jobs_domain_model_posting.company_information" /></th>
+		<th><f:translate key="tx_jobs_domain_model_posting.detail_view_image" /></th>
+		<th><f:translate key="tx_jobs_domain_model_posting.list_view_image" /></th>
 		<th> </th>
 		<th> </th>
 	</tr>
@@ -55,6 +57,8 @@ Otherwise your changes will be overwritten the next time you save the extension 
 			<td><f:link.action action="show" arguments="{posting : posting}"> {posting.validThrough -> f:format.date()}</f:link.action></td>
 			<td><f:link.action action="show" arguments="{posting : posting}"> {posting.requiredDocuments}</f:link.action></td>
 			<td><f:link.action action="show" arguments="{posting : posting}"> {posting.companyInformation}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{posting : posting}"> {posting.detailViewImage.originalResource.name}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{posting : posting}"> {posting.listViewImage.originalResource.name}</f:link.action></td>
 			<td><f:link.action action="edit" arguments="{posting : posting}">Edit</f:link.action></td>
 			<td><f:link.action action="delete" arguments="{posting : posting}">Delete</f:link.action></td>
 		</tr>

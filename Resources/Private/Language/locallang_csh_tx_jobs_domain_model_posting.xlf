@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="EXT:jobs/Resources/Private/Language/locallang_csh" date="2019-10-18T10:11:37Z" product-name="jobs">
+	<file source-language="en" datatype="plaintext" original="EXT:jobs/Resources/Private/Language/locallang_csh" date="2019-10-21T16:03:17Z" product-name="jobs">
 		<header/>
 		<body>
 			<trans-unit id="title.description" resname="title.description">
@@ -48,8 +48,11 @@
 			<trans-unit id="company_information.description" resname="company_information.description">
 				<source>companyInformation</source>
 			</trans-unit>
-			<trans-unit id="applications.description" resname="applications.description">
-				<source>applications</source>
+			<trans-unit id="detail_view_image.description" resname="detail_view_image.description">
+				<source>detailViewImage</source>
+			</trans-unit>
+			<trans-unit id="list_view_image.description" resname="list_view_image.description">
+				<source>listViewImage</source>
 			</trans-unit>
 			<trans-unit id="location.description" resname="location.description">
 				<source>location</source>

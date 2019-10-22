@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="EXT:jobs/Resources/Private/Language/locallang" date="2019-10-18T10:11:37Z" product-name="jobs">
+	<file source-language="en" datatype="plaintext" original="EXT:jobs/Resources/Private/Language/locallang" date="2019-10-21T16:03:17Z" product-name="jobs">
 		<header/>
 		<body>
 			<trans-unit id="tx_jobs_domain_model_posting" resname="tx_jobs_domain_model_posting">
@@ -51,8 +51,11 @@
 			<trans-unit id="tx_jobs_domain_model_posting.company_information" resname="tx_jobs_domain_model_posting.company_information">
 				<source>Company Information</source>
 			</trans-unit>
-			<trans-unit id="tx_jobs_domain_model_posting.applications" resname="tx_jobs_domain_model_posting.applications">
-				<source>Applications</source>
+			<trans-unit id="tx_jobs_domain_model_posting.detail_view_image" resname="tx_jobs_domain_model_posting.detail_view_image">
+				<source>Detail View Image</source>
+			</trans-unit>
+			<trans-unit id="tx_jobs_domain_model_posting.list_view_image" resname="tx_jobs_domain_model_posting.list_view_image">
+				<source>List View Image</source>
 			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_posting.location" resname="tx_jobs_domain_model_posting.location">
 				<source>Location</source>
@@ -84,6 +87,12 @@
 			<trans-unit id="tx_jobs_domain_model_location.address" resname="tx_jobs_domain_model_location.address">
 				<source>Address</source>
 			</trans-unit>
+			<trans-unit id="tx_jobs_domain_model_location.latitude" resname="tx_jobs_domain_model_location.latitude">
+				<source>Latitude</source>
+			</trans-unit>
+			<trans-unit id="tx_jobs_domain_model_location.londitude" resname="tx_jobs_domain_model_location.londitude">
+				<source>Londitude</source>
+			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_application" resname="tx_jobs_domain_model_application">
 				<source>Application</source>
 			</trans-unit>
@@ -97,13 +106,25 @@
 				<source>Last Name</source>
 			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_application.email" resname="tx_jobs_domain_model_application.email">
-				<source>Email</source>
+				<source>E-Mail</source>
 			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_application.phone" resname="tx_jobs_domain_model_application.phone">
 				<source>Phone</source>
 			</trans-unit>
-			<trans-unit id="tx_jobs_domain_model_application.address" resname="tx_jobs_domain_model_application.address">
-				<source>Address</source>
+			<trans-unit id="tx_jobs_domain_model_application.address_street_and_number" resname="tx_jobs_domain_model_application.address_street_and_number">
+				<source>Streetname and House Number</source>
+			</trans-unit>
+			<trans-unit id="tx_jobs_domain_model_application.address_addition" resname="tx_jobs_domain_model_application.address_addition">
+				<source>Address Additions</source>
+			</trans-unit>
+			<trans-unit id="tx_jobs_domain_model_application.address_post_code" resname="tx_jobs_domain_model_application.address_post_code">
+				<source>Post Code</source>
+			</trans-unit>
+			<trans-unit id="tx_jobs_domain_model_application.address_city" resname="tx_jobs_domain_model_application.address_city">
+				<source>City</source>
+			</trans-unit>
+			<trans-unit id="tx_jobs_domain_model_application.address_country" resname="tx_jobs_domain_model_application.address_country">
+				<source>Country</source>
 			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_application.salary_expectation" resname="tx_jobs_domain_model_application.salary_expectation">
 				<source>Salary Expectation</source>
@@ -112,7 +133,7 @@
 				<source>Earliest Date Of Joining</source>
 			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_application.cv" resname="tx_jobs_domain_model_application.cv">
-				<source>Cv</source>
+				<source>CV</source>
 			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_application.cover_letter" resname="tx_jobs_domain_model_application.cover_letter">
 				<source>Cover Letter</source>
@@ -139,7 +160,7 @@
 				<source>Apply now</source>
 			</trans-unit>
 			<trans-unit id="fe.application.selector.chooseMessage" resname="fe.application.selector.chooseMessage">
-				<source>--Please Choose--</source>
+				<source>-Choose-</source>
 			</trans-unit>
 			<trans-unit id="fe.application.selector.mr" resname="fe.application.selector.mr">
 				<source>Mr.</source>

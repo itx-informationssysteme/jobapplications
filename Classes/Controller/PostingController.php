@@ -47,6 +47,14 @@ class PostingController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function showAction(\ITX\Jobs\Domain\Model\Posting $posting)
     {
+    	/*
+    	if(setting){
+			$uri = $uriBuilder
+				->setTargetPageUid($pageUid)
+				->build();
+			$this->redirectToUri($uri,0, 404);
+		}
+    	*/
         $this->view->assign('posting', $posting);
     }
 

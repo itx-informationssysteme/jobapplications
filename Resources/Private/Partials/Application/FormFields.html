@@ -41,13 +41,41 @@
 	</div>
 </div>
 <div class="form-row">
-	<div class="form-group col-md-8">
-		<label for="address">
-			<f:translate key="tx_jobs_domain_model_application.address" />
+	<div class="form-group col-md-12">
+		<label for="addressStreetAndNumber">
+			<f:translate key="tx_jobs_domain_model_application.address_street_and_number" />
 		</label>
-		<f:form.textarea class="form-control" property="address" cols="40" rows="5" />
+		<f:form.textfield property="addressStreetAndNumber" class="form-control" />
 	</div>
 </div>
+<div class="form-row">
+	<div class="form-group col-md-12">
+		<f:form.textfield property="addressAddition" class="form-control"/>
+	</div>
+</div>
+<div class="form-row">
+	<div class="form-group col-md-4">
+		<label for="addressPostCode">
+			<f:translate key="tx_jobs_domain_model_application.address_post_code" />
+		</label>
+		<f:form.textfield property="addressPostCode" class="form-control"/>
+	</div>
+	<div class="form-group col-md-8">
+		<label for="addressCity">
+			<f:translate key="tx_jobs_domain_model_application.address_city" />
+		</label>
+		<f:form.textfield property="addressCity" class="form-control"/>
+	</div>
+</div>
+<div class="form-row">
+	<div class="form-group col-md-12">
+		<label for="addressCountry">
+			<f:translate key="tx_jobs_domain_model_application.address_country" />
+		</label>
+		<f:form.textfield property="addressCountry" class="form-control"/>
+	</div>
+</div>
+
 <f:if condition="{settings.showSalarayExpectation}">
 	<div class="form-row">
 		<div class="form-group col-md-4">
@@ -79,7 +107,7 @@
 </label><br />
 	<span>File upload is not implemented!</span><br /><br />
 <div class="form-row">
-	<div class="form-check">
+	<div class="form-check mb-3">
 		<f:form.checkbox class="form-check-input" property="privacyAgreement" value="1" additionalAttributes="{required:'required'}"/>
 		<label class="form-check-label" for="privacyAgreement">
 			<f:translate key="tx_jobs_domain_model_application.privacy_agreement" />

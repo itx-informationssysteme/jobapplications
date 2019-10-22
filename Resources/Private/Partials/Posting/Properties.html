@@ -165,5 +165,25 @@
 		</td>
 	</tr>
 	</f:if>
+	<f:if condition="{posting.detailViewImage}">
+		<tr>
+			<td>
+				<f:translate key="tx_jobs_domain_model_posting.detail_view_image" />
+			</td>
+			<td>
+				<f:image src="{posting.detailViewImage.originalResource.publicUrl}" width="200"/>
+			</td>
+		</tr>
+	</f:if>
+	<f:if condition="{posting.listViewImage}">
+		<tr>
+			<td>
+				<f:translate key="tx_jobs_domain_model_posting.list_view_image" />
+			</td>
+			<td>
+				<f:image src="{posting.listViewImage.originalResource.publicUrl}" width="200"/>
+			</td>
+		</tr>
+	</f:if>
 </table>
 </html>

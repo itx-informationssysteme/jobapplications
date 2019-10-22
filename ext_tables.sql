@@ -18,6 +18,8 @@ CREATE TABLE tx_jobs_domain_model_posting (
 	valid_through date DEFAULT NULL,
 	required_documents text,
 	company_information text,
+	detail_view_image int(11) unsigned NOT NULL default '0',
+	list_view_image int(11) unsigned NOT NULL default '0',
 	location int(11) unsigned DEFAULT '0',
 	contact int(11) unsigned DEFAULT '0',
 
@@ -42,6 +44,8 @@ CREATE TABLE tx_jobs_domain_model_location (
 
 	name varchar(255) DEFAULT '' NOT NULL,
 	address text,
+	latitude varchar(255) DEFAULT '' NOT NULL,
+	londitude varchar(255) DEFAULT '' NOT NULL,
 
 );
 
@@ -55,7 +59,11 @@ CREATE TABLE tx_jobs_domain_model_application (
 	last_name varchar(255) DEFAULT '' NOT NULL,
 	email varchar(255) DEFAULT '' NOT NULL,
 	phone varchar(255) DEFAULT '' NOT NULL,
-	address text,
+	address_street_and_number text,
+	address_addition varchar(255) DEFAULT '' NOT NULL,
+	address_post_code int(11) DEFAULT '0' NOT NULL,
+	address_city varchar(255) DEFAULT '' NOT NULL,
+	address_country varchar(255) DEFAULT '' NOT NULL,
 	salary_expectation varchar(255) DEFAULT '' NOT NULL,
 	earliest_date_of_joining date DEFAULT NULL,
 	cv int(11) unsigned NOT NULL default '0',
