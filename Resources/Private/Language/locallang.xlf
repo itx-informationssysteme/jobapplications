@@ -180,6 +180,15 @@
 			<trans-unit id="fe.application.new.submit" resname="fe.application.new.submit">
 				<source>Send Application</source>
 			</trans-unit>
+			<trans-unit id="fe.error.fileType" resname="fe.error.fileType">
+				<source>Wrong Filetype! Only .pdf is allowed! </source>
+			</trans-unit>
+			<trans-unit id="fe.error.fileSize" resname="fe.error.fileSize">
+				<source>File Error: One of your uploaded Files probably exceeded the filesize limit of %sMB</source>
+			</trans-unit>
+			<trans-unit id="fe.info.fileSize" resname="fe.info.fileSize">
+				<source>The maximum upload filesize is %sMB</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

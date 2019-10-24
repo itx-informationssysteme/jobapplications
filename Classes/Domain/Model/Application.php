@@ -44,6 +44,9 @@ class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * email
      * 
      * @var string
+	 * @TYPO3\CMS\Extbase\Annotation\Validate ("EmailAddress")
+	 * @TYPO3\CMS\Extbase\Annotation\Validate ("NotEmpty")
+	 *
      */
     protected $email = '';
 
@@ -80,7 +83,7 @@ class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * 
      * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
      * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
-     */
+	 */
     protected $cv = null;
 
     /**
@@ -476,7 +479,8 @@ class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Returns the addressPostCode
-     * 
+	 *
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NumberValidator")
      * @return int $addressPostCode
      */
     public function getAddressPostCode()

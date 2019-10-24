@@ -18,10 +18,10 @@
       <div class="col-6">
         <h3><f:translate key="fe.application.new.title"/>&nbsp;{postingTitle}</h3>
         <f:flashMessages />
-
+        <f:debug>{_all}</f:debug>
         <f:render partial="FormErrors" />
 
-        <f:form action="create" enctype="multipart/form-data" name="newApplication" object="{newApplication}" arguments="{postingUid: postingUid}">
+        <f:form action="create" enctype="multipart/form-data" name="newApplication" object="{newApplication}" arguments="{postingUid: postingUid, postingTitle: postingTitle}">
           <f:render partial="Application/FormFields" />
           <div class="row">
             <f:form.submit class="btn btn-primary mx-auto" value="{f:translate(key='fe.application.new.submit')}" />

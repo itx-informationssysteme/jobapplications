@@ -12,6 +12,12 @@
 			<trans-unit id="flexform.showSalarayExpectation" resname="flexform.showSalarayExpectation">
 				<source>Show "Salary Expectation" Field</source>
 			</trans-unit>
+            <trans-unit id="flexform.showEarliestDateOfJoining" resname="flexform.showEarliestDateOfJoining">
+                <source>Show "Earliest Date Of Joining" Field</source>
+            </trans-unit>
+            <trans-unit id="flexform.tab.applicationTitle" resname="flexform.tab.applicationTitle">
+                <source>Application Form</source>
+            </trans-unit>
 		</body>
 	</file>
 </xliff>
