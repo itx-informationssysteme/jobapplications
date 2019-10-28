@@ -18,6 +18,12 @@
             <trans-unit id="flexform.tab.applicationTitle" resname="flexform.tab.applicationTitle">
                 <source>Application Form</source>
             </trans-unit>
+			<trans-unit id="flexform.general.detailView" resname="flexform.general.detailView">
+				<source>Set Detail Pid (when empty this page is selected)</source>
+			</trans-unit>
+			<trans-unit id="flexform.general.applicationForm" resname="flexform.general.applicationForm">
+				<source>Set Application Form Pid (when empty this page is selected)</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

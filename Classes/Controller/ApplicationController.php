@@ -76,7 +76,7 @@
 			}
 			$this->view->assign("postingUid", $postingUid);
 			$this->view->assign("postingTitle", $title);
-			$this->view->assign("fileSizeLimit", strval($this->fileSizeLimit / 1024));
+			$this->view->assign("fileSizeLimit", strval($this->fileSizeLimit)/1024);
 		}
 
 		/**

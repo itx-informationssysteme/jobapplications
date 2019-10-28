@@ -187,7 +187,7 @@
 				<source>File Error: One of your uploaded Files probably exceeded the filesize limit of %sMB</source>
 			</trans-unit>
 			<trans-unit id="fe.info.fileSize" resname="fe.info.fileSize">
-				<source>The maximum upload filesize is %sMB</source>
+				<source>The maximum upload filesize is %sMB and only pdf-files are allowed.</source>
 			</trans-unit>
 		</body>
 	</file>
