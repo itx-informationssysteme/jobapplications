@@ -13,6 +13,7 @@
   Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
   <f:section name="content">
+    <f:debug>{_all}</f:debug>
     <div class="row">
       <div class="col"></div>
       <div class="col-6">
@@ -20,7 +21,7 @@
         <f:flashMessages />
         <f:render partial="FormErrors" />
 
-        <f:form action="create" enctype="multipart/form-data" name="newApplication" object="{newApplication}" arguments="{postingUid: postingUid, postingTitle: postingTitle}">
+        <f:form action="create" enctype="multipart/form-data" name="newApplication" object="{newApplication}" arguments="{postingUid: postingUid, postingTitle: postingTitle, settings: settings}">
           <f:render partial="Application/FormFields" arguments="{fileSizeLimit: fileSizeLimit}"/>
           <div class="row">
             <f:form.submit class="btn btn-primary mx-auto" value="{f:translate(key='fe.application.new.submit')}" />

@@ -16,13 +16,34 @@
                 <source>Show "Earliest Date Of Joining" Field</source>
             </trans-unit>
             <trans-unit id="flexform.tab.applicationTitle" resname="flexform.tab.applicationTitle">
-                <source>Application Form</source>
+                <source>Application Handling Settings</source>
             </trans-unit>
 			<trans-unit id="flexform.general.detailView" resname="flexform.general.detailView">
-				<source>Set Detail Pid (when empty this page is selected)</source>
+				<source>Set Detail Page Uid (when empty this page is selected)</source>
 			</trans-unit>
 			<trans-unit id="flexform.general.applicationForm" resname="flexform.general.applicationForm">
-				<source>Set Application Form Pid (when empty this page is selected)</source>
+				<source>Set Application Form Page Uid (when empty this page is selected)</source>
+			</trans-unit>
+			<trans-unit id="flexform.imageAsHeader" resname="flexform.imageAsHeader">
+				<source>Should the image be the card header? If empty: The image becomes the background of the whole card.</source>
+			</trans-unit>
+			<trans-unit id="flexform.customCardFontColor" resname="flexform.customCardFontColor">
+				<source>Specific font color of the posting cards content</source>
+			</trans-unit>
+			<trans-unit id="flexform.successPage" resname="flexform.successPage">
+				<source>Success Page Specification</source>
+			</trans-unit>
+			<trans-unit id="flexform.tab.postingTitle" resname="flexform.tab.postingTitle">
+				<source>Postings Settings</source>
+			</trans-unit>
+			<trans-unit id="flexform.sendEmailToInternal" resname="flexform.sendEmailToInternal">
+				<source>Should new applications be sent to a specific E-Mail address?</source>
+			</trans-unit>
+			<trans-unit id="flexform.saveApplicationInBackend" resname="flexform.saveApplicationInBackend">
+				<source>Should Applications be saved in the backend?</source>
+			</trans-unit>
+			<trans-unit id="flexform.sendEmailToContact" resname="flexform.sendEmailToContact">
+				<source>Should the refereced contact receive an E-Mail?</source>
 			</trans-unit>
 		</body>
 	</file>

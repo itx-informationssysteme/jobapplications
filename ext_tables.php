@@ -11,6 +11,18 @@ call_user_func(
             'Jobs'
         );
 
+		\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+			'ITX.Jobs',
+			'DetailView',
+			'Jobs DetailView'
+		);
+
+		\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+			'ITX.Jobs',
+			'ApplicationForm',
+			'Jobs Application Form'
+		);
+
         if (TYPO3_MODE === 'BE') {
 
             \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(

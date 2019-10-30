@@ -2,6 +2,8 @@
 namespace ITX\Jobs\Controller;
 
 
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 /***
  *
  * This file is part of the "Jobs" Extension for TYPO3 CMS.
@@ -26,6 +28,12 @@ class PostingController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @inject
      */
     protected $postingRepository = null;
+    private $mainPid = 1;
+
+	public function initializeAction()
+	{
+		$this->mainPid = $GLOBALS['TSFE']->id;
+	}
 
     /**
      * action list
@@ -45,16 +53,26 @@ class PostingController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @param ITX\Jobs\Domain\Model\Posting
      * @return void
      */
-    public function showAction(\ITX\Jobs\Domain\Model\Posting $posting)
+    public function showAction(\ITX\Jobs\Domain\Model\Posting $posting = null)
     {
-    	// todo: redirect to detailview
-		/*$pidSetting = $this->settings['detailViewPid'];
-		$uri = $this->uriBuilder
-			->reset()
-			->setTargetPageUid($pidSetting)
-			->uriFor('show',array('posting' => $posting),'Posting');
-		$this->redirectToURI($uri);
-		*/
+    	if($this->request->hasArgument("detail")) {
+			$postingUid = $this->request->getArgument("posting");
+			$posting = $this->postingRepository->findByUid($postingUid);
+			$this->settings = $this->request->getArgument("settings");
+			$this->view->assign("settings", $this->settings);
+		} else {
+			$detailViewUid = $this->settings['detailViewUid'];
+			if($detailViewUid) {
+				$this->uriBuilder->reset()->setTargetPageUid($detailViewUid);
+				$uri = $this->uriBuilder->uriFor('show', array('posting' => $posting, 'detail' => '1', 'appForm' => $this->settings['applicationFormUid'], 'settings' => $this->settings), 'Posting', null, "DetailView");
+				$this->redirectToUri($uri);
+			}
+		}
+    	if($this->request->hasArgument("appForm")) {
+			$this->view->assign('appForm', $this->request->getArgument("appForm"));
+		} else {
+			$this->view->assign('appForm', '');
+		}
 		$this->view->assign('posting', $posting);
 
     }

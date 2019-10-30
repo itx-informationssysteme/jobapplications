@@ -11,6 +11,7 @@ return [
         'transOrigPointerField' => 'l10n_parent',
         'transOrigDiffSourceField' => 'l10n_diffsource',
         'delete' => 'deleted',
+		'adminOnly' => 1,
         'enablecolumns' => [
             'disabled' => 'hidden',
             'starttime' => 'starttime',

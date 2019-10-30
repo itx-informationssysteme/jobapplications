@@ -14,7 +14,11 @@
 	 *
 	 ***/
 
+	use ITX\Jobs\Domain\Model\Posting;
+	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
+	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 	/**
 	 * ApplicationController
 	 */
@@ -61,6 +65,29 @@
 		 */
 		public function newAction()
 		{
+			if($this->request->getPluginName() == "DetailView") {
+				$this->view->assign("settings", $this->request->getArgument("settings"));
+			}
+			if(!$this->request->hasArgument("apply")) {
+				if($this->request->hasArgument('appForm')) {
+					$appFormUid = $this->request->getArgument("appForm");
+				} else {
+					$appFormUid = $this->settings['applicationFormUid'];
+				}
+				if($appFormUid) {
+					$this->uriBuilder->reset()->setTargetPageUid($appFormUid);
+					$uri = $this->uriBuilder->uriFor('new', array(
+						'postingUid' => $this->request->getArgument("postingUid"),
+						'postingTitle' => $this->request->getArgument("postingTitle"),
+						'apply' => '1',
+						'settings' => $this->request->getArgument("settings")), 'Application', null, "ApplicationForm");
+					$this->redirectToUri($uri);
+				}
+			} else {
+				$this->settings = $this->request->getArgument("settings");
+				$this->view->assign("settings", $this->settings);
+			}
+
 			$this->fileSizeLimit = GeneralUtility::getMaxUploadFileSize();
 			$postingUid = $this->request->getArgument("postingUid");
 			$title = $this->request->getArgument("postingTitle");
@@ -96,6 +123,7 @@
 			//get additional infos
 			$postingTitle = $this->request->getArgument("postingTitle");
 			$postingUid = $this->request->getArgument("postingUid");
+			$this->settings = $this->request->getArgument("settings");
 
 			//Check if $_FILES Entries have errors
 			foreach ($uploads as $upload)
@@ -149,9 +177,11 @@
 				$movedNewFile = $this->handleFileUpload("cv", $newApplication);
 				$this->buildRelations($newApplication->getUid(), $movedNewFile, 'cv', 'tx_jobs_domain_model_application', $newApplication->getPid());
 			}
-
-			$this->addFlashMessage("Success");
-			$this->redirect("list", "Posting");
+			$uri = $this->uriBuilder->reset()
+									->setTargetPageUid($this->settings["successPage"])
+									->setCreateAbsoluteUri(TRUE)
+									->build();
+			$this->redirectToUri($uri);
 		}
 
 		/**

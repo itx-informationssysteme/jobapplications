@@ -19,6 +19,29 @@ call_user_func(
             ]
         );
 
+		\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+			'ITX.Jobs',
+			'DetailView',
+			[
+				'Posting' => 'show, list',
+				'Application' => 'new, create'
+			],
+			[
+				'Application' => 'create'
+			]
+		);
+
+		\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+			'ITX.Jobs',
+			'ApplicationForm',
+			[
+				'Application' => 'new, create'
+			],
+			[
+				'Application' => 'create'
+			]
+		);
+
         // wizards
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
             'mod {
