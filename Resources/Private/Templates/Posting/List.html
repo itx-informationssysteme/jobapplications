@@ -31,7 +31,7 @@
 												<div class="col"></div>
 												<div class="col-9">
 													<div class="card-title mt-3"><f:link.action action="show" arguments="{posting : posting}">{posting.title}</f:link.action></div>
-													<div class="card-body p-0 pb-3" style="{f:if(condition: '{settings.customCardFontColor}', then: 'color: {settings.customCardFontColor};')}">
+													<div class="card-body p-0 pb-3">
 														<div class="row">
 															<div class="col"><f:translate key="tx_jobs_domain_model_posting.career_level"/>:</div>
 															<div class="col-md-auto"><span>{posting.careerLevel}</span></div>
@@ -44,9 +44,9 @@
 															<div class="col"><f:translate key="tx_jobs_domain_model_posting.date_posted"/>:</div>
 															<div class="col-md-auto"><span>{posting.datePosted -> f:format.date()}</span></div>
 														</div>
-														<div class="row mt-3">
-															<f:link.action action="show" arguments="{posting : posting}" class="btn btn-primary m-auto"><f:translate key="fe.posting.button.detailview"/></f:link.action>
-														</div>
+														<div class="row mt-3"></div>
+														<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView"><f:translate key="fe.posting.button.detailview"/></f:link.action>
+
 													</div>
 												</div>
 												<div class="col"></div>
@@ -58,7 +58,7 @@
 											<f:if condition="{posting.listViewImage}">
 												<f:image class="card-img h-auto" src="{posting.listViewImage.originalResource.publicUrl}"/>
 											</f:if>
-											<div class="card-img-overlay p-0 pb-3" style="{f:if(condition: '{settings.customCardFontColor}', then: 'color: {settings.customCardFontColor};')}">
+											<div class="card-img-overlay p-0 pb-3">
 												<div class="row">
 													<div class="col"></div>
 													<div class="col-9">
@@ -76,7 +76,7 @@
 															<div class="col-md-auto"><span>{posting.datePosted -> f:format.date()}</span></div>
 														</div>
 														<div class="row mt-3">
-															<f:link.action action="show" arguments="{posting : posting}" class="btn btn-primary m-auto"><f:translate key="fe.posting.button.detailview"/></f:link.action>
+															<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView"><f:translate key="fe.posting.button.detailview"/></f:link.action>
 														</div>
 													</div>
 													<div class="col"></div>

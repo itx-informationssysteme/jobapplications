@@ -134,6 +134,11 @@
 				uploads[i].classList.add("f3-form-error");
 				uploads[i].value = "";
 				uploadMsg.setAttribute('style', 'color: red !important' );
+			} else {
+				if(uploads[i].classList.contains("f3-form-error")) {
+					uploads[i].classList.remove("f3-form-error");
+					uploadMsg.removeAttribute('style');
+				}
 			}
 		});
 	}

@@ -9,8 +9,7 @@ call_user_func(
             'ITX.Jobs',
             'Frontend',
             [
-                'Posting' => 'list, show, ',
-                'Application' => 'new, create'
+                'Posting' => 'list'
             ],
             // non-cacheable actions
             [
@@ -23,11 +22,7 @@ call_user_func(
 			'ITX.Jobs',
 			'DetailView',
 			[
-				'Posting' => 'show, list',
-				'Application' => 'new, create'
-			],
-			[
-				'Application' => 'create'
+				'Posting' => 'show',
 			]
 		);
 
@@ -66,8 +61,19 @@ call_user_func(
 			$iconRegistry->registerIcon(
 				'jobs-plugin-frontend',
 				\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-				['source' => 'EXT:jobs/Resources/Public/Icons/user_plugin_frontend.svg']
+				['source' => 'EXT:jobs/Resources/Public/Icons/frontend.png']
 			);
-		
+
+			$iconRegistry->registerIcon(
+				'jobs-plugin-detailview',
+				\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+				['source' => 'EXT:jobs/Resources/Public/Icons/frontend.png']
+			);
+
+			$iconRegistry->registerIcon(
+				'jobs-plugin-applicationform',
+				\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+				['source' => 'EXT:jobs/Resources/Public/Icons/frontend.png']
+			);
     }
 );

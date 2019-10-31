@@ -35,7 +35,7 @@ call_user_func(
                 ],
                 [
                     'access' => 'user,group',
-                    'icon'   => 'EXT:jobs/Resources/Public/Icons/user_mod_backend.svg',
+                    'icon'   => 'EXT:jobs/Resources/Public/Icons/logo_jobs.svg',
                     'labels' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf',
                 ]
             );

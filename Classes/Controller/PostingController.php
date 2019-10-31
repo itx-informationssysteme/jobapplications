@@ -55,26 +55,7 @@ class PostingController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function showAction(\ITX\Jobs\Domain\Model\Posting $posting = null)
     {
-    	if($this->request->hasArgument("detail")) {
-			$postingUid = $this->request->getArgument("posting");
-			$posting = $this->postingRepository->findByUid($postingUid);
-			$this->settings = $this->request->getArgument("settings");
-			$this->view->assign("settings", $this->settings);
-		} else {
-			$detailViewUid = $this->settings['detailViewUid'];
-			if($detailViewUid) {
-				$this->uriBuilder->reset()->setTargetPageUid($detailViewUid);
-				$uri = $this->uriBuilder->uriFor('show', array('posting' => $posting, 'detail' => '1', 'appForm' => $this->settings['applicationFormUid'], 'settings' => $this->settings), 'Posting', null, "DetailView");
-				$this->redirectToUri($uri);
-			}
-		}
-    	if($this->request->hasArgument("appForm")) {
-			$this->view->assign('appForm', $this->request->getArgument("appForm"));
-		} else {
-			$this->view->assign('appForm', '');
-		}
 		$this->view->assign('posting', $posting);
-
     }
 
     /**

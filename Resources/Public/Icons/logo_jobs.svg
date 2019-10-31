@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <clipPath id="clip-bewerbunglogo64">
+      <rect width="64" height="64"/>
+    </clipPath>
+  </defs>
+  <g id="bewerbunglogo64" clip-path="url(#clip-bewerbunglogo64)">
+    <rect width="64" height="64" fill="#e62e29"/>
+    <g id="Rechteck_1" data-name="Rechteck 1" transform="translate(11 13)" fill="#e62e29" stroke="#fff" stroke-width="1.8">
+      <rect width="42" height="41" rx="4" stroke="none"/>
+      <rect x="0.9" y="0.9" width="40.2" height="39.2" rx="3.1" fill="none"/>
+    </g>
+    <g id="Ellipse_1" data-name="Ellipse 1" transform="translate(43 10)" fill="#e62e29" stroke="#fff" stroke-width="1.2">
+      <circle cx="7" cy="7" r="7" stroke="none"/>
+      <circle cx="7" cy="7" r="6.4" fill="none"/>
+    </g>
+    <g id="Ellipse_2" data-name="Ellipse 2" transform="translate(25 16)" fill="#fff" stroke="#fff" stroke-width="1">
+      <ellipse cx="7" cy="6.5" rx="7" ry="6.5" stroke="none"/>
+      <ellipse cx="7" cy="6.5" rx="6.5" ry="6" fill="none"/>
+    </g>
+    <g id="Ellipse_3" data-name="Ellipse 3" transform="translate(19 30)" fill="#fff" stroke="#fff" stroke-width="1">
+      <ellipse cx="13" cy="4.5" rx="13" ry="4.5" stroke="none"/>
+      <ellipse cx="13" cy="4.5" rx="12.5" ry="4" fill="none"/>
+    </g>
+    <rect id="Rechteck_2" data-name="Rechteck 2" width="5" height="2" rx="1" transform="translate(46.432 16.147) rotate(45)" fill="#fff"/>
+    <rect id="Rechteck_3" data-name="Rechteck 3" width="7" height="2" rx="1" transform="translate(48.036 19.108) rotate(-43)" fill="#fff"/>
+    <g id="Rechteck_4" data-name="Rechteck 4" transform="translate(19 41)" fill="#fff" stroke="#fff" stroke-width="1">
+      <rect width="28" height="3" stroke="none"/>
+      <rect x="0.5" y="0.5" width="27" height="2" fill="none"/>
+    </g>
+    <rect id="Rechteck_5" data-name="Rechteck 5" width="35" height="3" transform="translate(15 46)" fill="#fff"/>
+  </g>
+</svg>

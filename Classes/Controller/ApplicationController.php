@@ -18,6 +18,7 @@
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+	use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 	/**
 	 * ApplicationController
@@ -38,6 +39,19 @@
 		const APP_FILE_FOLDER = "applications/";
 
 		/**
+		 * @var PostingRepository
+		 */
+		private $postingRepository;
+
+		/**
+		 * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
+		 * @inject
+		 */
+		protected $persistenceManager;
+
+		protected $logger = null;
+
+		/**
 		 * initialize create action
 		 * adjusts date time format to y-m-d
 		 *
@@ -55,6 +69,8 @@
 								\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,
 								'Y-m-d'
 							);
+			/** @var $logger \TYPO3\CMS\Core\Log\Logger */
+			$this->logger = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Log\LogManager::class)->getLogger(__CLASS__);
 		}
 
 		/**
@@ -65,29 +81,6 @@
 		 */
 		public function newAction()
 		{
-			if($this->request->getPluginName() == "DetailView") {
-				$this->view->assign("settings", $this->request->getArgument("settings"));
-			}
-			if(!$this->request->hasArgument("apply")) {
-				if($this->request->hasArgument('appForm')) {
-					$appFormUid = $this->request->getArgument("appForm");
-				} else {
-					$appFormUid = $this->settings['applicationFormUid'];
-				}
-				if($appFormUid) {
-					$this->uriBuilder->reset()->setTargetPageUid($appFormUid);
-					$uri = $this->uriBuilder->uriFor('new', array(
-						'postingUid' => $this->request->getArgument("postingUid"),
-						'postingTitle' => $this->request->getArgument("postingTitle"),
-						'apply' => '1',
-						'settings' => $this->request->getArgument("settings")), 'Application', null, "ApplicationForm");
-					$this->redirectToUri($uri);
-				}
-			} else {
-				$this->settings = $this->request->getArgument("settings");
-				$this->view->assign("settings", $this->settings);
-			}
-
 			$this->fileSizeLimit = GeneralUtility::getMaxUploadFileSize();
 			$postingUid = $this->request->getArgument("postingUid");
 			$title = $this->request->getArgument("postingTitle");
@@ -103,7 +96,7 @@
 			}
 			$this->view->assign("postingUid", $postingUid);
 			$this->view->assign("postingTitle", $title);
-			$this->view->assign("fileSizeLimit", strval($this->fileSizeLimit)/1024);
+			$this->view->assign("fileSizeLimit", strval($this->fileSizeLimit) / 1024);
 		}
 
 		/**
@@ -123,7 +116,6 @@
 			//get additional infos
 			$postingTitle = $this->request->getArgument("postingTitle");
 			$postingUid = $this->request->getArgument("postingUid");
-			$this->settings = $this->request->getArgument("settings");
 
 			//Check if $_FILES Entries have errors
 			foreach ($uploads as $upload)
@@ -131,55 +123,158 @@
 				//Check if Filetype is accepted
 				if ($_FILES['tx_jobs_frontend']['type'][$upload] != "application/pdf" && $_FILES['tx_jobs_frontend']['type'][$upload] != "")
 				{
-					$this->addFlashMessage(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('fe.error.fileType', 'jobs'), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
+					$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileType', 'jobs'), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
 					$this->redirect("new", "Application", null, array(
 						"postingUid" => $postingUid,
 						"postingTitle" => $postingTitle,
 						"fileError" => $upload
 					));
+
 					return;
 				}
 
 				$errorcode = $_FILES['tx_jobs_frontend']['error'][$upload];
 				if (intval($errorcode) == 1)
 				{
-					$this->addFlashMessage(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('fe.error.fileSize', 'jobs', array("0"=> intval($this->fileSizeLimit)/1024)), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
+					$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileSize', 'jobs', array("0" => intval($this->fileSizeLimit) / 1024)), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
 					$this->redirect("new", "Application", null, array(
 						"postingUid" => $postingUid,
 						"postingTitle" => $postingTitle,
 						"fileError" => $upload
 					));
+
 					return;
 				}
 			}
 
 			$newApplication->setPosting($postingUid);
 			$this->applicationRepository->add($newApplication);
+			$this->persistenceManager->persistAll();
 
 			// Processing files
-			if ($_FILES['tx_jobs_frontend']['name']['cv'])
+			if ($_FILES['tx_jobs_applicationform']['name']['cv'])
 			{
-				$movedNewFile = $this->handleFileUpload("cv", $newApplication);
-				$this->buildRelations($newApplication->getUid(), $movedNewFile, 'cv', 'tx_jobs_domain_model_application', $newApplication->getPid());
+				$movedNewFileCv = $this->handleFileUpload("cv", $newApplication);
+				$this->buildRelations($newApplication->getUid(), $movedNewFileCv, 'cv', 'tx_jobs_domain_model_application', $newApplication->getPid());
 			}
-			if ($_FILES['tx_jobs_frontend']['name']['cover_letter'])
+			if ($_FILES['tx_jobs_applicationform']['name']['cover_letter'])
 			{
-				$movedNewFile = $this->handleFileUpload("cover_letter", $newApplication);
-				$this->buildRelations($newApplication->getUid(), $movedNewFile, 'cover_letter', 'tx_jobs_domain_model_application', $newApplication->getPid());
+				$movedNewFileCover = $this->handleFileUpload("cover_letter", $newApplication);
+				$this->buildRelations($newApplication->getUid(), $movedNewFileCover, 'cover_letter', 'tx_jobs_domain_model_application', $newApplication->getPid());
 			}
-			if ($_FILES['tx_jobs_frontend']['name']['testimonials'])
+			if ($_FILES['tx_jobs_applicationform']['name']['testimonials'])
 			{
-				$movedNewFile = $this->handleFileUpload("testimonials", $newApplication);
-				$this->buildRelations($newApplication->getUid(), $movedNewFile, 'testimonials', 'tx_jobs_domain_model_application', $newApplication->getPid());
+				$movedNewFileTestimonial = $this->handleFileUpload("testimonials", $newApplication);
+				$this->buildRelations($newApplication->getUid(), $movedNewFileTestimonial, 'testimonials', 'tx_jobs_domain_model_application', $newApplication->getPid());
 			}
-			if ($_FILES['tx_jobs_frontend']['name']['other_files'])
+			if ($_FILES['tx_jobs_applicationform']['name']['other_files'])
 			{
-				$movedNewFile = $this->handleFileUpload("cv", $newApplication);
-				$this->buildRelations($newApplication->getUid(), $movedNewFile, 'cv', 'tx_jobs_domain_model_application', $newApplication->getPid());
+				$movedNewFileOther = $this->handleFileUpload("cv", $newApplication);
+				$this->buildRelations($newApplication->getUid(), $movedNewFileOther, 'cv', 'tx_jobs_domain_model_application', $newApplication->getPid());
 			}
+
+			//Mail Handling
+
+			$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+			$this->postingRepository = $objectManager->get("ITX\Jobs\Domain\Repository\PostingRepository");
+			$currentPosting = $this->postingRepository->findByUid($newApplication->getPosting());
+			$contact = $currentPosting->getContact();
+
+			switch (intval($newApplication->getSalutation()))
+			{
+				case 0:
+					$salutation = "";
+					break;
+				case 1:
+					$salutation = LocalizationUtility::translate("fe.application.selector.mr", "jobs");
+					break;
+				case 2:
+					$salutation = LocalizationUtility::translate("fe.application.selector.mrs", "jobs");
+					break;
+				case 3:
+					$salutation = LocalizationUtility::translate("fe.application.selector.div", "jobs");
+					break;
+			}
+
+			if ($this->settings["sendEmailToContact"] || $this->settings['sendEmailToInternal'])
+			{
+				$mail = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Mail\MailMessage::class);
+				// Prepare and send the message
+				$mail
+					// Give the message a subject
+					->setSubject('New application for position '.$currentPosting->getTitle())
+
+					// Set the From address with an associative array
+					->setFrom(array($newApplication->getEmail() => $newApplication->getFirstName()." ".$newApplication->getLastName()))
+
+					// Give it a body
+					->setBody('Name: '.$salutation.' '.$newApplication->getFirstName().' '.$newApplication->getLastName().'<br>'.
+							  'E-Mail: '.$newApplication->getEmail().'<br>'.
+							  'Telephone: '.$newApplication->getPhone().'<br>'.
+							  'Address: '.$newApplication->getAddressStreetAndNumber().'<br>'.$newApplication->getAddressAddition().'<br>'.
+							  $newApplication->getAddressPostCode().' '.$newApplication->getAddressCity().'<br>'.$newApplication->getAddressCountry());
+
+				$files = array($movedNewFileCv, $movedNewFileCover, $movedNewFileTestimonial, $movedNewFileOther);
+				foreach ($files as $file)
+				{
+					if ($file)
+					{
+						$mail->attach(\Swift_Attachment::fromPath($file->getPublicUrl()));
+					}
+				}
+
+				if ($this->settings['sendEmailToInternal'] && $this->settings['sendEmailToContact'])
+				{
+					$mail->setTo(array($contact->getEmail() => $contact->getName()));
+					$mail->setBcc($this->settings['sendEmailToInternal']);
+				}
+				elseif (!$this->settings['sendEmailToContact'] && $this->settings['sendEmailToInternal'])
+				{
+					$mail->setTo(array($this->settings['sendEmailToInternal'] => 'Internal'));
+				}
+				elseif ($this->settings['sendEmailToContact'] && !$this->settings['sendEmailToInternal'])
+				{
+					$mail->setTo(array($contact->getEmail() => $contact->getName()));
+				}
+
+				try
+				{
+					$mail->send();
+				}
+				catch (Exception $e)
+				{
+					$this->logger->log(\TYPO3\CMS\Core\Log\LogLevel::CRITICAL, "Error trying to send a mail: ".$e->getMessage(), array($this->settings, $mail));
+				}
+			}
+
+			if ($this->settings["sendEmailToApplicant"])
+			{
+				$mail = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Mail\MailMessage::class);
+				// Prepare and send the message
+				$mail
+					// Give the message a subject
+					->setSubject('Confirming the receivment of your application for the position '.$currentPosting->getTitle())
+
+					// Set the From address with an associative array
+					->setFrom(array($this->settings["emailSender"] => $this->settings["emailSenderName"]))
+					->setTo(array($newApplication->getEmail() => $newApplication->getFirstName()." ".$newApplication->getLastName()))
+
+					// Give it a body
+					->setBody($this->settings["sendEmailToApplicantText"]);
+
+				try
+				{
+					$mail->send();
+				}
+				catch (Exception $e)
+				{
+					$this->logger->log(\TYPO3\CMS\Core\Log\LogLevel::CRITICAL, "Error trying to send a mail: ".$e->getMessage(), array($this->settings, $mail));
+				}
+			}
+
 			$uri = $this->uriBuilder->reset()
 									->setTargetPageUid($this->settings["successPage"])
-									->setCreateAbsoluteUri(TRUE)
+									->setCreateAbsoluteUri(true)
 									->build();
 			$this->redirectToUri($uri);
 		}
@@ -211,7 +306,7 @@
 			);
 
 			/** @var \TYPO3\CMS\Core\DataHandling\DataHandler $tce */
-			$tce = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\DataHandling\DataHandler'); // create TCE instance
+			$tce = GeneralUtility::makeInstance('TYPO3\CMS\Core\DataHandling\DataHandler'); // create TCE instance
 			$tce->start($data, array());
 			$tce->process_datamap();
 		}
@@ -228,8 +323,8 @@
 			$folder = self::APP_FILE_FOLDER.$domainObject->getFirstName()."_".$domainObject->getLastName()."_id_".$domainObject->getPosting();
 
 			//be careful - you should validate the file type! This is not included here
-			$tmpName = $_FILES['tx_jobs_frontend']['name'][$fieldName];
-			$tmpFile = $_FILES['tx_jobs_frontend']['tmp_name'][$fieldName];
+			$tmpName = $_FILES['tx_jobs_applicationform']['name'][$fieldName];
+			$tmpFile = $_FILES['tx_jobs_applicationform']['tmp_name'][$fieldName];
 
 			$storageRepository = $this->objectManager->get('TYPO3\\CMS\\Core\\Resource\\StorageRepository');
 			$storage = $storageRepository->findByUid('1'); //this is the fileadmin storage
@@ -245,11 +340,11 @@
 			}
 
 			//file name, be sure that this is unique
-			$newFileName = $fieldName."_".$domainObject->getFirstName()."_".$domainObject->getLastName()."_id_".$domainObject->getPosting();
+			$newFileName = $fieldName."_".$domainObject->getFirstName()."_".$domainObject->getLastName()."_id_".$domainObject->getPosting().".pdf";
 
 			//build sys_file
 			$movedNewFile = $storage->addFile($tmpFile, $targetFolder, $newFileName);
-			$this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager')->persistAll();
+			$this->persistenceManager->persistAll();
 
 			return $movedNewFile;
 		}
