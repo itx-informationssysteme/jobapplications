@@ -189,6 +189,12 @@
 			<trans-unit id="fe.info.fileSize" resname="fe.info.fileSize">
 				<source>The maximum upload filesize is %sMB and only pdf-files are allowed.</source>
 			</trans-unit>
+			<trans-unit id="fe.email.toApplicantSubject" resname="fe.email.toApplicantSubject">
+				<source>Confirming the receivment of your application for the position %s</source>
+			</trans-unit>
+			<trans-unit id="fe.email.toContactSubject" resname="fe.email.toContactSubject">
+				<source>New application for position %s</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

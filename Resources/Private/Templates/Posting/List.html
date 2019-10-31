@@ -44,9 +44,9 @@
 															<div class="col"><f:translate key="tx_jobs_domain_model_posting.date_posted"/>:</div>
 															<div class="col-md-auto"><span>{posting.datePosted -> f:format.date()}</span></div>
 														</div>
-														<div class="row mt-3"></div>
-														<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView"><f:translate key="fe.posting.button.detailview"/></f:link.action>
-
+														<div class="row mt-3">
+															<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView"><f:translate key="fe.posting.button.detailview"/></f:link.action>
+														</div>
 													</div>
 												</div>
 												<div class="col"></div>

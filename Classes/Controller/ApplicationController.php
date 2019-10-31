@@ -202,7 +202,7 @@
 				// Prepare and send the message
 				$mail
 					// Give the message a subject
-					->setSubject('New application for position '.$currentPosting->getTitle())
+					->setSubject(LocalizationUtility::translate("fe.email.toContactSubject", 'jobs', array(0 => $currentPosting->getTitle())))
 
 					// Set the From address with an associative array
 					->setFrom(array($newApplication->getEmail() => $newApplication->getFirstName()." ".$newApplication->getLastName()))
@@ -223,6 +223,7 @@
 					}
 				}
 
+				//Figure out who the email will be sent to and how
 				if ($this->settings['sendEmailToInternal'] && $this->settings['sendEmailToContact'])
 				{
 					$mail->setTo(array($contact->getEmail() => $contact->getName()));
@@ -253,7 +254,7 @@
 				// Prepare and send the message
 				$mail
 					// Give the message a subject
-					->setSubject('Confirming the receivment of your application for the position '.$currentPosting->getTitle())
+					->setSubject(LocalizationUtility::translate("fe.email.toApplicantSubject", 'jobs', array(0 => $currentPosting->getTitle())))
 
 					// Set the From address with an associative array
 					->setFrom(array($this->settings["emailSender"] => $this->settings["emailSenderName"]))
@@ -270,6 +271,16 @@
 				{
 					$this->logger->log(\TYPO3\CMS\Core\Log\LogLevel::CRITICAL, "Error trying to send a mail: ".$e->getMessage(), array($this->settings, $mail));
 				}
+			}
+
+			if(!$this->settings['saveApplicationInBackend'])
+			{
+				$storageRepository = $this->objectManager->get('TYPO3\\CMS\\Core\\Resource\\StorageRepository');
+				$storage = $storageRepository->findByUid('1');
+				$folder = $storage->getFolder($this->getApplicantFolder($newApplication));
+				//$storage->deleteFolder($folder, true);
+				// todo empty folder first?
+				$this->applicationRepository->remove($newApplication);
 			}
 
 			$uri = $this->uriBuilder->reset()
@@ -320,7 +331,7 @@
 		private function handleFileUpload($fieldName, \ITX\Jobs\Domain\Model\Application $domainObject)
 		{
 
-			$folder = self::APP_FILE_FOLDER.$domainObject->getFirstName()."_".$domainObject->getLastName()."_id_".$domainObject->getPosting();
+			$folder = $this->getApplicantFolder($domainObject);
 
 			//be careful - you should validate the file type! This is not included here
 			$tmpName = $_FILES['tx_jobs_applicationform']['name'][$fieldName];
@@ -347,5 +358,15 @@
 			$this->persistenceManager->persistAll();
 
 			return $movedNewFile;
+		}
+
+		/**
+		 * Helper function to generate the folder for an application
+		 * @param $applicationObject
+		 *
+		 * @return string
+		 */
+		private function getApplicantFolder($applicationObject) {
+			return self::APP_FILE_FOLDER.$applicationObject->getFirstName()."_".$applicationObject->getLastName()."_id_".$applicationObject->getPosting();
 		}
 	}
