@@ -8,9 +8,20 @@
                 </TCEforms>
                 <type>array</type>
                 <el>
+                    <settings.applicationsEnabled>
+                        <TCEforms>
+                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.applicationsEnabled</label>
+                            <config>
+                                <type>check</type>
+                                <default>1</default>
+                            </config>
+                            <onChange>reload</onChange>
+                        </TCEforms>
+                    </settings.applicationsEnabled>
                     <settings.applicationFormUid>
                         <TCEforms>
                             <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.general.applicationForm</label>
+                            <displayCond>FIELD:settings.applicationsEnabled:REQ:true</displayCond>
                             <config>
                                 <type>group</type>
                                 <internal_type>db</internal_type>
@@ -28,6 +39,15 @@
                             </config>
                         </TCEforms>
                     </settings.applicationFormUid>
+                    <settings.showContact>
+                        <TCEforms>
+                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.showContact</label>
+                            <config>
+                                <type>check</type>
+                                <default>1</default>
+                            </config>
+                        </TCEforms>
+                    </settings.showContact>
                 </el>
             </ROOT>
         </singleView>

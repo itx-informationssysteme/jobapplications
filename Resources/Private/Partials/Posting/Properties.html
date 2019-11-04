@@ -152,7 +152,7 @@
 		</td>
 	</tr>
 	</f:if>
-	<f:if condition="{posting.contact}">
+	<f:if condition="{posting.contact} && {settings.showContact}}">
 	<tr>
 		<td>
 			<f:translate key="tx_jobs_domain_model_posting.contact" />

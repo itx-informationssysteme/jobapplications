@@ -24,7 +24,9 @@
 				<f:render partial="Posting/Properties" arguments="{posting:posting}" />
 				<div class="row">
 					<div class="col-4"><button class="btn btn-link" onclick="window.history.back()"><f:translate key="fe.posting.show.backlink"/></button></div>
-					<div class="col-4 text-center"><f:link.action class="btn btn-primary m-auto" controller="Application" action="new" arguments="{postingUid:posting.uid, postingTitle: posting.title}" pageUid="{settings.applicationFormUid}" pluginName="ApplicationForm"><f:translate key="fe.posting.button.cta"/></f:link.action></div>
+					<f:if condition="{settings.applicationsEnabled}">
+						<div class="col-4 text-center"><f:link.action class="btn btn-primary m-auto" controller="Application" action="new" arguments="{postingUid:posting.uid, postingTitle: posting.title}" pageUid="{settings.applicationFormUid}" pluginName="ApplicationForm"><f:translate key="fe.posting.button.cta"/></f:link.action></div>
+					</f:if>
 				</div>
 			</div>
 			<div class="col"></div>

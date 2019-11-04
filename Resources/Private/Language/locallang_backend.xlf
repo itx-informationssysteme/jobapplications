@@ -57,7 +57,12 @@
 			<trans-unit id="flexform.sendEmailToApplicant" resname="flexform.sendEmailToApplicant">
 				<source>Should an E-Mail be sent to the applicant?</source>
 			</trans-unit>
-
+			<trans-unit id="flexform.applicationsEnabled" resname="flexform.applicationsEnabled">
+				<source>Application Module</source>
+			</trans-unit>
+			<trans-unit id="flexform.showContact" resname="flexform.showContact">
+				<source>Show Contact?</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
