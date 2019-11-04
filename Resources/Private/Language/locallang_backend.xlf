@@ -63,6 +63,9 @@
 			<trans-unit id="flexform.showContact" resname="flexform.showContact">
 				<source>Show Contact?</source>
 			</trans-unit>
+			<trans-unit id="flexform.googleMapsApiKey" resname="flexform.googleMapsApiKey">
+				<source>Enter a Google Maps API Key here to enable contact info maps support</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

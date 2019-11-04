@@ -48,6 +48,17 @@
                             </config>
                         </TCEforms>
                     </settings.showContact>
+                    <settings.googleMapsApiKey>
+                        <TCEforms>
+                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.googleMapsApiKey</label>
+                            <config>
+                                <type>input</type>
+                                <size>20</size>
+                                <max>80</max>
+                                <eval>trim</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.googleMapsApiKey>
                 </el>
             </ROOT>
         </singleView>
