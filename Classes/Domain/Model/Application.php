@@ -82,7 +82,7 @@ class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * cv
      * 
      * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
+     * @cascade remove
 	 */
     protected $cv = null;
 
@@ -90,7 +90,7 @@ class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * coverLetter
      * 
      * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
+     * @cascade remove
      */
     protected $coverLetter = null;
 
@@ -98,7 +98,7 @@ class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * testimonials
      * 
      * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
+     * @cascade remove
      */
     protected $testimonials = null;
 
@@ -106,7 +106,7 @@ class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * otherFiles
      * 
      * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
+     * @cascade remove
      */
     protected $otherFiles = null;
 

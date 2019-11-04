@@ -15,6 +15,7 @@
 	 ***/
 
 	use ITX\Jobs\Domain\Model\Posting;
+	use ScssPhp\ScssPhp\Formatter\Debug;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
@@ -169,8 +170,8 @@
 			}
 			if ($_FILES['tx_jobs_applicationform']['name']['other_files'])
 			{
-				$movedNewFileOther = $this->handleFileUpload("cv", $newApplication);
-				$this->buildRelations($newApplication->getUid(), $movedNewFileOther, 'cv', 'tx_jobs_domain_model_application', $newApplication->getPid());
+				$movedNewFileOther = $this->handleFileUpload("other_files", $newApplication);
+				$this->buildRelations($newApplication->getUid(), $movedNewFileOther, 'other_files', 'tx_jobs_domain_model_application', $newApplication->getPid());
 			}
 
 			//Mail Handling
@@ -278,9 +279,8 @@
 				$storageRepository = $this->objectManager->get('TYPO3\\CMS\\Core\\Resource\\StorageRepository');
 				$storage = $storageRepository->findByUid('1');
 				$folder = $storage->getFolder($this->getApplicantFolder($newApplication));
-				//$storage->deleteFolder($folder, true);
-				// todo empty folder first?
 				$this->applicationRepository->remove($newApplication);
+				$storage->deleteFolder($folder, true);
 			}
 
 			$uri = $this->uriBuilder->reset()
@@ -362,11 +362,14 @@
 
 		/**
 		 * Helper function to generate the folder for an application
+		 *
 		 * @param $applicationObject
 		 *
 		 * @return string
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
 		 */
 		private function getApplicantFolder($applicationObject) {
-			return self::APP_FILE_FOLDER.$applicationObject->getFirstName()."_".$applicationObject->getLastName()."_id_".$applicationObject->getPosting();
+			return self::APP_FILE_FOLDER.(new \TYPO3\CMS\Core\Resource\Driver\LocalDriver)
+				->sanitizeFileName($applicationObject->getFirstName()."_".$applicationObject->getLastName()."_id_".$applicationObject->getPosting());
 		}
 	}

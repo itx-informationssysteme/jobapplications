@@ -43,7 +43,7 @@
 				<source>Should Applications be saved in the backend?</source>
 			</trans-unit>
 			<trans-unit id="flexform.sendEmailToContact" resname="flexform.sendEmailToContact">
-				<source>Should the refereced contact receive an E-Mail?</source>
+				<source>Should the referenced contact receive an E-Mail?</source>
 			</trans-unit>
 			<trans-unit id="flexform.sendEmailToApplicantText" resname="flexform.sendEmailToApplicantText">
 				<source>E-Mail to Applicant Text</source>

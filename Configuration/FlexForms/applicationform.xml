@@ -37,6 +37,17 @@
                             </config>
                         </TCEforms>
                     </settings.sendEmailToContact>
+                    <settings.sendEmailToInternal>
+                        <TCEforms>
+                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToInternal</label>
+                            <config>
+                                <type>input</type>
+                                <size>20</size>
+                                <max>50</max>
+                                <eval>trim</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.sendEmailToInternal>
                     <settings.sendEmailToApplicant>
                         <TCEforms>
                             <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToApplicant</label>
@@ -56,8 +67,9 @@
                                 <cols>24</cols>
                                 <rows>3</rows>
                                 <eval>required</eval>
+                                <enableRichtext>1</enableRichtext>
+                                <richtextConfiguration>default</richtextConfiguration>
                             </config>
-                            <defaultExtras>richtext[*]:rte_transform[mode=ts_css]</defaultExtras>
                         </TCEforms>
                     </settings.sendEmailToApplicantText>
                     <settings.emailSender>
@@ -93,17 +105,6 @@
                             </config>
                         </TCEforms>
                     </settings.saveApplicationInBackend>
-                    <settings.sendEmailToInternal>
-                        <TCEforms>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToInternal</label>
-                            <config>
-                                <type>input</type>
-                                <size>20</size>
-                                <max>50</max>
-                                <eval>trim</eval>
-                            </config>
-                        </TCEforms>
-                    </settings.sendEmailToInternal>
                     <settings.showSalarayExpectation>
                         <TCEforms>
                             <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.showSalarayExpectation</label>
