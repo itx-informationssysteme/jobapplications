@@ -108,6 +108,7 @@
 		 * @return void
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
 		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
 		 */
 		public function createAction(\ITX\Jobs\Domain\Model\Application $newApplication)
 		{
@@ -278,9 +279,14 @@
 			{
 				$storageRepository = $this->objectManager->get('TYPO3\\CMS\\Core\\Resource\\StorageRepository');
 				$storage = $storageRepository->findByUid('1');
-				$folder = $storage->getFolder($this->getApplicantFolder($newApplication));
+				if($storage->hasFolder($this->getApplicantFolder($newApplication)))
+				{
+					$folder = $storage->getFolder($this->getApplicantFolder($newApplication));
+				}
 				$this->applicationRepository->remove($newApplication);
-				$storage->deleteFolder($folder, true);
+				if ($folder) {
+					$storage->deleteFolder($folder, true);
+				}
 			}
 
 			$uri = $this->uriBuilder->reset()
