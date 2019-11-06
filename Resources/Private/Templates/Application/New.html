@@ -23,7 +23,10 @@
         <f:form action="create" enctype="multipart/form-data" name="newApplication" object="{newApplication}" arguments="{postingUid: postingUid, postingTitle: postingTitle}">
           <f:render partial="Application/FormFields" arguments="{fileSizeLimit: fileSizeLimit}"/>
           <div class="row">
-            <f:form.submit class="btn btn-primary mx-auto" value="{f:translate(key='fe.application.new.submit')}"/>
+            <div class="col-4"><button class="btn btn-link px-0" onclick="window.history.back()"><f:translate key="fe.application.backlink"/></button></div>
+            <div class="col-4 text-center">
+              <f:form.submit class="btn btn-primary mx-auto" value="{f:translate(key='fe.application.new.submit')}"/>
+            </div>
           </div>
         </f:form>
       </div>

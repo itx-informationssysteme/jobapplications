@@ -61,19 +61,19 @@ call_user_func(
 			$iconRegistry->registerIcon(
 				'jobs-plugin-frontend',
 				\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-				['source' => 'EXT:jobs/Resources/Public/Icons/frontend.png']
+				['source' => 'EXT:jobs/Resources/Public/Icons/logo_jobs.svg']
 			);
 
 			$iconRegistry->registerIcon(
 				'jobs-plugin-detailview',
 				\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-				['source' => 'EXT:jobs/Resources/Public/Icons/frontend.png']
+				['source' => 'EXT:jobs/Resources/Public/Icons/logo_jobs.svg']
 			);
 
 			$iconRegistry->registerIcon(
 				'jobs-plugin-applicationform',
 				\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-				['source' => 'EXT:jobs/Resources/Public/Icons/frontend.png']
+				['source' => 'EXT:jobs/Resources/Public/Icons/logo_jobs.svg']
 			);
     }
 );

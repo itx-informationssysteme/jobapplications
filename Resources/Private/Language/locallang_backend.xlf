@@ -46,7 +46,10 @@
 				<source>Should the referenced contact receive an E-Mail?</source>
 			</trans-unit>
 			<trans-unit id="flexform.sendEmailToApplicantText" resname="flexform.sendEmailToApplicantText">
-				<source>E-Mail to Applicant Text</source>
+				<source>E-Mail to Applicant Text \nTemplating available: \nPosting Title: postingTitle \nApplicant Salutation: %applicantSalutation% \nApplicant Firstname: %applicantFirstname% \nApplicant Lastname: %applicantLastname%</source>
+			</trans-unit>
+			<trans-unit id="flexform.sendEmailToApplicantSubject" resname="flexform.sendEmailToApplicantSubject">
+				<source>E-Mail to Applicant Subject (Templating available: Posting Title: %postingTitle%)</source>
 			</trans-unit>
 			<trans-unit id="flexform.emailSenderName" resname="flexform.emailSenderName">
 				<source>E-Mail to Applicant Sender Name</source>

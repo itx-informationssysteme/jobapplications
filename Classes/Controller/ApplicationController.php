@@ -253,17 +253,41 @@
 			if ($this->settings["sendEmailToApplicant"])
 			{
 				$mail = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Mail\MailMessage::class);
+
+				//Template Messages
+				$subject = $this->settings['sendEmailToApplicantSubject'];
+				$subject = str_replace("%postingTitle%", $currentPosting->getTitle(), $subject);
+
+				$body = $this->settings["sendEmailToApplicantText"];
+				switch (intval($newApplication->getSalutation()))
+				{
+					case 3:
+					case 0:
+						$salutation = "";
+						break;
+					case 1:
+						$salutation = LocalizationUtility::translate("fe.application.selector.mr", "jobs");
+						break;
+					case 2:
+						$salutation = LocalizationUtility::translate("fe.application.selector.mrs", "jobs");
+						break;
+				}
+				$body = str_replace("%applicantSalutation%", $salutation, $body);
+				$body = str_replace("%applicantFirstname%", $newApplication->getFirstName(), $body);
+				$body = str_replace("%applicantLastname%", $newApplication->getLastName(), $body);
+				$body = str_replace("%postingTitle%", $currentPosting->getTitle(), $body);
+
 				// Prepare and send the message
 				$mail
 					// Give the message a subject
-					->setSubject(LocalizationUtility::translate("fe.email.toApplicantSubject", 'jobs', array(0 => $currentPosting->getTitle())))
+					->setSubject($subject)
 
 					// Set the From address with an associative array
 					->setFrom(array($this->settings["emailSender"] => $this->settings["emailSenderName"]))
 					->setTo(array($newApplication->getEmail() => $newApplication->getFirstName()." ".$newApplication->getLastName()))
 
 					// Give it a body
-					->setBody($this->settings["sendEmailToApplicantText"]);
+					->setBody($body);
 
 				try
 				{

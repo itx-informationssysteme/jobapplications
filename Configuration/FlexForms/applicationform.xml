@@ -58,6 +58,18 @@
                             <onChange>reload</onChange>
                         </TCEforms>
                     </settings.sendEmailToApplicant>
+                    <settings.sendEmailToApplicantSubject>
+                        <TCEforms>
+                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToApplicantSubject</label>
+                            <displayCond>FIELD:settings.sendEmailToApplicant:REQ:true</displayCond>
+                            <config>
+                                <type>input</type>
+                                <size>50</size>
+                                <max>150</max>
+                                <eval>trim,required</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.sendEmailToApplicantSubject>
                     <settings.sendEmailToApplicantText>
                         <TCEforms>
                             <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToApplicantText</label>

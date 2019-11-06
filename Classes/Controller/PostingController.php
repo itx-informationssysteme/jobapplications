@@ -49,8 +49,6 @@
 			$careerLevelType = "";
 			$selectedEmploymentType = "";
 
-
-
 			if ($this->request->hasArgument("division") || $this->request->hasArgument("careerLevel") || $this->request->hasArgument("employmentType"))
 			{
 				$divisionName = $this->request->getArgument('division');

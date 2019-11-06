@@ -113,6 +113,7 @@
 			$divisionSQL = "";
 			$careerLevelSQL = "";
 			$employmentTypeSQL = "";
+
 			if ($division) {
 				$divisionSQL = "AND division = \"$division\"";
 			}
