@@ -153,6 +153,9 @@
 			<trans-unit id="fe.posting.page.noPositions" resname="fe.posting.page.noPositions">
 				<source>There are no open positions at the moment.</source>
 			</trans-unit>
+			<trans-unit id="fe.posting.filter.noPositions" resname="fe.posting.filter.noPositions">
+				<source>There are no open positions matching your selection at the moment.</source>
+			</trans-unit>
             <trans-unit id="fe.posting.button.detailview" resname="fe.posting.button.detailview">
                 <source>Details</source>
             </trans-unit>
@@ -194,6 +197,24 @@
 			</trans-unit>
 			<trans-unit id="fe.email.toContactSubject" resname="fe.email.toContactSubject">
 				<source>New application for position %s</source>
+			</trans-unit>
+			<trans-unit id="fe.filter.divisions" resname="fe.filter.divisions">
+				<source>Division</source>
+			</trans-unit>
+			<trans-unit id="fe.filter.careerLevel" resname="fe.filter.careerLevel">
+				<source>Career Level</source>
+			</trans-unit>
+			<trans-unit id="fe.filter.employmentType" resname="fe.filter.employmentType">
+				<source>Employment Type</source>
+			</trans-unit>
+			<trans-unit id="fe.posting.button.filter" resname="fe.posting.button.filter">
+				<source>Filter</source>
+			</trans-unit>
+			<trans-unit id="fe.posting.button.reset" resname="fe.posting.button.reset">
+				<source>Reset</source>
+			</trans-unit>
+			<trans-unit id="fe.posting.filter.chooseMessage" resname="fe.posting.filter.chooseMessage">
+				<source>All</source>
 			</trans-unit>
 		</body>
 	</file>

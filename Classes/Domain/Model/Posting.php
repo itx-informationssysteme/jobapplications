@@ -1,6 +1,6 @@
 <?php
 namespace ITX\Jobs\Domain\Model;
-
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /***
  *
@@ -154,7 +154,28 @@ class Posting extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected $listViewImage = null;
 
-    /**
+	/**
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+	 */
+	protected $categories;
+
+	/**
+	 * @return ObjectStorage
+	 */
+	public function getCategories(): ObjectStorage
+	{
+		return $this->categories;
+	}
+
+	/**
+	 * @param ObjectStorage $categories
+	 */
+	public function setCategories(ObjectStorage $categories)
+	{
+		$this->categories = $categories;
+	}
+
+	/**
      * __construct
      */
     public function __construct()
@@ -162,6 +183,7 @@ class Posting extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
         //Do not remove the next line: It would break the functionality
         $this->initStorageObjects();
+		$this->categories = new ObjectStorage();
     }
 
     /**
