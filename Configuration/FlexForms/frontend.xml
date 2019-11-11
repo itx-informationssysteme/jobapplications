@@ -8,6 +8,26 @@
                 </TCEforms>
                 <type>array</type>
                 <el>
+                    <settings.detailViewUid>
+                        <TCEforms>
+                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.general.detailView</label>
+                            <config>
+                                <type>group</type>
+                                <internal_type>db</internal_type>
+                                <allowed>pages</allowed>
+                                <size>1</size>
+                                <maxitems>1</maxitems>
+                                <minitems>0</minitems>
+                                <show_thumbs>1</show_thumbs>
+                                <wizards>
+                                    <suggest>
+                                        <type>suggest</type>
+                                    </suggest>
+                                </wizards>
+                                <eval>required</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.detailViewUid>
                     <settings.imageAsHeader>
                         <TCEforms>
                             <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.imageAsHeader</label>
@@ -17,6 +37,25 @@
                             </config>
                         </TCEforms>
                     </settings.imageAsHeader>
+                    <settings.category>
+                        <TCEforms>
+                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.category</label>
+                            <config>
+                                <type>select</type>
+                                <foreign_table>sys_category</foreign_table>
+                                <foreign_table_where>
+                                    AND sys_category.pid = (SELECT pages FROM tt_content WHERE uid=###THIS_UID###)
+                                </foreign_table_where>
+                                <items type="array">
+                                    <numIndex index="100">
+                                        <numIndex index="0"></numIndex>
+                                        <numIndex index="1">0</numIndex>
+                                    </numIndex>
+                                </items>
+                                <allowNonIdValues>1</allowNonIdValues>
+                            </config>
+                        </TCEforms>
+                    </settings.category>
                 </el>
             </ROOT>
         </singleView>

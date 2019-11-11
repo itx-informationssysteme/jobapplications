@@ -48,6 +48,7 @@
 			$divisionName = "";
 			$careerLevelType = "";
 			$selectedEmploymentType = "";
+			$category = intval($this->settings["category"]);
 
 			if ($this->request->hasArgument("division") || $this->request->hasArgument("careerLevel") || $this->request->hasArgument("employmentType"))
 			{
@@ -55,21 +56,27 @@
 				$careerLevelType = $this->request->getArgument('careerLevel');
 				$selectedEmploymentType = $this->request->getArgument('employmentType');
 
-				if ($divisionName != "" || $careerLevelType != "" || $selectedEmploymentType != "")
-				{
-					$postings = $this->postingRepository->findByFilter($divisionName, $careerLevelType, $selectedEmploymentType);
+			}
+			if ($divisionName != "" || $careerLevelType != "" || $selectedEmploymentType != "")
+			{
+				$postings = $this->postingRepository->findByFilter($divisionName, $careerLevelType, $selectedEmploymentType, $category);
 
-				} else {
+			}
+			else
+			{
+				if ($category == 0)
+				{
 					$postings = $this->postingRepository->findAll();
 				}
-
-			} else {
-				$postings = $this->postingRepository->findAll();
+				else
+				{
+					$postings = $this->postingRepository->findByCategory($category);
+				}
 			}
 
-			$divisions = $this->postingRepository->findAllDivisions();
-			$careerLevels = $this->postingRepository->findAllCareerLevels();
-			$employmentTypes = $this->postingRepository->findAllEmploymentTypes();
+			$divisions = $this->postingRepository->findAllDivisions($category);
+			$careerLevels = $this->postingRepository->findAllCareerLevels($category);
+			$employmentTypes = $this->postingRepository->findAllEmploymentTypes($category);
 
 			$this->view->assign('divisionName', $divisionName);
 			$this->view->assign('careerLevelType', $careerLevelType);
