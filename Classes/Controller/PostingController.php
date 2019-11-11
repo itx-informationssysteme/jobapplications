@@ -30,6 +30,14 @@
 		 */
 		protected $postingRepository = null;
 
+		/**
+		 * locationRepository
+		 *
+		 * @var \ITX\Jobs\Domain\Repository\LocationRepository
+		 * @inject
+		 */
+		protected $locationRepository = null;
+
 		public function initializeAction()
 		{
 
@@ -48,18 +56,22 @@
 			$divisionName = "";
 			$careerLevelType = "";
 			$selectedEmploymentType = "";
+			$selectedLocation = "";
 			$category = intval($this->settings["category"]);
 
-			if ($this->request->hasArgument("division") || $this->request->hasArgument("careerLevel") || $this->request->hasArgument("employmentType"))
+			if ($this->request->hasArgument("division") ||
+				$this->request->hasArgument("careerLevel") ||
+				$this->request->hasArgument("employmentType" ||
+				$this->request->hasArgument("location")))
 			{
 				$divisionName = $this->request->getArgument('division');
 				$careerLevelType = $this->request->getArgument('careerLevel');
 				$selectedEmploymentType = $this->request->getArgument('employmentType');
-
+				$selectedLocation = $this->request->getArgument('location');
 			}
-			if ($divisionName != "" || $careerLevelType != "" || $selectedEmploymentType != "")
+			if ($divisionName != "" || $careerLevelType != "" || $selectedEmploymentType != "" || $selectedLocation != "")
 			{
-				$postings = $this->postingRepository->findByFilter($divisionName, $careerLevelType, $selectedEmploymentType, $category);
+				$postings = $this->postingRepository->findByFilter($divisionName, $careerLevelType, $selectedEmploymentType, $selectedLocation, $category);
 
 			}
 			else
@@ -77,14 +89,17 @@
 			$divisions = $this->postingRepository->findAllDivisions($category);
 			$careerLevels = $this->postingRepository->findAllCareerLevels($category);
 			$employmentTypes = $this->postingRepository->findAllEmploymentTypes($category);
+			$locations = $this->locationRepository->findAll($category);
 
 			$this->view->assign('divisionName', $divisionName);
 			$this->view->assign('careerLevelType', $careerLevelType);
-			$this->view->assign('employmentTypes', $employmentTypes);
 			$this->view->assign('selectedEmploymentType', $selectedEmploymentType);
+			$this->view->assign('selectedLocation', $selectedLocation);
+			$this->view->assign('employmentTypes', $employmentTypes);
 			$this->view->assign('postings', $postings);
 			$this->view->assign('divisions', $divisions);
 			$this->view->assign('careerLevels', $careerLevels);
+			$this->view->assign('locations', $locations);
 		}
 
 		/**

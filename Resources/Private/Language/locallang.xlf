@@ -207,6 +207,9 @@
 			<trans-unit id="fe.filter.employmentType" resname="fe.filter.employmentType">
 				<source>Employment Type</source>
 			</trans-unit>
+			<trans-unit id="fe.filter.location" resname="fe.filter.location">
+				<source>Location</source>
+			</trans-unit>
 			<trans-unit id="fe.posting.button.filter" resname="fe.posting.button.filter">
 				<source>Filter</source>
 			</trans-unit>

@@ -18,11 +18,11 @@ Otherwise your changes will be overwritten the next time you save the extension 
 		<h3>
 			<f:translate key="fe.posting.page.title"/>
 		</h3>
-		<f:if condition="{postings -> f:count()} > 0 || {divisionName} || {careerLevelType} || {selectedEmploymentType}">
+		<f:if condition="{postings -> f:count()} > 0 || {divisionName} || {careerLevelType} || {selectedEmploymentType} || {selectedLocation}">
 			<f:then>
 				<f:form action="list" name="filter" object="{filter}">
 					<div class="form-row m-0">
-						<div class="form-group pl-0 col-3">
+						<div class="form-group pl-0 col">
 							<label for="division">
 								<f:translate key="fe.filter.divisions"/>
 							</label>
@@ -32,7 +32,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 								</f:for>
 							</f:form.select>
 						</div>
-						<div class="form-group col-3">
+						<div class="form-group col">
 							<label for="careerLevel">
 								<f:translate key="fe.filter.careerLevel"/>
 							</label>
@@ -42,7 +42,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 								</f:for>
 							</f:form.select>
 						</div>
-						<div class="form-group col-3">
+						<div class="form-group col">
 							<label for="employmentType">
 								<f:translate key="fe.filter.employmentType"/>
 							</label>
@@ -53,10 +53,20 @@ Otherwise your changes will be overwritten the next time you save the extension 
 							</f:form.select>
 						</div>
 						<div class="form-group col">
+							<label for="location">
+								<f:translate key="fe.filter.location"/>
+							</label>
+							<f:form.select class="form-control" name="location" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
+								<f:for each="{locations}" as="location">
+									<f:form.select.option value="{location.uid}" additionalAttributes="{f:if(condition: '{selectedLocation} == {location.uid}', then: '{selected: true}')}">{location.name}</f:form.select.option>
+								</f:for>
+							</f:form.select>
+						</div>
+						<div class="form-group col-1">
 							<label for="submit">&nbsp;</label>
 							<f:form.submit name="submit" class="form-control btn btn-primary mx-2" value="{f:translate(key: 'fe.posting.button.filter')}"></f:form.submit>
 						</div>
-						<div class="form-group col">
+						<div class="form-group col-1">
 							<label for="reset">&nbsp;</label>
 							<f:link.action name="reset" class="form-control btn mx-2"><f:translate key="fe.posting.button.reset"></f:translate></f:link.action>
 						</div>

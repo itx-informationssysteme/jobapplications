@@ -133,14 +133,18 @@
 		 * @param $division       String
 		 * @param $careerLevel    String
 		 * @param $employmentType String
+		 * @param location 		  int
+		 * @param category 		  int
+		 *
 		 *
 		 * @return array
 		 */
-		public function findByFilter($division, $careerLevel, $employmentType, $category)
+		public function findByFilter($division, $careerLevel, $employmentType, $location, $category)
 		{
 			$divisionSQL = "";
 			$careerLevelSQL = "";
 			$employmentTypeSQL = "";
+			$locationSQL = "";
 
 			$baseSQL = "SELECT * FROM tx_jobs_domain_model_posting WHERE deleted = 0 AND hidden = 0";
 
@@ -163,10 +167,14 @@
 			{
 				$employmentTypeSQL = "AND employment_type = \"$employmentType\"";
 			}
+			if ($location != 0)
+			{
+				$locationSQL = "AND location = $location";
+			}
 			$query = $this->createQuery();
 
 			$query->statement(
-				$baseSQL." ".$divisionSQL." ".$careerLevelSQL." ".$employmentTypeSQL
+				$baseSQL." ".$divisionSQL." ".$careerLevelSQL." ".$employmentTypeSQL." ".$locationSQL
 			);
 
 			return $query->execute();
