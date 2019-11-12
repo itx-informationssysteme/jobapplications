@@ -16,11 +16,11 @@
     <div class="row">
       <div class="col"></div>
       <div class="col-6">
-        <h3><f:translate key="fe.application.new.title"/>&nbsp;{postingTitle}</h3>
+        <h3><f:translate key="fe.application.new.title"/>&nbsp;{posting.title}</h3>
         <f:flashMessages />
         <f:render partial="FormErrors" />
 
-        <f:form action="create" enctype="multipart/form-data" name="newApplication" object="{newApplication}" arguments="{postingUid: postingUid, postingTitle: postingTitle}">
+        <f:form action="create" enctype="multipart/form-data" name="newApplication" object="{newApplication}" arguments="{posting: posting}">
           <f:render partial="Application/FormFields" arguments="{fileSizeLimit: fileSizeLimit}"/>
           <div class="row">
             <div class="col-4"><button class="btn btn-link px-0" onclick="window.history.back()"><f:translate key="fe.application.backlink"/></button></div>

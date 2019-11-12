@@ -40,7 +40,8 @@
 		const APP_FILE_FOLDER = "applications/";
 
 		/**
-		 * @var PostingRepository
+		 * @var \ITX\Jobs\Domain\Repository\PostingRepository
+		 * @inject
 		 */
 		private $postingRepository;
 
@@ -83,8 +84,8 @@
 		public function newAction()
 		{
 			$this->fileSizeLimit = GeneralUtility::getMaxUploadFileSize();
-			$postingUid = $this->request->getArgument("postingUid");
-			$title = $this->request->getArgument("postingTitle");
+			$posting = $this->request->getArgument("posting");
+			$postingObject = $this->postingRepository->findByUid($posting);
 
 			if ($this->request->hasArgument("fileError"))
 			{
@@ -95,8 +96,8 @@
 			{
 				$this->view->assign("fileError", 0);
 			}
-			$this->view->assign("postingUid", $postingUid);
-			$this->view->assign("postingTitle", $title);
+
+			$this->view->assign('posting', $postingObject);
 			$this->view->assign("fileSizeLimit", strval($this->fileSizeLimit) / 1024);
 		}
 
@@ -115,9 +116,8 @@
 			//Uploads in order as defined in Domain Model
 			$uploads = array("cv", "cover_letter", "testimonials", "other_files");
 
-			//get additional infos
-			$postingTitle = $this->request->getArgument("postingTitle");
-			$postingUid = $this->request->getArgument("postingUid");
+			//get posting
+			$posting = $this->request->getArgument("posting");
 
 			//Check if $_FILES Entries have errors
 			foreach ($uploads as $upload)
@@ -127,7 +127,7 @@
 				{
 					$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileType', 'jobs'), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
 					$this->redirect("new", "Application", null, array(
-						"postingUid" => $postingUid,
+						"postingUid" => $posting,
 						"postingTitle" => $postingTitle,
 						"fileError" => $upload
 					));
@@ -140,7 +140,7 @@
 				{
 					$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileSize', 'jobs', array("0" => intval($this->fileSizeLimit) / 1024)), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
 					$this->redirect("new", "Application", null, array(
-						"postingUid" => $postingUid,
+						"postingUid" => $posting,
 						"postingTitle" => $postingTitle,
 						"fileError" => $upload
 					));
@@ -149,7 +149,7 @@
 				}
 			}
 
-			$newApplication->setPosting($postingUid);
+			$newApplication->setPosting($posting);
 			$this->applicationRepository->add($newApplication);
 			$this->persistenceManager->persistAll();
 
@@ -178,7 +178,7 @@
 			//Mail Handling
 
 			$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-			$this->postingRepository = $objectManager->get("ITX\Jobs\Domain\Repository\PostingRepository");
+
 			$currentPosting = $this->postingRepository->findByUid($newApplication->getPosting());
 			$contact = $currentPosting->getContact();
 

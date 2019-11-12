@@ -23,7 +23,7 @@ return [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, date_posted, career_level, division, employment_type, terms_of_employment, company_description, job_description, role_description, skill_requirements, benefits, base_salary, valid_through, required_documents, company_information, detail_view_image, list_view_image, location, contact',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, date_posted, career_level, division, employment_type, terms_of_employment, company_description, job_description, role_description, skill_requirements, benefits, base_salary, valid_through, required_documents, company_information, detail_view_image, list_view_image, location, contact, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, date_posted, career_level, division, employment_type, terms_of_employment, company_description, job_description, role_description, skill_requirements, benefits, base_salary, valid_through, required_documents, company_information, detail_view_image, list_view_image, location, contact, slug, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -418,6 +418,23 @@ return [
                 'maxitems' => 1,
             ],
         ],
+		'slug' => [
+			'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.slug',
+			'exclude' => true,
+			'config' => [
+				'type' => 'slug',
+				'generatorOptions' => [
+					'fields' => ['title'],
+					'fieldSeparator' => '/',
+					'replacements' => [
+						'/' => '',
+					],
+				],
+				'fallbackCharacter' => '-',
+				'eval' => 'uniqueInSite',
+				'default' => ''
+			],
+		],
     
     ],
 ];

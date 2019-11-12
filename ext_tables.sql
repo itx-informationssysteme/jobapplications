@@ -22,6 +22,7 @@ CREATE TABLE tx_jobs_domain_model_posting (
 	list_view_image int(11) unsigned NOT NULL default '0',
 	location int(11) unsigned DEFAULT '0',
 	contact int(11) unsigned DEFAULT '0',
+    slug varchar(255) DEFAULT '' NOT NULL,
 
 );
 

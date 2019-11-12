@@ -1,0 +1,49 @@
+routeEnhancers:
+    JobsFrontendPlugin:
+        type: Extbase
+        namespace: 'tx_jobs_applicationform'
+        limitToPages: [13]
+        routes:
+            -   routePath: '/filter={hash}'
+                _controller: 'Posting::list'
+        defaultController: 'Posting::list'
+        defaults:
+            page: ''
+    JobsDetailView:
+        type: Extbase
+        namespace: 'tx_jobs_detailview'
+        limitToPages: [11]
+        routes:
+            -   routePath: '/{slug}'
+                _controller: 'Posting::show'
+                _arguments:
+                    slug: posting
+        defaultController: 'Posting::list'
+        defaults:
+            page: ''
+        aspects:
+            posting:
+                type: PersistedAliasMapper
+                tableName: tx_jobs_domain_model_posting
+                routeFieldName: uid
+            slug:
+                type: PersistedAliasMapper
+                tableName: tx_jobs_domain_model_posting
+                routeFieldName: slug
+    JobsApplicationForm:
+        type: Extbase
+        namespace: 'tx_jobs_applicationform'
+        limitToPages: [13]
+        routes:
+            -   routePath: '/{slug}/apply'
+                _controller: 'Application::new'
+                _arguments:
+                    slug: posting
+        defaultController: 'Application::new'
+        defaults:
+            page: ''
+        aspects:
+            slug:
+                type: PersistedAliasMapper
+                tableName: tx_jobs_domain_model_posting
+                routeFieldName: slug
