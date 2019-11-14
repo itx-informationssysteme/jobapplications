@@ -28,12 +28,23 @@
                             </config>
                         </TCEforms>
                     </settings.successPage>
+                    <settings.pageTitle>
+                        <TCEforms>
+                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.pageTitle</label>
+                            <config>
+                                <type>input</type>
+                                <size>20</size>
+                                <max>80</max>
+                                <eval>trim</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.pageTitle>
                     <settings.sendEmailToContact>
                         <TCEforms>
                             <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToContact</label>
                             <config>
                                 <type>check</type>
-                                <default>0</default>
+                                <default>1</default>
                             </config>
                         </TCEforms>
                     </settings.sendEmailToContact>
@@ -113,7 +124,7 @@
                             <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.saveApplicationInBackend</label>
                             <config>
                                 <type>check</type>
-                                <default>0</default>
+                                <default>1</default>
                             </config>
                         </TCEforms>
                     </settings.saveApplicationInBackend>

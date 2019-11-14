@@ -78,6 +78,9 @@
 			<trans-unit id="tx_jobs_domain_model_contact.division" resname="tx_jobs_domain_model_contact.division">
 				<source>Division</source>
 			</trans-unit>
+			<trans-unit id="tx_jobs_domain_model_contact.photo" resname="tx_jobs_domain_model_contact.photo">
+				<source>Photo</source>
+			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_location" resname="tx_jobs_domain_model_location">
 				<source>Location</source>
 			</trans-unit>

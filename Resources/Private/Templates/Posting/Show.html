@@ -1,35 +1,51 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-	<f:layout name="Default" />
+<f:layout name="Default"/>
 
-	This Template is responsible for displaying a single view for a domain object
+This Template is responsible for displaying a single view for a domain object
 
-	If you modify this template, do not forget to change the overwrite settings
-	in /Configuration/ExtensionBuilder/settings.yaml:
-	  Resources:
-		Private:
-		  Templates:
-			Show.html: keep
+If you modify this template, do not forget to change the overwrite settings
+in /Configuration/ExtensionBuilder/settings.yaml:
+Resources:
+Private:
+Templates:
+Show.html: keep
 
-	Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
-	<f:section name="content">
-		<div class="row">
-			<f:if condition="{posting.detailViewImage}">
-				<f:image src="{posting.detailViewImage.originalResource.publicUrl}" class="h-auto w-100"/>
-			</f:if>
-			<div class="col"></div>
-			<div class="col-8">
-				<h3>{posting.title}</h3>
-				<f:flashMessages />
-				<f:render partial="Posting/Properties" arguments="{posting:posting}" />
-				<div class="row">
-					<div class="col-4"><button class="btn btn-link" onclick="window.history.back()"><f:translate key="fe.posting.show.backlink"/></button></div>
-					<f:if condition="{settings.applicationsEnabled}">
-						<div class="col-4 text-center"><f:link.action class="btn btn-primary m-auto" controller="Application" action="new" arguments="{posting: posting}" pageUid="{settings.applicationFormUid}" pluginName="ApplicationForm"><f:translate key="fe.posting.button.cta"/></f:link.action></div>
-					</f:if>
-				</div>
+<f:section name="content">
+	<div class="row">
+		<f:if condition="{posting.detailViewImage}">
+			<f:image src="{posting.detailViewImage.originalResource.publicUrl}" class="h-auto w-100"/>
+		</f:if>
+		<div class="col">
+			<div class="row">
+				<button class="btn btn-secondary" onclick="window.history.back()">
+					<f:translate key="fe.posting.show.backlink"/>
+				</button>
 			</div>
-			<div class="col"></div>
 		</div>
-	</f:section>
+		<div class="col-8">
+			<f:flashMessages/>
+			<h3>{posting.title}</h3>
+			<f:render partial="Posting/Properties" arguments="{posting:posting}"/>
+			<div class="row">
+				<div class="col-4"></div>
+				<f:if condition="{settings.applicationsEnabled}">
+					<div class="col-4 text-center">
+						<f:link.action class="btn btn-primary m-auto" controller="Application" action="new" arguments="{posting: posting}" pageUid="{settings.applicationFormUid}" pluginName="ApplicationForm">
+							<f:translate key="fe.posting.button.cta"/>
+						</f:link.action>
+					</div>
+				</f:if>
+			</div>
+		</div>
+		<div class="col">
+			<f:if condition="{posting.datePosted}">
+				<div class="float-right">
+					<h6>{posting.datePosted -> f:format.date()}</h6>
+				</div>
+			</f:if>
+		</div>
+	</div>
+</f:section>
 </html>

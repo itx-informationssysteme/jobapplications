@@ -128,12 +128,19 @@ return [
         'address' => [
             'exclude' => true,
             'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_location.address',
-            'config' => [
-                'type' => 'text',
-                'cols' => 40,
-                'rows' => 15,
-                'eval' => 'trim'
-            ]
+			'config' => [
+				'type' => 'text',
+				'enableRichtext' => true,
+				'richtextConfiguration' => 'default',
+				'fieldControl' => [
+					'fullScreenRichtext' => [
+						'disabled' => false,
+					],
+				],
+				'cols' => 40,
+				'rows' => 15,
+				'eval' => 'trim',
+			],
         ],
         'latitude' => [
             'exclude' => true,

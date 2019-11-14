@@ -15,6 +15,7 @@
 	 ***/
 
 	use ITX\Jobs\Domain\Model\Posting;
+	use ITX\Jobs\PageTitle\JobsPageTitleProvider;
 	use ScssPhp\ScssPhp\Formatter\Debug;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -97,6 +98,19 @@
 				$this->view->assign("fileError", 0);
 			}
 
+			$titleProvider = GeneralUtility::makeInstance(JobsPageTitleProvider::class);
+
+			$title = $this->settings["pageTitle"];
+			if ($title != "")
+			{
+				$title = str_replace("%postingTitle%", $postingObject->getTitle(), $title);
+			} else {
+				$title = $postingObject->getTitle();
+			}
+
+			$titleProvider->setTitle($title);
+			$this->view->assign('posting', $posting);
+
 			$this->view->assign('posting', $postingObject);
 			$this->view->assign("fileSizeLimit", strval($this->fileSizeLimit) / 1024);
 		}
@@ -150,6 +164,7 @@
 			}
 
 			$newApplication->setPosting($posting);
+			$newApplication->setPid($this->settings["saveInFolderPid"]);
 			$this->applicationRepository->add($newApplication);
 			$this->persistenceManager->persistAll();
 

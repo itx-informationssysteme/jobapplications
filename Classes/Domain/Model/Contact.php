@@ -47,6 +47,14 @@ class Contact extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected $division = '';
 
+	/**
+	 * photo
+	 *
+	 * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+	 * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
+	 */
+	protected $photo = null;
+
     /**
      * Returns the name
      * 
@@ -130,4 +138,20 @@ class Contact extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->division = $division;
     }
+
+	/**
+	 * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference
+	 */
+	public function getPhoto()
+	{
+		return $this->photo;
+	}
+
+	/**
+	 * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $photo
+	 */
+	public function setPhoto(\TYPO3\CMS\Extbase\Domain\Model\FileReference $photo)
+	{
+		$this->photo = $photo;
+	}
 }

@@ -3,6 +3,7 @@
 	namespace ITX\Jobs\Controller;
 
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+	use ITX\Jobs\PageTitle\JobsPageTitleProvider;
 
 	/***
 	 *
@@ -57,12 +58,18 @@
 			$careerLevelType = "";
 			$selectedEmploymentType = "";
 			$selectedLocation = "";
-			$category = intval($this->settings["category"]);
+			$category_str = $this->settings["categories"];
+			$categories = array();
+
+			if ($category_str != '')
+			{
+				$categories = explode(",", $category_str);
+			}
 
 			if ($this->request->hasArgument("division") ||
 				$this->request->hasArgument("careerLevel") ||
 				$this->request->hasArgument("employmentType" ||
-				$this->request->hasArgument("location")))
+											$this->request->hasArgument("location")))
 			{
 				$divisionName = $this->request->getArgument('division');
 				$careerLevelType = $this->request->getArgument('careerLevel');
@@ -71,25 +78,25 @@
 			}
 			if ($divisionName != "" || $careerLevelType != "" || $selectedEmploymentType != "" || $selectedLocation != "")
 			{
-				$postings = $this->postingRepository->findByFilter($divisionName, $careerLevelType, $selectedEmploymentType, $selectedLocation, $category);
+				$postings = $this->postingRepository->findByFilter($divisionName, $careerLevelType, $selectedEmploymentType, $selectedLocation, $categories);
 
 			}
 			else
 			{
-				if ($category == 0)
+				if (count($categories) == 0)
 				{
 					$postings = $this->postingRepository->findAll();
 				}
 				else
 				{
-					$postings = $this->postingRepository->findByCategory($category);
+					$postings = $this->postingRepository->findByCategory($categories);
 				}
 			}
 
-			$divisions = $this->postingRepository->findAllDivisions($category);
-			$careerLevels = $this->postingRepository->findAllCareerLevels($category);
-			$employmentTypes = $this->postingRepository->findAllEmploymentTypes($category);
-			$locations = $this->locationRepository->findAll($category);
+			$divisions = $this->postingRepository->findAllDivisions($categories);
+			$careerLevels = $this->postingRepository->findAllCareerLevels($categories);
+			$employmentTypes = $this->postingRepository->findAllEmploymentTypes($categories);
+			$locations = $this->locationRepository->findAll($categories);
 
 			$this->view->assign('divisionName', $divisionName);
 			$this->view->assign('careerLevelType', $careerLevelType);
@@ -111,7 +118,20 @@
 		 */
 		public function showAction(\ITX\Jobs\Domain\Model\Posting $posting = null)
 		{
+
+			$titleProvider = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(JobsPageTitleProvider::class);
+
+			$title = $this->settings["pageTitle"];
+			if ($title != "")
+			{
+				$title = str_replace("%postingTitle%", $posting->getTitle(), $title);
+			} else {
+				$title = $posting->getTitle();
+			}
+
+			$titleProvider->setTitle($title);
 			$this->view->assign('posting', $posting);
+
 		}
 
 		/**

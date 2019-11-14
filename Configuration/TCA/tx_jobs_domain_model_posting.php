@@ -287,22 +287,36 @@ return [
         'required_documents' => [
             'exclude' => true,
             'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.required_documents',
-            'config' => [
-                'type' => 'text',
-                'cols' => 40,
-                'rows' => 15,
-                'eval' => 'trim'
-            ]
+			'config' => [
+				'type' => 'text',
+				'enableRichtext' => true,
+				'richtextConfiguration' => 'default',
+				'fieldControl' => [
+					'fullScreenRichtext' => [
+						'disabled' => false,
+					],
+				],
+				'cols' => 40,
+				'rows' => 15,
+				'eval' => 'trim',
+			],
         ],
         'company_information' => [
             'exclude' => true,
             'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.company_information',
-            'config' => [
-                'type' => 'text',
-                'cols' => 40,
-                'rows' => 15,
-                'eval' => 'trim'
-            ]
+			'config' => [
+				'type' => 'text',
+				'enableRichtext' => true,
+				'richtextConfiguration' => 'default',
+				'fieldControl' => [
+					'fullScreenRichtext' => [
+						'disabled' => false,
+					],
+				],
+				'cols' => 40,
+				'rows' => 15,
+				'eval' => 'trim',
+			],
         ],
         'detail_view_image' => [
             'exclude' => true,

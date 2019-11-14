@@ -35,6 +35,7 @@ CREATE TABLE tx_jobs_domain_model_contact (
 	email varchar(255) DEFAULT '' NOT NULL,
 	phone varchar(255) DEFAULT '' NOT NULL,
 	division varchar(255) DEFAULT '' NOT NULL,
+    photo int(11) unsigned NOT NULL default '0',
 
 );
 

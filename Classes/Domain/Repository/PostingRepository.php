@@ -2,6 +2,8 @@
 
 	namespace ITX\Jobs\Domain\Repository;
 
+	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 	/***
 	 *
 	 * This file is part of the "Jobs" Extension for TYPO3 CMS.
@@ -40,19 +42,19 @@
 		/**
 		 * Helper function for finding postings by category
 		 *
-		 * @param $category int
+		 * @param $category array
 		 *
 		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 		 */
-		public function findByCategory($category)
+		public function findByCategory($categories)
 		{
 			$query = $this->createQuery();
+			$statement = "SELECT * FROM tx_jobs_domain_model_posting 
+    					  JOIN sys_category_record_mm ON tx_jobs_domain_model_posting.uid = sys_category_record_mm.uid_foreign ";
 
-			$query->statement(
-				"SELECT * FROM tx_jobs_domain_model_posting 
-    					  JOIN sys_category_record_mm ON tx_jobs_domain_model_posting.uid = sys_category_record_mm.uid_foreign
-						  WHERE sys_category_record_mm.uid_local = ".$category
-			);
+			$statement .= $this->buildCategoriesToSQL($categories);
+
+			$query->statement($statement);
 
 			return $query->execute();
 		}
@@ -62,10 +64,10 @@
 		 *
 		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 		 */
-		public function findAllDivisions($category = 0)
+		public function findAllDivisions($categories = null)
 		{
 			$query = $this->createQuery();
-			if ($category == 0)
+			if (count($categories) == 0)
 			{
 				$query->statement(
 					"SELECT DISTINCT division FROM tx_jobs_domain_model_posting 
@@ -74,9 +76,13 @@
 			}
 			else
 			{
-				$query->statement("SELECT DISTINCT division AS division FROM tx_jobs_domain_model_posting
-											JOIN sys_category_record_mm ON tx_jobs_domain_model_posting.uid = sys_category_record_mm.uid_foreign 
-											WHERE deleted = 0 AND hidden = 0 AND sys_category_record_mm.uid_local = ".$category);
+				$statement = "SELECT DISTINCT division AS division FROM tx_jobs_domain_model_posting
+							  JOIN sys_category_record_mm ON tx_jobs_domain_model_posting.uid = sys_category_record_mm.uid_foreign 
+							  WHERE deleted = 0 AND hidden = 0 ";
+				$statement .= $this->buildCategoriesToSQL($categories);
+
+				$query->statement($statement);
+
 			}
 
 			return $query->execute(true);
@@ -85,11 +91,11 @@
 		/**
 		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 		 */
-		public function findAllCareerLevels($category = 0)
+		public function findAllCareerLevels($categories = null)
 		{
 			$query = $this->createQuery();
 
-			if ($category == 0)
+			if (count($categories) == 0)
 			{
 				$query->statement(
 					"SELECT DISTINCT career_level AS careerLevel FROM tx_jobs_domain_model_posting 
@@ -98,9 +104,13 @@
 			}
 			else
 			{
-				$query->statement("SELECT DISTINCT career_level AS careerLevel FROM tx_jobs_domain_model_posting
-											JOIN sys_category_record_mm ON tx_jobs_domain_model_posting.uid = sys_category_record_mm.uid_foreign 
-											WHERE deleted = 0 AND hidden = 0 AND sys_category_record_mm.uid_local = ".$category);
+				$statement = "SELECT DISTINCT career_level AS careerLevel FROM tx_jobs_domain_model_posting
+							  JOIN sys_category_record_mm ON tx_jobs_domain_model_posting.uid = sys_category_record_mm.uid_foreign 
+							  WHERE deleted = 0 AND hidden = 0 ";
+
+				$statement .= $this->buildCategoriesToSQL($categories);
+
+				$query->statement($statement);
 			}
 
 			return $query->execute(true);
@@ -109,11 +119,11 @@
 		/**
 		 * @return array
 		 */
-		public function findAllEmploymentTypes($category = 0)
+		public function findAllEmploymentTypes($categories = null)
 		{
 			$query = $this->createQuery();
 
-			if ($category == 0)
+			if (count($categories) == 0)
 			{
 				$query->statement(
 					"SELECT DISTINCT employment_type AS employmentType FROM tx_jobs_domain_model_posting 
@@ -121,9 +131,12 @@
 			}
 			else
 			{
-				$query->statement("SELECT DISTINCT employment_type AS employmentType FROM tx_jobs_domain_model_posting
-											JOIN sys_category_record_mm ON tx_jobs_domain_model_posting.uid = sys_category_record_mm.uid_foreign 
-											WHERE deleted = 0 AND hidden = 0 AND sys_category_record_mm.uid_local = ".$category);
+				$statement = "SELECT DISTINCT employment_type AS employmentType FROM tx_jobs_domain_model_posting
+								JOIN sys_category_record_mm ON tx_jobs_domain_model_posting.uid = sys_category_record_mm.uid_foreign 
+								WHERE deleted = 0 AND hidden = 0 ";
+				$statement .= $this->buildCategoriesToSQL($categories);
+
+				$query->statement($statement);
 			}
 
 			return $query->execute(true);
@@ -133,26 +146,43 @@
 		 * @param $division       String
 		 * @param $careerLevel    String
 		 * @param $employmentType String
-		 * @param location 		  int
-		 * @param category 		  int
+		 * @param location          int
+		 * @param category          int
 		 *
 		 *
 		 * @return array
 		 */
-		public function findByFilter($division, $careerLevel, $employmentType, $location, $category)
+		public function findByFilter($division, $careerLevel, $employmentType, $location, $categories)
 		{
 			$divisionSQL = "";
 			$careerLevelSQL = "";
 			$employmentTypeSQL = "";
 			$locationSQL = "";
+			$categorySQL = "";
 
 			$baseSQL = "SELECT * FROM tx_jobs_domain_model_posting WHERE deleted = 0 AND hidden = 0";
 
-			if ($category != 0)
+			if (count($categories) > 0)
 			{
 				$baseSQL = "SELECT * FROM tx_jobs_domain_model_posting
     						JOIN sys_category_record_mm ON tx_jobs_domain_model_posting.uid = sys_category_record_mm.uid_foreign 
-							WHERE deleted = 0 AND hidden = 0 AND sys_category_record_mm.uid_local = ".$category;
+							WHERE deleted = 0 AND hidden = 0 ";
+
+				for ($i = 0; $i < count($categories); $i++)
+				{
+					if ($i == 0)
+					{
+						$categorySQL = "AND (sys_category_record_mm.uid_local = ".$categories[$i]." ";
+					}
+					else
+					{
+						$categorySQL .= "OR sys_category_record_mm.uid_local = ".$categories[$i]." ";
+						if ($i == count($categories) - 1)
+						{
+							$categorySQL .= ")";
+						}
+					}
+				}
 			}
 
 			if ($division)
@@ -174,9 +204,39 @@
 			$query = $this->createQuery();
 
 			$query->statement(
-				$baseSQL." ".$divisionSQL." ".$careerLevelSQL." ".$employmentTypeSQL." ".$locationSQL
+				$baseSQL." ".$divisionSQL." ".$careerLevelSQL." ".$employmentTypeSQL." ".$locationSQL." ".$categorySQL
 			);
 
 			return $query->execute();
+
+		}
+
+		/**
+		 * Helper function for building the sql for categories
+		 *
+		 * @param $categories array
+		 *
+		 * @return string
+		 */
+		private function buildCategoriesToSQL($categories)
+		{
+			$statement = "";
+			for ($i = 0; $i < count($categories); $i++)
+			{
+				if ($i == 0)
+				{
+					$statement .= "AND (sys_category_record_mm.uid_local = ".$categories[$i]." ";
+				}
+				else
+				{
+					$statement .= "OR sys_category_record_mm.uid_local = ".$categories[$i]." ";
+					if ($i == count($categories) - 1)
+					{
+						$statement .= ")";
+					}
+				}
+			}
+
+			return $statement;
 		}
 	}

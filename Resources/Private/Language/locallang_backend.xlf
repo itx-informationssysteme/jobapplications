@@ -19,10 +19,10 @@
                 <source>Application Handling Settings</source>
             </trans-unit>
 			<trans-unit id="flexform.general.detailView" resname="flexform.general.detailView">
-				<source>Set Detail Page Uid (when empty this page is selected)</source>
+				<source>Set Detail Page Uid</source>
 			</trans-unit>
 			<trans-unit id="flexform.general.applicationForm" resname="flexform.general.applicationForm">
-				<source>Set Application Form Page Uid (when empty this page is selected)</source>
+				<source>Set Application Form Page Uid</source>
 			</trans-unit>
 			<trans-unit id="flexform.imageAsHeader" resname="flexform.imageAsHeader">
 				<source>Should the image be the card header? If empty: The image becomes the background of the whole card.</source>
@@ -72,6 +72,16 @@
 			<trans-unit id="flexform.googleMapsApiKey" resname="flexform.googleMapsApiKey">
 				<source>Enter a Google Maps API Key here to enable contact info maps support</source>
 			</trans-unit>
+			<trans-unit id="flexform.showLocationTitle" resname="flexform.showLocationTitle">
+				<source>Show title of location?</source>
+			</trans-unit>
+			<trans-unit id="flexform.showContactPhoto" resname="flexform.showContactPhoto">
+				<source>Show contact photo?</source>
+			</trans-unit>
+			<trans-unit id="flexform.pageTitle" resname="flexform.pageTitle">
+				<source>Define page title here (%postingTitle% gets replaced with title of posting)</source>
+			</trans-unit>
+
 		</body>
 	</file>
 </xliff>

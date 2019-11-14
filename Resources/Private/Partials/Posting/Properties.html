@@ -1,169 +1,201 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<table class="tx-jobs" >
-	<f:if condition="{posting.datePosted}">
-	<tr>
-		<td>
-			<f:translate key="tx_jobs_domain_model_posting.date_posted" />
-		</td>
-		<td>
-		{posting.datePosted -> f:format.date()}
-		</td>
-	</tr>
-	</f:if>
-	<f:if condition="{posting.careerLevel}">
-	<tr>
-		<td>
-			<f:translate key="tx_jobs_domain_model_posting.career_level" />
-		</td>
-		<td>
-		{posting.careerLevel}
-		</td>
-	</tr>
-	</f:if>
-	<f:if condition="{posting.division}">
-	<tr>
-		<td>
-			<f:translate key="tx_jobs_domain_model_posting.division" />
-		</td>
-		<td>
-		{posting.division}
-		</td>
-	</tr>
-	</f:if>
-	<f:if condition="{posting.employmentType}">
-	<tr>
-		<td>
-			<f:translate key="tx_jobs_domain_model_posting.employment_type" />
-		</td>
-		<td>
-		{posting.employmentType}
-		</td>
-	</tr>
-	</f:if>
-	<f:if condition="{posting.termsOfEmployment}">
-	<tr>
-		<td>
-			<f:translate key="tx_jobs_domain_model_posting.terms_of_employment" />
-		</td>
-		<td>
-		{posting.termsOfEmployment}
-		</td>
-	</tr>
-	</f:if>
-	<f:if condition="{posting.companyDescription}">
-	<tr>
-		<td>
-			<f:translate key="tx_jobs_domain_model_posting.company_description" />
-		</td>
-		<td>
-			<f:format.raw>{posting.companyDescription}</f:format.raw>
+<div class="row">
+	<div class="col">
+		<hr/>
+		<div class="row">
+			<f:if condition="{posting.careerLevel}">
+				<div class="col-3">
+					<h6>
+						<f:translate key="tx_jobs_domain_model_posting.career_level"/>
+					</h6>
+				</div>
+				<div class="col-3">
+					{posting.careerLevel}
+				</div>
+			</f:if>
+			<f:if condition="{posting.division}">
 
-		</td>
-	</tr>
-	</f:if>
-	<f:if condition="{posting.jobDescription}">
-	<tr>
-		<td>
-			<f:translate key="tx_jobs_domain_model_posting.job_description" />
-		</td>
-		<td>
-			<f:format.raw>{posting.jobDescription}</f:format.raw>
-		</td>
-	</tr>
-	</f:if>
-	<f:if condition="{posting.roleDescription}">
-	<tr>
-		<td>
-			<f:translate key="tx_jobs_domain_model_posting.role_description" />
-		</td>
-		<td>
-			<f:format.raw>{posting.roleDescription}</f:format.raw>
-		</td>
-	</tr>
-	</f:if>
-	<f:if condition="{posting.skillRequirements}">
-	<tr>
-		<td>
-			<f:translate key="tx_jobs_domain_model_posting.skill_requirements" />
-		</td>
-		<td>
-			<f:format.raw>{posting.skillRequirements}</f:format.raw>
-		</td>
-	</tr>
-	</f:if>
-	<f:if condition="{posting.benefits}">
-	<tr>
-		<td>
-			<f:translate key="tx_jobs_domain_model_posting.benefits" />
-		</td>
-		<td>
-			<f:format.raw>{posting.benefits}</f:format.raw>
-		</td>
-	</tr>
-	</f:if>
-	<f:if condition="{posting.baseSalary}">
-	<tr>
-		<td>
-			<f:translate key="tx_jobs_domain_model_posting.base_salary" />
-		</td>
-		<td>
-		{posting.baseSalary}
-		</td>
-	</tr>
-	</f:if>
-	<f:if condition="{posting.validThrough}">
-	<tr>
-		<td>
-			<f:translate key="tx_jobs_domain_model_posting.valid_through" />
-		</td>
-		<td>
-		{posting.validThrough -> f:format.date()}
-		</td>
-	</tr>
-	</f:if>
-	<f:if condition="{posting.requiredDocuments}">
-	<tr>
-		<td>
-			<f:translate key="tx_jobs_domain_model_posting.required_documents" />
-		</td>
-		<td>
-		{posting.requiredDocuments}
-		</td>
-	</tr>
-	</f:if>
-	<f:if condition="{posting.companyInformation}">
-	<tr>
-		<td>
-			<f:translate key="tx_jobs_domain_model_posting.company_information" />
-		</td>
-		<td>
-		{posting.companyInformation}
-		</td>
-	</tr>
-	</f:if>
-	<f:if condition="{posting.location}">
-	<tr>
-		<td>
-			<f:translate key="tx_jobs_domain_model_posting.location" />
-		</td>
-		<td>
-			{posting.location.name}<br>
-			{posting.location.address}
-		</td>
-	</tr>
-	</f:if>
-	<f:if condition="{posting.contact} && {settings.showContact}}">
-	<tr>
-		<td>
-			<f:translate key="tx_jobs_domain_model_posting.contact" />
-		</td>
-		<td>
-			{posting.contact.name}<br>
-			{posting.contact.division}<br>
-			{posting.contact.phone}<br>
-			{posting.contact.email}
-		</td>
-	</tr>
-	</f:if>
-</table>
+				<div class="col-3">
+					<h6>
+						<f:translate key="tx_jobs_domain_model_posting.division"/>
+					</h6>
+				</div>
+				<div class="col-3">
+					{posting.division}
+				</div>
+			</f:if>
+		</div>
+		<div class="row">
+			<f:if condition="{posting.employmentType}">
+				<div class="col-3">
+					<h6>
+						<f:translate key="tx_jobs_domain_model_posting.employment_type"/>
+					</h6>
+				</div>
+				<div class="col-3">
+					{posting.employmentType}
+				</div>
+			</f:if>
+			<f:if condition="{posting.termsOfEmployment}">
+				<div class="col-3">
+					<h6>
+						<f:translate key="tx_jobs_domain_model_posting.terms_of_employment"/>
+					</h6>
+				</div>
+				<div class="col-3">
+					{posting.termsOfEmployment}
+				</div>
+			</f:if>
+		</div>
+		<hr/>
+		<f:if condition="{posting.companyDescription}">
+			<div class="col">
+				<div class="row">
+					<h6>
+						<f:translate key="tx_jobs_domain_model_posting.company_description"/>
+					</h6>
+				</div>
+				<div class="container-flex">
+					<f:format.raw>{posting.companyDescription}</f:format.raw>
+				</div>
+			</div>
+		</f:if>
+		<f:if condition="{posting.jobDescription}">
+			<div class="col">
+				<div class="row">
+					<h6>
+						<f:translate key="tx_jobs_domain_model_posting.job_description"/>
+					</h6>
+				</div>
+				<div class="container-flex">
+					<f:format.raw>{posting.jobDescription}</f:format.raw>
+				</div>
+			</div>
+		</f:if>
+		<f:if condition="{posting.roleDescription}">
+			<div class="col">
+				<div class="row">
+					<h6>
+						<f:translate key="tx_jobs_domain_model_posting.role_description"/>
+					</h6>
+				</div>
+				<div class="container-flex">
+					<f:format.raw>{posting.roleDescription}</f:format.raw>
+				</div>
+			</div>
+		</f:if>
+		<f:if condition="{posting.skillRequirements}">
+			<div class="col">
+				<div class="row">
+					<h6>
+						<f:translate key="tx_jobs_domain_model_posting.skill_requirements"/>
+					</h6>
+				</div>
+				<div class="container-flex">
+					<f:format.raw>{posting.skillRequirements}</f:format.raw>
+				</div>
+			</div>
+		</f:if>
+		<f:if condition="{posting.benefits}">
+			<div class="col">
+				<div class="row">
+					<h6>
+						<f:translate key="tx_jobs_domain_model_posting.benefits"/>
+					</h6>
+				</div>
+				<div class="container-flex">
+					<f:format.raw>{posting.benefits}</f:format.raw>
+				</div>
+			</div>
+		</f:if>
+		<f:if condition="{posting.baseSalary} || {posting.validThrough}">
+			<div class="row">
+				<f:if condition="{posting.baseSalary}">
+					<div class="col-3">
+						<h6>
+							<f:translate key="tx_jobs_domain_model_posting.base_salary"/>
+						</h6>
+					</div>
+					<div class="col-3">
+						{posting.baseSalary}
+					</div>
+				</f:if>
+				<f:if condition="{posting.validThrough}">
+					<div class="col-3">
+						<h6>
+							<f:translate key="tx_jobs_domain_model_posting.valid_through"/>
+						</h6>
+					</div>
+					<div class="col-3">
+						{posting.validThrough -> f:format.date()}
+					</div>
+				</f:if>
+			</div>
+		</f:if>
+		<hr/>
+		<f:if condition="{posting.requiredDocuments}">
+			<div class="col">
+				<div class="row">
+					<h6>
+						<f:translate key="tx_jobs_domain_model_posting.required_documents"/>
+					</h6>
+				</div>
+				<div class="container-flex">
+					<f:format.raw>{posting.requiredDocuments}</f:format.raw>
+				</div>
+			</div>
+		</f:if>
+		<f:if condition="{posting.companyInformation}">
+			<div class="col">
+				<div class="row">
+					<h6>
+						<f:translate key="tx_jobs_domain_model_posting.company_information"/>
+					</h6>
+				</div>
+				<div class="container-flex">
+					<f:format.raw>{posting.companyInformation}</f:format.raw>
+				</div>
+			</div>
+		</f:if>
+		<f:if condition="{posting.location}">
+			<div class="col">
+				<div class="row">
+					<h6>
+						<f:translate key="tx_jobs_domain_model_posting.location"/>
+					</h6>
+				</div>
+				<div class="container-flex">
+					<f:if condition="{settings.showLocationTitle}">
+						{posting.location.name}<br>
+					</f:if>
+					<f:format.raw>{posting.location.address}</f:format.raw>
+				</div>
+			</div>
+		</f:if>
+		<f:if condition="{posting.contact} && {settings.showContact}">
+			<div class="col mb-4">
+				<div class="row">
+					<h6>
+						<f:translate key="tx_jobs_domain_model_posting.contact"/>
+					</h6>
+				</div>
+				<div class="container-flex">
+					<div class="row">
+						<div class="col">
+							<f:if condition="{posting.contact.photo}">
+								<f:image src="{posting.contact.photo.originalResource.publicUrl}" class="h-auto w-25 float-left mr-3"/>
+							</f:if>
+							<div class="container-flex text-left float-left">
+								{posting.contact.name}<br>
+								{posting.contact.division}<br>
+								{posting.contact.phone}<br>
+								{posting.contact.email}<br>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</f:if>
+	</div>
+</div>
 </html>

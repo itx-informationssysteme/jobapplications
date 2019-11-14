@@ -1,45 +1,44 @@
 <?php
-defined('TYPO3_MODE') || die('Access denied.');
+	defined('TYPO3_MODE') || die('Access denied.');
 
-call_user_func(
-    function()
-    {
+	call_user_func(
+		function () {
 
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            'ITX.Jobs',
-            'Frontend',
-            [
-                'Posting' => 'list'
-            ],
-            // non-cacheable actions
-            [
-                'Posting' => 'list',
-                'Application' => 'create'
-            ]
-        );
+			\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+				'ITX.Jobs',
+				'Frontend',
+				[
+					'Posting' => 'list'
+				],
+				// non-cacheable actions
+				[
+					'Posting' => 'list',
+					'Application' => 'create'
+				]
+			);
 
-		\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-			'ITX.Jobs',
-			'DetailView',
-			[
-				'Posting' => 'show',
-			]
-		);
+			\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+				'ITX.Jobs',
+				'DetailView',
+				[
+					'Posting' => 'show',
+				]
+			);
 
-		\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-			'ITX.Jobs',
-			'ApplicationForm',
-			[
-				'Application' => 'new, create'
-			],
-			[
-				'Application' => 'create'
-			]
-		);
+			\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+				'ITX.Jobs',
+				'ApplicationForm',
+				[
+					'Application' => 'new, create'
+				],
+				[
+					'Application' => 'create'
+				]
+			);
 
-        // wizards
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-            'mod {
+			// wizards
+			\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
+				'mod {
                 wizards.newContentElement.wizardItems.plugins {
                     elements {
                         frontend {
@@ -52,10 +51,19 @@ call_user_func(
                             }
                         }
                     }
-                    show = *
-                }
-           }'
-        );
+                    	show = *
+                	}
+           		}'
+        	);
+			\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup(trim('
+    			config.pageTitleProviders {
+        			own {
+            			provider = ITX\Jobs\PageTitle\JobsPageTitleProvider
+            			before = record
+            			after = altPageTitle
+					}			
+				}
+			'));
 		$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
 		
 			$iconRegistry->registerIcon(
@@ -75,5 +83,5 @@ call_user_func(
 				\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
 				['source' => 'EXT:jobs/Resources/Public/Icons/logo_jobs.svg']
 			);
-    }
-);
+		}
+	);

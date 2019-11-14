@@ -39,6 +39,17 @@
                             </config>
                         </TCEforms>
                     </settings.applicationFormUid>
+                    <settings.pageTitle>
+                        <TCEforms>
+                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.pageTitle</label>
+                            <config>
+                                <type>input</type>
+                                <size>20</size>
+                                <max>80</max>
+                                <eval>trim</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.pageTitle>
                     <settings.showContact>
                         <TCEforms>
                             <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.showContact</label>
@@ -46,8 +57,28 @@
                                 <type>check</type>
                                 <default>1</default>
                             </config>
+                            <onChange>reload</onChange>
                         </TCEforms>
                     </settings.showContact>
+                    <settings.showContactPhoto>
+                        <TCEforms>
+                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.showContactPhoto</label>
+                            <displayCond>FIELD:settings.showContact:REQ:true</displayCond>
+                            <config>
+                                <type>check</type>
+                                <default>1</default>
+                            </config>
+                        </TCEforms>
+                    </settings.showContactPhoto>
+                    <settings.showLocationTitle>
+                        <TCEforms>
+                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.showLocationTitle</label>
+                            <config>
+                                <type>check</type>
+                                <default>1</default>
+                            </config>
+                        </TCEforms>
+                    </settings.showLocationTitle>
                     <settings.googleMapsApiKey>
                         <TCEforms>
                             <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.googleMapsApiKey</label>
