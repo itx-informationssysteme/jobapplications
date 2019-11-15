@@ -23,6 +23,12 @@ call_user_func(
 			'Jobs Application Form'
 		);
 
+		\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+			'ITX.Jobs',
+			'ContactDisplay',
+			'Jobs Contact Display'
+		);
+
         if (TYPO3_MODE === 'BE') {
 
             \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(

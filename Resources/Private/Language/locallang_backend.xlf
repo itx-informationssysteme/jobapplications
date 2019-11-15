@@ -18,6 +18,9 @@
             <trans-unit id="flexform.tab.applicationTitle" resname="flexform.tab.applicationTitle">
                 <source>Application Handling Settings</source>
             </trans-unit>
+			<trans-unit id="flexform.title.contactDisplay" resname="flexform.title.contactDisplay">
+                <source>Contact Display Settings</source>
+            </trans-unit>
 			<trans-unit id="flexform.general.detailView" resname="flexform.general.detailView">
 				<source>Set Detail Page Uid</source>
 			</trans-unit>
@@ -25,7 +28,7 @@
 				<source>Set Application Form Page Uid</source>
 			</trans-unit>
 			<trans-unit id="flexform.imageAsHeader" resname="flexform.imageAsHeader">
-				<source>Should the image be the card header? If empty: The image becomes the background of the whole card.</source>
+				<source>Should the image be the card header? If deselected: The image becomes the background of the whole card.</source>
 			</trans-unit>
 			<trans-unit id="flexform.customCardFontColor" resname="flexform.customCardFontColor">
 				<source>Specific font color of the posting cards content</source>
@@ -81,7 +84,6 @@
 			<trans-unit id="flexform.pageTitle" resname="flexform.pageTitle">
 				<source>Define page title here (%postingTitle% gets replaced with title of posting)</source>
 			</trans-unit>
-
 		</body>
 	</file>
 </xliff>

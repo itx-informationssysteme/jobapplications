@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3DataStructure>
+    <sheets>
+        <singleView>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.title.contactdisplay</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <settings.selectedContacts>
+                        <TCEforms>
+                            <label>Select Contacts to display</label>
+                            <exclude>1</exclude>
+                            <config>
+                                <type>select</type>
+                                <foreign_table>tx_jobs_domain_model_contact</foreign_table>
+                                <renderType>selectMultipleSideBySide</renderType>
+                                <size>5</size>
+                                <minItems>1</minItems>
+                                <maxItems>999</maxItems>
+                                <foreign_table_where>
+                                    AND tx_jobs_domain_model_contact.hidden = 0
+                                    AND tx_jobs_domain_model_contact.deleted = 0
+                                </foreign_table_where>
+                            </config>
+                        </TCEforms>
+                    </settings.selectedContacts>
+                </el>
+            </ROOT>
+        </singleView>
+    </sheets>
+</T3DataStructure>

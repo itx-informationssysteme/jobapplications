@@ -2,6 +2,8 @@
 namespace ITX\Jobs\Controller;
 
 
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 /***
  *
  * This file is part of the "Jobs" Extension for TYPO3 CMS.
@@ -35,8 +37,13 @@ class ContactController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function listAction()
     {
-        $contacts = $this->contactRepository->findAll();
-        $this->view->assign('contacts', $contacts);
+    	$contacts = array();
+    	$selectedContactsStr = $this->settings["selectedContacts"];
+    	if ($selectedContactsStr) {
+			$contacts = explode(",",$selectedContactsStr);
+		}
+		$contactObjects = $this->contactRepository->findMultipleByUid($contacts);
+        $this->view->assign('contacts', $contactObjects);
     }
 
     /**

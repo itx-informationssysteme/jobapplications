@@ -18,4 +18,32 @@ namespace ITX\Jobs\Domain\Repository;
  */
 class ContactRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
+	/**
+	 * @param $uids array
+	 */
+	public function findMultipleByUid($uids) {
+		$query = $this->createQuery();
+
+
+		$statement = "";
+		for ($i = 0; $i < count($uids); $i++)
+		{
+			if ($i == 0)
+			{
+				$statement .= "WHERE (uid = ".$uids[$i]." ";
+			}
+			else
+			{
+				$statement .= "OR uid = ".$uids[$i]." ";
+				if ($i == count($uids) - 1)
+				{
+					$statement .= ")";
+				}
+			}
+		}
+
+		$query->statement("SELECT * FROM tx_jobs_domain_model_contact ".$statement);
+
+		return $query->execute();
+	}
 }

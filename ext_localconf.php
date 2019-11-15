@@ -36,6 +36,14 @@
 				]
 			);
 
+			\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+				'ITX.Jobs',
+				'ContactDisplay',
+				[
+					'Contact' => 'list, show '
+				]
+			);
+
 			// wizards
 			\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
 				'mod {
