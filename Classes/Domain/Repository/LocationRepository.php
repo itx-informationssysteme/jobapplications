@@ -2,6 +2,7 @@
 
 	namespace ITX\Jobs\Domain\Repository;
 
+	include_once 'RepoHelpers.php';
 	/***
 	 *
 	 * This file is part of the "Jobs" Extension for TYPO3 CMS.
@@ -36,23 +37,7 @@
 			}
 			else
 			{
-				$query->statement("SELECT * FROM tx_jobs_domain_model_location 
-										WHERE uid IN 
-										  (SELECT location FROM tx_jobs_domain_model_posting 
-										   JOIN sys_category_record_mm ON tx_jobs_domain_model_posting.uid = sys_category_record_mm.uid_foreign 
-										   WHERE deleted = 0 AND hidden = 0 AND sys_category_record_mm.uid_local = ".$category.")");
-
-				for ($i = 0; $i < count($categories); $i++)
-				{
-					if ($i == 0)
-					{
-						$statementAddition = "AND sys_category_record_mm.uid_local = ".$categories[$i]." ";
-					}
-					else
-					{
-						$statementAddition .= "OR sys_category_record_mm.uid_local = ".$categories[$i]." ";
-					}
-				}
+				$statementAddition = buildCategoriesToSQL($categories);
 
 				$statement = "SELECT * FROM tx_jobs_domain_model_location 
 						  	  WHERE uid IN 

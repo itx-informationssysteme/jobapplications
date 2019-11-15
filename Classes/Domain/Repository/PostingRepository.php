@@ -3,6 +3,9 @@
 	namespace ITX\Jobs\Domain\Repository;
 
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+	use ITX\Jobs\Domain\Repository\RepoHelpers;
+
+	include_once 'RepoHelpers.php';
 
 	/***
 	 *
@@ -52,7 +55,7 @@
 			$statement = "SELECT * FROM tx_jobs_domain_model_posting 
     					  JOIN sys_category_record_mm ON tx_jobs_domain_model_posting.uid = sys_category_record_mm.uid_foreign ";
 
-			$statement .= $this->buildCategoriesToSQL($categories);
+			$statement .= buildCategoriesToSQL($categories);
 
 			$query->statement($statement);
 
@@ -79,7 +82,7 @@
 				$statement = "SELECT DISTINCT division AS division FROM tx_jobs_domain_model_posting
 							  JOIN sys_category_record_mm ON tx_jobs_domain_model_posting.uid = sys_category_record_mm.uid_foreign 
 							  WHERE deleted = 0 AND hidden = 0 ";
-				$statement .= $this->buildCategoriesToSQL($categories);
+				$statement .= buildCategoriesToSQL($categories);
 
 				$query->statement($statement);
 
@@ -108,7 +111,7 @@
 							  JOIN sys_category_record_mm ON tx_jobs_domain_model_posting.uid = sys_category_record_mm.uid_foreign 
 							  WHERE deleted = 0 AND hidden = 0 ";
 
-				$statement .= $this->buildCategoriesToSQL($categories);
+				$statement .= buildCategoriesToSQL($categories);
 
 				$query->statement($statement);
 			}
@@ -134,7 +137,7 @@
 				$statement = "SELECT DISTINCT employment_type AS employmentType FROM tx_jobs_domain_model_posting
 								JOIN sys_category_record_mm ON tx_jobs_domain_model_posting.uid = sys_category_record_mm.uid_foreign 
 								WHERE deleted = 0 AND hidden = 0 ";
-				$statement .= $this->buildCategoriesToSQL($categories);
+				$statement .= buildCategoriesToSQL($categories);
 
 				$query->statement($statement);
 			}
@@ -168,21 +171,7 @@
     						JOIN sys_category_record_mm ON tx_jobs_domain_model_posting.uid = sys_category_record_mm.uid_foreign 
 							WHERE deleted = 0 AND hidden = 0 ";
 
-				for ($i = 0; $i < count($categories); $i++)
-				{
-					if ($i == 0)
-					{
-						$categorySQL = "AND (sys_category_record_mm.uid_local = ".$categories[$i]." ";
-					}
-					else
-					{
-						$categorySQL .= "OR sys_category_record_mm.uid_local = ".$categories[$i]." ";
-						if ($i == count($categories) - 1)
-						{
-							$categorySQL .= ")";
-						}
-					}
-				}
+				$categorySQL = buildCategoriesToSQL($categories);
 			}
 
 			if ($division)
@@ -209,34 +198,5 @@
 
 			return $query->execute();
 
-		}
-
-		/**
-		 * Helper function for building the sql for categories
-		 *
-		 * @param $categories array
-		 *
-		 * @return string
-		 */
-		private function buildCategoriesToSQL($categories)
-		{
-			$statement = "";
-			for ($i = 0; $i < count($categories); $i++)
-			{
-				if ($i == 0)
-				{
-					$statement .= "AND (sys_category_record_mm.uid_local = ".$categories[$i]." ";
-				}
-				else
-				{
-					$statement .= "OR sys_category_record_mm.uid_local = ".$categories[$i]." ";
-					if ($i == count($categories) - 1)
-					{
-						$statement .= ")";
-					}
-				}
-			}
-
-			return $statement;
 		}
 	}

@@ -1,13 +1,4 @@
 routeEnhancers:
-    JobsFrontendPlugin:
-        type: Extbase
-        namespace: 'tx_jobs_applicationform'
-        routes:
-            -   routePath: '/filter={hash}'
-                _controller: 'Posting::list'
-        defaultController: 'Posting::list'
-        defaults:
-            page: ''
     JobsDetailView:
         type: Extbase
         namespace: 'tx_jobs_detailview'
