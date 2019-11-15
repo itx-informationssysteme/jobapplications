@@ -40,7 +40,7 @@
 				'ITX.Jobs',
 				'ContactDisplay',
 				[
-					'Contact' => 'list, show '
+					'Contact' => 'list'
 				]
 			);
 
