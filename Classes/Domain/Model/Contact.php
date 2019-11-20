@@ -19,12 +19,19 @@ namespace ITX\Jobs\Domain\Model;
 class Contact extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
 
+	/**
+	 * firstName
+	 *
+	 * @var string
+	 */
+	protected $firstName = '';
+
     /**
-     * name
+     * lastName
      * 
      * @var string
      */
-    protected $name = '';
+    protected $lastName = '';
 
     /**
      * email
@@ -55,26 +62,37 @@ class Contact extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 */
 	protected $photo = null;
 
-    /**
-     * Returns the name
-     * 
-     * @return string name
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
+	/**
+	 * @return string
+	 */
+	public function getFirstName()
+	{
+		return $this->firstName;
+	}
 
-    /**
-     * Sets the name
-     * 
-     * @param string $name
-     * @return void
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
+	/**
+	 * @param string $firstName
+	 */
+	public function setFirstName(string $firstName): void
+	{
+		$this->firstName = $firstName;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getLastName()
+	{
+		return $this->lastName;
+	}
+
+	/**
+	 * @param string $lastName
+	 */
+	public function setLastName(string $lastName): void
+	{
+		$this->lastName = $lastName;
+	}
 
     /**
      * Returns the email

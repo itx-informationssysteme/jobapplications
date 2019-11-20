@@ -22,7 +22,7 @@ CREATE TABLE tx_jobs_domain_model_posting (
 	list_view_image int(11) unsigned NOT NULL default '0',
 	location int(11) unsigned DEFAULT '0',
 	contact int(11) unsigned DEFAULT '0',
-    slug varchar(255) DEFAULT '' NOT NULL,
+    slug varchar(255) DEFAULT '' NOT NULL
 
 );
 
@@ -31,11 +31,12 @@ CREATE TABLE tx_jobs_domain_model_posting (
 #
 CREATE TABLE tx_jobs_domain_model_contact (
 
-	name varchar(255) DEFAULT '' NOT NULL,
+    first_name varchar(255) DEFAULT '' NOT NULL,
+    last_name varchar(255) DEFAULT '' NOT NULL,
 	email varchar(255) DEFAULT '' NOT NULL,
 	phone varchar(255) DEFAULT '' NOT NULL,
 	division varchar(255) DEFAULT '' NOT NULL,
-    photo int(11) unsigned NOT NULL default '0',
+    photo int(11) unsigned NOT NULL default '0'
 
 );
 
@@ -45,9 +46,13 @@ CREATE TABLE tx_jobs_domain_model_contact (
 CREATE TABLE tx_jobs_domain_model_location (
 
 	name varchar(255) DEFAULT '' NOT NULL,
-	address text,
+    address_street_and_number varchar(255) DEFAULT '' NOT NULL,
+    address_addition varchar(255) DEFAULT '' NOT NULL,
+    address_post_code int(11) DEFAULT '0' NOT NULL,
+    address_city varchar(255) DEFAULT '' NOT NULL,
+    address_country varchar(255) DEFAULT '' NOT NULL,
 	latitude varchar(255) DEFAULT '' NOT NULL,
-	londitude varchar(255) DEFAULT '' NOT NULL,
+	londitude varchar(255) DEFAULT '' NOT NULL
 
 );
 
@@ -56,12 +61,12 @@ CREATE TABLE tx_jobs_domain_model_location (
 #
 CREATE TABLE tx_jobs_domain_model_application (
 
-	salutation int(11) DEFAULT '0' NOT NULL,
+	salutation varchar(10) DEFAULT '' NOT NULL,
 	first_name varchar(255) DEFAULT '' NOT NULL,
 	last_name varchar(255) DEFAULT '' NOT NULL,
 	email varchar(255) DEFAULT '' NOT NULL,
 	phone varchar(255) DEFAULT '' NOT NULL,
-	address_street_and_number text,
+	address_street_and_number varchar(255) DEFAULT '' NOT NULL,
 	address_addition varchar(255) DEFAULT '' NOT NULL,
 	address_post_code int(11) DEFAULT '0' NOT NULL,
 	address_city varchar(255) DEFAULT '' NOT NULL,
@@ -74,6 +79,7 @@ CREATE TABLE tx_jobs_domain_model_application (
 	other_files int(11) unsigned NOT NULL default '0',
 	privacy_agreement smallint(5) unsigned DEFAULT '0' NOT NULL,
 	posting int(11) unsigned DEFAULT '0',
+    archived smallint(5) unsigned DEFAULT '0' NOT NULL
 
 );
 
@@ -81,5 +87,5 @@ CREATE TABLE tx_jobs_domain_model_application (
 # Table structure for table 'tx_jobs_domain_model_posting'
 #
 CREATE TABLE tx_jobs_domain_model_posting (
-	categories int(11) unsigned DEFAULT '0' NOT NULL,
+	categories int(11) unsigned DEFAULT '0' NOT NULL
 );

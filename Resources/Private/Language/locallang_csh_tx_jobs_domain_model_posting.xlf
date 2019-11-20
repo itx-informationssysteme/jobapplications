@@ -37,7 +37,7 @@
 				<source>benefits</source>
 			</trans-unit>
 			<trans-unit id="base_salary.description" resname="base_salary.description">
-				<source>baseSalary</source>
+				<source>Yearly base salarary, not displayed when empty</source>
 			</trans-unit>
 			<trans-unit id="valid_through.description" resname="valid_through.description">
 				<source>validThrough</source>

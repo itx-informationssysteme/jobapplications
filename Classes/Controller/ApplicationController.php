@@ -197,21 +197,7 @@
 			$currentPosting = $this->postingRepository->findByUid($newApplication->getPosting());
 			$contact = $currentPosting->getContact();
 
-			switch (intval($newApplication->getSalutation()))
-			{
-				case 0:
-					$salutation = "";
-					break;
-				case 1:
-					$salutation = LocalizationUtility::translate("fe.application.selector.mr", "jobs");
-					break;
-				case 2:
-					$salutation = LocalizationUtility::translate("fe.application.selector.mrs", "jobs");
-					break;
-				case 3:
-					$salutation = LocalizationUtility::translate("fe.application.selector.div", "jobs");
-					break;
-			}
+			$salutation = LocalizationUtility::translate("fe.application.selector.".$newApplication->getSalutation(), "jobs");
 
 			if ($this->settings["sendEmailToContact"] || $this->settings['sendEmailToInternal'])
 			{
@@ -243,7 +229,7 @@
 				//Figure out who the email will be sent to and how
 				if ($this->settings['sendEmailToInternal'] && $this->settings['sendEmailToContact'])
 				{
-					$mail->setTo(array($contact->getEmail() => $contact->getName()));
+					$mail->setTo(array($contact->getEmail() => $contact->getFirstName()." ".$contact->getLastName()));
 					$mail->setBcc($this->settings['sendEmailToInternal']);
 				}
 				elseif (!$this->settings['sendEmailToContact'] && $this->settings['sendEmailToInternal'])
@@ -252,7 +238,7 @@
 				}
 				elseif ($this->settings['sendEmailToContact'] && !$this->settings['sendEmailToInternal'])
 				{
-					$mail->setTo(array($contact->getEmail() => $contact->getName()));
+					$mail->setTo(array($contact->getEmail() => $contact->getFirstName()." ".$contact->getLastName()));
 				}
 
 				try

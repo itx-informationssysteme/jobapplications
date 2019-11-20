@@ -18,11 +18,13 @@ namespace ITX\Jobs\Domain\Model;
  */
 class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
+	/** @var int */
+	protected $crdate;
 
     /**
      * salutation
      * 
-     * @var int
+     * @var string
      */
     protected $salutation = 0;
 
@@ -152,10 +154,17 @@ class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected $addressCountry = '';
 
+	/**
+	 * archived
+	 *
+	 * @var bool
+	 */
+	protected $archived = false;
+
     /**
      * Returns the salutation
      * 
-     * @return int salutation
+     * @return string salutation
      */
     public function getSalutation()
     {
@@ -165,7 +174,7 @@ class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the salutation
      * 
-     * @param int $salutation
+     * @param string $salutation
      * @return void
      */
     public function setSalutation($salutation)
@@ -540,4 +549,39 @@ class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->addressCountry = $addressCountry;
     }
+
+	/**
+	 * Getter crdate
+	 *
+	 * @return int
+	 */
+	public function getCrdate(): int
+	{
+		return $this->crdate;
+	}
+
+	/**
+	 * Setter crdate
+	 * @param $crdate
+	 */
+	public function setCrdate($crdate)
+	{
+		 $this->crdate = $crdate;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isArchived()
+	{
+		return $this->archived;
+	}
+
+	/**
+	 * @param bool $archived
+	 */
+	public function setArchived(bool $archived): void
+	{
+		$this->archived = $archived;
+	}
 }

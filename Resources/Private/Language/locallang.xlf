@@ -219,6 +219,33 @@
 			<trans-unit id="fe.posting.filter.chooseMessage" resname="fe.posting.filter.chooseMessage">
 				<source>All</source>
 			</trans-unit>
+			<trans-unit id="fe.posting.employment.selector.chooseMessage" resname="fe.posting.employment.selector.chooseMessage">
+				<source>Choose Type</source>
+			</trans-unit>
+			<trans-unit id="fe.posting.employment.selector.fulltime" resname="fe.posting.employment.selector.fulltime">
+				<source>Full-Time</source>
+			</trans-unit>
+			<trans-unit id="fe.posting.employment.selector.parttime" resname="fe.posting.employment.selector.parttime">
+				<source>Part-Time</source>
+			</trans-unit>
+			<trans-unit id="fe.posting.employment.selector.contractor" resname="fe.posting.employment.selector.contractor">
+				<source>Contractor</source>
+			</trans-unit>
+			<trans-unit id="fe.posting.employment.selector.intern" resname="fe.posting.employment.selector.intern">
+				<source>Intern</source>
+			</trans-unit>
+			<trans-unit id="fe.posting.employment.selector.temporary" resname="fe.posting.employment.selector.temporary">
+				<source>Temporary</source>
+			</trans-unit>
+			<trans-unit id="fe.posting.employment.selector.volunteer" resname="fe.posting.employment.selector.volunteer">
+				<source>Volunteer</source>
+			</trans-unit>
+			<trans-unit id="fe.posting.employment.selector.perdiem" resname="fe.posting.employment.selector.perdiem">
+				<source>Per-Diem</source>
+			</trans-unit>
+			<trans-unit id="fe.posting.employment.selector.other" resname="fe.posting.employment.selector.other">
+				<source>Other</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

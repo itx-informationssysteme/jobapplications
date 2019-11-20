@@ -2,8 +2,12 @@
 
 	namespace ITX\Jobs\Controller;
 
+	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+	use TYPO3\CMS\Core\Page\PageRenderer;
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+	use TYPO3\CMS\Core\MetaTag\MetaTagManagerRegistry;
 	use ITX\Jobs\PageTitle\JobsPageTitleProvider;
+	use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 	/***
 	 *
@@ -119,13 +123,116 @@
 		public function showAction(\ITX\Jobs\Domain\Model\Posting $posting = null)
 		{
 
-			$titleProvider = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(JobsPageTitleProvider::class);
+			$titleProvider = GeneralUtility::makeInstance(JobsPageTitleProvider::class);
 
+			//Google Jobs
+			$metaTagManager = GeneralUtility::makeInstance(MetaTagManagerRegistry::class);
+			$metaTagManager->getManagerForProperty("description")->addProperty("description", strip_tags($posting->getJobDescription()));
+			$metaTagManager->getManagerForProperty("og:title")->addProperty("og:title", $posting->getTitle());
+			$metaTagManager->getManagerForProperty("og:description")->addProperty("og:description", strip_tags($posting->getJobDescription()));
+			if ($posting->getListViewImage())
+			{
+				$metaTagManager->getManagerForProperty("og:image")->addProperty("og:image", $this->request->getBaseUri().$posting->getListViewImage()->getOriginalResource()->getPublicUrl());
+			}
+
+			$extconf = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class);
+
+			$hiringOranization = array(
+				"@type" => "Organization",
+				"name" => $extconf->get('jobs', 'companyName')
+			);
+
+			if ($hiringOranization['name'] && $this->settings['enableGoogleJobs'])
+			{
+				$logo = $extconf->get('jobs', 'logo');
+				if ($logo)
+				{
+					$hiringOranization['hiringOranization']["logo"] = $logo;
+				}
+
+				switch ($posting->getEmploymentType())
+				{
+					case "fulltime":
+						$employmentType = "FULL_TIME";
+						break;
+					case "parttime":
+						$employmentType = "PART_TIME";
+						break;
+					case "contractor":
+						$employmentType = "CONTRACTOR";
+						break;
+					case "temporary":
+						$employmentType = "TEMPORARY";
+						break;
+					case "intern":
+						$employmentType = "INTERN";
+						break;
+					case "volunteer":
+						$employmentType = "VOLUNTEER";
+						break;
+					case "perdiem":
+						$employmentType = "PER_DIEM";
+						break;
+					case "other":
+						$employmentType = "OTHER";
+						break;
+					default:
+						$employmentType = "";
+				}
+
+				$googleJobsJSON = array(
+					"@context" => "http://schema.org",
+					"@type" => "JobPosting",
+					"datePosted" => $posting->getDatePosted()->format("c"),
+					"description" => $posting->getCompanyDescription()."<br>".$posting->getJobDescription()."<br>"
+						.$posting->getRoleDescription()."<br>".$posting->getSkillRequirements()
+						."<br>".$posting->getBenefits(),
+					"jobLocation" => [
+						"@type" => "Place",
+						"address" => [
+							"streetAddress" => $posting->getLocation()->getAddressStreetAndNumber(),
+							"addressLocality" => $posting->getLocation()->getAddressCity(),
+							"postalCode" => strval($posting->getLocation()->getAddressPostCode()),
+							"addressCountry" => $posting->getLocation()->getAddressCountry()
+						]
+					],
+					"title" => $posting->getTitle(),
+					"employmentType" => $employmentType
+				);
+
+				$googleJobsJSON["hiringOrganization"] = $hiringOranization;
+
+				if ($posting->getBaseSalary())
+				{
+					$googleJobsJSON["baseSalary"] = [
+						"@type" => "MonetaryAmount",
+						"currency" => "EUR",
+						"value" => [
+							"@type" => "QuantitativeValue",
+							"value" => preg_replace('/\D/', '', $posting->getBaseSalary()),
+							"unitText" => "YEAR"
+						]
+					];
+				}
+				if ($posting->getValidThrough())
+				{
+					$googleJobsJSON["validThrough"] = $posting->getValidThrough()->format("c");
+				}
+
+				$googleJobs = "<script type=\"application/ld+json\">".strval(json_encode($googleJobsJSON))."</script>";
+
+				$pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
+				$pageRenderer->addHeaderData($googleJobs);
+			}
+
+			//Pagetitle Templating
 			$title = $this->settings["pageTitle"];
 			if ($title != "")
 			{
 				$title = str_replace("%postingTitle%", $posting->getTitle(), $title);
-			} else {
+			}
+			else
+			{
 				$title = $posting->getTitle();
 			}
 

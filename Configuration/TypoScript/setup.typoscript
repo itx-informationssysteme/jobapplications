@@ -1,3 +1,4 @@
+plugin.tx_jobs.settings.enableGoogleJobs = {$plugin.tx_jobs.settings.enableGoogleJobs}
 
 plugin.{extension.shortExtensionKey}_{plugin.key} {
     view {
@@ -24,45 +25,9 @@ plugin.{extension.shortExtensionKey}_{plugin.key} {
     }
 }
 
-# these classes are only used in auto-generated templates
-plugin.tx_jobs._CSS_DEFAULT_STYLE (
-    textarea.f3-form-error {
-        background-color:#FF9F9F;
-        border: 1px #FF0000 solid;
-    }
-
-    input.f3-form-error {
-        background-color:#FF9F9F;
-        border: 1px #FF0000 solid;
-    }
-
-    .tx-jobs table {
-        border-collapse:separate;
-        border-spacing:10px;
-    }
-
-    .tx-jobs table th {
-        font-weight:bold;
-    }
-
-    .tx-jobs table td {
-        vertical-align:top;
-    }
-
-    .typo3-messages .message-error {
-        color:red;
-    }
-
-    .typo3-messages .message-ok {
-        color:green;
-    }
-)
-
 # Module configuration
+module.tx_jobs_web_jobsbackend < plugin.tx_jobs
 module.tx_jobs_web_jobsbackend {
-    persistence {
-        storagePid = {$module.tx_jobs_backend.persistence.storagePid}
-    }
     view {
         templateRootPaths.0 = EXT:{extension.extensionKey}/Resources/Private/Backend/Templates/
         templateRootPaths.1 = {$module.tx_jobs_backend.view.templateRootPath}

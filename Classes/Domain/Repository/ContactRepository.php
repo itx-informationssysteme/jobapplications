@@ -52,4 +52,19 @@
 
 			return $query->execute();
 		}
+
+		/**
+		 * Returns all objects of this repository.
+		 *
+		 * @param string orderBy fieldname to order by
+		 * @param string order SQL ASC or DESC
+		 * @return QueryResultInterface|array
+		 */
+		public function findAllWithOrder($orderBy, $order)
+		{
+			$query = $this->createQuery();
+			$query->statement("SELECT * FROM tx_jobs_domain_model_contact WHERE hidden = 0 AND deleted = 0 ORDER BY ".$orderBy." ".$order);
+
+			return $query->execute();
+		}
 	}

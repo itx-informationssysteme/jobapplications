@@ -21,12 +21,21 @@ return [
         'iconfile' => 'EXT:jobs/Resources/Public/Icons/tx_jobs_domain_model_application.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, salutation, first_name, last_name, email, phone, address_street_and_number, address_addition, address_post_code, address_city, address_country, salary_expectation, earliest_date_of_joining, cv, cover_letter, testimonials, other_files, privacy_agreement, posting',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, salutation, first_name, last_name, email, phone, address_street_and_number, address_addition, address_post_code, address_city, address_country, salary_expectation, earliest_date_of_joining, cv, cover_letter, testimonials, other_files, privacy_agreement, posting, archived',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, salutation, first_name, last_name, email, phone, address_street_and_number, address_addition, address_post_code, address_city, address_country, salary_expectation, earliest_date_of_joining, cv, cover_letter, testimonials, other_files, privacy_agreement, posting, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, salutation, first_name, last_name, email, phone, address_street_and_number, address_addition, address_post_code, address_city, address_country, salary_expectation, earliest_date_of_joining, cv, cover_letter, testimonials, other_files, privacy_agreement, posting, archived, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
+    	'crdate' => [
+			'exclude' => true,
+			'label' => 'Creation date',
+			'config' => Array (
+				'type' => 'none',
+				'format' => 'date',
+				'eval' => 'date')
+
+		],
         'sys_language_uid' => [
             'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
@@ -124,10 +133,10 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.application.selector.chooseMessage', 0],
-					['LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.application.selector.mr', 1],
-					['LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.application.selector.mrs', 2],
-					['LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.application.selector.div', 3]
+                    ['LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.application.selector.chooseMessage', ''],
+					['LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.application.selector.mr', 'mr'],
+					['LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.application.selector.mrs', 'mrs'],
+					['LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.application.selector.div', 'div']
                 ],
                 'size' => 1,
                 'maxitems' => 1,
@@ -174,10 +183,9 @@ return [
             'exclude' => true,
             'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.address_street_and_number',
             'config' => [
-                'type' => 'text',
-                'cols' => 40,
-                'rows' => 15,
-                'eval' => 'trim'
+				'type' => 'input',
+				'size' => 30,
+				'eval' => 'trim'
             ]
         ],
         'address_addition' => [
@@ -441,6 +449,19 @@ return [
                 'maxitems' => 1,
             ],
         ],
+		"archived" => [
+			'exclude' => true,
+			'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.archived',
+			'config' => [
+				'type' => 'check',
+				'items' => [
+					'1' => [
+						'0' => 'LLL:EXT:lang/locallang_core.xlf:labels.enabled'
+					]
+				],
+				'default' => 0,
+			]
+		]
     
     ],
 ];

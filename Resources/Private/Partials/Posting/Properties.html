@@ -14,7 +14,6 @@
 				</div>
 			</f:if>
 			<f:if condition="{posting.division}">
-
 				<div class="col-3">
 					<h6>
 						<f:translate key="tx_jobs_domain_model_posting.division"/>
@@ -33,7 +32,7 @@
 					</h6>
 				</div>
 				<div class="col-3">
-					{posting.employmentType}
+					<f:translate key="fe.posting.employment.selector.{posting.employmentType}"/>
 				</div>
 			</f:if>
 			<f:if condition="{posting.termsOfEmployment}">
@@ -168,7 +167,12 @@
 					<f:if condition="{settings.showLocationTitle}">
 						{posting.location.name}<br>
 					</f:if>
-					<f:format.raw>{posting.location.address}</f:format.raw>
+					{posting.location.addressStreetAndNumber}<br>
+					<f:if condition="{posting.location.addressAddition}">
+						{posting.location.addressAddition}<br>
+					</f:if>
+					{posting.location.addressPostCode}&nbsp;{posting.location.addressCity}<br>
+					{posting.location.addressCountry}
 				</div>
 			</div>
 		</f:if>
@@ -186,7 +190,7 @@
 								<f:image src="{posting.contact.photo.originalResource.publicUrl}" class="h-auto w-25 float-left mr-3"/>
 							</f:if>
 							<div class="container-flex text-left float-left">
-								{posting.contact.name}<br>
+								{posting.contact.firstName} {posting.contact.lastName}<br>
 								{posting.contact.division}<br>
 								{posting.contact.phone}<br>
 								{posting.contact.email}<br>

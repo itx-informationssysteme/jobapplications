@@ -150,6 +150,9 @@
 			<trans-unit id="tx_jobs_domain_model_application.privacy_agreement" resname="tx_jobs_domain_model_application.privacy_agreement">
 				<source>Privacy Agreement</source>
 			</trans-unit>
+			<trans-unit id="tx_jobs_domain_model_application.archived" resname="tx_jobs_domain_model_application.archived">
+				<source>Archived</source>
+			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_posting.slug" resname="tx_jobs_domain_model_posting.slug">
 				<source>Slug</source>
 			</trans-unit>

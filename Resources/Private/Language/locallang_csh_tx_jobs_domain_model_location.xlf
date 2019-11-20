@@ -9,6 +9,9 @@
 			<trans-unit id="address.description" resname="address.description">
 				<source>address</source>
 			</trans-unit>
+			<trans-unit id="address_country.description" resname="address_country.description">
+				<source>Preferably as ISO 3166-1 alpha-2 Country code, for optimal Google Jobs integration</source>
+			</trans-unit>
 			<trans-unit id="latitude.description" resname="latitude.description">
 				<source>latitude</source>
 			</trans-unit>

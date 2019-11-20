@@ -26,12 +26,40 @@ class Location extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected $name = '';
 
-    /**
-     * address
-     * 
-     * @var string
-     */
-    protected $address = '';
+	/**
+	 * addressStreetAndNumber
+	 *
+	 * @var string
+	 */
+	protected $addressStreetAndNumber = '';
+
+	/**
+	 * addressAddition
+	 *
+	 * @var string
+	 */
+	protected $addressAddition = '';
+
+	/**
+	 * addressPostCode
+	 *
+	 * @var int
+	 */
+	protected $addressPostCode = 0;
+
+	/**
+	 * addressCity
+	 *
+	 * @var string
+	 */
+	protected $addressCity = '';
+
+	/**
+	 * addressCountry
+	 *
+	 * @var string
+	 */
+	protected $addressCountry = '';
 
     /**
      * latitude
@@ -57,26 +85,87 @@ class Location extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         return $this->name;
     }
 
-    /**
-     * Sets the name
-     * 
-     * @param string $name
-     * @return void
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
+	/**
+	 * @return string
+	 */
+	public function getAddressStreetAndNumber(): string
+	{
+		return $this->addressStreetAndNumber;
+	}
 
-    /**
-     * Returns the address
-     * 
-     * @return string address
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
+	/**
+	 * @param string $addressStreetAndNumber
+	 */
+	public function setAddressStreetAndNumber(string $addressStreetAndNumber): void
+	{
+		$this->addressStreetAndNumber = $addressStreetAndNumber;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getAddressAddition(): string
+	{
+		return $this->addressAddition;
+	}
+
+	/**
+	 * @param string $addressAddition
+	 */
+	public function setAddressAddition(string $addressAddition): void
+	{
+		$this->addressAddition = $addressAddition;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getAddressPostCode(): int
+	{
+		return $this->addressPostCode;
+	}
+
+	/**
+	 * @param int $addressPostCode
+	 */
+	public function setAddressPostCode(int $addressPostCode): void
+	{
+		$this->addressPostCode = $addressPostCode;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getAddressCity(): string
+	{
+		return $this->addressCity;
+	}
+
+	/**
+	 * @param string $addressCity
+	 */
+	public function setAddressCity(string $addressCity): void
+	{
+		$this->addressCity = $addressCity;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getAddressCountry(): string
+	{
+		return $this->addressCountry;
+	}
+
+	/**
+	 * @param string $addressCountry
+	 */
+	public function setAddressCountry(string $addressCountry): void
+	{
+		$this->addressCountry = $addressCountry;
+	}
+
+
 
     /**
      * Sets the address

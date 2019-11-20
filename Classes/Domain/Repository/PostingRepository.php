@@ -2,6 +2,7 @@
 
 	namespace ITX\Jobs\Domain\Repository;
 
+	use ITX\Jobs\Domain\Model\Contact;
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 	use ITX\Jobs\Domain\Repository\RepoHelpers;
 
@@ -198,5 +199,19 @@
 
 			return $query->execute();
 
+		}
+
+		/**
+		 * @param $contact int Contact Uid
+		 * @param $orderBy string
+		 * @param $order string
+		 */
+		public function findByContact($contact, $orderBy = "title", $order = "ASC")
+		{
+			$query = $this->createQuery();
+
+			$query->statement("SELECT * FROM tx_jobs_domain_model_posting WHERE deleted = 0 AND contact = ".$contact."  ORDER BY ".$orderBy." ".$order);
+
+			return $query->execute();
 		}
 	}

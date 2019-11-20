@@ -48,7 +48,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 							</label>
 							<f:form.select class="form-control" name="employmentType" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
 								<f:for each="{employmentTypes}" as="employmentType">
-									<f:form.select.option value="{employmentType.employmentType}" additionalAttributes="{f:if(condition: '{selectedEmploymentType} == {employmentType.employmentType}', then: '{selected: true}')}">{employmentType.employmentType}</f:form.select.option>
+									<f:form.select.option value="{employmentType.employmentType}" additionalAttributes="{f:if(condition: '{selectedEmploymentType} == {employmentType.employmentType}', then: '{selected: true}')}"><f:translate key="fe.posting.employment.selector.{employmentType.employmentType}"/></f:form.select.option>
 								</f:for>
 							</f:form.select>
 						</div>
@@ -88,7 +88,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 													<div class="col"></div>
 													<div class="col-9">
 														<div class="card-title mt-3">
-															<f:link.action action="show" arguments="{posting : posting}">{posting.title}</f:link.action>
+															<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" pluginName="DetailView">{posting.title}</f:link.action>
 														</div>
 														<div class="card-body p-0 pb-3">
 															<div class="row">
@@ -133,7 +133,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 														<div class="col"></div>
 														<div class="col-9">
 															<div class="card-title mt-3">
-																<f:link.action action="show" arguments="{posting : posting}">{posting.title}</f:link.action>
+																<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" pluginName="DetailView">{posting.title}</f:link.action>
 															</div>
 															<div class="row">
 																<div class="col">

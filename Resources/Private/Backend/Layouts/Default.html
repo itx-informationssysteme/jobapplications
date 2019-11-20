@@ -1,39 +1,37 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-	<f:be.container>
-		<div class="typo3-fullDoc">
-			<div id="typo3-docheader">
-				<div class="typo3-docheader-functions">
-					<div class="left">
-						<f:be.buttons.csh />
-						<f:be.menus.actionMenu>
-							<f:be.menus.actionMenuItem label="Overview" controller="" action="list" />
-							<f:be.menus.actionMenuItem label="Create new Posting" action="new" controller="Posting" />
-									<f:be.menus.actionMenuItem label="Create new Contact" action="new" controller="Contact" />
-									<f:be.menus.actionMenuItem label="Create new Location" action="new" controller="Location" />
-									<f:be.menus.actionMenuItem label="Create new Application" action="new" controller="Application" />
-						</f:be.menus.actionMenu>
-					</div>
-					<div class="right">
-						<f:be.pagePath />
-						<f:be.pageInfo />
-					</div>
-				</div>
-				<div class="typo3-docheader-buttons">
-					<div class="left">
 
-					</div>
-					<div class="right">
-						<f:be.buttons.shortcut />
-					</div>
+<f:be.container includeCssFiles="{0: '{f:uri.resource(path:\'Css/backend.css\')}'}">
+	<div class="typo3-fullDoc">
+		<div id="typo3-docheader">
+			<div class="typo3-docheader-functions">
+				<div class="left">
+					<f:be.buttons.csh/>
+					<f:be.menus.actionMenu>
+						<f:be.menus.actionMenuItem label="Overview" controller="Backend" action="dashboard"/>
+						<f:be.menus.actionMenuItem label="Application Adminstation" action="listApplications" controller="Backend"/>
+					</f:be.menus.actionMenu>
 				</div>
-
+				<div class="right">
+					<f:be.pagePath/>
+					<f:be.pageInfo/>
+				</div>
 			</div>
-			<div id="typo3-docbody">
-				<div id="typo3-inner-docbody">
-					<f:flashMessages />
-					<f:render section="content" />
+			<div class="typo3-docheader-buttons">
+				<div class="left">
+
 				</div>
+				<div class="right">
+					<f:be.buttons.shortcut/>
+				</div>
+			</div>
+
+		</div>
+		<div id="typo3-docbody">
+			<div id="typo3-inner-docbody">
+				<f:flashMessages/>
+				<f:render section="content" arguments="{_all}"/>
 			</div>
 		</div>
-	</f:be.container>
+	</div>
+</f:be.container>
 </html>
