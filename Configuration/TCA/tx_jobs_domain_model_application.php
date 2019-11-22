@@ -21,10 +21,10 @@ return [
         'iconfile' => 'EXT:jobs/Resources/Public/Icons/tx_jobs_domain_model_application.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, salutation, first_name, last_name, email, phone, address_street_and_number, address_addition, address_post_code, address_city, address_country, salary_expectation, earliest_date_of_joining, cv, cover_letter, testimonials, other_files, privacy_agreement, posting, archived',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, salutation, first_name, last_name, email, phone, address_street_and_number, address_addition, address_post_code, address_city, address_country, salary_expectation, earliest_date_of_joining, cv, cover_letter, testimonials, other_files, privacy_agreement, posting, archived, status',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, salutation, first_name, last_name, email, phone, address_street_and_number, address_addition, address_post_code, address_city, address_country, salary_expectation, earliest_date_of_joining, cv, cover_letter, testimonials, other_files, privacy_agreement, posting, archived, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, salutation, first_name, last_name, email, phone, address_street_and_number, address_addition, address_post_code, address_city, address_country, salary_expectation, earliest_date_of_joining, cv, cover_letter, testimonials, other_files, privacy_agreement, posting, archived, status, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
     	'crdate' => [
@@ -461,6 +461,18 @@ return [
 				],
 				'default' => 0,
 			]
+		],
+		"status" => [
+			'exclude' => true,
+			'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.status',
+			'config' => [
+				'type' => 'select',
+				'renderType' => 'selectSingle',
+				'foreign_table' => 'tx_jobs_domain_model_status',
+				'size' => 1,
+				'maxitems' => 1,
+				'eval' => ''
+			],
 		]
     
     ],

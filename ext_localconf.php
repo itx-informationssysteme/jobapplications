@@ -13,7 +13,6 @@
 				// non-cacheable actions
 				[
 					'Posting' => 'list',
-					'Application' => 'create'
 				]
 			);
 
@@ -32,7 +31,7 @@
 					'Application' => 'new, create'
 				],
 				[
-					'Application' => 'create'
+					'Application' => 'create, new'
 				]
 			);
 

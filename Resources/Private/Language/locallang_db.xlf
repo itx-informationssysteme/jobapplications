@@ -66,8 +66,14 @@
 			<trans-unit id="tx_jobs_domain_model_contact" resname="tx_jobs_domain_model_contact">
 				<source>Contact</source>
 			</trans-unit>
-			<trans-unit id="tx_jobs_domain_model_contact.name" resname="tx_jobs_domain_model_contact.name">
-				<source>Name</source>
+			<trans-unit id="tx_jobs_domain_model_contact.first_name" resname="tx_jobs_domain_model_contact.first_name">
+				<source>First Name</source>
+			</trans-unit>
+			<trans-unit id="tx_jobs_domain_model_contact.last_name" resname="tx_jobs_domain_model_contact.last_name">
+				<source>Last Name</source>
+			</trans-unit>
+			<trans-unit id="tx_jobs_domain_model_contact.be_user" resname="tx_jobs_domain_model_contact.be_user">
+				<source>Last Name</source>
 			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_contact.email" resname="tx_jobs_domain_model_contact.email">
 				<source>Email</source>
@@ -101,12 +107,6 @@
 			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_application.salutation" resname="tx_jobs_domain_model_application.salutation">
 				<source>Salutation</source>
-			</trans-unit>
-			<trans-unit id="tx_jobs_domain_model_application.first_name" resname="tx_jobs_domain_model_application.first_name">
-				<source>First Name</source>
-			</trans-unit>
-			<trans-unit id="tx_jobs_domain_model_application.last_name" resname="tx_jobs_domain_model_application.last_name">
-				<source>Last Name</source>
 			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_application.email" resname="tx_jobs_domain_model_application.email">
 				<source>Email</source>
@@ -152,6 +152,15 @@
 			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_application.archived" resname="tx_jobs_domain_model_application.archived">
 				<source>Archived</source>
+			</trans-unit>
+			<trans-unit id="tx_jobs_domain_model_application.status" resname="tx_jobs_domain_model_application.status">
+				<source>Status</source>
+			</trans-unit>
+			<trans-unit id="tx_jobs_domain_model_status" resname="tx_jobs_domain_model_status">
+				<source>Status</source>
+			</trans-unit>
+			<trans-unit id="tx_jobs_domain_model_status.name" resname="tx_jobs_domain_model_status.name">
+				<source>Name</source>
 			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_posting.slug" resname="tx_jobs_domain_model_posting.slug">
 				<source>Slug</source>

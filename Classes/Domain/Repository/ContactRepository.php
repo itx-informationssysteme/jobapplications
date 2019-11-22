@@ -67,4 +67,16 @@
 
 			return $query->execute();
 		}
+
+		/**
+		 * @param $beUserUid
+		 *
+		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+		 */
+		public function findByBackendUser($beUserUid) {
+			$query = $this->createQuery();
+			$query->statement("SELECT DISTINCT * FROM tx_jobs_domain_model_contact WHERE hidden = 0 AND deleted = 0 AND be_user = ".$beUserUid);
+
+			return $query->execute();
+		}
 	}

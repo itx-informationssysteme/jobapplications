@@ -123,6 +123,13 @@
 			<trans-unit id="conf.logo" resname="conf.logo">
 				<source>[Optional] Logo: Logo as public link</source>
 			</trans-unit>
+			<trans-unit id="be.dashboard.welcome" resname="be.dashboard.welcome">
+				<source>Welcome back %s %s!</source>
+			</trans-unit>
+			<trans-unit id="be.dashboard.unread" resname="be.dashboard.unread">
+				<source>You have %s new applications.</source>
+			</trans-unit>
+
 		</body>
 	</file>
 </xliff>

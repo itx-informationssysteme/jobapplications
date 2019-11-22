@@ -2,121 +2,139 @@
 <f:layout name="Default"/>
 
 <f:section name="content">
-	<div class="top">
-		<h1>Applications</h1>
-		<div class="filter">
-			<f:form action="listApplications" name="filter" object="{filter}" method="post">
-				<div class="filter-element">
-					<label for="contact">
-						<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.filter.contacts"/>
-					</label>
-					<f:form.select class="" name="contact" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
-						<f:for each="{contacts}" as="contact">
-							<f:form.select.option value="{contact.uid}" additionalAttributes="{f:if(condition: '{selectedContact} == {contact.uid}', then: '{selected: true}')}">{contact.firstName} {contact.lastName}</f:form.select.option>
-						</f:for>
-					</f:form.select>
-				</div>
-				<div class="filter-element">
-					<label for="posting">
-						<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.filter.postings"/>
-					</label>
-					<f:form.select class="" name="posting" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
-						<f:for each="{postings}" as="posting">
-							<f:form.select.option value="{posting.uid}" additionalAttributes="{f:if(condition: '{selectedPosting} == {posting.uid}', then: '{selected: true}')}">{posting.title}</f:form.select.option>
-						</f:for>
-					</f:form.select>
-				</div>
-				<div class="filter-element checkbox-wrapper">
-					<label for="archived">
-						<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.filter.archived"/>
-					</label>
-					<f:form.checkbox name="archived" value="1" checked="{f:if(condition: '{archivedSelected} == 1', then: 'checked')}"/>
-				</div>
-				<div class="filter-buttons">
-					<f:form.submit name="submit" class="btn form-btn" value="{f:translate(key: 'fe.posting.button.filter')}"></f:form.submit>
+	<div class="listapplication-wrapper">
+		<div class="top">
+			<h1>Applications</h1>
+			<div class="filter">
+				<f:form action="listApplications" name="filter" method="post">
+					<div class="filter-element">
+						<label for="contact">
+							<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.filter.contacts"/>
+						</label>
+						<f:form.select class="" name="contact" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
+							<f:for each="{contacts}" as="contact">
+								<f:form.select.option value="{contact.uid}" additionalAttributes="{f:if(condition: '{selectedContact} == {contact.uid}', then: '{selected: true}')}">{contact.firstName} {contact.lastName}</f:form.select.option>
+							</f:for>
+						</f:form.select>
+					</div>
+					<div class="filter-element">
+						<label for="posting">
+							<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.filter.postings"/>
+						</label>
+						<f:form.select class="" name="posting" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
+							<f:for each="{postings}" as="posting">
+								<f:form.select.option value="{posting.uid}" additionalAttributes="{f:if(condition: '{selectedPosting} == {posting.uid}', then: '{selected: true}')}">{posting.title}</f:form.select.option>
+							</f:for>
+						</f:form.select>
+					</div>
+					<div class="filter-element checkbox-wrapper">
+						<label for="archived">
+							<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.filter.archived"/>
+						</label>
+						<f:form.checkbox name="archived" value="1" checked="{f:if(condition: '{archivedSelected} == 1', then: 'checked')}"/>
+					</div>
+					<div class="filter-buttons">
+						<f:form.submit name="submit" class="btn form-btn" value="{f:translate(key: 'fe.posting.button.filter')}"></f:form.submit>
 
-					<f:link.action name="reset" class="btn form-btn btn-secondary" action="listApplications">
-						<f:translate key="fe.posting.button.reset"></f:translate>
-					</f:link.action>
-				</div>
-			</f:form>
+						<f:link.action name="reset" class="btn form-btn btn-secondary" action="listApplications">
+							<f:translate key="fe.posting.button.reset"></f:translate>
+						</f:link.action>
+					</div>
+				</f:form>
+			</div>
 		</div>
-	</div>
-	<hr>
-	<div class="app-list">
-		<ul>
-			<f:if condition="{applications}">
-				<f:then>
-					<f:for each="{applications}" as="application">
-						<li>
-							<div class="list-item-container">
-								<div class="row-section left">
-									<f:link.action action="showApplication" arguments="{application: application}">
-										<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.application.selector.{application.salutation}"/>
-										{application.lastName}, {application.firstName}
-									</f:link.action>
-								</div>
-								<div class="row-section middle">
-									<f:link.action action="listApplications" arguments="{posting: application.posting.uid, contact: ''}">
-										{application.posting.title} | {application.posting.division}
-									</f:link.action>
-								</div>
+		<hr>
+		<div class="app-list">
+			<ul>
+				<f:if condition="{applications}">
+					<f:then>
+						<f:for each="{applications}" as="application">
+							<li>
+								<div class="list-item-container">
+									<div class="row-section left">
+										<f:link.action action="showApplication" arguments="{application: application}">
+											<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.application.selector.{application.salutation}"/>
+											{application.lastName}, {application.firstName}
+										</f:link.action>
+									</div>
+									<div class="row-section middle">
+										<f:link.action action="listApplications" arguments="{posting: application.posting.uid, contact: ''}">
+											{application.posting.title} | {application.posting.division}
+										</f:link.action>
+									</div>
 
-								<div class="row-section right">
-									<span>
-										{application.crdate -> f:format.date()}
-									</span>
-									<f:link.action action="showApplication" arguments="{application: application}" class="btn">
-										<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.listApplications.showButton"/>
-									</f:link.action>
+									<div class="row-section right">
+										<f:form class="status-select" name="status" action="listApplications" arguments="{application: application, posting: selectedPosting, contact: selectedContact, archived: archivedSelected}">
+											<f:form.select name="status" additionalAttributes="{onchange: 'this.form.submit();'}">
+												<f:form.select.option value="{application.status.uid}" additionalAttributes="{selected: true}">
+													{application.status.name}
+												</f:form.select.option>
+												<f:for each="{application.status.followers}" as="status">
+													<f:form.select.option value="{status.uid}">
+														{status.name}
+													</f:form.select.option>
+												</f:for>
+											</f:form.select>
+											<f:image class="spinner" src="{f:uri.resource(path:'Icons/spinner.svg')}"></f:image>
+										</f:form>
+										<span>
+											{application.crdate -> f:format.date()}
+										</span>
+										<f:link.action action="showApplication" arguments="{application: application, posting: selectedPosting, contact: selectedContact, archived: archivedSelected}" class="btn">
+											<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.listApplications.showButton"/>
+										</f:link.action>
+									</div>
 								</div>
-							</div>
-						</li>
-					</f:for>
-				</f:then>
-				<f:else>
-					<span><f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.listApplications.filter.noApps"/></span>
-				</f:else>
-			</f:if>
-		</ul>
-	</div>
-	<div class="app-list archived">
+							</li>
+						</f:for>
+					</f:then>
+					<f:else>
+						<span><f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.listApplications.filter.noApps"/></span>
+					</f:else>
+				</f:if>
+			</ul>
+		</div>
+		<div class="app-list archived">
 			<f:if condition="{archivedApplications}">
 				<f:then>
-					<h2><f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.filter.archived"/>:</h2>
+					<h2>
+						<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.filter.archived"/>
+						:
+					</h2>
 					<ul>
-					<f:for each="{archivedApplications}" as="application">
-						<li class="archived">
-							<div class="list-item-container">
-								<div class="row-section left">
-									<f:link.action action="showApplication" arguments="{application: application}">
-										<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.application.selector.{application.salutation}"/>
-										{application.lastName}, {application.firstName}
-									</f:link.action>
-								</div>
-								<div class="row-section middle">
-									<f:link.action action="listApplications" arguments="{posting: application.posting.uid, contact: ''}">
-										{application.posting.title} | {application.posting.division}
-									</f:link.action>
-								</div>
+						<f:for each="{archivedApplications}" as="application">
+							<li class="archived">
+								<div class="list-item-container">
+									<div class="row-section left">
+										<f:link.action action="showApplication" arguments="{application: application, posting: selectedPosting, contact: selectedContact, archived: archivedSelected}">
+											<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.application.selector.{application.salutation}"/>
+											{application.lastName}, {application.firstName}
+										</f:link.action>
+									</div>
+									<div class="row-section middle">
+										<f:link.action action="listApplications" arguments="{posting: application.posting.uid, contact: ''}">
+											{application.posting.title} | {application.posting.division}
+										</f:link.action>
+									</div>
 
-								<div class="row-section right">
+									<div class="row-section right">
 									<span>
 										{application.crdate -> f:format.date()}
 									</span>
-									<f:link.action action="showApplication" arguments="{application: application}" class="btn">
-										<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.listApplications.showButton"/>
-									</f:link.action>
+										<f:link.action action="showApplication" arguments="{application: application, posting: selectedPosting, contact: selectedContact, archived: archivedSelected}" class="btn">
+											<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.listApplications.showButton"/>
+										</f:link.action>
+									</div>
 								</div>
-							</div>
-						</li>
-					</f:for>
+							</li>
+						</f:for>
 					</ul>
 				</f:then>
 				<f:else>
 
 				</f:else>
 			</f:if>
+		</div>
 	</div>
 </f:section>
 </html>

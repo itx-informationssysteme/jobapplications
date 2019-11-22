@@ -111,6 +111,9 @@
 			<trans-unit id="tx_jobs_domain_model_application.phone" resname="tx_jobs_domain_model_application.phone">
 				<source>Phone</source>
 			</trans-unit>
+			<trans-unit id="tx_jobs_domain_model_application.status" resname="tx_jobs_domain_model_application.status">
+				<source>Status</source>
+			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_application.address_street_and_number" resname="tx_jobs_domain_model_application.address_street_and_number">
 				<source>Streetname and House Number</source>
 			</trans-unit>

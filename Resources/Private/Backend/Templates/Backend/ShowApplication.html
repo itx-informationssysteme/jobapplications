@@ -2,132 +2,152 @@
 <f:layout name="Default"/>
 
 <f:section name="content">
-	<h1>Applicant Overview</h1>
-	<div class="personal-description {f:if(condition: '{application.archived}', then: 'archived')}">
-		<div class="row">
-			<div class="placeholder">&nbsp;</div>
-			<h5 class="name">
-				<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.application.selector.{application.salutation}"/>
-				{application.firstName} {application.lastName}
-			</h5>
-			<span class="date">{application.crdate -> f:format.date()}</span>
-		</div>
-		<div class="row">
-			<label>
-				<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:tx_jobs_domain_model_application.email"></f:translate>
-				:&nbsp;</label>
-			<span><a href="mailto:{application.email}">{application.email}</a></span>
-		</div>
-		<div class="row">
-			<label>
-				<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:tx_jobs_domain_model_application.phone"></f:translate>
-				:&nbsp;</label>
-			<span>{application.phone}</span>
-		</div>
-		<div class="row">
-			<label>
-				<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.showApp.address"></f:translate>
-				:&nbsp;</label>
-			<span>{application.addressStreetAndNumber}</span>
-		</div>
-		<f:if condition="{application.addressAddition}">
+	<div class="showapplication-wrapper">
+		<h1>Applicant Overview</h1>
+		<div class="personal-description {f:if(condition: '{application.archived}', then: 'archived')}">
+			<div class="row">
+				<div class="placeholder">&nbsp;</div>
+				<h5 class="name">
+					<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.application.selector.{application.salutation}"/>
+					{application.firstName} {application.lastName}
+				</h5>
+				<span class="date">{application.crdate -> f:format.date()}</span>
+			</div>
+			<div class="row">
+				<label>
+					<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:tx_jobs_domain_model_application.email"></f:translate>
+					:&nbsp;</label>
+				<span><a href="mailto:{application.email}">{application.email}</a></span>
+			</div>
+			<div class="row">
+				<label>
+					<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:tx_jobs_domain_model_application.phone"></f:translate>
+					:&nbsp;</label>
+				<span>{application.phone}</span>
+			</div>
+			<div class="row">
+				<label>
+					<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.showApp.address"></f:translate>
+					:&nbsp;</label>
+				<span>{application.addressStreetAndNumber}</span>
+			</div>
+			<f:if condition="{application.addressAddition}">
+				<div class="row">
+					<label>&nbsp;</label>
+					<span>{application.addressAddition}</span>
+				</div>
+			</f:if>
 			<div class="row">
 				<label>&nbsp;</label>
-				<span>{application.addressAddition}</span>
+				<span>{application.addressPostCode} {application.addressCity}</span>
 			</div>
-		</f:if>
-		<div class="row">
-			<label>&nbsp;</label>
-			<span>{application.addressPostCode} {application.addressCity}</span>
-		</div>
-		<div class="row">
-			<label>&nbsp;</label>
-			<span>{application.addressCountry}</span>
-		</div>
-		<f:if condition="{application.salaryExpectation}">
+			<div class="row">
+				<label>&nbsp;</label>
+				<span>{application.addressCountry}</span>
+			</div>
+			<f:if condition="{application.salaryExpectation}">
+				<div class="row">
+					<label>
+						<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:tx_jobs_domain_model_application.salary_expectation"></f:translate>
+						:&nbsp;</label>
+					<span>{application.salaryExpectation}</span>
+				</div>
+			</f:if>
+			<f:if condition="{application.earliestDateOfJoining}">
+				<div class="row">
+					<label>
+						<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:tx_jobs_domain_model_application.earliest_date_of_joining"></f:translate>
+						:&nbsp;</label>
+					<span>{application.earliestDateOfJoining -> f:format.date()}</span>
+				</div>
+			</f:if>
 			<div class="row">
 				<label>
-					<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:tx_jobs_domain_model_application.salary_expectation"></f:translate>
+					<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:tx_jobs_domain_model_application.privacy_agreement"></f:translate>
 					:&nbsp;</label>
-				<span>{application.salaryExpectation}</span>
+				<f:if condition="{application.privacyAgreement} == '1'">
+					<f:then>
+						<span><f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.show.privacy_agreement.yes"></f:translate></span>
+					</f:then>
+					<f:else>
+						<span><f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.show.privacy_agreement.no"></f:translate></span>
+					</f:else>
+				</f:if>
 			</div>
-		</f:if>
-		<f:if condition="{application.earliestDateOfJoining}">
 			<div class="row">
 				<label>
-					<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:tx_jobs_domain_model_application.earliest_date_of_joining"></f:translate>
+					<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:tx_jobs_domain_model_application.status"></f:translate>
 					:&nbsp;</label>
-				<span>{application.earliestDateOfJoining -> f:format.date()}</span>
+				<f:form id="show-spinner" class="status-select" name="status" action="showApplication" arguments="{application: application, posting: posting, archived: archived, contact: contact}">
+					<f:form.select name="status" additionalAttributes="{onchange: 'this.form.submit(); document.getElementsByClassName(\'spinner\')[0].classList.add(\'spinner-active\')'}">
+						<f:form.select.option value="{application.status.uid}" additionalAttributes="{selected: true}">
+							{application.status.name}
+						</f:form.select.option>
+						<f:for each="{selectableStatus}" as="status">
+							<f:form.select.option value="{status.uid}">
+								{status.name}
+							</f:form.select.option>
+						</f:for>
+					</f:form.select>
+					<f:image class="spinner" src="{f:uri.resource(path:'Icons/spinner.svg')}"></f:image>
+				</f:form>
 			</div>
-		</f:if>
-		<div class="row">
-			<label>
-				<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:tx_jobs_domain_model_application.privacy_agreement"></f:translate>
-				:&nbsp;</label>
-			<f:if condition="{application.privacyAgreement} == '1'">
-				<f:then>
-					<span><f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.show.privacy_agreement.yes"></f:translate></span>
-				</f:then>
-				<f:else>
-					<span><f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.show.privacy_agreement.no"></f:translate></span>
-				</f:else>
-			</f:if>
+			<div class="row file-container">
+				<f:if condition="{application.cv}">
+					<a class="file" href="{baseUri}{application.cv.originalResource.publicUrl}" download>
+						<img class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}" alt="pdf">
+						<span><f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:tx_jobs_domain_model_application.cv"/></span>
+						<img class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}" alt="download">
+					</a>
+				</f:if>
+
+				<f:if condition="{application.cv}">
+					<a class="file" href="{baseUri}{application.coverLetter.originalResource.publicUrl}" download>
+						<img class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}" alt="pdf">
+						<span><f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:tx_jobs_domain_model_application.cover_letter"/></span>
+						<img class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}" alt="download">
+					</a>
+				</f:if>
+
+				<f:if condition="{application.testimonials}">
+					<a class="file" href="{baseUri}{application.testimonials.originalResource.publicUrl}" download>
+						<img class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}" alt="pdf">
+						<span><f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:tx_jobs_domain_model_application.testimonials"/></span>
+						<img class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}" alt="download">
+					</a>
+				</f:if>
+
+				<f:if condition="{application.otherFiles}">
+					<a class="file" href="{baseUri}{application.otherFiles.originalResource.publicUrl}" download>
+						<img class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}" alt="pdf">
+						<span><f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:tx_jobs_domain_model_application.other_files"/></span>
+						<img class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}" alt="download">
+					</a>
+				</f:if>
+			</div>
 		</div>
-		<div class="row file-container">
-			<f:if condition="{application.cv}">
-				<a class="file" href="{baseUri}{application.cv.originalResource.publicUrl}" download>
-					<img class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}" alt="pdf">
-					<span><f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:tx_jobs_domain_model_application.cv"/></span>
-					<img class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}" alt="download">
-				</a>
-			</f:if>
+		<div class="container-buttons">
+			<div class="buttons">
+				<f:link.action id="btn-show-back" class="btn btn-secondary" action="listApplications" arguments="{contact: contact, posting: posting, archived: archived, contact: contact}">
+					<f:translate key="fe.posting.show.backlink"/>
+				</f:link.action>
+				<f:if condition="{application.archived}">
+					<f:then>
+						<f:link.action class="btn btn-secondary" action="showApplication" arguments="{application: application, archive: 1, posting: posting, archived: archived, contact: contact}">
+							<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.show.dearchive"></f:translate>
+						</f:link.action>
+					</f:then>
+					<f:else>
+						<f:link.action class="btn btn-secondary" action="showApplication" arguments="{application: application, archive: 1, posting: posting, archived: archived, contact: contact}">
+							<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.show.archive"></f:translate>
+						</f:link.action>
+					</f:else>
+				</f:if>
 
-			<f:if condition="{application.cv}">
-				<a class="file" href="{baseUri}{application.coverLetter.originalResource.publicUrl}" download>
-					<img class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}" alt="pdf">
-					<span><f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:tx_jobs_domain_model_application.cover_letter"/></span>
-					<img class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}" alt="download">
-				</a>
-			</f:if>
-
-			<f:if condition="{application.testimonials}">
-				<a class="file" href="{baseUri}{application.testimonials.originalResource.publicUrl}" download>
-					<img class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}" alt="pdf">
-					<span><f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:tx_jobs_domain_model_application.testimonials"/></span>
-					<img class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}" alt="download">
-				</a>
-			</f:if>
-
-			<f:if condition="{application.otherFiles}">
-				<a class="file" href="{baseUri}{application.otherFiles.originalResource.publicUrl}" download>
-					<img class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}" alt="pdf">
-					<span><f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:tx_jobs_domain_model_application.other_files"/></span>
-					<img class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}" alt="download">
-				</a>
-			</f:if>
-		</div>
-	</div>
-	<div class="container-buttons">
-		<div class="buttons">
-			<button id="btn-show-back" class="btn btn-secondary" onclick="window.history.back()">
-				<f:translate key="fe.posting.show.backlink"/>
-			</button>
-			<f:if condition="{application.archived}">
-				<f:then>
-					<f:link.action class="btn btn-secondary" action="showApplication" arguments="{application: application, archive: 1}">
-						<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.show.dearchive"></f:translate>
-					</f:link.action>
-				</f:then>
-				<f:else>
-					<f:link.action class="btn btn-secondary" action="showApplication" arguments="{application: application, archive: 1}">
-						<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.show.archive"></f:translate>
-					</f:link.action>
-				</f:else>
-			</f:if>
-
-			<f:link.action class="btn btn-critical" arguments="{application: application, delete: 1}" action="showApplication">
-				<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.show.delete"></f:translate>
-			</f:link.action>
+				<f:link.action class="btn btn-critical" action="showApplication" arguments="{application: application, delete: 1, posting: posting, archived: archived, contact: contact}">
+					<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.show.delete"></f:translate>
+				</f:link.action>
+			</div>
 		</div>
 	</div>
 </f:section>

@@ -2,6 +2,7 @@
 
 	namespace ITX\Jobs\Controller;
 
+	use ITX\Jobs\Domain\Model\Contact;
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 	/**
@@ -36,6 +37,14 @@
 		protected $contactRepository = null;
 
 		/**
+		 * statusRepository
+		 *
+		 * @var \ITX\Jobs\Domain\Repository\StatusRepository
+		 * @inject
+		 */
+		protected $statusRepository = null;
+
+		/**
 		 * persistenceManager
 		 *
 		 * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
@@ -51,31 +60,42 @@
 		 */
 		public function listApplicationsAction()
 		{
-			$selectedPosting = "";
-			$selectedContact = "";
+			// Get all filter elements and set them to empty if there are none
+			$this->request->hasArgument("contact") ? $selectedContact = $this->request->getArgument("contact") : $selectedContact = "-1";
+			$this->request->hasArgument("archived") ? $archivedSelected = $this->request->getArgument("archived") : $archivedSelected = "";
+			$this->request->hasArgument("posting") ? $selectedPosting = $this->request->getArgument("posting") : $selectedPosting = "";
+			$contact = $this->getActiveBeContact();
 
-			if ($this->request->hasArgument("posting") || $this->request->hasArgument("contact") || $this->request->hasArgument("archived"))
+			// Handling a status change, triggered in listApplications View
+			if ($this->request->hasArgument("status"))
 			{
-				$selectedPosting = $this->request->getArgument("posting");
-				$selectedContact = $this->request->getArgument("contact");
-				$archivedSelected = $this->request->getArgument("archived");
+				$application = $this->applicationRepository->findByUid($this->request->getArgument("application"));
+				$application->setStatus($this->statusRepository->findByUid($this->request->getArgument("status")));
+				$this->persistenceManager->update($application);
+			}
 
-				if ($archivedSelected)
-				{
-					$archivedApplications = $this->applicationRepository->findByFilter($selectedContact, $selectedPosting, 1);
-					$this->view->assign("archivedApplications", $archivedApplications);
-				}
-				$applications = $this->applicationRepository->findByFilter($selectedContact, $selectedPosting);
-				$this->view->assign("selectedPosting", $selectedPosting);
-				$this->view->assign("selectedContact", $selectedContact);
-				$this->view->assign("archivedSelected", $archivedSelected);
+			// Select contact automatically based on user who is accessing this
+			if ($contact && $selectedPosting == "" && $selectedContact != "")
+			{
+				$contact ? $selectedContact = $contact->getUid() : null;
 			}
 			else
 			{
-				$applications = $this->applicationRepository->findAll();
+				$selectedContact = "";
 			}
 
-			if ($selectedPosting == "" && $selectedContact != "")
+			// Handle show archived applications when selected in frontend-backend
+			if ($archivedSelected != "")
+			{
+				$archivedApplications = $this->applicationRepository->findByFilter($selectedContact, $selectedPosting, 1);
+				$this->view->assign("archivedApplications", $archivedApplications);
+			}
+
+			// apply actual filter, handles query as well when no filters specified
+			$applications = $this->applicationRepository->findByFilter($selectedContact, $selectedPosting);
+
+			// Set posting-selectBox content dynamically based on selected contact
+			if (($selectedPosting == "" && $selectedContact != ""))
 			{
 				$postingsFilter = $this->postingRepoitory->findByContact(intval($selectedContact));
 			}
@@ -84,8 +104,12 @@
 				$postingsFilter = $this->postingRepoitory->findAll();
 			}
 
+			// Fetch all Contacts for select-Box
 			$contactsFilter = $this->contactRepository->findAllWithOrder("last_name", "ASC");
 
+			$this->view->assign("selectedPosting", $selectedPosting);
+			$this->view->assign("archivedSelected", $archivedSelected);
+			$this->view->assign("selectedContact", $selectedContact);
 			$this->view->assign("applications", $applications);
 			$this->view->assign("postings", $postingsFilter);
 			$this->view->assign("contacts", $contactsFilter);
@@ -100,6 +124,7 @@
 		 */
 		public function showApplicationAction(\ITX\Jobs\Domain\Model\Application $application)
 		{
+			// Handles archive request
 			if ($this->request->hasArgument("archive"))
 			{
 				if ($application->isArchived())
@@ -113,18 +138,59 @@
 				$this->persistenceManager->update($application);
 			}
 
-			if($this->request->hasArgument("delete")) {
+			// Handles delete request
+			if ($this->request->hasArgument("delete"))
+			{
 				$this->persistenceManager->remove($application);
 				$this->redirect('listApplications', 'Backend', 'jobs');
 			}
 
+			// Handles status change request
+			if ($this->request->hasArgument("status"))
+			{
+				$application->setStatus($this->statusRepository->findByUid($this->request->getArgument("status")));
+				$this->persistenceManager->update($application);
+			}
+
+			// Fetch baseuri for f:uri to access Public folder
 			$baseUri = str_replace("typo3/", "", $this->request->getBaseUri());
 
+			// Find Followers and sort them todo: make choosable if sorted automatically or own sorting
+			$selectableStatus = $this->statusRepository->findFollowers($application->getStatus()->getUid());
+
+			// Pass through objects for filter, so when the user returns to listApplication the selections are applied as before
+			$this->request->hasArgument("posting") ? $contactFilter = $this->request->getArgument("contact") : $contactFilter = "";
+			$this->request->hasArgument("archived") ? $archivedFilter = $this->request->getArgument("archived") : $archivedFilter = "";
+			$this->request->hasArgument("posting") ? $postingFilter = $this->request->getArgument("posting") : $postingFilter = "";
+
+			$this->view->assign("contact", $contactFilter);
+			$this->view->assign("archived", $archivedFilter);
+			$this->view->assign("posting", $postingFilter);
+
+			$this->view->assign("selectableStatus", $selectableStatus);
 			$this->view->assign("application", $application);
 			$this->view->assign("baseUri", $baseUri);
 		}
 
-		public function dashboardAction() {
+		public function dashboardAction()
+		{
+			// Get data for counter of new applications with referenced contact
+			$contact = $this->getActiveBeContact();
+			$newApps = $this->applicationRepository->findNewApplicationsByContact($contact->getUid());
 
+			$this->view->assign("newApps", count($newApps));
+			$this->view->assign("contact", $contact);
+		}
+
+		/**
+		 * Returns the Contact which has the currently logged in backend user referenced
+		 *
+		 * @return Contact
+		 */
+		private function getActiveBeContact()
+		{
+			$beUserUid = $GLOBALS['BE_USER']->user["uid"];
+
+			return $this->contactRepository->findByBackendUser($beUserUid)[0];
 		}
 	}

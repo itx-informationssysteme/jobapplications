@@ -63,7 +63,25 @@
 		{
 			$query = $this->createQuery();
 
-			$query->statement("SELECT * FROM tx_jobs_domain_model_application WHERE deleted = 0 AND hidden = 0 AND archived = 0 ORDER BY crdate DESC");
+			$query->statement("SELECT * FROM tx_jobs_domain_model_application 
+										WHERE deleted = 0 AND hidden = 0 AND archived = 0 ORDER BY crdate DESC");
+
+			return $query->execute();
+		}
+
+		/**
+		 * @param int $contact
+		 *
+		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+		 */
+		public function findNewApplicationsByContact($contact)
+		{
+			$query = $this->createQuery();
+
+			$query->statement("SELECT * FROM tx_jobs_domain_model_application 
+										WHERE deleted = 0 AND hidden = 0 AND archived = 0 AND status = 1 AND posting 
+										IN( SELECT uid FROM tx_jobs_domain_model_posting 
+										WHERE deleted = 0 AND contact = ".$contact.")");
 
 			return $query->execute();
 		}
