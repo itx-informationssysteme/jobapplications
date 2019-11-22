@@ -3,6 +3,7 @@
 	namespace ITX\Jobs\Controller;
 
 	use ITX\Jobs\Domain\Model\Contact;
+	use ITX\Jobs\Domain\Model\Status;
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 	/**
@@ -60,10 +61,22 @@
 		 */
 		public function listApplicationsAction()
 		{
-			// Get all filter elements and set them to empty if there are none
-			$this->request->hasArgument("contact") ? $selectedContact = $this->request->getArgument("contact") : $selectedContact = "-1";
-			$this->request->hasArgument("archived") ? $archivedSelected = $this->request->getArgument("archived") : $archivedSelected = "";
-			$this->request->hasArgument("posting") ? $selectedPosting = $this->request->getArgument("posting") : $selectedPosting = "";
+			$sessionData = $GLOBALS["BE_USER"]->getSessionData("tx_jobs");
+
+			// Get all filter elements and set them to empty if there are none and use session storage for persisting selection
+			if ($this->request->hasArgument("submit"))
+			{
+				$this->request->hasArgument("contact") ? $selectedContact = $this->request->getArgument("contact") : $selectedContact = "";
+				$this->request->hasArgument("archived") ? $archivedSelected = $this->request->getArgument("archived") : $archivedSelected = "";
+				$this->request->hasArgument("posting") ? $selectedPosting = $this->request->getArgument("posting") : $selectedPosting = "";
+			}
+			else
+			{
+				$selectedPosting = $sessionData["selectedPosting"];
+				$archivedSelected = $sessionData["archivedSelected"];
+				$selectedContact = $sessionData["selectedContact"];
+			}
+
 			$contact = $this->getActiveBeContact();
 
 			// Handling a status change, triggered in listApplications View
@@ -75,13 +88,9 @@
 			}
 
 			// Select contact automatically based on user who is accessing this
-			if ($contact && $selectedPosting == "" && $selectedContact != "")
+			if ($contact && $selectedContact == 'contact')
 			{
-				$contact ? $selectedContact = $contact->getUid() : null;
-			}
-			else
-			{
-				$selectedContact = "";
+				$selectedContact = $contact->getUid();
 			}
 
 			// Handle show archived applications when selected in frontend-backend
@@ -92,7 +101,7 @@
 			}
 
 			// apply actual filter, handles query as well when no filters specified
-			$applications = $this->applicationRepository->findByFilter($selectedContact, $selectedPosting);
+			$applications = $this->applicationRepository->findByFilter($selectedContact, $selectedPosting, 0, "crdate", "DESC");
 
 			// Set posting-selectBox content dynamically based on selected contact
 			if (($selectedPosting == "" && $selectedContact != ""))
@@ -106,6 +115,12 @@
 
 			// Fetch all Contacts for select-Box
 			$contactsFilter = $this->contactRepository->findAllWithOrder("last_name", "ASC");
+
+			// Persist selection in session storage
+			$sessionData["selectedPosting"] = $selectedPosting;
+			$sessionData["archivedSelected"] = $archivedSelected;
+			$sessionData["selectedContact"] = $selectedContact;
+			$GLOBALS["BE_USER"]->setAndSaveSessionData("tx_jobs", $sessionData);
 
 			$this->view->assign("selectedPosting", $selectedPosting);
 			$this->view->assign("archivedSelected", $archivedSelected);
@@ -158,11 +173,6 @@
 			// Find Followers and sort them todo: make choosable if sorted automatically or own sorting
 			$selectableStatus = $this->statusRepository->findFollowers($application->getStatus()->getUid());
 
-			// Pass through objects for filter, so when the user returns to listApplication the selections are applied as before
-			$this->request->hasArgument("posting") ? $contactFilter = $this->request->getArgument("contact") : $contactFilter = "";
-			$this->request->hasArgument("archived") ? $archivedFilter = $this->request->getArgument("archived") : $archivedFilter = "";
-			$this->request->hasArgument("posting") ? $postingFilter = $this->request->getArgument("posting") : $postingFilter = "";
-
 			$this->view->assign("contact", $contactFilter);
 			$this->view->assign("archived", $archivedFilter);
 			$this->view->assign("posting", $postingFilter);
@@ -180,6 +190,24 @@
 
 			$this->view->assign("newApps", count($newApps));
 			$this->view->assign("contact", $contact);
+		}
+
+		public function settingsAction()
+		{
+			if ($this->request->hasArgument("pid"))
+			{
+				$pid = $this->request->getArgument("pid");
+				$language = $this->request->getArgument("language");
+				switch ($language)
+				{
+					case "de":
+						break;
+					case "en";
+						$this->statusRepository->generateStatusEn("tx_jobs_domain_model_status.sql", "tx_jobs_domain_model_status_mm.sql", $pid);
+						break;
+				}
+				$this->addFlashMessage("Finished!");
+			}
 		}
 
 		/**

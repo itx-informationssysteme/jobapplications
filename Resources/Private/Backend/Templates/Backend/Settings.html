@@ -1,0 +1,32 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default"/>
+
+<f:section name="content">
+	<div class="settings">
+		<div class="top">
+			<h1>
+				<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.dashboard.settings"></f:translate>
+			</h1>
+		</div>
+		<div class="middle">
+			<div class="left">
+				<f:form action="settings" name="Status">
+					<label for="pid">
+						PID:
+					</label>
+					<f:form.textfield name="pid"></f:form.textfield>
+					<f:form.select name="language">
+						<f:form.select.option value="de">DE</f:form.select.option>
+						<f:form.select.option value="en">EN</f:form.select.option>
+					</f:form.select>
+					<f:form.submit class="btn" value="Generate"></f:form.submit>
+				</f:form>
+			</div>
+			<div class="right"></div>
+		</div>
+		<div class="footer">
+			<span>©it.x informationssysteme gmbh</span>
+		</div>
+	</div>
+</f:section>
+</html>

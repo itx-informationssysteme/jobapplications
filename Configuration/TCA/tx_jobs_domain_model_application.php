@@ -469,9 +469,8 @@ return [
 				'type' => 'select',
 				'renderType' => 'selectSingle',
 				'foreign_table' => 'tx_jobs_domain_model_status',
-				'size' => 1,
+				'minitems' => 0,
 				'maxitems' => 1,
-				'eval' => ''
 			],
 		]
     

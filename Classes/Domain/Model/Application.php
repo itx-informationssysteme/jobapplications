@@ -167,7 +167,7 @@
 		 *
 		 * @var ITX\Jobs\Domain\Model\Status
 		 */
-		protected $status = 1;
+		protected $status = null;
 
 		/**
 		 * Returns the salutation

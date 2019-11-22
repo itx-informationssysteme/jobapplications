@@ -24,6 +24,15 @@ div {
 
 h1 {
 	text-align: center;
+	font-size: 3.2rem;
+}
+
+h2 {
+	font-size: 2.5rem;
+}
+
+h3 {
+	font-size: 1.9rem;
 }
 
 hr {
@@ -319,8 +328,7 @@ hr {
 	}
 }
 
-.status-select
-{
+.status-select {
 	width: auto;
 	margin: 0 !important;
 	margin-bottom: -5px !important;
@@ -382,6 +390,10 @@ hr {
 		flex-wrap: wrap;
 		flex-direction: row;
 		justify-content: center;
+		width: 100%;
+		position: absolute;
+		height: 100%;
+		top: 0;
 
 		.button-box {
 			display: inline-block;
@@ -389,17 +401,18 @@ hr {
 			border: 0.2rem solid @color-primary;
 			width: 20rem;
 			height: 20rem;
-			padding: 2rem;
-			transition: background-color 0.1s, color 0.1s, border 0.1s, box-shadow 0.1s;
+			padding: 1rem;
+			transition: background-color 0.1s, color 0.1s, border 0.1s, box-shadow 0.1s, font-size 0.1s;
 			box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
 			text-align: center;
-			margin: 2rem 2rem;
 			color: @color-white;
 			text-decoration: none;
+			font-size: 1.6rem;
+			line-height: 1.5;
+			margin: auto 2rem;
 
 			span {
 				display: block;
-				font-size: 1.4rem;
 				position: relative;
 				letter-spacing: 1px;
 				top: 50%;
@@ -408,20 +421,33 @@ hr {
 			}
 
 			&:hover {
-				background-color: @color-primary;
 				border: 0.2rem solid @color-white;
+				font-size: 1.5rem;
 				cursor: pointer;
 				text-decoration: none;
 				color: @color-white;
 				box-shadow: none;
+				line-height: 1.5;
 			}
 		}
-	}
 
-	.footer {
-		position: absolute;
-		bottom: 1rem;
-		width: 98%;
-		text-align: center;
+		.settings {
+			background-color: #ffd02a;
+			border: 0.2rem solid #ffd02a;
+		}
+	}
+}
+
+.footer {
+	position: absolute;
+	bottom: 1rem;
+	width: 98%;
+	text-align: center;
+}
+
+.settings {
+	padding: 2rem;
+	.middle {
+		padding: 2rem;
 	}
 }

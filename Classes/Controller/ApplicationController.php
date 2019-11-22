@@ -47,6 +47,12 @@
 		private $postingRepository;
 
 		/**
+		 * @var \ITX\Jobs\Domain\Repository\StatusRepository
+		 * @inject
+		 */
+		private $statusRepository;
+
+		/**
 		 * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
 		 * @inject
 		 */
@@ -164,7 +170,7 @@
 			}
 
 			$newApplication->setPosting($posting);
-			$newApplication->setPid($this->settings["saveInFolderPid"]);
+			$newApplication->setStatus($this->statusRepository->findByUid(1));
 			$this->applicationRepository->add($newApplication);
 			$this->persistenceManager->persistAll();
 

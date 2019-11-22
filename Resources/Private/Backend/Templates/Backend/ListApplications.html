@@ -4,7 +4,7 @@
 <f:section name="content">
 	<div class="listapplication-wrapper">
 		<div class="top">
-			<h1>Applications</h1>
+			<h1><f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.dashboard.applicationAdmin"></f:translate></h1>
 			<div class="filter">
 				<f:form action="listApplications" name="filter" method="post">
 					<div class="filter-element">
@@ -64,7 +64,7 @@
 									</div>
 
 									<div class="row-section right">
-										<f:form class="status-select" name="status" action="listApplications" arguments="{application: application, posting: selectedPosting, contact: selectedContact, archived: archivedSelected}">
+										<f:form class="status-select" name="status" action="listApplications" arguments="{application: application}">
 											<f:form.select name="status" additionalAttributes="{onchange: 'this.form.submit();'}">
 												<f:form.select.option value="{application.status.uid}" additionalAttributes="{selected: true}">
 													{application.status.name}
@@ -80,7 +80,7 @@
 										<span>
 											{application.crdate -> f:format.date()}
 										</span>
-										<f:link.action action="showApplication" arguments="{application: application, posting: selectedPosting, contact: selectedContact, archived: archivedSelected}" class="btn">
+										<f:link.action action="showApplication" arguments="{application: application}" class="btn">
 											<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.listApplications.showButton"/>
 										</f:link.action>
 									</div>
@@ -106,7 +106,7 @@
 							<li class="archived">
 								<div class="list-item-container">
 									<div class="row-section left">
-										<f:link.action action="showApplication" arguments="{application: application, posting: selectedPosting, contact: selectedContact, archived: archivedSelected}">
+										<f:link.action action="showApplication" arguments="{application: application}">
 											<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.application.selector.{application.salutation}"/>
 											{application.lastName}, {application.firstName}
 										</f:link.action>
@@ -121,7 +121,7 @@
 									<span>
 										{application.crdate -> f:format.date()}
 									</span>
-										<f:link.action action="showApplication" arguments="{application: application, posting: selectedPosting, contact: selectedContact, archived: archivedSelected}" class="btn">
+										<f:link.action action="showApplication" arguments="{application: application}" class="btn">
 											<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.listApplications.showButton"/>
 										</f:link.action>
 									</div>

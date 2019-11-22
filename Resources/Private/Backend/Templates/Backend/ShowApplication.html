@@ -3,7 +3,7 @@
 
 <f:section name="content">
 	<div class="showapplication-wrapper">
-		<h1>Applicant Overview</h1>
+		<h1><f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.show.title"></f:translate></h1>
 		<div class="personal-description {f:if(condition: '{application.archived}', then: 'archived')}">
 			<div class="row">
 				<div class="placeholder">&nbsp;</div>
@@ -78,7 +78,7 @@
 				<label>
 					<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:tx_jobs_domain_model_application.status"></f:translate>
 					:&nbsp;</label>
-				<f:form id="show-spinner" class="status-select" name="status" action="showApplication" arguments="{application: application, posting: posting, archived: archived, contact: contact}">
+				<f:form id="show-spinner" class="status-select" name="status" action="showApplication" arguments="{application: application}">
 					<f:form.select name="status" additionalAttributes="{onchange: 'this.form.submit(); document.getElementsByClassName(\'spinner\')[0].classList.add(\'spinner-active\')'}">
 						<f:form.select.option value="{application.status.uid}" additionalAttributes="{selected: true}">
 							{application.status.name}
@@ -128,23 +128,23 @@
 		</div>
 		<div class="container-buttons">
 			<div class="buttons">
-				<f:link.action id="btn-show-back" class="btn btn-secondary" action="listApplications" arguments="{contact: contact, posting: posting, archived: archived, contact: contact}">
+				<f:link.action id="btn-show-back" class="btn btn-secondary" action="listApplications" arguments="{contact: contact}">
 					<f:translate key="fe.posting.show.backlink"/>
 				</f:link.action>
 				<f:if condition="{application.archived}">
 					<f:then>
-						<f:link.action class="btn btn-secondary" action="showApplication" arguments="{application: application, archive: 1, posting: posting, archived: archived, contact: contact}">
+						<f:link.action class="btn btn-secondary" action="showApplication" arguments="{application: application, archive: 1}">
 							<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.show.dearchive"></f:translate>
 						</f:link.action>
 					</f:then>
 					<f:else>
-						<f:link.action class="btn btn-secondary" action="showApplication" arguments="{application: application, archive: 1, posting: posting, archived: archived, contact: contact}">
+						<f:link.action class="btn btn-secondary" action="showApplication" arguments="{application: application, archive: 1}">
 							<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.show.archive"></f:translate>
 						</f:link.action>
 					</f:else>
 				</f:if>
 
-				<f:link.action class="btn btn-critical" action="showApplication" arguments="{application: application, delete: 1, posting: posting, archived: archived, contact: contact}">
+				<f:link.action class="btn btn-critical" action="showApplication" arguments="{application: application, delete: 1}">
 					<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.show.delete"></f:translate>
 				</f:link.action>
 			</div>

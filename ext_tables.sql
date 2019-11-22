@@ -85,7 +85,7 @@ CREATE TABLE tx_jobs_domain_model_application
     privacy_agreement         smallint(5) unsigned DEFAULT '0' NOT NULL,
     posting                   int(11) unsigned     DEFAULT '0',
     archived                  smallint(5) unsigned DEFAULT '0' NOT NULL,
-    status                    int(11) unsigned     DEFAULT '0'
+    status                    int(11) unsigned     DEFAULT '1'
 );
 
 #

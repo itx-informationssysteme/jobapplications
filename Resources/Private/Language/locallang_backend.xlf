@@ -126,10 +126,30 @@
 			<trans-unit id="be.dashboard.welcome" resname="be.dashboard.welcome">
 				<source>Welcome back %s %s!</source>
 			</trans-unit>
-			<trans-unit id="be.dashboard.unread" resname="be.dashboard.unread">
+			<trans-unit id="be.dashboard.unread.multiple" resname="be.dashboard.unread.multiple">
 				<source>You have %s new applications.</source>
 			</trans-unit>
-
+			<trans-unit id="be.dashboard.unread.one" resname="be.dashboard.unread.one">
+				<source>You have %s new application.</source>
+			</trans-unit>
+			<trans-unit id="be.dashboard.applicationAdmin" resname="be.dashboard.applicationAdmin">
+				<source>Application Administration</source>
+			</trans-unit>
+			<trans-unit id="be.dashboard.settings" resname="be.dashboard.settings">
+				<source>Settings</source>
+			</trans-unit>
+			<trans-unit id="be.show.title" resname="be.show.title">
+				<source>Applicant Overview</source>
+			</trans-unit>
+			<trans-unit id="be.dashboard.title" resname="be.dashboard.title">
+				<source>Dashboard</source>
+			</trans-unit>
+			<trans-unit id="be.settings.generateStatusDe" resname="be.settings.generateStatusDe">
+				<source>Generate status elements in german</source>
+			</trans-unit>
+			<trans-unit id="be.settings.generateStatusEn" resname="be.settings.generateStatusEn">
+				<source>Generate status elements in english</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
