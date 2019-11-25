@@ -42,7 +42,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 		<div class="col">
 			<f:if condition="{posting.datePosted}">
 				<div class="float-right">
-					<h6>{posting.datePosted -> f:format.date()}</h6>
+					<h6><f:format.date format="{f:translate(key: 'date_format')}">{posting.datePosted}</f:format.date></h6>
 				</div>
 			</f:if>
 		</div>

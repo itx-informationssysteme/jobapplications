@@ -53,6 +53,13 @@
 			$file1 = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName("EXT:jobs/Resources/Private/Sql/".$statusFile);
 			$file2 = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName("EXT:jobs/Resources/Private/Sql/".$statusMmFile);
 
+			$queryDropStatus = $this->createQuery();
+			$queryDropStatus->statement("DROP TABLE tx_jobs_domain_model_status");
+			$queryDropStatus->execute();
+			$queryDropMM = $this->createQuery();
+			$queryDropMM->statement("DROP TABLE tx_jobs_domain_model_status_mm");
+			$queryDropStatus->execute();
+
 			$contentStatus = file_get_contents($file1);
 			$contentStatus = str_replace("%pid%", $pid, $contentStatus);
 			$contentStatusMM = file_get_contents($file2);

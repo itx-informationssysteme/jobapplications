@@ -62,5 +62,7 @@ call_user_func(
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_jobs_domain_model_application', 'EXT:jobs/Resources/Private/Language/locallang_csh_tx_jobs_domain_model_application.xlf');
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_jobs_domain_model_application');
 
+		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tt_content.pi_flexform.jobs_applicationform.list', 'EXT:jobs/Resources/Private/Language/locallang_csh_flexform.xlf');
+
     }
 );

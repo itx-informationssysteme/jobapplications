@@ -45,7 +45,7 @@ hr {
 }
 
 .checkbox-wrapper {
-	margin-top: 3.3rem;
+	margin-top: 3.5rem;
 
 	label {
 		display: block;
@@ -248,7 +248,7 @@ hr {
 			&.file-container {
 				display: flex;
 				flex-direction: row;
-				justify-content: space-between;
+				justify-content: center;
 				flex-wrap: wrap;
 
 				.file {
@@ -333,7 +333,8 @@ hr {
 	margin: 0 !important;
 	margin-bottom: -5px !important;
 	display: inline-block;
-	width: 22rem;
+	margin-top: 0.8rem !important;
+	float: left;
 
 	.spinner {
 		display: none;
@@ -354,6 +355,13 @@ hr {
 		margin-top: 2px;
 		margin-left: -3px;
 		background-color: transparent;
+		cursor: pointer;
+
+		&.list {
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+		}
 
 		option {
 			text-align: right;
@@ -366,6 +374,9 @@ hr {
 }
 
 #show-spinner {
+	float: left;
+	width: auto;
+	margin-top: 0 !important;
 	float: left;
 }
 

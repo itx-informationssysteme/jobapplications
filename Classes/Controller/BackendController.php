@@ -27,7 +27,7 @@
 		 * @var \ITX\Jobs\Domain\Repository\PostingRepository
 		 * @inject
 		 */
-		protected $postingRepoitory = null;
+		protected $postingRepository = null;
 
 		/**
 		 * contactRepository
@@ -106,11 +106,11 @@
 			// Set posting-selectBox content dynamically based on selected contact
 			if (($selectedPosting == "" && $selectedContact != ""))
 			{
-				$postingsFilter = $this->postingRepoitory->findByContact(intval($selectedContact));
+				$postingsFilter = $this->postingRepository->findByContact(intval($selectedContact));
 			}
 			else
 			{
-				$postingsFilter = $this->postingRepoitory->findAll();
+				$postingsFilter = $this->postingRepository->findAllWithOrder();
 			}
 
 			// Fetch all Contacts for select-Box
@@ -201,9 +201,10 @@
 				switch ($language)
 				{
 					case "de":
+						$this->statusRepository->generateStatusEn("tx_jobs_domain_model_status_de.sql", "tx_jobs_domain_model_status_mm.sql", $pid);
 						break;
 					case "en";
-						$this->statusRepository->generateStatusEn("tx_jobs_domain_model_status.sql", "tx_jobs_domain_model_status_mm.sql", $pid);
+						$this->statusRepository->generateStatusEn("tx_jobs_domain_model_status_en.sql", "tx_jobs_domain_model_status_mm.sql", $pid);
 						break;
 				}
 				$this->addFlashMessage("Finished!");

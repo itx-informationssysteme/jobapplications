@@ -214,4 +214,18 @@
 
 			return $query->execute();
 		}
+
+		/**
+		 * Returns all objects of this repository.
+		 *
+		 * @return QueryResultInterface|array
+		 */
+		public function findAllWithOrder($orderBy = "title", $order = "ASC")
+		{
+			$query = $this->createQuery();
+
+			$query->statement("SELECT * FROM tx_jobs_domain_model_posting WHERE deleted = 0 ORDER BY ".$orderBy." ".$order);
+
+			return $query->execute();
+		}
 	}

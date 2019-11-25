@@ -11,7 +11,7 @@
 					<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.application.selector.{application.salutation}"/>
 					{application.firstName} {application.lastName}
 				</h5>
-				<span class="date">{application.crdate -> f:format.date()}</span>
+				<span class="date"><f:format.date format="{f:translate(key: 'date_format')}">{application.crdate}</f:format.date></span>
 			</div>
 			<div class="row">
 				<label>
@@ -58,7 +58,7 @@
 					<label>
 						<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:tx_jobs_domain_model_application.earliest_date_of_joining"></f:translate>
 						:&nbsp;</label>
-					<span>{application.earliestDateOfJoining -> f:format.date()}</span>
+					<span><f:format.date format="{f:translate(key: 'date_format')}">{application.earliestDateOfJoining}</f:format.date></span>
 				</div>
 			</f:if>
 			<div class="row">

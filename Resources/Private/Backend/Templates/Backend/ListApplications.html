@@ -65,7 +65,7 @@
 
 									<div class="row-section right">
 										<f:form class="status-select" name="status" action="listApplications" arguments="{application: application}">
-											<f:form.select name="status" additionalAttributes="{onchange: 'this.form.submit();'}">
+											<f:form.select class="list" name="status" additionalAttributes="{onchange: 'this.form.submit();'}">
 												<f:form.select.option value="{application.status.uid}" additionalAttributes="{selected: true}">
 													{application.status.name}
 												</f:form.select.option>
@@ -75,10 +75,9 @@
 													</f:form.select.option>
 												</f:for>
 											</f:form.select>
-											<f:image class="spinner" src="{f:uri.resource(path:'Icons/spinner.svg')}"></f:image>
 										</f:form>
 										<span>
-											{application.crdate -> f:format.date()}
+											<f:format.date format="{f:translate(key: 'date_format')}">{application.crdate}</f:format.date>
 										</span>
 										<f:link.action action="showApplication" arguments="{application: application}" class="btn">
 											<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.listApplications.showButton"/>

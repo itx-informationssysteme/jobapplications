@@ -3,6 +3,9 @@
 	<file source-language="en" datatype="plaintext" original="EXT:jobs/Resources/Private/Language/locallang" date="2019-10-21T16:03:17Z" product-name="jobs">
 		<header/>
 		<body>
+			<trans-unit id="date_format" resname="date_format">
+				<source>d.m.Y</source>
+			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_posting" resname="tx_jobs_domain_model_posting">
 				<source>Posting</source>
 			</trans-unit>
@@ -65,9 +68,6 @@
 			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_contact" resname="tx_jobs_domain_model_contact">
 				<source>Contact</source>
-			</trans-unit>
-			<trans-unit id="tx_jobs_domain_model_contact.name" resname="tx_jobs_domain_model_contact.name">
-				<source>Name</source>
 			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_contact.email" resname="tx_jobs_domain_model_contact.email">
 				<source>Email</source>

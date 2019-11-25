@@ -73,7 +73,7 @@
 				<source>Last Name</source>
 			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_contact.be_user" resname="tx_jobs_domain_model_contact.be_user">
-				<source>Last Name</source>
+				<source>Backend User</source>
 			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_contact.email" resname="tx_jobs_domain_model_contact.email">
 				<source>Email</source>
@@ -107,6 +107,12 @@
 			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_application.salutation" resname="tx_jobs_domain_model_application.salutation">
 				<source>Salutation</source>
+			</trans-unit>
+			<trans-unit id="tx_jobs_domain_model_application.first_name" resname="tx_jobs_domain_model_application.first_name">
+				<source>First Name</source>
+			</trans-unit>
+			<trans-unit id="tx_jobs_domain_model_application.last_name" resname="tx_jobs_domain_model_application.last_name">
+				<source>Last Name</source>
 			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_application.email" resname="tx_jobs_domain_model_application.email">
 				<source>Email</source>
@@ -170,9 +176,6 @@
 			</trans-unit>
 			<trans-unit id="tx_jobs_frontend.name" resname="tx_jobs_frontend.name">
 				<source>Jobs</source>
-			</trans-unit>
-			<trans-unit id="tx_jobs_frontend.description" resname="tx_jobs_frontend.description">
-				<source></source>
 			</trans-unit>
 		</body>
 	</file>

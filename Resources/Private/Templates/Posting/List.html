@@ -110,7 +110,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 																	<f:translate key="tx_jobs_domain_model_posting.date_posted"/>
 																	:
 																</div>
-																<div class="col-md-auto"><span>{posting.datePosted -> f:format.date()}</span></div>
+																<div class="col-md-auto"><f:format.date format="{f:translate(key: 'date_format')}">{posting.datePosted}</f:format.date></div>
 															</div>
 															<div class="row mt-3">
 																<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView">
@@ -154,7 +154,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 																	<f:translate key="tx_jobs_domain_model_posting.date_posted"/>
 																	:
 																</div>
-																<div class="col-md-auto"><span>{posting.datePosted -> f:format.date()}</span></div>
+																<div class="col-md-auto"><span><f:format.date format="{f:translate(key: 'date_format')}">{posting.datePosted}</f:format.date></span></div>
 															</div>
 															<div class="row mt-3">
 																<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView">

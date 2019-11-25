@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="EXT:jobs/Resources/Private/Language/locallang_csh_flexform" date="2019-10-21T16:03:17Z" product-name="jobs">
+        <header/>
+        <body>
+            <trans-unit id="settings.sendEmailToApplicantText" resname="settings.sendEmailToApplicantText">
+                <source>\nTemplating available: \nPosting Title: postingTitle \nApplicant Salutation: %applicantSalutation% \nApplicant Firstname: %applicantFirstname% \nApplicant Lastname: %applicantLastname%</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

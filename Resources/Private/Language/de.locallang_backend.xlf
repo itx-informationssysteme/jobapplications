@@ -1,0 +1,192 @@
+<?xml version='1.0' encoding='utf-8'?>
+<xliff version="1.0">
+    <file source-language="en" target-language="de" datatype="plaintext" original="EXT:jobs/Resources/Private/Language/locallang_mod" date="2019-10-21T16:03:17Z" product-name="jobs">
+        <header/>
+        <body>
+            <trans-unit id="mlang_tabs_tab" resname="mlang_tabs_tab" approved="yes">
+                <source>Jobs</source>
+                <target state="translated">Jobs</target>
+            </trans-unit>
+            <trans-unit id="flexform.showSalarayExpectation" resname="flexform.showSalarayExpectation" approved="yes">
+                <source>Show "Salary Expectation" Field</source>
+                <target state="translated">Zeige "Gehaltsvorstellung" Feld</target>
+            </trans-unit>
+            <trans-unit id="flexform.showEarliestDateOfJoining" resname="flexform.showEarliestDateOfJoining" approved="yes">
+                <source>Show "Earliest Date Of Joining" Field</source>
+                <target state="translated">Zeige "Frühstmögliches Eintrittsdatum" Feld</target>
+            </trans-unit>
+            <trans-unit id="flexform.general.detailView" resname="flexform.general.detailView" approved="yes">
+                <source>Set Detail Page Uid</source>
+                <target state="translated">Detailansicht-Seite Uid</target>
+            </trans-unit>
+            <trans-unit id="flexform.general.applicationForm" resname="flexform.general.applicationForm" approved="yes">
+                <source>Set Application Form Page Uid</source>
+                <target state="translated">Bewerbungsformular-Seite Uid</target>
+            </trans-unit>
+            <trans-unit id="flexform.imageAsHeader" resname="flexform.imageAsHeader" approved="yes">
+                <source>Should the image be the card header? If deselected: The image becomes the background of the whole card.</source>
+                <target state="translated">Soll der Listenansichtbild der Header der Karte sein? Falls nicht ist wird das Bild der Hintergrund der gesamten Karte.</target>
+            </trans-unit>
+            <trans-unit id="flexform.customCardFontColor" resname="flexform.customCardFontColor">
+                <source>Specific font color of the posting cards content</source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="flexform.successPage" resname="flexform.successPage" approved="yes">
+                <source>Success Page Specification</source>
+                <target state="translated">Erfolgsseite (nach Abschicken der Bewerbung)</target>
+            </trans-unit>
+            <trans-unit id="flexform.tab.postingTitle" resname="flexform.tab.postingTitle" approved="yes">
+                <source>Postings Settings</source>
+                <target state="translated">Stellenanzeigen Einstellungen</target>
+            </trans-unit>
+            <trans-unit id="flexform.sendEmailToInternal" resname="flexform.sendEmailToInternal" approved="yes">
+                <source>Should new applications be sent to a specific E-Mail address?</source>
+                <target state="translated">Sollen neue Bewerbungen an eine spezifische E-Mail Adresse gesendet werden?</target>
+            </trans-unit>
+            <trans-unit id="flexform.saveApplicationInBackend" resname="flexform.saveApplicationInBackend" approved="yes">
+                <source>Should Applications be saved in the backend?</source>
+                <target state="translated">Sollen Bewerbungen im Backend gespeichert werden?</target>
+            </trans-unit>
+            <trans-unit id="flexform.sendEmailToContact" resname="flexform.sendEmailToContact" approved="yes">
+                <source>Should the referenced contact receive an E-Mail?</source>
+                <target state="translated">Soll der in der Aussschreibung referenzierte Kontakt eine E-Mail erhalten?</target>
+            </trans-unit>
+            <trans-unit id="flexform.sendEmailToApplicantText" resname="flexform.sendEmailToApplicantText" approved="yes">
+                <source>E-Mail to Applicant Text</source>
+                <target state="translated">Text für E-Mail an Bewerber</target>
+            </trans-unit>
+            <trans-unit id="flexform.sendEmailToApplicantSubject" resname="flexform.sendEmailToApplicantSubject" approved="yes">
+                <source>E-Mail to Applicant Subject (Templating available: Posting Title: %postingTitle%)</source>
+                <target state="translated">Betreff für E-Mail an Bewerber</target>
+            </trans-unit>
+            <trans-unit id="flexform.emailSenderName" resname="flexform.emailSenderName" approved="yes">
+                <source>E-Mail to Applicant Sender Name</source>
+                <target state="translated">Absender Name für E-Mail an Bewerber</target>
+            </trans-unit>
+            <trans-unit id="flexform.emailSender" resname="flexform.emailSender" approved="yes">
+                <source>E-Mail to Applicant Sender E-Mail</source>
+                <target state="translated">Absende E-Mail für E-Mail an Bewerber</target>
+            </trans-unit>
+            <trans-unit id="flexform.sendEmailToApplicant" resname="flexform.sendEmailToApplicant" approved="yes">
+                <source>Should an E-Mail be sent to the applicant?</source>
+                <target state="translated">Soll eine E-Mail an den Bewerber gesendet werden?</target>
+            </trans-unit>
+            <trans-unit id="flexform.applicationsEnabled" resname="flexform.applicationsEnabled" approved="yes">
+                <source>Application Module</source>
+                <target state="translated">Bewerbungsmodul</target>
+            </trans-unit>
+            <trans-unit id="flexform.showContact" resname="flexform.showContact" approved="yes">
+                <source>Show Contact?</source>
+                <target state="translated">Zeige Kontakt?</target>
+            </trans-unit>
+            <trans-unit id="flexform.category" resname="flexform.category" approved="yes">
+                <source>[Optional] Show only postings of:</source>
+                <target state="translated">[Optional] Zeige nur Ausschreibungen von:</target>
+            </trans-unit>
+            <trans-unit id="flexform.googleMapsApiKey" resname="flexform.googleMapsApiKey" approved="yes">
+                <source>Enter a Google Maps API Key here to enable contact info maps support</source>
+                <target state="translated">Google Maps API Key</target>
+            </trans-unit>
+            <trans-unit id="flexform.showLocationTitle" resname="flexform.showLocationTitle" approved="yes">
+                <source>Show title of location?</source>
+                <target state="translated">Soll der Titel des Standorts angezeigt werden?</target>
+            </trans-unit>
+            <trans-unit id="flexform.showContactPhoto" resname="flexform.showContactPhoto" approved="yes">
+                <source>Show contact photo?</source>
+                <target state="translated">Soll das Foto des Kontakts angezeigt werden?</target>
+            </trans-unit>
+            <trans-unit id="flexform.pageTitle" resname="flexform.pageTitle" approved="yes">
+                <source>Define page title here (%postingTitle% gets replaced with title of posting)</source>
+                <target state="translated">Seitentitel</target>
+            </trans-unit>
+            <trans-unit id="be.listApplications.showButton" resname="be.listApplications.showButton" approved="yes">
+                <source>Show</source>
+                <target state="translated">Anzeigen</target>
+            </trans-unit>
+            <trans-unit id="be.listApplications.filter.noApps" resname="be.listApplications.filter.noApps" approved="yes">
+                <source>There are no applications matching your selection</source>
+                <target state="translated">Es gibt keine Bewerbungen, welche auf Ihre Auswahl zutreffen.</target>
+            </trans-unit>
+            <trans-unit id="be.filter.contacts" resname="be.filter.contacts" approved="yes">
+                <source>Contact</source>
+                <target state="translated">Kontakt</target>
+            </trans-unit>
+            <trans-unit id="be.filter.postings" resname="be.filter.postings" approved="yes">
+                <source>Posting</source>
+                <target state="translated">Stellenausschreibung</target>
+            </trans-unit>
+            <trans-unit id="be.showApp.address" resname="be.showApp.address" approved="yes">
+                <source>Address</source>
+                <target state="translated">Adresse</target>
+            </trans-unit>
+            <trans-unit id="be.show.privacy_agreement.yes" resname="be.show.privacy_agreement.yes" approved="yes">
+                <source>Accepted</source>
+                <target state="translated">Akzeptiert</target>
+            </trans-unit>
+            <trans-unit id="be.show.privacy_agreement.no" resname="be.show.privacy_agreement.no" approved="yes">
+                <source>Not accepted</source>
+                <target state="translated">Nicht akzeptiert</target>
+            </trans-unit>
+            <trans-unit id="be.filter.archived" resname="be.filter.archived" approved="yes">
+                <source>Archived</source>
+                <target state="translated">Archiviert</target>
+            </trans-unit>
+            <trans-unit id="be.show.archive" resname="be.show.archive" approved="yes">
+                <source>Archive</source>
+                <target state="translated">Archivieren</target>
+            </trans-unit>
+            <trans-unit id="be.show.dearchive" resname="be.show.dearchive" approved="yes">
+                <source>De-Archive</source>
+                <target state="translated">Wiederherstellen</target>
+            </trans-unit>
+            <trans-unit id="be.show.delete" resname="be.show.delete" approved="yes">
+                <source>Delete Application</source>
+                <target state="translated">Bewerbung löschen</target>
+            </trans-unit>
+            <trans-unit id="conf.companyName" resname="conf.companyName" approved="yes">
+                <source>Company Name: Used for google jobs structured data</source>
+                <target state="translated">Unternehmensname: Wird für Goolge Jobs benutzt</target>
+            </trans-unit>
+            <trans-unit id="conf.logo" resname="conf.logo" approved="yes">
+                <source>[Optional] Logo: Logo as public link</source>
+                <target state="translated">[Optional] Logo: Logo als öffentlicher Link</target>
+            </trans-unit>
+            <trans-unit id="be.dashboard.welcome" resname="be.dashboard.welcome" approved="yes">
+                <source>Welcome back %s %s!</source>
+                <target state="translated">Willkommen zurück, %s %s!</target>
+            </trans-unit>
+            <trans-unit id="be.dashboard.unread.multiple" resname="be.dashboard.unread.multiple" approved="yes">
+                <source>You have %s new applications.</source>
+                <target state="translated">Sie haben %s neue Bewerbungen.</target>
+            </trans-unit>
+            <trans-unit id="be.dashboard.unread.one" resname="be.dashboard.unread.one" approved="yes">
+                <source>You have %s new application.</source>
+                <target state="translated">Sie haben %s neue Bewerbung.</target>
+            </trans-unit>
+            <trans-unit id="be.dashboard.applicationAdmin" resname="be.dashboard.applicationAdmin" approved="yes">
+                <source>Application Administration</source>
+                <target state="translated">Verwaltung Bewerbungen</target>
+            </trans-unit>
+            <trans-unit id="be.dashboard.settings" resname="be.dashboard.settings" approved="yes">
+                <source>Settings</source>
+                <target state="translated">Einstellungen</target>
+            </trans-unit>
+            <trans-unit id="be.show.title" resname="be.show.title" approved="yes">
+                <source>Applicant Overview</source>
+                <target state="translated">Übersicht Bewerber</target>
+            </trans-unit>
+            <trans-unit id="be.dashboard.title" resname="be.dashboard.title" approved="yes">
+                <source>Dashboard</source>
+                <target state="translated">Übersicht</target>
+            </trans-unit>
+            <trans-unit id="be.settings.generateStatusDe" resname="be.settings.generateStatusDe" approved="yes">
+                <source>Generate status elements in german</source>
+                <target state="translated">Generiere Statuselemente auf deutsch</target>
+            </trans-unit>
+            <trans-unit id="be.settings.generateStatusEn" resname="be.settings.generateStatusEn" approved="yes">
+                <source>Generate status elements in english</source>
+                <target state="translated">Generiere Statuselemente in englisch</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
