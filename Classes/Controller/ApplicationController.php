@@ -17,8 +17,11 @@
 	use ITX\Jobs\Domain\Model\Posting;
 	use ITX\Jobs\PageTitle\JobsPageTitleProvider;
 	use ScssPhp\ScssPhp\Formatter\Debug;
+	use TYPO3\CMS\Core\Database\ConnectionPool;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
+	use TYPO3\CMS\Core\Resource\ResourceFactory;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
+	use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 	use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
@@ -110,7 +113,9 @@
 			if ($title != "")
 			{
 				$title = str_replace("%postingTitle%", $postingObject->getTitle(), $title);
-			} else {
+			}
+			else
+			{
 				$title = $postingObject->getTitle();
 			}
 
@@ -174,31 +179,46 @@
 			$this->applicationRepository->add($newApplication);
 			$this->persistenceManager->persistAll();
 
+			$files = [];
+			$fields = [];
+			$fieldNames = [];
+
 			// Processing files
 			if ($_FILES['tx_jobs_applicationform']['name']['cv'])
 			{
 				$movedNewFileCv = $this->handleFileUpload("cv", $newApplication);
-				$this->buildRelations($newApplication->getUid(), $movedNewFileCv, 'cv', 'tx_jobs_domain_model_application', $newApplication->getPid());
+				$files[] = $movedNewFileCv->getUid();
+				$fieldNames[] = 'cv';
+				$fields['cv'] = 1;
 			}
 			if ($_FILES['tx_jobs_applicationform']['name']['cover_letter'])
 			{
 				$movedNewFileCover = $this->handleFileUpload("cover_letter", $newApplication);
-				$this->buildRelations($newApplication->getUid(), $movedNewFileCover, 'cover_letter', 'tx_jobs_domain_model_application', $newApplication->getPid());
+				$files[] = $movedNewFileCover->getUid();
+				$fieldNames[] = 'cover_letter';
+				$fields['cover_letter'] = 1;
 			}
 			if ($_FILES['tx_jobs_applicationform']['name']['testimonials'])
 			{
 				$movedNewFileTestimonial = $this->handleFileUpload("testimonials", $newApplication);
-				$this->buildRelations($newApplication->getUid(), $movedNewFileTestimonial, 'testimonials', 'tx_jobs_domain_model_application', $newApplication->getPid());
+				$files[] = $movedNewFileTestimonial->getUid();
+				$fieldNames[] = 'testimonials';
+				$fields['testimonials'] = 1;
 			}
 			if ($_FILES['tx_jobs_applicationform']['name']['other_files'])
 			{
 				$movedNewFileOther = $this->handleFileUpload("other_files", $newApplication);
-				$this->buildRelations($newApplication->getUid(), $movedNewFileOther, 'other_files', 'tx_jobs_domain_model_application', $newApplication->getPid());
+				$files[] = $movedNewFileOther->getUid();
+				$fieldNames[] = 'other_files';
+				$fields['other_files'] = 1;
+			}
+
+			if(count($files) > 0)
+			{
+				$this->buildRelations($newApplication->getUid(), $files, $fields, $fieldNames, 'tx_jobs_domain_model_application', $newApplication->getPid());
 			}
 
 			//Mail Handling
-
-			$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
 
 			$currentPosting = $this->postingRepository->findByUid($newApplication->getPosting());
 			$contact = $currentPosting->getContact();
@@ -306,16 +326,17 @@
 				}
 			}
 
-			if(!$this->settings['saveApplicationInBackend'])
+			if (!$this->settings['saveApplicationInBackend'])
 			{
 				$storageRepository = $this->objectManager->get('TYPO3\\CMS\\Core\\Resource\\StorageRepository');
 				$storage = $storageRepository->findByUid('1');
-				if($storage->hasFolder($this->getApplicantFolder($newApplication)))
+				if ($storage->hasFolder($this->getApplicantFolder($newApplication)))
 				{
 					$folder = $storage->getFolder($this->getApplicantFolder($newApplication));
 				}
 				$this->applicationRepository->remove($newApplication);
-				if ($folder) {
+				if ($folder)
+				{
 					$storage->deleteFolder($folder, true);
 				}
 			}
@@ -336,27 +357,36 @@
 		 * @param $table         ;table tca domain table name e.g. tx_<extensionName>_domain_model_<domainModelName>
 		 * @param $newStoragePid ;PID of Record or Domain Model the file will attach to
 		 */
-		private function buildRelations($newStorageUid, $file, $field, $table, $newStoragePid)
+		private function buildRelations($newStorageUid, array $files, array $fields, array $fieldNames , $table, $newStoragePid)
 		{
+			$database = GeneralUtility::makeInstance(ConnectionPool::class);
+			for ($i = 0; $i < count($files); $i++) {
+				$database
+					->getConnectionForTable('sys_file_reference')
+					->insert(
+						'sys_file_reference',
+						[
+							'tstamp' => time(),
+							'crdate' => time(),
+							'cruser_id' => 1,
+							'uid_local' => $files[$i],
+							'uid_foreign' => $newStorageUid,
+							'tablenames' => $table,
+							'fieldname' => $fieldNames[$i],
+							'pid' => $newStoragePid,
+							'table_local' => 'sys_file',
+							'sorting_foreign' => 1
+						]
+					);
+			}
 
-			$data = array();
-			$data['sys_file_reference']['NEW1234'] = array(
-				'uid_local' => $file->getUid(),
-				'uid_foreign' => $newStorageUid, // uid of your content record or own model
-				'tablenames' => $table, //tca table name
-				'fieldname' => $field, //see tca for fieldname
-				'pid' => $newStoragePid,
-				'table_local' => 'sys_file',
-			);
-			$data[$table][$newStorageUid] = array(
-				$pid => $storagePid,
-				$field => 'NEW1234'
-			);
-
-			/** @var \TYPO3\CMS\Core\DataHandling\DataHandler $tce */
-			$tce = GeneralUtility::makeInstance('TYPO3\CMS\Core\DataHandling\DataHandler'); // create TCE instance
-			$tce->start($data, array());
-			$tce->process_datamap();
+			$database
+				->getConnectionForTable('tx_jobs_domain_model_application')
+				->update(
+					"tx_jobs_domain_model_application",
+					$fields, [
+						'uid' => $newStorageUid
+					]);
 		}
 
 		/**
@@ -364,13 +394,13 @@
 		 * @param $domainObject \ITX\Jobs\Domain\Model\Application
 		 *
 		 * @return mixed
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
 		 */
 		private function handleFileUpload($fieldName, \ITX\Jobs\Domain\Model\Application $domainObject)
 		{
 
 			$folder = $this->getApplicantFolder($domainObject);
 
-			//be careful - you should validate the file type! This is not included here
 			$tmpName = $_FILES['tx_jobs_applicationform']['name'][$fieldName];
 			$tmpFile = $_FILES['tx_jobs_applicationform']['tmp_name'][$fieldName];
 
@@ -405,8 +435,9 @@
 		 * @return string
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
 		 */
-		private function getApplicantFolder($applicationObject) {
+		private function getApplicantFolder($applicationObject)
+		{
 			return self::APP_FILE_FOLDER.(new \TYPO3\CMS\Core\Resource\Driver\LocalDriver)
-				->sanitizeFileName($applicationObject->getFirstName()."_".$applicationObject->getLastName()."_id_".$applicationObject->getPosting());
+					->sanitizeFileName($applicationObject->getFirstName()."_".$applicationObject->getLastName()."_id_".$applicationObject->getPosting());
 		}
 	}
