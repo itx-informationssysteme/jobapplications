@@ -48,7 +48,7 @@
 		/**
 		 * @param $extTablesStaticSqlRelFile
 		 */
-		public function generateStatusEn($statusFile, $statusMmFile, int $pid)
+		public function generateStatus($statusFile, $statusMmFile, int $pid, int $langUid)
 		{
 			$file1 = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName("EXT:jobs/Resources/Private/Sql/".$statusFile);
 			$file2 = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName("EXT:jobs/Resources/Private/Sql/".$statusMmFile);
@@ -62,6 +62,7 @@
 
 			$contentStatus = file_get_contents($file1);
 			$contentStatus = str_replace("%pid%", $pid, $contentStatus);
+			$contentStatus = str_replace("%lang%", $langUid, $contentStatus);
 			$contentStatusMM = file_get_contents($file2);
 
 			$this->executeSqlImport($contentStatus);
@@ -77,9 +78,27 @@
 		{
 			$sqlReader = GeneralUtility::makeInstance(SqlReader::class);
 			$statements = $sqlReader->getStatementArray($fileContent);
-			DebuggerUtility::var_dump($statements);
+
 			$schemaMigrationService = GeneralUtility::makeInstance(SchemaMigrator::class);
 			$schemaMigrationService->importStaticData($statements, true);
+		}
+
+		/**
+		 * @param $langIso string code as in language_isocode in sys_language table
+		 *
+		 * @return int uid of language
+		 */
+		public function findLangUid($langIso)
+		{
+			$query = $this->createQuery();
+			$query->statement("SELECT DISTINCT uid FROM sys_language WHERE language_isocode = '$langIso'");
+
+			$result = $query->execute(TRUE)[0]['uid'];
+			if($result == null) {
+				$result = 0;
+			}
+
+			return $result;
 		}
 	}
 

@@ -52,7 +52,7 @@
 				<source>Should the referenced contact receive an E-Mail?</source>
 			</trans-unit>
 			<trans-unit id="flexform.sendEmailToApplicantText" resname="flexform.sendEmailToApplicantText">
-				<source>E-Mail to Applicant Text</source>
+				<source>\nTemplating available: \nPosting Title: postingTitle \nApplicant Salutation: %applicantSalutation% \nApplicant Firstname: %applicantFirstname% \nApplicant Lastname: %applicantLastname%</source>
 			</trans-unit>
 			<trans-unit id="flexform.sendEmailToApplicantSubject" resname="flexform.sendEmailToApplicantSubject">
 				<source>E-Mail to Applicant Subject (Templating available: Posting Title: %postingTitle%)</source>
@@ -147,12 +147,11 @@
 			<trans-unit id="be.dashboard.title" resname="be.dashboard.title">
 				<source>Dashboard</source>
 			</trans-unit>
-			<trans-unit id="be.settings.generateStatusDe" resname="be.settings.generateStatusDe">
-				<source>Generate status elements in german</source>
+			<trans-unit id="be.settings.generateStatus" resname="be.settings.generateStatusDe">
+				<source>Generate status elements in different languages. Set the PID where you want them to go.<br/>
+				Use with caution as this operation deletes all status elements if there are any.</source>
 			</trans-unit>
-			<trans-unit id="be.settings.generateStatusEn" resname="be.settings.generateStatusEn">
-				<source>Generate status elements in english</source>
-			</trans-unit>
+
 		</body>
 	</file>
 </xliff>

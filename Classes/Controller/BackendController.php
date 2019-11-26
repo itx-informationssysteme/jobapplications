@@ -188,6 +188,7 @@
 			$contact = $this->getActiveBeContact();
 			$newApps = $this->applicationRepository->findNewApplicationsByContact($contact->getUid());
 
+			$this->view->assign("admin", $GLOBALS['BE_USER']->isAdmin());
 			$this->view->assign("newApps", count($newApps));
 			$this->view->assign("contact", $contact);
 		}
@@ -198,15 +199,9 @@
 			{
 				$pid = $this->request->getArgument("pid");
 				$language = $this->request->getArgument("language");
-				switch ($language)
-				{
-					case "de":
-						$this->statusRepository->generateStatusEn("tx_jobs_domain_model_status_de.sql", "tx_jobs_domain_model_status_mm.sql", $pid);
-						break;
-					case "en";
-						$this->statusRepository->generateStatusEn("tx_jobs_domain_model_status_en.sql", "tx_jobs_domain_model_status_mm.sql", $pid);
-						break;
-				}
+				$langUid = $this->statusRepository->findLangUid($language);
+				$this->statusRepository->generateStatus("tx_jobs_domain_model_status_".$language.".sql", "tx_jobs_domain_model_status_mm.sql", $pid, $langUid);
+
 				$this->addFlashMessage("Finished!");
 			}
 		}
