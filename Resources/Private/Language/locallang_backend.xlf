@@ -39,6 +39,9 @@
 			<trans-unit id="flexform.tab.postingTitle" resname="flexform.tab.postingTitle">
 				<source>Postings Settings</source>
 			</trans-unit>
+			<trans-unit id="flexform.linkPrivacy" resname="flexform.linkPrivacy">
+				<source>Link Privacy Agreement Page</source>
+			</trans-unit>
 			<trans-unit id="flexform.sendEmailToInternal" resname="flexform.sendEmailToInternal">
 				<source>Should new applications be sent to a specific E-Mail address?</source>
 			</trans-unit>

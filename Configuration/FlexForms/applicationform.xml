@@ -147,6 +147,36 @@
                             </config>
                         </TCEforms>
                     </settings.showEarliestDateOfJoining>
+                    <settings.linkPrivacy>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.linkPrivacy</label>
+                            <config>
+                                <type>input</type>
+                                <size>30</size>
+                                <eval>trim</eval>
+                                <softref>typolink,typolink_tag,images,url</softref>
+                                <wizards>
+                                    <_PADDING>2</_PADDING>
+                                    <link>
+                                        <type>popup</type>
+                                        <title>Link</title>
+                                        <module>
+                                            <name>wizard_element_browser</name>
+                                            <urlParameters>
+                                                <mode>wizard</mode>
+                                            </urlParameters>
+                                        </module>
+                                        <script>browse_links.php?mode=wizard</script>
+                                        <params>
+                                            <!--<blindLinkOptions>page,file,folder,url,spec</blindLinkOptions>-->
+                                        </params>
+                                        <JSopenParams>height=500,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+                                    </link>
+                                </wizards>
+                            </config>
+                        </TCEforms>
+                    </settings.linkPrivacy>
                 </el>
             </ROOT>
         </singleView>

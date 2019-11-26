@@ -55,6 +55,10 @@
                 <source>E-Mail to Applicant Text</source>
                 <target state="translated">Text für E-Mail an Bewerber</target>
             </trans-unit>
+            <trans-unit id="flexform.linkPrivacy" resname="flexform.linkPrivacy">
+                <source>Link Privacy Agreement Page</source>
+                <target state="translated">Link zur Datenschutzerklärung</target>
+            </trans-unit>
             <trans-unit id="flexform.sendEmailToApplicantSubject" resname="flexform.sendEmailToApplicantSubject" approved="yes">
                 <source>E-Mail to Applicant Subject (Templating available: Posting Title: %postingTitle%)</source>
                 <target state="translated">Betreff für E-Mail an Bewerber</target>

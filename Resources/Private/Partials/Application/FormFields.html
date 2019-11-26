@@ -2,12 +2,18 @@
 <div class="form-row">
 	<div class="form-group col-md-3">
 		<label for="salutation">
-			<f:translate key="tx_jobs_domain_model_application.salutation" />
+			<f:translate key="tx_jobs_domain_model_application.salutation"/>
 		</label>
 		<f:form.select class="form-control" name="salutation" property="salutation" prependOptionLabel="{f:translate(key: 'fe.application.selector.chooseMessage')}">
-			<f:form.select.option value="mr"><f:translate key="fe.application.selector.mr"/></f:form.select.option>
-			<f:form.select.option value="mrs"><f:translate key="fe.application.selector.mrs"/></f:form.select.option>
-			<f:form.select.option value="div"><f:translate key="fe.application.selector.div"/></f:form.select.option>
+			<f:form.select.option value="mr">
+				<f:translate key="fe.application.selector.mr"/>
+			</f:form.select.option>
+			<f:form.select.option value="mrs">
+				<f:translate key="fe.application.selector.mrs"/>
+			</f:form.select.option>
+			<f:form.select.option value="div">
+				<f:translate key="fe.application.selector.div"/>
+			</f:form.select.option>
 		</f:form.select>
 	</div>
 </div>
@@ -29,13 +35,13 @@
 <div class="form-row">
 	<div class="form-group col-md-6">
 		<label for="email">
-			<f:translate key="tx_jobs_domain_model_application.email" />
+			<f:translate key="tx_jobs_domain_model_application.email"/>
 		</label>
-		<f:form.textfield type="email" property="email" class="form-control" required="true" />
+		<f:form.textfield type="email" property="email" class="form-control" required="true"/>
 	</div>
 	<div class="form-group col-md-6">
 		<label for="phone">
-			<f:translate key="tx_jobs_domain_model_application.phone" />
+			<f:translate key="tx_jobs_domain_model_application.phone"/>
 		</label>
 		<f:form.textfield property="phone" class="form-control" type="tel"/>
 	</div>
@@ -43,9 +49,9 @@
 <div class="form-row">
 	<div class="form-group col-md-12">
 		<label for="addressStreetAndNumber">
-			<f:translate key="tx_jobs_domain_model_application.address_street_and_number" />
+			<f:translate key="tx_jobs_domain_model_application.address_street_and_number"/>
 		</label>
-		<f:form.textfield property="addressStreetAndNumber" class="form-control" />
+		<f:form.textfield property="addressStreetAndNumber" class="form-control"/>
 	</div>
 </div>
 <div class="form-row">
@@ -56,13 +62,13 @@
 <div class="form-row">
 	<div class="form-group col-md-4">
 		<label for="addressPostCode">
-			<f:translate key="tx_jobs_domain_model_application.address_post_code" />
+			<f:translate key="tx_jobs_domain_model_application.address_post_code"/>
 		</label>
 		<f:form.textfield property="addressPostCode" class="form-control"/>
 	</div>
 	<div class="form-group col-md-8">
 		<label for="addressCity">
-			<f:translate key="tx_jobs_domain_model_application.address_city" />
+			<f:translate key="tx_jobs_domain_model_application.address_city"/>
 		</label>
 		<f:form.textfield property="addressCity" class="form-control"/>
 	</div>
@@ -70,7 +76,7 @@
 <div class="form-row">
 	<div class="form-group col-md-12">
 		<label for="addressCountry">
-			<f:translate key="tx_jobs_domain_model_application.address_country" />
+			<f:translate key="tx_jobs_domain_model_application.address_country"/>
 		</label>
 		<f:form.textfield property="addressCountry" class="form-control"/>
 	</div>
@@ -81,7 +87,7 @@
 		<f:if condition="{settings.showSalarayExpectation}">
 			<div class="form-group col-md-6">
 				<label for="salaryExpectation">
-					<f:translate key="tx_jobs_domain_model_application.salary_expectation" />
+					<f:translate key="tx_jobs_domain_model_application.salary_expectation"/>
 				</label>
 				<f:form.textfield property="salaryExpectation" class="form-control" required="true"/>
 			</div>
@@ -89,7 +95,7 @@
 		<f:if condition="{settings.showEarliestDateOfJoining}">
 			<div class="form-group col-md-6">
 				<label for="earliestDateOfJoining">
-					<f:translate key="tx_jobs_domain_model_application.earliest_date_of_joining" />
+					<f:translate key="tx_jobs_domain_model_application.earliest_date_of_joining"/>
 				</label>
 				<f:form.textfield type="date" property="earliestDateOfJoining" value="{application.earliestDateOfJoining -> f:format.date()}" class="form-control" required="true"/>
 			</div>
@@ -99,43 +105,50 @@
 <div class="form-row">
 	<div class="form-group col-md-6">
 		<label for="cv">
-			<f:translate key="tx_jobs_domain_model_application.cv" />
+			<f:translate key="tx_jobs_domain_model_application.cv"/>
 		</label>
-		<f:form.upload id="upload-cv" name="cv" additionalAttributes="{accept:'.pdf'}" class="form-control-file"></f:form.upload>
+		<f:form.upload id="upload-cv" name="cv" additionalAttributes="{accept:'.pdf', required: 'true'}" class="form-control-file"></f:form.upload>
 	</div>
 	<div class="form-group col-md-6">
 		<label for="cover_letter">
-			<f:translate key="tx_jobs_domain_model_application.cover_letter" />
+			<f:translate key="tx_jobs_domain_model_application.cover_letter"/>
 		</label>
-		<f:form.upload name="cover_letter" additionalAttributes="{accept:'.pdf'}" class="form-control-file"></f:form.upload>
+		<f:form.upload name="cover_letter" additionalAttributes="{accept:'.pdf', required: 'true'}" class="form-control-file"></f:form.upload>
 	</div>
 </div>
 <div class="form-row">
 	<div class="form-group col-md-6">
 		<label for="testimonials">
-			<f:translate key="tx_jobs_domain_model_application.testimonials" />
+			<f:translate key="tx_jobs_domain_model_application.testimonials"/>
 		</label>
 		<f:form.upload name="testimonials" additionalAttributes="{accept:'.pdf'}" class="form-control-file"></f:form.upload>
 	</div>
 	<div class="form-group col-md-6">
 		<label for="other_files">
-			<f:translate key="tx_jobs_domain_model_application.other_files" />
+			<f:translate key="tx_jobs_domain_model_application.other_files"/>
 		</label>
 		<f:form.upload name="other_files" additionalAttributes="{accept:'.pdf'}" class="form-control-file"></f:form.upload>
 	</div>
-	<small id="upload-message" class="form-text text-muted m-auto"><f:translate key= "fe.info.fileSize" arguments="{0: fileSizeLimit}"/></small>
+	<small id="upload-message" class="form-text text-muted m-auto">
+		<f:translate key="fe.info.fileSize" arguments="{0: fileSizeLimit}"/>
+	</small>
 </div>
 <script>
 	let uploads = document.getElementsByClassName("form-control-file");
 	const uploadMsg = document.getElementById("upload-message");
-	for(let i = 0; i < uploads.length; i++) {
-		uploads[i].addEventListener('change', function() {
-			if(this.files[0].size > {fileSizeLimit} * 1024 * 1024) {
+	for (let i = 0; i < uploads.length; i++)
+	{
+		uploads[i].addEventListener('change', function () {
+			if (this.files[0].size > {fileSizeLimit} * 1024 * 1024)
+			{
 				uploads[i].classList.add("f3-form-error");
 				uploads[i].value = "";
-				uploadMsg.setAttribute('style', 'color: red !important' );
-			} else {
-				if(uploads[i].classList.contains("f3-form-error")) {
+				uploadMsg.setAttribute('style', 'color: red !important');
+			}
+			else
+			{
+				if (uploads[i].classList.contains("f3-form-error"))
+				{
 					uploads[i].classList.remove("f3-form-error");
 					uploadMsg.removeAttribute('style');
 				}
@@ -147,7 +160,9 @@
 	<div class="form-check mb-3 ml-1">
 		<f:form.checkbox class="form-check-input" property="privacyAgreement" value="1" additionalAttributes="{required:'required'}"/>
 		<label class="form-check-label" for="privacyAgreement">
-			<f:translate key="tx_jobs_domain_model_application.privacy_agreement" />
+			<f:link.typolink parameter="{settings.linkPrivacy}">
+				<f:translate key="tx_jobs_domain_model_application.privacy_agreement"/>
+			</f:link.typolink>
 		</label>
 	</div>
 </div>
