@@ -25,7 +25,7 @@
             </trans-unit>
             <trans-unit id="flexform.imageAsHeader" resname="flexform.imageAsHeader" approved="yes">
                 <source>Should the image be the card header? If deselected: The image becomes the background of the whole card.</source>
-                <target state="translated">Soll der Listenansichtbild der Header der Karte sein? Falls nicht ist wird das Bild der Hintergrund der gesamten Karte.</target>
+                <target state="translated">Soll das Listenansichtbild der Header der Karte sein? Falls nicht ist wird das Bild der Hintergrund der gesamten Karte.</target>
             </trans-unit>
             <trans-unit id="flexform.customCardFontColor" resname="flexform.customCardFontColor">
                 <source>Specific font color of the posting cards content</source>

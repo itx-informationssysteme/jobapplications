@@ -95,7 +95,7 @@
 
 			$result = $query->execute(TRUE)[0]['uid'];
 			if($result == null) {
-				$result = 0;
+				$result = -1;
 			}
 
 			return $result;

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="EXT:jobs/Resources/Private/Language/locallang_csh" date="2019-10-21T16:03:17Z" product-name="jobs">
-		<header/>
-		<body>
-			<trans-unit id="address_country.description" resname="address_country.description">
-				<source>Preferably as ISO 3166-1 alpha-2 Country code, for optimal Google Jobs integration</source>
-			</trans-unit>
-		</body>
-	</file>
+    <file source-language="en" datatype="plaintext" original="EXT:jobs/Resources/Private/Language/locallang_csh" date="2019-10-21T16:03:17Z" product-name="jobs">
+        <header/>
+        <body>
+            <trans-unit id="address_country.description" resname="address_country.description">
+                <source>Empfohlen wird das Land als ISO 3166-1 alpha-2 Ländercode anzugeben, um eine optimale Google
+                    Jobs Integration zu gewährleisten.
+                </source>
+            </trans-unit>
+        </body>
+    </file>
 </xliff>

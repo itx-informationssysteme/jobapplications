@@ -3,6 +3,7 @@
 	namespace ITX\Jobs\Domain\Model;
 
 	use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 	/***
 	 *
@@ -617,5 +618,14 @@
 		public function setListViewImage(\TYPO3\CMS\Extbase\Domain\Model\FileReference $listViewImage)
 		{
 			$this->listViewImage = $listViewImage;
+		}
+
+		/**
+		 * @return boolean
+		 */
+		public function getIsValid() {
+			$current = new \DateTime();
+			$validThrougDate = $this->validThrough;
+			return ($this->datePosted <= $current) && ($validThrougDate == NULL || ($validThrougDate->modify("+1 day") >= $current));
 		}
 	}

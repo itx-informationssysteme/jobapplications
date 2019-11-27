@@ -48,7 +48,9 @@ Otherwise your changes will be overwritten the next time you save the extension 
 							</label>
 							<f:form.select class="form-control" name="employmentType" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
 								<f:for each="{employmentTypes}" as="employmentType">
-									<f:form.select.option value="{employmentType.employmentType}" additionalAttributes="{f:if(condition: '{selectedEmploymentType} == {employmentType.employmentType}', then: '{selected: true}')}"><f:translate key="fe.posting.employment.selector.{employmentType.employmentType}"/></f:form.select.option>
+									<f:form.select.option value="{employmentType.employmentType}" additionalAttributes="{f:if(condition: '{selectedEmploymentType} == {employmentType.employmentType}', then: '{selected: true}')}">
+										<f:translate key="fe.posting.employment.selector.{employmentType.employmentType}"/>
+									</f:form.select.option>
 								</f:for>
 							</f:form.select>
 						</div>
@@ -68,7 +70,9 @@ Otherwise your changes will be overwritten the next time you save the extension 
 						</div>
 						<div class="form-group col-1">
 							<label for="reset">&nbsp;</label>
-							<f:link.action name="reset" class="form-control btn mx-2" action="list"><f:translate key="fe.posting.button.reset"></f:translate></f:link.action>
+							<f:link.action name="reset" class="form-control btn mx-2" action="list">
+								<f:translate key="fe.posting.button.reset"></f:translate>
+							</f:link.action>
 						</div>
 
 					</div>
@@ -77,98 +81,102 @@ Otherwise your changes will be overwritten the next time you save the extension 
 					<f:then>
 						<div class="row">
 							<f:for each="{postings}" as="posting">
-								<div class="col-12 col-md-4">
-									<f:if condition="{settings.imageAsHeader} || !{posting.listViewImage}">
-										<f:then>
-											<div class="card my-3">
-												<f:if condition="{posting.listViewImage}">
-													<f:image class="card-img-top h-auto" src="{posting.listViewImage.originalResource.publicUrl}"/>
-												</f:if>
-												<div class="row">
-													<div class="col"></div>
-													<div class="col-9">
-														<div class="card-title mt-3">
-															<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" pluginName="DetailView">{posting.title}</f:link.action>
-														</div>
-														<div class="card-body p-0 pb-3">
-															<div class="row">
-																<div class="col">
-																	<f:translate key="tx_jobs_domain_model_posting.career_level"/>
-																	:
-																</div>
-																<div class="col-md-auto"><span>{posting.careerLevel}</span></div>
-															</div>
-															<div class="row">
-																<div class="col">
-																	<f:translate key="tx_jobs_domain_model_posting.location"/>
-																	:
-																</div>
-																<div class="col-md-auto"><span>{posting.location.name}</span></div>
-															</div>
-															<div class="row">
-																<div class="col">
-																	<f:translate key="tx_jobs_domain_model_posting.date_posted"/>
-																	:
-																</div>
-																<div class="col-md-auto"><f:format.date format="{f:translate(key: 'date_format')}">{posting.datePosted}</f:format.date></div>
-															</div>
-															<div class="row mt-3">
-																<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView">
-																	<f:translate key="fe.posting.button.detailview"/>
-																</f:link.action>
-															</div>
-														</div>
-													</div>
-													<div class="col"></div>
-												</div>
-											</div>
-										</f:then>
-										<f:else>
-											<div class="card my-3">
-												<f:if condition="{posting.listViewImage}">
-													<f:image class="card-img h-auto" src="{posting.listViewImage.originalResource.publicUrl}"/>
-												</f:if>
-												<div class="card-img-overlay p-0 pb-3">
+								<f:if condition="{posting.isValid}">
+									<div class="col-12 col-md-4">
+										<f:if condition="{settings.imageAsHeader} || !{posting.listViewImage}">
+											<f:then>
+												<div class="card my-3">
+													<f:if condition="{posting.listViewImage}">
+														<f:image class="card-img-top h-auto" src="{posting.listViewImage.originalResource.publicUrl}"/>
+													</f:if>
 													<div class="row">
 														<div class="col"></div>
 														<div class="col-9">
 															<div class="card-title mt-3">
 																<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" pluginName="DetailView">{posting.title}</f:link.action>
 															</div>
-															<div class="row">
-																<div class="col">
-																	<f:translate key="tx_jobs_domain_model_posting.career_level"/>
-																	:
+															<div class="card-body p-0 pb-3">
+																<div class="row">
+																	<div class="col">
+																		<f:translate key="tx_jobs_domain_model_posting.career_level"/>
+																		:
+																	</div>
+																	<div class="col-md-auto"><span>{posting.careerLevel}</span></div>
 																</div>
-																<div class="col-md-auto"><span>{posting.careerLevel}</span></div>
-															</div>
-															<div class="row">
-																<div class="col">
-																	<f:translate key="tx_jobs_domain_model_posting.location"/>
-																	:
+																<div class="row">
+																	<div class="col">
+																		<f:translate key="tx_jobs_domain_model_posting.location"/>
+																		:
+																	</div>
+																	<div class="col-md-auto"><span>{posting.location.name}</span></div>
 																</div>
-																<div class="col-md-auto"><span>{posting.location.name}</span></div>
-															</div>
-															<div class="row">
-																<div class="col">
-																	<f:translate key="tx_jobs_domain_model_posting.date_posted"/>
-																	:
+																<div class="row">
+																	<div class="col">
+																		<f:translate key="tx_jobs_domain_model_posting.date_posted"/>
+																		:
+																	</div>
+																	<div class="col-md-auto">
+																		<f:format.date format="{f:translate(key: 'date_format')}">{posting.datePosted}</f:format.date>
+																	</div>
 																</div>
-																<div class="col-md-auto"><span><f:format.date format="{f:translate(key: 'date_format')}">{posting.datePosted}</f:format.date></span></div>
-															</div>
-															<div class="row mt-3">
-																<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView">
-																	<f:translate key="fe.posting.button.detailview"/>
-																</f:link.action>
+																<div class="row mt-3">
+																	<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView">
+																		<f:translate key="fe.posting.button.detailview"/>
+																	</f:link.action>
+																</div>
 															</div>
 														</div>
 														<div class="col"></div>
 													</div>
 												</div>
-											</div>
-										</f:else>
-									</f:if>
-								</div>
+											</f:then>
+											<f:else>
+												<div class="card my-3">
+													<f:if condition="{posting.listViewImage}">
+														<f:image class="card-img h-auto" src="{posting.listViewImage.originalResource.publicUrl}"/>
+													</f:if>
+													<div class="card-img-overlay p-0 pb-3">
+														<div class="row">
+															<div class="col"></div>
+															<div class="col-9">
+																<div class="card-title mt-3">
+																	<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" pluginName="DetailView">{posting.title}</f:link.action>
+																</div>
+																<div class="row">
+																	<div class="col">
+																		<f:translate key="tx_jobs_domain_model_posting.career_level"/>
+																		:
+																	</div>
+																	<div class="col-md-auto"><span>{posting.careerLevel}</span></div>
+																</div>
+																<div class="row">
+																	<div class="col">
+																		<f:translate key="tx_jobs_domain_model_posting.location"/>
+																		:
+																	</div>
+																	<div class="col-md-auto"><span>{posting.location.name}</span></div>
+																</div>
+																<div class="row">
+																	<div class="col">
+																		<f:translate key="tx_jobs_domain_model_posting.date_posted"/>
+																		:
+																	</div>
+																	<div class="col-md-auto"><span><f:format.date format="{f:translate(key: 'date_format')}">{posting.datePosted}</f:format.date></span></div>
+																</div>
+																<div class="row mt-3">
+																	<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView">
+																		<f:translate key="fe.posting.button.detailview"/>
+																	</f:link.action>
+																</div>
+															</div>
+															<div class="col"></div>
+														</div>
+													</div>
+												</div>
+											</f:else>
+										</f:if>
+									</div>
+								</f:if>
 							</f:for>
 						</div>
 					</f:then>

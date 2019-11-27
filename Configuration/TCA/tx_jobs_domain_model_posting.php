@@ -134,7 +134,7 @@
 					'renderType' => 'inputDateTime',
 					'size' => 7,
 					'eval' => 'date,required',
-					'default' => time()
+					'default' => new \DateTime()
 				],
 			],
 			'career_level' => [

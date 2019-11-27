@@ -3,7 +3,7 @@
     <file source-language="en" datatype="plaintext" original="EXT:jobs/Resources/Private/Language/locallang_csh_flexform" date="2019-10-21T16:03:17Z" product-name="jobs">
         <header/>
         <body>
-            <trans-unit id="settings.sendEmailToApplicantText" resname="settings.sendEmailToApplicantText">
+            <trans-unit id="settings.sendEmailToApplicantText.description" resname="settings.sendEmailToApplicantText.description">
                 <source>\nTemplating available: \nPosting Title: postingTitle \nApplicant Salutation: %applicantSalutation% \nApplicant Firstname: %applicantFirstname% \nApplicant Lastname: %applicantLastname%</source>
             </trans-unit>
         </body>

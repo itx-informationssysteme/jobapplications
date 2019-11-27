@@ -1,69 +1,31 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="EXT:jobs/Resources/Private/Language/locallang_csh" date="2019-10-21T16:03:17Z" product-name="jobs">
-		<header/>
-		<body>
-			<trans-unit id="title.description" resname="title.description">
-				<source>title</source>
-			</trans-unit>
-			<trans-unit id="date_posted.description" resname="date_posted.description">
-				<source>This sets the date not only displayed in the frontend as the date posted, but can also
-				be used to time the availability for this posting. Meaning the posting will go live on the date
-				you set here.</source>
-			</trans-unit>
-			<trans-unit id="career_level.description" resname="career_level.description">
-				<source>careerLevel</source>
-			</trans-unit>
-			<trans-unit id="division.description" resname="division.description">
-				<source>division</source>
-			</trans-unit>
-			<trans-unit id="employment_type.description" resname="employment_type.description">
-				<source>employmentType</source>
-			</trans-unit>
-			<trans-unit id="terms_of_employment.description" resname="terms_of_employment.description">
-				<source>termsOfEmployment</source>
-			</trans-unit>
-			<trans-unit id="company_description.description" resname="company_description.description">
-				<source>companyDescription</source>
-			</trans-unit>
-			<trans-unit id="job_description.description" resname="job_description.description">
-				<source>jobDescription</source>
-			</trans-unit>
-			<trans-unit id="role_description.description" resname="role_description.description">
-				<source>roleDescription</source>
-			</trans-unit>
-			<trans-unit id="skill_requirements.description" resname="skill_requirements.description">
-				<source>skillRequirements</source>
-			</trans-unit>
-			<trans-unit id="benefits.description" resname="benefits.description">
-				<source>benefits</source>
-			</trans-unit>
-			<trans-unit id="base_salary.description" resname="base_salary.description">
-				<source>Yearly base salarary, not displayed when empty</source>
-			</trans-unit>
-			<trans-unit id="valid_through.description" resname="valid_through.description">
-				<source>Set the date until this posting won't be displayed anymore. The end date works inclusively,
-				meaning the posting will become invalid on the day after the end date. If no date was entered the
-				posting will be online for an infinite amount of time.</source>
-			</trans-unit>
-			<trans-unit id="required_documents.description" resname="required_documents.description">
-				<source>requiredDocuments</source>
-			</trans-unit>
-			<trans-unit id="company_information.description" resname="company_information.description">
-				<source>companyInformation</source>
-			</trans-unit>
-			<trans-unit id="detail_view_image.description" resname="detail_view_image.description">
-				<source>detailViewImage</source>
-			</trans-unit>
-			<trans-unit id="list_view_image.description" resname="list_view_image.description">
-				<source>listViewImage</source>
-			</trans-unit>
-			<trans-unit id="location.description" resname="location.description">
-				<source>location</source>
-			</trans-unit>
-			<trans-unit id="contact.description" resname="contact.description">
-				<source>contact</source>
-			</trans-unit>
-		</body>
-	</file>
+    <file source-language="en" datatype="plaintext" original="EXT:jobs/Resources/Private/Language/locallang_csh" date="2019-10-21T16:03:17Z" product-name="jobs">
+        <header/>
+        <body>
+            <trans-unit id="date_posted.description" resname="date_posted.description">
+                <source>Hier lässt sich einstellen, welches Datum als Erstellungssdatum angegeben ist, sowie
+                    ab welchem Datum die Stelle angezeigt / live gehen soll.
+                </source>
+            </trans-unit>
+            <trans-unit id="base_salary.description" resname="base_salary.description">
+                <source>Jahresgehalt, wird nicht angezeigt, falls nicht spezifiziert.</source>
+            </trans-unit>
+            <trans-unit id="valid_through.description" resname="valid_through.description">
+                <source>Hier lässt sich ein Datum einstellen, welches festlegt, bis zu welchem Datum die Stelle
+                    angezeigt wird. Das bedeutet, dieses Datum setzt den letzten Tag, an dem die Stelle angezeigt wird fest.
+                </source>
+            </trans-unit>
+            <trans-unit id="detail_view_image.description" resname="detail_view_image.description">
+                <source>Dieses Bild wird als Header in der Detailansicht der Stellenanzeige angezeigt. Es empfiehlt
+                    sich also ein Bild mit niedriger Höhe, also im Format eines Banners zu nutzen.
+                </source>
+            </trans-unit>
+            <trans-unit id="list_view_image.description" resname="list_view_image.description">
+                <source>Dieses Bild wird in der Listenübersicht als Header oder Hintergrund (je nach Einstellung am Plugin)
+                    angezeigt.
+                </source>
+            </trans-unit>
+        </body>
+    </file>
 </xliff>
