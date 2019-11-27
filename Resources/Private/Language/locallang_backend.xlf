@@ -111,6 +111,9 @@
 			<trans-unit id="be.filter.archived" resname="be.filter.archived">
 				<source>Archived</source>
 			</trans-unit>
+			<trans-unit id="be.filter.status" resname="be.filter.status">
+				<source>Status</source>
+			</trans-unit>
 			<trans-unit id="be.show.archive" resname="be.show.archive">
 				<source>Archive</source>
 			</trans-unit>

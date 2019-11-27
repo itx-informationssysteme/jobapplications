@@ -58,6 +58,7 @@
 		 *
 		 * @return void
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
+		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
 		 */
 		public function listApplicationsAction()
 		{
@@ -69,22 +70,25 @@
 				$this->request->hasArgument("contact") ? $selectedContact = $this->request->getArgument("contact") : $selectedContact = "";
 				$this->request->hasArgument("archived") ? $archivedSelected = $this->request->getArgument("archived") : $archivedSelected = "";
 				$this->request->hasArgument("posting") ? $selectedPosting = $this->request->getArgument("posting") : $selectedPosting = "";
+				$this->request->hasArgument("status") ? $selectedStatus = $this->request->getArgument("status") : $selectedStatus = "";
 			}
 			else
 			{
 				$selectedPosting = $sessionData["selectedPosting"];
 				$archivedSelected = $sessionData["archivedSelected"];
 				$selectedContact = $sessionData["selectedContact"];
+				$selectedStatus = $sessionData["selectedStatus"];
 			}
 
 			$contact = $this->getActiveBeContact();
 
 			// Handling a status change, triggered in listApplications View
-			if ($this->request->hasArgument("status"))
+			if ($this->request->hasArgument("statusChange"))
 			{
 				$application = $this->applicationRepository->findByUid($this->request->getArgument("application"));
-				$application->setStatus($this->statusRepository->findByUid($this->request->getArgument("status")));
+				$application->setStatus($this->statusRepository->findByUid($this->request->getArgument("statusChange")));
 				$this->persistenceManager->update($application);
+				$this->persistenceManager->persistAll();
 			}
 
 			// Select contact automatically based on user who is accessing this
@@ -101,7 +105,7 @@
 			}
 
 			// apply actual filter, handles query as well when no filters specified
-			$applications = $this->applicationRepository->findByFilter($selectedContact, $selectedPosting, 0, "crdate", "DESC");
+			$applications = $this->applicationRepository->findByFilter($selectedContact, $selectedPosting, $selectedStatus, 0, "crdate", "DESC");
 
 			// Set posting-selectBox content dynamically based on selected contact
 			if (($selectedPosting == "" && $selectedContact != ""))
@@ -113,21 +117,25 @@
 				$postingsFilter = $this->postingRepository->findAllWithOrder();
 			}
 
-			// Fetch all Contacts for select-Box
+			// Fetch all Contacts and Statuses for select-Box
 			$contactsFilter = $this->contactRepository->findAllWithOrder("last_name", "ASC");
+			$statusesFilter = $this->statusRepository->findAllWithOrder();
 
 			// Persist selection in session storage
 			$sessionData["selectedPosting"] = $selectedPosting;
 			$sessionData["archivedSelected"] = $archivedSelected;
 			$sessionData["selectedContact"] = $selectedContact;
+			$sessionData["selectedStatus"] = $selectedStatus;
 			$GLOBALS["BE_USER"]->setAndSaveSessionData("tx_jobs", $sessionData);
 
 			$this->view->assign("selectedPosting", $selectedPosting);
 			$this->view->assign("archivedSelected", $archivedSelected);
 			$this->view->assign("selectedContact", $selectedContact);
+			$this->view->assign("selectedStatus", $selectedStatus);
 			$this->view->assign("applications", $applications);
 			$this->view->assign("postings", $postingsFilter);
 			$this->view->assign("contacts", $contactsFilter);
+			$this->view->assign("statuses", $statusesFilter);
 		}
 
 		/**

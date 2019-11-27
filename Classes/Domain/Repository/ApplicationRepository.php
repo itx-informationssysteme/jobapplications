@@ -28,10 +28,11 @@
 		 * @param $contactUid int
 		 * @param $postingUid int
 		 */
-		public function findByFilter($contact, $posting, $archived=0, $orderBy="crdate", $order="ASC")
+		public function findByFilter($contact, $posting, $status ,$archived=0, $orderBy="crdate", $order="ASC")
 		{
 			$contactSQL = "";
 			$postingSQL = "";
+			$statusSQL = "";
 
 			$baseSQL = "SELECT * FROM tx_jobs_domain_model_application WHERE deleted = 0 AND archived = ".$archived." ";
 
@@ -44,11 +45,15 @@
 			{
 				$postingSQL = "AND posting = \"$posting\"";
 			}
+			if ($status)
+			{
+				$postingSQL = "AND status = $status";
+			}
 
 			$query = $this->createQuery();
 
 			$query->statement(
-				$baseSQL." ".$contactSQL." ".$postingSQL." ORDER BY ".$orderBy." ".$order
+				$baseSQL." ".$contactSQL." ".$postingSQL." ".$statusSQL." ORDER BY ".$orderBy." ".$order
 			);
 
 			return $query->execute();

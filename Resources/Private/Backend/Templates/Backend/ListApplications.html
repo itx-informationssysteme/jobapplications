@@ -28,6 +28,16 @@
 							</f:for>
 						</f:form.select>
 					</div>
+					<div class="filter-element">
+						<label for="status">
+							<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.filter.status"/>
+						</label>
+						<f:form.select class="" name="status" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
+							<f:for each="{statuses}" as="status">
+								<f:form.select.option value="{status.uid}" additionalAttributes="{f:if(condition: '{selectedStatus} == {status.uid}', then: '{selected: true}')}">{status.name}</f:form.select.option>
+							</f:for>
+						</f:form.select>
+					</div>
 					<div class="filter-element checkbox-wrapper">
 						<label for="archived">
 							<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.filter.archived"/>
@@ -65,8 +75,8 @@
 									</div>
 
 									<div class="row-section right">
-										<f:form class="status-select" name="status" action="listApplications" arguments="{application: application}">
-											<f:form.select class="list" name="status" additionalAttributes="{onchange: 'this.form.submit();'}">
+										<f:form class="status-select" name="statusChange" action="listApplications" arguments="{application: application}">
+											<f:form.select class="list" name="statusChange" additionalAttributes="{onchange: 'this.form.submit();'}">
 												<f:form.select.option value="{application.status.uid}" additionalAttributes="{selected: true}">
 													{application.status.name}
 												</f:form.select.option>

@@ -46,6 +46,23 @@
 		}
 
 		/**
+		 * Finds all with option of specifiying order
+		 *
+		 * @param string $orderBy
+		 * @param string $order
+		 *
+		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+		 */
+		public function findAllWithOrder($orderBy = "name", $order = "ASC")
+		{
+			$query = $this->createQuery();
+			$query->statement("SELECT * FROM tx_jobs_domain_model_status
+										WHERE deleted = 0 AND hidden = 0 ORDER BY ".$orderBy." ".$order);
+
+			return $query->execute();
+		}
+
+		/**
 		 * @param $extTablesStaticSqlRelFile
 		 */
 		public function generateStatus($statusFile, $statusMmFile, int $pid, int $langUid)
