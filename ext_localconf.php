@@ -51,7 +51,7 @@
                         frontend {
                             iconIdentifier = jobs-plugin-frontend
                             title = LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_frontend.name
-                            description = LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_frontend.description
+                            description = LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:tx_jobs_frontend.description
                             tt_content_defValues {
                                 CType = list
                                 list_type = jobs_frontend
@@ -72,7 +72,7 @@
 				}
 			'));
 		$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
-		
+
 			$iconRegistry->registerIcon(
 				'jobs-plugin-frontend',
 				\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
@@ -89,6 +89,14 @@
 				'jobs-plugin-applicationform',
 				\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
 				['source' => 'EXT:jobs/Resources/Public/Icons/logo_jobs.svg']
+			);
+
+			// Add CleanUpApplications task
+			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\ITX\Jobs\Task\CleanUpApplications::class] = array(
+				'extension' => 'jobs',
+				'title' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:CleanUpApplications.title',
+				'description' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:CleanUpApplications.description',
+				'additionalFields' => \ITX\Jobs\Task\CleanUpApplicationsAdditionalFieldProvider::class
 			);
 		}
 	);

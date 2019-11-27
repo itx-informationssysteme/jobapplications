@@ -9,6 +9,9 @@
 			<trans-unit id="mlang_labels_tabdescr" resname="mlang_labels_tabdescr">
 				<source></source>
 			</trans-unit>
+			<trans-unit id="tx_jobs_frontend.description" resname="tx_jobs_frontend.description">
+				<source>Plugins, enabling you to list and show job postings and letting people apply.</source>
+			</trans-unit>
 			<trans-unit id="flexform.showSalarayExpectation" resname="flexform.showSalarayExpectation">
 				<source>Show "Salary Expectation" Field</source>
 			</trans-unit>
@@ -154,7 +157,18 @@
 				<source>Generate status elements in different languages. Set the PID where you want them to go.<br/>
 				Use with caution as this operation deletes all status elements if there are any.</source>
 			</trans-unit>
-
+			<trans-unit id="task.months.label" resname="task.months.label">
+				<source>How many months old?</source>
+			</trans-unit>
+			<trans-unit id="task.months.empty" resname="task.months.empty">
+				<source>Months can't be empty!</source>
+			</trans-unit>
+			<trans-unit id="CleanUpApplications.title" resname="CleanUpApplications.title">
+				<source>Clean up old applications</source>
+			</trans-unit>
+			<trans-unit id="CleanUpApplications.description" resname="CleanUpApplications.description">
+				<source>This task deletes all applications which are equal or older than the given months.</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

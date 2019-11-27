@@ -90,4 +90,20 @@
 
 			return $query->execute();
 		}
+
+		/**
+		 * Finds applications which are older than or equal the given timestamp
+		 *
+		 * @param $timestamp
+		 *
+		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+		 */
+		public function findOlderThan(int $timestamp)
+		{
+			$query = $this->createQuery();
+
+			$query->statement("SELECT * FROM tx_jobs_domain_model_application WHERE crdate <= $timestamp");
+
+			return $query->execute();
+		}
 	}
