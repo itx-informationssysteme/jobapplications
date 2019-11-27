@@ -169,6 +169,18 @@
 			<trans-unit id="CleanUpApplications.description" resname="CleanUpApplications.description">
 				<source>This task deletes all applications which are equal or older than the given months.</source>
 			</trans-unit>
+			<trans-unit id="tx_jobs_contactdisplay.title" resname="tx_jobs_contactdisplay.title">
+				<source>Jobs: Contact Display</source>
+			</trans-unit>
+			<trans-unit id="tx_jobs_applicationform.title" resname="tx_jobs_applicationform.title">
+				<source>Jobs: Application Form</source>
+			</trans-unit>
+			<trans-unit id="tx_jobs_detailview.title" resname="tx_jobs_detailview.title">
+				<source>Jobs: Detail View</source>
+			</trans-unit>
+			<trans-unit id="tx_jobs_frontend.title" resname="tx_jobs_frontend.title">
+				<source>Jobs: Postings</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

@@ -46,6 +46,7 @@
 		{
 			$submittedData['months'] = trim($submittedData['months']);
 			if (empty($submittedData['months'])) {
+				// @extensionScannerIgnoreLine
 				$this->addMessage(
 					$this->getLanguageService()->sL('LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:task.months.empty'),
 					FlashMessage::ERROR

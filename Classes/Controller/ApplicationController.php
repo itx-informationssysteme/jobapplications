@@ -35,7 +35,7 @@
 		 * applicationRepository
 		 *
 		 * @var \ITX\Jobs\Domain\Repository\ApplicationRepository
-		 * @inject
+		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $applicationRepository = null;
 
@@ -45,19 +45,19 @@
 
 		/**
 		 * @var \ITX\Jobs\Domain\Repository\PostingRepository
-		 * @inject
+		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		private $postingRepository;
 
 		/**
 		 * @var \ITX\Jobs\Domain\Repository\StatusRepository
-		 * @inject
+		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		private $statusRepository;
 
 		/**
 		 * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
-		 * @inject
+		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $persistenceManager;
 

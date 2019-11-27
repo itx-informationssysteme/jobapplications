@@ -23,7 +23,7 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * locationRepository
      * 
      * @var \ITX\Jobs\Domain\Repository\LocationRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $locationRepository = null;
 
@@ -60,54 +60,16 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     {
     }
 
-    /**
-     * action create
-     * 
-     * @param ITX\Jobs\Domain\Model\Location
-     * @return void
-     */
-    public function createAction(\ITX\Jobs\Domain\Model\Location $newLocation)
-    {
-        $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        $this->locationRepository->add($newLocation);
-        $this->redirect('list');
-    }
 
     /**
      * action edit
      * 
      * @param ITX\Jobs\Domain\Model\Location
-     * @ignorevalidation $location
+     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation $location
      * @return void
      */
     public function editAction(\ITX\Jobs\Domain\Model\Location $location)
     {
         $this->view->assign('location', $location);
-    }
-
-    /**
-     * action update
-     * 
-     * @param ITX\Jobs\Domain\Model\Location
-     * @return void
-     */
-    public function updateAction(\ITX\Jobs\Domain\Model\Location $location)
-    {
-        $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        $this->locationRepository->update($location);
-        $this->redirect('list');
-    }
-
-    /**
-     * action delete
-     * 
-     * @param ITX\Jobs\Domain\Model\Location
-     * @return void
-     */
-    public function deleteAction(\ITX\Jobs\Domain\Model\Location $location)
-    {
-        $this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        $this->locationRepository->remove($location);
-        $this->redirect('list');
     }
 }

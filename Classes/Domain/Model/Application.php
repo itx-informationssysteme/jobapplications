@@ -85,7 +85,7 @@
 		 * cv
 		 *
 		 * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
-		 * @cascade remove
+		 * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade remove
 		 */
 		protected $cv = null;
 
@@ -93,7 +93,7 @@
 		 * coverLetter
 		 *
 		 * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
-		 * @cascade remove
+		 * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade remove
 		 */
 		protected $coverLetter = null;
 
@@ -101,7 +101,7 @@
 		 * testimonials
 		 *
 		 * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
-		 * @cascade remove
+		 * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade remove
 		 */
 		protected $testimonials = null;
 
@@ -109,7 +109,7 @@
 		 * otherFiles
 		 *
 		 * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
-		 * @cascade remove
+		 * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade remove
 		 */
 		protected $otherFiles = null;
 

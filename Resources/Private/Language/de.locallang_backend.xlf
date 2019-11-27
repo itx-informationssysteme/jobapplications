@@ -195,6 +195,38 @@
                 <source>Generate status elements in english</source>
                 <target state="translated">Generiere Statuselemente in englisch</target>
             </trans-unit>
+            <trans-unit id="task.months.label" resname="task.months.label">
+                <source>How many months old?</source>
+                <target state="translated">Wie alt (in Monaten) muss die Bewerbung sein?</target>
+            </trans-unit>
+            <trans-unit id="task.months.empty" resname="task.months.empty">
+                <source>Months can't be empty!</source>
+                <target state="translated">Feld Monate darf nicht leer sein!</target>
+            </trans-unit>
+            <trans-unit id="CleanUpApplications.title" resname="CleanUpApplications.title">
+                <source>Clean up old applications</source>
+                <target state="translated">Löschen alter Bewerbungen</target>
+            </trans-unit>
+            <trans-unit id="CleanUpApplications.description" resname="CleanUpApplications.description">
+                <source>This task deletes all applications which are equal or older than the given months.</source>
+                <target state="translated">Dieser Plan löscht alle alten Bewerbungen, wobei das Alter in Monaten spezifiziert wird.</target>
+            </trans-unit>
+            <trans-unit id="tx_jobs_contactdisplay.title" resname="tx_jobs_contactdisplay.title">
+                <source>Jobs: Contact Display</source>
+                <target state="translated">Jobs: Kontakte Anzeige</target>
+            </trans-unit>
+            <trans-unit id="tx_jobs_applicationform.title" resname="tx_jobs_applicationform.title">
+                <source>Jobs: Application Form</source>
+                <target state="translated">Jobs: Bewerbungsformular</target>
+            </trans-unit>
+            <trans-unit id="tx_jobs_detailview.title" resname="tx_jobs_detailview.title">
+                <source>Jobs: Detail View</source>
+                <target state="translated">Jobs: Detailansicht</target>
+            </trans-unit>
+            <trans-unit id="tx_jobs_frontend.title" resname="tx_jobs_frontend.title">
+                <source>Jobs: Postings</source>
+                <target state="translated">Jobs: Ausschreibungen</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

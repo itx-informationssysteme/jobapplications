@@ -31,7 +31,7 @@
 		 * postingRepository
 		 *
 		 * @var \ITX\Jobs\Domain\Repository\PostingRepository
-		 * @inject
+		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $postingRepository = null;
 
@@ -39,7 +39,7 @@
 		 * locationRepository
 		 *
 		 * @var \ITX\Jobs\Domain\Repository\LocationRepository
-		 * @inject
+		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $locationRepository = null;
 
@@ -127,11 +127,15 @@
 
 			//Google Jobs
 			$metaTagManager = GeneralUtility::makeInstance(MetaTagManagerRegistry::class);
+			// @extensionScannerIgnoreLine
 			$metaTagManager->getManagerForProperty("description")->addProperty("description", strip_tags($posting->getJobDescription()));
+			// @extensionScannerIgnoreLine
 			$metaTagManager->getManagerForProperty("og:title")->addProperty("og:title", $posting->getTitle());
+			// @extensionScannerIgnoreLine
 			$metaTagManager->getManagerForProperty("og:description")->addProperty("og:description", strip_tags($posting->getJobDescription()));
 			if ($posting->getListViewImage())
 			{
+				// @extensionScannerIgnoreLine
 				$metaTagManager->getManagerForProperty("og:image")->addProperty("og:image", $this->request->getBaseUri().$posting->getListViewImage()->getOriginalResource()->getPublicUrl());
 			}
 

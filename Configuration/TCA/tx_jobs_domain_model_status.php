@@ -147,10 +147,8 @@
 					'autoSizeMax' => 30,
 					'maxitems' => 9999,
 					'multiple' => 0,
-					'wizards' => [
-						'_PADDING' => 1,
-						'_VERTICAL' => 1,
-						'edit' => [
+					'field_control' => [
+						'editPopup' => [
 							'module' => [
 								'name' => 'wizard_edit',
 							],
@@ -159,7 +157,7 @@
 							'popup_onlyOpenIfSelected' => 1,
 							'JSopenParams' => 'height=350,width=580,status=0,menubar=0,scrollbars=1',
 						],
-						'add' => [
+						'addRecord' => [
 							'module' => [
 								'name' => 'wizard_add',
 							],

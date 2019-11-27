@@ -17,7 +17,7 @@
 		 * applicationRepository
 		 *
 		 * @var \ITX\Jobs\Domain\Repository\ApplicationRepository
-		 * @inject
+		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $applicationRepository = null;
 
@@ -25,7 +25,7 @@
 		 * postingRepository
 		 *
 		 * @var \ITX\Jobs\Domain\Repository\PostingRepository
-		 * @inject
+		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $postingRepository = null;
 
@@ -33,7 +33,7 @@
 		 * contactRepository
 		 *
 		 * @var \ITX\Jobs\Domain\Repository\ContactRepository
-		 * @inject
+		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $contactRepository = null;
 
@@ -41,7 +41,7 @@
 		 * statusRepository
 		 *
 		 * @var \ITX\Jobs\Domain\Repository\StatusRepository
-		 * @inject
+		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $statusRepository = null;
 
@@ -49,7 +49,7 @@
 		 * persistenceManager
 		 *
 		 * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
-		 * @inject
+		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $persistenceManager;
 

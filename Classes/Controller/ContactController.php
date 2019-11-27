@@ -25,7 +25,7 @@ class ContactController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * contactRepository
      * 
      * @var \ITX\Jobs\Domain\Repository\ContactRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $contactRepository = null;
 
