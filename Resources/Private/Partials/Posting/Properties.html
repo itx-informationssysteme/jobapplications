@@ -126,7 +126,7 @@
 						</h6>
 					</div>
 					<div class="col-3">
-						{posting.validThrough -> f:format.date()}
+						<f:format.date format="{f:translate(key: 'date_format')}">{posting.validThrough}</f:format.date>
 					</div>
 				</f:if>
 			</div>
@@ -164,15 +164,17 @@
 					</h6>
 				</div>
 				<div class="container-flex">
-					<f:if condition="{settings.showLocationTitle}">
-						{posting.location.name}<br>
-					</f:if>
-					{posting.location.addressStreetAndNumber}<br>
-					<f:if condition="{posting.location.addressAddition}">
-						{posting.location.addressAddition}<br>
-					</f:if>
-					{posting.location.addressPostCode}&nbsp;{posting.location.addressCity}<br>
-					{posting.location.addressCountry}
+					<p>
+						<f:if condition="{settings.showLocationTitle}">
+							{posting.location.name}<br>
+						</f:if>
+						{posting.location.addressStreetAndNumber}<br>
+						<f:if condition="{posting.location.addressAddition}">
+							{posting.location.addressAddition}<br>
+						</f:if>
+						{posting.location.addressPostCode}&nbsp;{posting.location.addressCity}<br>
+						{posting.location.addressCountry}
+					</p>
 				</div>
 			</div>
 		</f:if>
@@ -187,7 +189,7 @@
 					<div class="row">
 						<div class="col">
 							<f:if condition="{posting.contact.photo}">
-								<f:image src="{posting.contact.photo.originalResource.publicUrl}" class="h-auto w-25 float-left mr-3"/>
+								<img src="{posting.contact.photo.originalResource.publicUrl}" width="100" alt="contactImage" class="rounded-circle float-left mr-3"/>
 							</f:if>
 							<div class="container-flex text-left float-left">
 								{posting.contact.firstName} {posting.contact.lastName}<br>

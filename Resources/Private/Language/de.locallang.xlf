@@ -3,6 +3,10 @@
     <file source-language="en" target-language="de" datatype="plaintext" original="EXT:jobs/Resources/Private/Language/locallang" date="2019-10-21T16:03:17Z" product-name="jobs">
         <header/>
         <body>
+            <trans-unit id="date_format" resname="date_format">
+                <source>m-d-Y</source>
+                <target state="translated">d.m.Y</target>
+            </trans-unit>
             <trans-unit id="tx_jobs_domain_model_posting" resname="tx_jobs_domain_model_posting" approved="yes">
                 <source>Posting</source>
                 <target state="translated">Stellenausschreibung</target>
@@ -214,6 +218,10 @@
             <trans-unit id="fe.posting.button.cta" resname="fe.posting.button.cta" approved="yes">
                 <source>Apply now</source>
                 <target state="translated">Jetzt bewerben</target>
+            </trans-unit>
+            <trans-unit id="fe.application.privacy_agreement" resname="fe.application.privacy_agreement">
+                <source>I accept the </source>
+                <target state="translated">Ich akzeptiere die </target>
             </trans-unit>
             <trans-unit id="fe.application.selector.chooseMessage" resname="fe.application.selector.chooseMessage" approved="yes">
                 <source>-Choose-</source>

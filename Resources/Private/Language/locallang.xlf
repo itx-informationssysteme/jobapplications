@@ -4,7 +4,7 @@
 		<header/>
 		<body>
 			<trans-unit id="date_format" resname="date_format">
-				<source>d.m.Y</source>
+				<source>m-d-Y</source>
 			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_posting" resname="tx_jobs_domain_model_posting">
 				<source>Posting</source>
@@ -185,6 +185,9 @@
 			</trans-unit>
 			<trans-unit id="fe.application.new.title" resname="fe.application.new.title">
 				<source>Apply as</source>
+			</trans-unit>
+			<trans-unit id="fe.application.privacy_agreement" resname="fe.application.privacy_agreement">
+				<source>I accept the </source>
 			</trans-unit>
 			<trans-unit id="fe.application.new.submit" resname="fe.application.new.submit">
 				<source>Send Application</source>

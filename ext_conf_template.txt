@@ -6,4 +6,7 @@ companyName =
 # cat=company; type=string; label=LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:conf.logo
 logo =
 
+# cat=company; type=string; label=LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:conf.currency
+currency =
+
 

@@ -159,6 +159,10 @@
                 <source>[Optional] Logo: Logo as public link</source>
                 <target state="translated">[Optional] Logo: Logo als öffentlicher Link</target>
             </trans-unit>
+            <trans-unit id="conf.currency" resname="conf.currency">
+                <source>Currency: Used for Google Jobs. In ISO 4217 format!</source>
+                <target state="translated">Währung: Wird für Google Jobs benutzt. Im ISO 4217 Format!</target>
+            </trans-unit>
             <trans-unit id="be.dashboard.welcome" resname="be.dashboard.welcome" approved="yes">
                 <source>Welcome back %s %s!</source>
                 <target state="translated">Willkommen zurück, %s %s!</target>

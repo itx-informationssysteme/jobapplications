@@ -208,9 +208,10 @@
 
 				if ($posting->getBaseSalary())
 				{
+					$currency = $logo = $extconf->get('jobs', 'currency') ?: "EUR" ;
 					$googleJobsJSON["baseSalary"] = [
 						"@type" => "MonetaryAmount",
-						"currency" => "EUR",
+						"currency" => $currency,
 						"value" => [
 							"@type" => "QuantitativeValue",
 							"value" => preg_replace('/\D/', '', $posting->getBaseSalary()),

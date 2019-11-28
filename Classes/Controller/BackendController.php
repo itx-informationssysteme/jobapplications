@@ -147,6 +147,8 @@
 		 */
 		public function showApplicationAction(\ITX\Jobs\Domain\Model\Application $application)
 		{
+			$statusDatabaseOp = false;
+
 			// Handles archive request
 			if ($this->request->hasArgument("archive"))
 			{
@@ -159,12 +161,14 @@
 					$application->setArchived(true);
 				}
 				$this->persistenceManager->update($application);
+				$statusDatabaseOp = true;
 			}
 
 			// Handles delete request
 			if ($this->request->hasArgument("delete"))
 			{
 				$this->persistenceManager->remove($application);
+				$this->persistenceManager->persistAll();
 				$this->redirect('listApplications', 'Backend', 'jobs');
 			}
 
@@ -173,6 +177,13 @@
 			{
 				$application->setStatus($this->statusRepository->findByUid($this->request->getArgument("status")));
 				$this->persistenceManager->update($application);
+				$statusDatabaseOp = true;
+			}
+
+			// If we made a databse operation we want to make sure its commited instantly
+			if($statusDatabaseOp)
+			{
+				$this->persistenceManager->persistAll();
 			}
 
 			// Fetch baseuri for f:uri to access Public folder

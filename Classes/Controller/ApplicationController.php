@@ -224,6 +224,15 @@
 			$contact = $currentPosting->getContact();
 
 			$salutation = LocalizationUtility::translate("fe.application.selector.".$newApplication->getSalutation(), "jobs");
+			$salary = $newApplication->getSalaryExpectation() ? LocalizationUtility::translate("tx_jobs_domain_model_application.salary_expectation", "jobs").": ".$newApplication->getSalaryExpectation()."<br>" : "";
+			$dateOfJoining = $newApplication->getEarliestDateOfJoining() ?
+				LocalizationUtility::translate("tx_jobs_domain_model_application.earliest_date_of_joining", "jobs")
+				.": ".$newApplication->getEarliestDateOfJoining()->format(LocalizationUtility::translate("date_format", "jobs"))."<br>" : "";
+			$nameLabel = LocalizationUtility::translate("tx_jobs_domain_model_location.name", "jobs").": ";
+			$emailLabel = LocalizationUtility::translate("tx_jobs_domain_model_application.email","jobs").": ";
+			$phoneLabel = LocalizationUtility::translate("tx_jobs_domain_model_application.phone","jobs").": ";
+			$addressLabel = LocalizationUtility::translate("tx_jobs_domain_model_location.address","jobs").": ";
+			$additionalAddress = $newApplication->getAddressAddition() ? $newApplication->getAddressAddition().'<br>' : "";
 
 			if ($this->settings["sendEmailToContact"] || $this->settings['sendEmailToInternal'])
 			{
@@ -237,11 +246,15 @@
 					->setFrom(array($newApplication->getEmail() => $newApplication->getFirstName()." ".$newApplication->getLastName()))
 
 					// Give it a body
-					->setBody('Name: '.$salutation.' '.$newApplication->getFirstName().' '.$newApplication->getLastName().'<br>'.
-							  'E-Mail: '.$newApplication->getEmail().'<br>'.
-							  'Telephone: '.$newApplication->getPhone().'<br>'.
-							  'Address: '.$newApplication->getAddressStreetAndNumber().'<br>'.$newApplication->getAddressAddition().'<br>'.
-							  $newApplication->getAddressPostCode().' '.$newApplication->getAddressCity().'<br>'.$newApplication->getAddressCountry());
+					->setBody($nameLabel.$salutation.' '.$newApplication->getFirstName().' '.$newApplication->getLastName().'<br>'.
+							  $emailLabel.$newApplication->getEmail().'<br>'.
+							  $phoneLabel.$newApplication->getPhone().'<br>'.
+							  $salary.
+							  $dateOfJoining.'<br>'.
+							  $addressLabel.'<br>'.$newApplication->getAddressStreetAndNumber().'<br>'
+							  .$additionalAddress.
+							  $newApplication->getAddressPostCode().' '.$newApplication->getAddressCity()
+							  .'<br>'.$newApplication->getAddressCountry());
 
 				$files = array($movedNewFileCv, $movedNewFileCover, $movedNewFileTestimonial, $movedNewFileOther);
 				foreach ($files as $file)
