@@ -215,6 +215,10 @@
                 <source>Status</source>
                 <target state="translated">Status</target>
             </trans-unit>
+            <trans-unit id="tx_jobs_domain_model_application.message" resname="tx_jobs_domain_model_application.message">
+                <source>Message</source>
+                <target state="translated">Nachricht</target>
+            </trans-unit>
             <trans-unit id="tx_jobs_domain_model_status" resname="tx_jobs_domain_model_status" approved="yes">
                 <source>Status</source>
                 <target state="translated">Status</target>

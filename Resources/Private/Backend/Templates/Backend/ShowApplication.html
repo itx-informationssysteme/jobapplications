@@ -3,7 +3,9 @@
 
 <f:section name="content">
 	<div class="showapplication-wrapper">
-		<h1><f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.show.title"></f:translate></h1>
+		<h1>
+			<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.show.title"></f:translate>
+		</h1>
 		<div class="personal-description {f:if(condition: '{application.archived}', then: 'archived')}">
 			<div class="row">
 				<div class="placeholder">&nbsp;</div>
@@ -59,6 +61,15 @@
 						<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:tx_jobs_domain_model_application.earliest_date_of_joining"></f:translate>
 						:&nbsp;</label>
 					<span><f:format.date format="{f:translate(key: 'date_format')}">{application.earliestDateOfJoining}</f:format.date></span>
+				</div>
+			</f:if>
+			<f:if condition="{application.message}">
+				<div class="row message-row">
+					<label>
+						<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:tx_jobs_domain_model_application.message"></f:translate>
+						:&nbsp;
+					</label>
+					<p>{application.message}</p>
 				</div>
 			</f:if>
 			<div class="row">

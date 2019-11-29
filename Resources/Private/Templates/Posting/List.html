@@ -20,7 +20,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 		</h3>
 		<f:if condition="{postings -> f:count()} > 0 || {divisionName} || {careerLevelType} || {selectedEmploymentType} || {selectedLocation}">
 			<f:then>
-				<f:form action="list" name="filter" object="{filter}" method="post">
+				<f:form action="list" name="filter" method="get">
 					<div class="form-row m-0">
 						<div class="form-group pl-0 col">
 							<label for="division">
@@ -93,7 +93,14 @@ Otherwise your changes will be overwritten the next time you save the extension 
 														<div class="col"></div>
 														<div class="col-9">
 															<div class="card-title mt-3">
-																<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" pluginName="DetailView">{posting.title}</f:link.action>
+																<f:if condition="{settings.singleDetailandApp}">
+																	<f:then>
+																		<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" pluginName="DetailView" additionalParams="{postingApp: posting}">{posting.title}</f:link.action>
+																	</f:then>
+																	<f:else>
+																		<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" pluginName="DetailView">{posting.title}</f:link.action>
+																	</f:else>
+																</f:if>
 															</div>
 															<div class="card-body p-0 pb-3">
 																<div class="row">
@@ -120,9 +127,18 @@ Otherwise your changes will be overwritten the next time you save the extension 
 																	</div>
 																</div>
 																<div class="row mt-3">
-																	<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView">
-																		<f:translate key="fe.posting.button.detailview"/>
-																	</f:link.action>
+																	<f:if condition="{settings.singleDetailandApp}">
+																		<f:then>
+																			<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView" additionalParams="{postingApp: posting}">
+																				<f:translate key="fe.posting.button.detailview"/>
+																			</f:link.action>
+																		</f:then>
+																		<f:else>
+																			<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView">
+																				<f:translate key="fe.posting.button.detailview"/>
+																			</f:link.action>
+																		</f:else>
+																	</f:if>
 																</div>
 															</div>
 														</div>
@@ -140,7 +156,14 @@ Otherwise your changes will be overwritten the next time you save the extension 
 															<div class="col"></div>
 															<div class="col-9">
 																<div class="card-title mt-3">
-																	<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" pluginName="DetailView">{posting.title}</f:link.action>
+																	<f:if condition="{settings.singleDetailandApp}">
+																		<f:then>
+																			<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" pluginName="DetailView" additionalParams="{postingApp: posting}">{posting.title}</f:link.action>
+																		</f:then>
+																		<f:else>
+																			<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" pluginName="DetailView">{posting.title}</f:link.action>
+																		</f:else>
+																	</f:if>
 																</div>
 																<div class="row">
 																	<div class="col">
@@ -164,9 +187,18 @@ Otherwise your changes will be overwritten the next time you save the extension 
 																	<div class="col-md-auto"><span><f:format.date format="{f:translate(key: 'date_format')}">{posting.datePosted}</f:format.date></span></div>
 																</div>
 																<div class="row mt-3">
-																	<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView">
-																		<f:translate key="fe.posting.button.detailview"/>
-																	</f:link.action>
+																	<f:if condition="{settings.singleDetailandApp}">
+																		<f:then>
+																			<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView" additionalParams="{postingApp: posting}">
+																				<f:translate key="fe.posting.button.detailview"/>
+																			</f:link.action>
+																		</f:then>
+																		<f:else>
+																			<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView">
+																				<f:translate key="fe.posting.button.detailview"/>
+																			</f:link.action>
+																		</f:else>
+																	</f:if>
 																</div>
 															</div>
 															<div class="col"></div>

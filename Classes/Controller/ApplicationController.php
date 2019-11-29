@@ -88,14 +88,24 @@
 		/**
 		 * action new
 		 *
+		 * * @param ITX\Jobs\Domain\Model\Posting
+		 *
 		 * @return void
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
 		 */
 		public function newAction()
 		{
+
+			if ($this->request->hasArgument("posting"))
+			{
+				$posting = $this->request->getArgument("posting");
+			}
+			elseif ($_REQUEST['postingApp'])
+			{
+				$posting = $_REQUEST['postingApp'];
+			}
+
 			$this->fileSizeLimit = GeneralUtility::getMaxUploadFileSize();
-			$posting = $this->request->getArgument("posting");
-			$postingObject = $this->postingRepository->findByUid($posting);
 
 			if ($this->request->hasArgument("fileError"))
 			{
@@ -107,22 +117,28 @@
 				$this->view->assign("fileError", 0);
 			}
 
-			$titleProvider = GeneralUtility::makeInstance(JobsPageTitleProvider::class);
-
-			$title = $this->settings["pageTitle"];
-			if ($title != "")
+			if ($posting)
 			{
-				$title = str_replace("%postingTitle%", $postingObject->getTitle(), $title);
-			}
-			else
-			{
-				$title = $postingObject->getTitle();
+
+				$postingObject = $this->postingRepository->findByUid($posting);
+
+				$titleProvider = GeneralUtility::makeInstance(JobsPageTitleProvider::class);
+
+				$title = $this->settings["pageTitle"];
+				if ($title != "")
+				{
+					$title = str_replace("%postingTitle%", $postingObject->getTitle(), $title);
+				}
+				else
+				{
+					$title = $postingObject->getTitle();
+				}
+
+				$titleProvider->setTitle($title);
+
+				$this->view->assign('posting', $postingObject);
 			}
 
-			$titleProvider->setTitle($title);
-			$this->view->assign('posting', $posting);
-
-			$this->view->assign('posting', $postingObject);
 			$this->view->assign("fileSizeLimit", strval($this->fileSizeLimit) / 1024);
 		}
 
@@ -174,6 +190,12 @@
 				}
 			}
 
+			//Verify length in message field
+			if (strlen($newApplication->getMessage()) > intval($this->settings['messageMaxLength']))
+			{
+				$this->redirect("new", "Application", null, array());
+			}
+
 			$newApplication->setPosting($posting);
 			$newApplication->setStatus($this->statusRepository->findByUid(1));
 			$this->applicationRepository->add($newApplication);
@@ -213,7 +235,7 @@
 				$fields['other_files'] = 1;
 			}
 
-			if(count($files) > 0)
+			if (count($files) > 0)
 			{
 				$this->buildRelations($newApplication->getUid(), $files, $fields, $fieldNames, 'tx_jobs_domain_model_application', $newApplication->getPid());
 			}
@@ -229,10 +251,12 @@
 				LocalizationUtility::translate("tx_jobs_domain_model_application.earliest_date_of_joining", "jobs")
 				.": ".$newApplication->getEarliestDateOfJoining()->format(LocalizationUtility::translate("date_format", "jobs"))."<br>" : "";
 			$nameLabel = LocalizationUtility::translate("tx_jobs_domain_model_location.name", "jobs").": ";
-			$emailLabel = LocalizationUtility::translate("tx_jobs_domain_model_application.email","jobs").": ";
-			$phoneLabel = LocalizationUtility::translate("tx_jobs_domain_model_application.phone","jobs").": ";
-			$addressLabel = LocalizationUtility::translate("tx_jobs_domain_model_location.address","jobs").": ";
+			$emailLabel = LocalizationUtility::translate("tx_jobs_domain_model_application.email", "jobs").": ";
+			$phoneLabel = LocalizationUtility::translate("tx_jobs_domain_model_application.phone", "jobs").": ";
+			$addressLabel = LocalizationUtility::translate("tx_jobs_domain_model_location.address", "jobs").": ";
 			$additionalAddress = $newApplication->getAddressAddition() ? $newApplication->getAddressAddition().'<br>' : "";
+			$messageLabel = LocalizationUtility::translate("tx_jobs_domain_model_application.message", "jobs").": ";
+			$message = $newApplication->getMessage() ? '<br><br>'.$messageLabel.'<br>'.$newApplication->getMessage() : "";
 
 			if ($this->settings["sendEmailToContact"] || $this->settings['sendEmailToInternal'])
 			{
@@ -244,9 +268,8 @@
 
 					// Set the From address with an associative array
 					->setFrom(array($newApplication->getEmail() => $newApplication->getFirstName()." ".$newApplication->getLastName()))
-
-					// Give it a body
-					->setBody($nameLabel.$salutation.' '.$newApplication->getFirstName().' '.$newApplication->getLastName().'<br>'.
+					->setBody('<p>'.
+							  $nameLabel.$salutation.' '.$newApplication->getFirstName().' '.$newApplication->getLastName().'<br>'.
 							  $emailLabel.$newApplication->getEmail().'<br>'.
 							  $phoneLabel.$newApplication->getPhone().'<br>'.
 							  $salary.
@@ -254,7 +277,8 @@
 							  $addressLabel.'<br>'.$newApplication->getAddressStreetAndNumber().'<br>'
 							  .$additionalAddress.
 							  $newApplication->getAddressPostCode().' '.$newApplication->getAddressCity()
-							  .'<br>'.$newApplication->getAddressCountry());
+							  .'<br>'.$newApplication->getAddressCountry()
+							  .$message.'</p>');
 
 				$files = array($movedNewFileCv, $movedNewFileCover, $movedNewFileTestimonial, $movedNewFileOther);
 				foreach ($files as $file)
@@ -370,10 +394,11 @@
 		 * @param $table         ;table tca domain table name e.g. tx_<extensionName>_domain_model_<domainModelName>
 		 * @param $newStoragePid ;PID of Record or Domain Model the file will attach to
 		 */
-		private function buildRelations($newStorageUid, array $files, array $fields, array $fieldNames , $table, $newStoragePid)
+		private function buildRelations($newStorageUid, array $files, array $fields, array $fieldNames, $table, $newStoragePid)
 		{
 			$database = GeneralUtility::makeInstance(ConnectionPool::class);
-			for ($i = 0; $i < count($files); $i++) {
+			for ($i = 0; $i < count($files); $i++)
+			{
 				$database
 					->getConnectionForTable('sys_file_reference')
 					->insert(

@@ -162,6 +162,9 @@
 			<trans-unit id="tx_jobs_domain_model_application.status" resname="tx_jobs_domain_model_application.status">
 				<source>Status</source>
 			</trans-unit>
+			<trans-unit id="tx_jobs_domain_model_application.message" resname="tx_jobs_domain_model_application.message">
+				<source>Message</source>
+			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_status" resname="tx_jobs_domain_model_status">
 				<source>Status</source>
 			</trans-unit>

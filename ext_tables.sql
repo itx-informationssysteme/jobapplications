@@ -78,6 +78,7 @@ CREATE TABLE tx_jobs_domain_model_application
     address_country           varchar(255)         DEFAULT ''  NOT NULL,
     salary_expectation        varchar(255)         DEFAULT ''  NOT NULL,
     earliest_date_of_joining  date                 DEFAULT NULL,
+    message                   text,
     cv                        int(11) unsigned                 NOT NULL default '0',
     cover_letter              int(11) unsigned                 NOT NULL default '0',
     testimonials              int(11) unsigned                 NOT NULL default '0',
@@ -101,8 +102,8 @@ CREATE TABLE tx_jobs_domain_model_posting
 #
 CREATE TABLE tx_jobs_domain_model_status
 (
-    name varchar(255) DEFAULT '' NOT NULL,
-    followers int(11) DEFAULT '0' NOT NULL
+    name      varchar(255) DEFAULT ''  NOT NULL,
+    followers int(11)      DEFAULT '0' NOT NULL
 );
 
 #

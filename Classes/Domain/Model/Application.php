@@ -75,6 +75,13 @@
 		protected $salaryExpectation = '';
 
 		/**
+		 * salaryExpectation
+		 *
+		 * @var string
+		 */
+		protected $message = '';
+
+		/**
 		 * earliestDateOfJoining
 		 *
 		 * @var \DateTime
@@ -626,6 +633,22 @@
 		public function setStatus($status)
 		{
 			$this->status = $status;
+		}
+
+		/**
+		 * @return string
+		 */
+		public function getMessage()
+		{
+			return $this->message;
+		}
+
+		/**
+		 * @param string $message
+		 */
+		public function setMessage(string $message)
+		{
+			$this->message = $message;
 		}
 
 	}

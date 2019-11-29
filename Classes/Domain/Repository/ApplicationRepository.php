@@ -34,12 +34,12 @@
 			$postingSQL = "";
 			$statusSQL = "";
 
-			$baseSQL = "SELECT * FROM tx_jobs_domain_model_application WHERE deleted = 0 AND archived = ".$archived." ";
+			$baseSQL = "SELECT * FROM tx_jobs_domain_model_application WHERE archived = ".$archived." ";
 
 			if ($contact)
 			{
 				$contactSQL = "AND posting IN( SELECT uid FROM tx_jobs_domain_model_posting 
-								WHERE deleted = 0 AND contact = ".$contact.")";
+								WHERE contact = ".$contact.")";
 			}
 			if ($posting)
 			{
@@ -69,7 +69,7 @@
 			$query = $this->createQuery();
 
 			$query->statement("SELECT * FROM tx_jobs_domain_model_application 
-										WHERE deleted = 0 AND hidden = 0 AND archived = 0 ORDER BY crdate DESC");
+										WHERE hidden = 0 AND archived = 0 ORDER BY crdate DESC");
 
 			return $query->execute();
 		}
@@ -84,9 +84,9 @@
 			$query = $this->createQuery();
 
 			$query->statement("SELECT * FROM tx_jobs_domain_model_application 
-										WHERE deleted = 0 AND hidden = 0 AND archived = 0 AND status = 1 AND posting 
+										WHERE hidden = 0 AND archived = 0 AND status = 1 AND posting 
 										IN( SELECT uid FROM tx_jobs_domain_model_posting 
-										WHERE deleted = 0 AND contact = ".$contact.")");
+										WHERE contact = ".$contact.")");
 
 			return $query->execute();
 		}

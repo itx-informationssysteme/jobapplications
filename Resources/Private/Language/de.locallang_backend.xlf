@@ -53,7 +53,7 @@
             </trans-unit>
             <trans-unit id="flexform.sendEmailToContact" resname="flexform.sendEmailToContact" approved="yes">
                 <source>Should the referenced contact receive an E-Mail?</source>
-                <target state="translated">Soll der in der Aussschreibung referenzierte Kontakt eine E-Mail erhalten?</target>
+                <target state="translated">Soll der in der Ausschreibung referenzierte Kontakt eine E-Mail erhalten?</target>
             </trans-unit>
             <trans-unit id="flexform.sendEmailToApplicantText" resname="flexform.sendEmailToApplicantText" approved="yes">
                 <source>E-Mail to Applicant Text</source>
@@ -106,6 +106,18 @@
             <trans-unit id="flexform.pageTitle" resname="flexform.pageTitle" approved="yes">
                 <source>Define page title here (%postingTitle% gets replaced with title of posting)</source>
                 <target state="translated">Seitentitel</target>
+            </trans-unit>
+            <trans-unit id="flexform.messageMaxLength" resname="flexform.messageMaxLength">
+                <source>Maximum message number of characters:</source>
+                <target state="translated">Maximale Anzahl an Zeichen in Nachricht Feld:</target>
+            </trans-unit>
+            <trans-unit id="flexform.showMessage" resname="flexform.showMessage">
+                <source>Show message field?</source>
+                <target state="translated">Zeige Nachricht-Feld?</target>
+            </trans-unit>
+            <trans-unit id="flexform.singleDetailandApp" resname="flexform.singleDetailandApp">
+                <source>Setting needed if applicationform should be on the same page as Detailview</source>
+                <target state="translated">Anwählen, falls sich Bewerbungsformular und Detailplugin auf der gleichen Seite befinden</target>
             </trans-unit>
             <trans-unit id="be.listApplications.showButton" resname="be.listApplications.showButton" approved="yes">
                 <source>Show</source>

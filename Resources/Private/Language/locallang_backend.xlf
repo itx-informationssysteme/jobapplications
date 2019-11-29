@@ -90,6 +90,15 @@
 			<trans-unit id="flexform.pageTitle" resname="flexform.pageTitle">
 				<source>Define page title here (%postingTitle% gets replaced with title of posting)</source>
 			</trans-unit>
+			<trans-unit id="flexform.showMessage" resname="flexform.showMessage">
+				<source>Show message field?</source>
+			</trans-unit>
+			<trans-unit id="flexform.messageMaxLength" resname="flexform.messageMaxLength">
+				<source>Maximum message number of characters:</source>
+			</trans-unit>
+			<trans-unit id="flexform.singleDetailandApp" resname="flexform.singleDetailandApp">
+				<source>Setting needed if applicationform should be on the same page as Detailview</source>
+			</trans-unit>
 			<trans-unit id="be.listApplications.showButton" resname="be.listApplications.showButton">
 				<source>Show</source>
 			</trans-unit>

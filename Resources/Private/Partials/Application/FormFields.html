@@ -103,6 +103,14 @@
 	</div>
 </f:if>
 <div class="form-row">
+	<div class="form-group col-md-12">
+		<label for="message">
+			<f:translate key="tx_jobs_domain_model_application.message"/>
+		</label>
+		<f:form.textarea class="form-control" name="message" property="message" rows="10" additionalAttributes="{maxlength: settings.messageMaxLength}"></f:form.textarea>
+	</div>
+</div>
+<div class="form-row">
 	<div class="form-group col-md-6">
 		<label for="cv">
 			<f:translate key="tx_jobs_domain_model_application.cv"/>
@@ -130,7 +138,7 @@
 		<f:form.upload name="other_files" additionalAttributes="{accept:'.pdf'}" class="form-control-file"></f:form.upload>
 	</div>
 	<small id="upload-message" class="form-text text-muted m-auto">
-		<f:translate key="fe.info.fileSize" arguments="{0: fileSizeLimit}"/>
+		<p><f:translate key="fe.info.fileSize" arguments="{0: fileSizeLimit}"/></p>
 	</small>
 </div>
 <script>

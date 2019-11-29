@@ -61,7 +61,7 @@
                     	show = *
                 	}
            		}'
-        	);
+			);
 			\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup(trim('
     			config.pageTitleProviders {
         			own {
@@ -71,7 +71,7 @@
 					}			
 				}
 			'));
-		$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
+			$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
 
 			$iconRegistry->registerIcon(
 				'jobs-plugin-frontend',
@@ -98,5 +98,15 @@
 				'description' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:CleanUpApplications.description',
 				'additionalFields' => \ITX\Jobs\Task\CleanUpApplicationsAdditionalFieldProvider::class
 			);
+			$GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] =
+				[
+					'tx_jobs[division]',
+					'tx_jobs[careerLevel]',
+					'tx_jobs[employmentType]',
+					'tx_jobs[location]',
+					'tx_jobs[submit]'
+				];
+			$GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludeAllEmptyParameters'] = true;
+			$GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFoundOnCHashError'] = false;
 		}
 	);
