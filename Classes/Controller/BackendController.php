@@ -100,7 +100,7 @@
 			// Handle show archived applications when selected in frontend-backend
 			if ($archivedSelected != "")
 			{
-				$archivedApplications = $this->applicationRepository->findByFilter($selectedContact, $selectedPosting, 1);
+				$archivedApplications = $this->applicationRepository->findByFilter($selectedContact, $selectedPosting, $selectedStatus, 1);
 				$this->view->assign("archivedApplications", $archivedApplications);
 			}
 

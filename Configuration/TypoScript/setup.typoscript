@@ -1,16 +1,16 @@
 plugin.tx_jobs.settings.enableGoogleJobs = {$plugin.tx_jobs.settings.enableGoogleJobs}
 
-plugin.{extension.shortExtensionKey}_{plugin.key} {
+plugin.tx_jobs {
     view {
         templateRootPaths.0 = EXT:{extension.shortExtensionKey}/Resources/Private/Templates/
-        templateRootPaths.1 = {$plugin.tx_jobs_frontend.view.templateRootPath}
+        templateRootPaths.1 = {$plugin.tx_jobs.view.templateRootPath}
         partialRootPaths.0 = EXT:jobs/Resources/Private/Partials/
-        partialRootPaths.1 = {$plugin.tx_jobs_frontend.view.partialRootPath}
+        partialRootPaths.1 = {$plugin.tx_jobs.view.partialRootPath}
         layoutRootPaths.0 = EXT:tx_jobs/Resources/Private/Layouts/
-        layoutRootPaths.1 = {$plugin.tx_jobs_frontend.view.layoutRootPath}
+        layoutRootPaths.1 = {$plugin.tx_jobs.view.layoutRootPath}
     }
     persistence {
-        storagePid = {$plugin.tx_jobs_frontend.persistence.storagePid}
+        storagePid = {$plugin.tx_jobs.persistence.storagePid}
         #recursive = 1
     }
     features {

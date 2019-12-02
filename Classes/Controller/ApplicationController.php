@@ -240,11 +240,12 @@
 				$this->buildRelations($newApplication->getUid(), $files, $fields, $fieldNames, 'tx_jobs_domain_model_application', $newApplication->getPid());
 			}
 
-			//Mail Handling
+			// Mail Handling
 
 			$currentPosting = $this->postingRepository->findByUid($newApplication->getPosting());
 			$contact = $currentPosting->getContact();
 
+			// Get and translate labels
 			$salutation = LocalizationUtility::translate("fe.application.selector.".$newApplication->getSalutation(), "jobs");
 			$salary = $newApplication->getSalaryExpectation() ? LocalizationUtility::translate("tx_jobs_domain_model_application.salary_expectation", "jobs").": ".$newApplication->getSalaryExpectation()."<br>" : "";
 			$dateOfJoining = $newApplication->getEarliestDateOfJoining() ?
@@ -258,15 +259,13 @@
 			$messageLabel = LocalizationUtility::translate("tx_jobs_domain_model_application.message", "jobs").": ";
 			$message = $newApplication->getMessage() ? '<br><br>'.$messageLabel.'<br>'.$newApplication->getMessage() : "";
 
+			// Send mail to Contact E-Mail or/and internal E-Mail
 			if ($this->settings["sendEmailToContact"] || $this->settings['sendEmailToInternal'])
 			{
 				$mail = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Mail\MailMessage::class);
 				// Prepare and send the message
 				$mail
-					// Give the message a subject
 					->setSubject(LocalizationUtility::translate("fe.email.toContactSubject", 'jobs', array(0 => $currentPosting->getTitle())))
-
-					// Set the From address with an associative array
 					->setFrom(array($newApplication->getEmail() => $newApplication->getFirstName()." ".$newApplication->getLastName()))
 					->setBody('<p>'.
 							  $nameLabel.$salutation.' '.$newApplication->getFirstName().' '.$newApplication->getLastName().'<br>'.
@@ -280,6 +279,7 @@
 							  .'<br>'.$newApplication->getAddressCountry()
 							  .$message.'</p>');
 
+				// Attach all found files
 				$files = array($movedNewFileCv, $movedNewFileCover, $movedNewFileTestimonial, $movedNewFileOther);
 				foreach ($files as $file)
 				{
@@ -314,6 +314,7 @@
 				}
 			}
 
+			// Now send a mail to the applicant
 			if ($this->settings["sendEmailToApplicant"])
 			{
 				$mail = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Mail\MailMessage::class);
@@ -341,16 +342,10 @@
 				$body = str_replace("%applicantLastname%", $newApplication->getLastName(), $body);
 				$body = str_replace("%postingTitle%", $currentPosting->getTitle(), $body);
 
-				// Prepare and send the message
 				$mail
-					// Give the message a subject
 					->setSubject($subject)
-
-					// Set the From address with an associative array
 					->setFrom(array($this->settings["emailSender"] => $this->settings["emailSenderName"]))
 					->setTo(array($newApplication->getEmail() => $newApplication->getFirstName()." ".$newApplication->getLastName()))
-
-					// Give it a body
 					->setBody($body);
 
 				try
@@ -363,6 +358,7 @@
 				}
 			}
 
+			// If applications should not be saved delete them here
 			if (!$this->settings['saveApplicationInBackend'])
 			{
 				$storageRepository = $this->objectManager->get('TYPO3\\CMS\\Core\\Resource\\StorageRepository');

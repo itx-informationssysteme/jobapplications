@@ -230,7 +230,7 @@
 				$pageRenderer->addHeaderData($googleJobs);
 			}
 
-			//Pagetitle Templating
+			// Pagetitle Templating
 			$title = $this->settings["pageTitle"];
 			if ($title != "")
 			{
