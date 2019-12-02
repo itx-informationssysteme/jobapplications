@@ -623,9 +623,11 @@
 		/**
 		 * @return boolean
 		 */
-		public function getIsValid() {
+		public function getIsValid()
+		{
 			$current = new \DateTime();
 			$validThrougDate = $this->validThrough;
-			return ($this->datePosted <= $current) && ($validThrougDate == NULL || ($validThrougDate->modify("+1 day") >= $current));
+
+			return ($this->datePosted <= $current) && ($validThrougDate == null || ($validThrougDate->modify("+1 day") >= $current));
 		}
 	}

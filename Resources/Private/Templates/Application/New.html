@@ -1,36 +1,31 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-  <f:layout name="Default" />
+<f:layout name="Default"/>
 
-  This template displays a NEW form for the current domain object.
+<f:section name="content">
+	<div class="row">
+		<div class="col"></div>
+		<div class="col-6">
+			<h3>
+				<f:translate key="fe.application.new.title"/>&nbsp;{posting.title}
+			</h3>
+			<f:flashMessages/>
+			<f:render partial="FormErrors"/>
 
-  If you modify this template, do not forget to change the overwrite settings
-  in /Configuration/ExtensionBuilder/settings.yaml:
-    Resources:
-      Private:
-        Templates:
-          New.html: keep
-
-  Otherwise your changes will be overwritten the next time you save the extension in the extension builder
-
-  <f:section name="content">
-    <div class="row">
-      <div class="col"></div>
-      <div class="col-6">
-        <h3><f:translate key="fe.application.new.title"/>&nbsp;{posting.title}</h3>
-        <f:flashMessages />
-        <f:render partial="FormErrors" />
-
-        <f:form action="create" enctype="multipart/form-data" name="newApplication" object="{newApplication}" arguments="{posting: posting}">
-          <f:render partial="Application/FormFields" arguments="{fileSizeLimit: fileSizeLimit}"/>
-          <div class="row">
-            <div class="col-4"><button class="btn btn-link px-0" onclick="window.history.back()"><f:translate key="fe.application.backlink"/></button></div>
-            <div class="col-4 text-center">
-              <f:form.submit class="btn btn-primary mx-auto" value="{f:translate(key='fe.application.new.submit')}"/>
-            </div>
-          </div>
-        </f:form>
-      </div>
-      <div class="col"></div>
-    </div>
-  </f:section>
+			<f:form action="create" enctype="multipart/form-data" name="newApplication" object="{newApplication}" arguments="{posting: posting}">
+				<f:render partial="Application/FormFields" arguments="{fileSizeLimit: fileSizeLimit}"/>
+				<div class="row">
+					<div class="col-4">
+						<button class="btn btn-link px-0" onclick="window.history.back()">
+							<f:translate key="fe.application.backlink"/>
+						</button>
+					</div>
+					<div class="col-4 text-center">
+						<f:form.submit class="btn btn-primary mx-auto" value="{f:translate(key='fe.application.new.submit')}"/>
+					</div>
+				</div>
+			</f:form>
+		</div>
+		<div class="col"></div>
+	</div>
+</f:section>
 </html>

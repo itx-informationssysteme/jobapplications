@@ -110,8 +110,9 @@
 			$query = $this->createQuery();
 			$query->statement("SELECT DISTINCT uid FROM sys_language WHERE language_isocode = '$langIso'");
 
-			$result = $query->execute(TRUE)[0]['uid'];
-			if($result == null) {
+			$result = $query->execute(true)[0]['uid'];
+			if ($result == null)
+			{
 				$result = -1;
 			}
 

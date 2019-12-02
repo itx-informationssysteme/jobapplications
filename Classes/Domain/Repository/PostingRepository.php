@@ -204,7 +204,7 @@
 		/**
 		 * @param $contact int Contact Uid
 		 * @param $orderBy string
-		 * @param $order string
+		 * @param $order   string
 		 */
 		public function findByContact($contact, $orderBy = "title", $order = "ASC")
 		{

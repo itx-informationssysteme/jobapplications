@@ -28,7 +28,7 @@
 		 * @param $contactUid int
 		 * @param $postingUid int
 		 */
-		public function findByFilter($contact, $posting, $status ,$archived=0, $orderBy="crdate", $order="ASC")
+		public function findByFilter($contact, $posting, $status, $archived = 0, $orderBy = "crdate", $order = "ASC")
 		{
 			$contactSQL = "";
 			$postingSQL = "";

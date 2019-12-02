@@ -31,10 +31,12 @@
 			{
 				if ($i == 0)
 				{
-					if(count($uids) > 1)
+					if (count($uids) > 1)
 					{
 						$statement .= "WHERE (uid = ".$uids[$i]." ";
-					} else {
+					}
+					else
+					{
 						$statement .= "WHERE uid = ".$uids[$i]." ";
 					}
 				}
@@ -58,6 +60,7 @@
 		 *
 		 * @param string orderBy fieldname to order by
 		 * @param string order SQL ASC or DESC
+		 *
 		 * @return QueryResultInterface|array
 		 */
 		public function findAllWithOrder($orderBy, $order)
@@ -73,7 +76,8 @@
 		 *
 		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 		 */
-		public function findByBackendUser($beUserUid) {
+		public function findByBackendUser($beUserUid)
+		{
 			$query = $this->createQuery();
 			$query->statement("SELECT DISTINCT * FROM tx_jobs_domain_model_contact WHERE hidden = 0 AND deleted = 0 AND be_user = ".$beUserUid);
 
