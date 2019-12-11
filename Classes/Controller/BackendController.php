@@ -233,6 +233,7 @@
 				$langUid = $this->statusRepository->findLangUid($language);
 				$this->statusRepository->generateStatus("tx_jobs_domain_model_status_".$language.".sql", "tx_jobs_domain_model_status_mm.sql", $pid, $langUid);
 
+				$this->view->assign("admin", $GLOBALS['BE_USER']->isAdmin());
 				$this->addFlashMessage("Finished!");
 			}
 		}

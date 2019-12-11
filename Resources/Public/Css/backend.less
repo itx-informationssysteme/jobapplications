@@ -206,6 +206,25 @@ hr {
 
 			&.right {
 				text-align: right;
+				.status-select {
+					select {
+						margin-left: 0px !important;
+					}
+				}
+
+				@media only screen and (max-width: 1390px) {
+					.status-select, span {
+						text-align: left;
+						float: left;
+						width: 60%;
+						margin-bottom: 0.5rem !important;
+					}
+
+					.btn {
+						width: 40%;
+						margin: 1vw 0 0;
+					}
+				}
 			}
 		}
 	}
@@ -409,7 +428,7 @@ hr {
 	}
 
 	.middle {
-		padding: 5% 30%;
+		padding: 5% 10%;
 		display: flex;
 		flex-wrap: wrap;
 		flex-direction: row;
@@ -423,8 +442,8 @@ hr {
 			display: inline-block;
 			background-color: @color-primary;
 			border: 0.2rem solid @color-primary;
-			width: 20rem;
-			height: 20rem;
+			width: 26vh;
+			height: 26vh;
 			padding: 1rem;
 			transition: background-color 0.1s, color 0.1s, border 0.1s, box-shadow 0.1s, font-size 0.1s;
 			box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
