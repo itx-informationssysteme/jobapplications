@@ -172,6 +172,9 @@
 			<trans-unit id="task.months.label" resname="task.months.label">
 				<source>How many months old?</source>
 			</trans-unit>
+			<trans-unit id="task.status.label" resname="task.status.label">
+				<source>Should the status be considered? (End state)</source>
+			</trans-unit>
 			<trans-unit id="task.months.empty" resname="task.months.empty">
 				<source>Months can't be empty!</source>
 			</trans-unit>

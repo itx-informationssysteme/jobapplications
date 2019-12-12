@@ -219,6 +219,10 @@
                 <source>Months can't be empty!</source>
                 <target state="translated">Feld Monate darf nicht leer sein!</target>
             </trans-unit>
+            <trans-unit id="task.status.label" resname="task.status.label">
+                <source>Should the status be considered? (End state)</source>
+                <target state="translated">Soll der Status berücksichtigt werden? (s. Endstatus)</target>
+            </trans-unit>
             <trans-unit id="CleanUpApplications.title" resname="CleanUpApplications.title">
                 <source>Clean up old applications</source>
                 <target state="translated">Löschen alter Bewerbungen</target>

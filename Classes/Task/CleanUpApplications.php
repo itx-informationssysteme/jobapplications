@@ -15,6 +15,7 @@
 	class CleanUpApplications extends \TYPO3\CMS\Scheduler\Task\AbstractTask
 	{
 		public $months = null;
+		public $status = 0;
 
 		/**
 		 * This is the main method that is called when a task is executed
@@ -24,7 +25,6 @@
 		 */
 		public function execute()
 		{
-			DebuggerUtility::var_dump($this->months);
 			$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 			$persistenceManager = $objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager::class);
 			$applicationRepository = $objectManager->get(\ITX\Jobs\Domain\Repository\ApplicationRepository::class);
@@ -32,10 +32,16 @@
 			$now = new \DateTime();
 			$timestamp = $now->modify("-".$this->months." months")->getTimestamp();
 
-			$applications = $applicationRepository->findOlderThan($timestamp);
-			$resultCount = count($applications);
+			if ($status = 1)
+			{
+				$applications = $applicationRepository->findOlderThan($timestamp, true);
+			}
+			else
+			{
+				$applications = $applicationRepository->findOlderThan($timestamp);
+			}
 
-			DebuggerUtility::var_dump($applications);
+			$resultCount = count($applications);
 
 			foreach ($applications as $application)
 			{

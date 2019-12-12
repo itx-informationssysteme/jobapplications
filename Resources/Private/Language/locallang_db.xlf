@@ -171,6 +171,12 @@
 			<trans-unit id="tx_jobs_domain_model_status.name" resname="tx_jobs_domain_model_status.name">
 				<source>Name</source>
 			</trans-unit>
+			<trans-unit id="tx_jobs_domain_model_status.followers" resname="tx_jobs_domain_model_status.followers">
+				<source>Follower statuses</source>
+			</trans-unit>
+			<trans-unit id="tx_jobs_domain_model_status.is_end_status" resname="tx_jobs_domain_model_status.is_end_status">
+				<source>Is end status</source>
+			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_posting.slug" resname="tx_jobs_domain_model_posting.slug">
 				<source>Slug</source>
 			</trans-unit>

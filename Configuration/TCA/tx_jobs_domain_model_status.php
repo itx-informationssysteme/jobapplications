@@ -21,10 +21,10 @@
 			'iconfile' => 'EXT:jobs/Resources/Public/Icons/tx_jobs_domain_model_application.gif'
 		],
 		'interface' => [
-			'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, followers',
+			'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, is_end_status, followers',
 		],
 		'types' => [
-			'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, followers, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+			'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, is_end_status,followers, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
 		],
 		'columns' => [
 			'crdate' => [
@@ -134,6 +134,19 @@
 					'size' => 30,
 					'eval' => 'trim'
 				],
+			],
+			'is_end_status' => [
+				'exclude' => true,
+				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_status.is_end_status',
+				'config' => [
+					'type' => 'check',
+					'items' => [
+						'1' => [
+							'0' => 'LLL:EXT:lang/locallang_core.xlf:labels.enabled'
+						]
+					],
+					'default' => 0,
+				]
 			],
 			'followers' => [
 				'exclude' => true,

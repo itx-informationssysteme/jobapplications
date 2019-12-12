@@ -1,30 +1,45 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-    <file source-language="en" datatype="plaintext" original="EXT:jobs/Resources/Private/Language/locallang_csh" date="2019-10-21T16:03:17Z" product-name="jobs">
+    <file source-language="en" target-language="de" datatype="plaintext" original="EXT:jobs/Resources/Private/Language/locallang_csh" date="2019-10-21T16:03:17Z" product-name="jobs">
         <header/>
         <body>
             <trans-unit id="date_posted.description" resname="date_posted.description">
-                <source>Hier lässt sich einstellen, welches Datum als Erstellungssdatum angegeben ist, sowie
-                    ab welchem Datum die Stelle angezeigt / live gehen soll.
+                <source>This sets the date not only displayed in the frontend as the date posted, but can also
+                    be used to time the availability for this posting. Meaning the posting will go live on the date
+                    you set here.
                 </source>
+                <target state="translated">Hier lässt sich einstellen, welches Datum als Erstellungssdatum angegeben ist, sowie
+                    ab welchem Datum die Stelle angezeigt / live gehen soll.
+                </target>
             </trans-unit>
             <trans-unit id="base_salary.description" resname="base_salary.description">
-                <source>Jahresgehalt, wird nicht angezeigt, falls nicht spezifiziert.</source>
+                <source>Yearly base salarary, not displayed when empty</source>
+                <target state="translated">Jahresgehalt, wird nicht angezeigt, falls nicht spezifiziert.</target>
             </trans-unit>
             <trans-unit id="valid_through.description" resname="valid_through.description">
-                <source>Hier lässt sich ein Datum einstellen, welches festlegt, bis zu welchem Datum die Stelle
-                    angezeigt wird. Das bedeutet, dieses Datum setzt den letzten Tag, an dem die Stelle angezeigt wird fest.
+                <source>Set the date until this posting won't be displayed anymore. The end date works inclusively,
+                    meaning the posting will become invalid on the day after the end date. If no date was entered the
+                    posting will be online for an infinite amount of time.
                 </source>
+                <target state="translated">Hier lässt sich ein Datum einstellen, welches festlegt, bis zu welchem Datum die Stelle
+                    angezeigt wird. Das bedeutet, dieses Datum setzt den letzten Tag, an dem die Stelle angezeigt wird fest.
+                </target>
             </trans-unit>
             <trans-unit id="detail_view_image.description" resname="detail_view_image.description">
-                <source>Dieses Bild wird als Header in der Detailansicht der Stellenanzeige angezeigt. Es empfiehlt
-                    sich also ein Bild mit niedriger Höhe, also im Format eines Banners zu nutzen.
+                <source>This image will be displayed as a banner in the detail page. That is why an image with
+                    a low height is recommended.
                 </source>
+                <target state="translated">Dieses Bild wird als Header in der Detailansicht der Stellenanzeige angezeigt. Es empfiehlt
+                    sich also ein Bild mit niedriger Höhe, also im Format eines Banners zu nutzen.
+                </target>
             </trans-unit>
             <trans-unit id="list_view_image.description" resname="list_view_image.description">
-                <source>Dieses Bild wird in der Listenübersicht als Header oder Hintergrund (je nach Einstellung am Plugin)
-                    angezeigt.
+                <source>This image will be displayed in the list view, either as Header of the posting or as background
+                    (as specified in plugin setting).
                 </source>
+                <target state="translated">Dieses Bild wird in der Listenübersicht als Header oder Hintergrund (je nach Einstellung am Plugin)
+                    angezeigt.
+                </target>
             </trans-unit>
         </body>
     </file>

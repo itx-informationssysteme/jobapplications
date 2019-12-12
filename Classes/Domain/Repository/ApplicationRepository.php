@@ -79,7 +79,7 @@
 		 *
 		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 		 */
-		public function findNewApplicationsByContact($contact)
+		public function findNewApplicationsByContact(int $contact)
 		{
 			$query = $this->createQuery();
 
@@ -98,11 +98,20 @@
 		 *
 		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 		 */
-		public function findOlderThan(int $timestamp)
+		public function findOlderThan(int $timestamp, $status = false)
 		{
 			$query = $this->createQuery();
 
-			$query->statement("SELECT * FROM tx_jobs_domain_model_application WHERE crdate <= $timestamp");
+			if ($status)
+			{
+				$query->statement("SELECT * FROM tx_jobs_domain_model_application WHERE crdate <= $timestamp
+											AND status IN ( SELECT uid FROM tx_jobs_domain_model_status
+    										WHERE is_end_status = 1)");
+			}
+			else
+			{
+				$query->statement("SELECT * FROM tx_jobs_domain_model_application WHERE crdate <= $timestamp");
+			}
 
 			return $query->execute();
 		}

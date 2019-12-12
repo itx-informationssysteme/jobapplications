@@ -441,16 +441,6 @@
 		}
 
 		/**
-		 * Returns the boolean state of privacyAgreement
-		 *
-		 * @return bool privacyAgreement
-		 */
-		public function isPrivacyAgreement()
-		{
-			return $this->privacyAgreement;
-		}
-
-		/**
 		 * Returns the posting
 		 *
 		 * @return int $posting

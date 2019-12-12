@@ -36,6 +36,13 @@
 		protected $followers = null;
 
 		/**
+		 * isEndStatus
+		 *
+		 * @var bool
+		 */
+		protected $isEndStatus = false;
+
+		/**
 		 * @return string
 		 */
 		public function getName()
@@ -67,4 +74,19 @@
 			$this->followers = $followers;
 		}
 
+		/**
+		 * @return bool
+		 */
+		public function getIsEndStatus(): bool
+		{
+			return $this->isEndStatus;
+		}
+
+		/**
+		 * @param bool $isEndStatus
+		 */
+		public function setIsEndStatus(bool $isEndStatus): void
+		{
+			$this->isEndStatus = $isEndStatus;
+		}
 	}

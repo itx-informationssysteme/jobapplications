@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" target-language="de" datatype="plaintext" original="EXT:jobs/Resources/Private/Language/locallang_csh" date="2019-10-21T16:03:17Z" product-name="jobs">
+        <header/>
+        <body>
+            <trans-unit id="is_end_status.description" resname="is_end_status.description">
+                <source>This can be important if the clean up task is configured. It means every application with this
+                    enabled will be up for deletion.
+                </source>
+            </trans-unit>
+            <target state="translated">Dieser Option kann wichtig sein, falls ein Entsorgungs-Plan eingestellt ist.
+                Das bedeutet wenn aktiviert, dass die Bewerbungen in diesem Status für die Löschung eingeplant werden.
+            </target>
+        </body>
+    </file>
+</xliff>

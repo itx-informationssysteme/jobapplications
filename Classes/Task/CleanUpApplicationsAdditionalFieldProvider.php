@@ -2,6 +2,8 @@
 
 	namespace ITX\Jobs\Task;
 
+	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 	/**
 	 * Class CleanUpApplicationsAdditionalFieldProvider
 	 *
@@ -21,15 +23,33 @@
 		 */
 		public function getAdditionalFields(array &$taskInfo, $task, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule)
 		{
-			$currentSchedulerModuleAction = $schedulerModule->getCurrentAction();
+			$taskInfo['task_months'] = $task->months;
+			$taskInfo['task_status'] = $task->status;
 
+			$currentSchedulerModuleAction = $schedulerModule->getCurrentAction();
+			$additionalFields = [];
 			// Write the code for the field
 			$fieldID = 'task_months';
-			$fieldCode = '<input type="number" min="1" max="12" name="tx_scheduler[months]" id="'.$fieldID.'" value="'.htmlspecialchars($taskInfo['months']).'" size="30">';
-			$additionalFields = [];
+			$fieldCode = '<input class="form-control" type="number" min="1" max="12" name="tx_scheduler[months]" id="'.$fieldID.'" value="'.htmlspecialchars($taskInfo['task_months']).'" size="30">';
 			$additionalFields[$fieldID] = [
 				'code' => $fieldCode,
 				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:task.months.label',
+				'cshKey' => 'csh',
+				'cshLabel' => $fieldID
+			];
+
+			$fieldID = 'task_status';
+			if ($taskInfo[$fieldID] == 1)
+			{
+				$fieldCode = '<input type="checkbox" min="1" max="12" name="tx_scheduler[status]" id="'.$fieldID.'" value="1" size="30" checked>';
+			}
+			else
+			{
+				$fieldCode = '<input type="checkbox" min="1" max="12" name="tx_scheduler[status]" id="'.$fieldID.'" value="1" size="30">';
+			}
+			$additionalFields[$fieldID] = [
+				'code' => $fieldCode,
+				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:task.status.label',
 				'cshKey' => 'csh',
 				'cshLabel' => $fieldID
 			];
@@ -76,6 +96,7 @@
 		public function saveAdditionalFields(array $submittedData, \TYPO3\CMS\Scheduler\Task\AbstractTask $task)
 		{
 			$task->months = $submittedData['months'];
+			$task->status = $submittedData['status'];
 		}
 
 		/**

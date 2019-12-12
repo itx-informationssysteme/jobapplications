@@ -227,6 +227,14 @@
                 <source>Name</source>
                 <target state="translated">Name</target>
             </trans-unit>
+            <trans-unit id="tx_jobs_domain_model_status.followers" resname="tx_jobs_domain_model_status.followers">
+                <source>Follower statuses</source>
+                <target state="translated">Folgestatus</target>
+            </trans-unit>
+            <trans-unit id="tx_jobs_domain_model_status.is_end_status" resname="tx_jobs_domain_model_status.is_end_status">
+                <source>Is end status</source>
+                <target state="translated">Ist ein Endstatus</target>
+            </trans-unit>
             <trans-unit id="tx_jobs_domain_model_posting.slug" resname="tx_jobs_domain_model_posting.slug" approved="yes">
                 <source>Slug</source>
                 <target state="translated">Slug</target>
