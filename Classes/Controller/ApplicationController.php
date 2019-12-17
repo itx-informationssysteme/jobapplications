@@ -41,8 +41,6 @@
 
 		protected $fileSizeLimit;
 
-		const APP_FILE_FOLDER = "applications/";
-
 		/**
 		 * @var \ITX\Jobs\Domain\Repository\PostingRepository
 		 * @TYPO3\CMS\Extbase\Annotation\Inject
@@ -60,6 +58,12 @@
 		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $persistenceManager;
+
+		/**
+		 * @var \ITX\Jobs\Service\ApplicationFileService
+		 * @TYPO3\CMS\Extbase\Annotation\Inject
+		 */
+		protected $applicationFileService;
 
 		protected $logger = null;
 
@@ -151,6 +155,7 @@
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
 		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
 		 */
 		public function createAction(\ITX\Jobs\Domain\Model\Application $newApplication)
 		{
@@ -197,9 +202,19 @@
 			}
 
 			$newApplication->setPosting($posting);
-			$newApplication->setStatus($this->statusRepository->findByUid(1));
+
+			/* @var \ITX\Jobs\Domain\Model\Status $firstStatus */
+			$firstStatus = $this->statusRepository->findByUid(1);
+			if($firstStatus)
+			{
+				$newApplication->setStatus($firstStatus);
+			}
+
 			$this->applicationRepository->add($newApplication);
 			$this->persistenceManager->persistAll();
+
+			/* @var \ITX\Jobs\Domain\Model\Application $newApplication */
+			$newApplication = $this->applicationRepository->findByUid($newApplication->getUid());
 
 			$files = [];
 			$fields = [];
@@ -361,17 +376,9 @@
 			// If applications should not be saved delete them here
 			if (!$this->settings['saveApplicationInBackend'])
 			{
-				$storageRepository = $this->objectManager->get('TYPO3\\CMS\\Core\\Resource\\StorageRepository');
-				$storage = $storageRepository->findByUid('1');
-				if ($storage->hasFolder($this->getApplicantFolder($newApplication)))
-				{
-					$folder = $storage->getFolder($this->getApplicantFolder($newApplication));
-				}
-				$this->applicationRepository->remove($newApplication);
-				if ($folder)
-				{
-					$storage->deleteFolder($folder, true);
-				}
+				$this->persistenceManager->remove($newApplication);
+				$this->applicationFileService->deleteApplicationFolder($this->applicationFileService->getApplicantFolder($newApplication));
+				$this->persistenceManager->persistAll();
 			}
 
 			$uri = $this->uriBuilder->reset()
@@ -433,7 +440,7 @@
 		private function handleFileUpload($fieldName, \ITX\Jobs\Domain\Model\Application $domainObject)
 		{
 
-			$folder = $this->getApplicantFolder($domainObject);
+			$folder = $this->applicationFileService->getApplicantFolder($domainObject);
 
 			$tmpName = $_FILES['tx_jobs_applicationform']['name'][$fieldName];
 			$tmpFile = $_FILES['tx_jobs_applicationform']['tmp_name'][$fieldName];
@@ -459,19 +466,5 @@
 			$this->persistenceManager->persistAll();
 
 			return $movedNewFile;
-		}
-
-		/**
-		 * Helper function to generate the folder for an application
-		 *
-		 * @param $applicationObject
-		 *
-		 * @return string
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
-		 */
-		private function getApplicantFolder($applicationObject)
-		{
-			return self::APP_FILE_FOLDER.(new \TYPO3\CMS\Core\Resource\Driver\LocalDriver)
-					->sanitizeFileName($applicationObject->getFirstName()."_".$applicationObject->getLastName()."_id_".$applicationObject->getPosting());
 		}
 	}

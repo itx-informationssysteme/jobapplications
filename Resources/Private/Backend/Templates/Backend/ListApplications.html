@@ -131,7 +131,7 @@
 
 									<div class="row-section right">
 									<span>
-										{application.crdate -> f:format.date()}
+										<f:format.date format="{f:translate(key: 'date_format')}">{application.crdate}</f:format.date>
 									</span>
 										<f:link.action action="showApplication" arguments="{application: application}" class="btn">
 											<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.listApplications.showButton"/>

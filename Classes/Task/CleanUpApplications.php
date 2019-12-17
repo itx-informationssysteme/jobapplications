@@ -14,7 +14,7 @@
 	 */
 	class CleanUpApplications extends \TYPO3\CMS\Scheduler\Task\AbstractTask
 	{
-		public $months = null;
+		public $days = null;
 		public $status = 0;
 
 		/**
@@ -28,9 +28,10 @@
 			$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 			$persistenceManager = $objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager::class);
 			$applicationRepository = $objectManager->get(\ITX\Jobs\Domain\Repository\ApplicationRepository::class);
+			$applicationFileService = $objectManager->get(\ITX\Jobs\Service\ApplicationFileService::class);
 
 			$now = new \DateTime();
-			$timestamp = $now->modify("-".$this->months." months")->getTimestamp();
+			$timestamp = $now->modify("-".$this->days." days")->getTimestamp();
 
 			if ($status = 1)
 			{
@@ -46,6 +47,7 @@
 			foreach ($applications as $application)
 			{
 				$persistenceManager->remove($application);
+				$applicationFileService->deleteApplicationFolder($this->applicationFileService->getApplicantFolder($application));
 			}
 
 			if ($resultCount > 0)

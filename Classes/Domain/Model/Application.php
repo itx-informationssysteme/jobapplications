@@ -172,7 +172,7 @@
 		/**
 		 * status
 		 *
-		 * @var ITX\Jobs\Domain\Model\Status
+		 * @var \ITX\Jobs\Domain\Model\Status
 		 */
 		protected $status = null;
 
@@ -578,7 +578,7 @@
 		 *
 		 * @return int
 		 */
-		public function getCrdate(): int
+		public function getCrdate()
 		{
 			return $this->crdate;
 		}
@@ -610,7 +610,7 @@
 		}
 
 		/**
-		 * @return ITX\Jobs\Domain\Model\Status
+		 * @return \ITX\Jobs\Domain\Model\Status
 		 */
 		public function getStatus()
 		{
@@ -618,7 +618,7 @@
 		}
 
 		/**
-		 * @param ITX\Jobs\Domain\Model\Status $status
+		 * @param \ITX\Jobs\Domain\Model\Status $status
 		 */
 		public function setStatus($status)
 		{

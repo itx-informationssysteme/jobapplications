@@ -66,6 +66,12 @@
 		protected $persistenceManager;
 
 		/**
+		 * @var \ITX\Jobs\Service\ApplicationFileService
+		 * @TYPO3\CMS\Extbase\Annotation\Inject
+		 */
+		protected $applicationFileService;
+
+		/**
 		 * action listApplications
 		 *
 		 * @return void
@@ -156,6 +162,8 @@
 		 * @param $application
 		 *
 		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
 		 */
 		public function showApplicationAction(\ITX\Jobs\Domain\Model\Application $application)
 		{
@@ -180,6 +188,7 @@
 			if ($this->request->hasArgument("delete"))
 			{
 				$this->persistenceManager->remove($application);
+				$this->applicationFileService->deleteApplicationFolder($this->applicationFileService->getApplicantFolder($application));
 				$this->persistenceManager->persistAll();
 				$this->redirect('listApplications', 'Backend', 'jobs');
 			}
@@ -233,9 +242,10 @@
 				$langUid = $this->statusRepository->findLangUid($language);
 				$this->statusRepository->generateStatus("tx_jobs_domain_model_status_".$language.".sql", "tx_jobs_domain_model_status_mm.sql", $pid, $langUid);
 
-				$this->view->assign("admin", $GLOBALS['BE_USER']->isAdmin());
 				$this->addFlashMessage("Finished!");
 			}
+
+			$this->view->assign("admin", $GLOBALS['BE_USER']->isAdmin());
 		}
 
 		/**

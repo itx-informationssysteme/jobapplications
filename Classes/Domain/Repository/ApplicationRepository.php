@@ -25,8 +25,9 @@
 		/**
 		 * Function for filtering applications
 		 *
-		 * @param $contactUid int
-		 * @param $postingUid int
+		 * @param $contact int
+		 * @param $posting int
+		 * @param $status  int
 		 */
 		public function findByFilter($contact, $posting, $status, $archived = 0, $orderBy = "crdate", $order = "ASC")
 		{
@@ -94,7 +95,8 @@
 		/**
 		 * Finds applications which are older than or equal the given timestamp
 		 *
-		 * @param $timestamp
+		 * @param $timestamp int
+		 * @param $status bool
 		 *
 		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 		 */
@@ -111,6 +113,34 @@
 			else
 			{
 				$query->statement("SELECT * FROM tx_jobs_domain_model_application WHERE crdate <= $timestamp");
+			}
+
+			return $query->execute();
+		}
+
+		/**
+		 * Finds applications which are older than or equal the given timestamp and which are not anonymized
+		 *
+		 * @param $timestamp int
+		 * @param $status bool
+		 *
+		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+		 */
+		public function findNotAnonymizedOlderThan(int $timestamp, $status = false)
+		{
+			$query = $this->createQuery();
+
+			if ($status)
+			{
+				$query->statement("SELECT * FROM tx_jobs_domain_model_application WHERE crdate <= $timestamp
+											AND last_name != '***'
+											AND status IN ( SELECT uid FROM tx_jobs_domain_model_status
+    										WHERE is_end_status = 1)");
+			}
+			else
+			{
+				$query->statement("SELECT * FROM tx_jobs_domain_model_application WHERE crdate <= $timestamp 
+											AND last_name != '***'");
 			}
 
 			return $query->execute();

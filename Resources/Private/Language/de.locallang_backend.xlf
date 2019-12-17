@@ -211,13 +211,13 @@
                 <source>Generate status elements in english</source>
                 <target state="translated">Generiere Statuselemente in englisch</target>
             </trans-unit>
-            <trans-unit id="task.months.label" resname="task.months.label">
-                <source>How many months old?</source>
-                <target state="translated">Wie alt (in Monaten) muss die Bewerbung sein?</target>
+            <trans-unit id="task.days.label" resname="task.days.label">
+                <source>How many days old?</source>
+                <target state="translated">Wie alt (in Tagen) muss die Bewerbung sein?</target>
             </trans-unit>
-            <trans-unit id="task.months.empty" resname="task.months.empty">
-                <source>Months can't be empty!</source>
-                <target state="translated">Feld Monate darf nicht leer sein!</target>
+            <trans-unit id="task.days.empty" resname="task.days.empty">
+                <source>Days can't be empty!</source>
+                <target state="translated">Feld Tage darf nicht leer sein!</target>
             </trans-unit>
             <trans-unit id="task.status.label" resname="task.status.label">
                 <source>Should the status be considered? (End state)</source>
@@ -228,8 +228,16 @@
                 <target state="translated">Löschen alter Bewerbungen</target>
             </trans-unit>
             <trans-unit id="CleanUpApplications.description" resname="CleanUpApplications.description">
-                <source>This task deletes all applications which are equal or older than the given months.</source>
-                <target state="translated">Dieser Plan löscht alle alten Bewerbungen, wobei das Alter in Monaten spezifiziert wird.</target>
+                <source>This task deletes all applications which are equal or older than the given days.</source>
+                <target state="translated">Dieser Plan löscht alle alten Bewerbungen, wobei das Alter in Tagen spezifiziert wird.</target>
+            </trans-unit>
+            <trans-unit id="AnonymizeApplications.title" resname="AnonymizeApplications.title">
+                <source>Anonymize old applications</source>
+                <target state="translated">Anonymisieren alter Bewerbungen</target>
+            </trans-unit>
+            <trans-unit id="AnonymizeApplications.description" resname="AnonymizeApplications.description">
+                <source>This task anonymizes all applications which are equal or older than the given days.</source>
+                <target state="translated">Dieser Plan anonymisiert alle alten Bewerbungen, wobei das Alter in Tagen spezifiziert wird.</target>
             </trans-unit>
             <trans-unit id="tx_jobs_contactdisplay.title" resname="tx_jobs_contactdisplay.title">
                 <source>Jobs: Contact Display</source>

@@ -98,14 +98,15 @@
 				'description' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:CleanUpApplications.description',
 				'additionalFields' => \ITX\Jobs\Task\CleanUpApplicationsAdditionalFieldProvider::class
 			);
-			$GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] =
-				[
-					'tx_jobs[division]',
-					'tx_jobs[careerLevel]',
-					'tx_jobs[employmentType]',
-					'tx_jobs[location]',
-					'tx_jobs[submit]'
-				];
+
+			// Add Anonymize Applications task
+			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\ITX\Jobs\Task\AnonymizeApplications::class] = array(
+				'extension' => 'jobs',
+				'title' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:AnonymizeApplications.title',
+				'description' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:AnonymizeApplications.description',
+				'additionalFields' => \ITX\Jobs\Task\CleanUpApplicationsAdditionalFieldProvider::class
+			);
+
 			$GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludeAllEmptyParameters'] = true;
 			$GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFoundOnCHashError'] = false;
 		}

@@ -23,17 +23,17 @@
 		 */
 		public function getAdditionalFields(array &$taskInfo, $task, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule)
 		{
-			$taskInfo['task_months'] = $task->months;
+			$taskInfo['task_days'] = $task->days;
 			$taskInfo['task_status'] = $task->status;
 
 			$currentSchedulerModuleAction = $schedulerModule->getCurrentAction();
 			$additionalFields = [];
 			// Write the code for the field
-			$fieldID = 'task_months';
-			$fieldCode = '<input class="form-control" type="number" min="1" max="12" name="tx_scheduler[months]" id="'.$fieldID.'" value="'.htmlspecialchars($taskInfo['task_months']).'" size="30">';
+			$fieldID = 'task_days';
+			$fieldCode = '<input class="form-control" type="number" min="1" max="360" name="tx_scheduler[days]" id="'.$fieldID.'" value="'.htmlspecialchars($taskInfo['task_days']).'" size="30">';
 			$additionalFields[$fieldID] = [
 				'code' => $fieldCode,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:task.months.label',
+				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:task.days.label',
 				'cshKey' => 'csh',
 				'cshLabel' => $fieldID
 			];
@@ -41,11 +41,11 @@
 			$fieldID = 'task_status';
 			if ($taskInfo[$fieldID] == 1)
 			{
-				$fieldCode = '<input type="checkbox" min="1" max="12" name="tx_scheduler[status]" id="'.$fieldID.'" value="1" size="30" checked>';
+				$fieldCode = '<input type="checkbox" name="tx_scheduler[status]" id="'.$fieldID.'" value="1" size="30" checked>';
 			}
 			else
 			{
-				$fieldCode = '<input type="checkbox" min="1" max="12" name="tx_scheduler[status]" id="'.$fieldID.'" value="1" size="30">';
+				$fieldCode = '<input type="checkbox" name="tx_scheduler[status]" id="'.$fieldID.'" value="1" size="30">';
 			}
 			$additionalFields[$fieldID] = [
 				'code' => $fieldCode,
@@ -68,12 +68,12 @@
 		 */
 		public function validateAdditionalFields(array &$submittedData, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule)
 		{
-			$submittedData['months'] = trim($submittedData['months']);
-			if (empty($submittedData['months']))
+			$submittedData['days'] = trim($submittedData['days']);
+			if (empty($submittedData['days']))
 			{
 				// @extensionScannerIgnoreLine
 				$this->addMessage(
-					$this->getLanguageService()->sL('LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:task.months.empty'),
+					$this->getLanguageService()->sL('LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:task.days.empty'),
 					FlashMessage::ERROR
 				);
 				$result = false;
@@ -95,7 +95,7 @@
 		 */
 		public function saveAdditionalFields(array $submittedData, \TYPO3\CMS\Scheduler\Task\AbstractTask $task)
 		{
-			$task->months = $submittedData['months'];
+			$task->days = $submittedData['days'];
 			$task->status = $submittedData['status'];
 		}
 
