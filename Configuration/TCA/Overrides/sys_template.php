@@ -5,5 +5,5 @@
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
 		'jobs',
 		'Configuration/TypoScript/IncludeBootstrap',
-		'Include Bootstrap'
+		'[Optional] Include Bootstrap for working default layout'
 	);
