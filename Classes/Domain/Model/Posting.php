@@ -161,23 +161,6 @@
 		/**
 		 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
 		 */
-		protected $categories;
-
-		/**
-		 * @return ObjectStorage
-		 */
-		public function getCategories(): ObjectStorage
-		{
-			return $this->categories;
-		}
-
-		/**
-		 * @param ObjectStorage $categories
-		 */
-		public function setCategories(ObjectStorage $categories)
-		{
-			$this->categories = $categories;
-		}
 
 		/**
 		 * __construct
