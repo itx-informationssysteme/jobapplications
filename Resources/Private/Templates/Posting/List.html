@@ -72,130 +72,66 @@
 							<f:for each="{postings}" as="posting">
 								<f:if condition="{posting.isValid}">
 									<div class="col-12 col-md-4">
-										<f:if condition="{settings.imageAsHeader} || !{posting.listViewImage}">
-											<f:then>
-												<div class="card my-3">
-													<f:if condition="{posting.listViewImage}">
-														<f:image class="card-img-top h-auto" src="{posting.listViewImage.originalResource.publicUrl}"/>
-													</f:if>
-													<div class="row">
-														<div class="col"></div>
-														<div class="col-9">
-															<div class="card-title mt-3">
-																<f:if condition="{settings.singleDetailandApp}">
-																	<f:then>
-																		<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" pluginName="DetailView" additionalParams="{postingApp: posting}">{posting.title}</f:link.action>
-																	</f:then>
-																	<f:else>
-																		<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" pluginName="DetailView">{posting.title}</f:link.action>
-																	</f:else>
-																</f:if>
-															</div>
-															<div class="card-body p-0 pb-3">
-																<div class="row">
-																	<div class="col">
-																		<f:translate key="tx_jobs_domain_model_posting.career_level"/>
-																		:
-																	</div>
-																	<div class="col-md-auto"><span>{posting.careerLevel}</span></div>
-																</div>
-																<div class="row">
-																	<div class="col">
-																		<f:translate key="tx_jobs_domain_model_posting.location"/>
-																		:
-																	</div>
-																	<div class="col-md-auto"><span>{posting.location.name}</span></div>
-																</div>
-																<div class="row">
-																	<div class="col">
-																		<f:translate key="tx_jobs_domain_model_posting.date_posted"/>
-																		:
-																	</div>
-																	<div class="col-md-auto">
-																		<f:format.date format="{f:translate(key: 'date_format')}">{posting.datePosted}</f:format.date>
-																	</div>
-																</div>
-																<div class="row mt-3">
-																	<f:if condition="{settings.singleDetailandApp}">
-																		<f:then>
-																			<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView" additionalParams="{postingApp: posting}">
-																				<f:translate key="fe.posting.button.detailview"/>
-																			</f:link.action>
-																		</f:then>
-																		<f:else>
-																			<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView">
-																				<f:translate key="fe.posting.button.detailview"/>
-																			</f:link.action>
-																		</f:else>
-																	</f:if>
-																</div>
-															</div>
-														</div>
-														<div class="col"></div>
+										<div class="card my-3">
+											<f:if condition="{posting.listViewImage}">
+												<f:image class="card-img-top h-auto" src="{posting.listViewImage.originalResource.publicUrl}"/>
+											</f:if>
+											<div class="row">
+												<div class="col"></div>
+												<div class="col-9">
+													<div class="card-title mt-3">
+														<f:if condition="{settings.singleDetailandApp}">
+															<f:then>
+																<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" pluginName="DetailView" additionalParams="{postingApp: posting}">{posting.title}</f:link.action>
+															</f:then>
+															<f:else>
+																<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" pluginName="DetailView">{posting.title}</f:link.action>
+															</f:else>
+														</f:if>
 													</div>
-												</div>
-											</f:then>
-											<f:else>
-												<div class="card my-3">
-													<f:if condition="{posting.listViewImage}">
-														<f:image class="card-img h-auto" src="{posting.listViewImage.originalResource.publicUrl}"/>
-													</f:if>
-													<div class="card-img-overlay p-0 pb-3">
+													<div class="card-body p-0 pb-3">
 														<div class="row">
-															<div class="col"></div>
-															<div class="col-9">
-																<div class="card-title mt-3">
-																	<f:if condition="{settings.singleDetailandApp}">
-																		<f:then>
-																			<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" pluginName="DetailView" additionalParams="{postingApp: posting}">{posting.title}</f:link.action>
-																		</f:then>
-																		<f:else>
-																			<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" pluginName="DetailView">{posting.title}</f:link.action>
-																		</f:else>
-																	</f:if>
-																</div>
-																<div class="row">
-																	<div class="col">
-																		<f:translate key="tx_jobs_domain_model_posting.career_level"/>
-																		:
-																	</div>
-																	<div class="col-md-auto"><span>{posting.careerLevel}</span></div>
-																</div>
-																<div class="row">
-																	<div class="col">
-																		<f:translate key="tx_jobs_domain_model_posting.location"/>
-																		:
-																	</div>
-																	<div class="col-md-auto"><span>{posting.location.name}</span></div>
-																</div>
-																<div class="row">
-																	<div class="col">
-																		<f:translate key="tx_jobs_domain_model_posting.date_posted"/>
-																		:
-																	</div>
-																	<div class="col-md-auto"><span><f:format.date format="{f:translate(key: 'date_format')}">{posting.datePosted}</f:format.date></span></div>
-																</div>
-																<div class="row mt-3">
-																	<f:if condition="{settings.singleDetailandApp}">
-																		<f:then>
-																			<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView" additionalParams="{postingApp: posting}">
-																				<f:translate key="fe.posting.button.detailview"/>
-																			</f:link.action>
-																		</f:then>
-																		<f:else>
-																			<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView">
-																				<f:translate key="fe.posting.button.detailview"/>
-																			</f:link.action>
-																		</f:else>
-																	</f:if>
-																</div>
+															<div class="col">
+																<f:translate key="tx_jobs_domain_model_posting.career_level"/>
+																:
 															</div>
-															<div class="col"></div>
+															<div class="col-md-auto"><span>{posting.careerLevel}</span></div>
+														</div>
+														<div class="row">
+															<div class="col">
+																<f:translate key="tx_jobs_domain_model_posting.location"/>
+																:
+															</div>
+															<div class="col-md-auto"><span>{posting.location.name}</span></div>
+														</div>
+														<div class="row">
+															<div class="col">
+																<f:translate key="tx_jobs_domain_model_posting.date_posted"/>
+																:
+															</div>
+															<div class="col-md-auto">
+																<f:format.date format="{f:translate(key: 'date_format')}">{posting.datePosted}</f:format.date>
+															</div>
+														</div>
+														<div class="row mt-3">
+															<f:if condition="{settings.singleDetailandApp}">
+																<f:then>
+																	<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView" additionalParams="{postingApp: posting}">
+																		<f:translate key="fe.posting.button.detailview"/>
+																	</f:link.action>
+																</f:then>
+																<f:else>
+																	<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView">
+																		<f:translate key="fe.posting.button.detailview"/>
+																	</f:link.action>
+																</f:else>
+															</f:if>
 														</div>
 													</div>
 												</div>
-											</f:else>
-										</f:if>
+												<div class="col"></div>
+											</div>
+										</div>
 									</div>
 								</f:if>
 							</f:for>

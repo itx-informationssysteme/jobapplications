@@ -30,9 +30,6 @@
 			<trans-unit id="flexform.general.applicationForm" resname="flexform.general.applicationForm">
 				<source>Set Application Form Page Uid</source>
 			</trans-unit>
-			<trans-unit id="flexform.imageAsHeader" resname="flexform.imageAsHeader">
-				<source>Should the image be the card header? If deselected: The image becomes the background of the whole card.</source>
-			</trans-unit>
 			<trans-unit id="flexform.customCardFontColor" resname="flexform.customCardFontColor">
 				<source>Specific font color of the posting cards content</source>
 			</trans-unit>
