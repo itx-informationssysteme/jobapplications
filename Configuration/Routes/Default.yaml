@@ -3,7 +3,7 @@ routeEnhancers:
         type: Extbase
         namespace: 'tx_jobs_detailview'
         routes:
-            -   routePath: '/{slug}'
+            -   routePath: '/position/{slug}'
                 _controller: 'Posting::show'
                 _arguments:
                     slug: posting
@@ -11,10 +11,6 @@ routeEnhancers:
         defaults:
             page: ''
         aspects:
-            posting:
-                type: PersistedAliasMapper
-                tableName: tx_jobs_domain_model_posting
-                routeFieldName: uid
             slug:
                 type: PersistedAliasMapper
                 tableName: tx_jobs_domain_model_posting
@@ -23,7 +19,7 @@ routeEnhancers:
         type: Extbase
         namespace: 'tx_jobs_applicationform'
         routes:
-            -   routePath: '/{slug}/apply'
+            -   routePath: '/{slug}'
                 _controller: 'Application::new'
                 _arguments:
                     slug: posting

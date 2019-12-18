@@ -96,6 +96,9 @@
 			<trans-unit id="flexform.singleDetailandApp" resname="flexform.singleDetailandApp">
 				<source>Setting needed if applicationform should be on the same page as Detailview</source>
 			</trans-unit>
+			<trans-unit id="flexform.successMessage" resname="flexform.successMessage">
+				<source>Enter the Message that will be shown to the applicant after submitting the application</source>
+			</trans-unit>
 			<trans-unit id="be.listApplications.showButton" resname="be.listApplications.showButton">
 				<source>Show</source>
 			</trans-unit>
@@ -198,6 +201,9 @@
 			</trans-unit>
 			<trans-unit id="tx_jobs_frontend.title" resname="tx_jobs_frontend.title">
 				<source>Jobs: Postings</source>
+			</trans-unit>
+			<trans-unit id="tx_jobs_successpage.title" resname="tx_jobs_successpage.title">
+				<source>Jobs: Application Success Page</source>
 			</trans-unit>
 		</body>
 	</file>

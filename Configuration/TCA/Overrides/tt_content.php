@@ -23,6 +23,12 @@
 		'LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:tx_jobs_contactdisplay.title'
 	);
 
+	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+		'ITX.Jobs',
+		'SuccessPage',
+		'LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:tx_jobs_successpage.title'
+	);
+
 	$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['jobs_frontend'] = 'pi_flexform';
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
 	// plugin signature: <extension key without underscores> '_' <plugin name in lowercase>
@@ -53,6 +59,14 @@
 		'jobs_contactdisplay',
 		// Flexform configuration schema file
 		'FILE:EXT:jobs/Configuration/FlexForms/contactdisplay.xml'
+	);
+
+	$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['jobs_successpage'] = 'pi_flexform';
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
+	// plugin signature: <extension key without underscores> '_' <plugin name in lowercase>
+		'jobs_successpage',
+		// Flexform configuration schema file
+		'FILE:EXT:jobs/Configuration/FlexForms/successpage.xml'
 	);
 
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tt_content.pi_flexform.jobs_applicationform.list', 'EXT:jobs/Resources/Private/Language/locallang_csh_flexform.xlf');

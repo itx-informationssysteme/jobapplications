@@ -153,6 +153,27 @@
 			$this->view->assign("fileSizeLimit", strval($this->fileSizeLimit) / 1024);
 		}
 
+		public function successAction()
+		{
+			$lastName = $this->request->hasArgument("lastName") ? $this->request->getArgument("lastName") : "";
+			$firstName = $this->request->hasArgument("firstName") ? $this->request->getArgument("firstName") : "";
+			$salutation = $this->request->hasArgument("salutation") ? $this->request->getArgument("salutation") : "";
+
+			if($salutation == "div")
+			{
+				$salutation = $firstName;
+			} else {
+				$salutation = LocalizationUtility::translate("fe.application.selector.".$salutation, "jobs");
+			}
+
+			$text = $this->settings["successMessage"];
+			$text = str_replace("%lastName%", $lastName, $text);
+			$text = str_replace("%firstName%", $firstName, $text);
+			$text = str_replace("%salutation%", $salutation, $text);
+
+			$this->view->assign("message", $text);
+		}
+
 		/**
 		 * action create
 		 *
@@ -400,11 +421,11 @@
 				$this->persistenceManager->persistAll();
 			}
 
-			$uri = $this->uriBuilder->reset()
-									->setTargetPageUid($this->settings["successPage"])
-									->setCreateAbsoluteUri(true)
-									->build();
-			$this->redirectToUri($uri);
+			$this->redirect("success",null,null, [
+				"firstName" => $newApplication->getFirstName(),
+				"lastName" => $newApplication->getLastName(),
+				"salutation" => $newApplication->getSalutation()
+			], $this->settings["successPage"]);
 		}
 
 		/**

@@ -115,6 +115,10 @@
                 <source>Setting needed if applicationform should be on the same page as Detailview</source>
                 <target state="translated">Anwählen, falls sich Bewerbungsformular und Detailplugin auf der gleichen Seite befinden</target>
             </trans-unit>
+            <trans-unit id="flexform.successMessage" resname="flexform.successMessage">
+                <source>Enter the Message that will be shown to the applicant after submitting the application</source>
+                <target state="translated">Die Nachricht für den Bewerber, nachdem dieser die Bewerbung abgeschickt hat</target>
+            </trans-unit>
             <trans-unit id="be.listApplications.showButton" resname="be.listApplications.showButton" approved="yes">
                 <source>Show</source>
                 <target state="translated">Anzeigen</target>
@@ -250,6 +254,10 @@
             <trans-unit id="tx_jobs_frontend.title" resname="tx_jobs_frontend.title">
                 <source>Jobs: Postings</source>
                 <target state="translated">Jobs: Ausschreibungen</target>
+            </trans-unit>
+            <trans-unit id="tx_jobs_successpage.title" resname="tx_jobs_successpage.title">
+                <source>Jobs: Application Success Page</source>
+                <target state="translated">Jobs: Bewerbung erfolgreich versendet</target>
             </trans-unit>
         </body>
     </file>

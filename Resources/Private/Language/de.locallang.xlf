@@ -252,8 +252,8 @@
                 <target state="translated">Zurück</target>
             </trans-unit>
             <trans-unit id="fe.application.new.title" resname="fe.application.new.title" approved="yes">
-                <source>Apply as</source>
-                <target state="translated">Bewerben als</target>
+                <source>Apply as %s</source>
+                <target state="translated">Bewerben als %s</target>
             </trans-unit>
             <trans-unit id="fe.application.new.submit" resname="fe.application.new.submit" approved="yes">
                 <source>Send Application</source>

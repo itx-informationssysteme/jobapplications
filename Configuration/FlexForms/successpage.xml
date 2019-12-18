@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3DataStructure>
+    <sheets>
+        <singleView>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.tab.postingTitle</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <settings.successMessage>
+                        <TCEforms>
+                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.successMessage</label>
+                            <config>
+                                <type>text</type>
+                                <cols>24</cols>
+                                <rows>3</rows>
+                                <eval>required</eval>
+                                <enableRichtext>1</enableRichtext>
+                                <richtextConfiguration>default</richtextConfiguration>
+                            </config>
+                        </TCEforms>
+                    </settings.successMessage>
+                </el>
+            </ROOT>
+        </singleView>
+    </sheets>
+</T3DataStructure>

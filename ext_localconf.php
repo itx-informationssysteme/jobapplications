@@ -43,6 +43,14 @@
 				]
 			);
 
+			\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+				'ITX.Jobs',
+				'SuccessPage',
+				[
+					'Application' => 'success'
+				]
+			);
+
 			// wizards
 			\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
 				'mod {

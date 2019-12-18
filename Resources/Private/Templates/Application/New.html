@@ -6,7 +6,7 @@
 		<div class="col"></div>
 		<div class="col-6">
 			<h3>
-				<f:translate key="fe.application.new.title"/>&nbsp;{posting.title}
+				<f:translate key="fe.application.new.title" arguments="{0: posting.title}" extensionName="jobs"/>
 			</h3>
 			<f:flashMessages/>
 			<f:render partial="FormErrors"/>
@@ -15,12 +15,13 @@
 				<f:render partial="Application/FormFields" arguments="{fileSizeLimit: fileSizeLimit}"/>
 				<div class="row">
 					<div class="col-4">
-						<button class="btn btn-link px-0" onclick="window.history.back()">
+						<button id="application-button-back" class="btn btn-link px-0" onclick="window.history.back()">
 							<f:translate key="fe.application.backlink"/>
 						</button>
 					</div>
 					<div class="col-4 text-center">
-						<f:form.submit class="btn btn-primary mx-auto" value="{f:translate(key='fe.application.new.submit')}"/>
+						<f:form.submit id="application-submit" class="btn btn-primary mx-auto" value="{f:translate(key:'fe.application.new.submit')}"
+						onclick="e.preventDefault();document.getElementById('application-submit').disabled = true; document.getElementById('application-button-back').disabled = true"/>
 					</div>
 				</div>
 			</f:form>
