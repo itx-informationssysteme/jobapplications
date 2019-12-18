@@ -65,6 +65,14 @@
 		 */
 		protected $applicationFileService;
 
+		/**
+		 * signalSlotDispatcher
+		 *
+		 * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
+		 * @TYPO3\CMS\Extbase\Annotation\Inject
+		 */
+		protected $signalSlotDispatcher;
+
 		protected $logger = null;
 
 		/**
@@ -123,7 +131,6 @@
 
 			if ($posting)
 			{
-
 				$postingObject = $this->postingRepository->findByUid($posting);
 
 				$titleProvider = GeneralUtility::makeInstance(JobsPageTitleProvider::class);
@@ -210,6 +217,15 @@
 				$newApplication->setStatus($firstStatus);
 			}
 
+			// SignalSlotDispatcher BeforePostingAssign
+			$signalArguments = ["application" => $newApplication];
+			$signalArguments = $this->signalSlotDispatcher->dispatch(__CLASS__, "BeforeApplicationAdd", $signalArguments);
+
+			if ($signalArguments["application"])
+			{
+				$newApplication = $signalArguments['application'];
+			}
+
 			$this->applicationRepository->add($newApplication);
 			$this->persistenceManager->persistAll();
 
@@ -228,6 +244,7 @@
 				$fieldNames[] = 'cv';
 				$fields['cv'] = 1;
 			}
+
 			if ($_FILES['tx_jobs_applicationform']['name']['cover_letter'])
 			{
 				$movedNewFileCover = $this->handleFileUpload("cover_letter", $newApplication);
@@ -235,6 +252,7 @@
 				$fieldNames[] = 'cover_letter';
 				$fields['cover_letter'] = 1;
 			}
+
 			if ($_FILES['tx_jobs_applicationform']['name']['testimonials'])
 			{
 				$movedNewFileTestimonial = $this->handleFileUpload("testimonials", $newApplication);
@@ -242,6 +260,7 @@
 				$fieldNames[] = 'testimonials';
 				$fields['testimonials'] = 1;
 			}
+
 			if ($_FILES['tx_jobs_applicationform']['name']['other_files'])
 			{
 				$movedNewFileOther = $this->handleFileUpload("other_files", $newApplication);

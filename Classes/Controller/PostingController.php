@@ -43,6 +43,14 @@
 		 */
 		protected $locationRepository = null;
 
+		/**
+		 * signalSlotDispatcher
+		 *
+		 * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
+		 * @TYPO3\CMS\Extbase\Annotation\Inject
+		 */
+		protected $signalSlotDispatcher;
+
 		public function initializeAction()
 		{
 
@@ -101,6 +109,13 @@
 			$careerLevels = $this->postingRepository->findAllCareerLevels($categories);
 			$employmentTypes = $this->postingRepository->findAllEmploymentTypes($categories);
 			$locations = $this->locationRepository->findAll($categories);
+
+			// SignalSlotDispatcher BeforePostingAssign
+			$changedPostings = $this->signalSlotDispatcher->dispatch(__CLASS__, "BeforePostingAssign", ["postings" => $postings]);
+			if ($changedPostings["postings"])
+			{
+				$postings = $changedPostings['postings'];
+			}
 
 			$this->view->assign('divisionName', $divisionName);
 			$this->view->assign('careerLevelType', $careerLevelType);
@@ -208,7 +223,7 @@
 
 				if ($posting->getBaseSalary())
 				{
-					$currency = $logo = $extconf->get('jobs', 'currency') ?: "EUR" ;
+					$currency = $logo = $extconf->get('jobs', 'currency') ?: "EUR";
 					$googleJobsJSON["baseSalary"] = [
 						"@type" => "MonetaryAmount",
 						"currency" => $currency,
@@ -242,16 +257,14 @@
 			}
 
 			$titleProvider->setTitle($title);
+
+			// SignalSlotDispatcher BeforePostingShowAssign
+			$changedPosting = $this->signalSlotDispatcher->dispatch(__CLASS__, "BeforePostingShowAssign", ["posting" => $posting]);
+			if ($changedPosting["posting"])
+			{
+				$posting = $changedPosting['posting'];
+			}
+
 			$this->view->assign('posting', $posting);
-
-		}
-
-		/**
-		 * action
-		 *
-		 * @return void
-		 */
-		public function Action()
-		{
 		}
 	}
