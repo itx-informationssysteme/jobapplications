@@ -158,13 +158,13 @@
 		 */
 		public function findByFilter(string $division, string $careerLevel, string $employmentType, int $location, array $categories)
 		{
+
 			$divisionSQL = "";
 			$careerLevelSQL = "";
 			$employmentTypeSQL = "";
 			$locationSQL = "";
 			$categorySQL = "";
 
-			$query = $this->createQuery();
 
 			$baseSQL = "SELECT * FROM tx_jobs_domain_model_posting WHERE deleted = 0 AND hidden = 0";
 
