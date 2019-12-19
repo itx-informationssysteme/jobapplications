@@ -4,6 +4,7 @@
 
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\Page\PageRenderer;
+	use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 	use TYPO3\CMS\Core\MetaTag\MetaTagManagerRegistry;
 	use ITX\Jobs\PageTitle\JobsPageTitleProvider;
@@ -63,13 +64,14 @@
 		 *
 		 * @return void
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
+		 * @throws InvalidArgumentValueException
 		 */
 		public function listAction()
 		{
 			$divisionName = "";
 			$careerLevelType = "";
 			$selectedEmploymentType = "";
-			$selectedLocation = "";
+			$selectedLocation = -1;
 			$category_str = $this->settings["categories"];
 			$categories = array();
 
@@ -78,17 +80,48 @@
 				$categories = explode(",", $category_str);
 			}
 
-			if ($this->request->hasArgument("division") ||
-				$this->request->hasArgument("careerLevel") ||
-				$this->request->hasArgument("employmentType" ||
-											$this->request->hasArgument("location")))
+			$divisions = $this->postingRepository->findAllDivisions($categories);
+			$careerLevels = $this->postingRepository->findAllCareerLevels($categories);
+			$employmentTypes = $this->postingRepository->findAllEmploymentTypes($categories);
+			$locations = $this->locationRepository->findAll($categories)->toArray();
+
+			if ($this->request->hasArgument("division") &&
+				$this->request->hasArgument("careerLevel") &&
+				$this->request->hasArgument("employmentType") &&
+				$this->request->hasArgument("location"))
 			{
 				$divisionName = $this->request->getArgument('division');
 				$careerLevelType = $this->request->getArgument('careerLevel');
 				$selectedEmploymentType = $this->request->getArgument('employmentType');
-				$selectedLocation = $this->request->getArgument('location');
+				$selectedLocation = $this->request->getArgument('location') ? intval($this->request->getArgument('location')) : -1;
+
+				// Prepare for sanity check by aggregating all possible values
+				$tmp_divisions = array_column($divisions, "division");
+				$tmp_careerLevels = array_column($careerLevels, "careerLevel");
+				$tmp_employmentTypes = array_column($employmentTypes, "employmentType");
+
+				$tmp_divisions[] = "";
+				$tmp_careerLevels[] = "";
+				$tmp_employmentTypes[] = "";
+
+				$locationUids = array_map(function ($element) {
+					return $element->getUid();
+				}, $locations);
+				$locationUids[] = -1;
+
+				// Check for user input sanity
+				$result_division = in_array($divisionName, $tmp_divisions);
+				$result_careerLevel = in_array($careerLevelType, $tmp_careerLevels);
+				$result_employmentType = in_array($selectedEmploymentType, $tmp_employmentTypes);
+				$result_location = in_array($selectedLocation, $locationUids);
+
+				if (!$result_division || !$result_careerLevel || !$result_employmentType || !$result_location)
+				{
+					throw new InvalidArgumentValueException("Input not valid.");
+				}
 			}
-			if ($divisionName != "" || $careerLevelType != "" || $selectedEmploymentType != "" || $selectedLocation != "")
+
+			if ($divisionName != "" || $careerLevelType != "" || $selectedEmploymentType != "" || $selectedLocation != -1)
 			{
 				$postings = $this->postingRepository->findByFilter($divisionName, $careerLevelType, $selectedEmploymentType, $selectedLocation, $categories);
 
@@ -104,11 +137,6 @@
 					$postings = $this->postingRepository->findByCategory($categories);
 				}
 			}
-
-			$divisions = $this->postingRepository->findAllDivisions($categories);
-			$careerLevels = $this->postingRepository->findAllCareerLevels($categories);
-			$employmentTypes = $this->postingRepository->findAllEmploymentTypes($categories);
-			$locations = $this->locationRepository->findAll($categories);
 
 			// SignalSlotDispatcher BeforePostingAssign
 			$changedPostings = $this->signalSlotDispatcher->dispatch(__CLASS__, "BeforePostingAssign", ["postings" => $postings]);

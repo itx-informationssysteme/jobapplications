@@ -50,7 +50,7 @@
 		 *
 		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 		 */
-		public function findByCategory($categories)
+		public function findByCategory(array $categories)
 		{
 			$query = $this->createQuery();
 			$statement = "SELECT * FROM tx_jobs_domain_model_posting 
@@ -68,7 +68,7 @@
 		 *
 		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 		 */
-		public function findAllDivisions($categories = null)
+		public function findAllDivisions(array $categories = null)
 		{
 			$query = $this->createQuery();
 			if (count($categories) == 0)
@@ -95,7 +95,7 @@
 		/**
 		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 		 */
-		public function findAllCareerLevels($categories = null)
+		public function findAllCareerLevels(array $categories = null)
 		{
 			$query = $this->createQuery();
 
@@ -123,7 +123,7 @@
 		/**
 		 * @return array
 		 */
-		public function findAllEmploymentTypes($categories = null)
+		public function findAllEmploymentTypes(array $categories = null)
 		{
 			$query = $this->createQuery();
 
@@ -150,19 +150,21 @@
 		 * @param $division       String
 		 * @param $careerLevel    String
 		 * @param $employmentType String
-		 * @param location          int
-		 * @param category          int
+		 * @param $location       int
+		 * @param $categories     array
 		 *
 		 *
 		 * @return array
 		 */
-		public function findByFilter($division, $careerLevel, $employmentType, $location, $categories)
+		public function findByFilter(string $division, string $careerLevel, string $employmentType, int $location, array $categories)
 		{
 			$divisionSQL = "";
 			$careerLevelSQL = "";
 			$employmentTypeSQL = "";
 			$locationSQL = "";
 			$categorySQL = "";
+
+			$query = $this->createQuery();
 
 			$baseSQL = "SELECT * FROM tx_jobs_domain_model_posting WHERE deleted = 0 AND hidden = 0";
 
@@ -187,7 +189,7 @@
 			{
 				$employmentTypeSQL = "AND employment_type = \"$employmentType\"";
 			}
-			if ($location != 0)
+			if ($location != -1)
 			{
 				$locationSQL = "AND location = $location";
 			}
@@ -206,7 +208,7 @@
 		 * @param $orderBy string
 		 * @param $order   string
 		 */
-		public function findByContact($contact, $orderBy = "title", $order = "ASC")
+		public function findByContact(int $contact, string $orderBy = "title", string $order = "ASC")
 		{
 			$query = $this->createQuery();
 
@@ -220,7 +222,7 @@
 		 *
 		 * @return QueryResultInterface|array
 		 */
-		public function findAllWithOrder($orderBy = "title", $order = "ASC")
+		public function findAllWithOrder(string $orderBy = "title", string $order = "ASC")
 		{
 			$query = $this->createQuery();
 

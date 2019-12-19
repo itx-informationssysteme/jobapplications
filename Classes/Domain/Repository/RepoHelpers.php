@@ -8,7 +8,7 @@
 	 * @return string An SQL Statement which can be concatenated to a WHERE call
 	 */
 
-	function buildCategoriesToSQL($categories)
+	function buildCategoriesToSQL(array $categories)
 	{
 		$statement = "";
 		for ($i = 0; $i < count($categories); $i++)

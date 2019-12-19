@@ -4,6 +4,9 @@
 
 	use ITX\Jobs\Domain\Model\Contact;
 	use ITX\Jobs\Domain\Model\Posting;
+	use TYPO3\CMS\Core\Database\ConnectionPool;
+	use TYPO3\CMS\Core\Utility\GeneralUtility;
+	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 	/***
 	 *
@@ -29,7 +32,7 @@
 		 * @param $posting int
 		 * @param $status  int
 		 */
-		public function findByFilter($contact, $posting, $status, $archived = 0, $orderBy = "crdate", $order = "ASC")
+		public function findByFilter(int $contact, int $posting, int $status, int $archived = 0, string $orderBy = "crdate", string $order = "ASC")
 		{
 			$contactSQL = "";
 			$postingSQL = "";
@@ -100,7 +103,7 @@
 		 *
 		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 		 */
-		public function findOlderThan(int $timestamp, $status = false)
+		public function findOlderThan(int $timestamp, bool $status = false)
 		{
 			$query = $this->createQuery();
 
@@ -126,7 +129,7 @@
 		 *
 		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 		 */
-		public function findNotAnonymizedOlderThan(int $timestamp, $status = false)
+		public function findNotAnonymizedOlderThan(int $timestamp, bool $status = false)
 		{
 			$query = $this->createQuery();
 

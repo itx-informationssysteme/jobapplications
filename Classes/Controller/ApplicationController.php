@@ -16,7 +16,6 @@
 
 	use ITX\Jobs\Domain\Model\Posting;
 	use ITX\Jobs\PageTitle\JobsPageTitleProvider;
-	use ScssPhp\ScssPhp\Formatter\Debug;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Resource\ResourceFactory;

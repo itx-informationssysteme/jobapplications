@@ -1,2 +1,4 @@
 /vendor/
 .idea
+docker-compose.yml
+Documentation-GENERATED-temp

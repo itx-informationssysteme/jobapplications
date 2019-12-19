@@ -34,7 +34,7 @@
 		 *
 		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 		 */
-		public function findFollowers($status)
+		public function findFollowers(int $status)
 		{
 			$query = $this->createQuery();
 			$query->statement("SELECT * FROM tx_jobs_domain_model_status
@@ -53,7 +53,7 @@
 		 *
 		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 		 */
-		public function findAllWithOrder($orderBy = "name", $order = "ASC")
+		public function findAllWithOrder(string $orderBy = "name", string $order = "ASC")
 		{
 			$query = $this->createQuery();
 			$query->statement("SELECT * FROM tx_jobs_domain_model_status

@@ -16,6 +16,7 @@
 
 	use ITX\Jobs\Domain\Model\Contact;
 	use ITX\Jobs\Domain\Model\Status;
+	use TYPO3\CMS\Core\Resource\Exception\InsufficientUserPermissionsException;
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 	/**
@@ -85,10 +86,10 @@
 			// Get all filter elements and set them to empty if there are none and use session storage for persisting selection
 			if ($this->request->hasArgument("submit"))
 			{
-				$this->request->hasArgument("contact") ? $selectedContact = $this->request->getArgument("contact") : $selectedContact = "";
-				$this->request->hasArgument("archived") ? $archivedSelected = $this->request->getArgument("archived") : $archivedSelected = "";
-				$this->request->hasArgument("posting") ? $selectedPosting = $this->request->getArgument("posting") : $selectedPosting = "";
-				$this->request->hasArgument("status") ? $selectedStatus = $this->request->getArgument("status") : $selectedStatus = "";
+				$this->request->hasArgument("contact") ? $selectedContact = intval($this->request->getArgument("contact")) : $selectedContact = 0;
+				$this->request->hasArgument("archived") ? $archivedSelected = intval($this->request->getArgument("archived")) : $archivedSelected = 0;
+				$this->request->hasArgument("posting") ? $selectedPosting = intval($this->request->getArgument("posting")) : $selectedPosting = 0;
+				$this->request->hasArgument("status") ? $selectedStatus = intval($this->request->getArgument("status")) : $selectedStatus = 0;
 			}
 			else
 			{
@@ -116,7 +117,7 @@
 			}
 
 			// Handle show archived applications when selected in frontend-backend
-			if ($archivedSelected != "")
+			if ($archivedSelected != 0)
 			{
 				$archivedApplications = $this->applicationRepository->findByFilter($selectedContact, $selectedPosting, $selectedStatus, 1);
 				$this->view->assign("archivedApplications", $archivedApplications);
@@ -202,7 +203,7 @@
 			}
 
 			// If we made a databse operation we want to make sure its commited instantly
-			if($statusDatabaseOp)
+			if ($statusDatabaseOp)
 			{
 				$this->persistenceManager->persistAll();
 			}
@@ -222,6 +223,10 @@
 			$this->view->assign("baseUri", $baseUri);
 		}
 
+		/**
+		 * Action for Backend Dashboard
+		 *
+		 */
 		public function dashboardAction()
 		{
 			// Get data for counter of new applications with referenced contact
@@ -233,8 +238,19 @@
 			$this->view->assign("contact", $contact);
 		}
 
+		/**
+		 * Action for settings page
+		 *
+		 * @throws InsufficientUserPermissionsException
+		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
+		 */
 		public function settingsAction()
 		{
+			if (!$GLOBALS['BE_USER']->isAdmin())
+			{
+				throw new InsufficientUserPermissionsException("Insufficient permissions");
+			}
+
 			if ($this->request->hasArgument("pid"))
 			{
 				$pid = $this->request->getArgument("pid");

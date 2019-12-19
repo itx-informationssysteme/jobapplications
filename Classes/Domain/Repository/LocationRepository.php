@@ -23,9 +23,11 @@
 		/**
 		 * Returns all objects of this repository.
 		 *
+		 * @param $categories array
+		 *
 		 * @return QueryResultInterface|array
 		 */
-		public function findAll($categories = null)
+		public function findAll(array $categories = null)
 		{
 			$query = $this->createQuery();
 			$statementAddition = "";
