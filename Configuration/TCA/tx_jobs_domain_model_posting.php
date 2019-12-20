@@ -22,9 +22,6 @@
 		'interface' => [
 			'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, date_posted, career_level, division, employment_type, terms_of_employment, company_description, job_description, role_description, skill_requirements, benefits, base_salary, valid_through, required_documents, company_information, detail_view_image, list_view_image, location, contact',
 		],
-		'types' => [
-			'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, date_posted, career_level, division, employment_type, terms_of_employment, company_description, job_description, role_description, skill_requirements, benefits, base_salary, valid_through, required_documents, company_information, detail_view_image, list_view_image, location, contact, slug, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
-		],
 		'columns' => [
 			'sys_language_uid' => [
 				'exclude' => true,
@@ -470,6 +467,43 @@
 					'eval' => 'uniqueInSite',
 					'default' => ''
 				],
+			],
+		],
+		'types' => [
+			'1' => [
+				'showitem' => 'l10n_parent, l10n_diffsource, 
+				--palette--;;mainInfo, 
+				--palette--;;relations,
+				--palette--;;dates,
+				base_salary,
+				--palette--;;circumstances,
+				--div--;LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.title.advanced,
+				--palette--;;general,
+				--div--;LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.title.texts,
+				company_description, job_description, role_description, skill_requirements, benefits, 
+				required_documents, company_information,
+				--div--;LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.title.images,
+				--palette--;;images'
+			],
+		],
+		'palettes' => [
+			'general' => [
+				'showitem' => 'sys_language_uid, hidden, slug',
+			],
+			'mainInfo' => [
+				'showitem' => 'title, division'
+			],
+			'circumstances' => [
+				'showitem' => 'career_level, employment_type, terms_of_employment'
+			],
+			'dates' => [
+				'showitem' => 'date_posted, valid_through'
+			],
+			'relations' => [
+				'showitem' => 'location, contact'
+			],
+			'images' => [
+				'showitem' => 'detail_view_image, list_view_image'
 			],
 
 		],

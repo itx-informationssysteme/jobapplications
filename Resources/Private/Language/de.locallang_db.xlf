@@ -243,6 +243,18 @@
                 <source>Posting</source>
                 <target state="translated">Stellenausschreibung</target>
             </trans-unit>
+            <trans-unit id="tx_jobs_domain_model_posting.title.images" resname="tx_jobs_domain_model_posting.title.images">
+                <source>Images</source>
+                <target state="translated">Bilder</target>
+            </trans-unit>
+            <trans-unit id="tx_jobs_domain_model_posting.title.texts" resname="tx_jobs_domain_model_posting.title.texts">
+                <source>Texts</source>
+                <target state="translated">Texte</target>
+            </trans-unit>
+            <trans-unit id="tx_jobs_domain_model_posting.title.advanced" resname="tx_jobs_domain_model_posting.title.advanced">
+                <source>Advanced Settings</source>
+                <target state="translated">Erweiterte Einstellungen</target>
+            </trans-unit>
             <trans-unit id="tx_jobs_frontend.name" resname="tx_jobs_frontend.name" approved="yes">
                 <source>Jobs</source>
                 <target state="translated">Jobs</target>

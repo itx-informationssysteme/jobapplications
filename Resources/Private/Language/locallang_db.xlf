@@ -183,6 +183,15 @@
 			<trans-unit id="tx_jobs_domain_model_application.posting" resname="tx_jobs_domain_model_application.posting">
 				<source>Posting</source>
 			</trans-unit>
+			<trans-unit id="tx_jobs_domain_model_posting.title.images" resname="tx_jobs_domain_model_posting.title.images">
+				<source>Images</source>
+			</trans-unit>
+			<trans-unit id="tx_jobs_domain_model_posting.title.texts" resname="tx_jobs_domain_model_posting.title.texts">
+				<source>Texts</source>
+			</trans-unit>
+			<trans-unit id="tx_jobs_domain_model_posting.title.advanced" resname="tx_jobs_domain_model_posting.title.advanced">
+				<source>Advanced Settings</source>
+			</trans-unit>
 			<trans-unit id="tx_jobs_frontend.name" resname="tx_jobs_frontend.name">
 				<source>Jobs</source>
 			</trans-unit>
