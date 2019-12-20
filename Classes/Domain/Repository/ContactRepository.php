@@ -25,32 +25,16 @@
 		public function findMultipleByUid(array $uids)
 		{
 			$query = $this->createQuery();
+			$orArray = [];
 
-			$statement = "";
 			for ($i = 0; $i < count($uids); $i++)
 			{
-				if ($i == 0)
-				{
-					if (count($uids) > 1)
-					{
-						$statement .= "WHERE (uid = ".$uids[$i]." ";
-					}
-					else
-					{
-						$statement .= "WHERE uid = ".$uids[$i]." ";
-					}
-				}
-				else
-				{
-					$statement .= "OR uid = ".$uids[$i]." ";
-					if ($i == count($uids) - 1)
-					{
-						$statement .= ")";
-					}
-				}
+				$orArray[] = $query->equals("uid", $uids[$i]);
 			}
 
-			$query->statement("SELECT * FROM tx_jobs_domain_model_contact ".$statement);
+			$query->matching(
+				$query->logicalOr($orArray)
+			);
 
 			return $query->execute();
 		}
@@ -59,14 +43,17 @@
 		 * Returns all objects of this repository.
 		 *
 		 * @param $orderBy string orderBy fieldname to order by
-		 * @param $order string order SQL ASC or DESC
+		 * @param $order   string order SQL ASC or DESC
 		 *
 		 * @return QueryResultInterface|array
 		 */
 		public function findAllWithOrder(string $orderBy, string $order)
 		{
 			$query = $this->createQuery();
-			$query->statement("SELECT * FROM tx_jobs_domain_model_contact WHERE hidden = 0 AND deleted = 0 ORDER BY ".$orderBy." ".$order);
+			$query->getQuerySettings()->setRespectStoragePage(false);
+			$query->setOrderings([
+									 $orderBy => $order
+								 ]);
 
 			return $query->execute();
 		}
@@ -79,8 +66,17 @@
 		public function findByBackendUser(int $beUserUid)
 		{
 			$query = $this->createQuery();
-			$query->statement("SELECT DISTINCT * FROM tx_jobs_domain_model_contact WHERE hidden = 0 AND deleted = 0 AND be_user = ".$beUserUid);
+			$query->getQuerySettings()->setRespectStoragePage(false);
+			$query->matching(
+				$query->equals("be_user", $beUserUid)
+			);
+			$result = $query->execute();
 
-			return $query->execute();
+			if (count($result->toArray()) > 1)
+			{
+				$result = $result[0];
+			}
+
+			return $result;
 		}
 	}

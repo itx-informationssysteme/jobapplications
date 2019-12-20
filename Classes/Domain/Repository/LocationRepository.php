@@ -2,6 +2,8 @@
 
 	namespace ITX\Jobs\Domain\Repository;
 
+	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 	include_once 'RepoHelpers.php';
 	/***
 	 *
@@ -29,26 +31,31 @@
 		 */
 		public function findAll(array $categories = null)
 		{
+			$qb = getQueryBuilder("tx_jobs_domain_model_location");
 			$query = $this->createQuery();
-			$statementAddition = "";
+
 			if (count($categories) == 0)
 			{
-				$query->statement(
-					"SELECT * FROM tx_jobs_domain_model_location
-						  WHERE deleted = 0 AND hidden = 0");
+				$qb->select("*")
+				   ->from("tx_jobs_domain_model_location");
 			}
 			else
 			{
-				$statementAddition = buildCategoriesToSQL($categories);
-
-				$statement = "SELECT * FROM tx_jobs_domain_model_location 
-						  	  WHERE uid IN 
-						  	  (SELECT location FROM tx_jobs_domain_model_posting 
-						  	  	JOIN sys_category_record_mm ON tx_jobs_domain_model_posting.uid = sys_category_record_mm.uid_foreign 
-						  	  	WHERE deleted = 0 AND hidden = 0 ".$statementAddition.")";
-
-				$query->statement($statement);
+				$sb = getQueryBuilder("tx_jobs_domain_model_posting");
+				$sb
+					->select("location")
+					->from("tx_jobs_domain_model_posting")
+					->join("tx_jobs_domain_model_posting", "sys_category_record_mm",
+						   "sys_category_record_mm",
+						   $sb->expr()->eq("tx_jobs_domain_model_posting.uid", "sys_category_record_mm.uid_foreign"));
+				$sb = buildCategoriesToSQL($categories, $sb);
+				$result = $sb->execute()->fetchAll(\Doctrine\DBAL\FetchMode::COLUMN);
+				$qb->select("*")
+				   ->from("tx_jobs_domain_model_location")
+				   ->where($qb->expr()->in("uid", $result));
 			}
+
+			$query->statement($qb->getSQL());
 
 			return $query->execute();
 		}

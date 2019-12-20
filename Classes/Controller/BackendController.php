@@ -111,7 +111,7 @@
 			}
 
 			// Select contact automatically based on user who is accessing this
-			if ($contact && $selectedContact == 'contact')
+			if ($contact && $selectedContact == -1)
 			{
 				$selectedContact = $contact->getUid();
 			}
@@ -211,14 +211,11 @@
 			// Fetch baseuri for f:uri to access Public folder
 			$baseUri = str_replace("typo3/", "", $this->request->getBaseUri());
 
-			// Find Followers and sort them todo: make choosable if sorted automatically or own sorting
-			$selectableStatus = $this->statusRepository->findFollowers($application->getStatus()->getUid());
 
 			$this->view->assign("contact", $contactFilter);
 			$this->view->assign("archived", $archivedFilter);
 			$this->view->assign("posting", $postingFilter);
 
-			$this->view->assign("selectableStatus", $selectableStatus);
 			$this->view->assign("application", $application);
 			$this->view->assign("baseUri", $baseUri);
 		}

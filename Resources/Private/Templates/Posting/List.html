@@ -43,7 +43,7 @@
 								</f:for>
 							</f:form.select>
 						</div>
-						<div class="form-group col">
+						<div class="form-group col {f:if(condition: '{locations -> f:count()} < 2', then: 'd-none')}">
 							<label for="location">
 								<f:translate key="fe.filter.location"/>
 							</label>

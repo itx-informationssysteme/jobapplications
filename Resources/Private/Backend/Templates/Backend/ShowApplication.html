@@ -94,7 +94,7 @@
 						<f:form.select.option value="{application.status.uid}" additionalAttributes="{selected: true}">
 							{application.status.name}
 						</f:form.select.option>
-						<f:for each="{selectableStatus}" as="status">
+						<f:for each="{application.status.followers}" as="status">
 							<f:form.select.option value="{status.uid}">
 								{status.name}
 							</f:form.select.option>

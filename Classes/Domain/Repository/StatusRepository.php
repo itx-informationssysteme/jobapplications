@@ -28,24 +28,6 @@
 	class StatusRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 	{
 		/**
-		 * Finds all followers of given status
-		 *
-		 * @param $status
-		 *
-		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-		 */
-		public function findFollowers(int $status)
-		{
-			$query = $this->createQuery();
-			$query->statement("SELECT * FROM tx_jobs_domain_model_status
-    									JOIN tx_jobs_domain_model_status_mm
-    									ON tx_jobs_domain_model_status.uid = tx_jobs_domain_model_status_mm.uid_foreign
-										WHERE uid_local = ".$status." ORDER BY name");
-
-			return $query->execute();
-		}
-
-		/**
 		 * Finds all with option of specifiying order
 		 *
 		 * @param string $orderBy
@@ -56,8 +38,10 @@
 		public function findAllWithOrder(string $orderBy = "name", string $order = "ASC")
 		{
 			$query = $this->createQuery();
-			$query->statement("SELECT * FROM tx_jobs_domain_model_status
-										WHERE deleted = 0 AND hidden = 0 ORDER BY ".$orderBy." ".$order);
+			$query->getQuerySettings()->setRespectStoragePage(false);
+			$query->setOrderings([
+									 $orderBy => $order
+								 ]);
 
 			return $query->execute();
 		}
@@ -65,7 +49,7 @@
 		/**
 		 * @param $extTablesStaticSqlRelFile
 		 */
-		public function generateStatus($statusFile, $statusMmFile, int $pid, int $langUid)
+		public function generateStatus(string $statusFile, string $statusMmFile, int $pid, int $langUid)
 		{
 			$file1 = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName("EXT:jobs/Resources/Private/Sql/".$statusFile);
 			$file2 = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName("EXT:jobs/Resources/Private/Sql/".$statusMmFile);
@@ -91,7 +75,7 @@
 		 *
 		 * @param $fileContent
 		 */
-		public function executeSqlImport($fileContent)
+		public function executeSqlImport(string $fileContent)
 		{
 			$sqlReader = GeneralUtility::makeInstance(SqlReader::class);
 			$statements = $sqlReader->getStatementArray($fileContent);
@@ -105,7 +89,7 @@
 		 *
 		 * @return int uid of language
 		 */
-		public function findLangUid($langIso)
+		public function findLangUid(int $langIso)
 		{
 			$query = $this->createQuery();
 			$query->statement("SELECT DISTINCT uid FROM sys_language WHERE language_isocode = '$langIso'");

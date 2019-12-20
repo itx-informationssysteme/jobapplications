@@ -3,6 +3,8 @@
 	namespace ITX\Jobs\Domain\Repository;
 
 	use ITX\Jobs\Domain\Model\Contact;
+	use TYPO3\CMS\Core\Database\ConnectionPool;
+	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 	use ITX\Jobs\Domain\Repository\RepoHelpers;
 
@@ -26,24 +28,6 @@
 	class PostingRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 	{
 		/**
-		 * Helper function for finding all relevant categories
-		 *
-		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-		 */
-		public function findCategories(): array
-		{
-			$query = $this->createQuery();
-
-			$query->statement(
-				"SELECT DISTINCT title,sys_category_record_mm.uid_local AS uid FROM sys_category 
-    					  JOIN sys_category_record_mm ON sys_category_record_mm.uid_local = sys_category.uid 
-						  WHERE sys_category_record_mm.tablenames = 'tx_jobs_domain_model_posting'"
-			);
-
-			return $query->execute(true);
-		}
-
-		/**
 		 * Helper function for finding postings by category
 		 *
 		 * @param $category array
@@ -52,13 +36,18 @@
 		 */
 		public function findByCategory(array $categories)
 		{
+			$qb = getQueryBuilder("tx_jobs_domain_model_posting");
+
+			$qb
+				->select("*")
+				->from("tx_jobs_domain_model_posting")
+				->join("tx_jobs_domain_model_posting", "sys_category_record_mm", "sys_category_record_mm", "tx_jobs_domain_model_posting.uid = sys_category_record_mm.uid_foreign");
+
 			$query = $this->createQuery();
-			$statement = "SELECT * FROM tx_jobs_domain_model_posting 
-    					  JOIN sys_category_record_mm ON tx_jobs_domain_model_posting.uid = sys_category_record_mm.uid_foreign ";
 
-			$statement .= buildCategoriesToSQL($categories);
+			$qb = buildCategoriesToSQL($categories, $qb);
 
-			$query->statement($statement);
+			$query->statement($qb->getSQL());
 
 			return $query->execute();
 		}
@@ -70,24 +59,27 @@
 		 */
 		public function findAllDivisions(array $categories = null)
 		{
+			$qb = getQueryBuilder("tx_jobs_domain_model_posting");
 			$query = $this->createQuery();
 			if (count($categories) == 0)
 			{
-				$query->statement(
-					"SELECT DISTINCT division FROM tx_jobs_domain_model_posting 
-							  WHERE deleted = 0 AND hidden = 0"
-				);
+				$qb
+					->select("division")
+					->groupBy("division")
+					->from("tx_jobs_domain_model_posting");
 			}
 			else
 			{
-				$statement = "SELECT DISTINCT division AS division FROM tx_jobs_domain_model_posting
-							  JOIN sys_category_record_mm ON tx_jobs_domain_model_posting.uid = sys_category_record_mm.uid_foreign 
-							  WHERE deleted = 0 AND hidden = 0 ";
-				$statement .= buildCategoriesToSQL($categories);
-
-				$query->statement($statement);
-
+				$qb
+					->select("division")
+					->groupBy("division")
+					->from("tx_jobs_domain_model_posting")
+					->join("tx_jobs_domain_model_posting", "sys_category_record_mm",
+						   "sys_category_record_mm", $qb->expr()->eq("tx_jobs_domain_model_posting.uid",
+																	 "sys_category_record_mm.uid_foreign"));
+				$qb = buildCategoriesToSQL($categories, $qb);
 			}
+			$query->statement($qb->getSQL());
 
 			return $query->execute(true);
 		}
@@ -97,25 +89,28 @@
 		 */
 		public function findAllCareerLevels(array $categories = null)
 		{
-			$query = $this->createQuery();
+			$qb = getQueryBuilder("tx_jobs_domain_model_posting");
 
+			$query = $this->createQuery();
 			if (count($categories) == 0)
 			{
-				$query->statement(
-					"SELECT DISTINCT career_level AS careerLevel FROM tx_jobs_domain_model_posting 
-							  WHERE deleted = 0 AND hidden = 0");
-
+				$qb
+					->select("career_level AS careerLevel")
+					->groupBy("careerLevel")
+					->from("tx_jobs_domain_model_posting");
 			}
 			else
 			{
-				$statement = "SELECT DISTINCT career_level AS careerLevel FROM tx_jobs_domain_model_posting
-							  JOIN sys_category_record_mm ON tx_jobs_domain_model_posting.uid = sys_category_record_mm.uid_foreign 
-							  WHERE deleted = 0 AND hidden = 0 ";
-
-				$statement .= buildCategoriesToSQL($categories);
-
-				$query->statement($statement);
+				$qb
+					->select("career_level AS careerLevel")
+					->groupBy("careerLevel")
+					->from("tx_jobs_domain_model_posting")
+					->join("tx_jobs_domain_model_posting", "sys_category_record_mm",
+						   "sys_category_record_mm", $qb->expr()->eq("tx_jobs_domain_model_posting.uid",
+																	 "sys_category_record_mm.uid_foreign"));
+				$qb = buildCategoriesToSQL($categories, $qb);
 			}
+			$query->statement($qb->getSQL());
 
 			return $query->execute(true);
 		}
@@ -125,23 +120,30 @@
 		 */
 		public function findAllEmploymentTypes(array $categories = null)
 		{
-			$query = $this->createQuery();
+			$qb = getQueryBuilder("tx_jobs_domain_model_posting");
 
+			$query = $this->createQuery();
 			if (count($categories) == 0)
 			{
-				$query->statement(
-					"SELECT DISTINCT employment_type AS employmentType FROM tx_jobs_domain_model_posting 
-							  WHERE deleted = 0 AND hidden = 0");
+				$qb
+					->select("employment_type AS employmentType")
+					->groupBy("employmentType")
+					->from("tx_jobs_domain_model_posting");
 			}
 			else
 			{
-				$statement = "SELECT DISTINCT employment_type AS employmentType FROM tx_jobs_domain_model_posting
-								JOIN sys_category_record_mm ON tx_jobs_domain_model_posting.uid = sys_category_record_mm.uid_foreign 
-								WHERE deleted = 0 AND hidden = 0 ";
-				$statement .= buildCategoriesToSQL($categories);
+				$qb
+					->select("employment_type AS employmentType")
+					->groupBy("employmentType")
+					->from("tx_jobs_domain_model_posting")
+					->join("tx_jobs_domain_model_posting", "sys_category_record_mm",
+						   "sys_category_record_mm", $qb->expr()->eq("tx_jobs_domain_model_posting.uid",
+																	 "sys_category_record_mm.uid_foreign"));
+				$qb = buildCategoriesToSQL($categories, $qb);
 
-				$query->statement($statement);
 			}
+
+			$query->statement($qb->getSQL());
 
 			return $query->execute(true);
 		}
@@ -158,47 +160,53 @@
 		 */
 		public function findByFilter(string $division, string $careerLevel, string $employmentType, int $location, array $categories)
 		{
-			$divisionSQL = "";
-			$careerLevelSQL = "";
-			$employmentTypeSQL = "";
-			$locationSQL = "";
-			$categorySQL = "";
-
-			$baseSQL = "SELECT * FROM tx_jobs_domain_model_posting WHERE deleted = 0 AND hidden = 0";
+			$qb = getQueryBuilder("tx_jobs_domain_model_posting");
 
 			if (count($categories) > 0)
 			{
-				$baseSQL = "SELECT * FROM tx_jobs_domain_model_posting
-    						JOIN sys_category_record_mm ON tx_jobs_domain_model_posting.uid = sys_category_record_mm.uid_foreign 
-							WHERE deleted = 0 AND hidden = 0 ";
+				$qb
+					->select("*")
+					->from("tx_jobs_domain_model_posting")
+					->join("tx_jobs_domain_model_posting", "sys_category_record_mm",
+						   "sys_category_record_mm",
+						   "tx_jobs_domain_model_posting.uid = sys_category_record_mm.uid_foreign")
+					->where($qb->expr()->eq("deleted", 0))
+					->andWhere($qb->expr()->eq("hidden", 0));
 
-				$categorySQL = buildCategoriesToSQL($categories);
+				$qb = buildCategoriesToSQL($categories, $qb);
+
+			}
+			else
+			{
+				$qb = getQueryBuilder("tx_jobs_domain_model_posting");
+				$qb
+					->select("*")
+					->from("tx_jobs_domain_model_posting")
+					->where($qb->expr()->eq("deleted", 0))
+					->andWhere($qb->expr()->eq("hidden", 0));
 			}
 
 			if ($division)
 			{
-				$divisionSQL = "AND division = \"$division\"";
+				$qb->andWhere($qb->expr()->eq("division", "\"$division\""));
 			}
 			if ($careerLevel)
 			{
-				$careerLevelSQL = "AND career_level = \"$careerLevel\"";
+				$qb->andWhere($qb->expr()->eq("career_level", "\"$careerLevel\""));
 			}
 			if ($employmentType)
 			{
-				$employmentTypeSQL = "AND employment_type = \"$employmentType\"";
+				$qb->andWhere($qb->expr()->eq("employment_type", "\"".$employmentType."\""));
 			}
 			if ($location != -1)
 			{
-				$locationSQL = "AND location = $location";
+				$qb->andWhere($qb->expr()->eq("location", $location));
 			}
 			$query = $this->createQuery();
 
-			$query->statement(
-				$baseSQL." ".$divisionSQL." ".$careerLevelSQL." ".$employmentTypeSQL." ".$locationSQL." ".$categorySQL
-			);
+			$query->statement($qb->getSQL());
 
 			return $query->execute();
-
 		}
 
 		/**
@@ -206,11 +214,13 @@
 		 * @param $orderBy string
 		 * @param $order   string
 		 */
-		public function findByContact(int $contact, string $orderBy = "title", string $order = "ASC")
+		public function findByContact(int $contact, string $orderBy = "title", string $order = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING)
 		{
 			$query = $this->createQuery();
+			$query->getQuerySettings()->setRespectStoragePage(false);
 
-			$query->statement("SELECT * FROM tx_jobs_domain_model_posting WHERE deleted = 0 AND contact = ".$contact."  ORDER BY ".$orderBy." ".$order);
+			$query->matching($query->equals("contact.uid", $contact));
+			$query->setOrderings([$orderBy => $order]);
 
 			return $query->execute();
 		}
@@ -220,11 +230,14 @@
 		 *
 		 * @return QueryResultInterface|array
 		 */
-		public function findAllWithOrder(string $orderBy = "title", string $order = "ASC")
+		public function findAllWithOrder(string $orderBy = "title", string $order = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING)
 		{
 			$query = $this->createQuery();
+			$query->getQuerySettings()->setRespectStoragePage(false);
 
-			$query->statement("SELECT * FROM tx_jobs_domain_model_posting WHERE deleted = 0 ORDER BY ".$orderBy." ".$order);
+			$query->setOrderings([
+									 $orderBy => $order
+								 ]);
 
 			return $query->execute();
 		}

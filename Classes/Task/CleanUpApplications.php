@@ -47,7 +47,7 @@
 			foreach ($applications as $application)
 			{
 				$persistenceManager->remove($application);
-				$applicationFileService->deleteApplicationFolder($this->applicationFileService->getApplicantFolder($application));
+				$applicationFileService->deleteApplicationFolder($applicationFileService->getApplicantFolder($application));
 			}
 
 			if ($resultCount > 0)

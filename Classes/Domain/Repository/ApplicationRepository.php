@@ -32,33 +32,37 @@
 		 * @param $posting int
 		 * @param $status  int
 		 */
-		public function findByFilter(int $contact, int $posting, int $status, int $archived = 0, string $orderBy = "crdate", string $order = "ASC")
+		public function findByFilter(int $contact, int $posting, int $status, int $archived = 0,
+									 string $orderBy = "crdate",
+									 string $order = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING)
 		{
-			$contactSQL = "";
-			$postingSQL = "";
-			$statusSQL = "";
+			$query = $this->createQuery();
+			$query->getQuerySettings()->setRespectStoragePage(false);
 
-			$baseSQL = "SELECT * FROM tx_jobs_domain_model_application WHERE archived = ".$archived." ";
+			$andArray = [];
+
+			$andArray[] = $query->equals("archived", $archived);
 
 			if ($contact)
 			{
-				$contactSQL = "AND posting IN( SELECT uid FROM tx_jobs_domain_model_posting 
-								WHERE contact = ".$contact.")";
+				$andArray[] = $query->equals("posting.contact.uid", $contact);
 			}
+
 			if ($posting)
 			{
-				$postingSQL = "AND posting = \"$posting\"";
+				$andArray[] = $query->equals("posting.uid", $posting);
 			}
+
 			if ($status)
 			{
-				$postingSQL = "AND status = $status";
+				$andArray[] = $query->equals("status.uid", $status);
 			}
 
-			$query = $this->createQuery();
-
-			$query->statement(
-				$baseSQL." ".$contactSQL." ".$postingSQL." ".$statusSQL." ORDER BY ".$orderBy." ".$order
+			$query->matching(
+				$query->logicalAnd($andArray)
 			);
+
+			$query->setOrderings(array($orderBy => $order));
 
 			return $query->execute();
 		}
@@ -71,9 +75,9 @@
 		public function findAll()
 		{
 			$query = $this->createQuery();
-
-			$query->statement("SELECT * FROM tx_jobs_domain_model_application 
-										WHERE hidden = 0 AND archived = 0 ORDER BY crdate DESC");
+			$query->setOrderings(array(
+									 "crdate" => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
+								 ));
 
 			return $query->execute();
 		}
@@ -86,11 +90,15 @@
 		public function findNewApplicationsByContact(int $contact)
 		{
 			$query = $this->createQuery();
-
-			$query->statement("SELECT * FROM tx_jobs_domain_model_application 
-										WHERE hidden = 0 AND archived = 0 AND status = 1 AND posting 
-										IN( SELECT uid FROM tx_jobs_domain_model_posting 
-										WHERE contact = ".$contact.")");
+			$query->getQuerySettings()
+				  ->setRespectStoragePage(false);
+			$query->matching(
+				$query->logicalAnd([
+									   $query->equals('posting.contact.uid', $contact),
+									   $query->equals('status.uid', 1),
+									   $query->equals('archived', 0)
+								   ])
+			);
 
 			return $query->execute();
 		}
@@ -99,24 +107,29 @@
 		 * Finds applications which are older than or equal the given timestamp
 		 *
 		 * @param $timestamp int
-		 * @param $status bool
+		 * @param $status    bool
 		 *
 		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
 		 */
 		public function findOlderThan(int $timestamp, bool $status = false)
 		{
 			$query = $this->createQuery();
+			$query->getQuerySettings()->setRespectStoragePage(false);
+
+			$andArray = [];
+			$andArray[] = $query->lessThanOrEqual("crdate", $timestamp);
 
 			if ($status)
 			{
-				$query->statement("SELECT * FROM tx_jobs_domain_model_application WHERE crdate <= $timestamp
-											AND status IN ( SELECT uid FROM tx_jobs_domain_model_status
-    										WHERE is_end_status = 1)");
+				$andArray[] = $query->equals("status.isEndStatus", 1);
 			}
-			else
-			{
-				$query->statement("SELECT * FROM tx_jobs_domain_model_application WHERE crdate <= $timestamp");
-			}
+
+			$query->matching(
+				$query->logicalAnd(
+					$andArray
+				)
+			);
 
 			return $query->execute();
 		}
@@ -125,26 +138,31 @@
 		 * Finds applications which are older than or equal the given timestamp and which are not anonymized
 		 *
 		 * @param $timestamp int
-		 * @param $status bool
+		 * @param $status    bool
 		 *
 		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
 		 */
 		public function findNotAnonymizedOlderThan(int $timestamp, bool $status = false)
 		{
 			$query = $this->createQuery();
 
+			$query->getQuerySettings()->setRespectStoragePage(false);
+
+			$andArray = [];
+			$andArray[] = $query->lessThanOrEqual("crdate", $timestamp);
+			$andArray[] = $query->logicalNot($query->equals("last_name", $timestamp));
+
 			if ($status)
 			{
-				$query->statement("SELECT * FROM tx_jobs_domain_model_application WHERE crdate <= $timestamp
-											AND last_name != '***'
-											AND status IN ( SELECT uid FROM tx_jobs_domain_model_status
-    										WHERE is_end_status = 1)");
+				$andArray[] = $query->equals("status.isEndStatus", 1);
 			}
-			else
-			{
-				$query->statement("SELECT * FROM tx_jobs_domain_model_application WHERE crdate <= $timestamp 
-											AND last_name != '***'");
-			}
+
+			$query->matching(
+				$query->logicalAnd(
+					$andArray
+				)
+			);
 
 			return $query->execute();
 		}
