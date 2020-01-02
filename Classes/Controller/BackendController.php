@@ -106,7 +106,7 @@
 			{
 				$application = $this->applicationRepository->findByUid($this->request->getArgument("application"));
 				$application->setStatus($this->statusRepository->findByUid($this->request->getArgument("statusChange")));
-				$this->persistenceManager->update($application);
+				$this->persistenceManager->update($application); //TODO Repository
 				$this->persistenceManager->persistAll();
 			}
 
@@ -188,7 +188,7 @@
 			// Handles delete request
 			if ($this->request->hasArgument("delete"))
 			{
-				$this->persistenceManager->remove($application);
+				$this->persistenceManager->remove($application);//TODO Repository
 				$this->applicationFileService->deleteApplicationFolder($this->applicationFileService->getApplicantFolder($application));
 				$this->persistenceManager->persistAll();
 				$this->redirect('listApplications', 'Backend', 'jobs');
@@ -198,7 +198,7 @@
 			if ($this->request->hasArgument("status"))
 			{
 				$application->setStatus($this->statusRepository->findByUid($this->request->getArgument("status")));
-				$this->persistenceManager->update($application);
+				$this->persistenceManager->update($application);//TODO Repository, bitte in gesamter Extension checken und abändern
 				$statusDatabaseOp = true;
 			}
 
@@ -212,9 +212,9 @@
 			$baseUri = str_replace("typo3/", "", $this->request->getBaseUri());
 
 
-			$this->view->assign("contact", $contactFilter);
-			$this->view->assign("archived", $archivedFilter);
-			$this->view->assign("posting", $postingFilter);
+			$this->view->assign("contact", $contactFilter); //TODO undefined
+			$this->view->assign("archived", $archivedFilter); //TODO undefined
+			$this->view->assign("posting", $postingFilter); //TODO undefined
 
 			$this->view->assign("application", $application);
 			$this->view->assign("baseUri", $baseUri);

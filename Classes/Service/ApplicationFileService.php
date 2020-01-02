@@ -46,7 +46,7 @@
 
 			/* @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
 			$storageRepository = $objectManager->get(\TYPO3\CMS\Core\Resource\StorageRepository::class);
-			$storage = $storageRepository->findByUid('1');
+			$storage = $storageRepository->findByUid('1'); //TODO settings
 
 			if ($storage->hasFolder($folderPath))
 			{

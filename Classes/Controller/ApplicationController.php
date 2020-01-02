@@ -72,6 +72,9 @@
 		 */
 		protected $signalSlotDispatcher;
 
+		/**
+		 * @var \TYPO3\CMS\Core\Log\Logger
+		 */
 		protected $logger = null;
 
 		/**
@@ -92,7 +95,7 @@
 								\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,
 								'Y-m-d'
 							);
-			/** @var $logger \TYPO3\CMS\Core\Log\Logger */
+
 			$this->logger = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Log\LogManager::class)->getLogger(__CLASS__);
 		}
 
@@ -104,31 +107,34 @@
 		 * @return void
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
 		 */
-		public function newAction()
+		public function newAction(Posting $posting = null)
 		{
 
+			// TODO: mit Posting als Übergabeparameter dürfte es die nächsten Zeilen nicht benötigen. Wie es auch bei der CreateAction gemacht wurde.
+			// Todo: Auch bei postingApp sollte es möglich sein, als normalen Parameter statt als additional zu übergeben. Dann sind diese direkt, auch ohne $this->request
 			if ($this->request->hasArgument("posting"))
 			{
 				$posting = $this->request->getArgument("posting");
 			}
 			elseif ($_REQUEST['postingApp'])
 			{
-				$posting = $_REQUEST['postingApp'];
+				$posting = $_REQUEST['postingApp']; //TODO habe den Sinn davon nicht verstanden. Wirklich notwendig? Immerhin wird doch in List.html in posting und in postingApp das gleiche reingesteckt. Wenn doch notwendig vielleicht noch einen kleinen Kommentar dazu
 			}
+			// Todo: immer darauf achten, dass Variablen in jedem Fall initialisiert werden und später in if-Conditions typensauber abfragen. (nur so als Hinweis, der Abschnitt fliegt ja wahrscheinlich eh raus.)
 
-			$this->fileSizeLimit = GeneralUtility::getMaxUploadFileSize();
+			$this->fileSizeLimit = GeneralUtility::getMaxUploadFileSize(); //TODO Auslagern in initializeAction
 
 			if ($this->request->hasArgument("fileError"))
 			{
 				$error = $this->request->getArgument("fileError");
-				$this->view->assign("fileError", $error);
+				$this->view->assign("fileError", $error); //TODO Assing View am Ende der Action
 			}
 			else
 			{
 				$this->view->assign("fileError", 0);
 			}
 
-			if ($posting)
+			if ($posting instanceof Posting)
 			{
 				$postingObject = $this->postingRepository->findByUid($posting);
 
@@ -149,11 +155,14 @@
 				$this->view->assign('posting', $postingObject);
 			}
 
+			// Todo: Vermutlich müssen auch bei Applications noch diverse meta-Tags gesetzt, werden, oder? (es sei denn natürlich, sie sind zusammen mit dem Posting auf einer Seite, dann nicht)
 			$this->view->assign("fileSizeLimit", strval($this->fileSizeLimit) / 1024);
 		}
 
 		public function successAction()
 		{
+			// Todo: über Fnktion noch die passenden Kommentare einfügen
+			
 			$lastName = $this->request->hasArgument("lastName") ? $this->request->getArgument("lastName") : "";
 			$firstName = $this->request->hasArgument("firstName") ? $this->request->getArgument("firstName") : "";
 			$salutation = $this->request->hasArgument("salutation") ? $this->request->getArgument("salutation") : "";
@@ -161,9 +170,11 @@
 			if($salutation == "div")
 			{
 				$salutation = $firstName;
-			} else {
+			} else 
+			{
 				$salutation = LocalizationUtility::translate("fe.application.selector.".$salutation, "jobs");
 			}
+			//TODO lastName, firstName, saluation als parameter der Funktion übergeben. Diese dann an den View übergeben. Str_replace Teil im View via Fluid machen. $text ist dort bereits verfügbar.
 
 			$text = $this->settings["successMessage"];
 			$text = str_replace("%lastName%", $lastName, $text);
@@ -190,7 +201,7 @@
 			$uploads = array("cv", "cover_letter", "testimonials", "other_files");
 
 			//get posting
-			$posting = $this->request->getArgument("posting");
+			$posting = $this->request->getArgument("posting"); //TODO Posting als Parameter
 
 			//Check if $_FILES Entries have errors
 			foreach ($uploads as $upload)
@@ -201,20 +212,20 @@
 					$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileType', 'jobs'), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
 					$this->redirect("new", "Application", null, array(
 						"postingUid" => $posting,
-						"postingTitle" => $postingTitle,
+						"postingTitle" => $postingTitle, //TODO Variable gibt es nicht
 						"fileError" => $upload
 					));
 
 					return;
 				}
-
+				//TODO: beide if Funktionen zusammenfassen
 				$errorcode = $_FILES['tx_jobs_frontend']['error'][$upload];
 				if (intval($errorcode) == 1)
 				{
 					$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileSize', 'jobs', array("0" => intval($this->fileSizeLimit) / 1024)), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
 					$this->redirect("new", "Application", null, array(
 						"postingUid" => $posting,
-						"postingTitle" => $postingTitle,
+						"postingTitle" => $postingTitle,//TODO Variable fehlt
 						"fileError" => $upload
 					));
 
@@ -222,6 +233,7 @@
 				}
 			}
 
+			//TODO Vorschlag über Validator lösen und hier dafür entfernen
 			//Verify length in message field
 			if (strlen($newApplication->getMessage()) > intval($this->settings['messageMaxLength']))
 			{
@@ -231,7 +243,7 @@
 			$newApplication->setPosting($posting);
 
 			/* @var \ITX\Jobs\Domain\Model\Status $firstStatus */
-			$firstStatus = $this->statusRepository->findByUid(1);
+			$firstStatus = $this->statusRepository->findByUid(1); //TODO Auslagern in Settings, kann schief gehen (wenn jemand mal den ersten angelegten Status köschen möchte)
 			if($firstStatus)
 			{
 				$newApplication->setStatus($firstStatus);
@@ -251,6 +263,7 @@
 
 			/* @var \ITX\Jobs\Domain\Model\Application $newApplication */
 			$newApplication = $this->applicationRepository->findByUid($newApplication->getUid());
+			// Todo: hat es einen Grund, warum das Objekt erneut geholt werden muss?
 
 			$files = [];
 			$fields = [];
@@ -296,6 +309,7 @@
 
 			// Mail Handling
 
+			/** @var Posting $currentPosting */
 			$currentPosting = $this->postingRepository->findByUid($newApplication->getPosting());
 			$contact = $currentPosting->getContact();
 
@@ -334,7 +348,7 @@
 							  .$message.'</p>');
 
 				// Attach all found files
-				$files = array($movedNewFileCv, $movedNewFileCover, $movedNewFileTestimonial, $movedNewFileOther);
+				$files = array($movedNewFileCv, $movedNewFileCover, $movedNewFileTestimonial, $movedNewFileOther); // TODO Default für die Variablen setzen, werden u.U. nicht definiert
 				foreach ($files as $file)
 				{
 					if ($file)
@@ -415,7 +429,7 @@
 			// If applications should not be saved delete them here
 			if (!$this->settings['saveApplicationInBackend'])
 			{
-				$this->persistenceManager->remove($newApplication);
+				$this->persistenceManager->remove($newApplication); // TODO über das Repository löschen, nicht über den persistenceManager.
 				$this->applicationFileService->deleteApplicationFolder($this->applicationFileService->getApplicantFolder($newApplication));
 				$this->persistenceManager->persistAll();
 			}
@@ -481,11 +495,11 @@
 
 			$folder = $this->applicationFileService->getApplicantFolder($domainObject);
 
-			$tmpName = $_FILES['tx_jobs_applicationform']['name'][$fieldName];
+			$tmpName = $_FILES['tx_jobs_applicationform']['name'][$fieldName]; // TODO unused
 			$tmpFile = $_FILES['tx_jobs_applicationform']['tmp_name'][$fieldName];
 
 			$storageRepository = $this->objectManager->get('TYPO3\\CMS\\Core\\Resource\\StorageRepository');
-			$storage = $storageRepository->findByUid('1'); //this is the fileadmin storage
+			$storage = $storageRepository->findByUid('1'); //this is the fileadmin storage TODO settings,  siehe oben
 
 			//build the new storage folder
 			if ($storage->hasFolder($folder))

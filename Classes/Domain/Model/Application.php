@@ -443,7 +443,7 @@
 		/**
 		 * Returns the posting
 		 *
-		 * @return int $posting
+		 * @return Posting $posting
 		 */
 		public function getPosting()
 		{
@@ -453,11 +453,11 @@
 		/**
 		 * Sets the posting
 		 *
-		 * @param int $posting
+		 * @param Posting $posting
 		 *
 		 * @return void
 		 */
-		public function setPosting(int $posting)
+		public function setPosting(Posting $posting)
 		{
 			$this->posting = $posting;
 		}

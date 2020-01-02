@@ -4,7 +4,7 @@
 
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
-	include_once 'RepoHelpers.php';
+	include_once 'RepoHelpers.php'; //TODO So ist das nicht objektorientiert. Bitte ein parent Repository schreiben, von dem alle Repositories erben können (Stichwort extend). In das kommt dann die Funktion buildCategoriesToSQL rein.
 	/***
 	 *
 	 * This file is part of the "Jobs" Extension for TYPO3 CMS.

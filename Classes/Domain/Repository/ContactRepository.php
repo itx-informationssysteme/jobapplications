@@ -20,7 +20,9 @@
 	class ContactRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 	{
 		/**
-		 * @param $uids array
+		 * @param array $uids
+		 *
+		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 		 */
 		public function findMultipleByUid(array $uids)
 		{

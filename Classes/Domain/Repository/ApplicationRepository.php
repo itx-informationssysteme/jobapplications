@@ -25,12 +25,17 @@
 	 */
 	class ApplicationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 	{
+
 		/**
 		 * Function for filtering applications
+		 * @param int    $contact
+		 * @param int    $posting
+		 * @param int    $status
+		 * @param int    $archived
+		 * @param string $orderBy
+		 * @param string $order
 		 *
-		 * @param $contact int
-		 * @param $posting int
-		 * @param $status  int
+		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 		 */
 		public function findByFilter(int $contact, int $posting, int $status, int $archived = 0,
 									 string $orderBy = "crdate",

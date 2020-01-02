@@ -168,7 +168,13 @@
 
 			$titleProvider = GeneralUtility::makeInstance(JobsPageTitleProvider::class);
 
-			//Google Jobs
+			// Meta-Tags setzen. 
+			/* TODO: Meta Tags können auch per Viewhelper im Template gesetzt werden. Dazu dann aber vhs als dependency der Extension setzen.
+			Hätte den Vorteil, dass es Leute auch entfernen können, falls sie es aus irgendwelchen Gründen nicht haben wollen. 
+			Vielleicht in eigenem eigenen Abschnitt oder Partial. Überlasse ich aber letztendlich dir, du kannst es auch so lassen, wenn du es so wirklich besser findest.
+			https://t3g.at/opengraph-meta-informationen-typo3/
+			https://docs.typo3.org/other/typo3/view-helper-reference/9.5/en-us/typo3/fluid/latest/Format/StripTags.html
+			*/
 			$metaTagManager = GeneralUtility::makeInstance(MetaTagManagerRegistry::class);
 			// @extensionScannerIgnoreLine
 			$metaTagManager->getManagerForProperty("description")->addProperty("description", strip_tags($posting->getJobDescription()));
@@ -184,6 +190,8 @@
 
 			$extconf = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class);
 
+			//Google Jobs
+			// TODO: evtl über setting abschaltbar machen, falls nicht gewünscht.
 			$hiringOranization = array(
 				"@type" => "Organization",
 				"name" => $extconf->get('jobs', 'companyName')
