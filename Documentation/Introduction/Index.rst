@@ -7,53 +7,77 @@
 Introduction
 ============
 
-
-.. tip::
-
-   New to reStructuredText and Sphinx?
-
-   Get an introduction:
-   https://docs.typo3.org/m/typo3/docs-how-to-document/master/en-us/WritingReST/Index.html
-
-   Use this cheat sheet as reference:
-   https://docs.typo3.org/m/typo3/docs-how-to-document/master/en-us/WritingReST/CheatSheet.html
-
-.. _what-it-does:
-
 What does it do?
 ================
 
-The aim of this chapter is to provide a general overview of your extension.
+This extension provides you with the ability to create and manage job posting.
 
-* What does it do?
-* What problems does it solve?
-* Who is the target audience?
+People can apply on these by using the supplied application form so the referenced contact receives the application via
+email and/or the backend module, which features a basic application management system.
 
-This chapter should provide information that will help inform
-potential users and assist them in deciding if they should
-install and use this extension.
+Features
+--------
 
-.. important::
+Manage job postings
+~~~~~~~~~~~~~~~~~~~
 
-   Don't forget to repeat your extension's version number in the
-   :file:`Settings.cfg` file, in the :code:`release` property. It will be
-   automatically picked up on the cover page by the :code:`|release|`
-   substitution.
+	* list view and detail page
+	* create location records and contact person records to link with the job posting
+	* shipped with a bootstrap layout, which provides easy customizability
+	* comes with a bootstrap.css file so it **works out of the box**
+	* add images for the list and detail view
+	* write your own page title for the detail page by using placeholders
+	* use **frontend filters** for job posting attributes "Division", "Career Level", "Emplyoment Type" and "Location"
+	* time at which date the posting should go live and possibly end
+	* support for **typo3 categories**
+	* OpenGraph data automatically populated
+	* **Google Jobs integration**
 
+Application Form
+~~~~~~~~~~~~~~~~
+
+		* **fully fledged application form** with standard fields like name, email, phone, address as well as optional fields like "Salary Expectation", "Earliest Date of Joining" and a "Message" field.
+		* supports pdf file uploads
+		* privacy agreement checkbox, which links to your privacy agreement page
+		* forward the applicant to a success page with a customized message which again supports placeholders for the applicants name
+
+Application Management
+~~~~~~~~~~~~~~~~~~~~~~
+
+		* configure if an email should be sent to the referenced contact and/or a specific email address
+		* configure if the applicant should receive a confirmation email, where the text can be specified with the use of placeholders.
+		* supports **application status managment**
+		* configurable **planer tasks** for application deletion and anonymization based on age and status
+		* option to not save the application and only send the mails
+		* **Backend module** for viewing, sorting, filtering, archiving and deleting the applications
+		* link a jobs extension contact person to a backend user to have a personalized experience viewing the applications
 
 .. _screenshots:
 
 Screenshots
 ===========
 
-This chapter should help people understand how the extension works. Remove it
-if it is not relevant.
-
-.. figure:: ../Images/IntroductionPackage.png
+.. figure:: ../Images/Introduction/screen_list_view.png
    :class: with-shadow
-   :alt: Introduction Package
-   :width: 300px
+   :alt: Screenshot of list page
+   :width: 400px
 
-   Introduction Package just after installation (caption of the image)
+   Screenshot of list page
 
-How the Frontend of the Introduction Package looks like just after installation (legend of the image)
+.. figure:: ../Images/Introduction/screen_detail_view.png
+   :class: with-shadow
+   :alt: Screenshot of the detail page
+   :width: 400px
+
+   Screenshot of the job postings detail page
+
+.. figure:: ../Images/Introduction/screen_application_form.png
+   :class: with-shadow
+   :alt: Screenshot of the application form
+   :width: 400px
+
+   Screenshot of the application form
+
+This is how the standard bootstrap frontend will look like.
+
+Of course you can easily override these templates via typoscript.

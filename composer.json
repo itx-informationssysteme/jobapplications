@@ -2,6 +2,7 @@
     "name": "itx/jobs",
     "type": "typo3-cms-extension",
     "description": "This extension enables you to manage job postings, the application form and incoming applications.",
+    "license": "GPL-2.0-or-later",
     "authors": [
         {
             "name": "Stefanie D\u00f6ll",
@@ -14,6 +15,11 @@
     ],
     "require": {
         "typo3/cms-core": "^9.5"
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "extension_key"
+        }
     },
     "autoload": {
         "psr-4": {

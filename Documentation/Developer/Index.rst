@@ -7,38 +7,11 @@
 Developer Corner
 ================
 
-Target group: **Developers**
+.. _developer-signal-slots:
 
-This is your opportunity to pass on information to other developers who may be using your extension.
-
-Use this section to provide examples of code or detail any information that would be deemed relevant to a developer.
-
-You may wish to explain how a certain feature was implemented or detail any changes that might of been
-made to the extension.
-
-.. _developer-hooks:
-
-Hooks
-=====
-
-Possible hook examples. Input parameters are:
-
-+----------------+---------------+---------------------------------+
-| Parameter      | Data type     | Description                     |
-+================+===============+=================================+
-| $table         | string        | Name of the table               |
-+----------------+---------------+---------------------------------+
-| $field         | string        | Name of the field               |
-+----------------+---------------+---------------------------------+
-
-Use parameter :code:`$table` to retrieve the table name...
-
-.. _developer-api:
-
-API
-===
-
-How to use the API...
+Signal Slots
+============
+There are Signal Slots implemented which mainly happen before postings or applications are being assigned.
 
 .. code-block:: php
 

@@ -25,7 +25,7 @@
                 <source>Contact Display Settings</source>
             </trans-unit>
 			<trans-unit id="flexform.general.detailView" resname="flexform.general.detailView">
-				<source>Set Detail Page Uid</source>
+				<source>Set Detail Page</source>
 			</trans-unit>
 			<trans-unit id="flexform.general.applicationForm" resname="flexform.general.applicationForm">
 				<source>Set Application Form Page Uid</source>
@@ -52,7 +52,7 @@
 				<source>Should the referenced contact receive an E-Mail?</source>
 			</trans-unit>
 			<trans-unit id="flexform.sendEmailToApplicantText" resname="flexform.sendEmailToApplicantText">
-				<source>\nTemplating available: \nPosting Title: postingTitle \nApplicant Salutation: %applicantSalutation% \nApplicant Firstname: %applicantFirstname% \nApplicant Lastname: %applicantLastname%</source>
+				<source>E-Mail to Applicant Text\nTemplating available: \nPosting Title: %postingTitle% \nApplicant Salutation: %applicantSalutation% \nApplicant Firstname: %applicantFirstname% \nApplicant Lastname: %applicantLastname%</source>
 			</trans-unit>
 			<trans-unit id="flexform.sendEmailToApplicantSubject" resname="flexform.sendEmailToApplicantSubject">
 				<source>E-Mail to Applicant Subject (Templating available: Posting Title: %postingTitle%)</source>
@@ -88,7 +88,7 @@
 				<source>Define page title here (%postingTitle% gets replaced with title of posting)</source>
 			</trans-unit>
 			<trans-unit id="flexform.showMessage" resname="flexform.showMessage">
-				<source>Show message field?</source>
+				<source>Show "Message" field</source>
 			</trans-unit>
 			<trans-unit id="flexform.messageMaxLength" resname="flexform.messageMaxLength">
 				<source>Maximum message number of characters:</source>

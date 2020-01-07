@@ -32,7 +32,7 @@
    ---------------------------------------------------------------
 
 =============================================================
-Jobs
+Jobs Extension
 =============================================================
 
 :Extension Key:
@@ -42,21 +42,24 @@ Jobs
     |release|
 
 :Language:
-    en
+    en, de
 
 :Copyright:
-    2019
+    2020
 
 :Author:
-    Stefanie Döll, Benjamin Jasper
+    it.x informationssysteme: Stefanie Döll, Benjamin Jasper
 
 :Email:
-    , 
+    ,
 
 :License:
-   This extension documentation is published under the `CC BY-NC-SA 4.0 <https://creativecommons.org/licenses/by-nc-sa/4.0/>`__ (Creative Commons) license
+   This extension documentation is published under the `GNU General Public License 3 <http://www.gnu.org/copyleft/gpl.html.>`__ (GPLv3) license
 
-This extension enables you to manage job postings, the application form and incoming applications.
+This extension provides you with the ability to create and manage job posting.
+
+People can apply on these by using the supplied application form so the referenced contact receives the application via
+email and/or the backend module, which features a basic application management system.
 
 **TYPO3**
 
@@ -66,7 +69,7 @@ This extension enables you to manage job postings, the application form and inco
 
 **Community Documentation:**
 
-    This documentation is community documentation for the TYPO3 extension Jobs
+    This documentation is community documentation for the TYPO3 Jobs extension
 
     It is maintained as part of this third party extension.
 
@@ -87,10 +90,11 @@ This extension enables you to manage job postings, the application form and inco
    :hidden:
 
    Introduction/Index
-   User/Index
    Installation/Index
    Configuration/Index
+   User/Index
    Developer/Index
+   FAQ/Index
    KnownProblems/Index
    ToDoList/Index
    ChangeLog/Index
