@@ -7,10 +7,18 @@
                 <source>This can be important if the clean up task is configured. It means every application with this
                     enabled will be up for deletion.
                 </source>
+                <target state="translated">Dieser Option kann wichtig sein, falls ein Entsorgungs-Plan eingestellt ist.
+                    Das bedeutet wenn aktiviert, dass die Bewerbungen in diesem Status für die Löschung eingeplant werden.
+                </target>
             </trans-unit>
-            <target state="translated">Dieser Option kann wichtig sein, falls ein Entsorgungs-Plan eingestellt ist.
-                Das bedeutet wenn aktiviert, dass die Bewerbungen in diesem Status für die Löschung eingeplant werden.
-            </target>
+
+            <trans-unit id="is_new_status.description" resname="is_new_status.description">
+                <source>This should be marked if this is the status that new application should arrive in.
+                    This should only be checked once in all of the statuses.</source>
+                <target state="translated">Diese Option sollte angewählt werden, wenn dieser Status der Status sein soll,
+                    in welchem neue Bewerbungen ankommen. Diese Option sollte nur einmal in allen Status angewählt sein.
+                </target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

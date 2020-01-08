@@ -5,27 +5,35 @@
 	use ITX\Jobs\Domain\Model\Contact;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
-	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 	use ITX\Jobs\Domain\Repository\RepoHelpers;
 
-	include_once 'RepoHelpers.php';
-
-	/***
+	/***************************************************************
+	 *  Copyright notice
 	 *
-	 * This file is part of the "Jobs" Extension for TYPO3 CMS.
+	 *  (c) 2020
+	 *  All rights reserved
 	 *
-	 * For the full copyright and license information, please read the
-	 * LICENSE.txt file that was distributed with this source code.
+	 *  This script is part of the TYPO3 project. The TYPO3 project is
+	 *  free software; you can redistribute it and/or modify
+	 *  it under the terms of the GNU General Public License as published by
+	 *  the Free Software Foundation; either version 3 of the License, or
+	 *  (at your option) any later version.
 	 *
-	 *  (c) 2019 Stefanie Döll, it.x informationssysteme gmbh
-	 *           Benjamin Jasper, it.x informationssysteme gmbh
+	 *  The GNU General Public License can be found at
+	 *  http://www.gnu.org/copyleft/gpl.html.
 	 *
-	 ***/
+	 *  This script is distributed in the hope that it will be useful,
+	 *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	 *  GNU General Public License for more details.
+	 *
+	 *  This copyright notice MUST APPEAR in all copies of the script!
+	 ***************************************************************/
 
 	/**
 	 * The repository for Postings
 	 */
-	class PostingRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+	class PostingRepository extends \ITX\Jobs\Domain\Repository\JobsRepository
 	{
 		/**
 		 * Helper function for finding postings by category
@@ -36,7 +44,7 @@
 		 */
 		public function findByCategory(array $categories)
 		{
-			$qb = getQueryBuilder("tx_jobs_domain_model_posting");
+			$qb = parent::getQueryBuilder("tx_jobs_domain_model_posting");
 
 			$qb
 				->select("*")
@@ -45,7 +53,7 @@
 
 			$query = $this->createQuery();
 
-			$qb = buildCategoriesToSQL($categories, $qb);
+			$qb = parent::buildCategoriesToSQL($categories, $qb);
 
 			$query->statement($qb->getSQL());
 
@@ -59,7 +67,7 @@
 		 */
 		public function findAllDivisions(array $categories = null)
 		{
-			$qb = getQueryBuilder("tx_jobs_domain_model_posting");
+			$qb = parent::getQueryBuilder("tx_jobs_domain_model_posting");
 			$query = $this->createQuery();
 			if (count($categories) == 0)
 			{
@@ -77,7 +85,7 @@
 					->join("tx_jobs_domain_model_posting", "sys_category_record_mm",
 						   "sys_category_record_mm", $qb->expr()->eq("tx_jobs_domain_model_posting.uid",
 																	 "sys_category_record_mm.uid_foreign"));
-				$qb = buildCategoriesToSQL($categories, $qb);
+				$qb = parent::buildCategoriesToSQL($categories, $qb);
 			}
 			$query->statement($qb->getSQL());
 
@@ -89,7 +97,7 @@
 		 */
 		public function findAllCareerLevels(array $categories = null)
 		{
-			$qb = getQueryBuilder("tx_jobs_domain_model_posting");
+			$qb = parent::getQueryBuilder("tx_jobs_domain_model_posting");
 
 			$query = $this->createQuery();
 			if (count($categories) == 0)
@@ -108,7 +116,7 @@
 					->join("tx_jobs_domain_model_posting", "sys_category_record_mm",
 						   "sys_category_record_mm", $qb->expr()->eq("tx_jobs_domain_model_posting.uid",
 																	 "sys_category_record_mm.uid_foreign"));
-				$qb = buildCategoriesToSQL($categories, $qb);
+				$qb = parent::buildCategoriesToSQL($categories, $qb);
 			}
 			$query->statement($qb->getSQL());
 
@@ -120,7 +128,7 @@
 		 */
 		public function findAllEmploymentTypes(array $categories = null)
 		{
-			$qb = getQueryBuilder("tx_jobs_domain_model_posting");
+			$qb = parent::getQueryBuilder("tx_jobs_domain_model_posting");
 
 			$query = $this->createQuery();
 			if (count($categories) == 0)
@@ -139,7 +147,7 @@
 					->join("tx_jobs_domain_model_posting", "sys_category_record_mm",
 						   "sys_category_record_mm", $qb->expr()->eq("tx_jobs_domain_model_posting.uid",
 																	 "sys_category_record_mm.uid_foreign"));
-				$qb = buildCategoriesToSQL($categories, $qb);
+				$qb = parent::buildCategoriesToSQL($categories, $qb);
 
 			}
 
@@ -160,7 +168,7 @@
 		 */
 		public function findByFilter(string $division, string $careerLevel, string $employmentType, int $location, array $categories)
 		{
-			$qb = getQueryBuilder("tx_jobs_domain_model_posting");
+			$qb = parent::getQueryBuilder("tx_jobs_domain_model_posting");
 
 			if (count($categories) > 0)
 			{
@@ -173,12 +181,12 @@
 					->where($qb->expr()->eq("deleted", 0))
 					->andWhere($qb->expr()->eq("hidden", 0));
 
-				$qb = buildCategoriesToSQL($categories, $qb);
+				$qb = parent::buildCategoriesToSQL($categories, $qb);
 
 			}
 			else
 			{
-				$qb = getQueryBuilder("tx_jobs_domain_model_posting");
+				$qb = parent::getQueryBuilder("tx_jobs_domain_model_posting");
 				$qb
 					->select("*")
 					->from("tx_jobs_domain_model_posting")

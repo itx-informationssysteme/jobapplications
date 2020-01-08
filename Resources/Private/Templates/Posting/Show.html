@@ -2,6 +2,7 @@
 <f:layout name="Default"/>
 
 <f:section name="content">
+	<f:render partial="Posting/MetaTags" arguments="{posting:posting}"/>
 	<div class="row">
 		<f:if condition="{posting.detailViewImage}">
 			<f:image src="{posting.detailViewImage.originalResource.publicUrl}" class="h-auto w-100 mb-3"/>

@@ -2,22 +2,36 @@
 
 	namespace ITX\Jobs\Controller;
 
-	/***
+	/***************************************************************
+	 *  Copyright notice
 	 *
-	 * This file is part of the "Jobs" Extension for TYPO3 CMS.
+	 *  (c) 2020
+	 *  All rights reserved
 	 *
-	 * For the full copyright and license information, please read the
-	 * LICENSE.txt file that was distributed with this source code.
+	 *  This script is part of the TYPO3 project. The TYPO3 project is
+	 *  free software; you can redistribute it and/or modify
+	 *  it under the terms of the GNU General Public License as published by
+	 *  the Free Software Foundation; either version 3 of the License, or
+	 *  (at your option) any later version.
 	 *
-	 *  (c) 2019 Stefanie Döll, it.x informationssysteme gmbh
-	 *           Benjamin Jasper, it.x informationssysteme gmbh
+	 *  The GNU General Public License can be found at
+	 *  http://www.gnu.org/copyleft/gpl.html.
 	 *
-	 ***/
+	 *  This script is distributed in the hope that it will be useful,
+	 *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	 *  GNU General Public License for more details.
+	 *
+	 *  This copyright notice MUST APPEAR in all copies of the script!
+	 ***************************************************************/
 
+	use ITX\Jobs\Domain\Model\Application;
 	use ITX\Jobs\Domain\Model\Posting;
+	use ITX\Jobs\Domain\Model\Status;
 	use ITX\Jobs\PageTitle\JobsPageTitleProvider;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
+	use TYPO3\CMS\Core\Resource\FileInterface;
 	use TYPO3\CMS\Core\Resource\ResourceFactory;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Domain\Model\FileReference;
@@ -87,7 +101,6 @@
 		 */
 		public function initializeCreateAction()
 		{
-			$this->fileSizeLimit = GeneralUtility::getMaxUploadFileSize();
 			$this->arguments->getArgument('newApplication')
 							->getPropertyMappingConfiguration()->forProperty('earliestDateOfJoining')
 							->setTypeConverterOption(
@@ -100,132 +113,140 @@
 		}
 
 		/**
+		 * initialize create action
+		 *
+		 * @param void
+		 */
+		public function initializeAction()
+		{
+			$this->fileSizeLimit = GeneralUtility::getMaxUploadFileSize();
+		}
+
+		/**
 		 * action new
 		 *
-		 * * @param ITX\Jobs\Domain\Model\Posting
+		 * @param ITX\Jobs\Domain\Model\Posting $posting
 		 *
 		 * @return void
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
 		 */
 		public function newAction(Posting $posting = null)
 		{
-
-			// TODO: mit Posting als Übergabeparameter dürfte es die nächsten Zeilen nicht benötigen. Wie es auch bei der CreateAction gemacht wurde.
-			// Todo: Auch bei postingApp sollte es möglich sein, als normalen Parameter statt als additional zu übergeben. Dann sind diese direkt, auch ohne $this->request
-			if ($this->request->hasArgument("posting"))
+			/*
+			Getting posting when Detailview and applicationform are on the same page.
+			Limited to posting via GET Variable which isn't the best way of.
+			Might need to find a better solution in the future
+			*/
+			if ($posting === null && $_REQUEST['postingApp'])
 			{
-				$posting = $this->request->getArgument("posting");
+				$postingUid = $_REQUEST['postingApp'];
+				$posting = $this->postingRepository->findByUid($postingUid);
 			}
-			elseif ($_REQUEST['postingApp'])
-			{
-				$posting = $_REQUEST['postingApp']; //TODO habe den Sinn davon nicht verstanden. Wirklich notwendig? Immerhin wird doch in List.html in posting und in postingApp das gleiche reingesteckt. Wenn doch notwendig vielleicht noch einen kleinen Kommentar dazu
-			}
-			// Todo: immer darauf achten, dass Variablen in jedem Fall initialisiert werden und später in if-Conditions typensauber abfragen. (nur so als Hinweis, der Abschnitt fliegt ja wahrscheinlich eh raus.)
 
-			$this->fileSizeLimit = GeneralUtility::getMaxUploadFileSize(); //TODO Auslagern in initializeAction
+			if ($posting instanceof Posting)
+			{
+				$titleProvider = GeneralUtility::makeInstance(JobsPageTitleProvider::class);
+
+				$title = $this->settings["pageTitle"];
+				if (!empty($title))
+				{
+					$title = str_replace("%postingTitle%", $posting->getTitle(), $title);
+				}
+				else
+				{
+					$title = $posting->getTitle();
+				}
+
+				$titleProvider->setTitle($title);
+
+				$this->view->assign('posting', $posting);
+			}
+
+			$this->view->assign("fileSizeLimit", strval($this->fileSizeLimit) / 1024);
 
 			if ($this->request->hasArgument("fileError"))
 			{
 				$error = $this->request->getArgument("fileError");
-				$this->view->assign("fileError", $error); //TODO Assing View am Ende der Action
+				$this->view->assign("fileError", $error);
 			}
 			else
 			{
 				$this->view->assign("fileError", 0);
 			}
-
-			if ($posting instanceof Posting)
-			{
-				$postingObject = $this->postingRepository->findByUid($posting);
-
-				$titleProvider = GeneralUtility::makeInstance(JobsPageTitleProvider::class);
-
-				$title = $this->settings["pageTitle"];
-				if ($title != "")
-				{
-					$title = str_replace("%postingTitle%", $postingObject->getTitle(), $title);
-				}
-				else
-				{
-					$title = $postingObject->getTitle();
-				}
-
-				$titleProvider->setTitle($title);
-
-				$this->view->assign('posting', $postingObject);
-			}
-
-			// Todo: Vermutlich müssen auch bei Applications noch diverse meta-Tags gesetzt, werden, oder? (es sei denn natürlich, sie sind zusammen mit dem Posting auf einer Seite, dann nicht)
-			$this->view->assign("fileSizeLimit", strval($this->fileSizeLimit) / 1024);
 		}
 
-		public function successAction()
+		/**
+		 * success Action
+		 *
+		 * @param string $firstName
+		 * @param string $lastName
+		 * @param string $salutation
+		 */
+		public function successAction(string $firstName, string $lastName, string $salutation)
 		{
-			// Todo: über Fnktion noch die passenden Kommentare einfügen
-			
+			/*
 			$lastName = $this->request->hasArgument("lastName") ? $this->request->getArgument("lastName") : "";
 			$firstName = $this->request->hasArgument("firstName") ? $this->request->getArgument("firstName") : "";
 			$salutation = $this->request->hasArgument("salutation") ? $this->request->getArgument("salutation") : "";
+			*/
 
-			if($salutation == "div")
+			if ($salutation == "div" || $salutation == "")
 			{
 				$salutation = $firstName;
-			} else 
+			}
+			else
 			{
 				$salutation = LocalizationUtility::translate("fe.application.selector.".$salutation, "jobs");
 			}
-			//TODO lastName, firstName, saluation als parameter der Funktion übergeben. Diese dann an den View übergeben. Str_replace Teil im View via Fluid machen. $text ist dort bereits verfügbar.
 
 			$text = $this->settings["successMessage"];
 			$text = str_replace("%lastName%", $lastName, $text);
 			$text = str_replace("%firstName%", $firstName, $text);
 			$text = str_replace("%salutation%", $salutation, $text);
 
-			$this->view->assign("message", $text);
+			$this->view->assign("firstName", $firstName);
+			$this->view->assign("lastName", $lastName);
+			$this->view->assign("salutation", $salutation);
 		}
 
 		/**
-		 * action create
+		 * create Action
 		 *
 		 * @param \ITX\Jobs\Domain\Model\Application $newApplication
+		 * @param \ITX\Jobs\Domain\Model\Posting     $posting
 		 *
-		 * @return void
-		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
-		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
+		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
+		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
+		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
+		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
 		 */
-		public function createAction(\ITX\Jobs\Domain\Model\Application $newApplication)
+		public function createAction(\ITX\Jobs\Domain\Model\Application $newApplication, \ITX\Jobs\Domain\Model\Posting $posting)
 		{
 			//Uploads in order as defined in Domain Model
 			$uploads = array("cv", "cover_letter", "testimonials", "other_files");
 
-			//get posting
-			$posting = $this->request->getArgument("posting"); //TODO Posting als Parameter
-
 			//Check if $_FILES Entries have errors
 			foreach ($uploads as $upload)
 			{
+				$errorcode = $_FILES['tx_jobs_frontend']['error'][$upload];
+
 				//Check if Filetype is accepted
 				if ($_FILES['tx_jobs_frontend']['type'][$upload] != "application/pdf" && $_FILES['tx_jobs_frontend']['type'][$upload] != "")
 				{
-					$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileType', 'jobs'), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
-					$this->redirect("new", "Application", null, array(
-						"postingUid" => $posting,
-						"postingTitle" => $postingTitle, //TODO Variable gibt es nicht
-						"fileError" => $upload
-					));
+					if (intval($errorcode) == 1)
+					{
+						$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileType', 'jobs'), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
+					}
+					else
+					{
+						$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileSize', 'jobs', array("0" => intval($this->fileSizeLimit) / 1024)), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
+					}
 
-					return;
-				}
-				//TODO: beide if Funktionen zusammenfassen
-				$errorcode = $_FILES['tx_jobs_frontend']['error'][$upload];
-				if (intval($errorcode) == 1)
-				{
-					$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileSize', 'jobs', array("0" => intval($this->fileSizeLimit) / 1024)), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
 					$this->redirect("new", "Application", null, array(
 						"postingUid" => $posting,
-						"postingTitle" => $postingTitle,//TODO Variable fehlt
 						"fileError" => $upload
 					));
 
@@ -233,8 +254,8 @@
 				}
 			}
 
-			//TODO Vorschlag über Validator lösen und hier dafür entfernen
-			//Verify length in message field
+			// Verify length in message field;
+			// front end check is already covered, this should only block requests avoiding the frontend
 			if (strlen($newApplication->getMessage()) > intval($this->settings['messageMaxLength']))
 			{
 				$this->redirect("new", "Application", null, array());
@@ -243,8 +264,9 @@
 			$newApplication->setPosting($posting);
 
 			/* @var \ITX\Jobs\Domain\Model\Status $firstStatus */
-			$firstStatus = $this->statusRepository->findByUid(1); //TODO Auslagern in Settings, kann schief gehen (wenn jemand mal den ersten angelegten Status köschen möchte)
-			if($firstStatus)
+			$firstStatus = $this->statusRepository->findNewStatus();
+
+			if ($firstStatus instanceof Status)
 			{
 				$newApplication->setStatus($firstStatus);
 			}
@@ -253,7 +275,7 @@
 			$signalArguments = ["application" => $newApplication];
 			$signalArguments = $this->signalSlotDispatcher->dispatch(__CLASS__, "BeforeApplicationAdd", $signalArguments);
 
-			if ($signalArguments["application"])
+			if ($signalArguments["application"] instanceof Application)
 			{
 				$newApplication = $signalArguments['application'];
 			}
@@ -261,13 +283,14 @@
 			$this->applicationRepository->add($newApplication);
 			$this->persistenceManager->persistAll();
 
-			/* @var \ITX\Jobs\Domain\Model\Application $newApplication */
-			$newApplication = $this->applicationRepository->findByUid($newApplication->getUid());
-			// Todo: hat es einen Grund, warum das Objekt erneut geholt werden muss?
-
 			$files = [];
 			$fields = [];
 			$fieldNames = [];
+
+			$movedNewFileCover = null;
+			$movedNewFileCv = null;
+			$movedNewFileOther = null;
+			$movedNewFileTestimonial = null;
 
 			// Processing files
 			if ($_FILES['tx_jobs_applicationform']['name']['cv'])
@@ -310,7 +333,7 @@
 			// Mail Handling
 
 			/** @var Posting $currentPosting */
-			$currentPosting = $this->postingRepository->findByUid($newApplication->getPosting());
+			$currentPosting = $newApplication->getPosting();
 			$contact = $currentPosting->getContact();
 
 			// Get and translate labels
@@ -328,7 +351,7 @@
 			$message = $newApplication->getMessage() ? '<br><br>'.$messageLabel.'<br>'.$newApplication->getMessage() : "";
 
 			// Send mail to Contact E-Mail or/and internal E-Mail
-			if ($this->settings["sendEmailToContact"] || $this->settings['sendEmailToInternal'])
+			if ($this->settings["sendEmailToContact"] == "1" || $this->settings['sendEmailToInternal'] == "1")
 			{
 				$mail = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Mail\MailMessage::class);
 				// Prepare and send the message
@@ -348,26 +371,26 @@
 							  .$message.'</p>');
 
 				// Attach all found files
-				$files = array($movedNewFileCv, $movedNewFileCover, $movedNewFileTestimonial, $movedNewFileOther); // TODO Default für die Variablen setzen, werden u.U. nicht definiert
+				$files = array($movedNewFileCv, $movedNewFileCover, $movedNewFileTestimonial, $movedNewFileOther);
 				foreach ($files as $file)
 				{
-					if ($file)
+					if ($file instanceof FileInterface)
 					{
 						$mail->attach(\Swift_Attachment::fromPath($file->getPublicUrl()));
 					}
 				}
 
 				//Figure out who the email will be sent to and how
-				if ($this->settings['sendEmailToInternal'] && $this->settings['sendEmailToContact'])
+				if ($this->settings['sendEmailToInternal'] == "1" && $this->settings['sendEmailToContact'] == "1")
 				{
 					$mail->setTo(array($contact->getEmail() => $contact->getFirstName()." ".$contact->getLastName()));
 					$mail->setBcc($this->settings['sendEmailToInternal']);
 				}
-				elseif (!$this->settings['sendEmailToContact'] && $this->settings['sendEmailToInternal'])
+				elseif ($this->settings['sendEmailToContact'] != "1" && $this->settings['sendEmailToInternal'] == "1")
 				{
 					$mail->setTo(array($this->settings['sendEmailToInternal'] => 'Internal'));
 				}
-				elseif ($this->settings['sendEmailToContact'] && !$this->settings['sendEmailToInternal'])
+				elseif ($this->settings['sendEmailToContact'] == "1" && $this->settings['sendEmailToInternal'] != "1")
 				{
 					$mail->setTo(array($contact->getEmail() => $contact->getFirstName()." ".$contact->getLastName()));
 				}
@@ -383,7 +406,7 @@
 			}
 
 			// Now send a mail to the applicant
-			if ($this->settings["sendEmailToApplicant"])
+			if ($this->settings["sendEmailToApplicant"] == "1")
 			{
 				$mail = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Mail\MailMessage::class);
 
@@ -427,14 +450,14 @@
 			}
 
 			// If applications should not be saved delete them here
-			if (!$this->settings['saveApplicationInBackend'])
+			if ($this->settings['saveApplicationInBackend'] != "1")
 			{
-				$this->persistenceManager->remove($newApplication); // TODO über das Repository löschen, nicht über den persistenceManager.
+				$this->applicationRepository->remove($newApplication);
 				$this->applicationFileService->deleteApplicationFolder($this->applicationFileService->getApplicantFolder($newApplication));
 				$this->persistenceManager->persistAll();
 			}
 
-			$this->redirect("success",null,null, [
+			$this->redirect("success", null, null, [
 				"firstName" => $newApplication->getFirstName(),
 				"lastName" => $newApplication->getLastName(),
 				"salutation" => $newApplication->getSalutation()
@@ -445,8 +468,9 @@
 		 * Attaches existing File to Domain Model Record
 		 *
 		 * @param $newStorageUid ;UID of Record or Domain Model the file will attach to
-		 * @param $file          ;from Objectmanagers storage repository
-		 * @param $field         ;fieldname as named in tca file
+		 * @param $files         ;from Objectmanagers storage repository
+		 * @param $fields
+		 * @param $fieldNames    ;fieldnames
 		 * @param $table         ;table tca domain table name e.g. tx_<extensionName>_domain_model_<domainModelName>
 		 * @param $newStoragePid ;PID of Record or Domain Model the file will attach to
 		 */
@@ -484,22 +508,26 @@
 		}
 
 		/**
-		 * @param $fieldName
-		 * @param $domainObject \ITX\Jobs\Domain\Model\Application
+		 * @param string                             $fieldName
+		 * @param \ITX\Jobs\Domain\Model\Application $domainObject
 		 *
-		 * @return mixed
+		 * @return \TYPO3\CMS\Core\Resource\FileInterface
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFileNameException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFolderException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderWritePermissionsException
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
 		 */
-		private function handleFileUpload($fieldName, \ITX\Jobs\Domain\Model\Application $domainObject)
+		private function handleFileUpload(string $fieldName, \ITX\Jobs\Domain\Model\Application $domainObject)
 		{
 
 			$folder = $this->applicationFileService->getApplicantFolder($domainObject);
 
-			$tmpName = $_FILES['tx_jobs_applicationform']['name'][$fieldName]; // TODO unused
 			$tmpFile = $_FILES['tx_jobs_applicationform']['tmp_name'][$fieldName];
 
+			/* @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository*/
 			$storageRepository = $this->objectManager->get('TYPO3\\CMS\\Core\\Resource\\StorageRepository');
-			$storage = $storageRepository->findByUid('1'); //this is the fileadmin storage TODO settings,  siehe oben
+			$storage = $storageRepository->findByUid('1');
 
 			//build the new storage folder
 			if ($storage->hasFolder($folder))
@@ -511,8 +539,8 @@
 				$targetFolder = $storage->createFolder($folder);
 			}
 
-			//file name, be sure that this is unique
-			$newFileName = $fieldName."_".$domainObject->getFirstName()."_".$domainObject->getLastName()."_id_".$domainObject->getPosting().".pdf";
+			//file name
+			$newFileName = $fieldName."_".$domainObject->getFirstName()."_".$domainObject->getLastName()."_id_".$domainObject->getPosting()->getUid().".pdf";
 
 			//build sys_file
 			$movedNewFile = $storage->addFile($tmpFile, $targetFolder, $newFileName);

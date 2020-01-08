@@ -4,23 +4,33 @@
 
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
-	include_once 'RepoHelpers.php'; //TODO So ist das nicht objektorientiert. Bitte ein parent Repository schreiben, von dem alle Repositories erben können (Stichwort extend). In das kommt dann die Funktion buildCategoriesToSQL rein.
-	/***
+	/***************************************************************
+	 *  Copyright notice
 	 *
-	 * This file is part of the "Jobs" Extension for TYPO3 CMS.
+	 *  (c) 2020
+	 *  All rights reserved
 	 *
-	 * For the full copyright and license information, please read the
-	 * LICENSE.txt file that was distributed with this source code.
+	 *  This script is part of the TYPO3 project. The TYPO3 project is
+	 *  free software; you can redistribute it and/or modify
+	 *  it under the terms of the GNU General Public License as published by
+	 *  the Free Software Foundation; either version 3 of the License, or
+	 *  (at your option) any later version.
 	 *
-	 *  (c) 2019 Stefanie Döll, it.x informationssysteme gmbh
-	 *           Benjamin Jasper, it.x informationssysteme gmbh
+	 *  The GNU General Public License can be found at
+	 *  http://www.gnu.org/copyleft/gpl.html.
 	 *
-	 ***/
+	 *  This script is distributed in the hope that it will be useful,
+	 *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	 *  GNU General Public License for more details.
+	 *
+	 *  This copyright notice MUST APPEAR in all copies of the script!
+	 ***************************************************************/
 
 	/**
 	 * The repository for Locations
 	 */
-	class LocationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+	class LocationRepository extends \ITX\Jobs\Domain\Repository\JobsRepository
 	{
 		/**
 		 * Returns all objects of this repository.
@@ -31,7 +41,7 @@
 		 */
 		public function findAll(array $categories = null)
 		{
-			$qb = getQueryBuilder("tx_jobs_domain_model_location");
+			$qb = parent::getQueryBuilder("tx_jobs_domain_model_location");
 			$query = $this->createQuery();
 
 			if (count($categories) == 0)
@@ -41,14 +51,14 @@
 			}
 			else
 			{
-				$sb = getQueryBuilder("tx_jobs_domain_model_posting");
+				$sb = parent::getQueryBuilder("tx_jobs_domain_model_posting");
 				$sb
 					->select("location")
 					->from("tx_jobs_domain_model_posting")
 					->join("tx_jobs_domain_model_posting", "sys_category_record_mm",
 						   "sys_category_record_mm",
 						   $sb->expr()->eq("tx_jobs_domain_model_posting.uid", "sys_category_record_mm.uid_foreign"));
-				$sb = buildCategoriesToSQL($categories, $sb);
+				$sb = parent::buildCategoriesToSQL($categories, $sb);
 				$result = $sb->execute()->fetchAll(\Doctrine\DBAL\FetchMode::COLUMN);
 				$qb->select("*")
 				   ->from("tx_jobs_domain_model_location")

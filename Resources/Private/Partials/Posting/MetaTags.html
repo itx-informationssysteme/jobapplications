@@ -1,0 +1,10 @@
+<html xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+		v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd" data-namespace-typo3-fluid="true">
+
+<v:page.header.meta name="og:description" content="{posting.jobDescription -> f:format.stripTags()}"/>
+<v:page.header.meta name="description" content="{posting.jobDescription -> f:format.stripTags()}"></v:page.header.meta>
+<v:page.header.meta name="og:title" content="{posting.title}"/>
+<f:if condition="{posting.listViewImage}">
+	<v:page.header.meta name="og:image" content="{f:uri.image(src:posting.listViewImage.originalResource.publicUrl, treatIdAsReference: 1)-> v:format.prepend(add: '{v:site.url() -> v:format.substring(length: \'-1\')}')}"/>
+</f:if>
+</html>

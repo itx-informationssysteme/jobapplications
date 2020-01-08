@@ -1,16 +1,27 @@
 <?php
 
-	/***
+	/***************************************************************
+	 *  Copyright notice
 	 *
-	 * This file is part of the "Jobs" Extension for TYPO3 CMS.
+	 *  (c) 2020
+	 *  All rights reserved
 	 *
-	 * For the full copyright and license information, please read the
-	 * LICENSE.txt file that was distributed with this source code.
+	 *  This script is part of the TYPO3 project. The TYPO3 project is
+	 *  free software; you can redistribute it and/or modify
+	 *  it under the terms of the GNU General Public License as published by
+	 *  the Free Software Foundation; either version 3 of the License, or
+	 *  (at your option) any later version.
 	 *
-	 *  (c) 2019 Stefanie Döll, it.x informationssysteme gmbh
-	 *           Benjamin Jasper, it.x informationssysteme gmbh
+	 *  The GNU General Public License can be found at
+	 *  http://www.gnu.org/copyleft/gpl.html.
 	 *
-	 ***/
+	 *  This script is distributed in the hope that it will be useful,
+	 *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	 *  GNU General Public License for more details.
+	 *
+	 *  This copyright notice MUST APPEAR in all copies of the script!
+	 ***************************************************************/
 
 	namespace ITX\Jobs\Controller;
 
@@ -78,6 +89,7 @@
 		 * @return void
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
 		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
 		 */
 		public function listApplicationsAction()
 		{
@@ -106,12 +118,12 @@
 			{
 				$application = $this->applicationRepository->findByUid($this->request->getArgument("application"));
 				$application->setStatus($this->statusRepository->findByUid($this->request->getArgument("statusChange")));
-				$this->persistenceManager->update($application); //TODO Repository
+				$this->applicationRepository->update($application);
 				$this->persistenceManager->persistAll();
 			}
 
 			// Select contact automatically based on user who is accessing this
-			if ($contact && $selectedContact == -1)
+			if ($contact instanceof Contact && $selectedContact == -1)
 			{
 				$selectedContact = $contact->getUid();
 			}
@@ -127,7 +139,7 @@
 			$applications = $this->applicationRepository->findByFilter($selectedContact, $selectedPosting, $selectedStatus, 0, "crdate", "DESC");
 
 			// Set posting-selectBox content dynamically based on selected contact
-			if (($selectedPosting == "" && $selectedContact != ""))
+			if ((empty($selectedPosting) && !empty($selectedContact)))
 			{
 				$postingsFilter = $this->postingRepository->findByContact(intval($selectedContact));
 			}
@@ -160,11 +172,13 @@
 		/**
 		 * action showApplication
 		 *
-		 * @param $application
+		 * @param \ITX\Jobs\Domain\Model\Application $application
 		 *
 		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
+		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
 		 */
 		public function showApplicationAction(\ITX\Jobs\Domain\Model\Application $application)
 		{
@@ -181,14 +195,14 @@
 				{
 					$application->setArchived(true);
 				}
-				$this->persistenceManager->update($application);
+				$this->applicationRepository->update($application);
 				$statusDatabaseOp = true;
 			}
 
 			// Handles delete request
 			if ($this->request->hasArgument("delete"))
 			{
-				$this->persistenceManager->remove($application);//TODO Repository
+				$this->applicationRepository->remove($application);
 				$this->applicationFileService->deleteApplicationFolder($this->applicationFileService->getApplicantFolder($application));
 				$this->persistenceManager->persistAll();
 				$this->redirect('listApplications', 'Backend', 'jobs');
@@ -197,8 +211,10 @@
 			// Handles status change request
 			if ($this->request->hasArgument("status"))
 			{
-				$application->setStatus($this->statusRepository->findByUid($this->request->getArgument("status")));
-				$this->persistenceManager->update($application);//TODO Repository, bitte in gesamter Extension checken und abändern
+				/* @var Status $newStatus*/
+				$newStatus = $this->statusRepository->findByUid($this->request->getArgument("status"));
+				$application->setStatus($newStatus);
+				$this->applicationRepository->update($application);
 				$statusDatabaseOp = true;
 			}
 
@@ -210,11 +226,6 @@
 
 			// Fetch baseuri for f:uri to access Public folder
 			$baseUri = str_replace("typo3/", "", $this->request->getBaseUri());
-
-
-			$this->view->assign("contact", $contactFilter); //TODO undefined
-			$this->view->assign("archived", $archivedFilter); //TODO undefined
-			$this->view->assign("posting", $postingFilter); //TODO undefined
 
 			$this->view->assign("application", $application);
 			$this->view->assign("baseUri", $baseUri);

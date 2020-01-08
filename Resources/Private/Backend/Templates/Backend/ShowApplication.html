@@ -85,24 +85,26 @@
 					</f:else>
 				</f:if>
 			</div>
-			<div class="row">
-				<label>
-					<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:tx_jobs_domain_model_application.status"></f:translate>
-					:&nbsp;</label>
-				<f:form id="show-spinner" class="status-select" name="status" action="showApplication" arguments="{application: application}">
-					<f:form.select name="status" additionalAttributes="{onchange: 'this.form.submit(); document.getElementsByClassName(\'spinner\')[0].classList.add(\'spinner-active\')'}">
-						<f:form.select.option value="{application.status.uid}" additionalAttributes="{selected: true}">
-							{application.status.name}
-						</f:form.select.option>
-						<f:for each="{application.status.followers}" as="status">
-							<f:form.select.option value="{status.uid}">
-								{status.name}
+			<f:if condition="{application.status}">
+				<div class="row">
+					<label>
+						<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:tx_jobs_domain_model_application.status"></f:translate>
+						:&nbsp;</label>
+					<f:form id="show-spinner" class="status-select" name="status" action="showApplication" arguments="{application: application}">
+						<f:form.select name="status" additionalAttributes="{onchange: 'this.form.submit(); document.getElementsByClassName(\'spinner\')[0].classList.add(\'spinner-active\')'}">
+							<f:form.select.option value="{application.status.uid}" additionalAttributes="{selected: true}">
+								{application.status.name}
 							</f:form.select.option>
-						</f:for>
-					</f:form.select>
-					<f:image class="spinner" src="{f:uri.resource(path:'Icons/spinner.svg')}"></f:image>
-				</f:form>
-			</div>
+							<f:for each="{application.status.followers}" as="status">
+								<f:form.select.option value="{status.uid}">
+									{status.name}
+								</f:form.select.option>
+							</f:for>
+						</f:form.select>
+						<f:image class="spinner" src="{f:uri.resource(path:'Icons/spinner.svg')}"></f:image>
+					</f:form>
+				</div>
+			</f:if>
 			<div class="row file-container">
 				<f:if condition="{application.cv}">
 					<a class="file" href="{baseUri}{application.cv.originalResource.publicUrl}" download>

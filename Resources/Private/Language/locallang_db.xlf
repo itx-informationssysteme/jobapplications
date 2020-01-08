@@ -177,6 +177,9 @@
 			<trans-unit id="tx_jobs_domain_model_status.is_end_status" resname="tx_jobs_domain_model_status.is_end_status">
 				<source>Is end status</source>
 			</trans-unit>
+			<trans-unit id="tx_jobs_domain_model_status.is_new_status" resname="tx_jobs_domain_model_status.is_new_status">
+				<source>Is the new status</source>
+			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_posting.slug" resname="tx_jobs_domain_model_posting.slug">
 				<source>Slug</source>
 			</trans-unit>

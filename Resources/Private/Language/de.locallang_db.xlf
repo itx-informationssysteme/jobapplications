@@ -235,6 +235,10 @@
                 <source>Is end status</source>
                 <target state="translated">Ist ein Endstatus</target>
             </trans-unit>
+            <trans-unit id="tx_jobs_domain_model_status.is_new_status" resname="tx_jobs_domain_model_status.is_new_status">
+                <source>Is the new status</source>
+                <target state="translated">Ist der Neu-Status</target>
+            </trans-unit>
             <trans-unit id="tx_jobs_domain_model_posting.slug" resname="tx_jobs_domain_model_posting.slug" approved="yes">
                 <source>Slug</source>
                 <target state="translated">Slug</target>

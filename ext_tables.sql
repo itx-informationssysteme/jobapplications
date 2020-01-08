@@ -104,6 +104,7 @@ CREATE TABLE tx_jobs_domain_model_status
 (
     name          varchar(255)         DEFAULT ''  NOT NULL,
     is_end_status smallint(5) unsigned DEFAULT '0' NOT NULL,
+    is_new_status smallint(5) unsigned DEFAULT '0' NOT NULL,
     followers     int(11)              DEFAULT '0' NOT NULL
 );
 

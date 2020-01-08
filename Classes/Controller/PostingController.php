@@ -10,17 +10,28 @@
 	use ITX\Jobs\PageTitle\JobsPageTitleProvider;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-	/***
+	/***************************************************************
+	 *  Copyright notice
 	 *
-	 * This file is part of the "Jobs" Extension for TYPO3 CMS.
+	 *  (c) 2020
+	 *  All rights reserved
 	 *
-	 * For the full copyright and license information, please read the
-	 * LICENSE.txt file that was distributed with this source code.
+	 *  This script is part of the TYPO3 project. The TYPO3 project is
+	 *  free software; you can redistribute it and/or modify
+	 *  it under the terms of the GNU General Public License as published by
+	 *  the Free Software Foundation; either version 3 of the License, or
+	 *  (at your option) any later version.
 	 *
-	 *  (c) 2019 Stefanie Döll, it.x informationssysteme gmbh
-	 *           Benjamin Jasper, it.x informationssysteme gmbh
+	 *  The GNU General Public License can be found at
+	 *  http://www.gnu.org/copyleft/gpl.html.
 	 *
-	 ***/
+	 *  This script is distributed in the hope that it will be useful,
+	 *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	 *  GNU General Public License for more details.
+	 *
+	 *  This copyright notice MUST APPEAR in all copies of the script!
+	 ***************************************************************/
 
 	/**
 	 * PostingController
@@ -52,15 +63,8 @@
 		 */
 		protected $signalSlotDispatcher;
 
-		public function initializeAction()
-		{
-
-		}
-
 		/**
 		 * action list
-		 *
-		 * @param ITX\Jobs\Domain\Model\Posting
 		 *
 		 * @return void
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
@@ -75,7 +79,7 @@
 			$category_str = $this->settings["categories"];
 			$categories = array();
 
-			if ($category_str != '')
+			if (!empty($category_str))
 			{
 				$categories = explode(",", $category_str);
 			}
@@ -121,7 +125,7 @@
 				}
 			}
 
-			if ($divisionName != "" || $careerLevelType != "" || $selectedEmploymentType != "" || $selectedLocation != -1)
+			if (!empty($divisionName) || !empty($careerLevelType) || !empty($selectedEmploymentType) || $selectedLocation != -1)
 			{
 				$postings = $this->postingRepository->findByFilter($divisionName, $careerLevelType, $selectedEmploymentType, $selectedLocation, $categories);
 
@@ -140,7 +144,7 @@
 
 			// SignalSlotDispatcher BeforePostingAssign
 			$changedPostings = $this->signalSlotDispatcher->dispatch(__CLASS__, "BeforePostingAssign", ["postings" => $postings]);
-			if ($changedPostings["postings"])
+			if (count($changedPostings["postings"]) > 0)
 			{
 				$postings = $changedPostings['postings'];
 			}
@@ -159,7 +163,7 @@
 		/**
 		 * action show
 		 *
-		 * @param ITX\Jobs\Domain\Model\Posting
+		 * @param \ITX\Jobs\Domain\Model\Posting $posting
 		 *
 		 * @return void
 		 */
@@ -168,39 +172,19 @@
 
 			$titleProvider = GeneralUtility::makeInstance(JobsPageTitleProvider::class);
 
-			// Meta-Tags setzen. 
-			/* TODO: Meta Tags können auch per Viewhelper im Template gesetzt werden. Dazu dann aber vhs als dependency der Extension setzen.
-			Hätte den Vorteil, dass es Leute auch entfernen können, falls sie es aus irgendwelchen Gründen nicht haben wollen. 
-			Vielleicht in eigenem eigenen Abschnitt oder Partial. Überlasse ich aber letztendlich dir, du kannst es auch so lassen, wenn du es so wirklich besser findest.
-			https://t3g.at/opengraph-meta-informationen-typo3/
-			https://docs.typo3.org/other/typo3/view-helper-reference/9.5/en-us/typo3/fluid/latest/Format/StripTags.html
-			*/
-			$metaTagManager = GeneralUtility::makeInstance(MetaTagManagerRegistry::class);
-			// @extensionScannerIgnoreLine
-			$metaTagManager->getManagerForProperty("description")->addProperty("description", strip_tags($posting->getJobDescription()));
-			// @extensionScannerIgnoreLine
-			$metaTagManager->getManagerForProperty("og:title")->addProperty("og:title", $posting->getTitle());
-			// @extensionScannerIgnoreLine
-			$metaTagManager->getManagerForProperty("og:description")->addProperty("og:description", strip_tags($posting->getJobDescription()));
-			if ($posting->getListViewImage())
-			{
-				// @extensionScannerIgnoreLine
-				$metaTagManager->getManagerForProperty("og:image")->addProperty("og:image", $this->request->getBaseUri().$posting->getListViewImage()->getOriginalResource()->getPublicUrl());
-			}
-
 			$extconf = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class);
 
 			//Google Jobs
-			// TODO: evtl über setting abschaltbar machen, falls nicht gewünscht.
+
 			$hiringOranization = array(
 				"@type" => "Organization",
 				"name" => $extconf->get('jobs', 'companyName')
 			);
 
-			if ($hiringOranization['name'] && $this->settings['enableGoogleJobs'])
+			if (!empty($hiringOranization['name']) && $this->settings['enableGoogleJobs'] == "1")
 			{
 				$logo = $extconf->get('jobs', 'logo');
-				if ($logo)
+				if (!empty($logo))
 				{
 					$hiringOranization['hiringOranization']["logo"] = $logo;
 				}
@@ -257,7 +241,7 @@
 
 				$googleJobsJSON["hiringOrganization"] = $hiringOranization;
 
-				if ($posting->getBaseSalary())
+				if (!empty($posting->getBaseSalary()))
 				{
 					$currency = $logo = $extconf->get('jobs', 'currency') ?: "EUR";
 					$googleJobsJSON["baseSalary"] = [
@@ -270,7 +254,7 @@
 						]
 					];
 				}
-				if ($posting->getValidThrough())
+				if ($posting->getValidThrough() instanceof \DateTime)
 				{
 					$googleJobsJSON["validThrough"] = $posting->getValidThrough()->format("c");
 				}
@@ -296,7 +280,7 @@
 
 			// SignalSlotDispatcher BeforePostingShowAssign
 			$changedPosting = $this->signalSlotDispatcher->dispatch(__CLASS__, "BeforePostingShowAssign", ["posting" => $posting]);
-			if ($changedPosting["posting"])
+			if ($changedPosting["posting"] instanceof Posting)
 			{
 				$posting = $changedPosting['posting'];
 			}

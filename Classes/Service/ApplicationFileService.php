@@ -30,7 +30,10 @@
 		function getApplicantFolder(\ITX\Jobs\Domain\Model\Application $applicationObject)
 		{
 			return self::APP_FILE_FOLDER.(new \TYPO3\CMS\Core\Resource\Driver\LocalDriver)
-					->sanitizeFileName($applicationObject->getFirstName()."_".$applicationObject->getLastName()."_".hash("md5", $applicationObject->getFirstName()."|".$applicationObject->getLastName().$applicationObject->getUid()));
+					->sanitizeFileName($applicationObject->getFirstName()."_".$applicationObject->getLastName()
+									   ."_".hash("md5", $applicationObject->getFirstName()."|"
+																							 .$applicationObject->getLastName()
+																							 .$applicationObject->getUid()));
 		}
 
 		/**
@@ -46,14 +49,14 @@
 
 			/* @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
 			$storageRepository = $objectManager->get(\TYPO3\CMS\Core\Resource\StorageRepository::class);
-			$storage = $storageRepository->findByUid('1'); //TODO settings
+			$storage = $storageRepository->findByUid(1);
 
 			if ($storage->hasFolder($folderPath))
 			{
 				$folder = $storage->getFolder($folderPath);
 			}
 
-			if ($folder)
+			if ($folder instanceof \TYPO3\CMS\Core\Resource\Folder)
 			{
 				try
 				{

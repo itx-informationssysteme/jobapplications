@@ -18,7 +18,7 @@
     },
     "extra": {
         "typo3/cms": {
-            "extension-key": "extension_key"
+            "extension-key": "jobs"
         }
     },
     "autoload": {
