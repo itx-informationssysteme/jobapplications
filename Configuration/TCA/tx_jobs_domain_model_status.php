@@ -24,7 +24,7 @@
 			'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, is_end_status, is_new_status, followers',
 		],
 		'types' => [
-			'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, is_end_status, is_new_status, followers, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+			'1' => ['showitem' => 'name, is_end_status, is_new_status, followers, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden, sys_language_uid, starttime, endtime, l10n_parent, l10n_diffsource'],
 		],
 		'columns' => [
 			'crdate' => [

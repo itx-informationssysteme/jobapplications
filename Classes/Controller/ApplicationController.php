@@ -246,7 +246,7 @@
 					}
 
 					$this->redirect("new", "Application", null, array(
-						"postingUid" => $posting,
+						"posting" => $posting,
 						"fileError" => $upload
 					));
 
@@ -258,7 +258,7 @@
 			// front end check is already covered, this should only block requests avoiding the frontend
 			if (strlen($newApplication->getMessage()) > intval($this->settings['messageMaxLength']))
 			{
-				$this->redirect("new", "Application", null, array());
+				$this->redirect("new", "Application", null, ["posting" => $posting]);
 			}
 
 			$newApplication->setPosting($posting);

@@ -12,7 +12,7 @@
 			<f:flashMessages/>
 			<f:render partial="FormErrors"/>
 
-			<f:form action="create" enctype="multipart/form-data" name="newApplication" object="{newApplication}" arguments="{posting: posting}">
+			<f:form id="application-form" action="create" enctype="multipart/form-data" name="newApplication" object="{newApplication}" arguments="{posting: posting}">
 				<f:render partial="Application/FormFields" arguments="{fileSizeLimit: fileSizeLimit}"/>
 				<div class="row">
 					<div class="col-4">
@@ -21,13 +21,18 @@
 						</button>
 					</div>
 					<div class="col-4 text-center">
-						<f:form.submit id="application-submit" class="btn btn-primary mx-auto" value="{f:translate(key:'fe.application.new.submit')}"
-						onclick="e.preventDefault();document.getElementById('application-submit').disabled = true; document.getElementById('application-button-back').disabled = true"/>
+						<f:form.submit id="application-submit" class="btn btn-primary mx-auto" value="{f:translate(key:'fe.application.new.submit')}"/>
 					</div>
 				</div>
 			</f:form>
 		</div>
 		<div class="col"></div>
 	</div>
+	<script>
+		document.getElementById('application-form').addEventListener('submit', function(){
+			document.getElementById('application-submit').disabled = true;
+			document.getElementById('application-button-back').disabled = true;
+		});
+	</script>
 </f:section>
 </html>

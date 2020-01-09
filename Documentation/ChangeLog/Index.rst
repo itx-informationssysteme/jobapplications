@@ -8,9 +8,8 @@
 
 .. _changelog:
 
-ChangeLog
+Changelog
 =========
 
-Providing a change log chapter is optional. You can also refer
-users to the ChangeLog file inside the extension or to some repository's
-commit listing.
+0.9.0 - Initial beta release
+----------------------------

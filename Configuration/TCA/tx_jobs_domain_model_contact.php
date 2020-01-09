@@ -20,10 +20,10 @@
 			'iconfile' => 'EXT:jobs/Resources/Public/Icons/tx_jobs_domain_model_contact.gif'
 		],
 		'interface' => [
-			'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, last_name, email, phone, division, photo, be_user',
+			'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, first_name, last_name, email, phone, division, photo, be_user',
 		],
 		'types' => [
-			'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, last_name, email, phone, division, photo, be_user, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+			'1' => ['showitem' => 'first_name, last_name, email, phone, division, photo, be_user, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, sys_language_uid, hidden, l10n_parent, l10n_diffsource, starttime, endtime'],
 		],
 		'columns' => [
 			'sys_language_uid' => [
@@ -121,7 +121,7 @@
 				'config' => [
 					'type' => 'input',
 					'size' => 30,
-					'eval' => 'trim'
+					'eval' => 'trim, required'
 				],
 			],
 			'last_name' => [
@@ -130,7 +130,7 @@
 				'config' => [
 					'type' => 'input',
 					'size' => 30,
-					'eval' => 'trim'
+					'eval' => 'trim, required'
 				],
 			],
 			'email' => [

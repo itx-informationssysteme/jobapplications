@@ -11,7 +11,13 @@ Installation
 Target group: **Administrators**
 
 The extension is installed as any other extension.
-You can install it via composer, the Extension Manager or install it locally for example directly from `Github <|project_repository|>`__.
+You can install it via composer by typing
+
+.. code-block:: bash
+
+   composer require itx/jobs
+
+or the Extension Manager in the Backend or install it locally for example directly from `Github <|project_repository|>`__.
 
 Include Static Typoscript
 -------------------------

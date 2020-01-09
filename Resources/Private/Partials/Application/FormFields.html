@@ -107,7 +107,7 @@
 		<label for="message">
 			<f:translate key="tx_jobs_domain_model_application.message"/>
 		</label>
-		<f:form.textarea class="form-control" name="message" property="message" rows="10" ></f:form.textarea>
+		<f:form.textarea class="form-control" name="message" property="message" rows="10" additionalAttributes="{maxlength: settings.messageMaxLength}"></f:form.textarea>
 	</div>
 </div>
 <div class="form-row">

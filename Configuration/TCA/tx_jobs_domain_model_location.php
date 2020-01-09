@@ -23,7 +23,7 @@ return [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, address_street_and_number, address_addition, address_post_code, address_city, address_country, latitude, londitude',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, address_street_and_number, address_addition, address_post_code, address_city, address_country, latitude, londitude, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'name, address_street_and_number, address_addition, address_post_code, address_city, address_country, latitude, londitude, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, sys_language_uid, hidden, starttime, endtime, l10n_parent, l10n_diffsource'],
     ],
     'columns' => [
         'sys_language_uid' => [

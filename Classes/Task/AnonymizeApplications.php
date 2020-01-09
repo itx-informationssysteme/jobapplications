@@ -28,7 +28,6 @@
 	use TYPO3\CMS\Extbase\Object\ObjectManager;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
-	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 	/**
 	 * Task for deleting all applications older than a specific amount of time
@@ -51,6 +50,7 @@
 		public function execute()
 		{
 			$anonymizeChars = "***";
+			/* @var $objectManager ObjectManager*/
 			$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 			$persistenceManager = $objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager::class);
 			$applicationRepository = $objectManager->get(\ITX\Jobs\Domain\Repository\ApplicationRepository::class);
@@ -89,6 +89,8 @@
 				$application->setMessage($anonymizeChars);
 				$application->setArchived(true);
 				$application->setSalutation("");
+				$application->setSalaryExpectation($anonymizeChars);
+				$application->setEarliestDateOfJoining(new \DateTime("@0"));
 
 				$applicationRepository->update($application);
 			}

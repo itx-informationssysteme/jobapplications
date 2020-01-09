@@ -471,8 +471,8 @@
 		],
 		'types' => [
 			'1' => [
-				'showitem' => 'l10n_parent, l10n_diffsource, 
-				--palette--;;mainInfo, 
+				'showitem' => ' 
+				--palette--;;mainInfo,
 				--palette--;;relations,
 				--palette--;;dates,
 				base_salary,
@@ -488,7 +488,7 @@
 		],
 		'palettes' => [
 			'general' => [
-				'showitem' => 'sys_language_uid, hidden, slug',
+				'showitem' => 'sys_language_uid, hidden, slug, l10n_parent, l10n_diffsource',
 			],
 			'mainInfo' => [
 				'showitem' => 'title, division'

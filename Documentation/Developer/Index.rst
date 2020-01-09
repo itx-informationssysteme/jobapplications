@@ -4,30 +4,14 @@
 .. _developer:
 
 ================
-Developer Corner
+For Developers
 ================
 
 .. _developer-signal-slots:
 
 Signal Slots
 ============
-There are Signal Slots implemented which mainly happen before postings or applications are being assigned.
+There are Signal Slots implemented which mainly happen before postings or applications are being assigned to the view.
 
-.. code-block:: php
-
-   $stuff = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-      '\\Foo\\Bar\\Utility\\Stuff'
-   );
-   $stuff->do();
-
-or some other language:
-
-.. code-block:: javascript
-   :linenos:
-   :emphasize-lines: 2-4
-
-   $(document).ready(
-      function () {
-         doStuff();
-      }
-   );
+You can simply find them by looking through the code. If you think you need more slots than are already provided feel free to
+contact us via GitHub or :ref:`E-Mail <start>`.

@@ -51,15 +51,17 @@ Jobs Extension
     it.x informationssysteme: Stefanie Döll, Benjamin Jasper
 
 :Email:
-    ,
+    typo3@itx.de
 
 :License:
    This extension documentation is published under the `GNU General Public License 3 <http://www.gnu.org/copyleft/gpl.html.>`__ (GPLv3) license
 
 This extension provides you with the ability to create and manage job posting.
 
-People can apply on these by using the supplied application form so the referenced contact receives the application via
+People can apply for these by using the supplied application form to have the referenced contact receive the application via
 email and/or the backend module, which features a basic application management system.
+
+See the full feature list here: :ref:`features`
 
 **TYPO3**
 
@@ -91,11 +93,9 @@ email and/or the backend module, which features a basic application management s
 
    Introduction/Index
    Installation/Index
-   Configuration/Index
    User/Index
+   Editors/Index
    Developer/Index
-   FAQ/Index
-   KnownProblems/Index
-   ToDoList/Index
+   Bugs/Index
    ChangeLog/Index
    Sitemap

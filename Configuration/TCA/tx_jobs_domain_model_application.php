@@ -35,7 +35,6 @@
 					'format' => 'date',
 					'eval' => 'date'
 				)
-
 			],
 			'sys_language_uid' => [
 				'exclude' => true,

@@ -16,7 +16,7 @@
 				<source>Career Level</source>
 			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_posting.division" resname="tx_jobs_domain_model_posting.division">
-				<source>Division</source>
+				<source>Department/Division</source>
 			</trans-unit>
 			<trans-unit id="tx_jobs_domain_model_posting.employment_type" resname="tx_jobs_domain_model_posting.employment_type">
 				<source>Employment Type</source>

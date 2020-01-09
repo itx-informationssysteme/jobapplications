@@ -15,11 +15,13 @@ This extension provides you with the ability to create and manage job posting.
 People can apply on these by using the supplied application form so the referenced contact receives the application via
 email and/or the backend module, which features a basic application management system.
 
+.. _features:
+
 Features
---------
+========
 
 Manage job postings
-~~~~~~~~~~~~~~~~~~~
+-------------------
 
 	* list view and detail page
 	* create location records and contact person records to link with the job posting
@@ -34,23 +36,23 @@ Manage job postings
 	* **Google Jobs integration**
 
 Application Form
-~~~~~~~~~~~~~~~~
+----------------
 
-		* **fully fledged application form** with standard fields like name, email, phone, address as well as optional fields like "Salary Expectation", "Earliest Date of Joining" and a "Message" field.
-		* supports pdf file uploads
-		* privacy agreement checkbox, which links to your privacy agreement page
-		* forward the applicant to a success page with a customized message which again supports placeholders for the applicants name
+	* **fully fledged application form** with standard fields like name, email, phone, address as well as optional fields like "Salary Expectation", "Earliest Date of Joining" and a "Message" field.
+	* supports pdf file uploads
+	* privacy agreement checkbox, which links to your privacy agreement page
+	* forward the applicant to a success page with a customized message which again supports placeholders for the applicants name
 
 Application Management
-~~~~~~~~~~~~~~~~~~~~~~
+----------------------
 
-		* configure if an email should be sent to the referenced contact and/or a specific email address
-		* configure if the applicant should receive a confirmation email, where the text can be specified with the use of placeholders.
-		* supports **application status managment**
-		* configurable **planer tasks** for application deletion and anonymization based on age and status
-		* option to not save the application and only send the mails
-		* **Backend module** for viewing, sorting, filtering, archiving and deleting the applications
-		* link a jobs extension contact person to a backend user to have a personalized experience viewing the applications
+	* configure if an email should be sent to the referenced contact and/or a specific email address
+	* configure if the applicant should receive a confirmation email, where the text can be specified with the use of placeholders.
+	* supports **application status managment**
+	* configurable **planer tasks** for application deletion and anonymization based on age and status
+	* option to not save the application and only send the mails
+	* **Backend module** for viewing, sorting, filtering, archiving and deleting the applications
+	* link a jobs extension contact person to a backend user to have a personalized experience viewing the applications
 
 .. _screenshots:
 
