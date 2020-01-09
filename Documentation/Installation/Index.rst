@@ -32,3 +32,11 @@ You have to include the static typoscript file the Jobs extension provides.
 #. Select **Jobs (jobs)** at the field *Include static (from extensions):*
 
 #. Here you can also include the Bootstrap entry, provided by the jobs extension, to have a working default layout.
+
+Route Enhancers
+---------------
+For making the URL readable there is a file provided which can be imported in *config->sites->main->config.yaml*
+or copied and modified.
+This file is provided in the extension folder in *Configuration->Routes->Default.yaml*.
+
+The provided Route Enhancers enhance the listview, detailview and applicationform.
