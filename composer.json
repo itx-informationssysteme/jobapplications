@@ -6,13 +6,22 @@
     "authors": [
         {
             "name": "Stefanie D\u00f6ll",
+            "email": "stefanie.doell@itx.de",
+            "homepage": "http://www.itx.de",
             "role": "Developer"
         },
         {
             "name": "Benjamin Jasper",
+            "email": "benjamin.jasper@itx.de",
+            "homepage": "http://www.itx.de",
             "role": "Developer"
         }
     ],
+    "support": {
+        "email": "typo3@itx.de",
+        "issues": "",
+        "docs": ""
+    },
     "require": {
         "typo3/cms-core": "^9.5",
         "fluidtypo3/vhs": "^5.2"
