@@ -82,6 +82,7 @@
 					->select("division")
 					->groupBy("division")
 					->from("tx_jobs_domain_model_posting")
+					->where($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()))
 					->join("tx_jobs_domain_model_posting", "sys_category_record_mm",
 						   "sys_category_record_mm", $qb->expr()->eq("tx_jobs_domain_model_posting.uid",
 																	 "sys_category_record_mm.uid_foreign"));
@@ -113,6 +114,7 @@
 					->select("career_level AS careerLevel")
 					->groupBy("careerLevel")
 					->from("tx_jobs_domain_model_posting")
+					->where($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()))
 					->join("tx_jobs_domain_model_posting", "sys_category_record_mm",
 						   "sys_category_record_mm", $qb->expr()->eq("tx_jobs_domain_model_posting.uid",
 																	 "sys_category_record_mm.uid_foreign"));
@@ -144,6 +146,7 @@
 					->select("employment_type AS employmentType")
 					->groupBy("employmentType")
 					->from("tx_jobs_domain_model_posting")
+					->where($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()))
 					->join("tx_jobs_domain_model_posting", "sys_category_record_mm",
 						   "sys_category_record_mm", $qb->expr()->eq("tx_jobs_domain_model_posting.uid",
 																	 "sys_category_record_mm.uid_foreign"));
