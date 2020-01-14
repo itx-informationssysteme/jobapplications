@@ -15,11 +15,11 @@ Users Manual
 Basic plugin setup guide
 ========================
 
-Start by creating a Folder (or more than one) to attach the Jobs Extension records to.
-For this example we will use a single folder, you can split the system records into different folders as well though.
+Start by creating a folder (or more than one) to attach the Jobs Extension records to.
+For this example we will use a single folder, though you can split the system records into different folders as well.
 Having the folder set up we now create the pages needed for the extension to work.
 
-Basically there are 4 Pages that each have a Jobs Plugin on them:
+Basically there are four pages that each have a Jobs Plugin on them:
 The *Job posting list page*, the *Detail View Page*, the *Application form page* and the *Success Page*.
 Simply create all of these pages and name them as you want. You can leave them be for the moment. We will go over
 each page in detail in the following section.
@@ -46,38 +46,38 @@ On this page this is the **Jobs: Posting** Plugin.
 
 Below that you have the setting for where you have to set the Detail Page. Simply click on the *Page* Button and select
 the page you created as the detail page in the beginning.
-Equally as important is to set the Record **Storage Page** (which you can find at the bottom) to the folder where you will have the job postings.
+Equally as important is to set the **Record Storage Page** (which you can find at the bottom) to the folder where the job postings will be located.
 Between that there are other settings as well:
 
-Detailview and Applicationform on same page
+Detail view and Application form on same page
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Simply turn this setting on, when you want to have the Detailview and the Applicationform on the same page.
+Simply turn this setting on, when you want to have the detail view and the application form on the same page.
 You still have to put these two plugins on the page.
 
 Show only postings of
 ~~~~~~~~~~~~~~~~~~~~~
-This settings allows you two filter the postings shown based on which categories they are assigned on.
-This can be useful if you want to for example have an extra page for the Apprenticeship postings, so that there are no postings of another category.
+This setting allows you to filter the postings shown based on which categories they are assigned to.
+For example this can be useful if you want to have an extra page for the apprenticeship postings, so that there are no postings of another category.
 You have to create category system records for this to work, which then can be referenced by the job posting record.
 
 Detail Page
 -----------
-As you will have to do on every page here, you create a new plugin and go into its settings as described above already.
+Create a new plugin and go into its settings as described above already.
 
-Make sure the correct plugin is selected. In this case it is the **Jobs: Detail View** Plugin.
+Make sure the correct plugin is selected. In this case it is the **Jobs: Detail View** plugin.
 Also make sure you selected the correct record storage page.
 
 Application Module
 ~~~~~~~~~~~~~~~~~~
-Here you can change the status of the application system being available, meaning for the end user if there is a button,
-where they can get to the Application Form.
+Here you can change the status of the application system being available, meaning for the end users that there will be a button,
+where they can get to the application form.
 
 This enables the setting where you have to set the application page. That means if you dont want the application system
 enabled you can stop here.
 
 Define page title
 ~~~~~~~~~~~~~~~~~
-In this option you can specify the page title. You have the Posting Title with the placeholder %postingTitle% available.
+In this option you can specify the page title. You have the posting title with the placeholder %postingTitle% available.
 If left empty the default title defined by the extenion takes place.
 
 Show contact
@@ -95,65 +95,67 @@ address of the location.
 
 Enter a Google Maps API Key
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-This has no effect yet. Will come in a future update.
+This has no effect yet. It will come in use in a future update.
 
 Application Page
 ----------------
-This time the selected Plugin should be *Jobs: Application Form*.
+This time the selected plugin should be *Jobs: Application Form*.
 
 Set the success page and repository the same as on the previous pages.
 
 Define page title
 ~~~~~~~~~~~~~~~~~
-In this option you can specify the page title. You have the Posting Title with the placeholder %postingTitle% available.
-If left empty the default title defined by the extenion takes place.
+In this option you can specify the page title. You have the posting title with the placeholder %postingTitle% available.
+If left empty the default title defined by the extenion is used.
 
-Should the referenced contact receive an E-Mail?
+Should the referenced contact receive an email?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-When this is enabled the contact which was referenced by the posting will get an E-Mail with all the information the
+When this option is enabled the contact which was referenced by the posting will get an email with all the information the
 applicant provided including attachments.
 
-Should new applications be sent to a specific E-Mail address?
+Should new applications be sent to a specific email address?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-This does the same thing as the previous settings only that this time an E-Mail can be specified.
+This does the same thing as the previous settings only that this time an email can be specified.
 
-Should an E-Mail be sent to the applicant?
+Should an email be sent to the applicant?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 With this setting enabled, new fields will show up, so you can enter the texts for the email.
 
-* **E-Mail to Applicant Subject**
-
-  Placeholder: Posting Title: %postingTitle%
-
-* **E-Mail to Applicant Text**
+* **Email to applicant subject**
 
   Placeholder:
 
-  * Posting Title: %postingTitle%
-  * Applicant Salutation: %applicantSalutation%
-  * Applicant Firstname: %applicantFirstname%
-  * Applicant Lastname: %applicantLastname%
+  * posting title: %postingTitle%
 
-* **E-Mail to Applicant Sender E-Mail**
+* **Email to applicant text**
 
-  Specify which sender email the email should have assigned.
+  Placeholder:
 
-* **E-Mail to Applicant Sender Name**
+  * posting title: %postingTitle%
+  * applicant salutation: %applicantSalutation%
+  * applicant first name: %applicantFirstname%
+  * applicant last name: %applicantLastname%
 
-  Specify the sender name the email should have assigned.
+* **Email to applicant sender email**
 
-Should Applications be saved in the backend?
+  Specify the sender of the email to the applicant.
+
+* **Email to applicant sender name**
+
+  Specify the sender name of the email to the applicant.
+
+Should applications be saved in the backend?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 When this is disabled applications are not getting persisted in the record folder you selected for this plugin.
 This can be useful if you want to handle your whole application system via email.
 
-Show "Salary Expectation" Field
+Show "Salary Expectation" field
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Enables or disables *Salary Expectation* Field.
+Enables or disables *Salary Expectation* field.
 
-Show "Earliest Date Of Joining" Field
+Show "Earliest Date Of Joining" field
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Enables or disables *Earliest Date Of Joining* Field.
+Enables or disables *Earliest Date Of Joining* field.
 
 Show "Message" field
 ~~~~~~~~~~~~~~~~~~~~
@@ -161,23 +163,23 @@ Enables or disables *Message* field
 
 Maximum message number of characters:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Maximum characters for the Message field.
+Maximum characters for the message field.
 
-Link Privacy Agreement Page
+Link privacy agreement page
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Assign the Privacy Agreement page which the applicant will have to accept when he applies.
+Assign the privacy agreement page which the applicants will have to accept when they apply.
 Make sure to open this in a new tab, otherwise all the applicants data will possibly be lost.
 
-Success Page
+Success page
 ------------
 This page will be called when the applicants application was successfully sent.
 The plugin here: *Jobs: Application Success Page*
 
 The job of this plugin is to provide a success message which is personalized to the applicant.
-That means it either easily integrates with other content elements on the page or the template is easily customizable
+It either easily integrates with other content elements on the page or the template is easily customizable
 to your own needs.
 
-Enter Message
+Enter message
 ~~~~~~~~~~~~~
 Placeholders:
 
@@ -188,49 +190,49 @@ Placeholders:
 When the applicant entered *divers* or nothing as salutation the salutation will be automatically replaced with the
 applicants first name.
 
-Extra: Contact Plugin
+Extra: Contact plugin
 =====================
 There is a plugin named **Jobs: Contact Display** which simply shows the selected contacts that are defined in the plugin
-settings. This can be useful to include as a section in another page.
+settings. This can be useful to include as a contact section in another page.
 
-Template Constants
+Template constants
 ==================
 In the Template Constant Editor the plugin registered a few settings.
 
 Simply select *PLUGIN.TX_JOBS*.
 
-Change Template Path
+Change template path
 --------------------
-To override the default templates here you have the option to override the default templates.
+Here you can override the default templates.
 
-Change CSS Path
+Change CSS path
 ---------------
-If you want a different Bootsrap.css or even a very different .css File you can change its path here.
+If you want a different Bootsrap.css or even a very different .css file you can change its path here.
 
 Enable Google Jobs
 ------------------
 Here you can enable Google Jobs. The data for it will be automatically generated based on the posting data.
-Just make sure you have selected a Company name in the Extension Configuration.
+Just make sure you have selected a company name in the extension configuration.
 
-You can find the Extension Configuration under *Settings->Extension Configuration->Configure Extensions->jobs*.
+You can find the extension configuration in *Settings->Extension Configuration->Configure Extensions->jobs*.
 
 .. _tasks:
 
 Tasks
 =====
-There are to tasks implemented to manage applications that are not needed anymore or have to be removed for
+There are two tasks implemented to manage applications that are not needed anymore or have to be removed for
 privacy law reasons.
 
 Both of them feature two additional settings:
 
-#. **Age in Days**
+#. **Age in days**
 
    This determines the age the application must have.
    It is measured from the creation date of the application until now.
 
-#. **Status Consideration**
+#. **Status consideration**
 
-   This settings decides whether the task should only delete applications that are in an end status
+   This setting decides whether the task should only delete applications that are in an end status
    (see :ref:`status_record` if you don't know what that means).
 
    This is only useful if the application administration and its
@@ -244,7 +246,7 @@ described above.
 
 Anonymize old applications
 --------------------------
-This task anonymizes every application, that qualified for removal information with three asterisks *\*\*\**, except
+This task anonymizes every application that qualified for removal information with three asterisks *\*\*\**, except
 for the city name, country, privacy agreement confirmation, referenced job posting and the creation time.
 
 This could be needed for following applicable law.

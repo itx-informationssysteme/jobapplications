@@ -18,8 +18,8 @@
         }
     ],
     "support": {
-        "email": "typo3@itx.de",
-        "issues": "",
+        "email": "typo-itx@itx.de",
+        "issues": "https://github.com/typo3-itx/jobs/issues",
         "docs": ""
     },
     "require": {

@@ -48,10 +48,10 @@ Jobs Extension
     2020
 
 :Author:
-    it.x informationssysteme: Stefanie Döll, Benjamin Jasper
+    it.x informationssysteme gmbh: Stefanie Döll, Benjamin Jasper
 
 :Email:
-    typo3@itx.de
+    typo-itx@itx.de
 
 :License:
    This extension documentation is published under the `GNU General Public License 3 <http://www.gnu.org/copyleft/gpl.html.>`__ (GPLv3) license

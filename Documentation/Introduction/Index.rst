@@ -10,9 +10,9 @@ Introduction
 What does it do?
 ================
 
-This extension provides you with the ability to create and manage job posting.
+This extension provides you with the ability to create and manage job postings.
 
-People can apply on these by using the supplied application form so the referenced contact receives the application via
+People can apply to a posting by using the supplied application form resulting in the referenced contact receiving the application via
 email and/or the backend module, which features a basic application management system.
 
 .. _features:
@@ -33,7 +33,7 @@ Manage job postings
 	* time at which date the posting should go live and possibly end
 	* support for **typo3 categories**
 	* OpenGraph data automatically populated
-	* **Google Jobs integration**
+	* Structured data for **Google Jobs integration**
 
 Application Form
 ----------------
@@ -49,8 +49,8 @@ Application Management
 	* configure if an email should be sent to the referenced contact and/or a specific email address
 	* configure if the applicant should receive a confirmation email, where the text can be specified with the use of placeholders.
 	* supports **application status managment**
-	* configurable **planer tasks** for application deletion and anonymization based on age and status
-	* option to not save the application and only send the mails
+	* configurable **scheduler tasks** for application deletion and anonymization based on age and status
+	* option to not save the application and only send the emails
 	* **Backend module** for viewing, sorting, filtering, archiving and deleting the applications
 	* link a jobs extension contact person to a backend user to have a personalized experience viewing the applications
 
