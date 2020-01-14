@@ -3,17 +3,17 @@
     "type": "typo3-cms-extension",
     "description": "This extension enables you to manage job postings, has an application form for applicants to apply and an Application Managment Backend Module",
     "license": "GPL-3.0-or-later",
+    "version": "0.9.0",
+    "homepage": "http://www.itx.de",
     "authors": [
         {
             "name": "Stefanie D\u00f6ll",
             "email": "stefanie.doell@itx.de",
-            "homepage": "http://www.itx.de",
             "role": "Developer"
         },
         {
             "name": "Benjamin Jasper",
             "email": "benjamin.jasper@itx.de",
-            "homepage": "http://www.itx.de",
             "role": "Developer"
         }
     ],
