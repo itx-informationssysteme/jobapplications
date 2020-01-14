@@ -1,6 +1,6 @@
 <?php
 
-	namespace ITX\Jobs\Controller;
+	namespace ITX\Jobapplications\Controller;
 
 	/***************************************************************
 	 *  Copyright notice
@@ -25,10 +25,10 @@
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
 
-	use ITX\Jobs\Domain\Model\Application;
-	use ITX\Jobs\Domain\Model\Posting;
-	use ITX\Jobs\Domain\Model\Status;
-	use ITX\Jobs\PageTitle\JobsPageTitleProvider;
+	use ITX\Jobapplications\Domain\Model\Application;
+	use ITX\Jobapplications\Domain\Model\Posting;
+	use ITX\Jobapplications\Domain\Model\Status;
+	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Resource\FileInterface;
@@ -47,7 +47,7 @@
 		/**
 		 * applicationRepository
 		 *
-		 * @var \ITX\Jobs\Domain\Repository\ApplicationRepository
+		 * @var \ITX\Jobapplications\Domain\Repository\ApplicationRepository
 		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $applicationRepository = null;
@@ -55,13 +55,13 @@
 		protected $fileSizeLimit;
 
 		/**
-		 * @var \ITX\Jobs\Domain\Repository\PostingRepository
+		 * @var \ITX\Jobapplications\Domain\Repository\PostingRepository
 		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		private $postingRepository;
 
 		/**
-		 * @var \ITX\Jobs\Domain\Repository\StatusRepository
+		 * @var \ITX\Jobapplications\Domain\Repository\StatusRepository
 		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		private $statusRepository;
@@ -73,7 +73,7 @@
 		protected $persistenceManager;
 
 		/**
-		 * @var \ITX\Jobs\Service\ApplicationFileService
+		 * @var \ITX\Jobapplications\Service\ApplicationFileService
 		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $applicationFileService;
@@ -125,7 +125,7 @@
 		/**
 		 * action new
 		 *
-		 * @param ITX\Jobs\Domain\Model\Posting $posting
+		 * @param ITX\Jobapplications\Domain\Model\Posting $posting
 		 *
 		 * @return void
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
@@ -196,7 +196,7 @@
 			}
 			else
 			{
-				$salutation = LocalizationUtility::translate("fe.application.selector.".$salutation, "jobs");
+				$salutation = LocalizationUtility::translate("fe.application.selector.".$salutation, "jobapplications");
 			}
 
 			$text = $this->settings["successMessage"];
@@ -212,8 +212,8 @@
 		/**
 		 * create Action
 		 *
-		 * @param \ITX\Jobs\Domain\Model\Application $newApplication
-		 * @param \ITX\Jobs\Domain\Model\Posting     $posting
+		 * @param \ITX\Jobapplications\Domain\Model\Application $newApplication
+		 * @param \ITX\Jobapplications\Domain\Model\Posting     $posting
 		 *
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
@@ -223,7 +223,7 @@
 		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
 		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
 		 */
-		public function createAction(\ITX\Jobs\Domain\Model\Application $newApplication, \ITX\Jobs\Domain\Model\Posting $posting)
+		public function createAction(\ITX\Jobapplications\Domain\Model\Application $newApplication, \ITX\Jobapplications\Domain\Model\Posting $posting)
 		{
 			//Uploads in order as defined in Domain Model
 			$uploads = array("cv", "cover_letter", "testimonials", "other_files");
@@ -231,18 +231,18 @@
 			//Check if $_FILES Entries have errors
 			foreach ($uploads as $upload)
 			{
-				$errorcode = $_FILES['tx_jobs_frontend']['error'][$upload];
+				$errorcode = $_FILES['tx_jobapplications_frontend']['error'][$upload];
 
 				//Check if Filetype is accepted
-				if ($_FILES['tx_jobs_frontend']['type'][$upload] != "application/pdf" && $_FILES['tx_jobs_frontend']['type'][$upload] != "")
+				if ($_FILES['tx_jobapplications_frontend']['type'][$upload] != "application/pdf" && $_FILES['tx_jobapplications_frontend']['type'][$upload] != "")
 				{
 					if (intval($errorcode) == 1)
 					{
-						$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileType', 'jobs'), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
+						$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileType', 'jobapplications'), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
 					}
 					else
 					{
-						$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileSize', 'jobs', array("0" => intval($this->fileSizeLimit) / 1024)), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
+						$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileSize', 'jobapplications', array("0" => intval($this->fileSizeLimit) / 1024)), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
 					}
 
 					$this->redirect("new", "Application", null, array(
@@ -263,7 +263,7 @@
 
 			$newApplication->setPosting($posting);
 
-			/* @var \ITX\Jobs\Domain\Model\Status $firstStatus */
+			/* @var \ITX\Jobapplications\Domain\Model\Status $firstStatus */
 			$firstStatus = $this->statusRepository->findNewStatus();
 
 			if ($firstStatus instanceof Status)
@@ -293,7 +293,7 @@
 			$movedNewFileTestimonial = null;
 
 			// Processing files
-			if ($_FILES['tx_jobs_applicationform']['name']['cv'])
+			if ($_FILES['tx_jobapplications_applicationform']['name']['cv'])
 			{
 				$movedNewFileCv = $this->handleFileUpload("cv", $newApplication);
 				$files[] = $movedNewFileCv->getUid();
@@ -301,7 +301,7 @@
 				$fields['cv'] = 1;
 			}
 
-			if ($_FILES['tx_jobs_applicationform']['name']['cover_letter'])
+			if ($_FILES['tx_jobapplications_applicationform']['name']['cover_letter'])
 			{
 				$movedNewFileCover = $this->handleFileUpload("cover_letter", $newApplication);
 				$files[] = $movedNewFileCover->getUid();
@@ -309,7 +309,7 @@
 				$fields['cover_letter'] = 1;
 			}
 
-			if ($_FILES['tx_jobs_applicationform']['name']['testimonials'])
+			if ($_FILES['tx_jobapplications_applicationform']['name']['testimonials'])
 			{
 				$movedNewFileTestimonial = $this->handleFileUpload("testimonials", $newApplication);
 				$files[] = $movedNewFileTestimonial->getUid();
@@ -317,7 +317,7 @@
 				$fields['testimonials'] = 1;
 			}
 
-			if ($_FILES['tx_jobs_applicationform']['name']['other_files'])
+			if ($_FILES['tx_jobapplications_applicationform']['name']['other_files'])
 			{
 				$movedNewFileOther = $this->handleFileUpload("other_files", $newApplication);
 				$files[] = $movedNewFileOther->getUid();
@@ -327,7 +327,7 @@
 
 			if (count($files) > 0)
 			{
-				$this->buildRelations($newApplication->getUid(), $files, $fields, $fieldNames, 'tx_jobs_domain_model_application', $newApplication->getPid());
+				$this->buildRelations($newApplication->getUid(), $files, $fields, $fieldNames, 'tx_jobapplications_domain_model_application', $newApplication->getPid());
 			}
 
 			// Mail Handling
@@ -337,17 +337,17 @@
 			$contact = $currentPosting->getContact();
 
 			// Get and translate labels
-			$salutation = LocalizationUtility::translate("fe.application.selector.".$newApplication->getSalutation(), "jobs");
-			$salary = $newApplication->getSalaryExpectation() ? LocalizationUtility::translate("tx_jobs_domain_model_application.salary_expectation", "jobs").": ".$newApplication->getSalaryExpectation()."<br>" : "";
+			$salutation = LocalizationUtility::translate("fe.application.selector.".$newApplication->getSalutation(), "jobapplications");
+			$salary = $newApplication->getSalaryExpectation() ? LocalizationUtility::translate("tx_jobapplications_domain_model_application.salary_expectation", "jobapplications").": ".$newApplication->getSalaryExpectation()."<br>" : "";
 			$dateOfJoining = $newApplication->getEarliestDateOfJoining() ?
-				LocalizationUtility::translate("tx_jobs_domain_model_application.earliest_date_of_joining", "jobs")
-				.": ".$newApplication->getEarliestDateOfJoining()->format(LocalizationUtility::translate("date_format", "jobs"))."<br>" : "";
-			$nameLabel = LocalizationUtility::translate("tx_jobs_domain_model_location.name", "jobs").": ";
-			$emailLabel = LocalizationUtility::translate("tx_jobs_domain_model_application.email", "jobs").": ";
-			$phoneLabel = LocalizationUtility::translate("tx_jobs_domain_model_application.phone", "jobs").": ";
-			$addressLabel = LocalizationUtility::translate("tx_jobs_domain_model_location.address", "jobs").": ";
+				LocalizationUtility::translate("tx_jobapplications_domain_model_application.earliest_date_of_joining", "jobapplications")
+				.": ".$newApplication->getEarliestDateOfJoining()->format(LocalizationUtility::translate("date_format", "jobapplications"))."<br>" : "";
+			$nameLabel = LocalizationUtility::translate("tx_jobapplications_domain_model_location.name", "jobapplications").": ";
+			$emailLabel = LocalizationUtility::translate("tx_jobapplications_domain_model_application.email", "jobapplications").": ";
+			$phoneLabel = LocalizationUtility::translate("tx_jobapplications_domain_model_application.phone", "jobapplications").": ";
+			$addressLabel = LocalizationUtility::translate("tx_jobapplications_domain_model_location.address", "jobapplications").": ";
 			$additionalAddress = $newApplication->getAddressAddition() ? $newApplication->getAddressAddition().'<br>' : "";
-			$messageLabel = LocalizationUtility::translate("tx_jobs_domain_model_application.message", "jobs").": ";
+			$messageLabel = LocalizationUtility::translate("tx_jobapplications_domain_model_application.message", "jobapplications").": ";
 			$message = $newApplication->getMessage() ? '<br><br>'.$messageLabel.'<br>'.$newApplication->getMessage() : "";
 
 			// Send mail to Contact E-Mail or/and internal E-Mail
@@ -356,7 +356,7 @@
 				$mail = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Mail\MailMessage::class);
 				// Prepare and send the message
 				$mail
-					->setSubject(LocalizationUtility::translate("fe.email.toContactSubject", 'jobs', array(0 => $currentPosting->getTitle())))
+					->setSubject(LocalizationUtility::translate("fe.email.toContactSubject", 'jobapplications', array(0 => $currentPosting->getTitle())))
 					->setFrom(array($newApplication->getEmail() => $newApplication->getFirstName()." ".$newApplication->getLastName()))
 					->setBody('<p>'.
 							  $nameLabel.$salutation.' '.$newApplication->getFirstName().' '.$newApplication->getLastName().'<br>'.
@@ -422,10 +422,10 @@
 						$salutation = "";
 						break;
 					case 1:
-						$salutation = LocalizationUtility::translate("fe.application.selector.mr", "jobs");
+						$salutation = LocalizationUtility::translate("fe.application.selector.mr", "jobapplications");
 						break;
 					case 2:
-						$salutation = LocalizationUtility::translate("fe.application.selector.mrs", "jobs");
+						$salutation = LocalizationUtility::translate("fe.application.selector.mrs", "jobapplications");
 						break;
 				}
 				$body = str_replace("%applicantSalutation%", $salutation, $body);
@@ -499,9 +499,9 @@
 			}
 
 			$database
-				->getConnectionForTable('tx_jobs_domain_model_application')
+				->getConnectionForTable('tx_jobapplications_domain_model_application')
 				->update(
-					"tx_jobs_domain_model_application",
+					"tx_jobapplications_domain_model_application",
 					$fields, [
 						'uid' => $newStorageUid
 					]);
@@ -509,7 +509,7 @@
 
 		/**
 		 * @param string                             $fieldName
-		 * @param \ITX\Jobs\Domain\Model\Application $domainObject
+		 * @param \ITX\Jobapplications\Domain\Model\Application $domainObject
 		 *
 		 * @return \TYPO3\CMS\Core\Resource\FileInterface
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFileNameException
@@ -518,12 +518,12 @@
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderWritePermissionsException
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
 		 */
-		private function handleFileUpload(string $fieldName, \ITX\Jobs\Domain\Model\Application $domainObject)
+		private function handleFileUpload(string $fieldName, \ITX\Jobapplications\Domain\Model\Application $domainObject)
 		{
 
 			$folder = $this->applicationFileService->getApplicantFolder($domainObject);
 
-			$tmpFile = $_FILES['tx_jobs_applicationform']['tmp_name'][$fieldName];
+			$tmpFile = $_FILES['tx_jobapplications_applicationform']['tmp_name'][$fieldName];
 
 			/* @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository*/
 			$storageRepository = $this->objectManager->get('TYPO3\\CMS\\Core\\Resource\\StorageRepository');

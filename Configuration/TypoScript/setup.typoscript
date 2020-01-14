@@ -1,16 +1,16 @@
-plugin.tx_jobs.settings.enableGoogleJobs = {$plugin.tx_jobs.settings.enableGoogleJobs}
+plugin.tx_jobapplications.settings.enableGoogleJobs = {$plugin.tx_jobapplications.settings.enableGoogleJobs}
 
-plugin.tx_jobs {
+plugin.tx_jobapplications {
     view {
         templateRootPaths.0 = EXT:{extension.shortExtensionKey}/Resources/Private/Templates/
-        templateRootPaths.1 = {$plugin.tx_jobs.view.templateRootPath}
-        partialRootPaths.0 = EXT:jobs/Resources/Private/Partials/
-        partialRootPaths.1 = {$plugin.tx_jobs.view.partialRootPath}
-        layoutRootPaths.0 = EXT:tx_jobs/Resources/Private/Layouts/
-        layoutRootPaths.1 = {$plugin.tx_jobs.view.layoutRootPath}
+        templateRootPaths.1 = {$plugin.tx_jobapplications.view.templateRootPath}
+        partialRootPaths.0 = EXT:jobapplications/Resources/Private/Partials/
+        partialRootPaths.1 = {$plugin.tx_jobapplications.view.partialRootPath}
+        layoutRootPaths.0 = EXT:tx_jobapplications/Resources/Private/Layouts/
+        layoutRootPaths.1 = {$plugin.tx_jobapplications.view.layoutRootPath}
     }
     persistence {
-        storagePid = {$plugin.tx_jobs.persistence.storagePid}
+        storagePid = {$plugin.tx_jobapplications.persistence.storagePid}
         #recursive = 1
     }
     features {
@@ -26,14 +26,14 @@ plugin.tx_jobs {
 }
 
 # Module configuration
-module.tx_jobs_web_jobsbackend < plugin.tx_jobs
-module.tx_jobs_web_jobsbackend {
+module.tx_jobapplications_web_jobapplicationsbackend < plugin.tx_jobapplications
+module.tx_jobapplications_web_jobapplicationsbackend  {
     view {
-        templateRootPaths.0 = EXT:{extension.extensionKey}/Resources/Private/Backend/Templates/
-        templateRootPaths.1 = {$module.tx_jobs_backend.view.templateRootPath}
-        partialRootPaths.0 = EXT:jobs/Resources/Private/Backend/Partials/
-        partialRootPaths.1 = {$module.tx_jobs_backend.view.partialRootPath}
-        layoutRootPaths.0 = EXT:jobs/Resources/Private/Backend/Layouts/
-        layoutRootPaths.1 = {$module.tx_jobs_backend.view.layoutRootPath}
+        templateRootPaths.0 = EXT:jobapplications/Resources/Private/Backend/Templates/
+        templateRootPaths.1 = {$module.tx_jobapplications_backend.view.templateRootPath}
+        partialRootPaths.0 = EXT:jobapplications/Resources/Private/Backend/Partials/
+        partialRootPaths.1 = {$module.tx_jobapplications_backend.view.partialRootPath}
+        layoutRootPaths.0 = EXT:jobapplications/Resources/Private/Backend/Layouts/
+        layoutRootPaths.1 = {$module.tx_jobapplications_backend.view.layoutRootPath}
     }
 }

@@ -1,4 +1,4 @@
-# TYPO3 Extension ``jobs``
+# TYPO3 Extension ``jobapplications``
 
 ## 1. Features
 
@@ -16,7 +16,7 @@ see the full feature list in the [official documentation]()
 
 ### Installation using Composer
 
-The recommended way to install the extension is by using Composer. In your Composer based TYPO3 project root, just do `composer require itx/jobs`. 
+The recommended way to install the extension is by using Composer. In your Composer based TYPO3 project root, just do `composer require itx/jobapplications`. 
 
 ### Installation as extension from TYPO3 Extension Repository (TER)
 

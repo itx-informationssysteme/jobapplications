@@ -1,5 +1,5 @@
 <?php
-namespace ITX\Jobs\Tests\Unit\Controller;
+namespace ITX\Jobapplications\Tests\Unit\Controller;
 
 /**
  * Test case.
@@ -10,14 +10,14 @@ namespace ITX\Jobs\Tests\Unit\Controller;
 class ContactControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
 {
     /**
-     * @var \ITX\Jobs\Controller\ContactController
+     * @var \ITX\Jobapplications\Controller\ContactController
      */
     protected $subject = null;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->subject = $this->getMockBuilder(\ITX\Jobs\Controller\ContactController::class)
+        $this->subject = $this->getMockBuilder(\ITX\Jobapplications\Controller\ContactController::class)
             ->setMethods(['redirect', 'forward', 'addFlashMessage'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -38,7 +38,7 @@ class ContactControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCa
             ->disableOriginalConstructor()
             ->getMock();
 
-        $contactRepository = $this->getMockBuilder(\ITX\Jobs\Domain\Repository\ContactRepository::class)
+        $contactRepository = $this->getMockBuilder(\ITX\Jobapplications\Domain\Repository\ContactRepository::class)
             ->setMethods(['findAll'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -57,7 +57,7 @@ class ContactControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCa
      */
     public function showActionAssignsTheGivenContactToView()
     {
-        $contact = new \ITX\Jobs\Domain\Model\Contact();
+        $contact = new \ITX\Jobapplications\Domain\Model\Contact();
 
         $view = $this->getMockBuilder(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class)->getMock();
         $this->inject($this->subject, 'view', $view);
@@ -71,9 +71,9 @@ class ContactControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCa
      */
     public function createActionAddsTheGivenContactToContactRepository()
     {
-        $contact = new \ITX\Jobs\Domain\Model\Contact();
+        $contact = new \ITX\Jobapplications\Domain\Model\Contact();
 
-        $contactRepository = $this->getMockBuilder(\ITX\Jobs\Domain\Repository\ContactRepository::class)
+        $contactRepository = $this->getMockBuilder(\ITX\Jobapplications\Domain\Repository\ContactRepository::class)
             ->setMethods(['add'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -89,7 +89,7 @@ class ContactControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCa
      */
     public function editActionAssignsTheGivenContactToView()
     {
-        $contact = new \ITX\Jobs\Domain\Model\Contact();
+        $contact = new \ITX\Jobapplications\Domain\Model\Contact();
 
         $view = $this->getMockBuilder(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class)->getMock();
         $this->inject($this->subject, 'view', $view);
@@ -103,9 +103,9 @@ class ContactControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCa
      */
     public function updateActionUpdatesTheGivenContactInContactRepository()
     {
-        $contact = new \ITX\Jobs\Domain\Model\Contact();
+        $contact = new \ITX\Jobapplications\Domain\Model\Contact();
 
-        $contactRepository = $this->getMockBuilder(\ITX\Jobs\Domain\Repository\ContactRepository::class)
+        $contactRepository = $this->getMockBuilder(\ITX\Jobapplications\Domain\Repository\ContactRepository::class)
             ->setMethods(['update'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -121,9 +121,9 @@ class ContactControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCa
      */
     public function deleteActionRemovesTheGivenContactFromContactRepository()
     {
-        $contact = new \ITX\Jobs\Domain\Model\Contact();
+        $contact = new \ITX\Jobapplications\Domain\Model\Contact();
 
-        $contactRepository = $this->getMockBuilder(\ITX\Jobs\Domain\Repository\ContactRepository::class)
+        $contactRepository = $this->getMockBuilder(\ITX\Jobapplications\Domain\Repository\ContactRepository::class)
             ->setMethods(['remove'])
             ->disableOriginalConstructor()
             ->getMock();

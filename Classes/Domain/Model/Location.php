@@ -1,6 +1,6 @@
 <?php
 
-	namespace ITX\Jobs\Domain\Model;
+	namespace ITX\Jobapplications\Domain\Model;
 
 	/***************************************************************
 	 *  Copyright notice

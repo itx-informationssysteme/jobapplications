@@ -1,5 +1,5 @@
 <?php
-namespace ITX\Jobs\Tests\Unit\Controller;
+namespace ITX\Jobapplications\Tests\Unit\Controller;
 
 /**
  * Test case.
@@ -10,14 +10,14 @@ namespace ITX\Jobs\Tests\Unit\Controller;
 class PostingControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
 {
     /**
-     * @var \ITX\Jobs\Controller\PostingController
+     * @var \ITX\Jobapplications\Controller\PostingController
      */
     protected $subject = null;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->subject = $this->getMockBuilder(\ITX\Jobs\Controller\PostingController::class)
+        $this->subject = $this->getMockBuilder(\ITX\Jobapplications\Controller\PostingController::class)
             ->setMethods(['redirect', 'forward', 'addFlashMessage'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -38,7 +38,7 @@ class PostingControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCa
             ->disableOriginalConstructor()
             ->getMock();
 
-        $postingRepository = $this->getMockBuilder(\ITX\Jobs\Domain\Repository\PostingRepository::class)
+        $postingRepository = $this->getMockBuilder(\ITX\Jobapplications\Domain\Repository\PostingRepository::class)
             ->setMethods(['findAll'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -57,7 +57,7 @@ class PostingControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCa
      */
     public function showActionAssignsTheGivenPostingToView()
     {
-        $posting = new \ITX\Jobs\Domain\Model\Posting();
+        $posting = new \ITX\Jobapplications\Domain\Model\Posting();
 
         $view = $this->getMockBuilder(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class)->getMock();
         $this->inject($this->subject, 'view', $view);

@@ -4,7 +4,7 @@
         <singleView>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.title.contactdisplay</sheetTitle>
+                    <sheetTitle>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.title.contactdisplay</sheetTitle>
                 </TCEforms>
                 <type>array</type>
                 <el>
@@ -14,14 +14,14 @@
                             <exclude>1</exclude>
                             <config>
                                 <type>select</type>
-                                <foreign_table>tx_jobs_domain_model_contact</foreign_table>
+                                <foreign_table>tx_jobapplications_domain_model_contact</foreign_table>
                                 <renderType>selectMultipleSideBySide</renderType>
                                 <size>5</size>
                                 <minItems>1</minItems>
                                 <maxItems>999</maxItems>
                                 <foreign_table_where>
-                                    AND tx_jobs_domain_model_contact.hidden = 0
-                                    AND tx_jobs_domain_model_contact.deleted = 0
+                                    AND tx_jobapplications_domain_model_contact.hidden = 0
+                                    AND tx_jobapplications_domain_model_contact.deleted = 0
                                 </foreign_table_where>
                             </config>
                         </TCEforms>

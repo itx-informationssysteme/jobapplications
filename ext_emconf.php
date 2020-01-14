@@ -24,7 +24,7 @@
 	 ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = [
-    'title' => 'Jobs',
+    'title' => 'Jobapplications',
     'description' => 'This extension enables you to manage job postings, the application form and incoming applications.',
     'category' => 'plugin',
     'author' => 'Stefanie Döll, Benjamin Jasper',
@@ -38,7 +38,7 @@ $EM_CONF[$_EXTKEY] = [
     'constraints' => [
         'depends' => [
             'typo3' => '9.5.0-9.5.99',
-			'fluidtypo3/vhs' => '5.2.0 - 5.2.99'
+			'vhs' => '5.2.0 - 5.2.99'
         ],
         'conflicts' => [],
         'suggests' => [],

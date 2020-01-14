@@ -1,8 +1,8 @@
 <?php
 
-	namespace ITX\Jobs\Domain\Repository;
+	namespace ITX\Jobapplications\Domain\Repository;
 
-	use ITX\Jobs\Domain\Model\Status;
+	use ITX\Jobapplications\Domain\Model\Status;
 	use TYPO3\CMS\Core\Core\Environment;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Core\Database\Schema\SchemaMigrator;
@@ -37,7 +37,7 @@
 	/**
 	 * The repository for Applications
 	 */
-	class StatusRepository extends \ITX\Jobs\Domain\Repository\JobsRepository
+	class StatusRepository extends \ITX\Jobapplications\Domain\Repository\JobapplicationsRepository
 	{
 		/**
 		 * Finds all with option of specifiying order
@@ -77,14 +77,14 @@
 		 */
 		public function generateStatus(string $statusFile, string $statusMmFile, int $pid, int $langUid)
 		{
-			$file1 = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName("EXT:jobs/Resources/Private/Sql/".$statusFile);
-			$file2 = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName("EXT:jobs/Resources/Private/Sql/".$statusMmFile);
+			$file1 = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName("EXT:jobapplications/Resources/Private/Sql/".$statusFile);
+			$file2 = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName("EXT:jobapplications/Resources/Private/Sql/".$statusMmFile);
 
 			$queryDropStatus = $this->createQuery();
-			$queryDropStatus->statement("DROP TABLE tx_jobs_domain_model_status");
+			$queryDropStatus->statement("DROP TABLE tx_jobapplications_domain_model_status");
 			$queryDropStatus->execute();
 			$queryDropMM = $this->createQuery();
-			$queryDropMM->statement("DROP TABLE tx_jobs_domain_model_status_mm");
+			$queryDropMM->statement("DROP TABLE tx_jobapplications_domain_model_status_mm");
 			$queryDropStatus->execute();
 
 			$contentStatus = file_get_contents($file1);

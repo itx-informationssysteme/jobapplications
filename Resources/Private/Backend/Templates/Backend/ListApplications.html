@@ -5,13 +5,13 @@
 	<div class="listapplication-wrapper">
 		<div class="top">
 			<h1>
-				<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.dashboard.applicationAdmin"></f:translate>
+				<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.dashboard.applicationAdmin"></f:translate>
 			</h1>
 			<div class="filter">
 				<f:form action="listApplications" name="filter" method="post">
 					<div class="filter-element">
 						<label for="contact">
-							<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.filter.contacts"/>
+							<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.filter.contacts"/>
 						</label>
 						<f:form.select class="" name="contact" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
 							<f:for each="{contacts}" as="contact">
@@ -21,7 +21,7 @@
 					</div>
 					<div class="filter-element">
 						<label for="posting">
-							<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.filter.postings"/>
+							<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.filter.postings"/>
 						</label>
 						<f:form.select class="" name="posting" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
 							<f:for each="{postings}" as="posting">
@@ -31,7 +31,7 @@
 					</div>
 					<div class="filter-element">
 						<label for="status">
-							<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.filter.status"/>
+							<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.filter.status"/>
 						</label>
 						<f:form.select class="" name="status" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
 							<f:for each="{statuses}" as="status">
@@ -41,7 +41,7 @@
 					</div>
 					<div class="filter-element checkbox-wrapper">
 						<label for="archived">
-							<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.filter.archived"/>
+							<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.filter.archived"/>
 						</label>
 						<f:form.checkbox name="archived" value="1" checked="{f:if(condition: '{archivedSelected} == 1', then: 'checked')}"/>
 					</div>
@@ -65,7 +65,7 @@
 								<div class="list-item-container">
 									<div class="row-section left">
 										<f:link.action action="showApplication" arguments="{application: application}">
-											<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.application.selector.{application.salutation}"/>
+											<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.application.selector.{application.salutation}"/>
 											{application.lastName}, {application.firstName}
 										</f:link.action>
 									</div>
@@ -92,7 +92,7 @@
 											<f:format.date format="{f:translate(key: 'date_format')}">{application.crdate}</f:format.date>
 										</span>
 										<f:link.action action="showApplication" arguments="{application: application}" class="btn">
-											<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.listApplications.showButton"/>
+											<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.listApplications.showButton"/>
 										</f:link.action>
 									</div>
 								</div>
@@ -100,7 +100,7 @@
 						</f:for>
 					</f:then>
 					<f:else>
-						<span><f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.listApplications.filter.noApps"/></span>
+						<span><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.listApplications.filter.noApps"/></span>
 					</f:else>
 				</f:if>
 			</ul>
@@ -109,7 +109,7 @@
 			<f:if condition="{archivedApplications}">
 				<f:then>
 					<h2>
-						<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.filter.archived"/>
+						<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.filter.archived"/>
 						:
 					</h2>
 					<ul>
@@ -118,7 +118,7 @@
 								<div class="list-item-container">
 									<div class="row-section left">
 										<f:link.action action="showApplication" arguments="{application: application}">
-											<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.application.selector.{application.salutation}"/>
+											<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.application.selector.{application.salutation}"/>
 											{application.lastName}, {application.firstName}
 										</f:link.action>
 									</div>
@@ -133,7 +133,7 @@
 										<f:format.date format="{f:translate(key: 'date_format')}">{application.crdate}</f:format.date>
 									</span>
 										<f:link.action action="showApplication" arguments="{application: application}" class="btn">
-											<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.listApplications.showButton"/>
+											<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.listApplications.showButton"/>
 										</f:link.action>
 									</div>
 								</div>

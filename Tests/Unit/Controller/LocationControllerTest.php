@@ -1,5 +1,5 @@
 <?php
-namespace ITX\Jobs\Tests\Unit\Controller;
+namespace ITX\Jobapplications\Tests\Unit\Controller;
 
 /**
  * Test case.
@@ -10,14 +10,14 @@ namespace ITX\Jobs\Tests\Unit\Controller;
 class LocationControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
 {
     /**
-     * @var \ITX\Jobs\Controller\LocationController
+     * @var \ITX\Jobapplications\Controller\LocationController
      */
     protected $subject = null;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->subject = $this->getMockBuilder(\ITX\Jobs\Controller\LocationController::class)
+        $this->subject = $this->getMockBuilder(\ITX\Jobapplications\Controller\LocationController::class)
             ->setMethods(['redirect', 'forward', 'addFlashMessage'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -38,7 +38,7 @@ class LocationControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestC
             ->disableOriginalConstructor()
             ->getMock();
 
-        $locationRepository = $this->getMockBuilder(\ITX\Jobs\Domain\Repository\LocationRepository::class)
+        $locationRepository = $this->getMockBuilder(\ITX\Jobapplications\Domain\Repository\LocationRepository::class)
             ->setMethods(['findAll'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -57,7 +57,7 @@ class LocationControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestC
      */
     public function showActionAssignsTheGivenLocationToView()
     {
-        $location = new \ITX\Jobs\Domain\Model\Location();
+        $location = new \ITX\Jobapplications\Domain\Model\Location();
 
         $view = $this->getMockBuilder(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class)->getMock();
         $this->inject($this->subject, 'view', $view);
@@ -71,9 +71,9 @@ class LocationControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestC
      */
     public function createActionAddsTheGivenLocationToLocationRepository()
     {
-        $location = new \ITX\Jobs\Domain\Model\Location();
+        $location = new \ITX\Jobapplications\Domain\Model\Location();
 
-        $locationRepository = $this->getMockBuilder(\ITX\Jobs\Domain\Repository\LocationRepository::class)
+        $locationRepository = $this->getMockBuilder(\ITX\Jobapplications\Domain\Repository\LocationRepository::class)
             ->setMethods(['add'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -89,7 +89,7 @@ class LocationControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestC
      */
     public function editActionAssignsTheGivenLocationToView()
     {
-        $location = new \ITX\Jobs\Domain\Model\Location();
+        $location = new \ITX\Jobapplications\Domain\Model\Location();
 
         $view = $this->getMockBuilder(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class)->getMock();
         $this->inject($this->subject, 'view', $view);
@@ -103,9 +103,9 @@ class LocationControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestC
      */
     public function updateActionUpdatesTheGivenLocationInLocationRepository()
     {
-        $location = new \ITX\Jobs\Domain\Model\Location();
+        $location = new \ITX\Jobapplications\Domain\Model\Location();
 
-        $locationRepository = $this->getMockBuilder(\ITX\Jobs\Domain\Repository\LocationRepository::class)
+        $locationRepository = $this->getMockBuilder(\ITX\Jobapplications\Domain\Repository\LocationRepository::class)
             ->setMethods(['update'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -121,9 +121,9 @@ class LocationControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestC
      */
     public function deleteActionRemovesTheGivenLocationFromLocationRepository()
     {
-        $location = new \ITX\Jobs\Domain\Model\Location();
+        $location = new \ITX\Jobapplications\Domain\Model\Location();
 
-        $locationRepository = $this->getMockBuilder(\ITX\Jobs\Domain\Repository\LocationRepository::class)
+        $locationRepository = $this->getMockBuilder(\ITX\Jobapplications\Domain\Repository\LocationRepository::class)
             ->setMethods(['remove'])
             ->disableOriginalConstructor()
             ->getMock();

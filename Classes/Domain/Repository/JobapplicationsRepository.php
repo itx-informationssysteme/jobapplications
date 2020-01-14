@@ -22,17 +22,17 @@
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
 
-	namespace ITX\Jobs\Domain\Repository;
+	namespace ITX\Jobapplications\Domain\Repository;
 
 	use TYPO3\CMS\Core\Database\ConnectionPool;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 	/**
-	 * Class JobsRepository
+	 * Class JobapplicationsRepository
 	 *
 	 * Parent Repository for other repos
 	 */
-	abstract class JobsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+	abstract class JobapplicationsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 	{
 		/**
 		 * Helper function for building the sql for categories

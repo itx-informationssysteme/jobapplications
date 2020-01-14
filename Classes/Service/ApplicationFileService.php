@@ -1,5 +1,5 @@
 <?php
-	namespace ITX\Jobs\Service;
+	namespace ITX\Jobapplications\Service;
 	use TYPO3\CMS\Core\Resource\Exception\FileOperationErrorException;
 	use TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException;
 	use TYPO3\CMS\Core\Resource\Exception\InsufficientUserPermissionsException;
@@ -8,7 +8,7 @@
 	use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 	/**
-	 * This file is part of the "jobs" Extension for TYPO3 CMS.
+	 * This file is part of the "jobapplications" Extension for TYPO3 CMS.
 	 *
 	 * For the full copyright and license information, please read the
 	 * LICENSE.txt file that was distributed with this source code.
@@ -27,7 +27,7 @@
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
 		 */
 
-		function getApplicantFolder(\ITX\Jobs\Domain\Model\Application $applicationObject)
+		function getApplicantFolder(\ITX\Jobapplications\Domain\Model\Application $applicationObject)
 		{
 			return self::APP_FILE_FOLDER.(new \TYPO3\CMS\Core\Resource\Driver\LocalDriver)
 					->sanitizeFileName($applicationObject->getFirstName()."_".$applicationObject->getLastName()

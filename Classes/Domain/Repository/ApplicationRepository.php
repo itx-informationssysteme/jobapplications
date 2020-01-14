@@ -1,9 +1,9 @@
 <?php
 
-	namespace ITX\Jobs\Domain\Repository;
+	namespace ITX\Jobapplications\Domain\Repository;
 
-	use ITX\Jobs\Domain\Model\Contact;
-	use ITX\Jobs\Domain\Model\Posting;
+	use ITX\Jobapplications\Domain\Model\Contact;
+	use ITX\Jobapplications\Domain\Model\Posting;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
@@ -34,7 +34,7 @@
 	/**
 	 * The repository for Applications
 	 */
-	class ApplicationRepository extends \ITX\Jobs\Domain\Repository\JobsRepository
+	class ApplicationRepository extends \ITX\Jobapplications\Domain\Repository\JobapplicationsRepository
 	{
 
 		/**

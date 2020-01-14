@@ -1,13 +1,13 @@
 <?php
 
-	namespace ITX\Jobs\Controller;
+	namespace ITX\Jobapplications\Controller;
 
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\Page\PageRenderer;
 	use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 	use TYPO3\CMS\Core\MetaTag\MetaTagManagerRegistry;
-	use ITX\Jobs\PageTitle\JobsPageTitleProvider;
+	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 	/***************************************************************
@@ -42,7 +42,7 @@
 		/**
 		 * postingRepository
 		 *
-		 * @var \ITX\Jobs\Domain\Repository\PostingRepository
+		 * @var \ITX\Jobapplications\Domain\Repository\PostingRepository
 		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $postingRepository = null;
@@ -50,7 +50,7 @@
 		/**
 		 * locationRepository
 		 *
-		 * @var \ITX\Jobs\Domain\Repository\LocationRepository
+		 * @var \ITX\Jobapplications\Domain\Repository\LocationRepository
 		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $locationRepository = null;
@@ -163,11 +163,11 @@
 		/**
 		 * action show
 		 *
-		 * @param \ITX\Jobs\Domain\Model\Posting $posting
+		 * @param \ITX\Jobapplications\Domain\Model\Posting $posting
 		 *
 		 * @return void
 		 */
-		public function showAction(\ITX\Jobs\Domain\Model\Posting $posting = null)
+		public function showAction(\ITX\Jobapplications\Domain\Model\Posting $posting = null)
 		{
 
 			$titleProvider = GeneralUtility::makeInstance(JobsPageTitleProvider::class);
@@ -178,12 +178,12 @@
 
 			$hiringOranization = array(
 				"@type" => "Organization",
-				"name" => $extconf->get('jobs', 'companyName')
+				"name" => $extconf->get('jobapplications', 'companyName')
 			);
 
 			if (!empty($hiringOranization['name']) && $this->settings['enableGoogleJobs'] == "1")
 			{
-				$logo = $extconf->get('jobs', 'logo');
+				$logo = $extconf->get('jobapplications', 'logo');
 				if (!empty($logo))
 				{
 					$hiringOranization['hiringOranization']["logo"] = $logo;
@@ -243,7 +243,7 @@
 
 				if (!empty($posting->getBaseSalary()))
 				{
-					$currency = $logo = $extconf->get('jobs', 'currency') ?: "EUR";
+					$currency = $logo = $extconf->get('jobapplications', 'currency') ?: "EUR";
 					$googleJobsJSON["baseSalary"] = [
 						"@type" => "MonetaryAmount",
 						"currency" => $currency,

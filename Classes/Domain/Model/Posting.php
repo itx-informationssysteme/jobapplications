@@ -1,6 +1,6 @@
 <?php
 
-	namespace ITX\Jobs\Domain\Model;
+	namespace ITX\Jobapplications\Domain\Model;
 
 	use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
@@ -142,14 +142,14 @@
 		/**
 		 * location
 		 *
-		 * @var \ITX\Jobs\Domain\Model\Location
+		 * @var \ITX\Jobapplications\Domain\Model\Location
 		 */
 		protected $location = null;
 
 		/**
 		 * contact
 		 *
-		 * @var \ITX\Jobs\Domain\Model\Contact
+		 * @var \ITX\Jobapplications\Domain\Model\Contact
 		 */
 		protected $contact = null;
 
@@ -528,7 +528,7 @@
 		/**
 		 * Returns the location
 		 *
-		 * @return \ITX\Jobs\Domain\Model\Location location
+		 * @return \ITX\Jobapplications\Domain\Model\Location location
 		 */
 		public function getLocation()
 		{
@@ -538,11 +538,11 @@
 		/**
 		 * Sets the location
 		 *
-		 * @param \ITX\Jobs\Domain\Model\Location $location
+		 * @param \ITX\Jobapplications\Domain\Model\Location $location
 		 *
 		 * @return void
 		 */
-		public function setLocation(\ITX\Jobs\Domain\Model\Location $location)
+		public function setLocation(\ITX\Jobapplications\Domain\Model\Location $location)
 		{
 			$this->location = $location;
 		}
@@ -550,7 +550,7 @@
 		/**
 		 * Returns the contact
 		 *
-		 * @return \ITX\Jobs\Domain\Model\Contact $contact
+		 * @return \ITX\Jobapplications\Domain\Model\Contact $contact
 		 */
 		public function getContact()
 		{
@@ -560,11 +560,11 @@
 		/**
 		 * Sets the contact
 		 *
-		 * @param \ITX\Jobs\Domain\Model\Contact $contact
+		 * @param \ITX\Jobapplications\Domain\Model\Contact $contact
 		 *
 		 * @return void
 		 */
-		public function setContact(\ITX\Jobs\Domain\Model\Contact $contact)
+		public function setContact(\ITX\Jobapplications\Domain\Model\Contact $contact)
 		{
 			$this->contact = $contact;
 		}

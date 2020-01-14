@@ -4,13 +4,13 @@
         <singleView>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.tab.postingTitle</sheetTitle>
+                    <sheetTitle>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.tab.postingTitle</sheetTitle>
                 </TCEforms>
                 <type>array</type>
                 <el>
                     <settings.detailViewUid>
                         <TCEforms>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.general.detailView</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.general.detailView</label>
                             <config>
                                 <type>group</type>
                                 <internal_type>db</internal_type>
@@ -30,7 +30,7 @@
                     </settings.detailViewUid>
                     <settings.singleDetailandApp>
                         <TCEforms>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.singleDetailandApp</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.singleDetailandApp</label>
                             <config>
                                 <type>check</type>
                                 <default>0</default>
@@ -39,7 +39,7 @@
                     </settings.singleDetailandApp>
                     <settings.categories>
                         <TCEforms>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.category</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.category</label>
                             <config>
                                 <type>select</type>
                                 <renderMode>tree</renderMode>

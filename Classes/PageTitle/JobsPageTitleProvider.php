@@ -1,6 +1,6 @@
 <?php
 
-	namespace ITX\Jobs\PageTitle;
+	namespace ITX\Jobapplications\PageTitle;
 
 	use TYPO3\CMS\Core\PageTitle\AbstractPageTitleProvider;
 

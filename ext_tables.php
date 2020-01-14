@@ -7,7 +7,7 @@ call_user_func(
         if (TYPO3_MODE === 'BE') {
 
             \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-                'ITX.Jobs',
+                'ITX.Jobapplications',
                 'web', // Make module a submodule of 'web'
                 'backend', // Submodule key
                 '', // Position
@@ -16,25 +16,25 @@ call_user_func(
                 ],
                 [
                     'access' => 'user,group',
-                    'icon'   => 'EXT:jobs/Resources/Public/Icons/logo_jobs.svg',
-                    'labels' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf',
+                    'icon'   => 'EXT:jobapplications/Resources/Public/Icons/logo_jobs.svg',
+                    'labels' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf',
                 ]
             );
         }
 
-		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_jobs_domain_model_application', 'EXT:jobs/Resources/Private/Language/locallang_csh_tx_jobs_domain_model_application.xlf');
-		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_jobs_domain_model_application');
+		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_jobapplications_domain_model_application', 'EXT:jobapplications/Resources/Private/Language/locallang_csh_tx_jobapplications_domain_model_application.xlf');
+		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_jobapplications_domain_model_application');
 
-		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_jobs_domain_model_contact', 'EXT:jobs/Resources/Private/Language/locallang_csh_tx_jobs_domain_model_contact.xlf');
-		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_jobs_domain_model_contact');
+		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_jobapplications_domain_model_contact', 'EXT:jobapplications/Resources/Private/Language/locallang_csh_tx_jobapplications_domain_model_contact.xlf');
+		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_jobapplications_domain_model_contact');
 
-		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_jobs_domain_model_location', 'EXT:jobs/Resources/Private/Language/locallang_csh_tx_jobs_domain_model_location.xlf');
-		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_jobs_domain_model_location');
+		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_jobapplications_domain_model_location', 'EXT:jobapplications/Resources/Private/Language/locallang_csh_tx_jobapplications_domain_model_location.xlf');
+		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_jobapplications_domain_model_location');
 
-		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_jobs_domain_model_posting', 'EXT:jobs/Resources/Private/Language/locallang_csh_tx_jobs_domain_model_posting.xlf');
-		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_jobs_domain_model_posting');
+		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_jobapplications_domain_model_posting', 'EXT:jobapplications/Resources/Private/Language/locallang_csh_tx_jobapplications_domain_model_posting.xlf');
+		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_jobapplications_domain_model_posting');
 
-		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_jobs_domain_model_status', 'EXT:jobs/Resources/Private/Language/locallang_csh_tx_jobs_domain_model_status.xlf');
-		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_jobs_domain_model_status');
+		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_jobapplications_domain_model_status', 'EXT:jobapplications/Resources/Private/Language/locallang_csh_tx_jobapplications_domain_model_status.xlf');
+		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_jobapplications_domain_model_status');
     }
 );

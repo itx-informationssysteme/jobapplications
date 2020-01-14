@@ -4,13 +4,13 @@
         <singleView>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.tab.applicationTitle</sheetTitle>
+                    <sheetTitle>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.tab.applicationTitle</sheetTitle>
                 </TCEforms>
                 <type>array</type>
                 <el>
                     <settings.successPage>
                         <TCEforms>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.successPage</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.successPage</label>
                             <config>
                                 <type>group</type>
                                 <internal_type>db</internal_type>
@@ -30,7 +30,7 @@
                     </settings.successPage>
                     <settings.pageTitle>
                         <TCEforms>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.pageTitle</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.pageTitle</label>
                             <config>
                                 <type>input</type>
                                 <size>20</size>
@@ -41,7 +41,7 @@
                     </settings.pageTitle>
                     <settings.sendEmailToContact>
                         <TCEforms>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToContact</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToContact</label>
                             <config>
                                 <type>check</type>
                                 <default>1</default>
@@ -50,7 +50,7 @@
                     </settings.sendEmailToContact>
                     <settings.sendEmailToInternal>
                         <TCEforms>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToInternal</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToInternal</label>
                             <config>
                                 <type>input</type>
                                 <size>20</size>
@@ -61,7 +61,7 @@
                     </settings.sendEmailToInternal>
                     <settings.sendEmailToApplicant>
                         <TCEforms>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToApplicant</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToApplicant</label>
                             <config>
                                 <type>check</type>
                                 <default>0</default>
@@ -71,7 +71,7 @@
                     </settings.sendEmailToApplicant>
                     <settings.sendEmailToApplicantSubject>
                         <TCEforms>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToApplicantSubject</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToApplicantSubject</label>
                             <displayCond>FIELD:settings.sendEmailToApplicant:REQ:true</displayCond>
                             <config>
                                 <type>input</type>
@@ -83,7 +83,7 @@
                     </settings.sendEmailToApplicantSubject>
                     <settings.sendEmailToApplicantText>
                         <TCEforms>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToApplicantText</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToApplicantText</label>
                             <displayCond>FIELD:settings.sendEmailToApplicant:REQ:true</displayCond>
                             <config>
                                 <type>text</type>
@@ -97,7 +97,7 @@
                     </settings.sendEmailToApplicantText>
                     <settings.emailSender>
                         <TCEforms>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.emailSender</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.emailSender</label>
                             <displayCond>FIELD:settings.sendEmailToApplicant:REQ:true</displayCond>
                             <config>
                                 <type>input</type>
@@ -109,7 +109,7 @@
                     </settings.emailSender>
                     <settings.emailSenderName>
                         <TCEforms>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.emailSenderName</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.emailSenderName</label>
                             <displayCond>FIELD:settings.sendEmailToApplicant:REQ:true</displayCond>
                             <config>
                                 <type>input</type>
@@ -121,7 +121,7 @@
                     </settings.emailSenderName>
                     <settings.saveApplicationInBackend>
                         <TCEforms>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.saveApplicationInBackend</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.saveApplicationInBackend</label>
                             <config>
                                 <type>check</type>
                                 <default>1</default>
@@ -130,7 +130,7 @@
                     </settings.saveApplicationInBackend>
                     <settings.showSalarayExpectation>
                         <TCEforms>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.showSalarayExpectation</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.showSalarayExpectation</label>
                             <config>
                                 <type>check</type>
                                 <default>0</default>
@@ -139,7 +139,7 @@
                     </settings.showSalarayExpectation>
                     <settings.showEarliestDateOfJoining>
                         <TCEforms>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.showEarliestDateOfJoining</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.showEarliestDateOfJoining</label>
                             <config>
                                 <type>check</type>
                                 <default>0</default>
@@ -148,7 +148,7 @@
                     </settings.showEarliestDateOfJoining>
                     <settings.showMessage>
                         <TCEforms>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.showMessage</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.showMessage</label>
                             <config>
                                 <type>check</type>
                                 <default>0</default>
@@ -158,7 +158,7 @@
                     </settings.showMessage>
                     <settings.messageMaxLength>
                         <TCEforms>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.messageMaxLength</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.messageMaxLength</label>
                             <displayCond>FIELD:settings.showMessage:REQ:true</displayCond>
                             <config>
                                 <type>input</type>
@@ -179,7 +179,7 @@
                     <settings.linkPrivacy>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.linkPrivacy</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.linkPrivacy</label>
                             <config>
                                 <type>input</type>
                                 <size>30</size>

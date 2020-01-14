@@ -1,11 +1,11 @@
 <?php
 
-	namespace ITX\Jobs\Domain\Repository;
+	namespace ITX\Jobapplications\Domain\Repository;
 
-	use ITX\Jobs\Domain\Model\Contact;
+	use ITX\Jobapplications\Domain\Model\Contact;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
-	use ITX\Jobs\Domain\Repository\RepoHelpers;
+	use ITX\Jobapplications\Domain\Repository\RepoHelpers;
 
 	/***************************************************************
 	 *  Copyright notice
@@ -33,7 +33,7 @@
 	/**
 	 * The repository for Postings
 	 */
-	class PostingRepository extends \ITX\Jobs\Domain\Repository\JobsRepository
+	class PostingRepository extends \ITX\Jobapplications\Domain\Repository\JobapplicationsRepository
 	{
 		/**
 		 * Helper function for finding postings by category
@@ -44,12 +44,12 @@
 		 */
 		public function findByCategory(array $categories)
 		{
-			$qb = parent::getQueryBuilder("tx_jobs_domain_model_posting");
+			$qb = parent::getQueryBuilder("tx_jobapplications_domain_model_posting");
 
 			$qb
 				->select("*")
-				->from("tx_jobs_domain_model_posting")
-				->join("tx_jobs_domain_model_posting", "sys_category_record_mm", "sys_category_record_mm", "tx_jobs_domain_model_posting.uid = sys_category_record_mm.uid_foreign");
+				->from("tx_jobapplications_domain_model_posting")
+				->join("tx_jobapplications_domain_model_posting", "sys_category_record_mm", "sys_category_record_mm", "tx_jobapplications_domain_model_posting.uid = sys_category_record_mm.uid_foreign");
 
 			$query = $this->createQuery();
 
@@ -67,24 +67,24 @@
 		 */
 		public function findAllDivisions(array $categories = null)
 		{
-			$qb = parent::getQueryBuilder("tx_jobs_domain_model_posting");
+			$qb = parent::getQueryBuilder("tx_jobapplications_domain_model_posting");
 			$query = $this->createQuery();
 			if (count($categories) == 0)
 			{
 				$qb
 					->select("division")
 					->groupBy("division")
-					->from("tx_jobs_domain_model_posting");
+					->from("tx_jobapplications_domain_model_posting");
 			}
 			else
 			{
 				$qb
 					->select("division")
 					->groupBy("division")
-					->from("tx_jobs_domain_model_posting")
+					->from("tx_jobapplications_domain_model_posting")
 					->where($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()))
-					->join("tx_jobs_domain_model_posting", "sys_category_record_mm",
-						   "sys_category_record_mm", $qb->expr()->eq("tx_jobs_domain_model_posting.uid",
+					->join("tx_jobapplications_domain_model_posting", "sys_category_record_mm",
+						   "sys_category_record_mm", $qb->expr()->eq("tx_jobapplications_domain_model_posting.uid",
 																	 "sys_category_record_mm.uid_foreign"));
 				$qb = parent::buildCategoriesToSQL($categories, $qb);
 			}
@@ -98,7 +98,7 @@
 		 */
 		public function findAllCareerLevels(array $categories = null)
 		{
-			$qb = parent::getQueryBuilder("tx_jobs_domain_model_posting");
+			$qb = parent::getQueryBuilder("tx_jobapplications_domain_model_posting");
 
 			$query = $this->createQuery();
 			if (count($categories) == 0)
@@ -106,17 +106,17 @@
 				$qb
 					->select("career_level AS careerLevel")
 					->groupBy("careerLevel")
-					->from("tx_jobs_domain_model_posting");
+					->from("tx_jobapplications_domain_model_posting");
 			}
 			else
 			{
 				$qb
 					->select("career_level AS careerLevel")
 					->groupBy("careerLevel")
-					->from("tx_jobs_domain_model_posting")
+					->from("tx_jobapplications_domain_model_posting")
 					->where($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()))
-					->join("tx_jobs_domain_model_posting", "sys_category_record_mm",
-						   "sys_category_record_mm", $qb->expr()->eq("tx_jobs_domain_model_posting.uid",
+					->join("tx_jobapplications_domain_model_posting", "sys_category_record_mm",
+						   "sys_category_record_mm", $qb->expr()->eq("tx_jobapplications_domain_model_posting.uid",
 																	 "sys_category_record_mm.uid_foreign"));
 				$qb = parent::buildCategoriesToSQL($categories, $qb);
 			}
@@ -130,7 +130,7 @@
 		 */
 		public function findAllEmploymentTypes(array $categories = null)
 		{
-			$qb = parent::getQueryBuilder("tx_jobs_domain_model_posting");
+			$qb = parent::getQueryBuilder("tx_jobapplications_domain_model_posting");
 
 			$query = $this->createQuery();
 			if (count($categories) == 0)
@@ -138,17 +138,17 @@
 				$qb
 					->select("employment_type AS employmentType")
 					->groupBy("employmentType")
-					->from("tx_jobs_domain_model_posting");
+					->from("tx_jobapplications_domain_model_posting");
 			}
 			else
 			{
 				$qb
 					->select("employment_type AS employmentType")
 					->groupBy("employmentType")
-					->from("tx_jobs_domain_model_posting")
+					->from("tx_jobapplications_domain_model_posting")
 					->where($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()))
-					->join("tx_jobs_domain_model_posting", "sys_category_record_mm",
-						   "sys_category_record_mm", $qb->expr()->eq("tx_jobs_domain_model_posting.uid",
+					->join("tx_jobapplications_domain_model_posting", "sys_category_record_mm",
+						   "sys_category_record_mm", $qb->expr()->eq("tx_jobapplications_domain_model_posting.uid",
 																	 "sys_category_record_mm.uid_foreign"));
 				$qb = parent::buildCategoriesToSQL($categories, $qb);
 
@@ -171,16 +171,16 @@
 		 */
 		public function findByFilter(string $division, string $careerLevel, string $employmentType, int $location, array $categories)
 		{
-			$qb = parent::getQueryBuilder("tx_jobs_domain_model_posting");
+			$qb = parent::getQueryBuilder("tx_jobapplications_domain_model_posting");
 
 			if (count($categories) > 0)
 			{
 				$qb
 					->select("*")
-					->from("tx_jobs_domain_model_posting")
-					->join("tx_jobs_domain_model_posting", "sys_category_record_mm",
+					->from("tx_jobapplications_domain_model_posting")
+					->join("tx_jobapplications_domain_model_posting", "sys_category_record_mm",
 						   "sys_category_record_mm",
-						   "tx_jobs_domain_model_posting.uid = sys_category_record_mm.uid_foreign")
+						   "tx_jobapplications_domain_model_posting.uid = sys_category_record_mm.uid_foreign")
 					->where($qb->expr()->eq("deleted", 0))
 					->andWhere($qb->expr()->eq("hidden", 0));
 
@@ -189,10 +189,10 @@
 			}
 			else
 			{
-				$qb = parent::getQueryBuilder("tx_jobs_domain_model_posting");
+				$qb = parent::getQueryBuilder("tx_jobapplications_domain_model_posting");
 				$qb
 					->select("*")
-					->from("tx_jobs_domain_model_posting")
+					->from("tx_jobapplications_domain_model_posting")
 					->where($qb->expr()->eq("deleted", 0))
 					->andWhere($qb->expr()->eq("hidden", 0));
 			}

@@ -1,5 +1,5 @@
 <?php
-namespace ITX\Jobs\Tests\Unit\Domain\Model;
+namespace ITX\Jobapplications\Tests\Unit\Domain\Model;
 
 /**
  * Test case.
@@ -10,14 +10,14 @@ namespace ITX\Jobs\Tests\Unit\Domain\Model;
 class LocationTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
 {
     /**
-     * @var \ITX\Jobs\Domain\Model\Location
+     * @var \ITX\Jobapplications\Domain\Model\Location
      */
     protected $subject = null;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->subject = new \ITX\Jobs\Domain\Model\Location();
+        $this->subject = new \ITX\Jobapplications\Domain\Model\Location();
     }
 
     protected function tearDown()

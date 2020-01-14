@@ -1,5 +1,5 @@
 {
-    "name": "itx/jobs",
+    "name": "itx/jobapplications",
     "type": "typo3-cms-extension",
     "description": "This extension enables you to manage job postings, has an application form for applicants to apply and an Application Managment Backend Module",
     "license": "GPL-3.0-or-later",
@@ -19,7 +19,7 @@
     ],
     "support": {
         "email": "typo-itx@itx.de",
-        "issues": "https://github.com/typo3-itx/jobs/issues",
+        "issues": "https://github.com/typo3-itx/jobapplications/issues",
         "docs": ""
     },
     "require": {
@@ -28,21 +28,21 @@
     },
     "extra": {
         "typo3/cms": {
-            "extension-key": "jobs"
+            "extension-key": "jobapplications"
         }
     },
     "autoload": {
         "psr-4": {
-            "ITX\\Jobs\\": "Classes"
+            "ITX\\Jobapplications\\": "Classes"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ITX\\Jobs\\Tests\\": "Tests"
+            "ITX\\Jobapplications\\Tests\\": "Tests"
         }
     },
     "replace": {
-        "itx/jobs": "self.version",
-        "typo3-ter/jobs": "self.version"
+        "itx/jobapplications": "self.version",
+        "typo3-ter/jobapplications": "self.version"
     }
 }

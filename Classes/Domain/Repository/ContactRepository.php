@@ -1,6 +1,6 @@
 <?php
 
-	namespace ITX\Jobs\Domain\Repository;
+	namespace ITX\Jobapplications\Domain\Repository;
 
 	/***************************************************************
 	 *  Copyright notice
@@ -28,7 +28,7 @@
 	/**
 	 * The repository for Contacts
 	 */
-	class ContactRepository extends \ITX\Jobs\Domain\Repository\JobsRepository
+	class ContactRepository extends \ITX\Jobapplications\Domain\Repository\JobapplicationsRepository
 	{
 		/**
 		 * @param array $uids

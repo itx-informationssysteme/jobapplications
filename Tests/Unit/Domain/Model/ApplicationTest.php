@@ -1,5 +1,5 @@
 <?php
-namespace ITX\Jobs\Tests\Unit\Domain\Model;
+namespace ITX\Jobapplications\Tests\Unit\Domain\Model;
 
 /**
  * Test case.
@@ -10,14 +10,14 @@ namespace ITX\Jobs\Tests\Unit\Domain\Model;
 class ApplicationTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
 {
     /**
-     * @var \ITX\Jobs\Domain\Model\Application
+     * @var \ITX\Jobapplications\Domain\Model\Application
      */
     protected $subject = null;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->subject = new \ITX\Jobs\Domain\Model\Application();
+        $this->subject = new \ITX\Jobapplications\Domain\Model\Application();
     }
 
     protected function tearDown()
@@ -471,7 +471,7 @@ class ApplicationTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
      */
     public function setPostingForPostingSetsPosting()
     {
-        $postingFixture = new \ITX\Jobs\Domain\Model\Posting();
+        $postingFixture = new \ITX\Jobapplications\Domain\Model\Posting();
         $this->subject->setPosting($postingFixture);
 
         self::assertAttributeEquals(

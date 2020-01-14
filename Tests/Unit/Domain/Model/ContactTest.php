@@ -1,5 +1,5 @@
 <?php
-namespace ITX\Jobs\Tests\Unit\Domain\Model;
+namespace ITX\Jobapplications\Tests\Unit\Domain\Model;
 
 /**
  * Test case.
@@ -10,14 +10,14 @@ namespace ITX\Jobs\Tests\Unit\Domain\Model;
 class ContactTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
 {
     /**
-     * @var \ITX\Jobs\Domain\Model\Contact
+     * @var \ITX\Jobapplications\Domain\Model\Contact
      */
     protected $subject = null;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->subject = new \ITX\Jobs\Domain\Model\Contact();
+        $this->subject = new \ITX\Jobapplications\Domain\Model\Contact();
     }
 
     protected function tearDown()

@@ -23,24 +23,24 @@
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
 
-	namespace ITX\Jobs\Controller;
+	namespace ITX\Jobapplications\Controller;
 
-	use ITX\Jobs\Domain\Model\Contact;
-	use ITX\Jobs\Domain\Model\Status;
+	use ITX\Jobapplications\Domain\Model\Contact;
+	use ITX\Jobapplications\Domain\Model\Status;
 	use TYPO3\CMS\Core\Resource\Exception\InsufficientUserPermissionsException;
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 	/**
 	 * Class BackendController
 	 *
-	 * @package ITX\Jobs\Controller
+	 * @package ITX\Jobapplications\Controller
 	 */
 	class BackendController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	{
 		/**
 		 * applicationRepository
 		 *
-		 * @var \ITX\Jobs\Domain\Repository\ApplicationRepository
+		 * @var \ITX\Jobapplications\Domain\Repository\ApplicationRepository
 		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $applicationRepository = null;
@@ -48,7 +48,7 @@
 		/**
 		 * postingRepository
 		 *
-		 * @var \ITX\Jobs\Domain\Repository\PostingRepository
+		 * @var \ITX\Jobapplications\Domain\Repository\PostingRepository
 		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $postingRepository = null;
@@ -56,7 +56,7 @@
 		/**
 		 * contactRepository
 		 *
-		 * @var \ITX\Jobs\Domain\Repository\ContactRepository
+		 * @var \ITX\Jobapplications\Domain\Repository\ContactRepository
 		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $contactRepository = null;
@@ -64,7 +64,7 @@
 		/**
 		 * statusRepository
 		 *
-		 * @var \ITX\Jobs\Domain\Repository\StatusRepository
+		 * @var \ITX\Jobapplications\Domain\Repository\StatusRepository
 		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $statusRepository = null;
@@ -78,7 +78,7 @@
 		protected $persistenceManager;
 
 		/**
-		 * @var \ITX\Jobs\Service\ApplicationFileService
+		 * @var \ITX\Jobapplications\Service\ApplicationFileService
 		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $applicationFileService;
@@ -93,7 +93,7 @@
 		 */
 		public function listApplicationsAction()
 		{
-			$sessionData = $GLOBALS["BE_USER"]->getSessionData("tx_jobs");
+			$sessionData = $GLOBALS["BE_USER"]->getSessionData("tx_jobapplications");
 
 			// Get all filter elements and set them to empty if there are none and use session storage for persisting selection
 			if ($this->request->hasArgument("submit"))
@@ -157,7 +157,7 @@
 			$sessionData["archivedSelected"] = $archivedSelected;
 			$sessionData["selectedContact"] = $selectedContact;
 			$sessionData["selectedStatus"] = $selectedStatus;
-			$GLOBALS["BE_USER"]->setAndSaveSessionData("tx_jobs", $sessionData);
+			$GLOBALS["BE_USER"]->setAndSaveSessionData("tx_jobapplications", $sessionData);
 
 			$this->view->assign("selectedPosting", $selectedPosting);
 			$this->view->assign("archivedSelected", $archivedSelected);
@@ -172,7 +172,7 @@
 		/**
 		 * action showApplication
 		 *
-		 * @param \ITX\Jobs\Domain\Model\Application $application
+		 * @param \ITX\Jobapplications\Domain\Model\Application $application
 		 *
 		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
@@ -180,7 +180,7 @@
 		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
 		 */
-		public function showApplicationAction(\ITX\Jobs\Domain\Model\Application $application)
+		public function showApplicationAction(\ITX\Jobapplications\Domain\Model\Application $application)
 		{
 			$statusDatabaseOp = false;
 
@@ -205,7 +205,7 @@
 				$this->applicationRepository->remove($application);
 				$this->applicationFileService->deleteApplicationFolder($this->applicationFileService->getApplicantFolder($application));
 				$this->persistenceManager->persistAll();
-				$this->redirect('listApplications', 'Backend', 'jobs');
+				$this->redirect('listApplications', 'Backend', 'jobapplications');
 			}
 
 			// Handles status change request
@@ -264,7 +264,7 @@
 				$pid = $this->request->getArgument("pid");
 				$language = $this->request->getArgument("language");
 				$langUid = $this->statusRepository->findLangUid($language);
-				$this->statusRepository->generateStatus("tx_jobs_domain_model_status_".$language.".sql", "tx_jobs_domain_model_status_mm.sql", $pid, $langUid);
+				$this->statusRepository->generateStatus("tx_jobapplications_domain_model_status_".$language.".sql", "tx_jobapplications_domain_model_status_mm.sql", $pid, $langUid);
 
 				$this->addFlashMessage("Finished!");
 			}

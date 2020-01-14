@@ -15,13 +15,13 @@ You can install it via composer by typing
 
 .. code-block:: bash
 
-   composer require itx/jobs
+   composer require itx/jobapplications
 
 or the Extension Manager in the Backend or install it locally for example directly from `Github <|project_repository|>`__.
 
 Include Static Typoscript
 -------------------------
-You have to include the static typoscript file the Jobs extension provides.
+You have to include the static typoscript file the Jobapplications extension provides.
 
 #. Switch to the root page of your site.
 
@@ -29,9 +29,9 @@ You have to include the static typoscript file the Jobs extension provides.
 
 #. Press the link **Edit the whole template record** and switch to the tab *Includes*.
 
-#. Select **Jobs (jobs)** at the field *Include static (from extensions):*
+#. Select **Jobapplications (jobapplications)** at the field *Include static (from extensions):*
 
-#. Here you can also include the Bootstrap entry, provided by the jobs extension, to have a working default layout.
+#. Here you can also include the Bootstrap entry, provided by the jobapplications extension, to have a working default layout.
 
 Route Enhancers
 ---------------

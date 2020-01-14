@@ -1,7 +1,7 @@
 #
-# Table structure for table 'tx_jobs_domain_model_posting'
+# Table structure for table 'tx_jobapplications_domain_model_posting'
 #
-CREATE TABLE tx_jobs_domain_model_posting
+CREATE TABLE tx_jobapplications_domain_model_posting
 (
 
     title               varchar(255)     DEFAULT '' NOT NULL,
@@ -28,9 +28,9 @@ CREATE TABLE tx_jobs_domain_model_posting
 );
 
 #
-# Table structure for table 'tx_jobs_domain_model_contact'
+# Table structure for table 'tx_jobapplications_domain_model_contact'
 #
-CREATE TABLE tx_jobs_domain_model_contact
+CREATE TABLE tx_jobapplications_domain_model_contact
 (
 
     first_name varchar(255)     DEFAULT '' NOT NULL,
@@ -44,9 +44,9 @@ CREATE TABLE tx_jobs_domain_model_contact
 );
 
 #
-# Table structure for table 'tx_jobs_domain_model_location'
+# Table structure for table 'tx_jobapplications_domain_model_location'
 #
-CREATE TABLE tx_jobs_domain_model_location
+CREATE TABLE tx_jobapplications_domain_model_location
 (
 
     name                      varchar(255) DEFAULT ''  NOT NULL,
@@ -61,9 +61,9 @@ CREATE TABLE tx_jobs_domain_model_location
 );
 
 #
-# Table structure for table 'tx_jobs_domain_model_application'
+# Table structure for table 'tx_jobapplications_domain_model_application'
 #
-CREATE TABLE tx_jobs_domain_model_application
+CREATE TABLE tx_jobapplications_domain_model_application
 (
 
     salutation                varchar(10)          DEFAULT ''  NOT NULL,
@@ -90,17 +90,17 @@ CREATE TABLE tx_jobs_domain_model_application
 );
 
 #
-# Table structure for table 'tx_jobs_domain_model_posting'
+# Table structure for table 'tx_jobapplications_domain_model_posting'
 #
-CREATE TABLE tx_jobs_domain_model_posting
+CREATE TABLE tx_jobapplications_domain_model_posting
 (
     categories int(11) unsigned DEFAULT '0' NOT NULL
 );
 
 #
-# Table structure for table 'tx_jobs_domain_model_status'
+# Table structure for table 'tx_jobapplications_domain_model_status'
 #
-CREATE TABLE tx_jobs_domain_model_status
+CREATE TABLE tx_jobapplications_domain_model_status
 (
     name          varchar(255)         DEFAULT ''  NOT NULL,
     is_end_status smallint(5) unsigned DEFAULT '0' NOT NULL,
@@ -109,9 +109,9 @@ CREATE TABLE tx_jobs_domain_model_status
 );
 
 #
-# Table structure for table 'tx_jobs_domain_model_status_mm'
+# Table structure for table 'tx_jobapplications_domain_model_status_mm'
 #
-CREATE TABLE tx_jobs_domain_model_status_mm
+CREATE TABLE tx_jobapplications_domain_model_status_mm
 (
     uid_local       int(11) unsigned DEFAULT '0' NOT NULL,
     uid_foreign     int(11) unsigned DEFAULT '0' NOT NULL,

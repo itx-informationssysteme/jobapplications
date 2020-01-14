@@ -1,7 +1,7 @@
 <?php
 	return [
 		'ctrl' => [
-			'title' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting',
+			'title' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting',
 			'label' => 'title',
 			'tstamp' => 'tstamp',
 			'crdate' => 'crdate',
@@ -17,7 +17,7 @@
 				'endtime' => 'endtime',
 			],
 			'searchFields' => 'title,career_level,division,employment_type,terms_of_employment,company_description,job_description,role_description,skill_requirements,benefits,base_salary,required_documents,company_information',
-			'iconfile' => 'EXT:jobs/Resources/Public/Icons/tx_jobs_domain_model_posting.gif'
+			'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/tx_jobapplications_domain_model_posting.gif'
 		],
 		'interface' => [
 			'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, date_posted, career_level, division, employment_type, terms_of_employment, company_description, job_description, role_description, skill_requirements, benefits, base_salary, valid_through, required_documents, company_information, detail_view_image, list_view_image, location, contact',
@@ -51,8 +51,8 @@
 					'items' => [
 						['', 0],
 					],
-					'foreign_table' => 'tx_jobs_domain_model_posting',
-					'foreign_table_where' => 'AND {#tx_jobs_domain_model_posting}.{#pid}=###CURRENT_PID### AND {#tx_jobs_domain_model_posting}.{#sys_language_uid} IN (-1,0)',
+					'foreign_table' => 'tx_jobapplications_domain_model_posting',
+					'foreign_table_where' => 'AND {#tx_jobapplications_domain_model_posting}.{#pid}=###CURRENT_PID### AND {#tx_jobapplications_domain_model_posting}.{#sys_language_uid} IN (-1,0)',
 				],
 			],
 			'l10n_diffsource' => [
@@ -115,7 +115,7 @@
 
 			'title' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.title',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title',
 				'config' => [
 					'type' => 'input',
 					'size' => 30,
@@ -124,7 +124,7 @@
 			],
 			'date_posted' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.date_posted',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.date_posted',
 				'config' => [
 					'dbType' => 'date',
 					'type' => 'input',
@@ -136,7 +136,7 @@
 			],
 			'career_level' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.career_level',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.career_level',
 				'config' => [
 					'type' => 'input',
 					'size' => 30,
@@ -145,7 +145,7 @@
 			],
 			'division' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.division',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.division',
 				'config' => [
 					'type' => 'input',
 					'size' => 30,
@@ -154,20 +154,20 @@
 			],
 			'employment_type' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.employment_type',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.employment_type',
 				'config' => [
 					'type' => 'select',
 					'renderType' => 'selectSingle',
 					'items' => [
-						['LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.chooseMessage', ""],
-						['LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.fulltime', "fulltime"],
-						['LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.parttime', "parttime"],
-						['LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.contractor', "contractor"],
-						['LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.temporary', "temporary"],
-						['LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.intern', "intern"],
-						['LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.volunteer', "volunteer"],
-						['LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.perdiem', "perdiem"],
-						['LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.other', "other"]
+						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.chooseMessage', ""],
+						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.fulltime', "fulltime"],
+						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.parttime', "parttime"],
+						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.contractor', "contractor"],
+						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.temporary', "temporary"],
+						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.intern', "intern"],
+						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.volunteer', "volunteer"],
+						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.perdiem', "perdiem"],
+						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.other', "other"]
 					],
 					'size' => 1,
 					'cols' => 5,
@@ -177,7 +177,7 @@
 			],
 			'terms_of_employment' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.terms_of_employment',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.terms_of_employment',
 				'config' => [
 					'type' => 'input',
 					'size' => 30,
@@ -186,7 +186,7 @@
 			],
 			'company_description' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.company_description',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.company_description',
 				'config' => [
 					'type' => 'text',
 					'enableRichtext' => true,
@@ -204,7 +204,7 @@
 			],
 			'job_description' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.job_description',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.job_description',
 				'config' => [
 					'type' => 'text',
 					'enableRichtext' => true,
@@ -222,7 +222,7 @@
 			],
 			'role_description' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.role_description',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.role_description',
 				'config' => [
 					'type' => 'text',
 					'enableRichtext' => true,
@@ -240,7 +240,7 @@
 			],
 			'skill_requirements' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.skill_requirements',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.skill_requirements',
 				'config' => [
 					'type' => 'text',
 					'enableRichtext' => true,
@@ -258,7 +258,7 @@
 			],
 			'benefits' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.benefits',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.benefits',
 				'config' => [
 					'type' => 'text',
 					'enableRichtext' => true,
@@ -276,7 +276,7 @@
 			],
 			'base_salary' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.base_salary',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.base_salary',
 				'config' => [
 					'type' => 'input',
 					'size' => 30,
@@ -285,7 +285,7 @@
 			],
 			'valid_through' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.valid_through',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.valid_through',
 				'config' => [
 					'dbType' => 'date',
 					'type' => 'input',
@@ -297,7 +297,7 @@
 			],
 			'required_documents' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.required_documents',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.required_documents',
 				'config' => [
 					'type' => 'text',
 					'enableRichtext' => true,
@@ -314,7 +314,7 @@
 			],
 			'company_information' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.company_information',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.company_information',
 				'config' => [
 					'type' => 'text',
 					'enableRichtext' => true,
@@ -331,7 +331,7 @@
 			],
 			'detail_view_image' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.detail_view_image',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.detail_view_image',
 				'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
 					'detail_view_image',
 					[
@@ -381,7 +381,7 @@
 			],
 			'list_view_image' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.list_view_image',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.list_view_image',
 				'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
 					'list_view_image',
 					[
@@ -431,28 +431,28 @@
 			],
 			'location' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.location',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.location',
 				'config' => [
 					'type' => 'select',
 					'renderType' => 'selectSingle',
-					'foreign_table' => 'tx_jobs_domain_model_location',
+					'foreign_table' => 'tx_jobapplications_domain_model_location',
 					'minitems' => 0,
 					'maxitems' => 1,
 				],
 			],
 			'contact' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.contact',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.contact',
 				'config' => [
 					'type' => 'select',
 					'renderType' => 'selectSingle',
-					'foreign_table' => 'tx_jobs_domain_model_contact',
+					'foreign_table' => 'tx_jobapplications_domain_model_contact',
 					'minitems' => 0,
 					'maxitems' => 1,
 				],
 			],
 			'slug' => [
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.slug',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.slug',
 				'exclude' => true,
 				'config' => [
 					'type' => 'slug',
@@ -477,12 +477,12 @@
 				--palette--;;dates,
 				base_salary,
 				--palette--;;circumstances,
-				--div--;LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.title.advanced,
+				--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.advanced,
 				--palette--;;general,
-				--div--;LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.title.texts,
+				--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.texts,
 				company_description, job_description, role_description, skill_requirements, benefits, 
 				required_documents, company_information,
-				--div--;LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_posting.title.images,
+				--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.images,
 				--palette--;;images'
 			],
 		],

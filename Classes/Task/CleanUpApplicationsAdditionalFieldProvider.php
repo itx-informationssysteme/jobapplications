@@ -1,6 +1,6 @@
 <?php
 
-	namespace ITX\Jobs\Task;
+	namespace ITX\Jobapplications\Task;
 
 	/***************************************************************
 	 *  Copyright notice
@@ -30,7 +30,7 @@
 	/**
 	 * Class CleanUpApplicationsAdditionalFieldProvider
 	 *
-	 * @package ITX\Jobs\TaskAdditionalFieldProvider
+	 * @package ITX\Jobapplications\TaskAdditionalFieldProvider
 	 */
 	class CleanUpApplicationsAdditionalFieldProvider extends \TYPO3\CMS\Scheduler\AbstractAdditionalFieldProvider
 	{
@@ -56,7 +56,7 @@
 			$fieldCode = '<input class="form-control" type="number" min="1" max="360" name="tx_scheduler[days]" id="'.$fieldID.'" value="'.htmlspecialchars($taskInfo['task_days']).'" size="30">';
 			$additionalFields[$fieldID] = [
 				'code' => $fieldCode,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:task.days.label',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:task.days.label',
 				'cshKey' => 'csh',
 				'cshLabel' => $fieldID
 			];
@@ -72,7 +72,7 @@
 			}
 			$additionalFields[$fieldID] = [
 				'code' => $fieldCode,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:task.status.label',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:task.status.label',
 				'cshKey' => 'csh',
 				'cshLabel' => $fieldID
 			];
@@ -96,7 +96,7 @@
 			{
 				// @extensionScannerIgnoreLine
 				$this->addMessage(
-					$this->getLanguageService()->sL('LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:task.days.empty'),
+					$this->getLanguageService()->sL('LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:task.days.empty'),
 					FlashMessage::ERROR
 				);
 				$result = false;

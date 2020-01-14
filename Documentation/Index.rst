@@ -36,7 +36,7 @@ Jobs Extension
 =============================================================
 
 :Extension Key:
-    jobs
+    jobapplications
 
 :Version:
     |release|
@@ -71,7 +71,7 @@ See the full feature list here: :ref:`features`
 
 **Community Documentation:**
 
-    This documentation is community documentation for the TYPO3 Jobs extension
+    This documentation is community documentation for the TYPO3 Jobapplications extension
 
     It is maintained as part of this third party extension.
 

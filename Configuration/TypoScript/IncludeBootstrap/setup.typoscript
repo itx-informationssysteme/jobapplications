@@ -1,1 +1,1 @@
-page.includeCSS.path = {$plugin.tx_jobs.bootstrapPath}
+page.includeCSS.path = {$plugin.tx_jobapplications.bootstrapPath}

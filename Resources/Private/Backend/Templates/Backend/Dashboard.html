@@ -4,18 +4,18 @@
 <f:section name="content">
 	<div class="dashboard">
 		<div class="top">
-			<h1><f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.dashboard.title"></f:translate></h1>
+			<h1><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.dashboard.title"></f:translate></h1>
 			<f:if condition="{contact}">
 				<h3>
-					<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.dashboard.welcome" arguments="{0: contact.firstName, 1: contact.lastName}"></f:translate>
+					<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.dashboard.welcome" arguments="{0: contact.firstName, 1: contact.lastName}"></f:translate>
 				</h3>
 				<h3>
 					<f:if condition="{newApps} > 1 || {newApps} == 0">
 						<f:then>
-							<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.dashboard.unread.multiple" arguments="{0: newApps}"></f:translate>
+							<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.dashboard.unread.multiple" arguments="{0: newApps}"></f:translate>
 						</f:then>
 						<f:else>
-							<f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.dashboard.unread.one" arguments="{0: newApps}"></f:translate>
+							<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.dashboard.unread.one" arguments="{0: newApps}"></f:translate>
 						</f:else>
 					</f:if>
 				</h3>
@@ -23,11 +23,11 @@
 		</div>
 		<div class="middle">
 			<f:link.action class="button-box" action="listApplications" arguments="{submit: 'Filter', contact: '-1'}">
-				<span><f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.dashboard.applicationAdmin"></f:translate></span>
+				<span><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.dashboard.applicationAdmin"></f:translate></span>
 			</f:link.action>
 			<f:if condition="{admin}">
 				<f:link.action class="button-box settings" action="settings">
-					<span><f:translate key="LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:be.dashboard.settings"></f:translate></span>
+					<span><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.dashboard.settings"></f:translate></span>
 				</f:link.action>
 			</f:if>
 		</div>

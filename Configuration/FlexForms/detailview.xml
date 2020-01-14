@@ -4,13 +4,13 @@
         <singleView>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.tab.applicationTitle</sheetTitle>
+                    <sheetTitle>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.tab.applicationTitle</sheetTitle>
                 </TCEforms>
                 <type>array</type>
                 <el>
                     <settings.applicationsEnabled>
                         <TCEforms>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.applicationsEnabled</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.applicationsEnabled</label>
                             <config>
                                 <type>check</type>
                                 <default>1</default>
@@ -20,7 +20,7 @@
                     </settings.applicationsEnabled>
                     <settings.applicationFormUid>
                         <TCEforms>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.general.applicationForm</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.general.applicationForm</label>
                             <displayCond>FIELD:settings.applicationsEnabled:REQ:true</displayCond>
                             <config>
                                 <type>group</type>
@@ -41,7 +41,7 @@
                     </settings.applicationFormUid>
                     <settings.pageTitle>
                         <TCEforms>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.pageTitle</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.pageTitle</label>
                             <config>
                                 <type>input</type>
                                 <size>20</size>
@@ -52,7 +52,7 @@
                     </settings.pageTitle>
                     <settings.showContact>
                         <TCEforms>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.showContact</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.showContact</label>
                             <config>
                                 <type>check</type>
                                 <default>1</default>
@@ -62,7 +62,7 @@
                     </settings.showContact>
                     <settings.showContactPhoto>
                         <TCEforms>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.showContactPhoto</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.showContactPhoto</label>
                             <displayCond>FIELD:settings.showContact:REQ:true</displayCond>
                             <config>
                                 <type>check</type>
@@ -72,7 +72,7 @@
                     </settings.showContactPhoto>
                     <settings.showLocationTitle>
                         <TCEforms>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.showLocationTitle</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.showLocationTitle</label>
                             <config>
                                 <type>check</type>
                                 <default>1</default>
@@ -81,7 +81,7 @@
                     </settings.showLocationTitle>
                     <settings.googleMapsApiKey>
                         <TCEforms>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.googleMapsApiKey</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.googleMapsApiKey</label>
                             <config>
                                 <type>input</type>
                                 <size>20</size>

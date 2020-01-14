@@ -5,7 +5,7 @@
 		function () {
 
 			\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-				'ITX.Jobs',
+				'ITX.Jobapplications',
 				'Frontend',
 				[
 					'Posting' => 'list'
@@ -17,7 +17,7 @@
 			);
 
 			\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-				'ITX.Jobs',
+				'ITX.Jobapplications',
 				'DetailView',
 				[
 					'Posting' => 'show',
@@ -25,7 +25,7 @@
 			);
 
 			\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-				'ITX.Jobs',
+				'ITX.Jobapplications',
 				'ApplicationForm',
 				[
 					'Application' => 'new, create'
@@ -36,7 +36,7 @@
 			);
 
 			\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-				'ITX.Jobs',
+				'ITX.Jobapplications',
 				'ContactDisplay',
 				[
 					'Contact' => 'list'
@@ -44,7 +44,7 @@
 			);
 
 			\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-				'ITX.Jobs',
+				'ITX.Jobapplications',
 				'SuccessPage',
 				[
 					'Application' => 'success'
@@ -57,12 +57,12 @@
                 wizards.newContentElement.wizardItems.plugins {
                     elements {
                         frontend {
-                            iconIdentifier = jobs-plugin-frontend
-                            title = LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_frontend.name
-                            description = LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:tx_jobs_frontend.description
+                            iconIdentifier = jobapplications-plugin-frontend
+                            title = LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_frontend.name
+                            description = LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:tx_jobapplications_frontend.description
                             tt_content_defValues {
                                 CType = list
-                                list_type = jobs_frontend
+                                list_type = jobapplications_frontend
                             }
                         }
                     }
@@ -73,7 +73,7 @@
 			\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup(trim('
     			config.pageTitleProviders {
         			own {
-            			provider = ITX\Jobs\PageTitle\JobsPageTitleProvider
+            			provider = ITX\Jobapplications\PageTitle\JobsPageTitleProvider
             			before = record
             			after = altPageTitle
 					}			
@@ -82,37 +82,37 @@
 			$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
 
 			$iconRegistry->registerIcon(
-				'jobs-plugin-frontend',
+				'jobapplications-plugin-frontend',
 				\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-				['source' => 'EXT:jobs/Resources/Public/Icons/logo_jobs.svg']
+				['source' => 'EXT:jobapplications/Resources/Public/Icons/logo_jobs.svg']
 			);
 
 			$iconRegistry->registerIcon(
-				'jobs-plugin-detailview',
+				'jobapplicatio-plugin-detailview',
 				\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-				['source' => 'EXT:jobs/Resources/Public/Icons/logo_jobs.svg']
+				['source' => 'EXT:jobapplications/Resources/Public/Icons/logo_jobs.svg']
 			);
 
 			$iconRegistry->registerIcon(
-				'jobs-plugin-applicationform',
+				'jobapplicatio-plugin-applicationform',
 				\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-				['source' => 'EXT:jobs/Resources/Public/Icons/logo_jobs.svg']
+				['source' => 'EXT:jobapplications/Resources/Public/Icons/logo_jobs.svg']
 			);
 
 			// Add CleanUpApplications task
-			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\ITX\Jobs\Task\CleanUpApplications::class] = array(
-				'extension' => 'jobs',
-				'title' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:CleanUpApplications.title',
-				'description' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:CleanUpApplications.description',
-				'additionalFields' => \ITX\Jobs\Task\CleanUpApplicationsAdditionalFieldProvider::class
+			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\ITX\Jobapplications\Task\CleanUpApplications::class] = array(
+				'extension' => 'jobapplications',
+				'title' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:CleanUpApplications.title',
+				'description' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:CleanUpApplications.description',
+				'additionalFields' => \ITX\Jobapplications\Task\CleanUpApplicationsAdditionalFieldProvider::class
 			);
 
 			// Add Anonymize Applications task
-			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\ITX\Jobs\Task\AnonymizeApplications::class] = array(
-				'extension' => 'jobs',
-				'title' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:AnonymizeApplications.title',
-				'description' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:AnonymizeApplications.description',
-				'additionalFields' => \ITX\Jobs\Task\CleanUpApplicationsAdditionalFieldProvider::class
+			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\ITX\Jobapplications\Task\AnonymizeApplications::class] = array(
+				'extension' => 'jobapplications',
+				'title' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:AnonymizeApplications.title',
+				'description' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:AnonymizeApplications.description',
+				'additionalFields' => \ITX\Jobapplications\Task\CleanUpApplicationsAdditionalFieldProvider::class
 			);
 
 			$GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludeAllEmptyParameters'] = true;

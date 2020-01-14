@@ -1,7 +1,7 @@
 <?php
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_location',
+        'title' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_location',
         'label' => 'name',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -17,7 +17,7 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'name,address,latitude,londitude',
-        'iconfile' => 'EXT:jobs/Resources/Public/Icons/tx_jobs_domain_model_location.gif'
+        'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/tx_jobapplications_domain_model_location.gif'
     ],
     'interface' => [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, address_street_and_number, address_addition, address_post_code, address_city, address_country, latitude, londitude',
@@ -54,8 +54,8 @@ return [
                 'items' => [
                     ['', 0],
                 ],
-                'foreign_table' => 'tx_jobs_domain_model_location',
-                'foreign_table_where' => 'AND {#tx_jobs_domain_model_location}.{#pid}=###CURRENT_PID### AND {#tx_jobs_domain_model_location}.{#sys_language_uid} IN (-1,0)',
+                'foreign_table' => 'tx_jobapplications_domain_model_location',
+                'foreign_table_where' => 'AND {#tx_jobapplications_domain_model_location}.{#pid}=###CURRENT_PID### AND {#tx_jobapplications_domain_model_location}.{#sys_language_uid} IN (-1,0)',
             ],
         ],
         'l10n_diffsource' => [
@@ -118,7 +118,7 @@ return [
 
         'name' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_location.name',
+            'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_location.name',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -127,7 +127,7 @@ return [
         ],
 		'address_street_and_number' => [
 			'exclude' => true,
-			'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.address_street_and_number',
+			'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.address_street_and_number',
 			'config' => [
 				'type' => 'input',
 				'size' => 30,
@@ -136,7 +136,7 @@ return [
 		],
 		'address_addition' => [
 			'exclude' => true,
-			'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.address_addition',
+			'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.address_addition',
 			'config' => [
 				'type' => 'input',
 				'size' => 30,
@@ -145,7 +145,7 @@ return [
 		],
 		'address_post_code' => [
 			'exclude' => true,
-			'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.address_post_code',
+			'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.address_post_code',
 			'config' => [
 				'type' => 'input',
 				'size' => 4,
@@ -154,7 +154,7 @@ return [
 		],
 		'address_city' => [
 			'exclude' => true,
-			'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.address_city',
+			'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.address_city',
 			'config' => [
 				'type' => 'input',
 				'size' => 30,
@@ -163,7 +163,7 @@ return [
 		],
 		'address_country' => [
 			'exclude' => true,
-			'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.address_country',
+			'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.address_country',
 			'config' => [
 				'type' => 'input',
 				'size' => 30,
@@ -172,7 +172,7 @@ return [
 		],
         'latitude' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_location.latitude',
+            'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_location.latitude',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -181,7 +181,7 @@ return [
         ],
         'londitude' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_location.londitude',
+            'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_location.londitude',
             'config' => [
                 'type' => 'input',
                 'size' => 30,

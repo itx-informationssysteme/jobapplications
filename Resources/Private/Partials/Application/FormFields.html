@@ -2,7 +2,7 @@
 <div class="form-row">
 	<div class="form-group col-md-3">
 		<label for="salutation">
-			<f:translate key="tx_jobs_domain_model_application.salutation"/>
+			<f:translate key="tx_jobapplications_domain_model_application.salutation"/>
 		</label>
 		<f:form.select class="form-control" name="salutation" property="salutation" prependOptionLabel="{f:translate(key: 'fe.application.selector.chooseMessage')}">
 			<f:form.select.option value="mr">
@@ -21,13 +21,13 @@
 <div class="form-row">
 	<div class="form-group col-md-6">
 		<label for="firstName">
-			<f:translate key="tx_jobs_domain_model_application.first_name"/>
+			<f:translate key="tx_jobapplications_domain_model_application.first_name"/>
 		</label>
 		<f:form.textfield property="firstName" class="form-control" required="true"/>
 	</div>
 	<div class="form-group col-md-6">
 		<label for="lastName">
-			<f:translate key="tx_jobs_domain_model_application.last_name"/>
+			<f:translate key="tx_jobapplications_domain_model_application.last_name"/>
 		</label>
 		<f:form.textfield class="form-control" property="lastName" required="true"/>
 	</div>
@@ -35,13 +35,13 @@
 <div class="form-row">
 	<div class="form-group col-md-6">
 		<label for="email">
-			<f:translate key="tx_jobs_domain_model_application.email"/>
+			<f:translate key="tx_jobapplications_domain_model_application.email"/>
 		</label>
 		<f:form.textfield type="email" property="email" class="form-control" required="true"/>
 	</div>
 	<div class="form-group col-md-6">
 		<label for="phone">
-			<f:translate key="tx_jobs_domain_model_application.phone"/>
+			<f:translate key="tx_jobapplications_domain_model_application.phone"/>
 		</label>
 		<f:form.textfield property="phone" class="form-control" type="tel"/>
 	</div>
@@ -49,7 +49,7 @@
 <div class="form-row">
 	<div class="form-group col-md-12">
 		<label for="addressStreetAndNumber">
-			<f:translate key="tx_jobs_domain_model_application.address_street_and_number"/>
+			<f:translate key="tx_jobapplications_domain_model_application.address_street_and_number"/>
 		</label>
 		<f:form.textfield property="addressStreetAndNumber" class="form-control"/>
 	</div>
@@ -62,13 +62,13 @@
 <div class="form-row">
 	<div class="form-group col-md-4">
 		<label for="addressPostCode">
-			<f:translate key="tx_jobs_domain_model_application.address_post_code"/>
+			<f:translate key="tx_jobapplications_domain_model_application.address_post_code"/>
 		</label>
 		<f:form.textfield property="addressPostCode" class="form-control"/>
 	</div>
 	<div class="form-group col-md-8">
 		<label for="addressCity">
-			<f:translate key="tx_jobs_domain_model_application.address_city"/>
+			<f:translate key="tx_jobapplications_domain_model_application.address_city"/>
 		</label>
 		<f:form.textfield property="addressCity" class="form-control"/>
 	</div>
@@ -76,7 +76,7 @@
 <div class="form-row">
 	<div class="form-group col-md-12">
 		<label for="addressCountry">
-			<f:translate key="tx_jobs_domain_model_application.address_country"/>
+			<f:translate key="tx_jobapplications_domain_model_application.address_country"/>
 		</label>
 		<f:form.textfield property="addressCountry" class="form-control"/>
 	</div>
@@ -87,7 +87,7 @@
 		<f:if condition="{settings.showSalarayExpectation}">
 			<div class="form-group col-md-6">
 				<label for="salaryExpectation">
-					<f:translate key="tx_jobs_domain_model_application.salary_expectation"/>
+					<f:translate key="tx_jobapplications_domain_model_application.salary_expectation"/>
 				</label>
 				<f:form.textfield property="salaryExpectation" class="form-control" required="true"/>
 			</div>
@@ -95,7 +95,7 @@
 		<f:if condition="{settings.showEarliestDateOfJoining}">
 			<div class="form-group col-md-6">
 				<label for="earliestDateOfJoining">
-					<f:translate key="tx_jobs_domain_model_application.earliest_date_of_joining"/>
+					<f:translate key="tx_jobapplications_domain_model_application.earliest_date_of_joining"/>
 				</label>
 				<f:form.textfield type="date" property="earliestDateOfJoining" value="{application.earliestDateOfJoining -> f:format.date()}" class="form-control" required="true"/>
 			</div>
@@ -105,7 +105,7 @@
 <div class="form-row">
 	<div class="form-group col-md-12">
 		<label for="message">
-			<f:translate key="tx_jobs_domain_model_application.message"/>
+			<f:translate key="tx_jobapplications_domain_model_application.message"/>
 		</label>
 		<f:form.textarea class="form-control" name="message" property="message" rows="10" additionalAttributes="{maxlength: settings.messageMaxLength}"></f:form.textarea>
 	</div>
@@ -113,13 +113,13 @@
 <div class="form-row">
 	<div class="form-group col-md-6">
 		<label for="cv">
-			<f:translate key="tx_jobs_domain_model_application.cv"/>
+			<f:translate key="tx_jobapplications_domain_model_application.cv"/>
 		</label>
 		<f:form.upload id="upload-cv" name="cv" additionalAttributes="{accept:'.pdf', required: 'true'}" class="form-control-file"></f:form.upload>
 	</div>
 	<div class="form-group col-md-6">
 		<label for="cover_letter">
-			<f:translate key="tx_jobs_domain_model_application.cover_letter"/>
+			<f:translate key="tx_jobapplications_domain_model_application.cover_letter"/>
 		</label>
 		<f:form.upload name="cover_letter" additionalAttributes="{accept:'.pdf', required: 'true'}" class="form-control-file"></f:form.upload>
 	</div>
@@ -127,13 +127,13 @@
 <div class="form-row">
 	<div class="form-group col-md-6">
 		<label for="testimonials">
-			<f:translate key="tx_jobs_domain_model_application.testimonials"/>
+			<f:translate key="tx_jobapplications_domain_model_application.testimonials"/>
 		</label>
 		<f:form.upload name="testimonials" additionalAttributes="{accept:'.pdf'}" class="form-control-file"></f:form.upload>
 	</div>
 	<div class="form-group col-md-6">
 		<label for="other_files">
-			<f:translate key="tx_jobs_domain_model_application.other_files"/>
+			<f:translate key="tx_jobapplications_domain_model_application.other_files"/>
 		</label>
 		<f:form.upload name="other_files" additionalAttributes="{accept:'.pdf'}" class="form-control-file"></f:form.upload>
 	</div>
@@ -172,7 +172,7 @@
 		<label class="form-check-label" for="privacyAgreement">
 			<f:translate key="fe.application.privacy_agreement"></f:translate>
 			<f:link.typolink parameter="{settings.linkPrivacy}">
-				<f:translate key="tx_jobs_domain_model_application.privacy_agreement"/>
+				<f:translate key="tx_jobapplications_domain_model_application.privacy_agreement"/>
 			</f:link.typolink>
 		</label>
 	</div>

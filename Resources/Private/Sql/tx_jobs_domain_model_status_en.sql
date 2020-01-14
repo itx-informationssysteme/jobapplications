@@ -21,10 +21,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `tx_jobs_domain_model_status`
+-- Tabellenstruktur für Tabelle `tx_jobapplications_domain_model_status`
 --
 
-CREATE TABLE `tx_jobs_domain_model_status` (
+CREATE TABLE `tx_jobapplications_domain_model_status` (
   `uid` int(10) UNSIGNED NOT NULL,
   `pid` int(11) NOT NULL DEFAULT '0',
   `tstamp` int(10) UNSIGNED NOT NULL DEFAULT '0',
@@ -54,10 +54,10 @@ CREATE TABLE `tx_jobs_domain_model_status` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Daten für Tabelle `tx_jobs_domain_model_status`
+-- Daten für Tabelle `tx_jobapplications_domain_model_status`
 --
 
-INSERT INTO `tx_jobs_domain_model_status` (`uid`, `pid`, `tstamp`, `crdate`, `cruser_id`, `deleted`, `hidden`, `starttime`, `endtime`, `sys_language_uid`, `l10n_parent`, `l10n_state`, `l10n_diffsource`, `t3ver_oid`, `t3ver_id`, `t3ver_label`, `t3ver_wsid`, `t3ver_state`, `t3ver_stage`, `t3ver_count`, `t3ver_tstamp`, `t3ver_move_id`, `name`, `followers`, `is_end_status`, `is_new_status`) VALUES
+INSERT INTO `tx_jobapplications_domain_model_status` (`uid`, `pid`, `tstamp`, `crdate`, `cruser_id`, `deleted`, `hidden`, `starttime`, `endtime`, `sys_language_uid`, `l10n_parent`, `l10n_state`, `l10n_diffsource`, `t3ver_oid`, `t3ver_id`, `t3ver_label`, `t3ver_wsid`, `t3ver_state`, `t3ver_stage`, `t3ver_count`, `t3ver_tstamp`, `t3ver_move_id`, `name`, `followers`, `is_end_status`, `is_new_status`) VALUES
 (1, %pid%, 1574341232, 1574339265, 1, 0, 0, 0, 0, %lang%, 0, NULL, 0x613a363a7b733a31363a227379735f6c616e67756167655f756964223b4e3b733a363a2268696464656e223b4e3b733a343a226e616d65223b4e3b733a393a22666f6c6c6f77657273223b4e3b733a393a22737461727474696d65223b4e3b733a373a22656e6474696d65223b4e3b7d, 0, 0, '', 0, 0, 0, 0, 0, 0, '01 New', 4, 0, 1),
 (2, %pid%, 1574341207, 1574339369, 1, 0, 0, 0, 0, %lang%, 0, NULL, 0x613a363a7b733a31363a227379735f6c616e67756167655f756964223b4e3b733a363a2268696464656e223b4e3b733a343a226e616d65223b4e3b733a393a22666f6c6c6f77657273223b4e3b733a393a22737461727474696d65223b4e3b733a373a22656e6474696d65223b4e3b7d, 0, 0, '', 0, 0, 0, 0, 0, 0, '02 Processing', 13, 0, 0),
 (3, %pid%, 1574341125, 1574339505, 1, 0, 0, 0, 0, %lang%, 0, NULL, 0x613a363a7b733a31363a227379735f6c616e67756167655f756964223b4e3b733a363a2268696464656e223b4e3b733a343a226e616d65223b4e3b733a393a22666f6c6c6f77657273223b4e3b733a393a22737461727474696d65223b4e3b733a373a22656e6474696d65223b4e3b7d, 0, 0, '', 0, 0, 0, 0, 0, 0, '03 Set for evaluation', 7, 0, 0),
@@ -80,9 +80,9 @@ INSERT INTO `tx_jobs_domain_model_status` (`uid`, `pid`, `tstamp`, `crdate`, `cr
 --
 
 --
--- Indizes für die Tabelle `tx_jobs_domain_model_status`
+-- Indizes für die Tabelle `tx_jobapplications_domain_model_status`
 --
-ALTER TABLE `tx_jobs_domain_model_status`
+ALTER TABLE `tx_jobapplications_domain_model_status`
   ADD PRIMARY KEY (`uid`),
   ADD KEY `parent` (`pid`,`deleted`,`hidden`),
   ADD KEY `t3ver_oid` (`t3ver_oid`,`t3ver_wsid`);
@@ -92,9 +92,9 @@ ALTER TABLE `tx_jobs_domain_model_status`
 --
 
 --
--- AUTO_INCREMENT für Tabelle `tx_jobs_domain_model_status`
+-- AUTO_INCREMENT für Tabelle `tx_jobapplications_domain_model_status`
 --
-ALTER TABLE `tx_jobs_domain_model_status`
+ALTER TABLE `tx_jobapplications_domain_model_status`
   MODIFY `uid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 COMMIT;
 

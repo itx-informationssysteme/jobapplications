@@ -1,6 +1,6 @@
 <?php
 
-	namespace ITX\Jobs\Task;
+	namespace ITX\Jobapplications\Task;
 
 	/***************************************************************
 	 *  Copyright notice
@@ -33,7 +33,7 @@
 	/**
 	 * Task for deleting all applications older than a specific amount of time
 	 *
-	 * @package ITX\Jobs
+	 * @package ITX\Jobapplications
 	 */
 	class CleanUpApplications extends \TYPO3\CMS\Scheduler\Task\AbstractTask
 	{
@@ -50,8 +50,8 @@
 		{
 			$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 			$persistenceManager = $objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager::class);
-			$applicationRepository = $objectManager->get(\ITX\Jobs\Domain\Repository\ApplicationRepository::class);
-			$applicationFileService = $objectManager->get(\ITX\Jobs\Service\ApplicationFileService::class);
+			$applicationRepository = $objectManager->get(\ITX\Jobapplications\Domain\Repository\ApplicationRepository::class);
+			$applicationFileService = $objectManager->get(\ITX\Jobapplications\Service\ApplicationFileService::class);
 
 			$now = new \DateTime();
 			$timestamp = $now->modify("-".$this->days." days")->getTimestamp();
@@ -78,7 +78,7 @@
 				$persistenceManager->persistAll();
 			}
 
-			$this->logger->info('[ITX\\Jobs\\Task\\CleanUpApplications]: '.$resultCount.' Applications deleted.');
+			$this->logger->info('[ITX\\Jobapplications\\Task\\CleanUpApplications]: '.$resultCount.' Applications deleted.');
 
 			return true;
 		}

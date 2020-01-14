@@ -1,6 +1,6 @@
 <?php
 
-	namespace ITX\Jobs\Domain\Model;
+	namespace ITX\Jobapplications\Domain\Model;
 
 	use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -42,7 +42,7 @@
 		/**
 		 * followers
 		 *
-		 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobs\Domain\Model\Status>
+		 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobapplications\Domain\Model\Status>
 		 */
 		protected $followers = null;
 

@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
 <xliff version="1.0">
-    <file source-language="en" target-language="de" datatype="plaintext" original="EXT:jobs/Resources/Private/Language/locallang_mod" date="2019-10-21T16:03:17Z" product-name="jobs">
+    <file source-language="en" target-language="de" datatype="plaintext" original="EXT:jobapplications/Resources/Private/Language/locallang_mod" date="2019-10-21T16:03:17Z" product-name="jobapplications">
         <header/>
         <body>
             <trans-unit id="mlang_tabs_tab" resname="mlang_tabs_tab" approved="yes">
-                <source>Jobs</source>
-                <target state="translated">Jobs</target>
+                <source>Applications</source>
+                <target state="translated">Bewerbungen</target>
             </trans-unit>
-            <trans-unit id="tx_jobs_frontend.description" resname="tx_jobs_frontend.description">
+            <trans-unit id="tx_jobapplications_frontend.description" resname="tx_jobapplications_frontend.description">
                 <source>Plugins, enabling you to list and show job postings and letting people apply.</source>
                 <target state="translated">Möglichkeit Stellenanzeigen darzustellen, sowie ein Bewerbungsformular für diese einzurichten.</target>
             </trans-unit>
@@ -239,25 +239,25 @@
                 <source>This task anonymizes all applications which are equal or older than the given days.</source>
                 <target state="translated">Dieser Plan anonymisiert alle alten Bewerbungen, wobei das Alter in Tagen spezifiziert wird.</target>
             </trans-unit>
-            <trans-unit id="tx_jobs_contactdisplay.title" resname="tx_jobs_contactdisplay.title">
-                <source>Jobs: Contact Display</source>
-                <target state="translated">Jobs: Kontakte Anzeige</target>
+            <trans-unit id="tx_jobapplications_contactdisplay.title" resname="tx_jobapplications_contactdisplay.title">
+                <source>Jobapplications: Contact Display</source>
+                <target state="translated">Jobapplications: Kontakte Anzeige</target>
             </trans-unit>
-            <trans-unit id="tx_jobs_applicationform.title" resname="tx_jobs_applicationform.title">
-                <source>Jobs: Application Form</source>
-                <target state="translated">Jobs: Bewerbungsformular</target>
+            <trans-unit id="tx_jobapplications_applicationform.title" resname="tx_jobapplications_applicationform.title">
+                <source>Jobapplications: Application Form</source>
+                <target state="translated">Jobapplications: Bewerbungsformular</target>
             </trans-unit>
-            <trans-unit id="tx_jobs_detailview.title" resname="tx_jobs_detailview.title">
-                <source>Jobs: Detail View</source>
-                <target state="translated">Jobs: Detailansicht</target>
+            <trans-unit id="tx_jobapplications_detailview.title" resname="tx_jobapplications_detailview.title">
+                <source>Jobapplications: Detail View</source>
+                <target state="translated">Jobapplications: Detailansicht</target>
             </trans-unit>
-            <trans-unit id="tx_jobs_frontend.title" resname="tx_jobs_frontend.title">
-                <source>Jobs: Postings</source>
-                <target state="translated">Jobs: Ausschreibungen</target>
+            <trans-unit id="tx_jobapplications_frontend.title" resname="tx_jobapplications_frontend.title">
+                <source>Jobapplications: Postings</source>
+                <target state="translated">Jobapplications: Ausschreibungen</target>
             </trans-unit>
-            <trans-unit id="tx_jobs_successpage.title" resname="tx_jobs_successpage.title">
-                <source>Jobs: Application Success Page</source>
-                <target state="translated">Jobs: Bewerbung erfolgreich versendet</target>
+            <trans-unit id="tx_jobapplications_successpage.title" resname="tx_jobapplications_successpage.title">
+                <source>Jobapplications: Application Success Page</source>
+                <target state="translated">Jobapplications: Bewerbung erfolgreich versendet</target>
             </trans-unit>
         </body>
     </file>

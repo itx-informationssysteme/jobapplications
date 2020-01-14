@@ -1,7 +1,7 @@
 routeEnhancers:
-    JobsDetailView:
+    JobapplicationsDetailView:
         type: Extbase
-        namespace: 'tx_jobs_detailview'
+        namespace: 'tx_jobapplications_detailview'
         routes:
             -   routePath: '/position/{slug}'
                 _controller: 'Posting::show'
@@ -13,11 +13,11 @@ routeEnhancers:
         aspects:
             slug:
                 type: PersistedAliasMapper
-                tableName: tx_jobs_domain_model_posting
+                tableName: tx_jobapplications_domain_model_posting
                 routeFieldName: slug
-    JobsApplicationForm:
+    JobapplicationsApplicationForm:
         type: Extbase
-        namespace: 'tx_jobs_applicationform'
+        namespace: 'tx_jobapplications_applicationform'
         routes:
             -   routePath: '/{slug}'
                 _controller: 'Application::new'
@@ -29,5 +29,5 @@ routeEnhancers:
         aspects:
             slug:
                 type: PersistedAliasMapper
-                tableName: tx_jobs_domain_model_posting
+                tableName: tx_jobapplications_domain_model_posting
                 routeFieldName: slug

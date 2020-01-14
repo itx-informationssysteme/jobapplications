@@ -1,7 +1,7 @@
 <?php
 	return [
 		'ctrl' => [
-			'title' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_contact',
+			'title' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_contact',
 			'label' => 'last_name',
 			'tstamp' => 'tstamp',
 			'crdate' => 'crdate',
@@ -17,7 +17,7 @@
 				'endtime' => 'endtime',
 			],
 			'searchFields' => 'last_name,email,phone,division',
-			'iconfile' => 'EXT:jobs/Resources/Public/Icons/tx_jobs_domain_model_contact.gif'
+			'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/tx_jobapplications_domain_model_contact.gif'
 		],
 		'interface' => [
 			'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, first_name, last_name, email, phone, division, photo, be_user',
@@ -54,8 +54,8 @@
 					'items' => [
 						['', 0],
 					],
-					'foreign_table' => 'tx_jobs_domain_model_contact',
-					'foreign_table_where' => 'AND {#tx_jobs_domain_model_contact}.{#pid}=###CURRENT_PID### AND {#tx_jobs_domain_model_contact}.{#sys_language_uid} IN (-1,0)',
+					'foreign_table' => 'tx_jobapplications_domain_model_contact',
+					'foreign_table_where' => 'AND {#tx_jobapplications_domain_model_contact}.{#pid}=###CURRENT_PID### AND {#tx_jobapplications_domain_model_contact}.{#sys_language_uid} IN (-1,0)',
 				],
 			],
 			'l10n_diffsource' => [
@@ -117,7 +117,7 @@
 			],
 			'first_name' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_contact.first_name',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_contact.first_name',
 				'config' => [
 					'type' => 'input',
 					'size' => 30,
@@ -126,7 +126,7 @@
 			],
 			'last_name' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_contact.last_name',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_contact.last_name',
 				'config' => [
 					'type' => 'input',
 					'size' => 30,
@@ -135,7 +135,7 @@
 			],
 			'email' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_contact.email',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_contact.email',
 				'config' => [
 					'type' => 'input',
 					'size' => 30,
@@ -144,7 +144,7 @@
 			],
 			'phone' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_contact.phone',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_contact.phone',
 				'config' => [
 					'type' => 'input',
 					'size' => 30,
@@ -153,7 +153,7 @@
 			],
 			'division' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_contact.division',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_contact.division',
 				'config' => [
 					'type' => 'input',
 					'size' => 30,
@@ -162,7 +162,7 @@
 			],
 			'photo' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_contact.photo',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_contact.photo',
 				'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
 					'photo',
 					[
@@ -211,7 +211,7 @@
 				),
 			],
 			"be_user" => [
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_contact.be_user',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_contact.be_user',
 				'config' => [
 					'type' => 'select',
 					'renderType' => 'selectSingle',

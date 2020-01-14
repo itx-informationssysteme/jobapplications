@@ -1,31 +1,31 @@
-plugin.tx_jobs.settings {
+plugin.tx_jobapplications.settings {
 
-    # cat=plugin.tx_jobs; type=boolean; label=Enable Google Jobs
+    # cat=plugin.tx_jobapplications; type=boolean; label=Enable Google Jobs
     enableGoogleJobs = 0
 }
 
-plugin.tx_jobs {
+plugin.tx_jobapplications {
     view {
-        # cat=plugin.tx_jobs/file; type=string; label=Path to template root (FE)
-        templateRootPath = EXT:jobs/Resources/Private/Templates/
-        # cat=plugin.tx_jobs/file; type=string; label=Path to template partials (FE)
-        partialRootPath = EXT:jobs/Resources/Private/Partials/
-        # cat=plugin.tx_jobs/file; type=string; label=Path to template layouts (FE)
-        layoutRootPath = EXT:jobs/Resources/Private/Layouts/
+        # cat=plugin.tx_jobapplications/file; type=string; label=Path to template root (FE)
+        templateRootPath = EXT:jobapplications/Resources/Private/Templates/
+        # cat=plugin.tx_jobapplications/file; type=string; label=Path to template partials (FE)
+        partialRootPath = EXT:jobapplications/Resources/Private/Partials/
+        # cat=plugin.tx_jobapplications/file; type=string; label=Path to template layouts (FE)
+        layoutRootPath = EXT:jobapplications/Resources/Private/Layouts/
     }
     persistence {
-        # cat=plugin.tx_jobs//a; type=string; label=Default storage PID
+        # cat=plugin.tx_jobapplications//a; type=string; label=Default storage PID
         storagePid =
     }
 }
 
-module.tx_jobs_backend {
+module.tx_jobapplications_backend {
     view {
-        # cat=module.tx_jobs_backend/file; type=string; label=Path to template root (BE)
-        templateRootPath = EXT:jobs/Resources/Private/Backend/Templates/
-        # cat=module.tx_jobs_backend/file; type=string; label=Path to template partials (BE)
-        partialRootPath = EXT:jobs/Resources/Private/Backend/Partials/
-        # cat=module.tx_jobs_backend/file; type=string; label=Path to template layouts (BE)
-        layoutRootPath = EXT:jobs/Resources/Private/Backend/Layouts/
+        # cat=module.tx_jobapplications_backend/file; type=string; label=Path to template root (BE)
+        templateRootPath = EXT:jobapplications/Resources/Private/Backend/Templates/
+        # cat=module.tx_jobapplications_backend/file; type=string; label=Path to template partials (BE)
+        partialRootPath = EXT:jobapplications/Resources/Private/Backend/Partials/
+        # cat=module.tx_jobapplications_backend/file; type=string; label=Path to template layouts (BE)
+        layoutRootPath = EXT:jobapplications/Resources/Private/Backend/Layouts/
     }
 }

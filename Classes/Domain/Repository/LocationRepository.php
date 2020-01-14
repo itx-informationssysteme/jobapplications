@@ -1,6 +1,6 @@
 <?php
 
-	namespace ITX\Jobs\Domain\Repository;
+	namespace ITX\Jobapplications\Domain\Repository;
 
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
@@ -30,7 +30,7 @@
 	/**
 	 * The repository for Locations
 	 */
-	class LocationRepository extends \ITX\Jobs\Domain\Repository\JobsRepository
+	class LocationRepository extends \ITX\Jobapplications\Domain\Repository\JobapplicationsRepository
 	{
 		/**
 		 * Returns all objects of this repository.
@@ -41,27 +41,27 @@
 		 */
 		public function findAll(array $categories = null)
 		{
-			$qb = parent::getQueryBuilder("tx_jobs_domain_model_location");
+			$qb = parent::getQueryBuilder("tx_jobapplications_domain_model_location");
 			$query = $this->createQuery();
 
 			if (count($categories) == 0)
 			{
 				$qb->select("*")
-				   ->from("tx_jobs_domain_model_location");
+				   ->from("tx_jobapplications_domain_model_location");
 			}
 			else
 			{
-				$sb = parent::getQueryBuilder("tx_jobs_domain_model_posting");
+				$sb = parent::getQueryBuilder("tx_jobapplications_domain_model_posting");
 				$sb
 					->select("location")
-					->from("tx_jobs_domain_model_posting")
-					->join("tx_jobs_domain_model_posting", "sys_category_record_mm",
+					->from("tx_jobapplications_domain_model_posting")
+					->join("tx_jobapplications_domain_model_posting", "sys_category_record_mm",
 						   "sys_category_record_mm",
-						   $sb->expr()->eq("tx_jobs_domain_model_posting.uid", "sys_category_record_mm.uid_foreign"));
+						   $sb->expr()->eq("tx_jobapplications_domain_model_posting.uid", "sys_category_record_mm.uid_foreign"));
 				$sb = parent::buildCategoriesToSQL($categories, $sb);
 				$result = $sb->execute()->fetchAll(\Doctrine\DBAL\FetchMode::COLUMN);
 				$qb->select("*")
-				   ->from("tx_jobs_domain_model_location")
+				   ->from("tx_jobapplications_domain_model_location")
 				   ->where($qb->expr()->in("uid", $result));
 			}
 

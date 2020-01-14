@@ -4,13 +4,13 @@
         <singleView>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.tab.postingTitle</sheetTitle>
+                    <sheetTitle>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.tab.postingTitle</sheetTitle>
                 </TCEforms>
                 <type>array</type>
                 <el>
                     <settings.successMessage>
                         <TCEforms>
-                            <label>LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:flexform.successMessage</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.successMessage</label>
                             <config>
                                 <type>text</type>
                                 <cols>24</cols>

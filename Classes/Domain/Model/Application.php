@@ -1,6 +1,6 @@
 <?php
 
-	namespace ITX\Jobs\Domain\Model;
+	namespace ITX\Jobapplications\Domain\Model;
 
 	/***************************************************************
 	 *  Copyright notice
@@ -141,7 +141,7 @@
 		/**
 		 * posting
 		 *
-		 * @var \ITX\Jobs\Domain\Model\Posting
+		 * @var \ITX\Jobapplications\Domain\Model\Posting
 		 */
 		protected $posting = null;
 
@@ -183,7 +183,7 @@
 		/**
 		 * status
 		 *
-		 * @var \ITX\Jobs\Domain\Model\Status
+		 * @var \ITX\Jobapplications\Domain\Model\Status
 		 */
 		protected $status = null;
 
@@ -621,7 +621,7 @@
 		}
 
 		/**
-		 * @return \ITX\Jobs\Domain\Model\Status
+		 * @return \ITX\Jobapplications\Domain\Model\Status
 		 */
 		public function getStatus()
 		{
@@ -629,7 +629,7 @@
 		}
 
 		/**
-		 * @param \ITX\Jobs\Domain\Model\Status $status
+		 * @param \ITX\Jobapplications\Domain\Model\Status $status
 		 */
 		public function setStatus($status)
 		{

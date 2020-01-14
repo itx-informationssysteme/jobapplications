@@ -1,5 +1,5 @@
 <?php
-namespace ITX\Jobs\Tests\Unit\Controller;
+namespace ITX\Jobapplications\Tests\Unit\Controller;
 
 /**
  * Test case.
@@ -10,14 +10,14 @@ namespace ITX\Jobs\Tests\Unit\Controller;
 class ApplicationControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
 {
     /**
-     * @var \ITX\Jobs\Controller\ApplicationController
+     * @var \ITX\Jobapplications\Controller\ApplicationController
      */
     protected $subject = null;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->subject = $this->getMockBuilder(\ITX\Jobs\Controller\ApplicationController::class)
+        $this->subject = $this->getMockBuilder(\ITX\Jobapplications\Controller\ApplicationController::class)
             ->setMethods(['redirect', 'forward', 'addFlashMessage'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -33,9 +33,9 @@ class ApplicationControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTe
      */
     public function createActionAddsTheGivenApplicationToApplicationRepository()
     {
-        $application = new \ITX\Jobs\Domain\Model\Application();
+        $application = new \ITX\Jobapplications\Domain\Model\Application();
 
-        $applicationRepository = $this->getMockBuilder(\ITX\Jobs\Domain\Repository\ApplicationRepository::class)
+        $applicationRepository = $this->getMockBuilder(\ITX\Jobapplications\Domain\Repository\ApplicationRepository::class)
             ->setMethods(['add'])
             ->disableOriginalConstructor()
             ->getMock();

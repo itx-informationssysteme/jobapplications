@@ -15,11 +15,11 @@ Users Manual
 Basic plugin setup guide
 ========================
 
-Start by creating a folder (or more than one) to attach the Jobs Extension records to.
+Start by creating a folder (or more than one) to attach the Jobapplications Extension records to.
 For this example we will use a single folder, though you can split the system records into different folders as well.
 Having the folder set up we now create the pages needed for the extension to work.
 
-Basically there are four pages that each have a Jobs Plugin on them:
+Basically there are four pages that each have a Jobapplications Plugin on them:
 The *Job posting list page*, the *Detail View Page*, the *Application form page* and the *Success Page*.
 Simply create all of these pages and name them as you want. You can leave them be for the moment. We will go over
 each page in detail in the following section.
@@ -38,11 +38,11 @@ List page
 Let's start with the *Job posting list page*. Here you will be able to see all your postings in a list view.
 
 Make sure you are in page mode and click *+Content*. In the popup window select
-the Plugins tab and select **Jobs**.
+the Plugins tab and select **Jobapplications**.
 Having done that you can give the plugin a name and then change to the *Plugin* Tab.
 
 Here are all the settings located. First of all make sure to select the correct plugin in the *Selected Plugin* Dropdown.
-On this page this is the **Jobs: Posting** Plugin.
+On this page this is the **Jobapplications: Posting** Plugin.
 
 Below that you have the setting for where you have to set the Detail Page. Simply click on the *Page* Button and select
 the page you created as the detail page in the beginning.
@@ -64,7 +64,7 @@ Detail Page
 -----------
 Create a new plugin and go into its settings as described above already.
 
-Make sure the correct plugin is selected. In this case it is the **Jobs: Detail View** plugin.
+Make sure the correct plugin is selected. In this case it is the **Jobapplications: Detail View** plugin.
 Also make sure you selected the correct record storage page.
 
 Application Module
@@ -99,7 +99,7 @@ This has no effect yet. It will come in use in a future update.
 
 Application Page
 ----------------
-This time the selected plugin should be *Jobs: Application Form*.
+This time the selected plugin should be *Jobapplications: Application Form*.
 
 Set the success page and repository the same as on the previous pages.
 
@@ -173,7 +173,7 @@ Make sure to open this in a new tab, otherwise all the applicants data will poss
 Success page
 ------------
 This page will be called when the applicants application was successfully sent.
-The plugin here: *Jobs: Application Success Page*
+The plugin here: *Jobapplications: Application Success Page*
 
 The job of this plugin is to provide a success message which is personalized to the applicant.
 It either easily integrates with other content elements on the page or the template is easily customizable
@@ -192,7 +192,7 @@ applicants first name.
 
 Extra: Contact plugin
 =====================
-There is a plugin named **Jobs: Contact Display** which simply shows the selected contacts that are defined in the plugin
+There is a plugin named **Jobapplications: Contact Display** which simply shows the selected contacts that are defined in the plugin
 settings. This can be useful to include as a contact section in another page.
 
 Template constants
@@ -214,7 +214,7 @@ Enable Google Jobs
 Here you can enable Google Jobs. The data for it will be automatically generated based on the posting data.
 Just make sure you have selected a company name in the extension configuration.
 
-You can find the extension configuration in *Settings->Extension Configuration->Configure Extensions->jobs*.
+You can find the extension configuration in *Settings->Extension Configuration->Configure Extensions->jobapplications*.
 
 .. _tasks:
 

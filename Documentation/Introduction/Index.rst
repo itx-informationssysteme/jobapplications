@@ -52,7 +52,7 @@ Application Management
 	* configurable **scheduler tasks** for application deletion and anonymization based on age and status
 	* option to not save the application and only send the emails
 	* **Backend module** for viewing, sorting, filtering, archiving and deleting the applications
-	* link a jobs extension contact person to a backend user to have a personalized experience viewing the applications
+	* link a jobapplications extension contact person to a backend user to have a personalized experience viewing the applications
 
 .. _screenshots:
 

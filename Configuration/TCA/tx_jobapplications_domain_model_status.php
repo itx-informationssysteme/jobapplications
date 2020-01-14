@@ -1,7 +1,7 @@
 <?php
 	return [
 		'ctrl' => [
-			'title' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_status',
+			'title' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_status',
 			'label' => 'name',
 			'tstamp' => 'tstamp',
 			'crdate' => 'crdate',
@@ -18,7 +18,7 @@
 				'endtime' => 'endtime',
 			],
 			'searchFields' => 'name, followers',
-			'iconfile' => 'EXT:jobs/Resources/Public/Icons/tx_jobs_domain_model_application.gif'
+			'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/tx_jobapplications_domain_model_application.gif'
 		],
 		'interface' => [
 			'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, is_end_status, is_new_status, followers',
@@ -65,8 +65,8 @@
 					'items' => [
 						['', 0],
 					],
-					'foreign_table' => 'tx_jobs_domain_model_application',
-					'foreign_table_where' => 'AND {#tx_jobs_domain_model_application}.{#pid}=###CURRENT_PID### AND {#tx_jobs_domain_model_application}.{#sys_language_uid} IN (-1,0)',
+					'foreign_table' => 'tx_jobapplications_domain_model_application',
+					'foreign_table_where' => 'AND {#tx_jobapplications_domain_model_application}.{#pid}=###CURRENT_PID### AND {#tx_jobapplications_domain_model_application}.{#sys_language_uid} IN (-1,0)',
 				],
 			],
 			'l10n_diffsource' => [
@@ -128,7 +128,7 @@
 			],
 			'name' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_status.name',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_status.name',
 				'config' => [
 					'type' => 'input',
 					'size' => 30,
@@ -137,7 +137,7 @@
 			],
 			'is_end_status' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_status.is_end_status',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_status.is_end_status',
 				'config' => [
 					'type' => 'check',
 					'items' => [
@@ -150,7 +150,7 @@
 			],
 			'is_new_status' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_status.is_new_status',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_status.is_new_status',
 				'config' => [
 					'type' => 'check',
 					'items' => [
@@ -163,12 +163,12 @@
 			],
 			'followers' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_status.followers',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_status.followers',
 				'config' => [
 					'type' => 'select',
 					'renderType' => 'selectMultipleSideBySide',
-					'foreign_table' => 'tx_jobs_domain_model_status',
-					'MM' => 'tx_jobs_domain_model_status_mm',
+					'foreign_table' => 'tx_jobapplications_domain_model_status',
+					'MM' => 'tx_jobapplications_domain_model_status_mm',
 					'size' => 10,
 					'autoSizeMax' => 30,
 					'maxitems' => 9999,
@@ -190,7 +190,7 @@
 							'type' => 'script',
 							'title' => 'Create new',
 							'params' => [
-								'table' => 'tx_jobs_domain_model_status',
+								'table' => 'tx_jobapplications_domain_model_status',
 								'pid' => '###CURRENT_PID###',
 								'setValue' => 'prepend'
 							],

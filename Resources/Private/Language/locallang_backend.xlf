@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="EXT:jobs/Resources/Private/Language/locallang_mod" date="2019-10-21T16:03:17Z" product-name="jobs">
+	<file source-language="en" datatype="plaintext" original="EXT:jobapplications/Resources/Private/Language/locallang_mod" date="2019-10-21T16:03:17Z" product-name="jobapplications">
 		<header/>
 		<body>
 			<trans-unit id="mlang_tabs_tab" resname="mlang_tabs_tab">
-				<source>Jobs</source>
+				<source>Applications</source>
 			</trans-unit>
 			<trans-unit id="mlang_labels_tabdescr" resname="mlang_labels_tabdescr">
 				<source></source>
 			</trans-unit>
-			<trans-unit id="tx_jobs_frontend.description" resname="tx_jobs_frontend.description">
+			<trans-unit id="tx_jobapplications_frontend.description" resname="tx_jobapplications_frontend.description">
 				<source>Plugins, enabling you to list and show job postings and letting people apply.</source>
 			</trans-unit>
 			<trans-unit id="flexform.showSalarayExpectation" resname="flexform.showSalarayExpectation">
@@ -190,20 +190,20 @@
 			<trans-unit id="AnonymizeApplications.description" resname="AnonymizeApplications.description">
 				<source>This task anonymizes all applications which are equal or older than the given days.</source>
 			</trans-unit>
-			<trans-unit id="tx_jobs_contactdisplay.title" resname="tx_jobs_contactdisplay.title">
-				<source>Jobs: Contact Display</source>
+			<trans-unit id="tx_jobapplications_contactdisplay.title" resname="tx_jobapplications_contactdisplay.title">
+				<source>Jobapplications: Contact Display</source>
 			</trans-unit>
-			<trans-unit id="tx_jobs_applicationform.title" resname="tx_jobs_applicationform.title">
-				<source>Jobs: Application Form</source>
+			<trans-unit id="tx_jobapplications_applicationform.title" resname="tx_jobapplications_applicationform.title">
+				<source>Jobapplications: Application Form</source>
 			</trans-unit>
-			<trans-unit id="tx_jobs_detailview.title" resname="tx_jobs_detailview.title">
-				<source>Jobs: Detail View</source>
+			<trans-unit id="tx_jobapplications_detailview.title" resname="tx_jobapplications_detailview.title">
+				<source>Jobapplications: Detail View</source>
 			</trans-unit>
-			<trans-unit id="tx_jobs_frontend.title" resname="tx_jobs_frontend.title">
-				<source>Jobs: Postings</source>
+			<trans-unit id="tx_jobapplications_frontend.title" resname="tx_jobapplications_frontend.title">
+				<source>Jobapplications: Postings</source>
 			</trans-unit>
-			<trans-unit id="tx_jobs_successpage.title" resname="tx_jobs_successpage.title">
-				<source>Jobs: Application Success Page</source>
+			<trans-unit id="tx_jobapplications_successpage.title" resname="tx_jobapplications_successpage.title">
+				<source>Jobapplications: Application Success Page</source>
 			</trans-unit>
 		</body>
 	</file>

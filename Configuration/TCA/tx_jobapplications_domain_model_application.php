@@ -1,7 +1,7 @@
 <?php
 	return [
 		'ctrl' => [
-			'title' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application',
+			'title' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application',
 			'label' => 'last_name',
 			'tstamp' => 'tstamp',
 			'crdate' => 'crdate',
@@ -18,7 +18,7 @@
 				'endtime' => 'endtime',
 			],
 			'searchFields' => 'first_name,last_name,email,phone,address_street_and_number,address_addition,address_city,address_country,salary_expectation',
-			'iconfile' => 'EXT:jobs/Resources/Public/Icons/tx_jobs_domain_model_application.gif'
+			'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/tx_jobapplications_domain_model_application.gif'
 		],
 		'interface' => [
 			'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, salutation, first_name, last_name, email, phone, address_street_and_number, address_addition, address_post_code, address_city, address_country, salary_expectation, message, earliest_date_of_joining, cv, cover_letter, testimonials, other_files, privacy_agreement, posting, archived, status',
@@ -64,8 +64,8 @@
 					'items' => [
 						['', 0],
 					],
-					'foreign_table' => 'tx_jobs_domain_model_application',
-					'foreign_table_where' => 'AND {#tx_jobs_domain_model_application}.{#pid}=###CURRENT_PID### AND {#tx_jobs_domain_model_application}.{#sys_language_uid} IN (-1,0)',
+					'foreign_table' => 'tx_jobapplications_domain_model_application',
+					'foreign_table_where' => 'AND {#tx_jobapplications_domain_model_application}.{#pid}=###CURRENT_PID### AND {#tx_jobapplications_domain_model_application}.{#sys_language_uid} IN (-1,0)',
 				],
 			],
 			'l10n_diffsource' => [
@@ -128,15 +128,15 @@
 
 			'salutation' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.salutation',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.salutation',
 				'config' => [
 					'type' => 'select',
 					'renderType' => 'selectSingle',
 					'items' => [
-						['LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.application.selector.chooseMessage', ''],
-						['LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.application.selector.mr', 'mr'],
-						['LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.application.selector.mrs', 'mrs'],
-						['LLL:EXT:jobs/Resources/Private/Language/locallang.xlf:fe.application.selector.div', 'div']
+						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.application.selector.chooseMessage', ''],
+						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.application.selector.mr', 'mr'],
+						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.application.selector.mrs', 'mrs'],
+						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.application.selector.div', 'div']
 					],
 					'size' => 1,
 					'maxitems' => 1,
@@ -145,7 +145,7 @@
 			],
 			'first_name' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.first_name',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.first_name',
 				'config' => [
 					'type' => 'input',
 					'size' => 30,
@@ -154,7 +154,7 @@
 			],
 			'last_name' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.last_name',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.last_name',
 				'config' => [
 					'type' => 'input',
 					'size' => 30,
@@ -163,7 +163,7 @@
 			],
 			'email' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.email',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.email',
 				'config' => [
 					'type' => 'input',
 					'size' => 30,
@@ -172,7 +172,7 @@
 			],
 			'phone' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.phone',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.phone',
 				'config' => [
 					'type' => 'input',
 					'size' => 30,
@@ -181,7 +181,7 @@
 			],
 			'address_street_and_number' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.address_street_and_number',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.address_street_and_number',
 				'config' => [
 					'type' => 'input',
 					'size' => 30,
@@ -190,7 +190,7 @@
 			],
 			'address_addition' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.address_addition',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.address_addition',
 				'config' => [
 					'type' => 'input',
 					'size' => 30,
@@ -199,7 +199,7 @@
 			],
 			'address_post_code' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.address_post_code',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.address_post_code',
 				'config' => [
 					'type' => 'input',
 					'size' => 4,
@@ -208,7 +208,7 @@
 			],
 			'address_city' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.address_city',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.address_city',
 				'config' => [
 					'type' => 'input',
 					'size' => 30,
@@ -217,7 +217,7 @@
 			],
 			'address_country' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.address_country',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.address_country',
 				'config' => [
 					'type' => 'input',
 					'size' => 30,
@@ -226,7 +226,7 @@
 			],
 			'salary_expectation' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.salary_expectation',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.salary_expectation',
 				'config' => [
 					'type' => 'input',
 					'size' => 30,
@@ -235,7 +235,7 @@
 			],
 			'earliest_date_of_joining' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.earliest_date_of_joining',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.earliest_date_of_joining',
 				'config' => [
 					'dbType' => 'date',
 					'type' => 'input',
@@ -246,7 +246,7 @@
 				],
 			],
 			'message' => [
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.message',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.message',
 				'config' => [
 					'type' => 'text',
 					'cols' => 40,
@@ -255,7 +255,7 @@
 			],
 			'cv' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.cv',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.cv',
 				'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
 					'cv',
 					[
@@ -304,7 +304,7 @@
 			],
 			'cover_letter' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.cover_letter',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.cover_letter',
 				'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
 					'cover_letter',
 					[
@@ -353,7 +353,7 @@
 			],
 			'testimonials' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.testimonials',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.testimonials',
 				'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
 					'testimonials',
 					[
@@ -402,7 +402,7 @@
 			],
 			'other_files' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.other_files',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.other_files',
 				'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
 					'other_files',
 					[
@@ -451,7 +451,7 @@
 			],
 			'privacy_agreement' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.privacy_agreement',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.privacy_agreement',
 				'config' => [
 					'type' => 'check',
 					'items' => [
@@ -464,18 +464,18 @@
 			],
 			'posting' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.posting',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.posting',
 				'config' => [
 					'type' => 'select',
 					'renderType' => 'selectSingle',
-					'foreign_table' => 'tx_jobs_domain_model_posting',
+					'foreign_table' => 'tx_jobapplications_domain_model_posting',
 					'minitems' => 0,
 					'maxitems' => 1,
 				],
 			],
 			"archived" => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.archived',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.archived',
 				'config' => [
 					'type' => 'check',
 					'items' => [
@@ -488,11 +488,11 @@
 			],
 			"status" => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobs/Resources/Private/Language/locallang_db.xlf:tx_jobs_domain_model_application.status',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.status',
 				'config' => [
 					'type' => 'select',
 					'renderType' => 'selectSingle',
-					'foreign_table' => 'tx_jobs_domain_model_status',
+					'foreign_table' => 'tx_jobapplications_domain_model_status',
 					'minitems' => 0,
 					'maxitems' => 1,
 				],

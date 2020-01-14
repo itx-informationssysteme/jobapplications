@@ -1,12 +1,12 @@
 # Company Information
 ###########################
-# cat=company; type=string; label=LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:conf.companyName
+# cat=company; type=string; label=LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:conf.companyName
 companyName =
 
-# cat=company; type=string; label=LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:conf.logo
+# cat=company; type=string; label=LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:conf.logo
 logo =
 
-# cat=company; type=string; label=LLL:EXT:jobs/Resources/Private/Language/locallang_backend.xlf:conf.currency
+# cat=company; type=string; label=LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:conf.currency
 currency =
 
 

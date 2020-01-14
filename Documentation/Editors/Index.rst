@@ -23,7 +23,7 @@ Click the '+' and you will see all the records that are available.
    :width: 300px
    :alt: Records
 
-   The ones marked in red are created by the Jobs Extension.
+   The ones marked in red are created by the Jobapplications Extension.
 
 Language and hidden
 -------------------
@@ -40,7 +40,7 @@ This data will then be displayed in the frontend, when this contact is reference
 
 Backend user
 ~~~~~~~~~~~~
-With this setting a backend user can be referenced. This is useful if the Jobs-Application-Managment-Backendmodule is
+With this setting a backend user can be referenced. This is useful if the Jobapplications-Application-Managment-Backendmodule is
 used as it allows the extension to personalize the experience.
 
 Location record
@@ -159,9 +159,9 @@ backend module which is explained in the following section.
 
 Application managment
 =====================
-You can find the application managment by clicking the **Jobs Module**.
+You can find the application managment by clicking the **Application Module**.
 
-If your backend user account is connected to a Jobs Extension Contact you
+If your backend user account is connected to a Jobapplications Extension Contact you
 will be greeted with the number of new applications.
 
 .. figure:: ../Images/Editors/dashboard.PNG

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-    <file source-language="en" datatype="plaintext" original="EXT:jobs/Resources/Private/Language/locallang_csh_flexform" date="2019-10-21T16:03:17Z" product-name="jobs">
+    <file source-language="en" datatype="plaintext" original="EXT:jobapplications/Resources/Private/Language/locallang_csh_flexform" date="2019-10-21T16:03:17Z" product-name="jobapplications">
         <header/>
         <body>
             <trans-unit id="settings.sendEmailToApplicantText.description" resname="settings.sendEmailToApplicantText.description">

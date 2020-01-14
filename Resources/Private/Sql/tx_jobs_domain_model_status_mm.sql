@@ -21,10 +21,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `tx_jobs_domain_model_status_mm`
+-- Tabellenstruktur für Tabelle `tx_jobapplications_domain_model_status_mm`
 --
 
-CREATE TABLE `tx_jobs_domain_model_status_mm` (
+CREATE TABLE `tx_jobapplications_domain_model_status_mm` (
   `uid_local` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `uid_foreign` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `sorting` int(10) UNSIGNED NOT NULL DEFAULT '0',
@@ -32,10 +32,10 @@ CREATE TABLE `tx_jobs_domain_model_status_mm` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Daten für Tabelle `tx_jobs_domain_model_status_mm`
+-- Daten für Tabelle `tx_jobapplications_domain_model_status_mm`
 --
 
-INSERT INTO `tx_jobs_domain_model_status_mm` (`uid_local`, `uid_foreign`, `sorting`, `sorting_foreign`) VALUES
+INSERT INTO `tx_jobapplications_domain_model_status_mm` (`uid_local`, `uid_foreign`, `sorting`, `sorting_foreign`) VALUES
 (3, 2, 1, 0),
 (16, 2, 1, 0),
 (14, 2, 1, 0),
@@ -116,9 +116,9 @@ INSERT INTO `tx_jobs_domain_model_status_mm` (`uid_local`, `uid_foreign`, `sorti
 --
 
 --
--- Indizes für die Tabelle `tx_jobs_domain_model_status_mm`
+-- Indizes für die Tabelle `tx_jobapplications_domain_model_status_mm`
 --
-ALTER TABLE `tx_jobs_domain_model_status_mm`
+ALTER TABLE `tx_jobapplications_domain_model_status_mm`
   ADD KEY `uid_local` (`uid_local`),
   ADD KEY `uid_foreign` (`uid_foreign`);
 COMMIT;

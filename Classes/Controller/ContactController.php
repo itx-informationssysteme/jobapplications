@@ -1,5 +1,5 @@
 <?php
-namespace ITX\Jobs\Controller;
+namespace ITX\Jobapplications\Controller;
 
 
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
@@ -35,7 +35,7 @@ class ContactController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * contactRepository
      * 
-     * @var \ITX\Jobs\Domain\Repository\ContactRepository
+     * @var \ITX\Jobapplications\Domain\Repository\ContactRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $contactRepository = null;
@@ -43,7 +43,7 @@ class ContactController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * action list
      * 
-     * @param ITX\Jobs\Domain\Model\Contact
+     * @param ITX\Jobapplications\Domain\Model\Contact
      * @return void
      */
     public function listAction()
