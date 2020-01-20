@@ -18,7 +18,7 @@
 				'endtime' => 'endtime',
 			],
 			'searchFields' => 'first_name,last_name,email,phone,address_street_and_number,address_addition,address_city,address_country,salary_expectation',
-			'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/tx_jobapplications_domain_model_application.gif'
+			'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/Extension.svg'
 		],
 		'interface' => [
 			'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, salutation, first_name, last_name, email, phone, address_street_and_number, address_addition, address_post_code, address_city, address_country, salary_expectation, message, earliest_date_of_joining, cv, cover_letter, testimonials, other_files, privacy_agreement, posting, archived, status',

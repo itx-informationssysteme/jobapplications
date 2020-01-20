@@ -195,6 +195,8 @@ Extra: Contact plugin
 There is a plugin named **Jobapplications: Contact Display** which simply shows the selected contacts that are defined in the plugin
 settings. This can be useful to include as a contact section in another page.
 
+There is also an option to enter a header text. This can be useful if you want to use this plugin as section.
+
 Template constants
 ==================
 In the Template Constant Editor the plugin registered a few settings.

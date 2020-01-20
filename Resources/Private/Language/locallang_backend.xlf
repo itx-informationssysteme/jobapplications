@@ -97,7 +97,13 @@
 				<source>Setting needed if applicationform should be on the same page as Detailview</source>
 			</trans-unit>
 			<trans-unit id="flexform.successMessage" resname="flexform.successMessage">
-				<source>Enter the Message that will be shown to the applicant after submitting the application</source>
+				<source>Enter the message that will be shown to the applicant after submitting the application</source>
+			</trans-unit>
+			<trans-unit id="flexform.selectedContacts" resname="flexform.selectedContacts">
+				<source>Select contact to display in frontend</source>
+			</trans-unit>
+			<trans-unit id="flexform.header" resname="flexform.header">
+				<source>[Optional] Header to be shown as section header</source>
 			</trans-unit>
 			<trans-unit id="be.listApplications.showButton" resname="be.listApplications.showButton">
 				<source>Show</source>

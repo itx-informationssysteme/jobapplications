@@ -39,7 +39,7 @@ CREATE TABLE tx_jobapplications_domain_model_contact
     phone      varchar(255)     DEFAULT '' NOT NULL,
     division   varchar(255)     DEFAULT '' NOT NULL,
     photo      int(11) unsigned            NOT NULL default '0',
-    be_user    int(11) unsigned DEFAULT '0'
+    be_user    int(11) unsigned NOT NULL DEFAULT '0'
 
 );
 

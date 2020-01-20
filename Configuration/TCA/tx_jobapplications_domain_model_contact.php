@@ -17,13 +17,13 @@
 				'endtime' => 'endtime',
 			],
 			'searchFields' => 'last_name,email,phone,division',
-			'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/tx_jobapplications_domain_model_contact.gif'
+			'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/Extension.svg'
 		],
 		'interface' => [
 			'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, first_name, last_name, email, phone, division, photo, be_user',
 		],
 		'types' => [
-			'1' => ['showitem' => 'first_name, last_name, email, phone, division, photo, be_user, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, sys_language_uid, hidden, l10n_parent, l10n_diffsource, starttime, endtime'],
+			'1' => ['showitem' => 'sys_language_uid, first_name, last_name, email, phone, division, photo, be_user, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden, l10n_parent, l10n_diffsource, starttime, endtime'],
 		],
 		'columns' => [
 			'sys_language_uid' => [
@@ -215,9 +215,9 @@
 				'config' => [
 					'type' => 'select',
 					'renderType' => 'selectSingle',
-					'items' => [
-						['-----', 0],
-					],
+					'default' => 0,
+					'items' => [['', 0]],
+					'minitems' => 0,
 					'foreign_table' => 'be_users',
 					'fieldWizard' => [
 						'selectIcons' => [
@@ -226,6 +226,5 @@
 					],
 				],
 			]
-
 		],
 	];
