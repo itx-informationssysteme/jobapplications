@@ -3,6 +3,7 @@
 
 <f:section name="content">
 	<div class="container-fluid">
+		<h3>{settings.header}</h3>
 		<div class="row justify-content-around">
 			<f:for each="{contacts}" as="contact">
 				<div class="col">
@@ -13,7 +14,7 @@
 					</div>
 					<div class="row mx-auto text-center d-block mt-2">
 						<span><b>{contact.firstName} {contact.lastName}</b></span><br>
-						<span><a href="mailto:{contact.email}">{contact.email}</a></span><br> <f:comment> TODO Spamschutz https://docs.typo3.org/m/typo3/guide-extbasefluid/6.2/en-us/Fluid/ViewHelper/Link/Email.html</f:comment>
+						<span><f:link.email email="{contact.email}"></f:link.email></span><br>
 						<span>{contact.phone}</span><br>
 						<span>{contact.division}</span>
 					</div>

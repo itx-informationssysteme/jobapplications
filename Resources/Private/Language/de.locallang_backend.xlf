@@ -116,8 +116,16 @@
                 <target state="translated">Anwählen, falls sich Bewerbungsformular und Detailplugin auf der gleichen Seite befinden</target>
             </trans-unit>
             <trans-unit id="flexform.successMessage" resname="flexform.successMessage">
-                <source>Enter the Message that will be shown to the applicant after submitting the application</source>
+                <source>Enter the message that will be shown to the applicant after submitting the application</source>
                 <target state="translated">Die Nachricht für den Bewerber, nachdem dieser die Bewerbung abgeschickt hat</target>
+            </trans-unit>
+            <trans-unit id="flexform.selectedContacts" resname="flexform.selectedContacts">
+                <source>Select contact to display in frontend</source>
+                <target state="translated">Kontakt auswählen, welcher dann im Frondend angezeigt wird</target>
+            </trans-unit>
+            <trans-unit id="flexform.header" resname="flexform.header">
+                <source>[Optional] Header to be shown as section header</source>
+                <target state="translated">[Optional] Überschrift der Sektion, welche dieses Plugin darstellt</target>
             </trans-unit>
             <trans-unit id="be.listApplications.showButton" resname="be.listApplications.showButton" approved="yes">
                 <source>Show</source>

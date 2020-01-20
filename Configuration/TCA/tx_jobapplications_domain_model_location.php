@@ -17,7 +17,7 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'name,address,latitude,londitude',
-        'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/tx_jobapplications_domain_model_location.gif'
+        'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/Extension.svg'
     ],
     'interface' => [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, address_street_and_number, address_addition, address_post_code, address_city, address_country, latitude, londitude',

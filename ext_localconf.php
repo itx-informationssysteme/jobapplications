@@ -88,13 +88,13 @@
 			);
 
 			$iconRegistry->registerIcon(
-				'jobapplicatio-plugin-detailview',
+				'jobapplications-plugin-detailview',
 				\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
 				['source' => 'EXT:jobapplications/Resources/Public/Icons/logo_jobs.svg']
 			);
 
 			$iconRegistry->registerIcon(
-				'jobapplicatio-plugin-applicationform',
+				'jobapplications-plugin-applicationform',
 				\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
 				['source' => 'EXT:jobapplications/Resources/Public/Icons/logo_jobs.svg']
 			);

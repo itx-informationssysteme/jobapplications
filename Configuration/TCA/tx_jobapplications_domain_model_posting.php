@@ -17,7 +17,7 @@
 				'endtime' => 'endtime',
 			],
 			'searchFields' => 'title,career_level,division,employment_type,terms_of_employment,company_description,job_description,role_description,skill_requirements,benefits,base_salary,required_documents,company_information',
-			'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/tx_jobapplications_domain_model_posting.gif'
+			'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/Extension.svg'
 		],
 		'interface' => [
 			'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, date_posted, career_level, division, employment_type, terms_of_employment, company_description, job_description, role_description, skill_requirements, benefits, base_salary, valid_through, required_documents, company_information, detail_view_image, list_view_image, location, contact',

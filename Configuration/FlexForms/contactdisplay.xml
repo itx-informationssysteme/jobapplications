@@ -10,7 +10,7 @@
                 <el>
                     <settings.selectedContacts>
                         <TCEforms>
-                            <label>Select Contacts to display</label>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.selectedContacts</label>
                             <exclude>1</exclude>
                             <config>
                                 <type>select</type>
@@ -26,6 +26,17 @@
                             </config>
                         </TCEforms>
                     </settings.selectedContacts>
+                    <settings.header>
+                        <TCEforms>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.header</label>
+                            <config>
+                                <type>input</type>
+                                <size>20</size>
+                                <max>60</max>
+                                <eval>trim</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.header>
                 </el>
             </ROOT>
         </singleView>

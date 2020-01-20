@@ -18,7 +18,7 @@
 				'endtime' => 'endtime',
 			],
 			'searchFields' => 'name, followers',
-			'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/tx_jobapplications_domain_model_application.gif'
+			'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/Extension.svg'
 		],
 		'interface' => [
 			'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, is_end_status, is_new_status, followers',
