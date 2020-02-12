@@ -60,9 +60,20 @@
 						   $sb->expr()->eq("tx_jobapplications_domain_model_posting.uid", "sys_category_record_mm.uid_foreign"));
 				$sb = parent::buildCategoriesToSQL($categories, $sb);
 				$result = $sb->execute()->fetchAll(\Doctrine\DBAL\FetchMode::COLUMN);
-				$qb->select("*")
-				   ->from("tx_jobapplications_domain_model_location")
-				   ->where($qb->expr()->in("uid", $result));
+
+				if (count($result) > 0)
+				{
+					$qb->select("*")
+					   ->from("tx_jobapplications_domain_model_location")
+					   ->where($qb->expr()->in("uid", $result));
+				}
+				else
+				{
+					$qb->select("*")
+					   ->from("tx_jobapplications_domain_model_location")
+					   ->where('1 = 0');
+				}
+
 			}
 
 			$query->statement($qb->getSQL());
