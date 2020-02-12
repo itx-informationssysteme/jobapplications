@@ -4,7 +4,7 @@
         <singleView>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.title.contactdisplay</sheetTitle>
+                    <sheetTitle>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.title.contactDisplay</sheetTitle>
                 </TCEforms>
                 <type>array</type>
                 <el>

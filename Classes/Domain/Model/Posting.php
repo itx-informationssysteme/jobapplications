@@ -170,8 +170,14 @@
 		protected $listViewImage = null;
 
 		/**
+		 * categories
+		 *
 		 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+		 * @lazy
 		 */
+		protected $categories = null;
+
+
 
 		/**
 		 * __construct
@@ -193,6 +199,7 @@
 		 */
 		protected function initStorageObjects()
 		{
+			$this->categories = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		}
 
 		/**
@@ -622,5 +629,21 @@
 			$validThrougDate = $this->validThrough;
 
 			return ($this->datePosted <= $current) && ($validThrougDate == null || ($validThrougDate->modify("+1 day") >= $current));
+		}
+
+		/**
+		 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+		 */
+		public function getCategories()
+		{
+			return $this->categories;
+		}
+
+		/**
+		 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $categories
+		 */
+		public function setCategories(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $categories): void
+		{
+			$this->categories = $categories;
 		}
 	}
