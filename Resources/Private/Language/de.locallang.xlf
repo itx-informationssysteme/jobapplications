@@ -264,8 +264,8 @@
                 <target state="translated">Bewerbung senden</target>
             </trans-unit>
             <trans-unit id="fe.error.fileType" resname="fe.error.fileType" approved="yes">
-                <source>Wrong Filetype! Only .pdf is allowed!</source>
-                <target state="translated">Falscher Dateityp! Es sind nur .pdf Dateien erlaubt!</target>
+                <source>Please check the filetype of the uploaded files. Only .pdf is allowed.</source>
+                <target state="translated">Bitte überprüfen Sie den Dateityp der hochgeladenen Dateien. Es sind nur .pdf Dateien erlaubt!</target>
             </trans-unit>
             <trans-unit id="fe.error.fileSize" resname="fe.error.fileSize" approved="yes">
                 <source>File Error: One of your uploaded Files probably exceeded the filesize limit of %sMB</source>

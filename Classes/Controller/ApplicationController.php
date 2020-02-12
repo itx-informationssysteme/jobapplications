@@ -233,12 +233,10 @@
 			//Check if $_FILES Entries have errors
 			foreach ($uploads as $upload)
 			{
-				$errorcode = $_FILES['tx_jobapplications_frontend']['error'][$upload];
-
 				//Check if Filetype is accepted
 				if ($_FILES['tx_jobapplications_applicationform']['type'][$upload] != "application/pdf" && $_FILES['tx_jobapplications_applicationform']['type'][$upload] != "")
 				{
-					if (intval($errorcode) == 1)
+					if ($_FILES['tx_jobapplications_applicationform']['type'][$upload] != "application/pdf")
 					{
 						$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileType', 'jobapplications'), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
 					}
