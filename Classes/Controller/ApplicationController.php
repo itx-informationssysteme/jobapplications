@@ -29,10 +29,12 @@
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Model\Status;
 	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
+	use ScssPhp\ScssPhp\Formatter\Debug;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Resource\FileInterface;
 	use TYPO3\CMS\Core\Resource\ResourceFactory;
+	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
@@ -223,7 +225,7 @@
 		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
 		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
 		 */
-		public function createAction(\ITX\Jobapplications\Domain\Model\Application $newApplication, \ITX\Jobapplications\Domain\Model\Posting $posting)
+		public function createAction(\ITX\Jobapplications\Domain\Model\Application $newApplication, \ITX\Jobapplications\Domain\Model\Posting $posting = null)
 		{
 			//Uploads in order as defined in Domain Model
 			$uploads = array("cv", "cover_letter", "testimonials", "other_files");
@@ -234,7 +236,7 @@
 				$errorcode = $_FILES['tx_jobapplications_frontend']['error'][$upload];
 
 				//Check if Filetype is accepted
-				if ($_FILES['tx_jobapplications_frontend']['type'][$upload] != "application/pdf" && $_FILES['tx_jobapplications_frontend']['type'][$upload] != "")
+				if ($_FILES['tx_jobapplications_applicationform']['type'][$upload] != "application/pdf" && $_FILES['tx_jobapplications_applicationform']['type'][$upload] != "")
 				{
 					if (intval($errorcode) == 1)
 					{
@@ -282,6 +284,15 @@
 
 			$this->applicationRepository->add($newApplication);
 			$this->persistenceManager->persistAll();
+
+			// Temporary posting object for unsolicited application
+			if (!($posting instanceof Posting))
+			{
+				$posting = GeneralUtility::makeInstance(\ITX\Jobapplications\Domain\Model\Posting::class);
+				$posting->setTitle(LocalizationUtility::translate("fe.application.unsolicited.title", "jobapplications"));
+
+				$newApplication->setPosting($posting);
+			}
 
 			$files = [];
 			$fields = [];
@@ -334,7 +345,16 @@
 
 			/** @var Posting $currentPosting */
 			$currentPosting = $newApplication->getPosting();
-			$contact = $currentPosting->getContact();
+
+			// Default contact is not available
+			$contact = GeneralUtility::makeInstance(\ITX\Jobapplications\Domain\Model\Contact::class);
+
+			$contact->setEmail($this->settings["defaultContactMailAddress"]);
+			$contact->setFirstName($this->settings["defaultContactFirstName"]);
+			$contact->setLastName($this->settings["defaultContactLastName"]);
+
+			$contact = ($currentPosting->getContact() ? $currentPosting->getContact(): $contact);
+
 
 			// Get and translate labels
 			$salutation = LocalizationUtility::translate("fe.application.selector.".$newApplication->getSalutation(), "jobapplications");
@@ -357,7 +377,8 @@
 				// Prepare and send the message
 				$mail
 					->setSubject(LocalizationUtility::translate("fe.email.toContactSubject", 'jobapplications', array(0 => $currentPosting->getTitle())))
-					->setFrom(array($newApplication->getEmail() => $newApplication->getFirstName()." ".$newApplication->getLastName()))
+					->setFrom(array($this->settings["emailSender"] => $this->settings["emailSenderName"]))
+					->setReplyTo(array($newApplication->getEmail() => $newApplication->getFirstName()." ".$newApplication->getLastName()))
 					->setBody('<p>'.
 							  $nameLabel.$salutation.' '.$newApplication->getFirstName().' '.$newApplication->getLastName().'<br>'.
 							  $emailLabel.$newApplication->getEmail().'<br>'.
@@ -381,12 +402,12 @@
 				}
 
 				//Figure out who the email will be sent to and how
-				if ($this->settings['sendEmailToInternal'] == "1" && $this->settings['sendEmailToContact'] == "1")
+				if ($this->settings['sendEmailToInternal'] != "" && $this->settings['sendEmailToContact'] == "1")
 				{
 					$mail->setTo(array($contact->getEmail() => $contact->getFirstName()." ".$contact->getLastName()));
 					$mail->setBcc($this->settings['sendEmailToInternal']);
 				}
-				elseif ($this->settings['sendEmailToContact'] != "1" && $this->settings['sendEmailToInternal'] == "1")
+				elseif ($this->settings['sendEmailToContact'] != "1" && $this->settings['sendEmailToInternal'] != "")
 				{
 					$mail->setTo(array($this->settings['sendEmailToInternal'] => 'Internal'));
 				}

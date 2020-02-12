@@ -64,12 +64,12 @@
                 <target state="translated">Betreff für E-Mail an Bewerber</target>
             </trans-unit>
             <trans-unit id="flexform.emailSenderName" resname="flexform.emailSenderName" approved="yes">
-                <source>E-Mail to Applicant Sender Name</source>
-                <target state="translated">Absender Name für E-Mail an Bewerber</target>
+                <source>E-Mail Sender Name</source>
+                <target state="translated">Absender Name für E-Mails</target>
             </trans-unit>
             <trans-unit id="flexform.emailSender" resname="flexform.emailSender" approved="yes">
-                <source>E-Mail to Applicant Sender E-Mail</source>
-                <target state="translated">Absende E-Mail für E-Mail an Bewerber</target>
+                <source>E-Mail Sender E-Mail</source>
+                <target state="translated">Absender E-Mail für E-Mails</target>
             </trans-unit>
             <trans-unit id="flexform.sendEmailToApplicant" resname="flexform.sendEmailToApplicant" approved="yes">
                 <source>Should an E-Mail be sent to the applicant?</source>

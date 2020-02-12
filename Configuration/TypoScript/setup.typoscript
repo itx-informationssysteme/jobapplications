@@ -1,4 +1,7 @@
 plugin.tx_jobapplications.settings.enableGoogleJobs = {$plugin.tx_jobapplications.settings.enableGoogleJobs}
+plugin.tx_jobapplications.settings.defaultContactMailAddress = {$plugin.tx_jobapplications.settings.defaultContactMailAddress}
+plugin.tx_jobapplications.settings.defaultContactFirstName = {$plugin.tx_jobapplications.settings.defaultContactFirstName}
+plugin.tx_jobapplications.settings.defaultContactLastName = {$plugin.tx_jobapplications.settings.defaultContactLastName}
 
 plugin.tx_jobapplications {
     view {
@@ -37,3 +40,5 @@ module.tx_jobapplications_web_jobapplicationsbackend  {
         layoutRootPaths.1 = {$module.tx_jobapplications_backend.view.layoutRootPath}
     }
 }
+
+

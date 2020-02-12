@@ -189,6 +189,9 @@
 			<trans-unit id="fe.application.new.title" resname="fe.application.new.title">
 				<source>Apply as %s</source>
 			</trans-unit>
+			<trans-unit id="fe.application.unsolicited.title" resname="fe.application.unsolicited.title" approved="yes">
+				<source>Unsolicited application</source>
+			</trans-unit>
 			<trans-unit id="fe.application.privacy_agreement" resname="fe.application.privacy_agreement">
 				<source>I accept the </source>
 			</trans-unit>

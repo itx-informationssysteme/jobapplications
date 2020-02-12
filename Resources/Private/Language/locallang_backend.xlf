@@ -58,10 +58,10 @@
 				<source>E-Mail to Applicant Subject (Templating available: Posting Title: %postingTitle%)</source>
 			</trans-unit>
 			<trans-unit id="flexform.emailSenderName" resname="flexform.emailSenderName">
-				<source>E-Mail to Applicant Sender Name</source>
+				<source>E-Mail Sender Name</source>
 			</trans-unit>
 			<trans-unit id="flexform.emailSender" resname="flexform.emailSender">
-				<source>E-Mail to Applicant Sender E-Mail</source>
+				<source>E-Mail Sender E-Mail</source>
 			</trans-unit>
 			<trans-unit id="flexform.sendEmailToApplicant" resname="flexform.sendEmailToApplicant">
 				<source>Should an E-Mail be sent to the applicant?</source>

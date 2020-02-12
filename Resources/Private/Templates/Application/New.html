@@ -6,12 +6,19 @@
 	<div class="row">
 		<div class="col"></div>
 		<div class="col-6">
-			<h3>
-				<f:translate key="fe.application.new.title" arguments="{0: posting.title}" extensionName="jobapplications"/>
-			</h3>
+			<f:if condition="{posting}">
+				<f:then>
+					<h3>
+						<f:translate key="fe.application.new.title" arguments="{0: posting.title}" extensionName="jobapplications"/>
+					</h3>
+				</f:then>
+				<f:else>
+					<f:translate key="fe.application.unsolicited.title" extensionName="jobapplications"/>
+				</f:else>
+			</f:if>
+
 			<f:flashMessages/>
 			<f:render partial="FormErrors"/>
-
 			<f:form id="application-form" action="create" enctype="multipart/form-data" name="newApplication" object="{newApplication}" arguments="{posting: posting}">
 				<f:render partial="Application/FormFields" arguments="{fileSizeLimit: fileSizeLimit}"/>
 				<div class="row">
@@ -29,7 +36,8 @@
 		<div class="col"></div>
 	</div>
 	<script>
-		document.getElementById('application-form').addEventListener('submit', function(){
+		document.getElementById('application-form').addEventListener('submit', function ()
+		{
 			document.getElementById('application-submit').disabled = true;
 			document.getElementById('application-button-back').disabled = true;
 		});

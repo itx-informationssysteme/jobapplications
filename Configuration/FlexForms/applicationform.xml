@@ -39,6 +39,28 @@
                             </config>
                         </TCEforms>
                     </settings.pageTitle>
+                    <settings.emailSender>
+                        <TCEforms>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.emailSender</label>
+                            <config>
+                                <type>input</type>
+                                <size>20</size>
+                                <max>50</max>
+                                <eval>trim</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.emailSender>
+                    <settings.emailSenderName>
+                        <TCEforms>
+                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.emailSenderName</label>
+                            <config>
+                                <type>input</type>
+                                <size>20</size>
+                                <max>50</max>
+                                <eval>trim</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.emailSenderName>
                     <settings.sendEmailToContact>
                         <TCEforms>
                             <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToContact</label>
@@ -95,30 +117,6 @@
                             </config>
                         </TCEforms>
                     </settings.sendEmailToApplicantText>
-                    <settings.emailSender>
-                        <TCEforms>
-                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.emailSender</label>
-                            <displayCond>FIELD:settings.sendEmailToApplicant:REQ:true</displayCond>
-                            <config>
-                                <type>input</type>
-                                <size>20</size>
-                                <max>50</max>
-                                <eval>trim,required</eval>
-                            </config>
-                        </TCEforms>
-                    </settings.emailSender>
-                    <settings.emailSenderName>
-                        <TCEforms>
-                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.emailSenderName</label>
-                            <displayCond>FIELD:settings.sendEmailToApplicant:REQ:true</displayCond>
-                            <config>
-                                <type>input</type>
-                                <size>20</size>
-                                <max>50</max>
-                                <eval>trim,required</eval>
-                            </config>
-                        </TCEforms>
-                    </settings.emailSenderName>
                     <settings.saveApplicationInBackend>
                         <TCEforms>
                             <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.saveApplicationInBackend</label>

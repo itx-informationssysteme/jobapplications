@@ -255,6 +255,10 @@
                 <source>Apply as %s</source>
                 <target state="translated">Bewerben als %s</target>
             </trans-unit>
+            <trans-unit id="fe.application.unsolicited.title" resname="fe.application.unsolicited.title" approved="yes">
+                <source>Unsolicited application</source>
+                <target state="translated">Initiativbewerbung</target>
+            </trans-unit>
             <trans-unit id="fe.application.new.submit" resname="fe.application.new.submit" approved="yes">
                 <source>Send Application</source>
                 <target state="translated">Bewerbung senden</target>
