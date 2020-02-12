@@ -239,7 +239,15 @@
 		{
 			// Get data for counter of new applications with referenced contact
 			$contact = $this->getActiveBeContact();
-			$newApps = $this->applicationRepository->findNewApplicationsByContact($contact->getUid());
+
+			if ($contact)
+			{
+				$newApps = $this->applicationRepository->findNewApplicationsByContact($contact->getUid());
+			}
+			else
+			{
+				$newApps = array();
+			}
 
 			$this->view->assign("admin", $GLOBALS['BE_USER']->isAdmin());
 			$this->view->assign("newApps", count($newApps));

@@ -468,7 +468,7 @@
 		 *
 		 * @return void
 		 */
-		public function setPosting(Posting $posting)
+		public function setPosting(Posting $posting = null)
 		{
 			$this->posting = $posting;
 		}

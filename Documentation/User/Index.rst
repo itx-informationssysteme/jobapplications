@@ -111,11 +111,12 @@ If left empty the default title defined by the extenion is used.
 Should the referenced contact receive an email?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 When this option is enabled the contact which was referenced by the posting will get an email with all the information the
-applicant provided including attachments.
+applicant provided including attachments. Make sure to specify the *Email to applicant sender email* and the *Email to applicant sender name*.
 
 Should new applications be sent to a specific email address?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-This does the same thing as the previous settings only that this time an email can be specified.
+This does the same thing as the previous settings only that this time an email can be specified. Make sure to specify the *Email to applicant sender email* and the *Email to applicant sender name*.
+
 
 Should an email be sent to the applicant?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -135,14 +136,6 @@ With this setting enabled, new fields will show up, so you can enter the texts f
   * applicant salutation: %applicantSalutation%
   * applicant first name: %applicantFirstname%
   * applicant last name: %applicantLastname%
-
-* **Email to applicant sender email**
-
-  Specify the sender of the email to the applicant.
-
-* **Email to applicant sender name**
-
-  Specify the sender name of the email to the applicant.
 
 Should applications be saved in the backend?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -169,6 +162,13 @@ Link privacy agreement page
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Assign the privacy agreement page which the applicants will have to accept when they apply.
 Make sure to open this in a new tab, otherwise all the applicants data will possibly be lost.
+
+Unsolicited application
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+If you want to have a form for an unsolicited application, just place the plugin on the desired page.
+If the page does not receive a posting parameter, it automatically acts as an unsolicited application form. In the template you can change the title for this field.
+The emails contain the information *unsolicited application* and applications in the backend won't be linked to postings.
+If you configured the plugin to send mails to the contact, make sure to overwrite the *defaultContactMailAddress*, *defaultContactFirstName*, *defaultContactLastName* settings with your custom values.
 
 Success page
 ------------

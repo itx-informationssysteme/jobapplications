@@ -2,8 +2,10 @@
 
 	namespace ITX\Jobapplications\Controller;
 
+	use ScssPhp\ScssPhp\Formatter\Debug;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\Page\PageRenderer;
+	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 	use TYPO3\CMS\Core\MetaTag\MetaTagManagerRegistry;
@@ -62,6 +64,23 @@
 		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $signalSlotDispatcher;
+
+		/**
+		 * initialize show action
+		 *
+		 * @param void
+		 */
+		public function initializeShowAction()
+		{
+			// If application form an posting are on the same page, the posting object is part of the application plugin.
+			if (!$this->request->hasArgument("posting"))
+			{
+				if(isset($_REQUEST["tx_jobapplications_applicationform"]["posting"]))
+				{
+					$this->request->setArgument("posting", $_REQUEST["tx_jobapplications_applicationform"]["posting"]);
+				}
+			}
+		}
 
 		/**
 		 * action list

@@ -2,6 +2,13 @@ plugin.tx_jobapplications.settings {
 
     # cat=plugin.tx_jobapplications; type=boolean; label=Enable Google Jobs
     enableGoogleJobs = 0
+
+    # cat=plugin.tx_jobapplications; type=string; label=Default contact (mail address) for unsolicited application form mail
+    defaultContactMailAddress = address@address.de
+    # cat=plugin.tx_jobapplications; type=string; label=Default contact (first name) for unsolicited application form mail
+    defaultContactFirstName = Default First Name
+    # cat=plugin.tx_jobapplications; type=string; label=Default contact (last name) for unsolicited application form mail
+    defaultContactLastName = Default Last Name
 }
 
 plugin.tx_jobapplications {
