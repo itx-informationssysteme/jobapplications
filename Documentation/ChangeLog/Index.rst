@@ -10,9 +10,16 @@
 
 Changelog
 =========
+0.9.3 - Multiple files upload
+-----------------------------
+
+* in this release we implementend the ability to turn on multiple upload functionality.
+  This release does not break
+  compatibility. You can enable this feature by going into the Extension Configuration and turning off the 'Use single file upload' checkbox.
+  Make sure though if you have customized your template to work with 4 fields to carry over the changes of the original template.
 
 0.9.2 - New  Feature & Bugfixes
-----------------
+-------------------------------
 
 * application form can now be used as unsolicited application form
 * fixed category loading of postings

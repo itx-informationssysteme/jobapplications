@@ -211,6 +211,9 @@
 			<trans-unit id="tx_jobapplications_successpage.title" resname="tx_jobapplications_successpage.title">
 				<source>Jobapplications: Application Success Page</source>
 			</trans-unit>
+			<trans-unit id="legacy_upload" resname="legacy_upload">
+				<source>Use single file upload (4 Fields Cover Letter, CV, Testimonials, Other) instead of a single mutli file upload</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

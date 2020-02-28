@@ -10,7 +10,7 @@
 - confirmation email for applicants
 - supports application status managment in backend module
 
-see the full feature list in the [official documentation](https://docs.typo3.org/p/itx/jobapplications/master/en-us/)
+see the full feature list in the [official documentation](https://docs.typo3.org/p/itx/jobapplications/master/en-us/Introduction/Index.html)
 
 ## 2. Installation
 

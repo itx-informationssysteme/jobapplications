@@ -102,6 +102,14 @@
 		/**
 		 * cv
 		 *
+		 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+		 * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade remove
+		 */
+		protected $files = null;
+
+		/**
+		 * cv
+		 *
 		 * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
 		 * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade remove
 		 */
@@ -186,6 +194,11 @@
 		 * @var \ITX\Jobapplications\Domain\Model\Status
 		 */
 		protected $status = null;
+
+		public function __construct()
+		{
+			$this->files = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		}
 
 		/**
 		 * Returns the salutation
@@ -652,4 +665,19 @@
 			$this->message = $message;
 		}
 
+		/**
+		 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+		 */
+		public function getFiles()
+		{
+			return $this->files;
+		}
+
+		/**
+		 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $files
+		 */
+		public function setFiles(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $files): void
+		{
+			$this->files = $files;
+		}
 	}

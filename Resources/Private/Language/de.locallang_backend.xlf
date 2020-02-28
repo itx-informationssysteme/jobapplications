@@ -267,6 +267,10 @@
                 <source>Jobapplications: Application Success Page</source>
                 <target state="translated">Jobapplications: Bewerbung erfolgreich versendet</target>
             </trans-unit>
+            <trans-unit id="legacy_upload" resname="legacy_upload">
+                <source>Use the legacy upload (4 Fields Cover Letter, CV, Testimonials, Other) instead of a single mutli file upload</source>
+                <target>Benutzen des Single-File-Uploads (4 Felder Anschreiben, Lebenslauf, Zeugnisse, Anderes) anstelle eines einzigen mehrfach-Upload Feldes</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

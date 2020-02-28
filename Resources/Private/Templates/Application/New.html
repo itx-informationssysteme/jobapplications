@@ -20,7 +20,7 @@
 			<f:flashMessages/>
 			<f:render partial="FormErrors"/>
 			<f:form id="application-form" action="create" enctype="multipart/form-data" name="newApplication" object="{newApplication}" arguments="{posting: posting}">
-				<f:render partial="Application/FormFields" arguments="{fileSizeLimit: fileSizeLimit}"/>
+				<f:render partial="Application/FormFields" arguments="{_all}"/>
 				<div class="row">
 					<div class="col-4">
 						<button id="application-button-back" class="btn btn-link px-0" onclick="window.history.back()">

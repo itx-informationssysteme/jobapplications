@@ -170,6 +170,11 @@ If the page does not receive a posting parameter, it automatically acts as an un
 The emails contain the information *unsolicited application* and applications in the backend won't be linked to postings.
 If you configured the plugin to send mails to the contact, make sure to overwrite the *defaultContactMailAddress*, *defaultContactFirstName*, *defaultContactLastName* settings with your custom values.
 
+Use single file upload
+~~~~~~~~~~~~~~~~~~~~~~
+This settings can be found in the Extension Configuration. It is enabled by default to ensure extension backwards compatiblity.
+By disabling this field the multi file upload field is activated.
+
 Success page
 ------------
 This page will be called when the applicants application was successfully sent.

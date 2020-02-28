@@ -141,6 +141,9 @@
 			<trans-unit id="tx_jobapplications_domain_model_application.earliest_date_of_joining" resname="tx_jobapplications_domain_model_application.earliest_date_of_joining">
 				<source>Earliest Date Of Joining</source>
 			</trans-unit>
+			<trans-unit id="tx_jobapplications_domain_model_application.files" resname="tx_jobapplications_domain_model_application.files">
+				<source>Files</source>
+			</trans-unit>
 			<trans-unit id="tx_jobapplications_domain_model_application.cv" resname="tx_jobapplications_domain_model_application.cv">
 				<source>Cv</source>
 			</trans-unit>
