@@ -672,7 +672,13 @@
 			}
 
 			//file name
-			$newFileName = $fieldName."_".$domainObject->getFirstName()."_".$domainObject->getLastName()."_id_".$domainObject->getPosting()->getUid().".pdf";
+			$newFileName = $fieldName."_".$domainObject->getFirstName()."_".$domainObject->getLastName()."_id_".$domainObject->getPosting()->getUid();
+			if (strlen($newFileName) > 255)
+			{
+				$newFileName = substr($newFileName, 0, 254);
+			}
+
+			$newFileName .= ".pdf";
 
 			//build sys_file
 			$movedNewFile = $storage->addFile($tmpFile, $targetFolder, $newFileName);
