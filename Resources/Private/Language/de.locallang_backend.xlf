@@ -271,6 +271,28 @@
                 <source>Use the legacy upload (4 Fields Cover Letter, CV, Testimonials, Other) instead of a single mutli file upload</source>
                 <target>Benutzen des Single-File-Uploads (4 Felder Anschreiben, Lebenslauf, Zeugnisse, Anderes) anstelle eines einzigen mehrfach-Upload Feldes</target>
             </trans-unit>
+            <trans-unit id="be.settings.batchIndex" resname="be.settings.batchIndex">
+                <source>This option allows you to regenerate batch indexing requests for Google Jobs. It iterates over each Posting and
+                    sends an request for each of them. That means it could take a while. You will be notified when the process has findished.
+                    Beware each request consumes a up your Google request contigent (standard is 200), so use this feature economically.
+                </source>
+                <target>Hier lässt sich eine Batch Indizierung für Google Jobs anstoßen. Der Prozess iteriert über alle
+                    Postings und schickt jeweils eine Request an Google. Das bedeutet möglicherweise verbraucht diese Funktion einige Google Kontingent Einheiten.
+                    Es ist also ratsam diese Funktion sparsam zu verwenden.
+                </target>
+            </trans-unit>
+            <trans-unit id="conf.key_path" resname="conf.key_path">
+                <source>Path to google config .json file:E.g. EXT:your_extension/Resources/Private/Files/keys.json. Look this up in the documentation if you don't know what file to put here.</source>
+                <target>Pfad zur Google Google Konfigurationsdatei.:z.B.: EXT:your_extension/Resources/Private/Files/keys.json (Siehe Dokumentation für weitere Informationen)</target>
+            </trans-unit>
+            <trans-unit id="conf.indexing_api" resname="conf.indexing_api">
+                <source>Enable Google Indexing API (read documentation for how to it set up)</source>
+                <target>Aktivieren der Google Indexing API Schnittstelle (siehe Dokumentation für weitere Informationen)</target>
+            </trans-unit>
+            <trans-unit id="conf.indexing_api_debug" resname="conf.indexing_api_debug">
+                <source>Enable Google Indexing API debug messages</source>
+                <target>Aktivieren der Debug Benachrichtigungen: Eignet sich gut um zu testen ob alles richtig eingerichtet ist.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

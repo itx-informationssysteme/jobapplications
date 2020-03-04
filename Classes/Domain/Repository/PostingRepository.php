@@ -252,4 +252,20 @@
 
 			return $query->execute();
 		}
+
+		/**
+		 * Returns !all! objects of this repository, no matter if hidden or deleted.
+		 *
+		 * @return QueryResultInterface|array
+		 */
+		public function findAllIncludingHiddenAndDeleted()
+		{
+			$query = $this->createQuery();
+			$query->getQuerySettings()
+				  ->setRespectStoragePage(false)
+				  ->setIgnoreEnableFields(true)
+				  ->setIncludeDeleted(true);
+
+			return $query->execute();
+		}
 	}

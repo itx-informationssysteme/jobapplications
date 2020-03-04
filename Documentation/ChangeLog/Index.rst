@@ -10,13 +10,18 @@
 
 Changelog
 =========
-0.9.3 - Multiple files upload
------------------------------
+0.9.3 - New Features: Multiple files upload and Google Indexing API Implementation
+----------------------------------------------------------------------------------
 
-* in this release we implementend the ability to turn on multiple upload functionality.
-  This release does not break
-  compatibility. You can enable this feature by going into the Extension Configuration and turning off the 'Use single file upload' checkbox.
+* [FEATURE] in this release we implementend the ability to activate a multiple files upload field.
+  This does not break compatibility.
+  You can enable this feature by going into the Extension Configuration and turning off the 'Use single file upload' checkbox.
   Make sure though if you have customized your template to work with 4 fields to carry over the changes of the original template.
+* [FEATURE] Google Indexing API Implementation read :ref:`the documentation here <indexing-api>`. Keep in mind that this feature
+  is very new and may not be stable. If you encounter any bugs or have feedback other feedback please report it on our GitHub Repo.
+* [FEATURE] New button in the Backend Module on the settings page, where it is possible to trigger a batch indexing request
+  for the new Google Indexing API Feature.
+* [BUGFIX] replaced tca image field definitions with more recent ones, that support image cropping
 
 0.9.2 - New  Feature & Bugfixes
 -------------------------------

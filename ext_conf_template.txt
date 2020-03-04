@@ -14,4 +14,13 @@ logo =
 # cat=company; type=string; label=LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:conf.currency
 currency =
 
+# Google Jobs Indexing Configuration
+####################################
+# cat=google; type=boolean; label=LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:conf.indexing_api
+indexing_api = 0
 
+# cat=google; type=string; label=LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:conf.key_path
+key_path =
+
+# cat=google; type=boolean; label=LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:conf.indexing_api_debug
+indexing_api_debug = 1

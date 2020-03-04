@@ -26,8 +26,12 @@
 	namespace ITX\Jobapplications\Controller;
 
 	use ITX\Jobapplications\Domain\Model\Contact;
+	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Model\Status;
+	use ITX\Jobapplications\Utility\GoogleIndexingApiConnector;
+	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Resource\Exception\InsufficientUserPermissionsException;
+	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 	/**
@@ -211,7 +215,7 @@
 			// Handles status change request
 			if ($this->request->hasArgument("status"))
 			{
-				/* @var Status $newStatus*/
+				/* @var Status $newStatus */
 				$newStatus = $this->statusRepository->findByUid($this->request->getArgument("status"));
 				$application->setStatus($newStatus);
 				$this->applicationRepository->update($application);
@@ -259,6 +263,7 @@
 		 *
 		 * @throws InsufficientUserPermissionsException
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
+		 * @throws \Exception
 		 */
 		public function settingsAction()
 		{
@@ -275,6 +280,50 @@
 				$this->statusRepository->generateStatus("tx_jobapplications_domain_model_status_".$language.".sql", "tx_jobapplications_domain_model_status_mm.sql", $pid, $langUid);
 
 				$this->addFlashMessage("Finished!");
+			}
+
+			if ($this->request->hasArgument("batch_index"))
+			{
+				$connector = new GoogleIndexingApiConnector(true);
+				$postings = $this->postingRepository->findAllIncludingHiddenAndDeleted();
+
+				$removeCounter = 0;
+				$updateCounter = 0;
+				$error_bit = false;
+
+				/** @var Posting $posting */
+				foreach ($postings as $posting)
+				{
+					if ($posting->isHidden() || $posting->isDeleted())
+					{
+						if (!$connector->updateGoogleIndex($posting->getUid(), true, $posting))
+						{
+							$error_bit = true;
+						}
+						else
+						{
+							$removeCounter++;
+						}
+					}
+					else
+					{
+						if (!$connector->updateGoogleIndex($posting->getUid(), false, $posting))
+						{
+							$error_bit = true;
+						}
+						else
+						{
+							$updateCounter++;
+						}
+
+					}
+				}
+				if($error_bit) {
+					$this->addFlashMessage("Not successful updated/added ".$updateCounter." and removed ".$removeCounter." postings", '', FlashMessage::ERROR);
+				} else {
+					$this->addFlashMessage("Done with updating/adding ".$updateCounter." and removing ".$removeCounter." postings");
+				}
+
 			}
 
 			$this->view->assign("admin", $GLOBALS['BE_USER']->isAdmin());

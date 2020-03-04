@@ -170,11 +170,6 @@ If the page does not receive a posting parameter, it automatically acts as an un
 The emails contain the information *unsolicited application* and applications in the backend won't be linked to postings.
 If you configured the plugin to send mails to the contact, make sure to overwrite the *defaultContactMailAddress*, *defaultContactFirstName*, *defaultContactLastName* settings with your custom values.
 
-Use single file upload
-~~~~~~~~~~~~~~~~~~~~~~
-This settings can be found in the Extension Configuration. It is enabled by default to ensure extension backwards compatiblity.
-By disabling this field the multi file upload field is activated.
-
 Success page
 ------------
 This page will be called when the applicants application was successfully sent.
@@ -201,6 +196,57 @@ There is a plugin named **Jobapplications: Contact Display** which simply shows 
 settings. This can be useful to include as a contact section in another page.
 
 There is also an option to enter a header text. This can be useful if you want to use this plugin as section.
+
+.. _indexing-api:
+
+Extension Configuration
+=======================
+This can be found in *Settings->Extension Configuration->Configure Extensions->jobapplications*
+
+Use single file upload
+~~~~~~~~~~~~~~~~~~~~~~
+This is is enabled by default to ensure extension backwards compatiblity.
+By disabling this field the multi file upload field is activated.
+
+Google Indexing API interface
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This application implements the Google Indexing API. It provides a possibility for telling Google when a job posting was created, updated
+or deleted. In this extension this happens (when everything is configured correcty) when a posting record is created, updated
+or deleted. The extension connects to the Google API and tells it that something changed to the postings url. Following that
+Google crawls this exact url and looks for the script tag containing the generated json formatted structured data.
+The goal for this is to happen automatically, so the editor doesn't even notices it.
+
+The generated link for the posting is dynamically generated. The extension will look through the content elements the list view page plugins are placed
+and tries to figure out which the most specifc (measured by category selection) is, and the build the url to the exact detail page.
+
+There is quite a bit of configuration to do though:
+
+#. Enable Google Jobs in the Extension see ("Enable Google Jobs") below.
+#. `Create a Servive Account <https://developers.google.com/search/apis/indexing-api/v3/prereqs>`__ and download the *.json* configuration file including the private key and other data.
+	It should look somewhat like that:
+
+	::
+
+		{
+			"type": "service_account",
+			"project_id": "your-project-id",
+			"private_key_id": "some-id",
+			"private_key": "-----BEGIN PRIVATE KEY-----\n-some-private-key\n-----END PRIVATE KEY-----\n",
+			"client_email": "some-email@appspot.gserviceaccount.com",
+			"client_id": "some-id",
+			"auth_uri": "https://accounts.google.com/o/oauth2/auth",
+			"token_uri": "https://oauth2.googleapis.com/token",
+			"auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+			"client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/some-email%40appspot.gserviceaccount.com"
+		}
+
+#. `Verify site ownership <https://developers.google.com/search/apis/indexing-api/v3/prereqs#verify-site>`__
+#. Save the file somewhere in your project and give a path to the .json file in the Extension Configuration.
+#. Enable the Google Indexing API Extension Setting in the Extension Configuration.
+#. Enable Debug Messages in the Extension Configuration.
+#. Test if you've done everything correcty by saving a posting and waiting for a green flash message.
+   If you were not successful the flash message will contain some information about why it didn't work.
+
 
 Template constants
 ==================

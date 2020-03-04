@@ -33,6 +33,11 @@
 	 */
 	class Posting extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	{
+		/** @var boolean */
+		protected $hidden;
+
+		/** @var boolean */
+		protected $deleted;
 
 		/**
 		 * title
@@ -173,7 +178,7 @@
 		 * categories
 		 *
 		 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
-		 * @lazy
+		 * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
 		 */
 		protected $categories = null;
 
@@ -645,5 +650,37 @@
 		public function setCategories(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $categories): void
 		{
 			$this->categories = $categories;
+		}
+
+		/**
+		 * @return bool
+		 */
+		public function isHidden(): bool
+		{
+			return $this->hidden;
+		}
+
+		/**
+		 * @param bool $hidden
+		 */
+		public function setHidden(bool $hidden): void
+		{
+			$this->hidden = $hidden;
+		}
+
+		/**
+		 * @return bool
+		 */
+		public function isDeleted()
+		{
+			return $this->deleted;
+		}
+
+		/**
+		 * @param bool $deleted
+		 */
+		public function setDeleted(bool $deleted): void
+		{
+			$this->deleted = $deleted;
 		}
 	}

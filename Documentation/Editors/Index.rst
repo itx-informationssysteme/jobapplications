@@ -218,4 +218,15 @@ detail view as well as in the list view.
 Also there is a button *Delete Application* to remove the application from the system. This removes the application
 record and all files related to this application. This is irreversible.
 
+Settings
+--------
+This is for admins only.
 
+Generate Statuses
+~~~~~~~~~~~~~~~~~
+Generates template statuses (see above).
+
+Batch index
+~~~~~~~~~~~
+This is useful when the Google Indexing API implementation was disabled, but postings were created and modified.
+This feature iterates over all existing postings and sends a request to Google for each of them.
