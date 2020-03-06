@@ -318,9 +318,12 @@
 
 					}
 				}
-				if($error_bit) {
+				if ($error_bit)
+				{
 					$this->addFlashMessage("Not successful updated/added ".$updateCounter." and removed ".$removeCounter." postings", '', FlashMessage::ERROR);
-				} else {
+				}
+				else
+				{
 					$this->addFlashMessage("Done with updating/adding ".$updateCounter." and removing ".$removeCounter." postings");
 				}
 

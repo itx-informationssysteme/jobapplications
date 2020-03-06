@@ -5,6 +5,7 @@
 	use ITX\Jobapplications\Domain\Model\Contact;
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
+	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
@@ -66,9 +67,14 @@
 				$andArray[] = $query->equals("posting.contact.uid", $contact);
 			}
 
-			if ($posting)
+			if ($posting != 0)
 			{
-				$andArray[] = $query->equals("posting.uid", $posting);
+				if ($posting === -1)
+				{
+					$andArray[] = $query->equals("posting", 0);
+				} else {
+					$andArray[] = $query->equals("posting.uid", $posting);
+				}
 			}
 
 			if ($status)

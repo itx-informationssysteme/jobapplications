@@ -224,10 +224,19 @@
 				<source>Path to google config .json file:E.g. EXT:your_extension/Resources/Private/Files/keys.json. Look this up in the documentation if you don't know what file to put here.</source>
 			</trans-unit>
 			<trans-unit id="conf.indexing_api" resname="conf.indexing_api">
-				<source>Enable Google Indexing API (read documentation for how to it set up)</source>
+				<source>Enable Google Indexing API (read documentation for how to set up)</source>
 			</trans-unit>
 			<trans-unit id="conf.indexing_api_debug" resname="conf.indexing_api_debug">
 				<source>Enable Google Indexing API debug messages</source>
+			</trans-unit>
+			<trans-unit id="conf.indexing_api_dev" resname="conf.indexing_api_dev">
+				<source>Trigger Google Indexing API while in develoment environment as well</source>
+			</trans-unit>
+			<trans-unit id="be.filter.unsolicited" resname="be.filter.unsolicited">
+				<source>Unsolicited applications</source>
+			</trans-unit>
+			<trans-unit id="be.filter.unsolicited.single" resname="be.filter.unsolicited.single">
+				<source>Unsolicited application</source>
 			</trans-unit>
 		</body>
 	</file>

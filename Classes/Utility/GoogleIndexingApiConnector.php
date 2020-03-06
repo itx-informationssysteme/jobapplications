@@ -139,28 +139,40 @@
 		}
 
 		/**
-		 * @param $command
-		 * @param $table
-		 * @param $uid
-		 * @param $value
+		 * Sends requests to Google Indexing API
 		 *
+		 * @param      $uid
+		 * @param bool $delete
+		 * @param null $specificPosting
+		 *
+		 * @return bool
 		 * @throws \Exception
 		 */
 		public function updateGoogleIndex($uid, $delete = false, $specificPosting = null)
 		{
+			if (\TYPO3\CMS\Core\Utility\GeneralUtility::getApplicationContext()->isDevelopment() && $this->backendConfiguration['indexing_api_dev'] === "0")
+			{
+				return false;
+			}
+
 			/** @var PostingRepository $postingRepository */
 			$postingRepository = $this->objectManager->get(\ITX\Jobapplications\Domain\Repository\PostingRepository::class);
 			/** @var TtContentRepository $ttContentRepository */
 			$ttContentRepository = $this->objectManager->get(\ITX\Jobapplications\Domain\Repository\TtContentRepository::class);
 
 			/** @var Posting $posting */
-			if ($specificPosting instanceof Posting) {
+			if ($specificPosting instanceof Posting)
+			{
 				$posting = $specificPosting;
-			} else {
+			}
+			else
+			{
 				$posting = $postingRepository->findByUid($uid);
 				if (!$posting instanceof Posting)
 				{
-					throw new \Exception("Posting ".$uid." is not accessible (anymore).");
+					$this->sendFlashMessage("Posting ".$uid." is not accessible (anymore). No request sent.");
+
+					return false;
 				}
 			}
 
@@ -198,7 +210,7 @@
 
 			if ($result)
 			{
-				$this->sendFlashMessage("Successfully requested Google to crawl this posting. URL generated: ". $url);
+				$this->sendFlashMessage("Successfully requested Google to crawl this posting. URL generated: ".$url);
 			}
 
 			return $result;
@@ -206,6 +218,7 @@
 
 		/**
 		 * @param string $url
+		 * @param bool   $deleteInsteadOfUpdate
 		 *
 		 * @return bool true success, false something went wrong
 		 */
@@ -288,7 +301,9 @@
 		}
 
 		/**
-		 * @return string
+		 * Athenticates with google oauth api
+		 *
+		 * @return string Bearer token
 		 */
 		private function makeAuthReq()
 		{
@@ -400,7 +415,7 @@
 				$type = \TYPO3\CMS\Core\Messaging\FlashMessage::WARNING;
 			}
 
-			$message = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Messaging\FlashMessage::class,$msg,$header,$type,true);
+			$message = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Messaging\FlashMessage::class, $msg, $header, $type, true);
 
 			$flashMessageService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Messaging\FlashMessageService::class);
 			$messageQueue = $flashMessageService->getMessageQueueByIdentifier();

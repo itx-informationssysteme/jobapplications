@@ -2,10 +2,13 @@
 
 	namespace ITX\Jobapplications\Hooks;
 
+	use ITX\Jobapplications\Domain\Model\Application;
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Model\TtContent;
+	use ITX\Jobapplications\Domain\Repository\ApplicationRepository;
 	use ITX\Jobapplications\Domain\Repository\PostingRepository;
 	use ITX\Jobapplications\Domain\Repository\TtContentRepository;
+	use ITX\Jobapplications\Service\ApplicationFileService;
 	use ITX\Jobapplications\Utility\FrontendUriBuilder;
 	use ITX\Jobapplications\Utility\GoogleIndexingApiConnector;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
@@ -85,6 +88,21 @@
 			{
 				$connector = new GoogleIndexingApiConnector();
 				$connector->updateGoogleIndex($uid, true);
+			}
+
+			if ($table === "tx_jobapplications_domain_model_application")
+			{
+				/** @var ObjectManager $objectManager */
+				$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+				/** @var ApplicationFileService $fileService */
+				$fileService = $objectManager->get(ApplicationFileService::class);
+				/** @var ApplicationRepository $applicationRepository */
+				$applicationRepository = $objectManager->get(ApplicationRepository::class);
+
+				/** @var Application $application */
+				$application = $applicationRepository->findByUid($uid);
+				$path = $fileService->getApplicantFolder($application);
+				$fileService->deleteApplicationFolder($path);
 			}
 		}
 	}

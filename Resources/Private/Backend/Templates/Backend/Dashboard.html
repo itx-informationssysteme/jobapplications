@@ -22,7 +22,7 @@
 			</f:if>
 		</div>
 		<div class="middle">
-			<f:link.action class="button-box" action="listApplications" arguments="{submit: 'Filter', contact: '-1'}">
+			<f:link.action class="button-box" action="listApplications" arguments="{submit: 'Filter', contact: contact}">
 				<span><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.dashboard.applicationAdmin"></f:translate></span>
 			</f:link.action>
 			<f:if condition="{admin}">

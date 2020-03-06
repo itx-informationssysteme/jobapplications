@@ -24,6 +24,7 @@
 							<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.filter.postings"/>
 						</label>
 						<f:form.select class="" name="posting" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
+							<f:form.select.option value="-1" additionalAttributes="{f:if(condition: '{selectedPosting} == -1', then: '{selected: true}')}"><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.filter.unsolicited"/></f:form.select.option>
 							<f:for each="{postings}" as="posting">
 								<f:form.select.option value="{posting.uid}" additionalAttributes="{f:if(condition: '{selectedPosting} == {posting.uid}', then: '{selected: true}')}">{posting.title}</f:form.select.option>
 							</f:for>
@@ -70,9 +71,19 @@
 										</f:link.action>
 									</div>
 									<div class="row-section middle">
-										<f:link.action action="listApplications" arguments="{posting: application.posting.uid, submit: 'filter'}">
-											{application.posting.title} | {application.posting.division}
-										</f:link.action>
+										<f:if condition="!{application.posting}">
+											<f:then>
+												<f:link.action action="listApplications" arguments="{posting: '-1', submit: 'filter'}">
+													<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.filter.unsolicited.single"/>
+												</f:link.action>
+											</f:then>
+											<f:else>
+												<f:link.action action="listApplications" arguments="{posting: application.posting.uid, submit: 'filter'}">
+													{application.posting.title} | {application.posting.division}
+												</f:link.action>
+											</f:else>
+										</f:if>
+
 									</div>
 
 									<div class="row-section right">

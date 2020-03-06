@@ -126,7 +126,6 @@
 		public function initializeAction()
 		{
 			$this->fileSizeLimit = GeneralUtility::getMaxUploadFileSize();
-			$this->isLegacy = (int)\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('jobapplications', 'legacy_upload') === 1 ? true : false;
 		}
 
 		/**
@@ -167,15 +166,6 @@
 				$titleProvider->setTitle($title);
 
 				$this->view->assign('posting', $posting);
-			}
-
-			if ($this->isLegacy === true)
-			{
-				$this->view->assign("legacy_upload", 1);
-			}
-			else
-			{
-				$this->view->assign("legacy_upload", 0);
 			}
 
 			$this->view->assign("fileSizeLimit", strval($this->fileSizeLimit) / 1024);
@@ -245,7 +235,10 @@
 				"application/pdf"
 			];
 
-			if ($this->isLegacy)
+			// count multi file upload field
+			$amountOfFiles = count($_FILES['tx_jobapplications_applicationform']['name']['upload']);
+
+			if ($amountOfFiles === 0)
 			{
 				//Uploads in order as defined in Domain Model
 				$uploads = array("cv", "cover_letter", "testimonials", "other_files");
@@ -254,9 +247,9 @@
 				foreach ($uploads as $upload)
 				{
 					//Check if Filetype is accepted
-					if ($_FILES['tx_jobapplications_applicationform']['type'][$upload] != "application/pdf" && $_FILES['tx_jobapplications_applicationform']['type'][$upload] != "")
+					if (!in_array($_FILES['tx_jobapplications_applicationform']['type'][$upload], $allowedFileTypes) && $_FILES['tx_jobapplications_applicationform']['type'][$upload] != "")
 					{
-						if ($_FILES['tx_jobapplications_applicationform']['type'][$upload] != "application/pdf")
+						if (!in_array($_FILES['tx_jobapplications_applicationform']['type'][$upload], $allowedFileTypes))
 						{
 							$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileType', 'jobapplications'), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
 						}
@@ -343,7 +336,7 @@
 				$newApplication->setPosting($posting);
 			}
 
-			if ($this->isLegacy)
+			if ($amountOfFiles === 0)
 			{
 				$files = [];
 				$fields = [];
@@ -394,7 +387,6 @@
 			}
 			else
 			{
-				$amountOfFiles = count($_FILES['tx_jobapplications_applicationform']['name']['upload']);
 				for ($i = 0; $i < $amountOfFiles; $i++)
 				{
 					$movedNewFile = $this->handleFileUploadMutliple($i, $newApplication);
@@ -598,10 +590,10 @@
 		}
 
 		/**
-		 * @param int $objectUid The Uid of the domain object
-		 * @param int $fileUid   The Uid of the actual file
-		 * @param int $objectPid The pid of the domain object
-		 * @param int $iteration The current iteration
+		 * @param int $objectUid  The Uid of the domain object
+		 * @param int $fileUid    The Uid of the actual file
+		 * @param int $objectPid  The pid of the domain object
+		 * @param int $iteration  The current iteration
 		 * @param int $totalFiles The total amount of iterations
 		 */
 		private function buildRelations(int $objectUid, int $fileUid, int $objectPid, $iteration = 0, $totalFiles = 1)
@@ -672,13 +664,13 @@
 			}
 
 			//file name
-			$newFileName = $fieldName."_".$domainObject->getFirstName()."_".$domainObject->getLastName()."_id_".$domainObject->getPosting()->getUid();
+			$newFileName = $fieldName."_".$domainObject->getLastName()."_".$domainObject->getFirstName();
 			if (strlen($newFileName) > 255)
 			{
-				$newFileName = substr($newFileName, 0, 254);
+				$newFileName = substr($newFileName, 0, 245);
 			}
 
-			$newFileName .= ".pdf";
+			$newFileName .= "_id_".$domainObject->getPosting()->getUid().".pdf";
 
 			//build sys_file
 			$movedNewFile = $storage->addFile($tmpFile, $targetFolder, $newFileName);

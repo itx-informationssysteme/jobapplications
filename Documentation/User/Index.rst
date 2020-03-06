@@ -203,14 +203,9 @@ Extension Configuration
 =======================
 This can be found in *Settings->Extension Configuration->Configure Extensions->jobapplications*
 
-Use single file upload
-~~~~~~~~~~~~~~~~~~~~~~
-This is enabled by default to ensure extension backwards compatiblity.
-By disabling this field the multi file upload field is activated.
-
 Google Indexing API interface
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-This application implements the Google Indexing API. It provides a possibility for telling Google when a job posting was created, updated
+This extension implements the Google Indexing API. It provides a possibility for telling Google when a job posting was created, updated
 or deleted. In this extension this happens (when everything is configured correcty) when a posting record is created, updated
 or deleted. The extension connects to the Google API and tells it that something changed to the postings url. Following that
 Google crawls this exact url and looks for the script tag containing the generated json formatted structured data.
@@ -221,6 +216,8 @@ and tries to figure out which the most specifc (measured by category selection) 
 
 Make sure that you do not activate this feature before your website is ready for it: Your website should be in a productive state, should use its final url and should be ready for getting indexed by google.
 A posting plugin should be placed somewhere on the website and point to the correct pid. If you activate the feature later on after all postings are already edited, you can start the full indexing mechanism from the backend module.
+
+This function does not trigger when in development environment, if you want it to activate the option in "Trigger Google Indexing API while in develoment environment" in the Extension Configuration.
 
 There is quite a bit of configuration to do though:
 
@@ -264,6 +261,11 @@ Here you can override the default templates.
 Change CSS path
 ---------------
 If you want a different Bootsrap.css or even a very different .css file you can change its path here.
+
+Use single file upload
+----------------------
+This is enabled by default to ensure extension backwards compatiblity.
+By disabling this field the multi file upload field is activated.
 
 Enable Google Jobs
 ------------------

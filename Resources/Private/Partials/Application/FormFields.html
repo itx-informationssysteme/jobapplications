@@ -56,7 +56,7 @@
 </div>
 <div class="form-row">
 	<div class="form-group col-md-12">
-		<f:form.textfield property="addressAddition" class="form-control"/>
+		<f:form.textfield property="addressAddition" class="form-control" placeholder="{f:translate(key: 'tx_jobapplications_domain_model_application.address_addition')}"/>
 	</div>
 </div>
 <div class="form-row">
@@ -110,7 +110,7 @@
 		<f:form.textarea class="form-control" name="message" property="message" rows="10" additionalAttributes="{maxlength: settings.messageMaxLength}"></f:form.textarea>
 	</div>
 </div>
-<f:if condition="!{legacy_upload}">
+<f:if condition="!{settings.legacy_upload}">
 	<f:then>
 		<div class="form-row">
 			<div class="form-group col-md-6" id="upload-files">

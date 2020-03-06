@@ -10,8 +10,8 @@
 
 Changelog
 =========
-0.9.3 - New Features: Multiple file upload and Google Indexing API Implementation
-----------------------------------------------------------------------------------
+0.9.3 - New Features: Multiple file upload and Google Indexing API Implementation and lots of fixes
+---------------------------------------------------------------------------------------------------
 
 * [FEATURE] in this release we implemented the ability to activate a multiple file upload field.
   This does not break compatibility.
@@ -31,7 +31,11 @@ Changelog
   #. Users using the standard bootstrap layout will have to manually edit the dates in specific the "Valid Through" field as the mecanism has been removed in the frontend
 
 * [BUGFIX] replaced tca image field definitions with more recent ones, that support image cropping
+* [BUGFIX] added application backend module full unsolicited application support
 * [BUGFIX] corrected label for property of cv field in standard template
+* [BUGFIX] fixed bug where no applications would come up in backend module when no backend user contact relationship
+* [BUGFIX] gave addition address placeholder label
+* [BUGFIX] delete applicants file folder when application record deleted
 
 0.9.2 - New  Feature & Bugfixes
 -------------------------------
