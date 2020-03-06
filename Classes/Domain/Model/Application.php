@@ -100,7 +100,7 @@
 		protected $earliestDateOfJoining = null;
 
 		/**
-		 * cv
+		 * upload files
 		 *
 		 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
 		 * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade remove
@@ -195,6 +195,12 @@
 		 */
 		protected $status = null;
 
+		/**
+		 * Initialize file relation
+		 *
+		 * @return \ITX\Jobapplications\Domain\Model\Application
+		 *
+		 */
 		public function __construct()
 		{
 			$this->files = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();

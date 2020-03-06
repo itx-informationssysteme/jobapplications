@@ -10,10 +10,10 @@
 
 Changelog
 =========
-0.9.3 - New Features: Multiple files upload and Google Indexing API Implementation
+0.9.3 - New Features: Multiple file upload and Google Indexing API Implementation
 ----------------------------------------------------------------------------------
 
-* [FEATURE] in this release we implementend the ability to activate a multiple files upload field.
+* [FEATURE] in this release we implemented the ability to activate a multiple file upload field.
   This does not break compatibility.
   You can enable this feature by going into the Extension Configuration and turning off the 'Use single file upload' checkbox.
   Make sure though if you have customized your template to work with 4 fields to carry over the changes of the original template.

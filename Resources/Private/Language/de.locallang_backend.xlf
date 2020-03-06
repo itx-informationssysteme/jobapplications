@@ -277,7 +277,7 @@
                     Beware each request consumes a up your Google request contigent (standard is 200), so use this feature economically.
                 </source>
                 <target>Hier lässt sich eine Batch Indizierung für Google Jobs anstoßen. Der Prozess iteriert über alle
-                    Postings und schickt jeweils eine Request an Google. Das bedeutet möglicherweise verbraucht diese Funktion einige Google Kontingent Einheiten.
+                    Postings und schickt jeweils eine Request an Google. Das bedeutet möglicherweise, dass diese Funktion einige Google Kontingent Einheiten verbraucht.
                     Es ist also ratsam diese Funktion sparsam zu verwenden.
                 </target>
             </trans-unit>
