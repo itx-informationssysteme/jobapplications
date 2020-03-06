@@ -126,7 +126,7 @@
 		public function initializeAction()
 		{
 			$this->fileSizeLimit = GeneralUtility::getMaxUploadFileSize();
-			$this->isLegacy = $isLegacy = (int)\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('jobapplications', 'legacy_upload') === 1 ? true : false;
+			$this->isLegacy = (int)\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('jobapplications', 'legacy_upload') === 1 ? true : false;
 		}
 
 		/**

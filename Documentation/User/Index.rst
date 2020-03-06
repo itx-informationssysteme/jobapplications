@@ -205,7 +205,7 @@ This can be found in *Settings->Extension Configuration->Configure Extensions->j
 
 Use single file upload
 ~~~~~~~~~~~~~~~~~~~~~~
-This is is enabled by default to ensure extension backwards compatiblity.
+This is enabled by default to ensure extension backwards compatiblity.
 By disabling this field the multi file upload field is activated.
 
 Google Indexing API interface
@@ -216,8 +216,11 @@ or deleted. The extension connects to the Google API and tells it that something
 Google crawls this exact url and looks for the script tag containing the generated json formatted structured data.
 The goal for this is to happen automatically, so the editor doesn't even notices it.
 
-The generated link for the posting is dynamically generated. The extension will look through the content elements the list view page plugins are placed
+The link for the posting is dynamically generated. The extension will look through the content elements the list view page plugins are placed
 and tries to figure out which the most specifc (measured by category selection) is, and the build the url to the exact detail page.
+
+Make sure that you do not activate this feature before your website is ready for it: Your website should be in a productive state, should use its final url and should be ready for getting indexed by google.
+A posting plugin should be placed somewhere on the website and point to the correct pid. If you activate the feature later on after all postings are already edited, you can start the full indexing mechanism from the backend module.
 
 There is quite a bit of configuration to do though:
 
