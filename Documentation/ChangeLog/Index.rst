@@ -14,8 +14,7 @@ Changelog
 ---------------------------------------------------------------------------------------------------
 
 * [FEATURE] in this release we implemented the ability to activate a multiple file upload field.
-  This does not break compatibility.
-  You can enable this feature by going into the Extension Configuration and turning off the 'Use single file upload' checkbox.
+  This does not break compatibility. You can enable this feature by going into the Extension Configuration and turning off the 'Use single file upload' checkbox.
   Make sure though if you have customized your template to work with 4 fields to carry over the changes of the original template.
 * [FEATURE] Google Indexing API Implementation read :ref:`the documentation here <indexing-api>`. Keep in mind that this feature
   is very new and may not be stable. If you encounter any bugs or have feedback other feedback please report it on our GitHub Repo.
