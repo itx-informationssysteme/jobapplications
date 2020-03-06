@@ -75,7 +75,7 @@
 			// If application form an posting are on the same page, the posting object is part of the application plugin.
 			if (!$this->request->hasArgument("posting"))
 			{
-				if(isset($_REQUEST["tx_jobapplications_applicationform"]["posting"]))
+				if (isset($_REQUEST["tx_jobapplications_applicationform"]["posting"]))
 				{
 					$this->request->setArgument("posting", $_REQUEST["tx_jobapplications_applicationform"]["posting"]);
 				}
@@ -273,9 +273,16 @@
 						]
 					];
 				}
+
+				/** @deprecated  */
 				if ($posting->getValidThrough() instanceof \DateTime)
 				{
 					$googleJobsJSON["validThrough"] = $posting->getValidThrough()->format("c");
+				}
+
+				if ($posting->getEndtime() instanceof \DateTime)
+				{
+					$googleJobsJSON["validThrough"] = $posting->getEndtime()->format("c");
 				}
 
 				$googleJobs = "<script type=\"application/ld+json\">".strval(json_encode($googleJobsJSON))."</script>";

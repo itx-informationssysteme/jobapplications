@@ -77,11 +77,16 @@ Location & contact
 These are both of the fields that were mentionend before. They reference the location and contact record.
 One of each type can be selected of all of the records previously created.
 
-Date posted & valid through
+Date posted
+~~~~~~~~~~~
+The date posted will be shown in the frontend, and is also the datePosted field in Google Jobs context. It has no effect
+though whether the posting will be shown or not.
+
+Publish date & valid through
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-These two dates are not only displayed in the frontend but also decide when the posting is published or taken down again.
+These two dates decide when the posting is published or taken down again.
 The *Valid through* field is optional, meaning it can stay empty which results in the posting staying active until its
-manually taken down.
+manually taken down. The valid through field is used for Google Jobs as well.
 
 Base salary
 ~~~~~~~~~~~

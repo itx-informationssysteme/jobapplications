@@ -107,7 +107,7 @@
 				</div>
 			</div>
 		</f:if>
-		<f:if condition="{posting.baseSalary} || {posting.validThrough}">
+		<f:if condition="{posting.baseSalary} || {posting.endtime}">
 			<div class="row">
 				<f:if condition="{posting.baseSalary}">
 					<div class="col-3">
@@ -119,14 +119,14 @@
 						{posting.baseSalary}
 					</div>
 				</f:if>
-				<f:if condition="{posting.validThrough}">
+				<f:if condition="{posting.endtime}">
 					<div class="col-3">
 						<h6>
 							<f:translate key="tx_jobapplications_domain_model_posting.valid_through"/>
 						</h6>
 					</div>
 					<div class="col-3">
-						<f:format.date format="{f:translate(key: 'date_format')}">{posting.validThrough}</f:format.date>
+						<f:format.date format="{f:translate(key: 'date_format')}">{posting.endtime}</f:format.date>
 					</div>
 				</f:if>
 			</div>

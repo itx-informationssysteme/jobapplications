@@ -221,6 +221,8 @@
 		}
 
 		/**
+		 * Only for use in Backend context
+		 *
 		 * @param $contact int Contact Uid
 		 * @param $orderBy string
 		 * @param $order   string
@@ -228,7 +230,8 @@
 		public function findByContact(int $contact, string $orderBy = "title", string $order = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING)
 		{
 			$query = $this->createQuery();
-			$query->getQuerySettings()->setRespectStoragePage(false);
+			$query->getQuerySettings()->setRespectStoragePage(false)
+				  ->setIgnoreEnableFields(true);
 
 			$query->matching($query->equals("contact.uid", $contact));
 			$query->setOrderings([$orderBy => $order]);
@@ -237,14 +240,14 @@
 		}
 
 		/**
-		 * Returns all objects of this repository.
+		 * Returns all objects of this repository. Only for use in backend context
 		 *
 		 * @return QueryResultInterface|array
 		 */
-		public function findAllWithOrder(string $orderBy = "title", string $order = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING)
+		public function findAllWithOrderIgnoreEnable(string $orderBy = "title", string $order = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING)
 		{
 			$query = $this->createQuery();
-			$query->getQuerySettings()->setRespectStoragePage(false);
+			$query->getQuerySettings()->setRespectStoragePage(false)->setIgnoreEnableFields(true);
 
 			$query->setOrderings([
 									 $orderBy => $order

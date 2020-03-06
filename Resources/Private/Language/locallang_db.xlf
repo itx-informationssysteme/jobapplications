@@ -63,6 +63,9 @@
 			<trans-unit id="tx_jobapplications_domain_model_posting.contact" resname="tx_jobapplications_domain_model_posting.contact">
 				<source>Contact</source>
 			</trans-unit>
+			<trans-unit id="tx_jobapplications_domain_model_posting.starttime" resname="tx_jobapplications_domain_model_posting.starttime">
+				<source>Publish Date</source>
+			</trans-unit>
 			<trans-unit id="tx_jobapplications_domain_model_contact" resname="tx_jobapplications_domain_model_contact">
 				<source>Contact</source>
 			</trans-unit>

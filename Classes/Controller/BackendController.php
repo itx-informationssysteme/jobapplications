@@ -149,7 +149,7 @@
 			}
 			else
 			{
-				$postingsFilter = $this->postingRepository->findAllWithOrder();
+				$postingsFilter = $this->postingRepository->findAllWithOrderIgnoreEnable();
 			}
 
 			// Fetch all Contacts and Statuses for select-Box

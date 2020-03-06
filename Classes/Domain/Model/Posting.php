@@ -39,6 +39,12 @@
 		/** @var boolean */
 		protected $deleted;
 
+		/** @var \DateTime */
+		protected $starttime;
+
+		/** @var \DateTime */
+		protected $endtime;
+
 		/**
 		 * title
 		 *
@@ -127,6 +133,7 @@
 		 * validThrough
 		 *
 		 * @var \DateTime
+		 * @deprecated will be removed in next version
 		 */
 		protected $validThrough = null;
 
@@ -181,8 +188,6 @@
 		 * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
 		 */
 		protected $categories = null;
-
-
 
 		/**
 		 * __construct
@@ -475,6 +480,7 @@
 		 * Returns the validThrough
 		 *
 		 * @return \DateTime validThrough
+		 * @deprecated will be removed in next version
 		 */
 		public function getValidThrough()
 		{
@@ -487,6 +493,7 @@
 		 * @param \DateTime $validThrough
 		 *
 		 * @return void
+		 * @deprecated will be removed in next version
 		 */
 		public function setValidThrough(\DateTime $validThrough)
 		{
@@ -627,6 +634,7 @@
 
 		/**
 		 * @return boolean
+		 * @deprecated will be removed in next version
 		 */
 		public function getIsValid()
 		{
@@ -682,5 +690,37 @@
 		public function setDeleted(bool $deleted): void
 		{
 			$this->deleted = $deleted;
+		}
+
+		/**
+		 * @return \DateTime
+		 */
+		public function getStarttime()
+		{
+			return $this->starttime;
+		}
+
+		/**
+		 * @param \DateTime $starttime
+		 */
+		public function setStarttime($starttime)
+		{
+			$this->starttime = $starttime;
+		}
+
+		/**
+		 * @return \DateTime
+		 */
+		public function getEndtime()
+		{
+			return $this->endtime;
+		}
+
+		/**
+		 * @param \DateTime $endtime
+		 */
+		public function setEndtime($endtime)
+		{
+			$this->endtime = $endtime;
 		}
 	}
