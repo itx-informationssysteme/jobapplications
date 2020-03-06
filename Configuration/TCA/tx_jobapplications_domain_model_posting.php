@@ -20,7 +20,7 @@
 			'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/Extension.svg'
 		],
 		'interface' => [
-			'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, date_posted, career_level, division, employment_type, terms_of_employment, company_description, job_description, role_description, skill_requirements, benefits, base_salary, valid_through, required_documents, company_information, detail_view_image, list_view_image, location, contact',
+			'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, starttime, endtime, title, date_posted, career_level, division, employment_type, terms_of_employment, company_description, job_description, role_description, skill_requirements, benefits, base_salary, required_documents, company_information, detail_view_image, list_view_image, location, contact',
 		],
 		'columns' => [
 			'sys_language_uid' => [
@@ -83,14 +83,21 @@
 					],
 				],
 			],
+			'deleted' => array(
+				'exclude' => 1,
+				'label' => 'Deleted',
+				'config' => array(
+					'type' => 'check',
+				),
+			),
 			'starttime' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.starttime',
 				'config' => [
 					'type' => 'input',
 					'renderType' => 'inputDateTime',
 					'eval' => 'datetime,int',
-					'default' => 0,
+					'default' => time(),
 					'behaviour' => [
 						'allowLanguageSynchronization' => true
 					]
@@ -98,15 +105,12 @@
 			],
 			'endtime' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.valid_through',
 				'config' => [
 					'type' => 'input',
 					'renderType' => 'inputDateTime',
 					'eval' => 'datetime,int',
 					'default' => 0,
-					'range' => [
-						'upper' => mktime(0, 0, 0, 1, 1, 2038)
-					],
 					'behaviour' => [
 						'allowLanguageSynchronization' => true
 					]
@@ -283,6 +287,7 @@
 					'eval' => 'trim'
 				],
 			],
+			// @deprecated
 			'valid_through' => [
 				'exclude' => true,
 				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.valid_through',
@@ -336,44 +341,44 @@
 					'detail_view_image',
 					[
 						'appearance' => [
-							'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
+							'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:media.addFileReference',
+							'showPossibleLocalizationRecords' => true,
+							'showRemovedLocalizationRecords' => true,
+							'showAllLocalizationLink' => true,
+							'showSynchronizationLink' => true
 						],
-						'config' => [
-							'overrideChildTca' => [
-								'types' => [
-									'0' => [
-										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                            --palette--;;filePalette'
-									],
-									\TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
-										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                            --palette--;;filePalette'
-									],
-									\TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
-										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                            --palette--;;filePalette'
-									],
-									\TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
-										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                            --palette--;;filePalette'
-									],
-									\TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
-										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                            --palette--;;filePalette'
-									],
-									\TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
-										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                            --palette--;;filePalette'
-									]
-								],
+						'foreign_types' => array(
+							'0' => [
+								'showitem' => '
+								--palette--;;imageoverlayPalette,
+								--palette--;;filePalette'
+							],
+							\TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
+								'showitem' => '
+								--palette--;;imageoverlayPalette,
+								--palette--;;filePalette'
+							],
+							\TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
+								'showitem' => '
+								--palette--;;imageoverlayPalette,
+								--palette--;;filePalette'
+							],
+							\TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
+								'showitem' => '
+								--palette--;;imageoverlayPalette,
+								--palette--;;filePalette'
+							],
+							\TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
+								'showitem' => '
+								--palette--;;imageoverlayPalette,
+								--palette--;;filePalette'
+							],
+							\TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
+								'showitem' => '
+								--palette--;;imageoverlayPalette,
+								--palette--;;filePalette'
 							]
-						],
+						),
 						'maxitems' => 1
 					],
 					$GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
@@ -386,44 +391,44 @@
 					'list_view_image',
 					[
 						'appearance' => [
-							'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
+							'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:media.addFileReference',
+							'showPossibleLocalizationRecords' => true,
+							'showRemovedLocalizationRecords' => true,
+							'showAllLocalizationLink' => true,
+							'showSynchronizationLink' => true
 						],
-						'config' => [
-							'overrideChildTca' => [
-								'types' => [
-									'0' => [
-										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                            --palette--;;filePalette'
-									],
-									\TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
-										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                            --palette--;;filePalette'
-									],
-									\TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
-										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                            --palette--;;filePalette'
-									],
-									\TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
-										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                            --palette--;;filePalette'
-									],
-									\TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
-										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                            --palette--;;filePalette'
-									],
-									\TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
-										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                            --palette--;;filePalette'
-									]
-								]
+						'foreign_types' => array(
+							'0' => [
+								'showitem' => '
+								--palette--;;imageoverlayPalette,
+								--palette--;;filePalette'
+							],
+							\TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
+								'showitem' => '
+								--palette--;;imageoverlayPalette,
+								--palette--;;filePalette'
+							],
+							\TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
+								'showitem' => '
+								--palette--;;imageoverlayPalette,
+								--palette--;;filePalette'
+							],
+							\TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
+								'showitem' => '
+								--palette--;;imageoverlayPalette,
+								--palette--;;filePalette'
+							],
+							\TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
+								'showitem' => '
+								--palette--;;imageoverlayPalette,
+								--palette--;;filePalette'
+							],
+							\TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
+								'showitem' => '
+								--palette--;;imageoverlayPalette,
+								--palette--;;filePalette'
 							]
-						],
+						),
 						'maxitems' => 1
 					],
 					$GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
@@ -497,7 +502,7 @@
 				'showitem' => 'career_level, employment_type, terms_of_employment'
 			],
 			'dates' => [
-				'showitem' => 'date_posted, valid_through'
+				'showitem' => 'date_posted, starttime ,endtime'
 			],
 			'relations' => [
 				'showitem' => 'location, contact'

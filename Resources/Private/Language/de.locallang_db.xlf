@@ -187,6 +187,10 @@
                 <source>Earliest Date Of Joining</source>
                 <target state="translated">Frühstmögliches Einstellungsdatum</target>
             </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_application.files" resname="tx_jobapplications_domain_model_application.files">
+                <source>Files</source>
+                <target>Anhänge</target>
+            </trans-unit>
             <trans-unit id="tx_jobapplications_domain_model_application.cv" resname="tx_jobapplications_domain_model_application.cv" approved="yes">
                 <source>Cv</source>
                 <target state="translated">Lebenslauf</target>

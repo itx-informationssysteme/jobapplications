@@ -1,4 +1,5 @@
 plugin.tx_jobapplications.settings.enableGoogleJobs = {$plugin.tx_jobapplications.settings.enableGoogleJobs}
+plugin.tx_jobapplications.settings.legacy_upload = {$plugin.tx_jobapplications.settings.legacy_upload}
 plugin.tx_jobapplications.settings.defaultContactMailAddress = {$plugin.tx_jobapplications.settings.defaultContactMailAddress}
 plugin.tx_jobapplications.settings.defaultContactFirstName = {$plugin.tx_jobapplications.settings.defaultContactFirstName}
 plugin.tx_jobapplications.settings.defaultContactLastName = {$plugin.tx_jobapplications.settings.defaultContactLastName}
@@ -25,6 +26,14 @@ plugin.tx_jobapplications {
     }
     mvc {
         #callDefaultActionIfActionCantBeResolved = 1
+    }
+}
+
+config.tx_extbase.persistence.classes {
+    ITX\Jobapplications\Domain\Model\TtContent {
+        mapping {
+            tableName = tt_content
+        }
     }
 }
 

@@ -1,9 +1,8 @@
 <?php
-
 	/***************************************************************
 	 *  Copyright notice
 	 *
-	 *  (c) 2020
+	 *  (c) 2019
 	 *  All rights reserved
 	 *
 	 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -23,24 +22,26 @@
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
 
-$EM_CONF[$_EXTKEY] = [
-    'title' => 'Jobapplications',
-    'description' => 'This extension enables you to manage job postings, provides you with an application form and a backend module to manage incoming applications.',
-    'category' => 'plugin',
-    'author' => 'Stefanie Döll, Benjamin Jasper',
-	'author_company' => 'it.x informationssysteme gmbh',
-    'author_email' => 'typo-itx@itx.de',
-    'state' => 'beta',
-    'uploadfolder' => 1,
-    'createDirs' => '',
-    'clearCacheOnLoad' => 1,
-    'version' => '0.9.3',
-    'constraints' => [
-        'depends' => [
-            'typo3' => '9.5.0-9.5.99',
-			'vhs' => '5.2.0 - 5.2.99'
-        ],
-        'conflicts' => [],
-        'suggests' => [],
-    ],
-];
+	namespace ITX\Jobapplications\Domain\Repository;
+
+	/**
+	 * Class TtContentRepository
+	 *
+	 * @package ITX\Jobapplications\Domain\Repository
+	 */
+	class TtContentRepository extends JobapplicationsRepository
+	{
+		protected $objectType = '\ITX\Jobapplications\Domain\Model\Ttcontent';
+
+		/**
+		 * @param string $listType
+		 */
+		function findByListType(string $listType) {
+			$query = $this->createQuery();
+			$query->getQuerySettings()->setRespectStoragePage(false);
+
+			$query->matching($query->equals("list_type", $listType));
+
+			return $query->execute();
+		}
+	}

@@ -203,6 +203,14 @@
                 <source>Message</source>
                 <target state="translated">Nachricht</target>
             </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_application.files_upload" resname="tx_jobapplications_domain_model_application.files_upload">
+                <source>Upload files</source>
+                <target state="translated">Anhänge hochladen</target>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_application.posting" resname="tx_jobapplications_domain_model_application.posting">
+                <source>Posting</source>
+                <target>Ausschreibung</target>
+            </trans-unit>
             <trans-unit id="fe.posting.page.title" resname="fe.posting.page.title" approved="yes">
                 <source>Open Positions</source>
                 <target state="translated">Offene Stellen</target>

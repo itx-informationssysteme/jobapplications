@@ -33,6 +33,17 @@
 	 */
 	class Posting extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	{
+		/** @var boolean */
+		protected $hidden;
+
+		/** @var boolean */
+		protected $deleted;
+
+		/** @var \DateTime */
+		protected $starttime;
+
+		/** @var \DateTime */
+		protected $endtime;
 
 		/**
 		 * title
@@ -122,6 +133,7 @@
 		 * validThrough
 		 *
 		 * @var \DateTime
+		 * @deprecated will be removed in next version
 		 */
 		protected $validThrough = null;
 
@@ -173,11 +185,9 @@
 		 * categories
 		 *
 		 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
-		 * @lazy
+		 * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
 		 */
 		protected $categories = null;
-
-
 
 		/**
 		 * __construct
@@ -470,6 +480,7 @@
 		 * Returns the validThrough
 		 *
 		 * @return \DateTime validThrough
+		 * @deprecated will be removed in next version
 		 */
 		public function getValidThrough()
 		{
@@ -482,6 +493,7 @@
 		 * @param \DateTime $validThrough
 		 *
 		 * @return void
+		 * @deprecated will be removed in next version
 		 */
 		public function setValidThrough(\DateTime $validThrough)
 		{
@@ -622,6 +634,7 @@
 
 		/**
 		 * @return boolean
+		 * @deprecated will be removed in next version
 		 */
 		public function getIsValid()
 		{
@@ -645,5 +658,69 @@
 		public function setCategories(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $categories): void
 		{
 			$this->categories = $categories;
+		}
+
+		/**
+		 * @return bool
+		 */
+		public function isHidden(): bool
+		{
+			return $this->hidden;
+		}
+
+		/**
+		 * @param bool $hidden
+		 */
+		public function setHidden(bool $hidden): void
+		{
+			$this->hidden = $hidden;
+		}
+
+		/**
+		 * @return bool
+		 */
+		public function isDeleted()
+		{
+			return $this->deleted;
+		}
+
+		/**
+		 * @param bool $deleted
+		 */
+		public function setDeleted(bool $deleted): void
+		{
+			$this->deleted = $deleted;
+		}
+
+		/**
+		 * @return \DateTime
+		 */
+		public function getStarttime()
+		{
+			return $this->starttime;
+		}
+
+		/**
+		 * @param \DateTime $starttime
+		 */
+		public function setStarttime($starttime)
+		{
+			$this->starttime = $starttime;
+		}
+
+		/**
+		 * @return \DateTime
+		 */
+		public function getEndtime()
+		{
+			return $this->endtime;
+		}
+
+		/**
+		 * @param \DateTime $endtime
+		 */
+		public function setEndtime($endtime)
+		{
+			$this->endtime = $endtime;
 		}
 	}

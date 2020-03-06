@@ -30,6 +30,7 @@
 	use ITX\Jobapplications\Domain\Model\Status;
 	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
 	use ScssPhp\ScssPhp\Formatter\Debug;
+	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Resource\FileInterface;
@@ -92,6 +93,9 @@
 		 * @var \TYPO3\CMS\Core\Log\Logger
 		 */
 		protected $logger = null;
+
+		/** @var boolean */
+		protected $isLegacy;
 
 		/**
 		 * initialize create action
@@ -227,30 +231,70 @@
 		 */
 		public function createAction(\ITX\Jobapplications\Domain\Model\Application $newApplication, \ITX\Jobapplications\Domain\Model\Posting $posting = null)
 		{
-			//Uploads in order as defined in Domain Model
-			$uploads = array("cv", "cover_letter", "testimonials", "other_files");
+			$allowedFileTypes = [
+				"application/pdf"
+			];
 
-			//Check if $_FILES Entries have errors
-			foreach ($uploads as $upload)
+			// count multi file upload field
+			$amountOfFiles = count($_FILES['tx_jobapplications_applicationform']['name']['upload']);
+
+			if ($amountOfFiles === 0)
 			{
-				//Check if Filetype is accepted
-				if ($_FILES['tx_jobapplications_applicationform']['type'][$upload] != "application/pdf" && $_FILES['tx_jobapplications_applicationform']['type'][$upload] != "")
+				//Uploads in order as defined in Domain Model
+				$uploads = array("cv", "cover_letter", "testimonials", "other_files");
+
+				//Check if $_FILES Entries have errors
+				foreach ($uploads as $upload)
 				{
-					if ($_FILES['tx_jobapplications_applicationform']['type'][$upload] != "application/pdf")
+					//Check if Filetype is accepted
+					if (!in_array($_FILES['tx_jobapplications_applicationform']['type'][$upload], $allowedFileTypes) && $_FILES['tx_jobapplications_applicationform']['type'][$upload] != "")
+					{
+						if (!in_array($_FILES['tx_jobapplications_applicationform']['type'][$upload], $allowedFileTypes))
+						{
+							$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileType', 'jobapplications'), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
+						}
+						else
+						{
+							$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileSize', 'jobapplications', array("0" => intval($this->fileSizeLimit) / 1024)), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
+						}
+
+						$this->redirect("new", "Application", null, array(
+							"posting" => $posting,
+							"fileError" => $upload
+						));
+
+						return;
+					}
+				}
+			}
+			else
+			{
+				$amountOfFiles = count($_FILES['tx_jobapplications_applicationform']['name']['upload']);
+				for ($i = 0; $i < $amountOfFiles; $i++)
+				{
+					$error_bit = false;
+
+					if (!in_array($_FILES['tx_jobapplications_applicationform']['type']['upload'][$i], $allowedFileTypes))
 					{
 						$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileType', 'jobapplications'), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
+						$error_bit = true;
 					}
-					else
+
+					if ((int)$_FILES['tx_jobapplications_applicationform']['error']['upload'][$i] != 0)
 					{
 						$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileSize', 'jobapplications', array("0" => intval($this->fileSizeLimit) / 1024)), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
+						$error_bit = true;
 					}
 
-					$this->redirect("new", "Application", null, array(
-						"posting" => $posting,
-						"fileError" => $upload
-					));
+					if ($error_bit === true)
+					{
+						$this->redirect("new", "Application", null, array(
+							"posting" => $posting,
+							"fileError" => 'files'
+						));
 
-					return;
+						return;
+					}
 				}
 			}
 
@@ -292,51 +336,62 @@
 				$newApplication->setPosting($posting);
 			}
 
-			$files = [];
-			$fields = [];
-			$fieldNames = [];
-
-			$movedNewFileCover = null;
-			$movedNewFileCv = null;
-			$movedNewFileOther = null;
-			$movedNewFileTestimonial = null;
-
-			// Processing files
-			if ($_FILES['tx_jobapplications_applicationform']['name']['cv'])
+			if ($amountOfFiles === 0)
 			{
-				$movedNewFileCv = $this->handleFileUpload("cv", $newApplication);
-				$files[] = $movedNewFileCv->getUid();
-				$fieldNames[] = 'cv';
-				$fields['cv'] = 1;
+				$files = [];
+				$fields = [];
+				$fieldNames = [];
+
+				$movedNewFileCover = null;
+				$movedNewFileCv = null;
+				$movedNewFileOther = null;
+				$movedNewFileTestimonial = null;
+
+				// Processing files
+				if ($_FILES['tx_jobapplications_applicationform']['name']['cv'])
+				{
+					$movedNewFileCv = $this->handleFileUpload("cv", $newApplication);
+					$files[] = $movedNewFileCv->getUid();
+					$fieldNames[] = 'cv';
+					$fields['cv'] = 1;
+				}
+
+				if ($_FILES['tx_jobapplications_applicationform']['name']['cover_letter'])
+				{
+					$movedNewFileCover = $this->handleFileUpload("cover_letter", $newApplication);
+					$files[] = $movedNewFileCover->getUid();
+					$fieldNames[] = 'cover_letter';
+					$fields['cover_letter'] = 1;
+				}
+
+				if ($_FILES['tx_jobapplications_applicationform']['name']['testimonials'])
+				{
+					$movedNewFileTestimonial = $this->handleFileUpload("testimonials", $newApplication);
+					$files[] = $movedNewFileTestimonial->getUid();
+					$fieldNames[] = 'testimonials';
+					$fields['testimonials'] = 1;
+				}
+
+				if ($_FILES['tx_jobapplications_applicationform']['name']['other_files'])
+				{
+					$movedNewFileOther = $this->handleFileUpload("other_files", $newApplication);
+					$files[] = $movedNewFileOther->getUid();
+					$fieldNames[] = 'other_files';
+					$fields['other_files'] = 1;
+				}
+
+				if (count($files) > 0)
+				{
+					$this->buildRelationsLegacy($newApplication->getUid(), $files, $fields, $fieldNames, 'tx_jobapplications_domain_model_application', $newApplication->getPid());
+				}
 			}
-
-			if ($_FILES['tx_jobapplications_applicationform']['name']['cover_letter'])
+			else
 			{
-				$movedNewFileCover = $this->handleFileUpload("cover_letter", $newApplication);
-				$files[] = $movedNewFileCover->getUid();
-				$fieldNames[] = 'cover_letter';
-				$fields['cover_letter'] = 1;
-			}
-
-			if ($_FILES['tx_jobapplications_applicationform']['name']['testimonials'])
-			{
-				$movedNewFileTestimonial = $this->handleFileUpload("testimonials", $newApplication);
-				$files[] = $movedNewFileTestimonial->getUid();
-				$fieldNames[] = 'testimonials';
-				$fields['testimonials'] = 1;
-			}
-
-			if ($_FILES['tx_jobapplications_applicationform']['name']['other_files'])
-			{
-				$movedNewFileOther = $this->handleFileUpload("other_files", $newApplication);
-				$files[] = $movedNewFileOther->getUid();
-				$fieldNames[] = 'other_files';
-				$fields['other_files'] = 1;
-			}
-
-			if (count($files) > 0)
-			{
-				$this->buildRelations($newApplication->getUid(), $files, $fields, $fieldNames, 'tx_jobapplications_domain_model_application', $newApplication->getPid());
+				for ($i = 0; $i < $amountOfFiles; $i++)
+				{
+					$movedNewFile = $this->handleFileUploadMutliple($i, $newApplication);
+					$this->buildRelations($newApplication->getUid(), $movedNewFile->getUid(), $newApplication->getPid(), $i, $amountOfFiles);
+				}
 			}
 
 			// Mail Handling
@@ -351,8 +406,7 @@
 			$contact->setFirstName($this->settings["defaultContactFirstName"]);
 			$contact->setLastName($this->settings["defaultContactLastName"]);
 
-			$contact = ($currentPosting->getContact() ? $currentPosting->getContact(): $contact);
-
+			$contact = ($currentPosting->getContact() ? $currentPosting->getContact() : $contact);
 
 			// Get and translate labels
 			$salutation = LocalizationUtility::translate("fe.application.selector.".$newApplication->getSalutation(), "jobapplications");
@@ -389,8 +443,17 @@
 							  .'<br>'.$newApplication->getAddressCountry()
 							  .$message.'</p>');
 
-				// Attach all found files
+				// Attach all found legacy files
 				$files = array($movedNewFileCv, $movedNewFileCover, $movedNewFileTestimonial, $movedNewFileOther);
+				foreach ($files as $file)
+				{
+					if ($file instanceof FileInterface)
+					{
+						$mail->attach(\Swift_Attachment::fromPath($file->getPublicUrl()));
+					}
+				}
+
+				$files = $newApplication->getFiles();
 				foreach ($files as $file)
 				{
 					if ($file instanceof FileInterface)
@@ -493,7 +556,7 @@
 		 * @param $table         ;table tca domain table name e.g. tx_<extensionName>_domain_model_<domainModelName>
 		 * @param $newStoragePid ;PID of Record or Domain Model the file will attach to
 		 */
-		private function buildRelations($newStorageUid, array $files, array $fields, array $fieldNames, $table, $newStoragePid)
+		private function buildRelationsLegacy($newStorageUid, array $files, array $fields, array $fieldNames, $table, $newStoragePid)
 		{
 			$database = GeneralUtility::makeInstance(ConnectionPool::class);
 			for ($i = 0; $i < count($files); $i++)
@@ -527,7 +590,49 @@
 		}
 
 		/**
-		 * @param string                             $fieldName
+		 * @param int $objectUid  The Uid of the domain object
+		 * @param int $fileUid    The Uid of the actual file
+		 * @param int $objectPid  The pid of the domain object
+		 * @param int $iteration  The current iteration
+		 * @param int $totalFiles The total amount of iterations
+		 */
+		private function buildRelations(int $objectUid, int $fileUid, int $objectPid, $iteration = 0, $totalFiles = 1)
+		{
+			/** @var ConnectionPool $database */
+			$database = GeneralUtility::makeInstance(ConnectionPool::class);
+
+			$database
+				->getConnectionForTable('sys_file_reference')
+				->insert(
+					'sys_file_reference',
+					[
+						'tstamp' => time(),
+						'crdate' => time(),
+						'cruser_id' => 1,
+						'uid_local' => $fileUid,
+						'uid_foreign' => $objectUid,
+						'tablenames' => "tx_jobapplications_domain_model_application",
+						'fieldname' => "files",
+						'pid' => $objectPid,
+						'table_local' => 'sys_file',
+						'sorting_foreign' => $iteration + 1
+					]
+				);
+
+			if ($totalFiles - 1 === $iteration)
+			{
+				$database
+					->getConnectionForTable('tx_jobapplications_domain_model_application')
+					->update(
+						"tx_jobapplications_domain_model_application",
+						["files" => $totalFiles], [
+							'uid' => $newStorageUid
+						]);
+			}
+		}
+
+		/**
+		 * @param string                                        $fieldName
 		 * @param \ITX\Jobapplications\Domain\Model\Application $domainObject
 		 *
 		 * @return \TYPO3\CMS\Core\Resource\FileInterface
@@ -544,7 +649,7 @@
 
 			$tmpFile = $_FILES['tx_jobapplications_applicationform']['tmp_name'][$fieldName];
 
-			/* @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository*/
+			/* @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
 			$storageRepository = $this->objectManager->get('TYPO3\\CMS\\Core\\Resource\\StorageRepository');
 			$storage = $storageRepository->findByUid('1');
 
@@ -559,7 +664,57 @@
 			}
 
 			//file name
-			$newFileName = $fieldName."_".$domainObject->getFirstName()."_".$domainObject->getLastName()."_id_".$domainObject->getPosting()->getUid().".pdf";
+			$newFileName = $fieldName."_".$domainObject->getLastName()."_".$domainObject->getFirstName();
+			if (strlen($newFileName) > 255)
+			{
+				$newFileName = substr($newFileName, 0, 245);
+			}
+
+			$newFileName .= "_id_".$domainObject->getPosting()->getUid().".pdf";
+
+			//build sys_file
+			$movedNewFile = $storage->addFile($tmpFile, $targetFolder, $newFileName);
+			$this->persistenceManager->persistAll();
+
+			return $movedNewFile;
+		}
+
+		/**
+		 * @param string                                        $fieldName
+		 * @param \ITX\Jobapplications\Domain\Model\Application $domainObject
+		 *
+		 * @return FileInterface
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFolderException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderWritePermissionsException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
+		 *
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFileNameException
+		 */
+		private function handleFileUploadMutliple(int $position, \ITX\Jobapplications\Domain\Model\Application $domainObject)
+		{
+
+			$folder = $this->applicationFileService->getApplicantFolder($domainObject);
+
+			$tmpFile = $_FILES['tx_jobapplications_applicationform']['tmp_name']['upload'][$position];
+			$oGfileName = $_FILES['tx_jobapplications_applicationform']['name']['upload'][$position];
+
+			/* @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
+			$storageRepository = $this->objectManager->get('TYPO3\\CMS\\Core\\Resource\\StorageRepository');
+			$storage = $storageRepository->findByUid('1');
+
+			//build the new storage folder
+			if ($storage->hasFolder($folder))
+			{
+				$targetFolder = $storage->getFolder($folder);
+			}
+			else
+			{
+				$targetFolder = $storage->createFolder($folder);
+			}
+
+			//file name
+			$newFileName = (new \TYPO3\CMS\Core\Resource\Driver\LocalDriver)->sanitizeFileName($oGfileName);
 
 			//build sys_file
 			$movedNewFile = $storage->addFile($tmpFile, $targetFolder, $newFileName);

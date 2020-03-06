@@ -153,6 +153,12 @@
 			<trans-unit id="tx_jobapplications_domain_model_application.message" resname="tx_jobapplications_domain_model_application.message">
 				<source>Message</source>
 			</trans-unit>
+			<trans-unit id="tx_jobapplications_domain_model_application.files_upload" resname="tx_jobapplications_domain_model_application.files_upload">
+				<source>Upload files</source>
+			</trans-unit>
+			<trans-unit id="tx_jobapplications_domain_model_application.posting" resname="tx_jobapplications_domain_model_application.posting">
+				<source>Posting</source>
+			</trans-unit>
 			<trans-unit id="fe.posting.page.title" resname="fe.posting.page.title">
                 <source>Open Positions</source>
             </trans-unit>

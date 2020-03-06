@@ -9,7 +9,7 @@
 			</h1>
 		</div>
 		<div class="middle">
-			<div class="left">
+			<div class="container">
 				<p>
 					<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.settings.generateStatus"></f:translate>
 				</p>
@@ -25,7 +25,14 @@
 					<f:form.submit class="btn" value="Generate"></f:form.submit>
 				</f:form>
 			</div>
-			<div class="right"></div>
+			<div class="container">
+				<f:form action="settings" arguments="{batch_index: 1}">
+					<p>
+						<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.settings.batchIndex"></f:translate>
+					</p>
+					<f:form.submit value="Batch Index" class="btn"></f:form.submit>
+				</f:form>
+			</div>
 		</div>
 		<div class="footer">
 			<span>Made by it.x informationssysteme gmbh</span>
