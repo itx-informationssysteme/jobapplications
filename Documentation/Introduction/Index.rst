@@ -34,12 +34,14 @@ Manage job postings
 	* support for **typo3 categories**
 	* OpenGraph data automatically populated
 	* Structured data for **Google Jobs integration**
+	* **Google Indexing API Implementation** for Google Jobs: Sends crawl requests automatically when editing a job posting, so Google Jobs always has the latest data
 
 Application Form
 ----------------
 
 	* **fully fledged application form** with standard fields like name, email, phone, address as well as optional fields like "Salary Expectation", "Earliest Date of Joining" and a "Message" field.
 	* supports pdf file uploads
+	* have a four single file upload fields or one multi file upload field
 	* privacy agreement checkbox, which links to your privacy agreement page
 	* forward the applicant to a success page with a customized message which again supports placeholders for the applicants name
 
