@@ -188,7 +188,7 @@
 		 * @param string $lastName
 		 * @param string $salutation
 		 */
-		public function successAction(string $firstName, string $lastName, string $salutation)
+		public function successAction(string $firstName, string $lastName, string $salutation, int $postingUid = -1)
 		{
 			$salutationValue = $salutation;
 
@@ -201,10 +201,12 @@
 				$salutation = LocalizationUtility::translate("fe.application.selector.".$salutation, "jobapplications");
 			}
 
+			$posting = $this->postingRepository->findByUid($postingUid);
+
 			$this->view->assign("firstName", $firstName);
 			$this->view->assign("lastName", $lastName);
 			$this->view->assign("salutation", $salutation);
-			$this->view->assign("salutationValue", $salutationValue);
+			$posting ? $this->view->assign("salutationValue", $posting) : false;
 		}
 
 		/**
@@ -534,7 +536,8 @@
 			$this->redirect("success", null, null, [
 				"firstName" => $newApplication->getFirstName(),
 				"lastName" => $newApplication->getLastName(),
-				"salutation" => $newApplication->getSalutation()
+				"salutation" => $newApplication->getSalutation(),
+				"postingUid" => $currentPosting->getUid()
 			], $this->settings["successPage"]);
 		}
 
