@@ -190,11 +190,7 @@
 		 */
 		public function successAction(string $firstName, string $lastName, string $salutation)
 		{
-			/*
-			$lastName = $this->request->hasArgument("lastName") ? $this->request->getArgument("lastName") : "";
-			$firstName = $this->request->hasArgument("firstName") ? $this->request->getArgument("firstName") : "";
-			$salutation = $this->request->hasArgument("salutation") ? $this->request->getArgument("salutation") : "";
-			*/
+			$salutationValue = $salutation;
 
 			if ($salutation == "div" || $salutation == "")
 			{
@@ -205,14 +201,10 @@
 				$salutation = LocalizationUtility::translate("fe.application.selector.".$salutation, "jobapplications");
 			}
 
-			$text = $this->settings["successMessage"];
-			$text = str_replace("%lastName%", $lastName, $text);
-			$text = str_replace("%firstName%", $firstName, $text);
-			$text = str_replace("%salutation%", $salutation, $text);
-
 			$this->view->assign("firstName", $firstName);
 			$this->view->assign("lastName", $lastName);
 			$this->view->assign("salutation", $salutation);
+			$this->view->assign("salutationValue", $salutationValue);
 		}
 
 		/**
