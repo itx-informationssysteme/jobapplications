@@ -38,6 +38,7 @@
 	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Domain\Model\FileReference;
+	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 	use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
@@ -116,6 +117,23 @@
 							);
 
 			$this->logger = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Log\LogManager::class)->getLogger(__CLASS__);
+		}
+
+		/**
+		 * Initializes the view before invoking an action method.
+		 *
+		 * Override this method to solve assign variables common for all actions
+		 * or prepare the view in another way before the action is called.
+		 *
+		 * @param ViewInterface $view The view to be initialized
+		 */
+		public function initializeView(ViewInterface $view)
+		{
+			if (is_object($GLOBALS['TSFE']))
+			{
+				$view->assign('pageData', $GLOBALS['TSFE']->page);
+			}
+			parent::initializeView($view);
 		}
 
 		/**
