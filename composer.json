@@ -24,7 +24,7 @@
     },
     "require": {
         "typo3/cms-core": "^9.5",
-        "fluidtypo3/vhs": "^5.2"
+        "fluidtypo3/vhs": "^6"
     },
     "extra": {
         "typo3/cms": {
