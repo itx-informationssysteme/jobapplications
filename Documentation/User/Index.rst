@@ -197,6 +197,57 @@ settings. This can be useful to include as a contact section in another page.
 
 There is also an option to enter a header text. This can be useful if you want to use this plugin as section.
 
+.. _indexing-api:
+
+Extension Configuration
+=======================
+This can be found in *Settings->Extension Configuration->Configure Extensions->jobapplications*
+
+Google Indexing API interface
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This extension implements the Google Indexing API. It provides a possibility for telling Google when a job posting was created, updated
+or deleted. In this extension this happens (when everything is configured correcty) when a posting record is created, updated
+or deleted. The extension connects to the Google API and tells it that something changed to the postings url. Following that
+Google crawls this exact url and looks for the script tag containing the generated json formatted structured data.
+The goal for this is to happen automatically, so the editor doesn't even notices it.
+
+The link for the posting is dynamically generated. The extension will look through the content elements the list view page plugins are placed
+and tries to figure out which the most specifc (measured by category selection) is, and the build the url to the exact detail page.
+
+Make sure that you do not activate this feature before your website is ready for it: Your website should be in a productive state, should use its final url and should be ready for getting indexed by google.
+A posting plugin should be placed somewhere on the website and point to the correct pid. If you activate the feature later on after all postings are already edited, you can start the full indexing mechanism from the backend module.
+
+This function does not trigger when in development environment, if you want it to activate the option in "Trigger Google Indexing API while in develoment environment" in the Extension Configuration.
+
+There is quite a bit of configuration to do though:
+
+#. Enable Google Jobs in the Extension see ("Enable Google Jobs") below.
+#. `Create a Servive Account <https://developers.google.com/search/apis/indexing-api/v3/prereqs>`__ and download the *.json* configuration file including the private key and other data.
+	It should look somewhat like that:
+
+	::
+
+		{
+			"type": "service_account",
+			"project_id": "your-project-id",
+			"private_key_id": "some-id",
+			"private_key": "-----BEGIN PRIVATE KEY-----\n-some-private-key\n-----END PRIVATE KEY-----\n",
+			"client_email": "some-email@appspot.gserviceaccount.com",
+			"client_id": "some-id",
+			"auth_uri": "https://accounts.google.com/o/oauth2/auth",
+			"token_uri": "https://oauth2.googleapis.com/token",
+			"auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+			"client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/some-email%40appspot.gserviceaccount.com"
+		}
+
+#. `Verify site ownership <https://developers.google.com/search/apis/indexing-api/v3/prereqs#verify-site>`__
+#. Save the file somewhere in your project and give a path to the .json file in the Extension Configuration.
+#. Enable the Google Indexing API Extension Setting in the Extension Configuration.
+#. Enable Debug Messages in the Extension Configuration.
+#. Test if you've done everything correcty by saving a posting and waiting for a green flash message.
+   If you were not successful the flash message will contain some information about why it didn't work.
+
+
 Template constants
 ==================
 In the Template Constant Editor the plugin registered a few settings.
@@ -210,6 +261,11 @@ Here you can override the default templates.
 Change CSS path
 ---------------
 If you want a different Bootsrap.css or even a very different .css file you can change its path here.
+
+Use single file upload
+----------------------
+This is enabled by default to ensure extension backwards compatiblity.
+By disabling this field the multi file upload field is activated.
 
 Enable Google Jobs
 ------------------

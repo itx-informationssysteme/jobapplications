@@ -329,32 +329,6 @@ class PostingTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     /**
      * @test
      */
-    public function getValidThroughReturnsInitialValueForDateTime()
-    {
-        self::assertEquals(
-            null,
-            $this->subject->getValidThrough()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function setValidThroughForDateTimeSetsValidThrough()
-    {
-        $dateTimeFixture = new \DateTime();
-        $this->subject->setValidThrough($dateTimeFixture);
-
-        self::assertAttributeEquals(
-            $dateTimeFixture,
-            'validThrough',
-            $this->subject
-        );
-    }
-
-    /**
-     * @test
-     */
     public function getRequiredDocumentsReturnsInitialValueForString()
     {
         self::assertSame(

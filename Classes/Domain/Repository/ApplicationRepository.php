@@ -5,6 +5,7 @@
 	use ITX\Jobapplications\Domain\Model\Contact;
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
+	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
@@ -39,6 +40,7 @@
 
 		/**
 		 * Function for filtering applications
+		 *
 		 * @param int    $contact
 		 * @param int    $posting
 		 * @param int    $status
@@ -53,7 +55,8 @@
 									 string $order = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING)
 		{
 			$query = $this->createQuery();
-			$query->getQuerySettings()->setRespectStoragePage(false);
+			$query->getQuerySettings()->setRespectStoragePage(false)
+				  ->setIgnoreEnableFields(true);
 
 			$andArray = [];
 
@@ -64,9 +67,14 @@
 				$andArray[] = $query->equals("posting.contact.uid", $contact);
 			}
 
-			if ($posting)
+			if ($posting != 0)
 			{
-				$andArray[] = $query->equals("posting.uid", $posting);
+				if ($posting === -1)
+				{
+					$andArray[] = $query->equals("posting", 0);
+				} else {
+					$andArray[] = $query->equals("posting.uid", $posting);
+				}
 			}
 
 			if ($status)
@@ -90,7 +98,9 @@
 		 */
 		public function findAll()
 		{
-			$query = $this->createQuery();
+			$query = $this->createQuery()->getQuerySettings()
+						  ->setRespectStoragePage(false)
+						  ->setIgnoreEnableFields(true);
 			$query->setOrderings(array(
 									 "crdate" => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
 								 ));
@@ -107,7 +117,8 @@
 		{
 			$query = $this->createQuery();
 			$query->getQuerySettings()
-				  ->setRespectStoragePage(false);
+				  ->setRespectStoragePage(false)
+				  ->setIgnoreEnableFields(true);
 			$query->matching(
 				$query->logicalAnd([
 									   $query->equals('posting.contact.uid', $contact),
@@ -131,7 +142,7 @@
 		public function findOlderThan(int $timestamp, bool $status = false)
 		{
 			$query = $this->createQuery();
-			$query->getQuerySettings()->setRespectStoragePage(false);
+			$query->getQuerySettings()->setRespectStoragePage(false)->setIgnoreEnableFields(true);
 
 			$andArray = [];
 			$andArray[] = $query->lessThanOrEqual("crdate", $timestamp);
@@ -163,7 +174,7 @@
 		{
 			$query = $this->createQuery();
 
-			$query->getQuerySettings()->setRespectStoragePage(false);
+			$query->getQuerySettings()->setRespectStoragePage(false)->setIgnoreEnableFields(true);
 
 			$andArray = [];
 			$andArray[] = $query->lessThanOrEqual("crdate", $timestamp);

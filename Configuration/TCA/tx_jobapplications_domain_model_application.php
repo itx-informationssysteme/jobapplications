@@ -21,10 +21,10 @@
 			'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/Extension.svg'
 		],
 		'interface' => [
-			'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, salutation, first_name, last_name, email, phone, address_street_and_number, address_addition, address_post_code, address_city, address_country, salary_expectation, message, earliest_date_of_joining, cv, cover_letter, testimonials, other_files, privacy_agreement, posting, archived, status',
+			'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, salutation, first_name, last_name, email, phone, address_street_and_number, address_addition, address_post_code, address_city, address_country, salary_expectation, message, earliest_date_of_joining, files, cv, cover_letter, testimonials, other_files, privacy_agreement, posting, archived, status',
 		],
 		'types' => [
-			'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, salutation, first_name, last_name, email, phone, address_street_and_number, address_addition, address_post_code, address_city, address_country, salary_expectation, message ,earliest_date_of_joining, cv, cover_letter, testimonials, other_files, privacy_agreement, posting, archived, status, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+			'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, salutation, first_name, last_name, email, phone, address_street_and_number, address_addition, address_post_code, address_city, address_country, salary_expectation, message ,earliest_date_of_joining, files, cv, cover_letter, testimonials, other_files, privacy_agreement, posting, archived, status, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
 		],
 		'columns' => [
 			'crdate' => [
@@ -252,6 +252,55 @@
 					'cols' => 40,
 					'rows' => 15
 				]
+			],
+			'files' => [
+				'exclude' => true,
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.files',
+				'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
+					'files',
+					[
+						'appearance' => [
+							'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:media.addFileReference'
+						],
+						'config' => [
+							'overrideChildTca' => [
+								'types' => [
+									'0' => [
+										'showitem' => '
+                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;;filePalette'
+									],
+									\TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
+										'showitem' => '
+                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;;filePalette'
+									],
+									\TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
+										'showitem' => '
+                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;;filePalette'
+									],
+									\TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
+										'showitem' => '
+                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;;filePalette'
+									],
+									\TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
+										'showitem' => '
+                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;;filePalette'
+									],
+									\TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
+										'showitem' => '
+                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;;filePalette'
+									]
+								]
+							]
+						],
+						'maxitems' => 10
+					]
+				),
 			],
 			'cv' => [
 				'exclude' => true,

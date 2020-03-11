@@ -63,6 +63,9 @@
 			<trans-unit id="tx_jobapplications_domain_model_posting.contact" resname="tx_jobapplications_domain_model_posting.contact">
 				<source>Contact</source>
 			</trans-unit>
+			<trans-unit id="tx_jobapplications_domain_model_posting.starttime" resname="tx_jobapplications_domain_model_posting.starttime">
+				<source>Publish Date</source>
+			</trans-unit>
 			<trans-unit id="tx_jobapplications_domain_model_contact" resname="tx_jobapplications_domain_model_contact">
 				<source>Contact</source>
 			</trans-unit>
@@ -140,6 +143,9 @@
 			</trans-unit>
 			<trans-unit id="tx_jobapplications_domain_model_application.earliest_date_of_joining" resname="tx_jobapplications_domain_model_application.earliest_date_of_joining">
 				<source>Earliest Date Of Joining</source>
+			</trans-unit>
+			<trans-unit id="tx_jobapplications_domain_model_application.files" resname="tx_jobapplications_domain_model_application.files">
+				<source>Files</source>
 			</trans-unit>
 			<trans-unit id="tx_jobapplications_domain_model_application.cv" resname="tx_jobapplications_domain_model_application.cv">
 				<source>Cv</source>

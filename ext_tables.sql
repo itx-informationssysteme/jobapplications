@@ -33,13 +33,13 @@ CREATE TABLE tx_jobapplications_domain_model_posting
 CREATE TABLE tx_jobapplications_domain_model_contact
 (
 
-    first_name varchar(255)     DEFAULT '' NOT NULL,
-    last_name  varchar(255)     DEFAULT '' NOT NULL,
-    email      varchar(255)     DEFAULT '' NOT NULL,
-    phone      varchar(255)     DEFAULT '' NOT NULL,
-    division   varchar(255)     DEFAULT '' NOT NULL,
-    photo      int(11) unsigned            NOT NULL default '0',
-    be_user    int(11) unsigned NOT NULL DEFAULT '0'
+    first_name varchar(255) DEFAULT '' NOT NULL,
+    last_name  varchar(255) DEFAULT '' NOT NULL,
+    email      varchar(255) DEFAULT '' NOT NULL,
+    phone      varchar(255) DEFAULT '' NOT NULL,
+    division   varchar(255) DEFAULT '' NOT NULL,
+    photo      int(11) unsigned        NOT NULL default '0',
+    be_user    int(11) unsigned        NOT NULL DEFAULT '0'
 
 );
 
@@ -78,15 +78,16 @@ CREATE TABLE tx_jobapplications_domain_model_application
     address_country           varchar(255)         DEFAULT ''  NOT NULL,
     salary_expectation        varchar(255)         DEFAULT ''  NOT NULL,
     earliest_date_of_joining  date                 DEFAULT NULL,
-    message                   text,
-    cv                        int(11) unsigned                 NOT NULL default '0',
-    cover_letter              int(11) unsigned                 NOT NULL default '0',
-    testimonials              int(11) unsigned                 NOT NULL default '0',
-    other_files               int(11) unsigned                 NOT NULL default '0',
+    message                   text                 DEFAULT ''  NOT NULL,
+    files                     int(11) unsigned     DEFAULT '0' NOT NULL,
+    cv                        int(11) unsigned     DEFAULT '0' NOT NULL,
+    cover_letter              int(11) unsigned     DEFAULT '0' NOT NULL,
+    testimonials              int(11) unsigned     DEFAULT '0' NOT NULL,
+    other_files               int(11) unsigned     DEFAULT '0' NOT NULL,
     privacy_agreement         smallint(5) unsigned DEFAULT '0' NOT NULL,
-    posting                   int(11) unsigned     DEFAULT '0',
+    posting                   int(11) unsigned     DEFAULT '0' NOT NULL,
     archived                  smallint(5) unsigned DEFAULT '0' NOT NULL,
-    status                    int(11) unsigned     DEFAULT '1'
+    status                    int(11) unsigned     DEFAULT '1' NOT NULL
 );
 
 #
