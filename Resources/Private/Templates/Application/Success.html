@@ -6,6 +6,7 @@
 
 <f:section name="content">
 	<f:flashMessages/>
+	<f:comment><!--Frontend replacing of text values:--></f:comment>
 	<f:variable name="msg" value="{v:format.replace(substring: '%lastName%', content: '{settings.successMessage}', replacement: '{lastName}')}"></f:variable>
 	<f:variable name="msg" value="{v:format.replace(substring: '%firstName%', content: '{msg}', replacement: '{firstName}')}"></f:variable>
 	<f:variable name="msg" value="{v:format.replace(substring: '%salutation%', content: '{msg}', replacement: '{salutation}')}"></f:variable>

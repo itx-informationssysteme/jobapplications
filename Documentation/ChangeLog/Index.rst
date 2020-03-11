@@ -11,10 +11,11 @@
 Changelog
 =========
 
-0.9.4 - Bugfixes
-----------------
+0.9.4 - Minor features and bugfixes
+-----------------------------------
 * [FEATURE] added pageData to every view
 * [FEATURE] added asterisks for required fields in default template in application form
+* [FEATURE] added some comments to templates
 * [BUGFIX] fixed bug where it was not possible to have the EarliestDateOfJoining field could not be set as optional
 * [BUGFIX] refactored successAction in ApplicationController to provide the salutation as value and to make the posting available
 
