@@ -355,7 +355,7 @@
 		 *
 		 * @return void
 		 */
-		public function setEarliestDateOfJoining(\DateTime $earliestDateOfJoining)
+		public function setEarliestDateOfJoining($earliestDateOfJoining)
 		{
 			$this->earliestDateOfJoining = $earliestDateOfJoining;
 		}
@@ -682,7 +682,7 @@
 		/**
 		 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $files
 		 */
-		public function setFiles(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $files): void
+		public function setFiles($files): void
 		{
 			$this->files = $files;
 		}

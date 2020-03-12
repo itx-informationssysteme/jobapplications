@@ -7,8 +7,10 @@
 		<h3>
 			<f:translate key="fe.posting.page.title"/>
 		</h3>
+		<f:comment><!--f:if for filter--></f:comment>
 		<f:if condition="{postings -> f:count()} > 0 || {divisionName} || {careerLevelType} || {selectedEmploymentType} || {selectedLocation}">
 			<f:then>
+				<f:comment><!--Filter start--></f:comment>
 				<f:form action="list" name="filter" method="get">
 					<div class="form-row m-0">
 						<div class="form-group pl-0 col">
@@ -63,13 +65,14 @@
 								<f:translate key="fe.posting.button.reset"></f:translate>
 							</f:link.action>
 						</div>
-
 					</div>
+					<f:comment><!--Filter end--></f:comment>
 				</f:form>
 				<f:if condition="{postings -> f:count()} > 0">
 					<f:then>
 						<div class="row">
 							<f:for each="{postings}" as="posting">
+								<f:comment><!--Posting in list view start--></f:comment>
 								<div class="col-12 col-md-4">
 									<div class="card my-3">
 										<f:if condition="{posting.listViewImage}">
@@ -132,15 +135,18 @@
 										</div>
 									</div>
 								</div>
+								<f:comment><!--Posting in list view end--></f:comment>
 							</f:for>
 						</div>
 					</f:then>
 					<f:else>
+						<f:comment><!--If filter returns no postings--></f:comment>
 						<span><f:translate key="fe.posting.filter.noPositions"/></span>
 					</f:else>
 				</f:if>
 			</f:then>
 			<f:else>
+				<f:comment><!--If there are no postings at all--></f:comment>
 				<span><f:translate key="fe.posting.page.noPositions"/></span>
 			</f:else>
 		</f:if>

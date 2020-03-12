@@ -213,6 +213,9 @@
 			<trans-unit id="fe.info.fileSize" resname="fe.info.fileSize">
 				<source>The maximum upload filesize is %sMB and only pdf-files are allowed.</source>
 			</trans-unit>
+			<trans-unit id="fe.info.required" resname="fe.info.required">
+				<source>Fields marked with * are required.</source>
+			</trans-unit>
 			<trans-unit id="fe.email.toContactSubject" resname="fe.email.toContactSubject">
 				<source>New application for position %s</source>
 			</trans-unit>
