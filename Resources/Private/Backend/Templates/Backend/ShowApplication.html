@@ -164,27 +164,25 @@
 			</div>
 		</div>
 		<div class="container-buttons">
-			<div class="buttons">
-				<f:link.action id="btn-show-back" class="btn btn-secondary" action="listApplications" arguments="{contact: contact}">
-					<f:translate key="fe.posting.show.backlink"/>
-				</f:link.action>
-				<f:if condition="{application.archived}">
-					<f:then>
-						<f:link.action class="btn btn-secondary" action="showApplication" arguments="{application: application, archive: 1}">
-							<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.show.dearchive"></f:translate>
-						</f:link.action>
-					</f:then>
-					<f:else>
-						<f:link.action class="btn btn-secondary" action="showApplication" arguments="{application: application, archive: 1}">
-							<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.show.archive"></f:translate>
-						</f:link.action>
-					</f:else>
-				</f:if>
+			<f:link.action id="btn-show-back" class="btn-jobapplications btn-secondary" action="listApplications" arguments="{contact: contact}">
+				<f:translate key="fe.posting.show.backlink"/>
+			</f:link.action>
+			<f:if condition="{application.archived}">
+				<f:then>
+					<f:link.action class="btn-jobapplications btn-secondary" action="showApplication" arguments="{application: application, archive: 1}">
+						<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.show.dearchive"></f:translate>
+					</f:link.action>
+				</f:then>
+				<f:else>
+					<f:link.action class="btn-jobapplications btn-secondary" action="showApplication" arguments="{application: application, archive: 1}">
+						<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.show.archive"></f:translate>
+					</f:link.action>
+				</f:else>
+			</f:if>
 
-				<f:link.action class="btn btn-critical" action="showApplication" arguments="{application: application, delete: 1}">
-					<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.show.delete"></f:translate>
-				</f:link.action>
-			</div>
+			<f:link.action class="btn-jobapplications btn-critical" action="showApplication" arguments="{application: application, delete: 1}">
+				<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.show.delete"></f:translate>
+			</f:link.action>
 		</div>
 	</div>
 </f:section>
