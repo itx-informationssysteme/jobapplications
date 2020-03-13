@@ -1,0 +1,8 @@
+# Variant 1, widget identifier as attribute
+services:
+    ITX\Jobapplications\Widgets\PostingsActive:
+        arguments: ['postings-active']
+        tags:
+            -   name: dashboard.widget
+                identifier: postings-active
+                widgetGroups: 'general'

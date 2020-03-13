@@ -257,6 +257,17 @@
 		}
 
 		/**
+		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+		 */
+		public function findAllIgnoreStoragePage()
+		{
+			$query = $this->createQuery();
+			$query->getQuerySettings()->setRespectStoragePage(false);
+
+			return $query->execute();
+		}
+
+		/**
 		 * Returns !all! objects of this repository, no matter if hidden or deleted.
 		 *
 		 * @return QueryResultInterface|array
