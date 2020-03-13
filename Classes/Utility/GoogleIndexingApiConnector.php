@@ -30,6 +30,9 @@
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\Exception;
 	use TYPO3\CMS\Core\Http\RequestFactory;
+	use TYPO3\CMS\Core\Messaging\FlashMessage;
+	use TYPO3\CMS\Core\Messaging\FlashMessageQueue;
+	use TYPO3\CMS\Core\Messaging\FlashMessageService;
 	use TYPO3\CMS\Core\Service\FlexFormService;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Domain\Model\Category;
@@ -415,10 +418,14 @@
 				$type = \TYPO3\CMS\Core\Messaging\FlashMessage::WARNING;
 			}
 
+			/** @var FlashMessage $message */
 			$message = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Messaging\FlashMessage::class, $msg, $header, $type, true);
 
+			/** @var FlashMessageService $flashMessageService */
 			$flashMessageService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Messaging\FlashMessageService::class);
+			/** @var FlashMessageQueue $messageQueue */
 			$messageQueue = $flashMessageService->getMessageQueueByIdentifier();
+			// @extensionScannerIgnoreLine
 			$messageQueue->addMessage($message);
 		}
 	}

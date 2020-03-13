@@ -149,13 +149,20 @@
 				</label>
 				<f:form.upload name="other_files" additionalAttributes="{accept:'.pdf'}" class="form-control-file"></f:form.upload>
 			</div>
-			<small id="upload-message" class="form-text text-muted m-auto">
-				<p>
-					<f:translate key="fe.info.fileSize" arguments="{0: fileSizeLimit}"/>
-				</p>
-			</small>
 		</div>
 	</f:else>
+	<div class="form-row">
+		<small id="upload-message" class="form-text text-muted m-auto">
+			<p>
+				<f:translate key="fe.info.fileSize" arguments="{0: fileSizeLimit}"/>
+			</p>
+		</small>
+		<small id="required-message" class="form-text text-muted m-auto">
+			<p>
+				<f:translate key="fe.info.required"/>
+			</p>
+		</small>
+	</div>
 </f:if>
 <f:comment><!--Error handling for upload--></f:comment>
 <script>

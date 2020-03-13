@@ -210,8 +210,10 @@
 		 * @param string $salutation
 		 * @param int    $postingUid
 		 */
-		public function successAction($firstName = "", $lastName = "", $salutation = "", $postingUid = -1)
+		public function successAction($firstName, $lastName, $salutation, $postingUid)
 		{
+			DebugUtility::debug($this->request);
+			DebugUtility::debug($this->arguments);
 			$salutationValue = $salutation;
 
 			if ($salutation == "div" || $salutation == "")
@@ -556,7 +558,7 @@
 				$this->persistenceManager->persistAll();
 			}
 
-			$this->redirect('success', 'Application' ,'jobapplications', [
+			$this->redirect('success', 'Application' , null, [
 				'firstName' => $newApplication->getFirstName(),
 				'lastName' => $newApplication->getLastName(),
 				'salutation' => $newApplication->getSalutation(),

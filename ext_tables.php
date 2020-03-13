@@ -18,6 +18,8 @@ call_user_func(
                     'access' => 'user,group',
                     'icon'   => 'EXT:jobapplications/Resources/Public/Icons/logo_jobs.svg',
                     'labels' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf',
+					'navigationComponentId' => '',
+					'inheritNavigationComponentFromMainModule' => false,
                 ]
             );
         }
