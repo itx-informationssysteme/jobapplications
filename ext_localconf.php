@@ -48,6 +48,9 @@
 				'SuccessPage',
 				[
 					'Application' => 'success'
+				],
+				[
+					'Application' => 'success'
 				]
 			);
 

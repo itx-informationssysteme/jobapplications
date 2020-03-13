@@ -32,6 +32,7 @@
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Resource\Exception\InsufficientUserPermissionsException;
 	use TYPO3\CMS\Core\Utility\DebugUtility;
+	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 	/**
@@ -97,7 +98,7 @@
 		 */
 		public function listApplicationsAction()
 		{
-			$sessionData = $GLOBALS["BE_USER"]->getSessionData("tx_jobapplications");
+			$sessionData = $GLOBALS['BE_USER']->getSessionData("tx_jobapplications");
 
 			// Get all filter elements and set them to empty if there are none and use session storage for persisting selection
 			if ($this->request->hasArgument("submit"))

@@ -32,6 +32,7 @@
 	use ScssPhp\ScssPhp\Formatter\Debug;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
+	use TYPO3\CMS\Core\Mail\MailMessage;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Resource\FileInterface;
 	use TYPO3\CMS\Core\Resource\ResourceFactory;
@@ -41,6 +42,7 @@
 	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 	use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+	use TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter;
 
 	/**
 	 * ApplicationController
@@ -111,7 +113,7 @@
 			$this->arguments->getArgument('newApplication')
 							->getPropertyMappingConfiguration()->forProperty('earliestDateOfJoining')
 							->setTypeConverterOption(
-								'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',
+								DateTimeConverter::class,
 								\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,
 								'Y-m-d'
 							);
@@ -163,7 +165,8 @@
 			*/
 			if ($posting === null && $_REQUEST['postingApp'])
 			{
-				$postingUid = $_REQUEST['postingApp'];
+				$postingUid = (int)$_REQUEST['postingApp'];
+				/** @var Posting $posting */
 				$posting = $this->postingRepository->findByUid($postingUid);
 			}
 
@@ -205,8 +208,9 @@
 		 * @param string $firstName
 		 * @param string $lastName
 		 * @param string $salutation
+		 * @param int    $postingUid
 		 */
-		public function successAction(string $firstName, string $lastName, string $salutation, int $postingUid = -1)
+		public function successAction($firstName = "", $lastName = "", $salutation = "", $postingUid = -1)
 		{
 			$salutationValue = $salutation;
 
@@ -502,6 +506,7 @@
 			// Now send a mail to the applicant
 			if ($this->settings["sendEmailToApplicant"] == "1")
 			{
+				/** @var MailMessage $mail */
 				$mail = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Mail\MailMessage::class);
 
 				//Template Messages
@@ -551,12 +556,12 @@
 				$this->persistenceManager->persistAll();
 			}
 
-			$this->redirect("success", null, null, [
-				"firstName" => $newApplication->getFirstName(),
-				"lastName" => $newApplication->getLastName(),
-				"salutation" => $newApplication->getSalutation(),
-				"postingUid" => $currentPosting->getUid()
-			], $this->settings["successPage"]);
+			$this->redirect('success', 'Application' ,'jobapplications', [
+				'firstName' => $newApplication->getFirstName(),
+				'lastName' => $newApplication->getLastName(),
+				'salutation' => $newApplication->getSalutation(),
+				'postingUid' => $currentPosting->getUid()
+			], $this->settings['successPage']);
 		}
 
 		/**
@@ -572,7 +577,7 @@
 		private function buildRelationsLegacy($newStorageUid, array $files, array $fields, array $fieldNames, $table, $newStoragePid)
 		{
 			$database = GeneralUtility::makeInstance(ConnectionPool::class);
-			for ($i = 0; $i < count($files); $i++)
+			for ($i = 0, $iMax = count($files); $i < $iMax; $i++)
 			{
 				$database
 					->getConnectionForTable('sys_file_reference')
@@ -693,7 +698,7 @@
 		}
 
 		/**
-		 * @param string                                        $fieldName
+		 * @param int                                           $position
 		 * @param \ITX\Jobapplications\Domain\Model\Application $domainObject
 		 *
 		 * @return FileInterface

@@ -23,7 +23,7 @@
         "docs": ""
     },
     "require": {
-        "typo3/cms-core": "^9.5",
+        "typo3/cms-core": "^10.3",
         "fluidtypo3/vhs": "^6"
     },
     "extra": {

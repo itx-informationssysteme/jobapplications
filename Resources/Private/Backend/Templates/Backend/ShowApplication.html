@@ -1,4 +1,4 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:layout name="Default"/>
 
 <f:section name="content">
@@ -6,6 +6,7 @@
 		<h1>
 			<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.show.title"></f:translate>
 		</h1>
+		<be:link.editRecord uid="{application.uid}" table="tx_jobapplications_domain_model"></be:link.editRecord>
 		<div class="personal-description {f:if(condition: '{application.archived}', then: 'archived')}">
 			<div class="row">
 				<div class="placeholder">&nbsp;</div>

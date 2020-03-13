@@ -75,7 +75,7 @@
 		protected $photo = null;
 
 		/**
-		 * photo
+		 * beUser
 		 *
 		 * @var \TYPO3\CMS\Extbase\Domain\Model\BackendUser
 		 */
@@ -193,5 +193,26 @@
 		public function setPhoto(\TYPO3\CMS\Extbase\Domain\Model\FileReference $photo)
 		{
 			$this->photo = $photo;
+		}
+
+		/**
+		 * @return \TYPO3\CMS\Extbase\Domain\Model\BackendUser
+		 */
+		public function getBeUser()
+		{
+			if (TYPO3_MODE === 'BE')
+			{
+				return $this->beUser;
+			}
+
+			return null;
+		}
+
+		/**
+		 * @param \TYPO3\CMS\Extbase\Domain\Model\BackendUser $beUser
+		 */
+		public function setBeUser($beUser)
+		{
+			$this->beUser = $beUser;
 		}
 	}
