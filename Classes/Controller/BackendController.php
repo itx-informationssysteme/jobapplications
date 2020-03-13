@@ -98,31 +98,31 @@
 		 */
 		public function listApplicationsAction()
 		{
-			$sessionData = $GLOBALS['BE_USER']->getSessionData("tx_jobapplications");
+			$sessionData = $GLOBALS['BE_USER']->getSessionData('tx_jobapplications');
 
 			// Get all filter elements and set them to empty if there are none and use session storage for persisting selection
-			if ($this->request->hasArgument("submit"))
+			if ($this->request->hasArgument('submit'))
 			{
-				$this->request->hasArgument("contact") ? $selectedContact = intval($this->request->getArgument("contact")) : $selectedContact = 0;
-				$this->request->hasArgument("archived") ? $archivedSelected = intval($this->request->getArgument("archived")) : $archivedSelected = 0;
-				$this->request->hasArgument("posting") ? $selectedPosting = intval($this->request->getArgument("posting")) : $selectedPosting = 0;
-				$this->request->hasArgument("status") ? $selectedStatus = intval($this->request->getArgument("status")) : $selectedStatus = 0;
+				$this->request->hasArgument('contact') ? $selectedContact = intval($this->request->getArgument('contact')) : $selectedContact = 0;
+				$this->request->hasArgument('archived') ? $archivedSelected = intval($this->request->getArgument('archived')) : $archivedSelected = 0;
+				$this->request->hasArgument('posting') ? $selectedPosting = intval($this->request->getArgument('posting')) : $selectedPosting = 0;
+				$this->request->hasArgument('status') ? $selectedStatus = intval($this->request->getArgument('status')) : $selectedStatus = 0;
 			}
 			else
 			{
-				$selectedPosting = $sessionData["selectedPosting"];
-				$archivedSelected = $sessionData["archivedSelected"];
-				$selectedContact = $sessionData["selectedContact"];
-				$selectedStatus = $sessionData["selectedStatus"];
+				$selectedPosting = $sessionData['selectedPosting'];
+				$archivedSelected = $sessionData['archivedSelected'];
+				$selectedContact = $sessionData['selectedContact'];
+				$selectedStatus = $sessionData['selectedStatus'];
 			}
 
 			$contact = $this->getActiveBeContact();
 
 			// Handling a status change, triggered in listApplications View
-			if ($this->request->hasArgument("statusChange"))
+			if ($this->request->hasArgument('statusChange'))
 			{
-				$application = $this->applicationRepository->findByUid($this->request->getArgument("application"));
-				$application->setStatus($this->statusRepository->findByUid($this->request->getArgument("statusChange")));
+				$application = $this->applicationRepository->findByUid($this->request->getArgument('application'));
+				$application->setStatus($this->statusRepository->findByUid($this->request->getArgument('statusChange')));
 				$this->applicationRepository->update($application);
 				$this->persistenceManager->persistAll();
 			}
@@ -137,11 +137,11 @@
 			if ($archivedSelected != 0)
 			{
 				$archivedApplications = $this->applicationRepository->findByFilter($selectedContact, $selectedPosting, $selectedStatus, 1);
-				$this->view->assign("archivedApplications", $archivedApplications);
+				$this->view->assign('archivedApplications', $archivedApplications);
 			}
 
 			// apply actual filter, handles query as well when no filters specified
-			$applications = $this->applicationRepository->findByFilter($selectedContact, $selectedPosting, $selectedStatus, 0, "crdate", "DESC");
+			$applications = $this->applicationRepository->findByFilter($selectedContact, $selectedPosting, $selectedStatus, 0, 'crdate', 'DESC');
 
 			// Set posting-selectBox content dynamically based on selected contact
 			if ((empty($selectedPosting) && !empty($selectedContact)))
@@ -154,24 +154,24 @@
 			}
 
 			// Fetch all Contacts and Statuses for select-Box
-			$contactsFilter = $this->contactRepository->findAllWithOrder("last_name", "ASC");
+			$contactsFilter = $this->contactRepository->findAllWithOrder('last_name', 'ASC');
 			$statusesFilter = $this->statusRepository->findAllWithOrder();
 
 			// Persist selection in session storage
-			$sessionData["selectedPosting"] = $selectedPosting;
-			$sessionData["archivedSelected"] = $archivedSelected;
-			$sessionData["selectedContact"] = $selectedContact;
-			$sessionData["selectedStatus"] = $selectedStatus;
-			$GLOBALS["BE_USER"]->setAndSaveSessionData("tx_jobapplications", $sessionData);
+			$sessionData['selectedPosting'] = $selectedPosting;
+			$sessionData['archivedSelected'] = $archivedSelected;
+			$sessionData['selectedContact'] = $selectedContact;
+			$sessionData['selectedStatus'] = $selectedStatus;
+			$GLOBALS['BE_USER']->setAndSaveSessionData('tx_jobapplications', $sessionData);
 
-			$this->view->assign("selectedPosting", $selectedPosting);
-			$this->view->assign("archivedSelected", $archivedSelected);
-			$this->view->assign("selectedContact", $selectedContact);
-			$this->view->assign("selectedStatus", $selectedStatus);
-			$this->view->assign("applications", $applications);
-			$this->view->assign("postings", $postingsFilter);
-			$this->view->assign("contacts", $contactsFilter);
-			$this->view->assign("statuses", $statusesFilter);
+			$this->view->assign('selectedPosting', $selectedPosting);
+			$this->view->assign('archivedSelected', $archivedSelected);
+			$this->view->assign('selectedContact', $selectedContact);
+			$this->view->assign('selectedStatus', $selectedStatus);
+			$this->view->assign('applications', $applications);
+			$this->view->assign('postings', $postingsFilter);
+			$this->view->assign('contacts', $contactsFilter);
+			$this->view->assign('statuses', $statusesFilter);
 		}
 
 		/**
@@ -190,7 +190,7 @@
 			$statusDatabaseOp = false;
 
 			// Handles archive request
-			if ($this->request->hasArgument("archive"))
+			if ($this->request->hasArgument('archive'))
 			{
 				if ($application->isArchived())
 				{
@@ -205,7 +205,7 @@
 			}
 
 			// Handles delete request
-			if ($this->request->hasArgument("delete"))
+			if ($this->request->hasArgument('delete'))
 			{
 				$this->applicationRepository->remove($application);
 				$this->applicationFileService->deleteApplicationFolder($this->applicationFileService->getApplicantFolder($application));
@@ -214,10 +214,10 @@
 			}
 
 			// Handles status change request
-			if ($this->request->hasArgument("status"))
+			if ($this->request->hasArgument('status'))
 			{
 				/* @var Status $newStatus */
-				$newStatus = $this->statusRepository->findByUid($this->request->getArgument("status"));
+				$newStatus = $this->statusRepository->findByUid($this->request->getArgument('status'));
 				$application->setStatus($newStatus);
 				$this->applicationRepository->update($application);
 				$statusDatabaseOp = true;
@@ -230,10 +230,10 @@
 			}
 
 			// Fetch baseuri for f:uri to access Public folder
-			$baseUri = str_replace("typo3/", "", $this->request->getBaseUri());
+			$baseUri = str_replace('typo3/', '', $this->request->getBaseUri());
 
-			$this->view->assign("application", $application);
-			$this->view->assign("baseUri", $baseUri);
+			$this->view->assign('application', $application);
+			$this->view->assign('baseUri', $baseUri);
 		}
 
 		/**
@@ -254,9 +254,9 @@
 				$newApps = array();
 			}
 
-			$this->view->assign("admin", $GLOBALS['BE_USER']->isAdmin());
-			$this->view->assign("newApps", count($newApps));
-			$this->view->assign("contact", $contact);
+			$this->view->assign('admin', $GLOBALS['BE_USER']->isAdmin());
+			$this->view->assign('newApps', count($newApps));
+			$this->view->assign('contact', $contact);
 		}
 
 		/**
@@ -270,20 +270,21 @@
 		{
 			if (!$GLOBALS['BE_USER']->isAdmin())
 			{
-				throw new InsufficientUserPermissionsException("Insufficient permissions");
+				throw new InsufficientUserPermissionsException('Insufficient permissions');
 			}
 
-			if ($this->request->hasArgument("pid"))
+			if ($this->request->hasArgument('pid'))
 			{
-				$pid = $this->request->getArgument("pid");
-				$language = $this->request->getArgument("language");
+				$pid = $this->request->getArgument('pid');
+				$language = $this->request->getArgument('language');
 				$langUid = $this->statusRepository->findLangUid($language);
-				$this->statusRepository->generateStatus("tx_jobapplications_domain_model_status_".$language.".sql", "tx_jobapplications_domain_model_status_mm.sql", $pid, $langUid);
 
-				$this->addFlashMessage("Finished!");
+				$this->statusRepository->generateStatus('tx_jobapplications_domain_model_status_'.$language.'.sql', 'tx_jobapplications_domain_model_status_mm.sql', $pid, $langUid);
+
+				$this->addFlashMessage('Finished!');
 			}
 
-			if ($this->request->hasArgument("batch_index"))
+			if ($this->request->hasArgument('batch_index'))
 			{
 				$connector = new GoogleIndexingApiConnector(true);
 				$postings = $this->postingRepository->findAllIncludingHiddenAndDeleted();
@@ -321,16 +322,16 @@
 				}
 				if ($error_bit)
 				{
-					$this->addFlashMessage("Not successful updated/added ".$updateCounter." and removed ".$removeCounter." postings", '', FlashMessage::ERROR);
+					$this->addFlashMessage('Not successful updated/added '.$updateCounter.' and removed '.$removeCounter.' postings', '', FlashMessage::ERROR);
 				}
 				else
 				{
-					$this->addFlashMessage("Done with updating/adding ".$updateCounter." and removing ".$removeCounter." postings");
+					$this->addFlashMessage('Done with updating/adding '.$updateCounter.' and removing '.$removeCounter.' postings');
 				}
 
 			}
 
-			$this->view->assign("admin", $GLOBALS['BE_USER']->isAdmin());
+			$this->view->assign('admin', $GLOBALS['BE_USER']->isAdmin());
 		}
 
 		/**
@@ -340,7 +341,7 @@
 		 */
 		private function getActiveBeContact()
 		{
-			$beUserUid = $GLOBALS['BE_USER']->user["uid"];
+			$beUserUid = $GLOBALS['BE_USER']->user['uid'];
 
 			return $this->contactRepository->findByBackendUser($beUserUid)[0];
 		}

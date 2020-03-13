@@ -3,7 +3,9 @@
 	namespace ITX\Jobapplications\Domain\Repository;
 
 	use ITX\Jobapplications\Domain\Model\Status;
+	use ScssPhp\ScssPhp\Formatter\Debug;
 	use TYPO3\CMS\Core\Core\Environment;
+	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Core\Database\Schema\SchemaMigrator;
 	use TYPO3\CMS\Core\Database\Schema\SqlReader;
@@ -47,7 +49,7 @@
 		 *
 		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 		 */
-		public function findAllWithOrder(string $orderBy = "name", string $order = "ASC")
+		public function findAllWithOrder($orderBy = "name", $order = "ASC")
 		{
 			$query = $this->createQuery();
 			$query->getQuerySettings()->setRespectStoragePage(false);
@@ -67,30 +69,40 @@
 		{
 			$query = $this->createQuery();
 			$query->getQuerySettings()->setRespectStoragePage(false);
-			$query->matching($query->equals("is_new_status", 1));
+			$query->matching($query->equals('is_new_status', 1));
 
 			return $query->execute()->getFirst();
 		}
 
 		/**
-		 * @param $extTablesStaticSqlRelFile
+		 * @param string $statusFile
+		 * @param string $statusMmFile
+		 * @param int    $pid
+		 * @param int    $langUid
 		 */
 		public function generateStatus(string $statusFile, string $statusMmFile, int $pid, int $langUid)
 		{
-			$file1 = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName("EXT:jobapplications/Resources/Private/Sql/".$statusFile);
-			$file2 = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName("EXT:jobapplications/Resources/Private/Sql/".$statusMmFile);
+			$file1 = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('EXT:jobapplications/Resources/Private/Sql/'.$statusFile);
+			$file2 = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('EXT:jobapplications/Resources/Private/Sql/'.$statusMmFile);
 
 			$queryDropStatus = $this->createQuery();
-			$queryDropStatus->statement("DROP TABLE tx_jobapplications_domain_model_status");
+			$queryDropStatus->statement('DROP TABLE tx_jobapplications_domain_model_status');
 			$queryDropStatus->execute();
 			$queryDropMM = $this->createQuery();
-			$queryDropMM->statement("DROP TABLE tx_jobapplications_domain_model_status_mm");
+			$queryDropMM->statement('DROP TABLE tx_jobapplications_domain_model_status_mm');
 			$queryDropStatus->execute();
 
 			$contentStatus = file_get_contents($file1);
-			$contentStatus = str_replace("%pid%", $pid, $contentStatus);
-			$contentStatus = str_replace("%lang%", $langUid, $contentStatus);
+			if ($contentStatus === false)
+			{
+				throw new \RuntimeException("Jobapplications: Error trying to load sql file at {$file1}");
+			}
+			$contentStatus = str_replace(array('%pid%', '%lang%'), array($pid, $langUid), $contentStatus);
 			$contentStatusMM = file_get_contents($file2);
+			if ($contentStatusMM === false)
+			{
+				throw new \RuntimeException("Jobapplications: Error trying to load sql mm file at {$file2}");
+			}
 
 			$this->executeSqlImport($contentStatus);
 			$this->executeSqlImport($contentStatusMM);
@@ -103,11 +115,14 @@
 		 */
 		public function executeSqlImport(string $fileContent)
 		{
+			/** @var SqlReader $sqlReader */
 			$sqlReader = GeneralUtility::makeInstance(SqlReader::class);
 			$statements = $sqlReader->getStatementArray($fileContent);
 
+			/** @var SchemaMigrator $schemaMigrationService */
 			$schemaMigrationService = GeneralUtility::makeInstance(SchemaMigrator::class);
-			$schemaMigrationService->importStaticData($statements, true);
+			$return = $schemaMigrationService->importStaticData($statements, true);
+			DebugUtility::debug($return);
 		}
 
 		/**
@@ -121,7 +136,7 @@
 			$query->statement("SELECT DISTINCT uid FROM sys_language WHERE language_isocode = '$langIso'");
 
 			$result = $query->execute(true)[0]['uid'];
-			if ($result == null)
+			if ($result === null)
 			{
 				$result = -1;
 			}
