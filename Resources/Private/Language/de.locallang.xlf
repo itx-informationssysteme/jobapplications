@@ -232,8 +232,8 @@
                 <target state="translated">Jetzt bewerben</target>
             </trans-unit>
             <trans-unit id="fe.application.privacy_agreement" resname="fe.application.privacy_agreement">
-                <source>I accept the </source>
-                <target state="translated">Ich akzeptiere die </target>
+                <source>I accept the</source>
+                <target state="translated">Ich akzeptiere die</target>
             </trans-unit>
             <trans-unit id="fe.application.selector.chooseMessage" resname="fe.application.selector.chooseMessage" approved="yes">
                 <source>-Choose-</source>
@@ -354,6 +354,38 @@
             <trans-unit id="fe.posting.employment.selector.other" resname="fe.posting.employment.selector.other" approved="yes">
                 <source>Other</source>
                 <target state="translated">Andere</target>
+            </trans-unit>
+            <trans-unit id="be.widget.postings_active.title" resname="be.widget.postings_active.title">
+                <source>Open positions</source>
+                <target>Offene Stellen</target>
+            </trans-unit>
+            <trans-unit id="be.widget.postings_active.subtitle" resname="be.widget.postings_active.subtitle">
+                <source>Currently active postings</source>
+                <target>Momentan aktive Ausschreibungen</target>
+            </trans-unit>
+            <trans-unit id="be.widget.postings_active.description" resname="be.widget.postings_active.description">
+                <source>Number of currently active job postings.</source>
+                <target>Anzahl der momentan aktiven Stellenausschreibungen</target>
+            </trans-unit>
+            <trans-unit id="be.widget.applications_per_posting.title" resname="be.widget.applications_per_posting.title">
+                <source>Number of applications per posting</source>
+                <target>Anzahl der Berwerbungen pro Ausschreibung</target>
+            </trans-unit>
+            <trans-unit id="be.widget.applications_per_posting.description" resname="be.widget.applications_per_posting.description">
+                <source>Bar chart regarding number of job applications in relation to every job posting.</source>
+                <target>Säulendiagramm, welches die Anzahl der Bewerbungen in Relation zu allen Ausschreibungen darstellt.</target>
+            </trans-unit>
+            <trans-unit id="be.widget.applications_per_posting.button" resname="be.widget.applications_per_posting.button">
+                <source>See applications</source>
+                <target>Bewerbungen anzeigen</target>
+            </trans-unit>
+            <trans-unit id="be.widget.applications_per_posting.label" resname="be.widget.applications_per_posting.label">
+                <source>Number of applications</source>
+                <target>Anzahl der Bewerbungen</target>
+            </trans-unit>
+            <trans-unit id="be.widget_group.jobapplications" resname="be.widget_group.jobapplications">
+                <source>Jobs</source>
+                <source>Stellenausschreibungen</source>
             </trans-unit>
         </body>
     </file>

@@ -238,6 +238,30 @@
 			<trans-unit id="be.filter.unsolicited.single" resname="be.filter.unsolicited.single">
 				<source>Unsolicited application</source>
 			</trans-unit>
+			<trans-unit id="be.widget.postings_active.title" resname="be.widget.postings_active.title">
+				<source>Open positions</source>
+			</trans-unit>
+			<trans-unit id="be.widget.postings_active.subtitle" resname="be.widget.postings_active.subtitle">
+				<source>Currently active postings</source>
+			</trans-unit>
+			<trans-unit id="be.widget.postings_active.description" resname="be.widget.postings_active.description">
+				<source>Number of currently active job postings.</source>
+			</trans-unit>
+			<trans-unit id="be.widget.applications_per_posting.title" resname="be.widget.applications_per_posting.title">
+				<source>Number of applications per posting</source>
+			</trans-unit>
+			<trans-unit id="be.widget.applications_per_posting.description" resname="be.widget.applications_per_posting.description">
+				<source>Bar chart regarding number of job applications in relation to every job posting.</source>
+			</trans-unit>
+			<trans-unit id="be.widget.applications_per_posting.button" resname="be.widget.applications_per_posting.button">
+				<source>See applications</source>
+			</trans-unit>
+			<trans-unit id="be.widget.applications_per_posting.label" resname="be.widget.applications_per_posting.label">
+				<source>Number of applications</source>
+			</trans-unit>
+			<trans-unit id="be.widget_group.jobapplications" resname="be.widget_group.jobapplications">
+				<source>Jobs</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

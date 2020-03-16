@@ -1,8 +1,14 @@
 # Variant 1, widget identifier as attribute
 services:
+    ITX\Jobapplications\Widgets\ApplicationsPerPostingBarChart:
+        arguments: ['applications-per-posting']
+        tags:
+            -   name: dashboard.widget
+                identifier: applications-per-posting
+                widgetGroups: 'widgetGroup-jobapplications'
     ITX\Jobapplications\Widgets\PostingsActive:
         arguments: ['postings-active']
         tags:
             -   name: dashboard.widget
                 identifier: postings-active
-                widgetGroups: 'general'
+                widgetGroups: 'widgetGroup-jobapplications'

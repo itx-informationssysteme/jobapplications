@@ -31,10 +31,20 @@
 	 */
 	class PostingsActive extends \TYPO3\CMS\Dashboard\Widgets\AbstractNumberWithIconWidget
 	{
-		protected $title = 'Job postings active at the moment';
+		/** @var string */
+		protected $title = 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.widget.postings_active.title';
 
+		/** @var int */
 		protected $number = 0;
-		protected $subtitle = 'Shows how many postings are active (shown in frontend) at this moment';
+
+		/** @var string */
+		protected $subtitle = 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.widget.postings_active.subtitle';
+
+		/** @var string  */
+		protected $description = 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.widget.postings_active.description';
+
+		/** @var string */
+		protected $icon = 'content-carousel-item-calltoaction';
 
 		protected function initializeView(): void
 		{
