@@ -11,15 +11,16 @@
 Changelog
 =========
 
-0.9.4 - Minor features and bugfixes
------------------------------------
+0.9.4 - More bugfixes
+---------------------
 * [FEATURE] added pageData to every view
-* [FEATURE] added asterisks for required fields in default template in application form
 * [FEATURE] added some comments to templates
 * [BUGFIX] fixed bug where it was not possible to have the EarliestDateOfJoining field could not be set as optional
 * [BUGFIX] refactored successAction in ApplicationController to provide the salutation as value and to make the posting available
 * [BUGFIX] fixed status import
-
+* [BUGFIX] added asterisks for required fields in default template in application form
+* [BUGFIX] fixed bug where no https:// would be generated for google indexing url
+* [BUGFIX] fixed potential bug in detection of upload file field type
 
 0.9.3 - New Features: Multiple file upload and Google Indexing API Implementation and lots of fixes
 ---------------------------------------------------------------------------------------------------

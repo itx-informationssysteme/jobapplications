@@ -2,6 +2,8 @@
 
 	namespace ITX\Jobapplications\Utility;
 
+	use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 	/**
 	 * Class FrontendUriBuilder
 	 *
@@ -124,11 +126,17 @@
 		public function build()
 		{
 
-			//set base
-			$url = 'http://'.is_null($this->host) ? $_SERVER['HTTP_HOST'] : $this->host;
+			if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
+				$http = 'https://';
+			} else {
+				$http = 'http://';
+			}
+
+			//set base, may need to find a better method in the future
+			$url = $http.$_SERVER['HTTP_HOST'];
 
 			//set pageId
-			$url = $url.'/index.php?id='.$this->pageId;
+			$url .= '/index.php?id='.$this->pageId;
 
 			//set action
 			if (!is_null($this->actionName))

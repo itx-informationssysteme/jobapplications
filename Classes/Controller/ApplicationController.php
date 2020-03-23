@@ -247,9 +247,18 @@
 				"application/pdf"
 			];
 
-			// count multi file upload field
-			$amountOfFiles = count($_FILES['tx_jobapplications_applicationform']['name']['upload']);
+			$multiFileUpload = $_FILES['tx_jobapplications_applicationform']['name']['upload'];
 
+			if (is_array($multiFileUpload))
+			{
+				$amountOfFiles = count($multiFileUpload);
+			}
+			else
+			{
+				$amountOfFiles = 0;
+			}
+
+			// Single file upload fields
 			if ($amountOfFiles === 0)
 			{
 				//Uploads in order as defined in Domain Model
