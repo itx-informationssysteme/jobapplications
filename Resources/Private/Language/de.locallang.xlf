@@ -283,6 +283,10 @@
                 <source>The maximum upload filesize is %sMB and only pdf-files are allowed.</source>
                 <target state="translated">Die maximale Dateigröße ist %sMB und nur .pdf Dateien sind erlaubt.</target>
             </trans-unit>
+            <trans-unit id="fe.info.required" resname="fe.info.required">
+                <source>Fields marked with * are required.</source>
+                <target>Pflichtfelder sind mit * markiert.</target>
+            </trans-unit>
             <trans-unit id="fe.email.toContactSubject" resname="fe.email.toContactSubject" approved="yes">
                 <source>New application for position %s</source>
                 <target state="translated">Neue Bewerbung für die Position %s</target>

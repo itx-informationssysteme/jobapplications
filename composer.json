@@ -3,7 +3,7 @@
     "type": "typo3-cms-extension",
     "description": "This extension enables you to manage job postings, has an application form for applicants to apply and an Application Managment Backend Module",
     "license": "GPL-3.0-or-later",
-    "version": "0.9.3",
+    "version": "0.9.4",
     "homepage": "http://www.itx.de",
     "authors": [
         {
@@ -20,7 +20,7 @@
     "support": {
         "email": "typo-itx@itx.de",
         "issues": "https://github.com/typo3-itx/jobapplications/issues",
-        "docs": ""
+        "docs": "https://docs.typo3.org/p/itx/jobapplications/master/en-us/"
     },
     "require": {
         "typo3/cms-core": "^9.5",

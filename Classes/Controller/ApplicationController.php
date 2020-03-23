@@ -38,6 +38,7 @@
 	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Domain\Model\FileReference;
+	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 	use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
@@ -119,6 +120,23 @@
 		}
 
 		/**
+		 * Initializes the view before invoking an action method.
+		 *
+		 * Override this method to solve assign variables common for all actions
+		 * or prepare the view in another way before the action is called.
+		 *
+		 * @param ViewInterface $view The view to be initialized
+		 */
+		public function initializeView(ViewInterface $view)
+		{
+			if (is_object($GLOBALS['TSFE']))
+			{
+				$view->assign('pageData', $GLOBALS['TSFE']->page);
+			}
+			parent::initializeView($view);
+		}
+
+		/**
 		 * initialize create action
 		 *
 		 * @param void
@@ -188,13 +206,9 @@
 		 * @param string $lastName
 		 * @param string $salutation
 		 */
-		public function successAction(string $firstName, string $lastName, string $salutation)
+		public function successAction(string $firstName, string $lastName, string $salutation, int $postingUid = -1)
 		{
-			/*
-			$lastName = $this->request->hasArgument("lastName") ? $this->request->getArgument("lastName") : "";
-			$firstName = $this->request->hasArgument("firstName") ? $this->request->getArgument("firstName") : "";
-			$salutation = $this->request->hasArgument("salutation") ? $this->request->getArgument("salutation") : "";
-			*/
+			$salutationValue = $salutation;
 
 			if ($salutation == "div" || $salutation == "")
 			{
@@ -205,14 +219,12 @@
 				$salutation = LocalizationUtility::translate("fe.application.selector.".$salutation, "jobapplications");
 			}
 
-			$text = $this->settings["successMessage"];
-			$text = str_replace("%lastName%", $lastName, $text);
-			$text = str_replace("%firstName%", $firstName, $text);
-			$text = str_replace("%salutation%", $salutation, $text);
+			$posting = $this->postingRepository->findByUid($postingUid);
 
 			$this->view->assign("firstName", $firstName);
 			$this->view->assign("lastName", $lastName);
 			$this->view->assign("salutation", $salutation);
+			$posting ? $this->view->assign("salutationValue", $posting) : false;
 		}
 
 		/**
@@ -235,9 +247,18 @@
 				"application/pdf"
 			];
 
-			// count multi file upload field
-			$amountOfFiles = count($_FILES['tx_jobapplications_applicationform']['name']['upload']);
+			$multiFileUpload = $_FILES['tx_jobapplications_applicationform']['name']['upload'];
 
+			if (is_array($multiFileUpload))
+			{
+				$amountOfFiles = count($multiFileUpload);
+			}
+			else
+			{
+				$amountOfFiles = 0;
+			}
+
+			// Single file upload fields
 			if ($amountOfFiles === 0)
 			{
 				//Uploads in order as defined in Domain Model
@@ -542,7 +563,8 @@
 			$this->redirect("success", null, null, [
 				"firstName" => $newApplication->getFirstName(),
 				"lastName" => $newApplication->getLastName(),
-				"salutation" => $newApplication->getSalutation()
+				"salutation" => $newApplication->getSalutation(),
+				"postingUid" => $currentPosting->getUid()
 			], $this->settings["successPage"]);
 		}
 

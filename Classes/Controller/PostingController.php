@@ -7,6 +7,7 @@
 	use TYPO3\CMS\Core\Page\PageRenderer;
 	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
+	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 	use TYPO3\CMS\Core\MetaTag\MetaTagManagerRegistry;
 	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
@@ -80,6 +81,23 @@
 					$this->request->setArgument("posting", $_REQUEST["tx_jobapplications_applicationform"]["posting"]);
 				}
 			}
+		}
+
+		/**
+		 * Initializes the view before invoking an action method.
+		 *
+		 * Override this method to solve assign variables common for all actions
+		 * or prepare the view in another way before the action is called.
+		 *
+		 * @param ViewInterface $view The view to be initialized
+		 */
+		public function initializeView(ViewInterface $view)
+		{
+			if (is_object($GLOBALS['TSFE']))
+			{
+				$view->assign('pageData', $GLOBALS['TSFE']->page);
+			}
+			parent::initializeView($view);
 		}
 
 		/**
@@ -274,7 +292,7 @@
 					];
 				}
 
-				/** @deprecated  */
+				/** @deprecated */
 				if ($posting->getValidThrough() instanceof \DateTime)
 				{
 					$googleJobsJSON["validThrough"] = $posting->getValidThrough()->format("c");

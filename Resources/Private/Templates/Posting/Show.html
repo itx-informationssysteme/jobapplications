@@ -22,6 +22,7 @@
 				<div class="col-4"></div>
 				<f:if condition="{settings.applicationsEnabled}">
 					<div class="col-4 text-center">
+						<f:comment><!--Button for going to the application form--></f:comment>
 						<f:link.action class="btn btn-primary m-auto" controller="Application" action="new" arguments="{posting: posting}" pageUid="{settings.applicationFormUid}" pluginName="ApplicationForm">
 							<f:translate key="fe.posting.button.cta"/>
 						</f:link.action>
