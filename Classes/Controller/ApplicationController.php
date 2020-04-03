@@ -29,7 +29,6 @@
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Model\Status;
 	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
-	use ScssPhp\ScssPhp\Formatter\Debug;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
@@ -224,7 +223,8 @@
 			$this->view->assign("firstName", $firstName);
 			$this->view->assign("lastName", $lastName);
 			$this->view->assign("salutation", $salutation);
-			$posting ? $this->view->assign("salutationValue", $posting) : false;
+			$this->view->assign("posting", $posting);
+			$posting ? $this->view->assign("salutationValue", $salutationValue) : false;
 		}
 
 		/**
@@ -248,6 +248,7 @@
 			];
 
 			$multiFileUpload = $_FILES['tx_jobapplications_applicationform']['name']['upload'];
+			$multiUploadFiles = [];
 
 			if (is_array($multiFileUpload))
 			{
@@ -411,6 +412,7 @@
 				for ($i = 0; $i < $amountOfFiles; $i++)
 				{
 					$movedNewFile = $this->handleFileUploadMutliple($i, $newApplication);
+					$multiUploadFiles[] = $movedNewFile;
 					$this->buildRelations($newApplication->getUid(), $movedNewFile->getUid(), $newApplication->getPid(), $i, $amountOfFiles);
 				}
 			}
@@ -443,8 +445,10 @@
 			$messageLabel = LocalizationUtility::translate("tx_jobapplications_domain_model_application.message", "jobapplications").": ";
 			$message = $newApplication->getMessage() ? '<br><br>'.$messageLabel.'<br>'.$newApplication->getMessage() : "";
 
+			$phoneLine = $newApplication->getPhone() !== '' ? $phoneLabel.$newApplication->getPhone().'<br>' : '';
+
 			// Send mail to Contact E-Mail or/and internal E-Mail
-			if ($this->settings["sendEmailToContact"] == "1" || $this->settings['sendEmailToInternal'] == "1")
+			if ($this->settings["sendEmailToContact"] == "1" || $this->settings['sendEmailToInternal'] !== "")
 			{
 				$mail = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Mail\MailMessage::class);
 				// Prepare and send the message
@@ -455,7 +459,7 @@
 					->setBody('<p>'.
 							  $nameLabel.$salutation.' '.$newApplication->getFirstName().' '.$newApplication->getLastName().'<br>'.
 							  $emailLabel.$newApplication->getEmail().'<br>'.
-							  $phoneLabel.$newApplication->getPhone().'<br>'.
+							  $phoneLine.
 							  $salary.
 							  $dateOfJoining.'<br>'.
 							  $addressLabel.'<br>'.$newApplication->getAddressStreetAndNumber().'<br>'
@@ -474,8 +478,7 @@
 					}
 				}
 
-				$files = $newApplication->getFiles();
-				foreach ($files as $file)
+				foreach ($multiUploadFiles as $file)
 				{
 					if ($file instanceof FileInterface)
 					{
@@ -518,7 +521,7 @@
 				$subject = str_replace("%postingTitle%", $currentPosting->getTitle(), $subject);
 
 				$body = $this->settings["sendEmailToApplicantText"];
-				switch (intval($newApplication->getSalutation()))
+				switch ((int)$newApplication->getSalutation())
 				{
 					case 3:
 					case 0:
@@ -581,7 +584,7 @@
 		private function buildRelationsLegacy($newStorageUid, array $files, array $fields, array $fieldNames, $table, $newStoragePid)
 		{
 			$database = GeneralUtility::makeInstance(ConnectionPool::class);
-			for ($i = 0; $i < count($files); $i++)
+			for ($i = 0, $iMax = count($files); $i < $iMax; $i++)
 			{
 				$database
 					->getConnectionForTable('sys_file_reference')

@@ -10,6 +10,14 @@
 
 Changelog
 =========
+0.9.5 - E-mail bugfixes
+-----------------------
+* [BUGFIX] fixed successAction, where no posting and salutationValue was mixed up
+* [BUGFIX] fixed bug where no email was sent when only the 'send to specific mail option was selected'
+* [BUGFIX] fixed bug where files where in email attachements when multifile upload was used
+* [BUGFIX] fixed bug where there was still a label eventhough there was no phone number
+* [FEATURE] included version 6 of vhs viewhelpers as dependency
+
 
 0.9.4 - More bugfixes
 ---------------------
