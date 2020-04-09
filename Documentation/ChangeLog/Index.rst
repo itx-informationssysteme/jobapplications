@@ -10,6 +10,11 @@
 
 Changelog
 =========
+0.9.6 - Bugfixes
+----------------
+* [BUGFIX] fixed bug in plugin not respecting the storage page setting
+
+
 0.9.5 - E-mail bugfixes
 -----------------------
 * [BUGFIX] fixed successAction, where no posting and salutationValue was mixed up
