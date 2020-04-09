@@ -10,16 +10,30 @@
 
 Changelog
 =========
+0.9.6 - Bugfixes
+----------------
+* [BUGFIX] fixed bug in plugin not respecting the storage page setting
 
-0.9.4 - Minor features and bugfixes
------------------------------------
+
+0.9.5 - E-mail bugfixes
+-----------------------
+* [BUGFIX] fixed successAction, where no posting and salutationValue was mixed up
+* [BUGFIX] fixed bug where no email was sent when only the 'send to specific mail option was selected'
+* [BUGFIX] fixed bug where files where in email attachements when multifile upload was used
+* [BUGFIX] fixed bug where there was still a label eventhough there was no phone number
+* [FEATURE] included version 6 of vhs viewhelpers as dependency
+
+
+0.9.4 - More bugfixes
+---------------------
 * [FEATURE] added pageData to every view
-* [FEATURE] added asterisks for required fields in default template in application form
 * [FEATURE] added some comments to templates
 * [BUGFIX] fixed bug where it was not possible to have the EarliestDateOfJoining field could not be set as optional
 * [BUGFIX] refactored successAction in ApplicationController to provide the salutation as value and to make the posting available
 * [BUGFIX] fixed status import
-
+* [BUGFIX] added asterisks for required fields in default template in application form
+* [BUGFIX] fixed bug where no https:// would be generated for google indexing url
+* [BUGFIX] fixed potential bug in detection of upload file field type
 
 0.9.3 - New Features: Multiple file upload and Google Indexing API Implementation and lots of fixes
 ---------------------------------------------------------------------------------------------------

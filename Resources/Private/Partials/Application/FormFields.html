@@ -151,19 +151,19 @@
 			</div>
 		</div>
 	</f:else>
-	<div class="form-row">
-		<small id="upload-message" class="form-text text-muted m-auto">
-			<p>
-				<f:translate key="fe.info.fileSize" arguments="{0: fileSizeLimit}"/>
-			</p>
-		</small>
-		<small id="required-message" class="form-text text-muted m-auto">
-			<p>
-				<f:translate key="fe.info.required"/>
-			</p>
-		</small>
-	</div>
 </f:if>
+<div class="form-row">
+	<small id="upload-message" class="form-text text-muted m-auto">
+		<p>
+			<f:translate key="fe.info.fileSize" arguments="{0: fileSizeLimit}"/>
+		</p>
+	</small>
+	<small id="required-message" class="form-text text-muted m-auto">
+		<p>
+			<f:translate key="fe.info.required"/>
+		</p>
+	</small>
+</div>
 <f:comment><!--Error handling for upload--></f:comment>
 <script>
 	let uploads = document.getElementsByClassName("form-control-file");

@@ -44,14 +44,15 @@
 		 */
 		public function findByCategory(array $categories)
 		{
+			$query = $this->createQuery();
+
 			$qb = parent::getQueryBuilder("tx_jobapplications_domain_model_posting");
 
 			$qb
 				->select("*")
 				->from("tx_jobapplications_domain_model_posting")
-				->join("tx_jobapplications_domain_model_posting", "sys_category_record_mm", "sys_category_record_mm", "tx_jobapplications_domain_model_posting.uid = sys_category_record_mm.uid_foreign");
-
-			$query = $this->createQuery();
+				->join("tx_jobapplications_domain_model_posting", "sys_category_record_mm", "sys_category_record_mm", "tx_jobapplications_domain_model_posting.uid = sys_category_record_mm.uid_foreign")
+				->andWhere($qb->expr()->in('pid', $query->getQuerySettings()->getStoragePageIds()));
 
 			$qb = parent::buildCategoriesToSQL($categories, $qb);
 
@@ -138,7 +139,8 @@
 				$qb
 					->select("employment_type AS employmentType")
 					->groupBy("employmentType")
-					->from("tx_jobapplications_domain_model_posting");
+					->from("tx_jobapplications_domain_model_posting")
+					->andWhere($qb->expr()->in('pid', $query->getQuerySettings()->getStoragePageIds()));
 			}
 			else
 			{
@@ -171,6 +173,8 @@
 		 */
 		public function findByFilter(string $division, string $careerLevel, string $employmentType, int $location, array $categories)
 		{
+			$query = $this->createQuery();
+
 			$qb = parent::getQueryBuilder("tx_jobapplications_domain_model_posting");
 
 			if (count($categories) > 0)
@@ -182,7 +186,7 @@
 						   "sys_category_record_mm",
 						   "tx_jobapplications_domain_model_posting.uid = sys_category_record_mm.uid_foreign")
 					->where($qb->expr()->eq("deleted", 0))
-					->andWhere($qb->expr()->eq("hidden", 0));
+					->andWhere($qb->expr()->eq("hidden", 0),$qb->expr()->in('pid', $query->getQuerySettings()->getStoragePageIds()));
 
 				$qb = parent::buildCategoriesToSQL($categories, $qb);
 
@@ -194,7 +198,7 @@
 					->select("*")
 					->from("tx_jobapplications_domain_model_posting")
 					->where($qb->expr()->eq("deleted", 0))
-					->andWhere($qb->expr()->eq("hidden", 0));
+					->andWhere($qb->expr()->eq("hidden", 0),$qb->expr()->in('pid', $query->getQuerySettings()->getStoragePageIds()));
 			}
 
 			if ($division)
@@ -213,7 +217,6 @@
 			{
 				$qb->andWhere($qb->expr()->eq("location", $location));
 			}
-			$query = $this->createQuery();
 
 			$query->statement($qb->getSQL());
 
