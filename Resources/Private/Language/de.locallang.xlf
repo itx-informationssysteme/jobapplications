@@ -355,37 +355,19 @@
                 <source>Other</source>
                 <target state="translated">Andere</target>
             </trans-unit>
-            <trans-unit id="be.widget.postings_active.title" resname="be.widget.postings_active.title">
-                <source>Open positions</source>
-                <target>Offene Stellen</target>
+            <trans-unit id="fe.success.problemApplicantMail" resname="fe.success.problemApplicantMail">
+                <source>There was a problem with the server that resulted in not being able to send out emails at the moment.
+                    That means that you're not going to receive a confirmation mail. If in doubt on how to proceed, please contact us.
+                </source>
+                <target>Es wurde ein Server Problem festgestellt, was zur Folge hat, dass Ihre Bestätigungsmail nicht versendet werden konnte.</target>
             </trans-unit>
-            <trans-unit id="be.widget.postings_active.subtitle" resname="be.widget.postings_active.subtitle">
-                <source>Currently active postings</source>
-                <target>Momentan aktive Ausschreibungen</target>
-            </trans-unit>
-            <trans-unit id="be.widget.postings_active.description" resname="be.widget.postings_active.description">
-                <source>Number of currently active job postings.</source>
-                <target>Anzahl der momentan aktiven Stellenausschreibungen</target>
-            </trans-unit>
-            <trans-unit id="be.widget.applications_per_posting.title" resname="be.widget.applications_per_posting.title">
-                <source>Number of applications per posting</source>
-                <target>Anzahl der Berwerbungen pro Ausschreibung</target>
-            </trans-unit>
-            <trans-unit id="be.widget.applications_per_posting.description" resname="be.widget.applications_per_posting.description">
-                <source>Bar chart regarding number of job applications in relation to every job posting.</source>
-                <target>Säulendiagramm, welches die Anzahl der Bewerbungen in Relation zu allen Ausschreibungen darstellt.</target>
-            </trans-unit>
-            <trans-unit id="be.widget.applications_per_posting.button" resname="be.widget.applications_per_posting.button">
-                <source>See applications</source>
-                <target>Bewerbungen anzeigen</target>
-            </trans-unit>
-            <trans-unit id="be.widget.applications_per_posting.label" resname="be.widget.applications_per_posting.label">
-                <source>Number of applications</source>
-                <target>Anzahl der Bewerbungen</target>
-            </trans-unit>
-            <trans-unit id="be.widget_group.jobapplications" resname="be.widget_group.jobapplications">
-                <source>Jobs</source>
-                <source>Stellenausschreibungen</source>
+            <trans-unit id="fe.success.problemWithNotificationMail" resname="fe.success.problemWithApplicantMail">
+                <source>Because of a server malfunction a notification e-mail for your application could not be sent to
+                    to the adressee. Please contact us, to make sure your application will be delivered successfully.
+                </source>
+                <target>Aufgrund eines Serverfehlers konnte die Benachrichtigungsemail, die den Addressaten über Ihre Bewerbung informiert nicht versendet werden.
+                    Bitte nehmen Sie Kontakt auf, um sicherzustellen, dass Ihre Bewerbung eintrifft.
+                </target>
             </trans-unit>
         </body>
     </file>

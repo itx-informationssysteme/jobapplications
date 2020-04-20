@@ -1,4 +1,5 @@
 plugin.tx_jobapplications.settings.enableGoogleJobs = {$plugin.tx_jobapplications.settings.enableGoogleJobs}
+plugin.tx_jobapplications.settings.emailContentType = {$plugin.tx_jobapplications.settings.emailContentType}
 plugin.tx_jobapplications.settings.legacy_upload = {$plugin.tx_jobapplications.settings.legacy_upload}
 plugin.tx_jobapplications.settings.defaultContactMailAddress = {$plugin.tx_jobapplications.settings.defaultContactMailAddress}
 plugin.tx_jobapplications.settings.defaultContactFirstName = {$plugin.tx_jobapplications.settings.defaultContactFirstName}

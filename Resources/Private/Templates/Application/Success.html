@@ -18,6 +18,20 @@
 			<f:variable name="msg" value="{v:format.replace(substring: '%posting%', content: '{msg}', replacement: '{f:translate(key: \'fe.application.unsolicited.title\')}')}"></f:variable>
 		</f:else>
 	</f:if>
-	<f:format.raw>{msg}</f:format.raw>
+	<f:comment><!--Error handling in case there was a problem with the email server--></f:comment>
+	<f:if condition="{problems.problemWithApplicantMail} || {problems.problemWithNotificationMail}">
+		<f:then>
+			<f:if condition="{problems.problemWithApplicantMail}">
+				<p><f:translate id="fe.success.problemApplicantMail"></f:translate></p>
+			</f:if>
+			<f:if condition="{problems.problemWithNotificationMail}">
+				<p><f:translate id="fe.success.problemWithNotificationMail"></f:translate></p>
+			</f:if>
+		</f:then>
+		<f:else>
+			<f:comment><!--Actual success message--></f:comment>
+			<f:format.raw>{msg}</f:format.raw>
+		</f:else>
+	</f:if>
 </f:section>
 </html>

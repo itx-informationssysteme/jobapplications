@@ -1,272 +1,282 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="EXT:jobapplications/Resources/Private/Language/locallang" date="2019-10-21T16:03:17Z" product-name="jobapplications">
-		<header/>
-		<body>
-			<trans-unit id="date_format" resname="date_format">
-				<source>m-d-Y</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_posting" resname="tx_jobapplications_domain_model_posting">
-				<source>Posting</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_posting.title" resname="tx_jobapplications_domain_model_posting.title">
-				<source>Title</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_posting.date_posted" resname="tx_jobapplications_domain_model_posting.date_posted">
-				<source>Date Posted</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_posting.career_level" resname="tx_jobapplications_domain_model_posting.career_level">
-				<source>Career Level</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_posting.division" resname="tx_jobapplications_domain_model_posting.division">
-				<source>Division</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_posting.employment_type" resname="tx_jobapplications_domain_model_posting.employment_type">
-				<source>Employment Type</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_posting.terms_of_employment" resname="tx_jobapplications_domain_model_posting.terms_of_employment">
-				<source>Terms Of Employment</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_posting.company_description" resname="tx_jobapplications_domain_model_posting.company_description">
-				<source>Company Description</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_posting.job_description" resname="tx_jobapplications_domain_model_posting.job_description">
-				<source>Job Description</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_posting.role_description" resname="tx_jobapplications_domain_model_posting.role_description">
-				<source>Role Description</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_posting.skill_requirements" resname="tx_jobapplications_domain_model_posting.skill_requirements">
-				<source>Skill Requirements</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_posting.benefits" resname="tx_jobapplications_domain_model_posting.benefits">
-				<source>Benefits</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_posting.base_salary" resname="tx_jobapplications_domain_model_posting.base_salary">
-				<source>Base Salary</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_posting.valid_through" resname="tx_jobapplications_domain_model_posting.valid_through">
-				<source>Valid Through</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_posting.required_documents" resname="tx_jobapplications_domain_model_posting.required_documents">
-				<source>Required Documents</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_posting.company_information" resname="tx_jobapplications_domain_model_posting.company_information">
-				<source>Company Information</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_posting.detail_view_image" resname="tx_jobapplications_domain_model_posting.detail_view_image">
-				<source>Detail View Image</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_posting.list_view_image" resname="tx_jobapplications_domain_model_posting.list_view_image">
-				<source>List View Image</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_posting.location" resname="tx_jobapplications_domain_model_posting.location">
-				<source>Location</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_posting.contact" resname="tx_jobapplications_domain_model_posting.contact">
-				<source>Contact</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_contact" resname="tx_jobapplications_domain_model_contact">
-				<source>Contact</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_contact.email" resname="tx_jobapplications_domain_model_contact.email">
-				<source>Email</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_contact.phone" resname="tx_jobapplications_domain_model_contact.phone">
-				<source>Phone</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_contact.division" resname="tx_jobapplications_domain_model_contact.division">
-				<source>Division</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_location" resname="tx_jobapplications_domain_model_location">
-				<source>Location</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_location.name" resname="tx_jobapplications_domain_model_location.name">
-				<source>Name</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_location.address" resname="tx_jobapplications_domain_model_location.address">
-				<source>Address</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_location.latitude" resname="tx_jobapplications_domain_model_location.latitude">
-				<source>Latitude</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_location.londitude" resname="tx_jobapplications_domain_model_location.londitude">
-				<source>Londitude</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_application" resname="tx_jobapplications_domain_model_application">
-				<source>Application</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_application.salutation" resname="tx_jobapplications_domain_model_application.salutation">
-				<source>Salutation</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_application.first_name" resname="tx_jobapplications_domain_model_application.first_name">
-				<source>First Name</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_application.last_name" resname="tx_jobapplications_domain_model_application.last_name">
-				<source>Last Name</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_application.email" resname="tx_jobapplications_domain_model_application.email">
-				<source>E-Mail</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_application.phone" resname="tx_jobapplications_domain_model_application.phone">
-				<source>Phone</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_application.status" resname="tx_jobapplications_domain_model_application.status">
-				<source>Status</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_application.address_street_and_number" resname="tx_jobapplications_domain_model_application.address_street_and_number">
-				<source>Streetname and House Number</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_application.address_addition" resname="tx_jobapplications_domain_model_application.address_addition">
-				<source>Address Additions</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_application.address_post_code" resname="tx_jobapplications_domain_model_application.address_post_code">
-				<source>Post Code</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_application.address_city" resname="tx_jobapplications_domain_model_application.address_city">
-				<source>City</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_application.address_country" resname="tx_jobapplications_domain_model_application.address_country">
-				<source>Country</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_application.salary_expectation" resname="tx_jobapplications_domain_model_application.salary_expectation">
-				<source>Salary Expectation</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_application.earliest_date_of_joining" resname="tx_jobapplications_domain_model_application.earliest_date_of_joining">
-				<source>Earliest Date Of Joining</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_application.cv" resname="tx_jobapplications_domain_model_application.cv">
-				<source>CV</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_application.cover_letter" resname="tx_jobapplications_domain_model_application.cover_letter">
-				<source>Cover Letter</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_application.testimonials" resname="tx_jobapplications_domain_model_application.testimonials">
-				<source>Testimonials</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_application.other_files" resname="tx_jobapplications_domain_model_application.other_files">
-				<source>Other Files</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_application.privacy_agreement" resname="tx_jobapplications_domain_model_application.privacy_agreement">
-				<source>Privacy Agreement</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_application.message" resname="tx_jobapplications_domain_model_application.message">
-				<source>Message</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_application.files_upload" resname="tx_jobapplications_domain_model_application.files_upload">
-				<source>Upload files</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_domain_model_application.posting" resname="tx_jobapplications_domain_model_application.posting">
-				<source>Posting</source>
-			</trans-unit>
-			<trans-unit id="fe.posting.page.title" resname="fe.posting.page.title">
+    <file source-language="en" datatype="plaintext" original="EXT:jobapplications/Resources/Private/Language/locallang" date="2019-10-21T16:03:17Z" product-name="jobapplications">
+        <header/>
+        <body>
+            <trans-unit id="date_format" resname="date_format">
+                <source>m-d-Y</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting" resname="tx_jobapplications_domain_model_posting">
+                <source>Posting</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.title" resname="tx_jobapplications_domain_model_posting.title">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.date_posted" resname="tx_jobapplications_domain_model_posting.date_posted">
+                <source>Date Posted</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.career_level" resname="tx_jobapplications_domain_model_posting.career_level">
+                <source>Career Level</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.division" resname="tx_jobapplications_domain_model_posting.division">
+                <source>Division</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.employment_type" resname="tx_jobapplications_domain_model_posting.employment_type">
+                <source>Employment Type</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.terms_of_employment" resname="tx_jobapplications_domain_model_posting.terms_of_employment">
+                <source>Terms Of Employment</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.company_description" resname="tx_jobapplications_domain_model_posting.company_description">
+                <source>Company Description</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.job_description" resname="tx_jobapplications_domain_model_posting.job_description">
+                <source>Job Description</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.role_description" resname="tx_jobapplications_domain_model_posting.role_description">
+                <source>Role Description</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.skill_requirements" resname="tx_jobapplications_domain_model_posting.skill_requirements">
+                <source>Skill Requirements</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.benefits" resname="tx_jobapplications_domain_model_posting.benefits">
+                <source>Benefits</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.base_salary" resname="tx_jobapplications_domain_model_posting.base_salary">
+                <source>Base Salary</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.valid_through" resname="tx_jobapplications_domain_model_posting.valid_through">
+                <source>Valid Through</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.required_documents" resname="tx_jobapplications_domain_model_posting.required_documents">
+                <source>Required Documents</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.company_information" resname="tx_jobapplications_domain_model_posting.company_information">
+                <source>Company Information</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.detail_view_image" resname="tx_jobapplications_domain_model_posting.detail_view_image">
+                <source>Detail View Image</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.list_view_image" resname="tx_jobapplications_domain_model_posting.list_view_image">
+                <source>List View Image</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.location" resname="tx_jobapplications_domain_model_posting.location">
+                <source>Location</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.contact" resname="tx_jobapplications_domain_model_posting.contact">
+                <source>Contact</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_contact" resname="tx_jobapplications_domain_model_contact">
+                <source>Contact</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_contact.email" resname="tx_jobapplications_domain_model_contact.email">
+                <source>Email</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_contact.phone" resname="tx_jobapplications_domain_model_contact.phone">
+                <source>Phone</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_contact.division" resname="tx_jobapplications_domain_model_contact.division">
+                <source>Division</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_location" resname="tx_jobapplications_domain_model_location">
+                <source>Location</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_location.name" resname="tx_jobapplications_domain_model_location.name">
+                <source>Name</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_location.address" resname="tx_jobapplications_domain_model_location.address">
+                <source>Address</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_location.latitude" resname="tx_jobapplications_domain_model_location.latitude">
+                <source>Latitude</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_location.londitude" resname="tx_jobapplications_domain_model_location.londitude">
+                <source>Londitude</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_application" resname="tx_jobapplications_domain_model_application">
+                <source>Application</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_application.salutation" resname="tx_jobapplications_domain_model_application.salutation">
+                <source>Salutation</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_application.first_name" resname="tx_jobapplications_domain_model_application.first_name">
+                <source>First Name</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_application.last_name" resname="tx_jobapplications_domain_model_application.last_name">
+                <source>Last Name</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_application.email" resname="tx_jobapplications_domain_model_application.email">
+                <source>E-Mail</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_application.phone" resname="tx_jobapplications_domain_model_application.phone">
+                <source>Phone</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_application.status" resname="tx_jobapplications_domain_model_application.status">
+                <source>Status</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_application.address_street_and_number" resname="tx_jobapplications_domain_model_application.address_street_and_number">
+                <source>Streetname and House Number</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_application.address_addition" resname="tx_jobapplications_domain_model_application.address_addition">
+                <source>Address Additions</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_application.address_post_code" resname="tx_jobapplications_domain_model_application.address_post_code">
+                <source>Post Code</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_application.address_city" resname="tx_jobapplications_domain_model_application.address_city">
+                <source>City</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_application.address_country" resname="tx_jobapplications_domain_model_application.address_country">
+                <source>Country</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_application.salary_expectation" resname="tx_jobapplications_domain_model_application.salary_expectation">
+                <source>Salary Expectation</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_application.earliest_date_of_joining" resname="tx_jobapplications_domain_model_application.earliest_date_of_joining">
+                <source>Earliest Date Of Joining</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_application.cv" resname="tx_jobapplications_domain_model_application.cv">
+                <source>CV</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_application.cover_letter" resname="tx_jobapplications_domain_model_application.cover_letter">
+                <source>Cover Letter</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_application.testimonials" resname="tx_jobapplications_domain_model_application.testimonials">
+                <source>Testimonials</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_application.other_files" resname="tx_jobapplications_domain_model_application.other_files">
+                <source>Other Files</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_application.privacy_agreement" resname="tx_jobapplications_domain_model_application.privacy_agreement">
+                <source>Privacy Agreement</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_application.message" resname="tx_jobapplications_domain_model_application.message">
+                <source>Message</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_application.files_upload" resname="tx_jobapplications_domain_model_application.files_upload">
+                <source>Upload files</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_application.posting" resname="tx_jobapplications_domain_model_application.posting">
+                <source>Posting</source>
+            </trans-unit>
+            <trans-unit id="fe.posting.page.title" resname="fe.posting.page.title">
                 <source>Open Positions</source>
             </trans-unit>
-			<trans-unit id="fe.posting.page.noPositions" resname="fe.posting.page.noPositions">
-				<source>There are no open positions at the moment.</source>
-			</trans-unit>
-			<trans-unit id="fe.posting.filter.noPositions" resname="fe.posting.filter.noPositions">
-				<source>There are no open positions matching your selection at the moment.</source>
-			</trans-unit>
+            <trans-unit id="fe.posting.page.noPositions" resname="fe.posting.page.noPositions">
+                <source>There are no open positions at the moment.</source>
+            </trans-unit>
+            <trans-unit id="fe.posting.filter.noPositions" resname="fe.posting.filter.noPositions">
+                <source>There are no open positions matching your selection at the moment.</source>
+            </trans-unit>
             <trans-unit id="fe.posting.button.detailview" resname="fe.posting.button.detailview">
                 <source>Details</source>
             </trans-unit>
-			<trans-unit id="fe.posting.button.cta" resname="fe.posting.button.cta">
-				<source>Apply now</source>
-			</trans-unit>
-			<trans-unit id="fe.application.selector.chooseMessage" resname="fe.application.selector.chooseMessage">
-				<source>-Choose-</source>
-			</trans-unit>
-			<trans-unit id="fe.application.selector.mr" resname="fe.application.selector.mr">
-				<source>Mr.</source>
-			</trans-unit>
-			<trans-unit id="fe.application.selector.mrs" resname="fe.application.selector.mrs">
-				<source>Mrs.</source>
-			</trans-unit>
-			<trans-unit id="fe.application.selector.div" resname="fe.application.selector.div">
-				<source>Divers</source>
-			</trans-unit>
-			<trans-unit id="fe.posting.show.backlink" resname="fe.posting.show.backlink">
-				<source>Back to list</source>
-			</trans-unit>
-			<trans-unit id="fe.application.backlink" resname="fe.application.backlink">
-				<source>Back to post</source>
-			</trans-unit>
-			<trans-unit id="fe.application.new.title" resname="fe.application.new.title">
-				<source>Apply as %s</source>
-			</trans-unit>
-			<trans-unit id="fe.application.unsolicited.title" resname="fe.application.unsolicited.title" approved="yes">
-				<source>Unsolicited application</source>
-			</trans-unit>
-			<trans-unit id="fe.application.privacy_agreement" resname="fe.application.privacy_agreement">
-				<source>I accept the </source>
-			</trans-unit>
-			<trans-unit id="fe.application.new.submit" resname="fe.application.new.submit">
-				<source>Send Application</source>
-			</trans-unit>
-			<trans-unit id="fe.error.fileType" resname="fe.error.fileType">
-				<source>Please check the filetype of the uploaded files. Only .pdf is allowed.</source>
-			</trans-unit>
-			<trans-unit id="fe.error.fileSize" resname="fe.error.fileSize">
-				<source>File Error: One of your uploaded Files probably exceeded the filesize limit of %sMB</source>
-			</trans-unit>
-			<trans-unit id="fe.info.fileSize" resname="fe.info.fileSize">
-				<source>The maximum upload filesize is %sMB and only pdf-files are allowed.</source>
-			</trans-unit>
-			<trans-unit id="fe.info.required" resname="fe.info.required">
-				<source>Fields marked with * are required.</source>
-			</trans-unit>
-			<trans-unit id="fe.email.toContactSubject" resname="fe.email.toContactSubject">
-				<source>New application for position %s</source>
-			</trans-unit>
-			<trans-unit id="fe.filter.divisions" resname="fe.filter.divisions">
-				<source>Division</source>
-			</trans-unit>
-			<trans-unit id="fe.filter.careerLevel" resname="fe.filter.careerLevel">
-				<source>Career Level</source>
-			</trans-unit>
-			<trans-unit id="fe.filter.employmentType" resname="fe.filter.employmentType">
-				<source>Employment Type</source>
-			</trans-unit>
-			<trans-unit id="fe.filter.location" resname="fe.filter.location">
-				<source>Location</source>
-			</trans-unit>
-			<trans-unit id="fe.posting.button.filter" resname="fe.posting.button.filter">
-				<source>Filter</source>
-			</trans-unit>
-			<trans-unit id="fe.posting.button.reset" resname="fe.posting.button.reset">
-				<source>Reset</source>
-			</trans-unit>
-			<trans-unit id="fe.posting.filter.chooseMessage" resname="fe.posting.filter.chooseMessage">
-				<source>All</source>
-			</trans-unit>
-			<trans-unit id="fe.posting.employment.selector.chooseMessage" resname="fe.posting.employment.selector.chooseMessage">
-				<source>Choose Type</source>
-			</trans-unit>
-			<trans-unit id="fe.posting.employment.selector.fulltime" resname="fe.posting.employment.selector.fulltime">
-				<source>Full-Time</source>
-			</trans-unit>
-			<trans-unit id="fe.posting.employment.selector.parttime" resname="fe.posting.employment.selector.parttime">
-				<source>Part-Time</source>
-			</trans-unit>
-			<trans-unit id="fe.posting.employment.selector.contractor" resname="fe.posting.employment.selector.contractor">
-				<source>Contractor</source>
-			</trans-unit>
-			<trans-unit id="fe.posting.employment.selector.intern" resname="fe.posting.employment.selector.intern">
-				<source>Intern</source>
-			</trans-unit>
-			<trans-unit id="fe.posting.employment.selector.temporary" resname="fe.posting.employment.selector.temporary">
-				<source>Temporary</source>
-			</trans-unit>
-			<trans-unit id="fe.posting.employment.selector.volunteer" resname="fe.posting.employment.selector.volunteer">
-				<source>Volunteer</source>
-			</trans-unit>
-			<trans-unit id="fe.posting.employment.selector.perdiem" resname="fe.posting.employment.selector.perdiem">
-				<source>Per-Diem</source>
-			</trans-unit>
-			<trans-unit id="fe.posting.employment.selector.other" resname="fe.posting.employment.selector.other">
-				<source>Other</source>
-			</trans-unit>
-		</body>
-	</file>
+            <trans-unit id="fe.posting.button.cta" resname="fe.posting.button.cta">
+                <source>Apply now</source>
+            </trans-unit>
+            <trans-unit id="fe.application.selector.chooseMessage" resname="fe.application.selector.chooseMessage">
+                <source>-Choose-</source>
+            </trans-unit>
+            <trans-unit id="fe.application.selector.mr" resname="fe.application.selector.mr">
+                <source>Mr.</source>
+            </trans-unit>
+            <trans-unit id="fe.application.selector.mrs" resname="fe.application.selector.mrs">
+                <source>Mrs.</source>
+            </trans-unit>
+            <trans-unit id="fe.application.selector.div" resname="fe.application.selector.div">
+                <source>Divers</source>
+            </trans-unit>
+            <trans-unit id="fe.posting.show.backlink" resname="fe.posting.show.backlink">
+                <source>Back to list</source>
+            </trans-unit>
+            <trans-unit id="fe.application.backlink" resname="fe.application.backlink">
+                <source>Back to post</source>
+            </trans-unit>
+            <trans-unit id="fe.application.new.title" resname="fe.application.new.title">
+                <source>Apply as %s</source>
+            </trans-unit>
+            <trans-unit id="fe.application.unsolicited.title" resname="fe.application.unsolicited.title" approved="yes">
+                <source>Unsolicited application</source>
+            </trans-unit>
+            <trans-unit id="fe.application.privacy_agreement" resname="fe.application.privacy_agreement">
+                <source>I accept the</source>
+            </trans-unit>
+            <trans-unit id="fe.application.new.submit" resname="fe.application.new.submit">
+                <source>Send Application</source>
+            </trans-unit>
+            <trans-unit id="fe.error.fileType" resname="fe.error.fileType">
+                <source>Please check the filetype of the uploaded files. Only .pdf is allowed.</source>
+            </trans-unit>
+            <trans-unit id="fe.error.fileSize" resname="fe.error.fileSize">
+                <source>File Error: One of your uploaded Files probably exceeded the filesize limit of %sMB</source>
+            </trans-unit>
+            <trans-unit id="fe.info.fileSize" resname="fe.info.fileSize">
+                <source>The maximum upload filesize is %sMB and only pdf-files are allowed.</source>
+            </trans-unit>
+            <trans-unit id="fe.info.required" resname="fe.info.required">
+                <source>Fields marked with * are required.</source>
+            </trans-unit>
+            <trans-unit id="fe.email.toContactSubject" resname="fe.email.toContactSubject">
+                <source>New application for position %s</source>
+            </trans-unit>
+            <trans-unit id="fe.filter.divisions" resname="fe.filter.divisions">
+                <source>Division</source>
+            </trans-unit>
+            <trans-unit id="fe.filter.careerLevel" resname="fe.filter.careerLevel">
+                <source>Career Level</source>
+            </trans-unit>
+            <trans-unit id="fe.filter.employmentType" resname="fe.filter.employmentType">
+                <source>Employment Type</source>
+            </trans-unit>
+            <trans-unit id="fe.filter.location" resname="fe.filter.location">
+                <source>Location</source>
+            </trans-unit>
+            <trans-unit id="fe.posting.button.filter" resname="fe.posting.button.filter">
+                <source>Filter</source>
+            </trans-unit>
+            <trans-unit id="fe.posting.button.reset" resname="fe.posting.button.reset">
+                <source>Reset</source>
+            </trans-unit>
+            <trans-unit id="fe.posting.filter.chooseMessage" resname="fe.posting.filter.chooseMessage">
+                <source>All</source>
+            </trans-unit>
+            <trans-unit id="fe.posting.employment.selector.chooseMessage" resname="fe.posting.employment.selector.chooseMessage">
+                <source>Choose Type</source>
+            </trans-unit>
+            <trans-unit id="fe.posting.employment.selector.fulltime" resname="fe.posting.employment.selector.fulltime">
+                <source>Full-Time</source>
+            </trans-unit>
+            <trans-unit id="fe.posting.employment.selector.parttime" resname="fe.posting.employment.selector.parttime">
+                <source>Part-Time</source>
+            </trans-unit>
+            <trans-unit id="fe.posting.employment.selector.contractor" resname="fe.posting.employment.selector.contractor">
+                <source>Contractor</source>
+            </trans-unit>
+            <trans-unit id="fe.posting.employment.selector.intern" resname="fe.posting.employment.selector.intern">
+                <source>Intern</source>
+            </trans-unit>
+            <trans-unit id="fe.posting.employment.selector.temporary" resname="fe.posting.employment.selector.temporary">
+                <source>Temporary</source>
+            </trans-unit>
+            <trans-unit id="fe.posting.employment.selector.volunteer" resname="fe.posting.employment.selector.volunteer">
+                <source>Volunteer</source>
+            </trans-unit>
+            <trans-unit id="fe.posting.employment.selector.perdiem" resname="fe.posting.employment.selector.perdiem">
+                <source>Per-Diem</source>
+            </trans-unit>
+            <trans-unit id="fe.posting.employment.selector.other" resname="fe.posting.employment.selector.other">
+                <source>Other</source>
+            </trans-unit>
+            <trans-unit id="fe.success.problemApplicantMail" resname="fe.success.problemApplicantMail">
+                <source>There was a problem with the server that resulted in not being able to send out emails at the moment.
+                    That means that you're not going to receive a confirmation mail. If in doubt on how to proceed, please contact us.
+                </source>
+            </trans-unit>
+            <trans-unit id="fe.success.problemWithNotificationMail" resname="fe.success.problemWithApplicantMail">
+                <source>Because of a server malfunction a notification e-mail for your application could not be sent to
+                    to the adressee. Please contact us, to make sure your application will be delivered successfully.
+                </source>
+            </trans-unit>
+        </body>
+    </file>
 </xliff>
