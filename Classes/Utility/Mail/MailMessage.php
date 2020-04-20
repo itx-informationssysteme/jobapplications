@@ -39,7 +39,47 @@
 		 */
 		public function setRecipient(array $addresses, string $name = ''): MailInterface
 		{
-			return $this->to($addresses,$name);
+			return $this->to($addresses, $name);
+		}
+
+		/**
+		 * Set the to addresses of this message.
+		 *
+		 * If multiple recipients will receive the message an array should be used.
+		 * Example: array('receiver@domain.org', 'other@domain.org' => 'A name')
+		 *
+		 * If $name is passed and the first parameter is a string, this name will be
+		 * associated with the address.
+		 *
+		 * @param string|array $addresses
+		 * @param string       $name optional
+		 *
+		 * @return \TYPO3\CMS\Core\Mail\MailMessage
+		 */
+		public function setTo($addresses, $name = ''): MailInterface
+		{
+			parent::setTo($addresses, $name);
+
+			return $this;
+		}
+
+		/**
+		 * Set the from address of this message.
+		 *
+		 * You may pass an array of addresses if this message is from multiple people.
+		 *
+		 * If $name is passed and the first parameter is a string, this name will be
+		 * associated with the address.
+		 *
+		 * @param string|array $addresses
+		 * @param string $name optional
+		 * @return \TYPO3\CMS\Core\Mail\MailMessage
+		 */
+		public function setFrom($addresses, $name = ''): MailInterface
+		{
+			parent::setFrom($addresses, $name);
+
+			return $this;
 		}
 
 		/**
@@ -47,7 +87,9 @@
 		 */
 		public function setBlindcopies(array $addresses): MailInterface
 		{
-			return $this->bcc($addresses);
+			$this->setBcc($addresses);
+
+			return $this;
 		}
 
 		/**
@@ -55,29 +97,19 @@
 		 */
 		public function setReply(array $addresses): MailInterface
 		{
-			return $this->replyTo($addresses);
+			$this->setReplyTo($addresses);
+
+			return $this;
 		}
 
 		/**
 		 * @inheritDoc
 		 *
-		 * Objects are ignored
+		 * Objects and Content Type are ignored
 		 */
 		public function setContent(string $content, $objects = []): MailInterface
 		{
-			switch ($this->contentType)
-			{
-				case self::CONTENT_TYPE_HTML:
-					$this->html($content);
-					break;
-				case self::CONTENT_TYPE_TEXT:
-					$this->text(strip_tags($content));
-					break;
-				default:
-					$this->html($content);
-					$this->text(strip_tags($content));
-					break;
-			}
+			$this->setBody($content, 'text/html');
 			return $this;
 		}
 
@@ -92,10 +124,31 @@
 		/**
 		 * @inheritDoc
 		 */
-		public function setContentType(string $contentType): MailInterface
+		public function setContentType($contentType): MailInterface
 		{
 			$this->contentType = $contentType;
 
 			return $this;
+		}
+
+		/**
+		 * Set the subject of this message.
+		 *
+		 * @param string $subject
+		 *
+		 * @return $this
+		 */
+		public function setSubject($subject): MailInterface
+		{
+			parent::setSubject($subject);
+
+			return $this;
+		}
+
+		public function send(): bool
+		{
+			$result = parent::send();
+
+			return $result !== 0;
 		}
 	}

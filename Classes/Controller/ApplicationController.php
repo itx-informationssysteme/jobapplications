@@ -152,10 +152,17 @@
 		{
 			$this->fileSizeLimit = GeneralUtility::getMaxUploadFileSize();
 
-			/** @var Typo3Version $version */
-			$version = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class);
+			if (constant('TYPO3_version'))
+			{
+				$this->version = (int)(constant('TYPO3_version'));
+			}
+			else
+			{
+				/** @var Typo3Version $version */
+				$version = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class);
 
-			$this->version = $version->getMajorVersion();
+				$this->version = $version->getMajorVersion();
+			}
 		}
 
 		/**
@@ -216,8 +223,8 @@
 		 * @param string $firstName
 		 * @param string $lastName
 		 * @param string $salutation
-		 * @param int $postingUid
-		 * @param bool[] $problems
+		 * @param int    $postingUid
+		 * @param array  $problems
 		 */
 		public function successAction($firstName, $lastName, $salutation, $postingUid, $problems)
 		{
