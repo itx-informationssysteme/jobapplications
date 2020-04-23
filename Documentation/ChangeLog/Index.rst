@@ -21,6 +21,7 @@ If you do however find a problem, please report it to us by creating a GitHub is
 * [FEATURE] v10 only: added 2 job/application related dashboard widgets
 * [FEATURE] added information on success page in case email sending fails
 * [FEATURE] upgraded to new backend module viewhelpers
+* [BUGFIX] fixed bug in contact display plugin, selection would not respect the current language
 * [BUGFIX] fixed bug in plugin not respecting the storage page setting
 
 

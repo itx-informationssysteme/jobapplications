@@ -20,6 +20,7 @@
                                 <minItems>1</minItems>
                                 <maxItems>999</maxItems>
                                 <foreign_table_where>
+                                    AND (tx_jobapplications_domain_model_contact.sys_language_uid=CAST('###REC_FIELD_sys_language_uid###' AS UNSIGNED) OR tx_jobapplications_domain_model_contact.sys_language_uid = '-1')
                                     AND tx_jobapplications_domain_model_contact.hidden = 0
                                     AND tx_jobapplications_domain_model_contact.deleted = 0
                                 </foreign_table_where>
