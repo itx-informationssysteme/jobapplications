@@ -13,17 +13,18 @@ Changelog
 
 0.9.6 - v10 Update
 ------------------
-This update adds support for TYPO3 v10 while staying backwards compatible with v9
+This update adds support for TYPO3 v10.4 while staying backwards compatible with v9
 (apart from v10 only features, which are marked as such). We made sure everything works as expected.
 If you do however find a problem, please report it to us by creating a GitHub issue.
 
 * [FEATURE] v10 only: added support for fluid email rendering
 * [FEATURE] v10 only: added 2 job/application related dashboard widgets
 * [FEATURE] template constant for switching email content type
-* [FEATURE] added information on success page in case email sending fails
+* [FEATURE] added information on success page in case email sending fails (see default template for examples)
 * [FEATURE] upgraded to new backend module viewhelpers
 * [BUGFIX] fixed bug in contact display plugin, selection would not respect the current language
 * [BUGFIX] fixed bug in plugin not respecting the storage page setting
+* [BUGFIX] fixed mails in v9 not sent with html headers
 
 
 0.9.5 - E-mail bugfixes
