@@ -472,7 +472,7 @@
 			$phoneLine = $newApplication->getPhone() !== '' ? $phoneLabel.$newApplication->getPhone().'<br>' : '';
 
 			// Send mail to Contact E-Mail or/and internal E-Mail
-			if ($this->settings["sendEmailToContact"] == "1" || $this->settings['sendEmailToInternal'] !== "")
+			if ($this->settings["sendEmailToContact"] === "1" || $this->settings['sendEmailToInternal'] !== "")
 			{
 				/** @var \ITX\Jobapplications\Utility\Mail\MailInterface $mail */
 				if ($this->version >= 10)
@@ -552,7 +552,7 @@
 			}
 
 			// Now send a mail to the applicant
-			if ($this->settings["sendEmailToApplicant"] == "1")
+			if ($this->settings["sendEmailToApplicant"] === "1")
 			{
 				/** @var MailInterface $mail */
 				if ($this->version >= 10)

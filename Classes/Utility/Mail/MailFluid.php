@@ -29,6 +29,7 @@
 	use Symfony\Component\Mime\Address;
 	use Symfony\Component\Mime\Header\Headers;
 	use Symfony\Component\Mime\Part\AbstractPart;
+	use TYPO3\CMS\Core\Http\NormalizedParams;
 	use TYPO3\CMS\Core\Mail\FluidEmail;
 	use TYPO3\CMS\Core\Mail\Mailer;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -47,6 +48,7 @@
 		public function __construct(TemplatePaths $templatePaths = null, Headers $headers = null, AbstractPart $body = null)
 		{
 			parent::__construct($templatePaths, $headers, $body);
+			$this->view->assign('normalizedParams', NormalizedParams::createFromServerParams($_SERVER));
 			$this->format(self::FORMAT_BOTH);
 		}
 

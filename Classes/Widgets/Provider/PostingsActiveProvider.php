@@ -22,31 +22,18 @@
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
 
-	namespace ITX\Jobapplications\Widgets;
+	namespace ITX\Jobapplications\Widgets\Provider;
+
+	use TYPO3\CMS\Dashboard\Widgets\NumberWithIconDataProviderInterface;
 
 	/**
 	 * Class PostingsActive
 	 *
 	 * @package ITX\Jobapplications\Widgets
 	 */
-	class PostingsActive extends \TYPO3\CMS\Dashboard\Widgets\AbstractNumberWithIconWidget
+	class PostingsActiveProvider implements NumberWithIconDataProviderInterface
 	{
-		/** @var string */
-		protected $title = 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.widget.postings_active.title';
-
-		/** @var int */
-		protected $number = 0;
-
-		/** @var string */
-		protected $subtitle = 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.widget.postings_active.subtitle';
-
-		/** @var string  */
-		protected $description = 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.widget.postings_active.description';
-
-		/** @var string */
-		protected $icon = 'content-carousel-item-calltoaction';
-
-		protected function initializeView(): void
+		public function getNumber(): int
 		{
 			/** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectmanager */
 			$objectmanager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class);
@@ -54,9 +41,6 @@
 			/** @var \ITX\Jobapplications\Domain\Repository\PostingRepository $postingRepo */
 			$postingRepo = $objectmanager->get(\ITX\Jobapplications\Domain\Repository\PostingRepository::class);
 
-			$numberOfPosting = $postingRepo->findAllIgnoreStoragePage()->count();
-
-			$this->number = $numberOfPosting;
-			parent::initializeView();
+			return $postingRepo->findAllIgnoreStoragePage()->count();
 		}
 	}

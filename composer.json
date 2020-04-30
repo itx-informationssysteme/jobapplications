@@ -23,7 +23,7 @@
         "docs": "https://docs.typo3.org/p/itx/jobapplications/0.9/en-us/"
     },
     "require": {
-        "typo3/cms-core": "9.5 - 10.4",
+        "typo3/cms-core": "^9.5, ^10.4",
         "fluidtypo3/vhs": "^6"
     },
     "extra": {

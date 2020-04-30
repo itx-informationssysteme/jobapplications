@@ -22,7 +22,7 @@
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
 
-	namespace ITX\Jobapplications\Widgets;
+	namespace ITX\Jobapplications\Widgets\Provider;
 
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Repository\ApplicationRepository;
@@ -30,69 +30,19 @@
 	use TYPO3\CMS\Backend\Routing\UriBuilder;
 	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Dashboard\Widgets\AbstractBarChartWidget;
+	use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 	/**
 	 * Class ApplicationsPerPostingBarChart
 	 *
 	 * @package ITX\Jobapplications\Widgets
 	 */
-	class ApplicationsPerPostingBarChart extends AbstractBarChartWidget
+	class ApplicationsPerPostingBarChartProvider implements \TYPO3\CMS\Dashboard\Widgets\ChartDataProviderInterface
 	{
-		/** @var string */
-		protected $title = 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.widget.applications_per_posting.title';
-
-		/** @var string */
-		protected $description = 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.widget.applications_per_posting.description';
-
-		/** @var string  */
-		protected $buttonText = 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.widget.applications_per_posting.button';
-
 		/** @var array */
 		protected $labels = [];
 
-		/**
-		 * @var int
-		 */
-		protected $width = 4;
-
-		/**
-		 * @var int
-		 */
-		protected $height = 4;
-
-		public function initializeView(): void
-		{
-			if (!$GLOBALS['BE_USER']->check('modules', 'web_jobapplications_backend'))
-			{
-				parent::initializeView();
-
-				return;
-			}
-
-			/** @var UriBuilder $uriBuilder */
-			$uriBuilder = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(UriBuilder::class);
-
-			try
-			{
-				$this->buttonLink = $uriBuilder->buildUriFromRoute('web_JobapplicationsBackend', [
-					'tx_jobapplications_web_jobapplicationsbackend[submit]' => 'Filter',
-					'tx_jobapplications_web_jobapplicationsbackend[action]' => 'listApplications',
-					'tx_jobapplications_web_jobapplicationsbackend[controller]' => 'Backend'
-				]);
-			}
-			catch (RouteNotFoundException $e)
-			{
-				$this->buttonLink = null;
-				$this->buttonText = null;
-			}
-			parent::initializeView();
-		}
-
-		/**
-		 * @inheritDoc
-		 * @throws \TYPO3\CMS\Extbase\Object\Exception
-		 */
-		protected function prepareChartData(): void
+		public function getChartData(): array
 		{
 			/** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectmanager */
 			$objectmanager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class);
@@ -115,11 +65,11 @@
 				$data[] = $applicationCount;
 			}
 
-			$this->chartData = [
+			return [
 				'labels' => $this->labels,
 				'datasets' => [
 					[
-						'label' => $this->getLanguageService()->sL('LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.widget.applications_per_posting.label'),
+						'label' => LocalizationUtility::translate('LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.widget.applications_per_posting.label', "jobapplications"),
 						'backgroundColor' => '#E62E29',
 						'border' => 0,
 						'data' => $data
