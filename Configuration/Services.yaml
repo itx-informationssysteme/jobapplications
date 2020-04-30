@@ -1,0 +1,47 @@
+# Variant 1, widget identifier as attribute
+services:
+    ITX\Jobapplications\Widgets\Provider\PostingsActiveProvider:
+
+    ITX\Jobapplications\Widgets\Provider\ApplicationsPerPostingBarChartProvider:
+
+    ITX\Jobapplications\Widgets\Provider\BackendModuleButtonProvider:
+        arguments:
+            $title: ''
+            $link: ''
+            $target: ''
+
+    dashboard.widget.postingsActive:
+        class: 'TYPO3\CMS\Dashboard\Widgets\NumberWithIconWidget'
+        arguments:
+            $view: '@dashboard.views.widget'
+            $dataProvider: '@ITX\Jobapplications\Widgets\Provider\PostingsActiveProvider'
+            $options:
+                title: 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.widget.postings_active.title'
+                subtitle: 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.widget.postings_active.subtitle'
+                icon: 'content-carousel-item-calltoaction'
+                description: 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.widget.postings_active.description'
+        tags:
+            -   name: dashboard.widget
+                identifier: 'postings-active'
+                groupNames: 'widgetGroup-jobapplications'
+                title: 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.widget.postings_active.title'
+                description: 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.widget.postings_active.description'
+                iconIdentifier: 'content-widget-number'
+                height: 'small'
+                width: 'small'
+
+    dashboard.widget.applicationsPerPostingBarChart:
+        class: 'TYPO3\CMS\Dashboard\Widgets\BarChartWidget'
+        arguments:
+            $dataProvider: '@ITX\Jobapplications\Widgets\Provider\ApplicationsPerPostingBarChartProvider'
+            $view: '@dashboard.views.widget'
+            $buttonProvider: '@ITX\Jobapplications\Widgets\Provider\BackendModuleButtonProvider'
+        tags:
+            -   name: dashboard.widget
+                identifier: 'applicationsPerPostingBarChart'
+                groupNames: 'widgetGroup-jobapplications'
+                title: 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.widget.applications_per_posting.title'
+                description: 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.widget.applications_per_posting.description'
+                iconIdentifier: 'content-widget-chart-bar'
+                height: 'medium'
+                width: 'medium'

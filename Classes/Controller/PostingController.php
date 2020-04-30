@@ -5,10 +5,8 @@
 	use ScssPhp\ScssPhp\Formatter\Debug;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\Page\PageRenderer;
-	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
 	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
-	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 	use TYPO3\CMS\Core\MetaTag\MetaTagManagerRegistry;
 	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;

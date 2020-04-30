@@ -1,9 +1,8 @@
 <?php
-
 	/***************************************************************
 	 *  Copyright notice
 	 *
-	 *  (c) 2020
+	 *  (c) 2019
 	 *  All rights reserved
 	 *
 	 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -23,24 +22,25 @@
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
 
-$EM_CONF[$_EXTKEY] = [
-    'title' => 'Jobapplications',
-    'description' => 'This extension enables you to manage job postings, provides you with an application form and a backend module to manage incoming applications.',
-    'category' => 'plugin',
-    'author' => 'Stefanie Döll, Benjamin Jasper',
-	'author_company' => 'it.x informationssysteme gmbh',
-    'author_email' => 'typo-itx@itx.de',
-    'state' => 'beta',
-    'uploadfolder' => 1,
-    'createDirs' => '',
-    'clearCacheOnLoad' => 1,
-    'version' => '0.9.6',
-    'constraints' => [
-        'depends' => [
-            'typo3' => '9.5.0 - 10.4.99',
-			'vhs' => '6.0.0 - 6.2.99'
-        ],
-        'conflicts' => [],
-        'suggests' => [],
-    ],
-];
+	namespace ITX\Jobapplications\Widgets\Provider;
+
+	use TYPO3\CMS\Dashboard\Widgets\NumberWithIconDataProviderInterface;
+
+	/**
+	 * Class PostingsActive
+	 *
+	 * @package ITX\Jobapplications\Widgets
+	 */
+	class PostingsActiveProvider implements NumberWithIconDataProviderInterface
+	{
+		public function getNumber(): int
+		{
+			/** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectmanager */
+			$objectmanager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class);
+
+			/** @var \ITX\Jobapplications\Domain\Repository\PostingRepository $postingRepo */
+			$postingRepo = $objectmanager->get(\ITX\Jobapplications\Domain\Repository\PostingRepository::class);
+
+			return $postingRepo->findAllIgnoreStoragePage()->count();
+		}
+	}

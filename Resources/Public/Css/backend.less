@@ -67,7 +67,7 @@ hr {
 }
 
 
-.btn {
+.btn-jobapplications {
 	background-color: transparent;
 	border: none;
 	color: @color-black;
@@ -81,6 +81,7 @@ hr {
 	&:hover {
 		background-color: @color-primary;
 		color: @color-white;
+		text-decoration: none;
 	}
 
 	&.btn-secondary {
@@ -221,7 +222,7 @@ hr {
 						margin-bottom: 0.5rem !important;
 					}
 
-					.btn {
+					.btn-jobapplications {
 						width: 40%;
 						margin: 1vw 0 0;
 					}
@@ -344,19 +345,12 @@ hr {
 	.container-buttons {
 		width: 66%;
 		margin: 2rem auto auto;
+		display: flex;
 		text-align: center;
+		justify-content: space-between;
 
-		.btn {
-			margin: auto;
-		}
-
-		#btn-show-back {
-			float: left;
-		}
-
-
-		.btn-critical {
-			float: right;
+		.btn-jobapplications {
+			margin: unset;
 		}
 	}
 }

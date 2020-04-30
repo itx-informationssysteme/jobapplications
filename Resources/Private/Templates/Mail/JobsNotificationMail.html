@@ -1,0 +1,89 @@
+<f:layout name="SystemEmail"/>
+<f:section name="Title">
+	<f:if condition="!{application.posting}">
+		<f:then>
+			{currentPosting.title}
+		</f:then>
+		<f:else>
+			<f:translate id="fe.email.toContactSubject" extensionName="Jobapplications" arguments="{0: currentPosting.title}"></f:translate>
+		</f:else>
+	</f:if>
+</f:section>
+<f:section name="Main">
+	<div class="row">
+		<h4 class="name">
+			<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.application.selector.{application.salutation}"/>
+			{application.firstName} {application.lastName}
+		</h4>
+		<span class="date"><f:format.date format="{f:translate(key: 'date_format', extensionName: '{Jobapplications}')}">{application.crdate}</f:format.date></span>
+	</div>
+	<div class="row">
+		<label>
+			<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.posting"></f:translate>:&nbsp;
+		</label>
+		<span>
+				<f:if condition="!{application.posting}">
+					<f:then>
+						<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.filter.unsolicited.single"/>
+					</f:then>
+					<f:else>
+						{application.posting.title}
+					</f:else>
+				</f:if>
+			</span>
+	</div>
+	<div class="row">
+		<label>
+			<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.email"></f:translate>:&nbsp;</label>
+		<span><a href="mailto:{application.email}">{application.email}</a></span>
+	</div>
+	<div class="row">
+		<label>
+			<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.phone"></f:translate>
+			:&nbsp;</label>
+		<span>{application.phone}</span>
+	</div>
+	<div class="row">
+		<label><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.showApp.address"></f:translate>:&nbsp;</label>
+		<span>{application.addressStreetAndNumber},</span>
+		<f:if condition="{application.addressAddition}">
+			<span>{application.addressAddition},</span>
+		</f:if>
+		<span>{application.addressPostCode} {application.addressCity},</span>
+		<span>{application.addressCountry}</span>
+	</div>
+	<f:if condition="{application.salaryExpectation}">
+		<div class="row">
+			<label>
+				<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.salary_expectation"></f:translate>:&nbsp;</label>
+			<span>{application.salaryExpectation}</span>
+		</div>
+	</f:if>
+	<f:if condition="{application.earliestDateOfJoining}">
+		<div class="row">
+			<label>
+				<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.earliest_date_of_joining"></f:translate>:&nbsp;</label>
+			<span><f:format.date format="{f:translate(key: 'date_format')}">{application.earliestDateOfJoining}</f:format.date></span>
+		</div>
+	</f:if>
+	<f:if condition="{application.message}">
+		<div class="row message-row">
+			<label>
+				<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.message"></f:translate>:&nbsp;
+			</label>
+			<p>{application.message}</p>
+		</div>
+	</f:if>
+	<div class="row">
+		<label>
+			<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.privacy_agreement"></f:translate>:&nbsp;</label>
+		<f:if condition="{application.privacyAgreement} == '1'">
+			<f:then>
+				<span><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.show.privacy_agreement.yes" extensionName="Job"></f:translate></span>
+			</f:then>
+			<f:else>
+				<span><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.show.privacy_agreement.no"></f:translate></span>
+			</f:else>
+		</f:if>
+	</div>
+</f:section>

@@ -1,40 +1,22 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers" data-namespace-typo3-fluid="true">
 
-<f:be.container includeCssFiles="{0: '{f:uri.resource(path:\'Css/backend.css\')}'}">
-	<div class="typo3-fullDoc">
-		<div id="typo3-docheader">
-			<div class="typo3-docheader-functions">
-				<div class="left">
-					<f:be.buttons.csh/>
-					<f:be.menus.actionMenu>
-						<f:be.menus.actionMenuItem label="{f:translate(key: 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.dashboard.title')}" controller="Backend" action="dashboard"/>
-						<f:be.menus.actionMenuItem label="{f:translate(key: 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.dashboard.applicationAdmin')}" action="listApplications" controller="Backend"/>
-						<f:if condition="{admin}">
-							<f:be.menus.actionMenuItem label="{f:translate(key: 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.dashboard.settings')}" action="settings" controller="Backend"/>
-						</f:if>
-					</f:be.menus.actionMenu>
-				</div>
-				<div class="right">
-					<f:be.pagePath/>
-					<f:be.pageInfo/>
-				</div>
-			</div>
-			<div class="typo3-docheader-buttons">
-				<div class="left">
+<be:moduleLayout>
+	<f:be.pageRenderer
+			includeRequireJsModules="{
+            0:'TYPO3/CMS/Backend/ContextMenu',
+            1:'TYPO3/CMS/Backend/Modal'
+        }"
+			includeCssFiles="{0: '{f:uri.resource(path:\'Css/backend.css\')}'}"
+	/>
 
-				</div>
-				<div class="right">
-					<f:be.buttons.shortcut/>
-				</div>
-			</div>
+	<be:moduleLayout.menu identifier="BackendUserModuleMenu">
+		<be:moduleLayout.menuItem label="{f:translate(key: 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.dashboard.title')}" uri="{f:uri.action(controller: 'Backend', action: 'dashboard')}"/>
+		<be:moduleLayout.menuItem label="{f:translate(key: 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.dashboard.applicationAdmin')}" uri="{f:uri.action(controller: 'Backend', action: 'listApplications')}"/>
+		<be:moduleLayout.menuItem label="{f:translate(key: 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.dashboard.settings')}" uri="{f:uri.action(controller: 'Backend', action: 'settings')}"/>
+	</be:moduleLayout.menu>
 
-		</div>
-		<div id="typo3-docbody">
-			<div id="typo3-inner-docbody">
-				<f:flashMessages/>
-				<f:render section="content" arguments="{_all}"/>
-			</div>
-		</div>
-	</div>
-</f:be.container>
+	<be:moduleLayout.button.shortcutButton displayName="Shortcut"/>
+
+	<f:render section="content"/>
+</be:moduleLayout>
 </html>

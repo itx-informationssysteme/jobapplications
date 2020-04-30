@@ -304,7 +304,7 @@
 		}
 
 		/**
-		 * Athenticates with google oauth api
+		 * Authenticates with google oauth api
 		 *
 		 * @return string Bearer token
 		 */

@@ -1,0 +1,24 @@
+	<f:if condition="{application.posting}">
+		<f:then>
+			<f:variable name="processedPostingTitle" value="{application.posting.title}"></f:variable>
+		</f:then>
+		<f:else>
+			<f:variable name="processedPostingTitle" value="{f:translate(key: 'fe.application.unsolicited.title', extensionName: 'Jobapplications')}"></f:variable>
+		</f:else>
+	</f:if>
+	<f:variable name="titleBar" value="{v:format.replace(substring: '%postingTitle%', content: '{settings.sendEmailToApplicantSubject}', replacement: '{processedPostingTitle}')}"></f:variable>
+	<f:variable name="msg" value="{v:format.replace(substring: '%applicantLastName%', content: '{settings.sendEmailToApplicantText}', replacement: '{application.lastName}')}"></f:variable>
+	<f:variable name="msg" value="{v:format.replace(substring: '%applicantFirstName%', content: '{msg}', replacement: '{application.firstName}')}"></f:variable>
+	<f:if condition="{application.salutation} !== 'div'">
+		<f:then>
+			<f:variable name="salutationTranslated" value="{f:translate(key: 'fe.application.selector.{application.salutation}', extensionName: 'Jobapplications')}"></f:variable>
+		</f:then>
+		<f:else>
+			<f:variable name="salutationTranslated" value="{application.firstName}"></f:variable>
+		</f:else>
+	</f:if>
+	<f:variable name="msg" value="{v:format.replace(substring: '%applicantSalutation%', content: '{msg}', replacement: '{salutationTranslated}')}"></f:variable>
+	<f:variable name="msg" value="{v:format.replace(substring: '%postingTitle%', content: '{msg}', replacement: '{processedPostingTitle}')}"></f:variable>
+	{titleBar}
+
+	<f:format.stripTags value="{msg}"></f:format.stripTags>

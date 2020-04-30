@@ -72,7 +72,9 @@
 				if ($posting === -1)
 				{
 					$andArray[] = $query->equals("posting", 0);
-				} else {
+				}
+				else
+				{
 					$andArray[] = $query->equals("posting.uid", $posting);
 				}
 			}
@@ -189,6 +191,26 @@
 				$query->logicalAnd(
 					$andArray
 				)
+			);
+
+			return $query->execute();
+		}
+
+		/**
+		 * @param int $uid
+		 *
+		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+		 */
+		public function findByPostingIncludingHiddenAndDeleted(int $uid)
+		{
+			$query = $this->createQuery();
+			$query->getQuerySettings()
+				  ->setRespectStoragePage(false)
+				  ->setIgnoreEnableFields(true);
+			$query->matching(
+				$query->logicalAnd([
+									   $query->equals('posting.uid', $uid)
+								   ])
 			);
 
 			return $query->execute();

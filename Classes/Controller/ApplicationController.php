@@ -29,17 +29,23 @@
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Model\Status;
 	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
+	use ITX\Jobapplications\Utility\Mail\MailInterface;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+	use TYPO3\CMS\Core\Core\Environment;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
+	use TYPO3\CMS\Core\Information\Typo3Version;
+	use TYPO3\CMS\Core\Mail\MailMessage;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Resource\FileInterface;
 	use TYPO3\CMS\Core\Resource\ResourceFactory;
-	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
+	use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 	use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
-	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 	use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+	use TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter;
+	use TYPO3\CMS\Fluid\View\TemplatePaths;
+	use TYPO3\CMS\Fluid\View\TemplateView;
 
 	/**
 	 * ApplicationController
@@ -94,8 +100,8 @@
 		 */
 		protected $logger = null;
 
-		/** @var boolean */
-		protected $isLegacy;
+		/** @var int Major TYPO3 Version number */
+		protected $version;
 
 		/**
 		 * initialize create action
@@ -110,7 +116,7 @@
 			$this->arguments->getArgument('newApplication')
 							->getPropertyMappingConfiguration()->forProperty('earliestDateOfJoining')
 							->setTypeConverterOption(
-								'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',
+								DateTimeConverter::class,
 								\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,
 								'Y-m-d'
 							);
@@ -143,6 +149,18 @@
 		public function initializeAction()
 		{
 			$this->fileSizeLimit = GeneralUtility::getMaxUploadFileSize();
+
+			if (constant('TYPO3_version'))
+			{
+				$this->version = (int)(constant('TYPO3_version'));
+			}
+			else
+			{
+				/** @var Typo3Version $version */
+				$version = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class);
+
+				$this->version = $version->getMajorVersion();
+			}
 		}
 
 		/**
@@ -162,7 +180,8 @@
 			*/
 			if ($posting === null && $_REQUEST['postingApp'])
 			{
-				$postingUid = $_REQUEST['postingApp'];
+				$postingUid = (int)$_REQUEST['postingApp'];
+				/** @var Posting $posting */
 				$posting = $this->postingRepository->findByUid($postingUid);
 			}
 
@@ -185,7 +204,7 @@
 				$this->view->assign('posting', $posting);
 			}
 
-			$this->view->assign("fileSizeLimit", strval($this->fileSizeLimit) / 1024);
+			$this->view->assign("fileSizeLimit", (string)$this->fileSizeLimit / 1024);
 
 			if ($this->request->hasArgument("fileError"))
 			{
@@ -199,32 +218,33 @@
 		}
 
 		/**
-		 * success Action
-		 *
 		 * @param string $firstName
 		 * @param string $lastName
 		 * @param string $salutation
+		 * @param int    $postingUid
+		 * @param array  $problems
 		 */
-		public function successAction(string $firstName, string $lastName, string $salutation, int $postingUid = -1)
+		public function successAction($firstName, $lastName, $salutation, $postingUid, $problems)
 		{
 			$salutationValue = $salutation;
 
-			if ($salutation == "div" || $salutation == "")
+			if ($salutation === 'div' || $salutation === '')
 			{
 				$salutation = $firstName;
 			}
 			else
 			{
-				$salutation = LocalizationUtility::translate("fe.application.selector.".$salutation, "jobapplications");
+				$salutation = LocalizationUtility::translate('fe.application.selector.'.$salutation, 'jobapplications');
 			}
 
 			$posting = $this->postingRepository->findByUid($postingUid);
 
-			$this->view->assign("firstName", $firstName);
-			$this->view->assign("lastName", $lastName);
-			$this->view->assign("salutation", $salutation);
-			$this->view->assign("posting", $posting);
-			$posting ? $this->view->assign("salutationValue", $salutationValue) : false;
+			$this->view->assign('firstName', $firstName);
+			$this->view->assign('lastName', $lastName);
+			$this->view->assign('salutation', $salutation);
+			$this->view->assign('problems', $problems);
+			$this->view->assign('posting', $posting);
+			$posting ? $this->view->assign('salutationValue', $salutationValue) : false;
 		}
 
 		/**
@@ -246,6 +266,10 @@
 			$allowedFileTypes = [
 				"application/pdf"
 			];
+
+			$problemWithApplicantMail = false;
+			$problemWithNotificationMail = false;
+			$savedInBackend = true;
 
 			$multiFileUpload = $_FILES['tx_jobapplications_applicationform']['name']['upload'];
 			$multiUploadFiles = [];
@@ -448,25 +472,37 @@
 			$phoneLine = $newApplication->getPhone() !== '' ? $phoneLabel.$newApplication->getPhone().'<br>' : '';
 
 			// Send mail to Contact E-Mail or/and internal E-Mail
-			if ($this->settings["sendEmailToContact"] == "1" || $this->settings['sendEmailToInternal'] !== "")
+			if ($this->settings["sendEmailToContact"] === "1" || $this->settings['sendEmailToInternal'] !== "")
 			{
-				$mail = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Mail\MailMessage::class);
+				/** @var \ITX\Jobapplications\Utility\Mail\MailInterface $mail */
+				if ($this->version >= 10)
+				{
+					$mail = GeneralUtility::makeInstance(\ITX\Jobapplications\Utility\Mail\MailFluid::class);
+					$mail->setTemplate('JobsNotificationMail');
+				}
+				else
+				{
+					$mail = GeneralUtility::makeInstance(\ITX\Jobapplications\Utility\Mail\MailMessage::class);
+				}
+
+				$mail->setContentType($this->settings['emailContentType']);
+
 				// Prepare and send the message
 				$mail
 					->setSubject(LocalizationUtility::translate("fe.email.toContactSubject", 'jobapplications', array(0 => $currentPosting->getTitle())))
 					->setFrom(array($this->settings["emailSender"] => $this->settings["emailSenderName"]))
-					->setReplyTo(array($newApplication->getEmail() => $newApplication->getFirstName()." ".$newApplication->getLastName()))
-					->setBody('<p>'.
-							  $nameLabel.$salutation.' '.$newApplication->getFirstName().' '.$newApplication->getLastName().'<br>'.
-							  $emailLabel.$newApplication->getEmail().'<br>'.
-							  $phoneLine.
-							  $salary.
-							  $dateOfJoining.'<br>'.
-							  $addressLabel.'<br>'.$newApplication->getAddressStreetAndNumber().'<br>'
-							  .$additionalAddress.
-							  $newApplication->getAddressPostCode().' '.$newApplication->getAddressCity()
-							  .'<br>'.$newApplication->getAddressCountry()
-							  .$message.'</p>');
+					->setReply(array($newApplication->getEmail() => $newApplication->getFirstName()." ".$newApplication->getLastName()))
+					->setContent('<p>'.
+								 $nameLabel.$salutation.' '.$newApplication->getFirstName().' '.$newApplication->getLastName().'<br>'.
+								 $emailLabel.$newApplication->getEmail().'<br>'.
+								 $phoneLine.
+								 $salary.
+								 $dateOfJoining.'<br>'.
+								 $addressLabel.'<br>'.$newApplication->getAddressStreetAndNumber().'<br>'
+								 .$additionalAddress.
+								 $newApplication->getAddressPostCode().' '.$newApplication->getAddressCity()
+								 .'<br>'.$newApplication->getAddressCountry()
+								 .$message.'</p>', ['application' => $newApplication, 'settings' => $this->settings, 'currentPosting' => $currentPosting]);
 
 				// Attach all found legacy files
 				$files = array($movedNewFileCv, $movedNewFileCover, $movedNewFileTestimonial, $movedNewFileOther);
@@ -474,7 +510,7 @@
 				{
 					if ($file instanceof FileInterface)
 					{
-						$mail->attach(\Swift_Attachment::fromPath($file->getPublicUrl()));
+						$mail->addAttachment($file->getPublicUrl());
 					}
 				}
 
@@ -482,15 +518,15 @@
 				{
 					if ($file instanceof FileInterface)
 					{
-						$mail->attach(\Swift_Attachment::fromPath($file->getPublicUrl()));
+						$mail->addAttachment($file->getPublicUrl());
 					}
 				}
 
 				//Figure out who the email will be sent to and how
 				if ($this->settings['sendEmailToInternal'] != "" && $this->settings['sendEmailToContact'] == "1")
 				{
-					$mail->setTo(array($contact->getEmail() => $contact->getFirstName()." ".$contact->getLastName()));
-					$mail->setBcc($this->settings['sendEmailToInternal']);
+					$mail->setTo(array($contact->getEmail() => $contact->getFirstName().' '.$contact->getLastName()));
+					$mail->setBlindcopies([$this->settings['sendEmailToInternal']]);
 				}
 				elseif ($this->settings['sendEmailToContact'] != "1" && $this->settings['sendEmailToInternal'] != "")
 				{
@@ -503,18 +539,33 @@
 
 				try
 				{
-					$mail->send();
+					if (!$mail->send())
+					{
+						throw new \RuntimeException('Failed to send mail!');
+					}
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
-					$this->logger->log(\TYPO3\CMS\Core\Log\LogLevel::CRITICAL, "Error trying to send a mail: ".$e->getMessage(), array($this->settings, $mail));
+					$this->logger->log(\TYPO3\CMS\Core\Log\LogLevel::CRITICAL, 'Error trying to send a mail: '.$e->getMessage(), array($this->settings, $mail));
+					$problemWithNotificationMail = true;
 				}
 			}
 
 			// Now send a mail to the applicant
-			if ($this->settings["sendEmailToApplicant"] == "1")
+			if ($this->settings["sendEmailToApplicant"] === "1")
 			{
-				$mail = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Mail\MailMessage::class);
+				/** @var MailInterface $mail */
+				if ($this->version >= 10)
+				{
+					$mail = GeneralUtility::makeInstance(\ITX\Jobapplications\Utility\Mail\MailFluid::class);
+					$mail->setTemplate('JobsApplicantMail');
+				}
+				else
+				{
+					$mail = GeneralUtility::makeInstance(\ITX\Jobapplications\Utility\Mail\MailMessage::class);
+				}
+
+				$mail->setContentType($this->settings['emailContentType']);
 
 				//Template Messages
 				$subject = $this->settings['sendEmailToApplicantSubject'];
@@ -543,32 +594,57 @@
 					->setSubject($subject)
 					->setFrom(array($this->settings["emailSender"] => $this->settings["emailSenderName"]))
 					->setTo(array($newApplication->getEmail() => $newApplication->getFirstName()." ".$newApplication->getLastName()))
-					->setBody($body);
+					->setContent($body, ['application' => $newApplication, 'settings' => $this->settings]);
 
 				try
 				{
-					$mail->send();
+					if (!$mail->send())
+					{
+						throw new \RuntimeException('Failed to send mail!');
+					}
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
-					$this->logger->log(\TYPO3\CMS\Core\Log\LogLevel::CRITICAL, "Error trying to send a mail: ".$e->getMessage(), array($this->settings, $mail));
+					$this->logger->log(\TYPO3\CMS\Core\Log\LogLevel::CRITICAL, 'Error trying to send a mail: '.$e->getMessage(), array($this->settings, $mail));
+					$problemWithApplicantMail = true;
 				}
 			}
 
 			// If applications should not be saved delete them here
 			if ($this->settings['saveApplicationInBackend'] != "1")
 			{
+				$savedInBackend = false;
 				$this->applicationRepository->remove($newApplication);
 				$this->applicationFileService->deleteApplicationFolder($this->applicationFileService->getApplicantFolder($newApplication));
 				$this->persistenceManager->persistAll();
 			}
 
-			$this->redirect("success", null, null, [
-				"firstName" => $newApplication->getFirstName(),
-				"lastName" => $newApplication->getLastName(),
-				"salutation" => $newApplication->getSalutation(),
-				"postingUid" => $currentPosting->getUid()
-			], $this->settings["successPage"]);
+			// Build uri and redirect to success page
+			$this->uriBuilder->reset()->setCreateAbsoluteUri(true);
+
+			$this->uriBuilder->setTargetPageUid((int)$this->settings['successPage']);
+
+			if (\TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SSL'))
+			{
+				$this->uriBuilder->setAbsoluteUriScheme('https');
+			}
+
+			$problems = [
+				'problemWithApplicantMail' => $problemWithApplicantMail,
+				'problemWithNotificationMail' => $problemWithNotificationMail,
+				'savedInBackend' => $savedInBackend
+			];
+
+			$uri = $this->uriBuilder->uriFor('success',
+											 [
+												 'firstName' => $newApplication->getFirstName(),
+												 'lastName' => $newApplication->getLastName(),
+												 'salutation' => $newApplication->getSalutation(),
+												 'postingUid' => $currentPosting->getUid(),
+												 'problems' => $problems
+											 ], 'Application', null, 'SuccessPage');
+
+			$this->redirectToUri($uri);
 		}
 
 		/**
@@ -705,7 +781,7 @@
 		}
 
 		/**
-		 * @param string                                        $fieldName
+		 * @param int                                           $position
 		 * @param \ITX\Jobapplications\Domain\Model\Application $domainObject
 		 *
 		 * @return FileInterface

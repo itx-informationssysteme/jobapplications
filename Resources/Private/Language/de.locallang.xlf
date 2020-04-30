@@ -232,8 +232,8 @@
                 <target state="translated">Jetzt bewerben</target>
             </trans-unit>
             <trans-unit id="fe.application.privacy_agreement" resname="fe.application.privacy_agreement">
-                <source>I accept the </source>
-                <target state="translated">Ich akzeptiere die </target>
+                <source>I accept the</source>
+                <target state="translated">Ich akzeptiere die</target>
             </trans-unit>
             <trans-unit id="fe.application.selector.chooseMessage" resname="fe.application.selector.chooseMessage" approved="yes">
                 <source>-Choose-</source>
@@ -354,6 +354,20 @@
             <trans-unit id="fe.posting.employment.selector.other" resname="fe.posting.employment.selector.other" approved="yes">
                 <source>Other</source>
                 <target state="translated">Andere</target>
+            </trans-unit>
+            <trans-unit id="fe.success.problemApplicantMail" resname="fe.success.problemApplicantMail">
+                <source>There was a problem with the server that resulted in not being able to send out emails at the moment.
+                    That means that you're not going to receive a confirmation mail. If in doubt on how to proceed, please contact us.
+                </source>
+                <target>Es wurde ein Server Problem festgestellt, was zur Folge hat, dass Ihre Bestätigungsmail nicht versendet werden konnte.</target>
+            </trans-unit>
+            <trans-unit id="fe.success.problemWithNotificationMail" resname="fe.success.problemWithApplicantMail">
+                <source>Because of a server malfunction a notification e-mail for your application could not be sent to
+                    to the adressee. Please contact us, to make sure your application will be delivered successfully.
+                </source>
+                <target>Aufgrund eines Serverfehlers konnte die Benachrichtigungsemail, die den Addressaten über Ihre Bewerbung informiert nicht versendet werden.
+                    Bitte nehmen Sie Kontakt auf, um sicherzustellen, dass Ihre Bewerbung eintrifft.
+                </target>
             </trans-unit>
         </body>
     </file>

@@ -1,4 +1,4 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:layout name="Default"/>
 
 <f:section name="content">
@@ -7,6 +7,7 @@
 			<h1><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.dashboard.title"></f:translate></h1>
 			<f:if condition="{contact}">
 				<h3>
+					<be:avatar></be:avatar>
 					<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.dashboard.welcome" arguments="{0: contact.firstName, 1: contact.lastName}"></f:translate>
 				</h3>
 				<h3>
