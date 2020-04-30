@@ -29,7 +29,7 @@
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Model\Status;
 	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
-	use ITX\Jobapplications\Utility\MailInterface;
+	use ITX\Jobapplications\Utility\Mail\MailInterface;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\Core\Environment;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -38,12 +38,10 @@
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Resource\FileInterface;
 	use TYPO3\CMS\Core\Resource\ResourceFactory;
-	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 	use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
-	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 	use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 	use TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter;
 	use TYPO3\CMS\Fluid\View\TemplatePaths;
@@ -476,7 +474,7 @@
 			// Send mail to Contact E-Mail or/and internal E-Mail
 			if ($this->settings["sendEmailToContact"] == "1" || $this->settings['sendEmailToInternal'] !== "")
 			{
-				/** @var MailInterface\ $mail */
+				/** @var \ITX\Jobapplications\Utility\Mail\MailInterface $mail */
 				if ($this->version >= 10)
 				{
 					$mail = GeneralUtility::makeInstance(\ITX\Jobapplications\Utility\Mail\MailFluid::class);

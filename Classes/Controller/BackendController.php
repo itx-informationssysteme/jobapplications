@@ -31,9 +31,7 @@
 	use ITX\Jobapplications\Utility\GoogleIndexingApiConnector;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Resource\Exception\InsufficientUserPermissionsException;
-	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
-	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 	/**
 	 * Class BackendController

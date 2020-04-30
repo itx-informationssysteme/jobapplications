@@ -109,7 +109,7 @@
 		 */
 		public function setContent(string $content, $objects = []): MailInterface
 		{
-			$this->setBody($content, 'text/html');
+			$this->setBody($content);
 			return $this;
 		}
 
@@ -126,7 +126,15 @@
 		 */
 		public function setContentType($contentType): MailInterface
 		{
-			$this->contentType = $contentType;
+			switch ($contentType)
+			{
+				case self::CONTENT_TYPE_TEXT:
+					parent::setContentType('text/plain');
+					break;
+				default:
+					parent::setContentType('text/html');
+					break;
+			}
 
 			return $this;
 		}

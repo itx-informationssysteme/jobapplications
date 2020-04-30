@@ -3,7 +3,6 @@
 	namespace ITX\Jobapplications\Controller;
 
 	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
-	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 	/***************************************************************
 	 *  Copyright notice
