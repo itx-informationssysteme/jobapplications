@@ -11,6 +11,11 @@
 Changelog
 =========
 
+0.9.7 - Hotfix for wrong composer version requirements
+------------------------------------------------------
+* [BUGFIX] fixed typo in hiringOrganization in Google Jobs JSON
+* [BUGFIX] fixed wrong composer version requirements
+
 0.9.6 - v10 Update
 ------------------
 This update adds support for TYPO3 v10.4 while staying backwards compatible with v9

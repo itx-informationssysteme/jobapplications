@@ -211,17 +211,17 @@
 
 			//Google Jobs
 
-			$hiringOranization = array(
+			$hiringOrganization = array(
 				"@type" => "Organization",
 				"name" => $extconf->get('jobapplications', 'companyName')
 			);
 
-			if (!empty($hiringOranization['name']) && $this->settings['enableGoogleJobs'] == "1")
+			if (!empty($hiringOrganization['name']) && $this->settings['enableGoogleJobs'] == "1")
 			{
 				$logo = $extconf->get('jobapplications', 'logo');
 				if (!empty($logo))
 				{
-					$hiringOranization['hiringOranization']["logo"] = $logo;
+					$hiringOrganization['hiringOrganization']["logo"] = $logo;
 				}
 
 				switch ($posting->getEmploymentType())
@@ -274,7 +274,7 @@
 					"employmentType" => $employmentType
 				);
 
-				$googleJobsJSON["hiringOrganization"] = $hiringOranization;
+				$googleJobsJSON["hiringOrganization"] = $hiringOrganization;
 
 				if (!empty($posting->getBaseSalary()))
 				{
