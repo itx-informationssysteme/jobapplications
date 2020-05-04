@@ -10,6 +10,9 @@
 
 Changelog
 =========
+0.9.7 - Bugfixes
+----------------
+* [BUGFIX] fixed typo in hiringOrganization in Google Jobs JSON
 
 0.9.6 - v10 Update
 ------------------
