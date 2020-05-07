@@ -11,6 +11,12 @@
 Changelog
 =========
 
+0.9.8 - Bugfixes: fixed error when creating records in v9
+---------------------------------------------------------
+* [BUGFIX] fixed missing field error while creating records in v9 (Execute Analyse Database Tool!)
+* [BUGFIX] fixed misplaced hiringOrganization in Google Jobs JSON
+* [BUGFIX] when using Google Indexing API, indexing a new record was not working correctly
+
 0.9.7 - Hotfix for wrong composer version requirements
 ------------------------------------------------------
 * [BUGFIX] fixed typo in hiringOrganization in Google Jobs JSON

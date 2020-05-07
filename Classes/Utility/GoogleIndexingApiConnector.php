@@ -146,7 +146,7 @@
 		 *
 		 * @param      $uid
 		 * @param bool $delete
-		 * @param null $specificPosting
+		 * @param Posting $specificPosting
 		 *
 		 * @return bool
 		 * @throws \Exception
