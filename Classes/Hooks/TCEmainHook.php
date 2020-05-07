@@ -21,6 +21,7 @@
 	use TYPO3\CMS\Extbase\Domain\Model\Category;
 	use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 	use TYPO3\CMS\Extbase\Object\ObjectManager;
+	use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 	use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 
 	/**
@@ -32,6 +33,48 @@
 	 */
 	class TCEmainHook
 	{
+		/**
+		 * @param             $status
+		 * @param             $table
+		 * @param             $id
+		 * @param array       $fieldArray
+		 * @param DataHandler $pObj
+		 */
+		public function processDatamap_afterDatabaseOperations($status, $table, $id, array $fieldArray, \TYPO3\CMS\Core\DataHandling\DataHandler &$pObj)
+		{
+
+			$enabled = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class)
+															 ->get('jobapplications', 'indexing_api');
+
+			if ($enabled === "0")
+			{
+				return;
+			}
+
+			if ($status === "new")
+			{
+				/** @var DataMapper $dataMapper */
+				$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+				$dataMapper = $objectManager->get(DataMapper::class);
+
+				$uid = $pObj->substNEWwithIDs[$id];
+
+				$fieldArray['uid'] = $uid;
+
+				$posting = $dataMapper->map(Posting::class, [$fieldArray]);
+
+				$connector = new GoogleIndexingApiConnector();
+				if ($value['hidden'] === '1')
+				{
+					$connector->updateGoogleIndex($uid, true, $posting);
+				}
+				else
+				{
+					$connector->updateGoogleIndex($uid, false, $posting);
+				}
+			}
+		}
+
 		/**
 		 * @param                                          $command
 		 * @param                                          $table
@@ -52,7 +95,7 @@
 					return;
 				}
 
-				if ($command === "update" || $command === "new")
+				if ($command === "update")
 				{
 					$connector = new GoogleIndexingApiConnector();
 					if ($value['hidden'] === '1')

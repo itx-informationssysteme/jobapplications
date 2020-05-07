@@ -221,7 +221,7 @@
 				$logo = $extconf->get('jobapplications', 'logo');
 				if (!empty($logo))
 				{
-					$hiringOrganization['hiringOrganization']["logo"] = $logo;
+					$hiringOrganization["logo"] = $logo;
 				}
 
 				switch ($posting->getEmploymentType())
