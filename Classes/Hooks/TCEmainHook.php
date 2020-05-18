@@ -43,34 +43,37 @@
 		public function processDatamap_afterDatabaseOperations($status, $table, $id, array $fieldArray, \TYPO3\CMS\Core\DataHandling\DataHandler &$pObj)
 		{
 
-			$enabled = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class)
-															 ->get('jobapplications', 'indexing_api');
-
-			if ($enabled === "0")
+			if ($table === 'tx_jobapplications_domain_model_posting')
 			{
-				return;
-			}
+				$enabled = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class)
+																 ->get('jobapplications', 'indexing_api');
 
-			if ($status === "new")
-			{
-				/** @var DataMapper $dataMapper */
-				$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-				$dataMapper = $objectManager->get(DataMapper::class);
-
-				$uid = $pObj->substNEWwithIDs[$id];
-
-				$fieldArray['uid'] = $uid;
-
-				$posting = $dataMapper->map(Posting::class, [$fieldArray]);
-
-				$connector = new GoogleIndexingApiConnector();
-				if ($value['hidden'] === '1')
+				if ($enabled === "0")
 				{
-					$connector->updateGoogleIndex($uid, true, $posting);
+					return;
 				}
-				else
+
+				if ($status === "new")
 				{
-					$connector->updateGoogleIndex($uid, false, $posting);
+					/** @var DataMapper $dataMapper */
+					$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+					$dataMapper = $objectManager->get(DataMapper::class);
+
+					$uid = $pObj->substNEWwithIDs[$id];
+
+					$fieldArray['uid'] = $uid;
+
+					$posting = $dataMapper->map(Posting::class, [$fieldArray]);
+
+					$connector = new GoogleIndexingApiConnector();
+					if ($value['hidden'] === '1')
+					{
+						$connector->updateGoogleIndex($uid, true, $posting);
+					}
+					else
+					{
+						$connector->updateGoogleIndex($uid, false, $posting);
+					}
 				}
 			}
 		}
