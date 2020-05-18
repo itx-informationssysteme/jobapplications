@@ -10,6 +10,10 @@
 
 Changelog
 =========
+0.9.10 - Minor bugfixes
+-----------------------
+* [BUGFIX] fixed error in select in Backend Module
+
 0.9.9 - Bugfix for wrong hook behaviour
 ---------------------------------------
 * [BUGFIX] fixed bug where hook was not confined to jobs posting table
