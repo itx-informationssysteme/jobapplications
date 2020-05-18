@@ -10,6 +10,9 @@
 
 Changelog
 =========
+0.9.9 - Bugfix for wrong hook behaviour
+---------------------------------------
+* [BUGFIX] fixed bug where hook was not confined to jobs posting table
 
 0.9.8 - Bugfixes: fixed error when creating records in v9
 ---------------------------------------------------------
