@@ -19,7 +19,9 @@
 							</label>
 							<f:form.select class="form-control" name="division" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
 								<f:for each="{divisions}" as="division">
-									<f:form.select.option value="{division.division}" additionalAttributes="{f:if(condition: '{divisionName} == {division.division}', then: '{selected: true}')}">{division.division}</f:form.select.option>
+									<f:if condition="{division.division}">
+										<f:form.select.option value="{division.division}" additionalAttributes="{f:if(condition: '{divisionName} == {division.division}', then: '{selected: true}')}">{division.division}</f:form.select.option>
+									</f:if>
 								</f:for>
 							</f:form.select>
 						</div>
@@ -29,7 +31,9 @@
 							</label>
 							<f:form.select class="form-control" name="careerLevel" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
 								<f:for each="{careerLevels}" as="careerLevel">
-									<f:form.select.option value="{careerLevel.careerLevel}" additionalAttributes="{f:if(condition: '{careerLevelType} == {careerLevel.careerLevel}', then: '{selected: true}')}">{careerLevel.careerLevel}</f:form.select.option>
+									<f:if condition="{careerLevel.careerLevel}">
+										<f:form.select.option value="{careerLevel.careerLevel}" additionalAttributes="{f:if(condition: '{careerLevelType} == {careerLevel.careerLevel}', then: '{selected: true}')}">{careerLevel.careerLevel}</f:form.select.option>
+									</f:if>
 								</f:for>
 							</f:form.select>
 						</div>
@@ -39,9 +43,11 @@
 							</label>
 							<f:form.select class="form-control" name="employmentType" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
 								<f:for each="{employmentTypes}" as="employmentType">
-									<f:form.select.option value="{employmentType.employmentType}" additionalAttributes="{f:if(condition: '{selectedEmploymentType} == {employmentType.employmentType}', then: '{selected: true}')}">
-										<f:translate key="fe.posting.employment.selector.{employmentType.employmentType}"/>
-									</f:form.select.option>
+									<f:if condition="{employmentType.employmentType}">
+										<f:form.select.option value="{employmentType.employmentType}" additionalAttributes="{f:if(condition: '{selectedEmploymentType} == {employmentType.employmentType}', then: '{selected: true}')}">
+											<f:translate key="fe.posting.employment.selector.{employmentType.employmentType}"/>
+										</f:form.select.option>
+									</f:if>
 								</f:for>
 							</f:form.select>
 						</div>

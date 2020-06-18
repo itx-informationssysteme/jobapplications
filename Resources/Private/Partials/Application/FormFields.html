@@ -21,13 +21,15 @@
 <div class="form-row">
 	<div class="form-group col-md-6">
 		<label for="firstName">
-			<f:translate key="tx_jobapplications_domain_model_application.first_name"/>*
+			<f:translate key="tx_jobapplications_domain_model_application.first_name"/>
+			*
 		</label>
 		<f:form.textfield property="firstName" class="form-control" required="true"/>
 	</div>
 	<div class="form-group col-md-6">
 		<label for="lastName">
-			<f:translate key="tx_jobapplications_domain_model_application.last_name"/>*
+			<f:translate key="tx_jobapplications_domain_model_application.last_name"/>
+			*
 		</label>
 		<f:form.textfield class="form-control" property="lastName" required="true"/>
 	</div>
@@ -35,7 +37,8 @@
 <div class="form-row">
 	<div class="form-group col-md-6">
 		<label for="email">
-			<f:translate key="tx_jobapplications_domain_model_application.email"/>*
+			<f:translate key="tx_jobapplications_domain_model_application.email"/>
+			*
 		</label>
 		<f:form.textfield type="email" property="email" class="form-control" required="true"/>
 	</div>
@@ -87,7 +90,8 @@
 		<f:if condition="{settings.showSalarayExpectation}">
 			<div class="form-group col-md-6">
 				<label for="salaryExpectation">
-					<f:translate key="tx_jobapplications_domain_model_application.salary_expectation"/>*
+					<f:translate key="tx_jobapplications_domain_model_application.salary_expectation"/>
+					*
 				</label>
 				<f:form.textfield property="salaryExpectation" class="form-control" required="true"/>
 			</div>
@@ -102,20 +106,23 @@
 		</f:if>
 	</div>
 </f:if>
-<div class="form-row">
-	<div class="form-group col-md-12">
-		<label for="message">
-			<f:translate key="tx_jobapplications_domain_model_application.message"/>
-		</label>
-		<f:form.textarea class="form-control" name="message" property="message" rows="10" additionalAttributes="{maxlength: settings.messageMaxLength}"></f:form.textarea>
+<f:if condition="{settings.showMessage}">
+	<div class="form-row">
+		<div class="form-group col-md-12">
+			<label for="message">
+				<f:translate key="tx_jobapplications_domain_model_application.message"/>
+			</label>
+			<f:form.textarea class="form-control" name="message" property="message" rows="10" additionalAttributes="{maxlength: settings.messageMaxLength}"></f:form.textarea>
+		</div>
 	</div>
-</div>
+</f:if>
 <f:if condition="!{settings.legacy_upload}">
 	<f:then>
 		<div class="form-row">
 			<div class="form-group col-md-6" id="upload-files">
 				<label for="upload">
-					<f:translate key="tx_jobapplications_domain_model_application.files_upload"/>*
+					<f:translate key="tx_jobapplications_domain_model_application.files_upload"/>
+					*
 				</label>
 				<f:form.upload id="upload" name="upload" additionalAttributes="{accept:'.pdf', required: 'true'}" multiple="true" class="form-control-file"></f:form.upload>
 			</div>
@@ -125,13 +132,15 @@
 		<div class="form-row">
 			<div class="form-group col-md-6">
 				<label for="upload-cv">
-					<f:translate key="tx_jobapplications_domain_model_application.cv"/>*
+					<f:translate key="tx_jobapplications_domain_model_application.cv"/>
+					*
 				</label>
 				<f:form.upload id="upload-cv" name="cv" additionalAttributes="{accept:'.pdf', required: 'true'}" class="form-control-file"></f:form.upload>
 			</div>
 			<div class="form-group col-md-6">
 				<label for="cover_letter">
-					<f:translate key="tx_jobapplications_domain_model_application.cover_letter"/>*
+					<f:translate key="tx_jobapplications_domain_model_application.cover_letter"/>
+					*
 				</label>
 				<f:form.upload name="cover_letter" additionalAttributes="{accept:'.pdf', required: 'true'}" class="form-control-file"></f:form.upload>
 			</div>

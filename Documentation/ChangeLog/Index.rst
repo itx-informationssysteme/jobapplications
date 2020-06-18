@@ -13,6 +13,8 @@ Changelog
 0.9.10 - Minor bugfixes
 -----------------------
 * [BUGFIX] fixed error in select in Backend Module
+* [BUGFIX] fixed missing condition for the message field in the application form template
+* [BUGFIX] hide empty values in posting list filter select options
 
 0.9.9 - Bugfix for wrong hook behaviour
 ---------------------------------------
