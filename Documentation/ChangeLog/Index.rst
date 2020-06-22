@@ -10,8 +10,9 @@
 
 Changelog
 =========
-0.9.10 - Minor bugfixes
------------------------
+
+0.9.10 - Minor bugfixes and file upload features
+------------------------------------------------
 * [BUGFIX] fixed error in select in Backend Module
 * [BUGFIX] fixed missing condition for the message field in the application form template
 * [BUGFIX] hide empty values in posting list filter select options
