@@ -46,6 +46,7 @@
 	use TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter;
 	use TYPO3\CMS\Fluid\View\TemplatePaths;
 	use TYPO3\CMS\Fluid\View\TemplateView;
+	use TYPO3\CMS\Core\Resource\StorageRepository;
 
 	/**
 	 * ApplicationController
@@ -61,7 +62,11 @@
 		 */
 		protected $applicationRepository = null;
 
+		/** @var int $fileSizeLimit */
 		protected $fileSizeLimit;
+
+		/** @var string $allowedFileTypesString */
+		protected $allowedFileTypesString;
 
 		/**
 		 * @var \ITX\Jobapplications\Domain\Repository\PostingRepository
@@ -148,7 +153,21 @@
 		 */
 		public function initializeAction()
 		{
-			$this->fileSizeLimit = GeneralUtility::getMaxUploadFileSize();
+			$this->allowedFileTypesString = $this->settings['allowedFileTypes'];
+
+			/** @var ExtensionConfiguration $extconf */
+			$extconf = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class);
+			$extConfLimit = $extconf->get('jobapplications', 'customFileSizeLimit');
+
+			if ($extConfLimit !== '')
+			{
+				$this->fileSizeLimit = (int)$extConfLimit > (int)GeneralUtility::getMaxUploadFileSize() ?
+					GeneralUtility::getMaxUploadFileSize() : (int)$extConfLimit;
+			}
+			else
+			{
+				$this->fileSizeLimit = (int)GeneralUtility::getMaxUploadFileSize();
+			}
 
 			if (constant('TYPO3_version'))
 			{
@@ -206,6 +225,8 @@
 
 			$this->view->assign("fileSizeLimit", (string)$this->fileSizeLimit / 1024);
 
+			$this->view->assign("allowedFileTypes", $this->allowedFileTypesString);
+
 			if ($this->request->hasArgument("fileError"))
 			{
 				$error = $this->request->getArgument("fileError");
@@ -261,11 +282,9 @@
 		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
 		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
 		 */
-		public function createAction(\ITX\Jobapplications\Domain\Model\Application $newApplication, \ITX\Jobapplications\Domain\Model\Posting $posting = null)
+		public function createAction(\ITX\Jobapplications\Domain\Model\Application $newApplication, \ITX\Jobapplications\Domain\Model\Posting $posting = null): void
 		{
-			$allowedFileTypes = [
-				"application/pdf"
-			];
+			$allowedFileTypes = explode(',', $this->allowedFileTypesString) ?: ['.pdf'];
 
 			$problemWithApplicantMail = false;
 			$problemWithNotificationMail = false;
@@ -293,15 +312,15 @@
 				foreach ($uploads as $upload)
 				{
 					//Check if Filetype is accepted
-					if (!in_array($_FILES['tx_jobapplications_applicationform']['type'][$upload], $allowedFileTypes) && $_FILES['tx_jobapplications_applicationform']['type'][$upload] != "")
+					if (!in_array('.'.pathinfo($_FILES['tx_jobapplications_applicationform']['name'][$upload])['extension'], $allowedFileTypes, true) && $_FILES['tx_jobapplications_applicationform']['type'][$upload] !== "")
 					{
-						if (!in_array($_FILES['tx_jobapplications_applicationform']['type'][$upload], $allowedFileTypes))
+						if (!in_array('.'.pathinfo($_FILES['tx_jobapplications_applicationform']['name'][$upload])['extension'], $allowedFileTypes, true))
 						{
-							$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileType', 'jobapplications'), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
+							$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileType', 'jobapplications', [$this->allowedFileTypesString]), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
 						}
 						else
 						{
-							$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileSize', 'jobapplications', array("0" => intval($this->fileSizeLimit) / 1024)), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
+							$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileSize', 'jobapplications', array("0" => (int)$this->fileSizeLimit / 1024)), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
 						}
 
 						$this->redirect("new", "Application", null, array(
@@ -320,13 +339,13 @@
 				{
 					$error_bit = false;
 
-					if (!in_array($_FILES['tx_jobapplications_applicationform']['type']['upload'][$i], $allowedFileTypes))
+					if (!in_array('.'.pathinfo($_FILES['tx_jobapplications_applicationform']['name']['upload'][$i])['extension'], $allowedFileTypes, true))
 					{
-						$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileType', 'jobapplications'), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
+						$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileType', 'jobapplications', [$this->allowedFileTypesString]), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
 						$error_bit = true;
 					}
 
-					if ((int)$_FILES['tx_jobapplications_applicationform']['error']['upload'][$i] != 0)
+					if ((int)$_FILES['tx_jobapplications_applicationform']['error']['upload'][$i] !== 0)
 					{
 						$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileSize', 'jobapplications', array("0" => intval($this->fileSizeLimit) / 1024)), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
 						$error_bit = true;
@@ -346,8 +365,9 @@
 
 			// Verify length in message field;
 			// front end check is already covered, this should only block requests avoiding the frontend
-			if (strlen($newApplication->getMessage()) > intval($this->settings['messageMaxLength']))
+			if (strlen($newApplication->getMessage()) > (int)$this->settings['messageMaxLength'])
 			{
+				$this->addFlashMessage("Message too long", "Rejected", FlashMessage::ERROR);
 				$this->redirect("new", "Application", null, ["posting" => $posting]);
 			}
 
@@ -697,7 +717,7 @@
 		 * @param int $iteration  The current iteration
 		 * @param int $totalFiles The total amount of iterations
 		 */
-		private function buildRelations(int $objectUid, int $fileUid, int $objectPid, $iteration = 0, $totalFiles = 1)
+		private function buildRelations(int $objectUid, int $fileUid, int $objectPid, $iteration = 0, $totalFiles = 1): void
 		{
 			/** @var ConnectionPool $database */
 			$database = GeneralUtility::makeInstance(ConnectionPool::class);
@@ -751,7 +771,7 @@
 			$tmpFile = $_FILES['tx_jobapplications_applicationform']['tmp_name'][$fieldName];
 
 			/* @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
-			$storageRepository = $this->objectManager->get('TYPO3\\CMS\\Core\\Resource\\StorageRepository');
+			$storageRepository = $this->objectManager->get(StorageRepository::class);
 			$storage = $storageRepository->findByUid('1');
 
 			//build the new storage folder
@@ -771,7 +791,9 @@
 				$newFileName = substr($newFileName, 0, 245);
 			}
 
-			$newFileName .= "_id_".$domainObject->getPosting()->getUid().".pdf";
+			$fileExtension = '.'.pathinfo($_FILES['tx_jobapplications_applicationform']['name'][$fieldName])['extension'];
+
+			$newFileName .= "_id_".$domainObject->getPosting()->getUid().$fileExtension;
 
 			//build sys_file
 			$movedNewFile = $storage->addFile($tmpFile, $targetFolder, $newFileName);

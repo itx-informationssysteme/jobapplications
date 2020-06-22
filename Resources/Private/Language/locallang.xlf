@@ -205,13 +205,13 @@
                 <source>Send Application</source>
             </trans-unit>
             <trans-unit id="fe.error.fileType" resname="fe.error.fileType">
-                <source>Please check the filetype of the uploaded files. Only .pdf is allowed.</source>
+                <source>Please check the filetype of the uploaded files. Only %s is allowed.</source>
             </trans-unit>
             <trans-unit id="fe.error.fileSize" resname="fe.error.fileSize">
                 <source>File Error: One of your uploaded Files probably exceeded the filesize limit of %sMB</source>
             </trans-unit>
             <trans-unit id="fe.info.fileSize" resname="fe.info.fileSize">
-                <source>The maximum upload filesize is %sMB and only pdf-files are allowed.</source>
+                <source>The maximum upload filesize is %sMB and only %s-files are allowed.</source>
             </trans-unit>
             <trans-unit id="fe.info.required" resname="fe.info.required">
                 <source>Fields marked with * are required.</source>
