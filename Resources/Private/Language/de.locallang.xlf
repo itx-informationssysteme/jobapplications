@@ -272,16 +272,16 @@
                 <target state="translated">Bewerbung senden</target>
             </trans-unit>
             <trans-unit id="fe.error.fileType" resname="fe.error.fileType" approved="yes">
-                <source>Please check the filetype of the uploaded files. Only .pdf is allowed.</source>
-                <target state="translated">Bitte überprüfen Sie den Dateityp der hochgeladenen Dateien. Es sind nur .pdf Dateien erlaubt!</target>
+                <source>Please check the filetype of the uploaded files. Only %s is allowed.</source>
+                <target state="translated">Bitte überprüfen Sie den Dateityp der hochgeladenen Dateien. Es sind nur %s Dateien erlaubt!</target>
             </trans-unit>
             <trans-unit id="fe.error.fileSize" resname="fe.error.fileSize" approved="yes">
                 <source>File Error: One of your uploaded Files probably exceeded the filesize limit of %sMB</source>
                 <target state="translated">Dateifehler: Eine Ihrer Dateien hat vermutlich das Dateigrößenlimit von %sMB überschritten</target>
             </trans-unit>
             <trans-unit id="fe.info.fileSize" resname="fe.info.fileSize" approved="yes">
-                <source>The maximum upload filesize is %sMB and only pdf-files are allowed.</source>
-                <target state="translated">Die maximale Dateigröße ist %sMB und nur .pdf Dateien sind erlaubt.</target>
+                <source>The maximum upload filesize is %sMB and only %sfiles are allowed.</source>
+                <target state="translated">Die maximale Dateigröße ist %sMB und nur %s-Dateien sind erlaubt.</target>
             </trans-unit>
             <trans-unit id="fe.info.required" resname="fe.info.required">
                 <source>Fields marked with * are required.</source>

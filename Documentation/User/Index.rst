@@ -203,6 +203,14 @@ Extension Configuration
 =======================
 This can be found in *Settings->Extension Configuration->Configure Extensions->jobapplications*
 
+General
+~~~~~~~
+
+Override the automatically fetched server upload file size limit
+----------------------------------------------------------------
+Here you can choose to provide a custom upload file size limit, that gets shown in the frontend and checked in backend.
+This must be a smaller than or equal the value the server sets. Specifiy the value in kilobytes.
+
 Google Indexing API interface
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 This extension implements the Google Indexing API. It provides a possibility for telling Google when a job posting was created, updated
@@ -266,6 +274,16 @@ Use single file upload
 ----------------------
 This is enabled by default to ensure extension backwards compatiblity.
 By disabling this field the multi file upload field is activated.
+
+Send Email as HTML or Text or Both
+----------------------------------
+This setting only has an effect in TYPO3 v10. You can choose to send out emails as their html, text or both combined versions.
+There are email templates, for both the html and text versions.
+
+Allowed application upload file types
+-------------------------------------
+Here you can specify multiple file types by naming their extension by using the following notation: .pdf,.docx,.xlsx .
+Fallback is .pdf.
 
 Enable Google Jobs
 ------------------

@@ -1,5 +1,8 @@
 # "Google for Jobs Configuration"
 ####################################
+# cat=general; type=int; label=LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:conf.customFileSizeLimit
+customFileSizeLimit =
+
 # cat=google; type=string; label=LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:conf.companyName
 companyName =
 

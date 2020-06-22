@@ -183,6 +183,10 @@
                 <source>Currency: Used for Google Jobs. In ISO 4217 format!</source>
                 <target state="translated">Währung: Wird für Google Jobs benutzt. Im ISO 4217 Format!</target>
             </trans-unit>
+            <trans-unit id="conf.customFileSizeLimit" resname="conf.customFileSizeLimit">
+                <source>Override the automatically fetched server upload file size limit. (in kilobytes)</source>
+                <target state="translated">Überschreiben des automatischen Server-Datei-Upload-Limits mit einem eigenen Wert. (in Kilobytes)</target>
+            </trans-unit>
             <trans-unit id="be.dashboard.welcome" resname="be.dashboard.welcome" approved="yes">
                 <source>Welcome back %s %s!</source>
                 <target state="translated">Willkommen zurück, %s %s!</target>

@@ -4,6 +4,7 @@ plugin.tx_jobapplications.settings.legacy_upload = {$plugin.tx_jobapplications.s
 plugin.tx_jobapplications.settings.defaultContactMailAddress = {$plugin.tx_jobapplications.settings.defaultContactMailAddress}
 plugin.tx_jobapplications.settings.defaultContactFirstName = {$plugin.tx_jobapplications.settings.defaultContactFirstName}
 plugin.tx_jobapplications.settings.defaultContactLastName = {$plugin.tx_jobapplications.settings.defaultContactLastName}
+plugin.tx_jobapplications.settings.allowedFileTypes = {$plugin.tx_jobapplications.settings.allowedFileTypes}
 
 plugin.tx_jobapplications {
     view {

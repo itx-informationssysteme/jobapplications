@@ -15,6 +15,10 @@ Changelog
 * [BUGFIX] fixed error in select in Backend Module
 * [BUGFIX] fixed missing condition for the message field in the application form template
 * [BUGFIX] hide empty values in posting list filter select options
+* [FEATURE] added setting in extension configuration, where a custom file upload size limit can be specified
+* [FEATURE] added setting in template constants where multiple allowed upload file types can be specified.
+  If you use the fe.info.fileSize translation and you have an overwritten template you might want to insert a second argument allowedFileTypes
+  which is provided by the controller.
 
 0.9.9 - Bugfix for wrong hook behaviour
 ---------------------------------------

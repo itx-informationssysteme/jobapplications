@@ -124,7 +124,7 @@
 					<f:translate key="tx_jobapplications_domain_model_application.files_upload"/>
 					*
 				</label>
-				<f:form.upload id="upload" name="upload" additionalAttributes="{accept:'.pdf', required: 'true'}" multiple="true" class="form-control-file"></f:form.upload>
+				<f:form.upload id="upload" name="upload" additionalAttributes="{accept: settings.allowedFileTypes, required: 'true'}" multiple="true" class="form-control-file"></f:form.upload>
 			</div>
 		</div>
 	</f:then>
@@ -135,14 +135,14 @@
 					<f:translate key="tx_jobapplications_domain_model_application.cv"/>
 					*
 				</label>
-				<f:form.upload id="upload-cv" name="cv" additionalAttributes="{accept:'.pdf', required: 'true'}" class="form-control-file"></f:form.upload>
+				<f:form.upload id="upload-cv" name="cv" additionalAttributes="{accept:settings.allowedFileTypes, required: 'true'}" class="form-control-file"></f:form.upload>
 			</div>
 			<div class="form-group col-md-6">
 				<label for="cover_letter">
 					<f:translate key="tx_jobapplications_domain_model_application.cover_letter"/>
 					*
 				</label>
-				<f:form.upload name="cover_letter" additionalAttributes="{accept:'.pdf', required: 'true'}" class="form-control-file"></f:form.upload>
+				<f:form.upload name="cover_letter" additionalAttributes="{accept:settings.allowedFileTypes, required: 'true'}" class="form-control-file"></f:form.upload>
 			</div>
 		</div>
 		<div class="form-row">
@@ -150,13 +150,13 @@
 				<label for="testimonials">
 					<f:translate key="tx_jobapplications_domain_model_application.testimonials"/>
 				</label>
-				<f:form.upload name="testimonials" additionalAttributes="{accept:'.pdf'}" class="form-control-file"></f:form.upload>
+				<f:form.upload name="testimonials" additionalAttributes="{accept:settings.allowedFileTypes}" class="form-control-file"></f:form.upload>
 			</div>
 			<div class="form-group col-md-6">
 				<label for="other_files">
 					<f:translate key="tx_jobapplications_domain_model_application.other_files"/>
 				</label>
-				<f:form.upload name="other_files" additionalAttributes="{accept:'.pdf'}" class="form-control-file"></f:form.upload>
+				<f:form.upload name="other_files" additionalAttributes="{accept:settings.allowedFileTypes}" class="form-control-file"></f:form.upload>
 			</div>
 		</div>
 	</f:else>
@@ -164,7 +164,7 @@
 <div class="form-row">
 	<small id="upload-message" class="form-text text-muted m-auto">
 		<p>
-			<f:translate key="fe.info.fileSize" arguments="{0: fileSizeLimit}"/>
+			<f:translate key="fe.info.fileSize" arguments="{0: fileSizeLimit, 1 : allowedFileTypes}"/>
 		</p>
 	</small>
 	<small id="required-message" class="form-text text-muted m-auto">
