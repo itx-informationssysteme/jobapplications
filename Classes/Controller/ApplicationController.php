@@ -242,10 +242,10 @@
 		 * @param string $firstName
 		 * @param string $lastName
 		 * @param string $salutation
-		 * @param int    $postingUid
 		 * @param array  $problems
+		 * @param int    $postingUid
 		 */
-		public function successAction($firstName, $lastName, $salutation, $postingUid, $problems)
+		public function successAction($firstName, $lastName, $salutation, $problems, $postingUid = -1)
 		{
 			$salutationValue = $salutation;
 
@@ -258,13 +258,15 @@
 				$salutation = LocalizationUtility::translate('fe.application.selector.'.$salutation, 'jobapplications');
 			}
 
-			$posting = $this->postingRepository->findByUid($postingUid);
+			if ($postingUid !== -1) {
+				$posting = $this->postingRepository->findByUid($postingUid);
+				$this->view->assign('posting', $posting);
+			}
 
 			$this->view->assign('firstName', $firstName);
 			$this->view->assign('lastName', $lastName);
 			$this->view->assign('salutation', $salutation);
 			$this->view->assign('problems', $problems);
-			$this->view->assign('posting', $posting);
 			$posting ? $this->view->assign('salutationValue', $salutationValue) : false;
 		}
 
@@ -491,6 +493,18 @@
 
 			$phoneLine = $newApplication->getPhone() !== '' ? $phoneLabel.$newApplication->getPhone().'<br>' : '';
 
+			$addressChunk = "";
+			if ($newApplication->getAddressStreetAndNumber()
+				|| $newApplication->getAddressPostCode()
+				|| $newApplication->getAddressCity()
+				|| $newApplication->getAddressCountry()
+			) {
+				$addressChunk = $addressLabel.'<br>'.$newApplication->getAddressStreetAndNumber().'<br>'
+				.$additionalAddress.
+				$newApplication->getAddressPostCode().' '.$newApplication->getAddressCity()
+				.'<br>'.$newApplication->getAddressCountry();
+			}
+
 			// Send mail to Contact E-Mail or/and internal E-Mail
 			if ($this->settings["sendEmailToContact"] === "1" || $this->settings['sendEmailToInternal'] !== "")
 			{
@@ -518,10 +532,7 @@
 								 $phoneLine.
 								 $salary.
 								 $dateOfJoining.'<br>'.
-								 $addressLabel.'<br>'.$newApplication->getAddressStreetAndNumber().'<br>'
-								 .$additionalAddress.
-								 $newApplication->getAddressPostCode().' '.$newApplication->getAddressCity()
-								 .'<br>'.$newApplication->getAddressCountry()
+								 $addressChunk
 								 .$message.'</p>', ['application' => $newApplication, 'settings' => $this->settings, 'currentPosting' => $currentPosting]);
 
 				// Attach all found legacy files
@@ -660,8 +671,8 @@
 												 'firstName' => $newApplication->getFirstName(),
 												 'lastName' => $newApplication->getLastName(),
 												 'salutation' => $newApplication->getSalutation(),
-												 'postingUid' => $currentPosting->getUid(),
-												 'problems' => $problems
+												 'problems' => $problems,
+												 'postingUid' => $currentPosting->getUid() ?: -1
 											 ], 'Application', null, 'SuccessPage');
 
 			$this->redirectToUri($uri);
