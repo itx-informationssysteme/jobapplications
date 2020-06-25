@@ -10,6 +10,10 @@
 
 Changelog
 =========
+0.9.11 - Unsolicited application error fix
+------------------------------------------
+* [BUGFIX] fixed error when trying to send an unsolicited application
+* [BUGFIX] exluded address label from legacy email if data not in application
 
 0.9.10 - Minor bugfixes and file upload features
 ------------------------------------------------
