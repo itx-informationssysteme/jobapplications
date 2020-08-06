@@ -10,6 +10,11 @@
 
 Changelog
 =========
+0.9.12 - Minor update
+---------------------
+* [BUGFIX] added back in the ability to send applications without uploading files
+* [FEATURE] added typoscript variables for choosing ordering of postings in list view
+
 0.9.11 - Unsolicited application error fix
 ------------------------------------------
 * [BUGFIX] fixed error when trying to send an unsolicited application

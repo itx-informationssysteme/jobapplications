@@ -114,6 +114,20 @@
 			$category_str = $this->settings["categories"];
 			$categories = array();
 
+			$orderBy = $this->settings['list']['ordering']['field'];
+			$order = null;
+			switch ($this->settings['list']['ordering']['order'])
+			{
+				case 'descending':
+					$order = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING;
+					break;
+				case 'ascending':
+					$order = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING;
+					break;
+				default:
+					throw new \InvalidArgumentException("Could not decode order: ".$this->settings['filter']['ordering']['order']);
+			}
+
 			if (!empty($category_str))
 			{
 				$categories = explode(",", $category_str);
@@ -162,18 +176,18 @@
 
 			if (!empty($divisionName) || !empty($careerLevelType) || !empty($selectedEmploymentType) || $selectedLocation != -1)
 			{
-				$postings = $this->postingRepository->findByFilter($divisionName, $careerLevelType, $selectedEmploymentType, $selectedLocation, $categories);
+				$postings = $this->postingRepository->findByFilter($divisionName, $careerLevelType, $selectedEmploymentType, $selectedLocation, $categories, $orderBy, $order);
 
 			}
 			else
 			{
 				if (count($categories) == 0)
 				{
-					$postings = $this->postingRepository->findAll();
+					$postings = $this->postingRepository->findAllWithOrder($orderBy, $order);
 				}
 				else
 				{
-					$postings = $this->postingRepository->findByCategory($categories);
+					$postings = $this->postingRepository->findByCategory($categories, $orderBy, $order);
 				}
 			}
 

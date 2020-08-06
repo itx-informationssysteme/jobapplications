@@ -38,6 +38,7 @@
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Resource\FileInterface;
 	use TYPO3\CMS\Core\Resource\ResourceFactory;
+	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 	use TYPO3\CMS\Extbase\Domain\Model\FileReference;
@@ -258,7 +259,8 @@
 				$salutation = LocalizationUtility::translate('fe.application.selector.'.$salutation, 'jobapplications');
 			}
 
-			if ($postingUid !== -1) {
+			if ($postingUid !== -1)
+			{
 				$posting = $this->postingRepository->findByUid($postingUid);
 				$this->view->assign('posting', $posting);
 			}
@@ -292,6 +294,8 @@
 			$problemWithNotificationMail = false;
 			$savedInBackend = true;
 
+			$fileErrors = $_FILES['tx_jobapplications_applicationform']['error'];
+			$emptySingleFileUpload = $fileErrors['cv'] === 4 && $fileErrors['cover_letter'] === 4 && $fileErrors['testimonials'] === 4 && $fileErrors['other_files'] === 4;
 			$multiFileUpload = $_FILES['tx_jobapplications_applicationform']['name']['upload'];
 			$multiUploadFiles = [];
 
@@ -305,7 +309,7 @@
 			}
 
 			// Single file upload fields
-			if ($amountOfFiles === 0)
+			if ($amountOfFiles === 0 && !$emptySingleFileUpload)
 			{
 				//Uploads in order as defined in Domain Model
 				$uploads = array("cv", "cover_letter", "testimonials", "other_files");
@@ -334,9 +338,8 @@
 					}
 				}
 			}
-			else
+			else if ($amountOfFiles > 0)
 			{
-				$amountOfFiles = count($_FILES['tx_jobapplications_applicationform']['name']['upload']);
 				for ($i = 0; $i < $amountOfFiles; $i++)
 				{
 					$error_bit = false;
@@ -498,11 +501,12 @@
 				|| $newApplication->getAddressPostCode()
 				|| $newApplication->getAddressCity()
 				|| $newApplication->getAddressCountry()
-			) {
+			)
+			{
 				$addressChunk = $addressLabel.'<br>'.$newApplication->getAddressStreetAndNumber().'<br>'
-				.$additionalAddress.
-				$newApplication->getAddressPostCode().' '.$newApplication->getAddressCity()
-				.'<br>'.$newApplication->getAddressCountry();
+					.$additionalAddress.
+					$newApplication->getAddressPostCode().' '.$newApplication->getAddressCity()
+					.'<br>'.$newApplication->getAddressCountry();
 			}
 
 			// Send mail to Contact E-Mail or/and internal E-Mail
