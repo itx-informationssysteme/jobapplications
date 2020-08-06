@@ -42,7 +42,7 @@
 		 *
 		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 		 */
-		public function findByCategory(array $categories)
+		public function findByCategory(array $categories, $orderBy, $ordering)
 		{
 			$query = $this->createQuery();
 
@@ -58,6 +58,25 @@
 
 			$query->statement($qb->getSQL());
 
+			$query->setOrderings([
+									 $orderBy => $ordering
+								 ]);
+
+			return $query->execute();
+		}
+
+		/**
+		 * @param $orderBy
+		 * @param $order
+		 *
+		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+		 */
+		public function findAllWithOrder($orderBy, $order)
+		{
+			$query = $this->createQuery();
+			$query->setOrderings([
+									 $orderBy => $order
+								 ]);
 			return $query->execute();
 		}
 
@@ -171,7 +190,7 @@
 		 *
 		 * @return array
 		 */
-		public function findByFilter(string $division, string $careerLevel, string $employmentType, int $location, array $categories)
+		public function findByFilter(string $division, string $careerLevel, string $employmentType, int $location, array $categories, $orderBy, $order)
 		{
 			$query = $this->createQuery();
 
@@ -219,6 +238,9 @@
 			}
 
 			$query->statement($qb->getSQL());
+			$query->setOrderings([
+									 $orderBy => $order
+								 ]);
 
 			return $query->execute();
 		}

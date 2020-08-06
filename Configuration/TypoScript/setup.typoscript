@@ -7,49 +7,59 @@ plugin.tx_jobapplications.settings.defaultContactLastName = {$plugin.tx_jobappli
 plugin.tx_jobapplications.settings.allowedFileTypes = {$plugin.tx_jobapplications.settings.allowedFileTypes}
 
 plugin.tx_jobapplications {
-    view {
-        templateRootPaths.0 = EXT:{extension.shortExtensionKey}/Resources/Private/Templates/
-        templateRootPaths.1 = {$plugin.tx_jobapplications.view.templateRootPath}
-        partialRootPaths.0 = EXT:jobapplications/Resources/Private/Partials/
-        partialRootPaths.1 = {$plugin.tx_jobapplications.view.partialRootPath}
-        layoutRootPaths.0 = EXT:tx_jobapplications/Resources/Private/Layouts/
-        layoutRootPaths.1 = {$plugin.tx_jobapplications.view.layoutRootPath}
-    }
-    persistence {
-        storagePid = {$plugin.tx_jobapplications.persistence.storagePid}
-        #recursive = 1
-    }
-    features {
-        #skipDefaultArguments = 1
-        # if set to 1, the enable fields are ignored in BE context
-        ignoreAllEnableFieldsInBe = 0
-        # Should be on by default, but can be disabled if all action in the plugin are uncached
-        requireCHashArgumentForActionArguments = 1
-    }
-    mvc {
-        #callDefaultActionIfActionCantBeResolved = 1
-    }
+	view {
+		templateRootPaths.0 = EXT:{extension.shortExtensionKey}/Resources/Private/Templates/
+		templateRootPaths.1 = {$plugin.tx_jobapplications.view.templateRootPath}
+		partialRootPaths.0 = EXT:jobapplications/Resources/Private/Partials/
+		partialRootPaths.1 = {$plugin.tx_jobapplications.view.partialRootPath}
+		layoutRootPaths.0 = EXT:tx_jobapplications/Resources/Private/Layouts/
+		layoutRootPaths.1 = {$plugin.tx_jobapplications.view.layoutRootPath}
+	}
+
+	persistence {
+		storagePid = {$plugin.tx_jobapplications.persistence.storagePid}
+		#recursive = 1
+	}
+
+	features {
+		#skipDefaultArguments = 1
+		# if set to 1, the enable fields are ignored in BE context
+		ignoreAllEnableFieldsInBe = 0
+		# Should be on by default, but can be disabled if all action in the plugin are uncached
+		requireCHashArgumentForActionArguments = 1
+	}
+
+	mvc {
+		#callDefaultActionIfActionCantBeResolved = 1
+	}
+
+	settings.list {
+		ordering {
+			field = date_posted
+			order = descending
+		}
+	}
 }
 
 config.tx_extbase.persistence.classes {
-    ITX\Jobapplications\Domain\Model\TtContent {
-        mapping {
-            tableName = tt_content
-        }
-    }
+	ITX\Jobapplications\Domain\Model\TtContent {
+		mapping {
+			tableName = tt_content
+		}
+	}
 }
 
 # Module configuration
 module.tx_jobapplications_web_jobapplicationsbackend < plugin.tx_jobapplications
-module.tx_jobapplications_web_jobapplicationsbackend  {
-    view {
-        templateRootPaths.0 = EXT:jobapplications/Resources/Private/Backend/Templates/
-        templateRootPaths.1 = {$module.tx_jobapplications_backend.view.templateRootPath}
-        partialRootPaths.0 = EXT:jobapplications/Resources/Private/Backend/Partials/
-        partialRootPaths.1 = {$module.tx_jobapplications_backend.view.partialRootPath}
-        layoutRootPaths.0 = EXT:jobapplications/Resources/Private/Backend/Layouts/
-        layoutRootPaths.1 = {$module.tx_jobapplications_backend.view.layoutRootPath}
-    }
+module.tx_jobapplications_web_jobapplicationsbackend {
+	view {
+		templateRootPaths.0 = EXT:jobapplications/Resources/Private/Backend/Templates/
+		templateRootPaths.1 = {$module.tx_jobapplications_backend.view.templateRootPath}
+		partialRootPaths.0 = EXT:jobapplications/Resources/Private/Backend/Partials/
+		partialRootPaths.1 = {$module.tx_jobapplications_backend.view.partialRootPath}
+		layoutRootPaths.0 = EXT:jobapplications/Resources/Private/Backend/Layouts/
+		layoutRootPaths.1 = {$module.tx_jobapplications_backend.view.layoutRootPath}
+	}
 }
 
 
