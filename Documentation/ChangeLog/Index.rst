@@ -10,6 +10,51 @@
 
 Changelog
 =========
+
+1.0.0 - [BREAKING] Better file uploads and better filters
+---------------------------------------------------------
+This release is one of the more feature rich releases, in this case it demanded a lot of rewriting of essential features, like
+the file upload or the filter functionality. That's why this release is marked as breaking. This means especially if
+you overrode templates, functionality will be broken at first and manual migrations have to take place.
+
+As this update touched quite a lot of code there may be bugs. If you find one please report it by creating a GitHub Issue.
+
+* [BREAKING] file uploads now work with the included JavaScript library filepond.
+  This results in a different file uploading flow, where the users upload their files asynchronously. This means the user
+  does not have to select the files in one file chooser window, but can do this in multiple instances and also remove each
+  added file from the upload. This also improves file error handling, as the user gets feedback immediatly after the upload,
+  whether the file was accepted or not.
+
+  This change breaks the old fileuploads, meaning if you overrode the application form template, applying
+  wont work anymore. To migrate, take a look into the new application form template where things like including JavaScript
+  and CSS libraries and giving the upload elements a "filepond" class happened.
+
+  Filepond gives you a lot of flexibility in its configuration, which you can find outsourced to the Application/FilepondConfig partial.
+  This change also introduces the option to simply change whether the former single file uploads (cv, cover_letter...)
+  are single or multi upload directly in the template. The controller will handle both.
+
+* [BREAKING] filters became a JavaScript and functionality upgrade as well. They are now powered by selectize.js (also included).
+  selectize.js requires jQuery which is also optionally included as static template.
+  The main reason for using JavaScript selects, was to have good looking multi selects. This means filters can now be
+  implemented in templates as single or multiselect, without changing something else.
+  Apart from that, the entire filter system was reworked, now allowing custom filters to be configured via TypoScript and
+  the PostingController. Details on how to do this can be found in the developer section of the documentation.
+
+* [BREAKING] the allowed file extension list was moved from the template constants to the Extension Configuration.
+
+* [BREAKING] deprecated validThrough property in Posting domain model finally removed
+
+* [BREAKING] changed the employment type single select into a multiselect, as google allows for multiple employment types as well
+
+* [FEATURE] the default posting list view temlate now has the pagination viewhelper included (and overriden for working bootstrap layout),
+  also including a typoscript constant allowing to set the maximum number of postings on one page
+
+* [FEATURE] added error handler if no posting was found for the detail view
+
+* [BUGFIX] corrected output order in contact display
+
+* [BUGFIX] fixed Google Indexing API implementation in v10
+
 0.9.12 - Minor update
 ---------------------
 * [BUGFIX] added back in the ability to send applications without uploading files

@@ -130,14 +130,6 @@
 		protected $baseSalary = 0;
 
 		/**
-		 * validThrough
-		 *
-		 * @var \DateTime
-		 * @deprecated will be removed in next version
-		 */
-		protected $validThrough = null;
-
-		/**
 		 * requiredDocuments
 		 *
 		 * @var string
@@ -311,6 +303,14 @@
 		}
 
 		/**
+		 * @return string[]
+		 */
+		public function getDeserializedEmploymentTypes()
+		{
+			return explode(',', $this->employmentType);
+		}
+
+		/**
 		 * Sets the employmentType
 		 *
 		 * @param string $employmentType
@@ -477,30 +477,6 @@
 		}
 
 		/**
-		 * Returns the validThrough
-		 *
-		 * @return \DateTime validThrough
-		 * @deprecated will be removed in next version
-		 */
-		public function getValidThrough()
-		{
-			return $this->validThrough;
-		}
-
-		/**
-		 * Sets the validThrough
-		 *
-		 * @param \DateTime $validThrough
-		 *
-		 * @return void
-		 * @deprecated will be removed in next version
-		 */
-		public function setValidThrough(\DateTime $validThrough)
-		{
-			$this->validThrough = $validThrough;
-		}
-
-		/**
 		 * Returns the requiredDocuments
 		 *
 		 * @return string requiredDocuments
@@ -630,18 +606,6 @@
 		public function setListViewImage(\TYPO3\CMS\Extbase\Domain\Model\FileReference $listViewImage)
 		{
 			$this->listViewImage = $listViewImage;
-		}
-
-		/**
-		 * @return boolean
-		 * @deprecated will be removed in next version
-		 */
-		public function getIsValid()
-		{
-			$current = new \DateTime();
-			$validThrougDate = $this->validThrough;
-
-			return ($this->datePosted <= $current) && ($validThrougDate == null || ($validThrougDate->modify("+1 day") >= $current));
 		}
 
 		/**

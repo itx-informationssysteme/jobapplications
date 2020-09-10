@@ -12,7 +12,7 @@
 				],
 				// non-cacheable actions
 				[
-					'Posting' => 'list',
+					'Posting' => 'list'
 				]
 			);
 
@@ -118,13 +118,22 @@
 				'additionalFields' => \ITX\Jobapplications\Task\CleanUpApplicationsAdditionalFieldProvider::class
 			);
 
-			$GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludeAllEmptyParameters'] = true;
-			$GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFoundOnCHashError'] = false;
-
 			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['jobapplications'] = \ITX\Jobapplications\Hooks\TCEmainHook::class;
 			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass']['jobapplications'] = \ITX\Jobapplications\Hooks\TCEmainHook::class;
 
 			// FluidMail
 			$GLOBALS['TYPO3_CONF_VARS']['MAIL']['templateRootPaths'][283] = 'EXT:jobapplications/Resources/Private/Templates/Mail';
+
+			// Ajax routes
+			$GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['jobapplications_upload'] = \ITX\Jobapplications\Controller\AjaxController::class . '::uploadAction';
+			$GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['jobapplications_revert'] = \ITX\Jobapplications\Controller\AjaxController::class . '::revertAction';
+
+			// Cache
+			if (!is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['jobapplications_cache'])) {
+				$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['jobapplications_cache'] = [];
+			}
+
+			$GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludeAllEmptyParameters'] = true;
+			$GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFoundOnCHashError'] = false;
 		}
 	);

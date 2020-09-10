@@ -272,8 +272,8 @@
                 <target state="translated">Jobapplications: Bewerbung erfolgreich versendet</target>
             </trans-unit>
             <trans-unit id="legacy_upload" resname="legacy_upload">
-                <source>Use the legacy upload (4 Fields Cover Letter, CV, Testimonials, Other) instead of a single mutli file upload</source>
-                <target>Benutzen des Single-File-Uploads (4 Felder Anschreiben, Lebenslauf, Zeugnisse, Anderes) anstelle eines einzigen mehrfach-Upload Feldes</target>
+                <source>Use 4 predefined upload fields (4 Fields Cover Letter, CV, Testimonials, Other) instead of a single mutli file upload</source>
+                <target>4 Datei-Upload-Felder (Anschreiben, Lebenslauf, Zeugnisse, Anderes) anstelle eines einzigen mehrfach-Upload Feldes benutzen</target>
             </trans-unit>
             <trans-unit id="be.settings.batchIndex" resname="be.settings.batchIndex">
                 <source>This option allows you to regenerate batch indexing requests for Google Jobs. It iterates over each Posting and

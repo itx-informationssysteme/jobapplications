@@ -43,10 +43,10 @@
 		 * @return \TYPO3\CMS\Core\Database\Query\QueryBuilder
 		 */
 
-		function buildCategoriesToSQL(array $categories, \TYPO3\CMS\Core\Database\Query\QueryBuilder $qb)
+		public function buildCategoriesToSQL(array $categories, \TYPO3\CMS\Core\Database\Query\QueryBuilder $qb)
 		{
 			$statement = "";
-			for ($i = 0; $i < count($categories); $i++)
+			for ($i = 0, $iMax = count($categories); $i < $iMax; $i++)
 			{
 				if ($i == 0)
 				{
@@ -82,7 +82,7 @@
 		 *
 		 * @return \TYPO3\CMS\Core\Database\Query\QueryBuilder
 		 */
-		function getQueryBuilder(string $table)
+		public function getQueryBuilder(string $table)
 		{
 			return GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($table);
 		}

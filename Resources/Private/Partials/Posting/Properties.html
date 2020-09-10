@@ -32,7 +32,9 @@
 					</h6>
 				</div>
 				<div class="col-3">
-					<f:translate key="fe.posting.employment.selector.{posting.employmentType}"/>
+					<f:for each="{posting.deserializedEmploymentTypes}" as="employmentType" iteration="iterator">
+						<f:translate key="fe.posting.employment.selector.{employmentType}"/><f:if condition="!{iterator.isLast}" then=","></f:if>
+					</f:for>
 				</div>
 			</f:if>
 			<f:if condition="{posting.termsOfEmployment}">

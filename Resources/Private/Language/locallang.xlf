@@ -277,6 +277,45 @@
                     to the adressee. Please contact us, to make sure your application will be delivered successfully.
                 </source>
             </trans-unit>
+            <trans-unit id="fe.upload.file_error" resname="fe.upload.file_error">
+                <source>File Error: Check filetype and filesize.</source>
+            </trans-unit>
+            <trans-unit id="fe.upload.idle.drag" resname="fe.upload.idle.drag">
+                <source>Drag &amp; Drop your files or</source>
+            </trans-unit>
+            <trans-unit id="fe.upload.idle.browse" resname="fe.upload.idle.browse">
+                <source>Browse</source>
+            </trans-unit>
+            <trans-unit id="fe.upload.loading" resname="fe.upload.loading">
+                <source>Loading</source>
+            </trans-unit>
+            <trans-unit id="fe.upload.loading.error" resname="fe.upload.loading.error">
+                <source>Error during loading</source>
+            </trans-unit>
+            <trans-unit id="fe.upload.uploading" resname="fe.upload.uploading">
+                <source>Uploading</source>
+            </trans-unit>
+            <trans-unit id="fe.upload.cancel" resname="fe.upload.cancel">
+                <source>Tap to cancel</source>
+            </trans-unit>
+            <trans-unit id="fe.upload.retry" resname="fe.upload.retry">
+                <source>Tap to retry</source>
+            </trans-unit>
+            <trans-unit id="fe.upload.undo" resname="fe.upload.undo">
+                <source>Undo</source>
+            </trans-unit>
+            <trans-unit id="fe.upload.complete" resname="fe.upload.complete">
+                <source>Upload complete</source>
+            </trans-unit>
+            <trans-unit id="fe.upload.file_size" resname="fe.upload.file_size">
+                <source>Exceeded filesize limit</source>
+            </trans-unit>
+            <trans-unit id="fe.upload.file_type" resname="fe.upload.file_type">
+                <source>Filetype not allowed</source>
+            </trans-unit>
+            <trans-unit id="fe.upload.server_error" resname="fe.upload.server_error">
+                <source>A server error occured</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>

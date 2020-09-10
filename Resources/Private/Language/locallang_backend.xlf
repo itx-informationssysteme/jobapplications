@@ -212,7 +212,7 @@
 				<source>Jobapplications: Application Success Page</source>
 			</trans-unit>
 			<trans-unit id="legacy_upload" resname="legacy_upload">
-				<source>Use single file upload (4 Fields Cover Letter, CV, Testimonials, Other) instead of a single mutli file upload</source>
+				<source>Use 4 predefined file upload fields (4 Fields Cover Letter, CV, Testimonials, Other) instead of a single mutli file upload</source>
 			</trans-unit>
 			<trans-unit id="be.settings.batchIndex" resname="be.settings.batchIndex">
 				<source>This option allows you to regenerate new indexing requests for Google Jobs. It iterates over each Posting and

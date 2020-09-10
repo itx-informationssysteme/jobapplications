@@ -1,7 +1,13 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:layout name="Default"/>
 
 <f:section name="content">
+	<v:page.header>
+		<script src="{f:uri.resource(path: 'Js/filepond-plugin-file-validate-type.js')}"></script>
+		<script src="{f:uri.resource(path: 'Js/filepond.js')}"></script>
+		<link href="{f:uri.resource(path: 'Css/filepond.css')}" rel="stylesheet">
+	</v:page.header>
+
 	<f:render partial="Posting/MetaTags" arguments="{posting:posting}"/>
 	<div class="row">
 		<div class="col"></div>

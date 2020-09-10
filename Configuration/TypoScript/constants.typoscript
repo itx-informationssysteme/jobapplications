@@ -9,8 +9,8 @@ plugin.tx_jobapplications.settings {
 	# cat=plugin.tx_jobapplications; type=options[html,text,both]; label=Send Email as HTML or Text or Both
 	emailContentType = both
 
-	# cat=plugin.tx_jobapplications; type=string; label=Allowed application upload file types:As comma separated list e.g. .pdf,.docx
-	allowedFileTypes = .pdf
+	# cat=plugin.tx_jobapplications; type=int; label=Maximum number of items on one page
+	maxItemsOnPage = 9
 
 	# cat=plugin.tx_jobapplications; type=string; label=Default contact (mail address) for unsolicited application form mail
 	defaultContactMailAddress = address@address.de

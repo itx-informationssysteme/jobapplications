@@ -3,6 +3,9 @@
 # cat=general; type=int; label=LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:conf.customFileSizeLimit
 customFileSizeLimit =
 
+# cat=general; type=string; label=Allowed application upload file types:As comma separated list e.g. .pdf,.docx
+allowedFileTypes = .pdf
+
 # cat=google; type=string; label=LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:conf.companyName
 companyName =
 

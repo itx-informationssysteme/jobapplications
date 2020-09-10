@@ -16,7 +16,6 @@
 	use TYPO3\CMS\Core\Exception;
 	use TYPO3\CMS\Core\Http\RequestFactory;
 	use TYPO3\CMS\Core\Service\FlexFormService;
-	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Domain\Model\Category;
 	use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
@@ -39,6 +38,8 @@
 		 * @param             $id
 		 * @param array       $fieldArray
 		 * @param DataHandler $pObj
+		 *
+		 * @throws \Exception
 		 */
 		public function processDatamap_afterDatabaseOperations($status, $table, $id, array $fieldArray, \TYPO3\CMS\Core\DataHandling\DataHandler &$pObj)
 		{
@@ -66,14 +67,8 @@
 					$posting = $dataMapper->map(Posting::class, [$fieldArray]);
 
 					$connector = new GoogleIndexingApiConnector();
-					if ($value['hidden'] === '1')
-					{
-						$connector->updateGoogleIndex($uid, true, $posting);
-					}
-					else
-					{
-						$connector->updateGoogleIndex($uid, false, $posting);
-					}
+
+					$connector->updateGoogleIndex($uid, false, $posting);
 				}
 			}
 		}

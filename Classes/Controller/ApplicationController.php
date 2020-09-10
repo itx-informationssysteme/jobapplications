@@ -30,10 +30,12 @@
 	use ITX\Jobapplications\Domain\Model\Status;
 	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
 	use ITX\Jobapplications\Utility\Mail\MailInterface;
+	use ITX\Jobapplications\Utility\Typo3VersionUtility;
+	use ITX\Jobapplications\Utility\UploadFileUtility;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+	use TYPO3\CMS\Core\Context\LanguageAspect;
 	use TYPO3\CMS\Core\Core\Environment;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
-	use TYPO3\CMS\Core\Information\Typo3Version;
 	use TYPO3\CMS\Core\Mail\MailMessage;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Resource\FileInterface;
@@ -104,7 +106,7 @@
 		/**
 		 * @var \TYPO3\CMS\Core\Log\Logger
 		 */
-		protected $logger = null;
+		protected $logger;
 
 		/** @var int Major TYPO3 Version number */
 		protected $version;
@@ -117,7 +119,7 @@
 		 *
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
 		 */
-		public function initializeCreateAction()
+		public function initializeCreateAction(): void
 		{
 			$this->arguments->getArgument('newApplication')
 							->getPropertyMappingConfiguration()->forProperty('earliestDateOfJoining')
@@ -148,17 +150,15 @@
 		}
 
 		/**
-		 * initialize create action
-		 *
-		 * @param void
+		 * @throws \TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException
+		 * @throws \TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException
 		 */
-		public function initializeAction()
+		public function initializeAction(): void
 		{
-			$this->allowedFileTypesString = $this->settings['allowedFileTypes'];
-
 			/** @var ExtensionConfiguration $extconf */
 			$extconf = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class);
 			$extConfLimit = $extconf->get('jobapplications', 'customFileSizeLimit');
+			$this->allowedFileTypesString = $extconf->get('jobapplications', 'allowedFileTypes');
 
 			if ($extConfLimit !== '')
 			{
@@ -170,28 +170,15 @@
 				$this->fileSizeLimit = (int)GeneralUtility::getMaxUploadFileSize();
 			}
 
-			if (constant('TYPO3_version'))
-			{
-				$this->version = (int)(constant('TYPO3_version'));
-			}
-			else
-			{
-				/** @var Typo3Version $version */
-				$version = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class);
-
-				$this->version = $version->getMajorVersion();
-			}
+			$this->version = Typo3VersionUtility::getMajorVersion();
 		}
 
 		/**
-		 * action new
+		 * @param Posting|null $posting
 		 *
-		 * @param ITX\Jobapplications\Domain\Model\Posting $posting
-		 *
-		 * @return void
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
 		 */
-		public function newAction(Posting $posting = null)
+		public function newAction(Posting $posting = null): void
 		{
 			/*
 			Getting posting when Detailview and applicationform are on the same page.
@@ -207,6 +194,7 @@
 
 			if ($posting instanceof Posting)
 			{
+				/** @var JobsPageTitleProvider $titleProvider */
 				$titleProvider = GeneralUtility::makeInstance(JobsPageTitleProvider::class);
 
 				$title = $this->settings["pageTitle"];
@@ -273,97 +261,90 @@
 		}
 
 		/**
-		 * create Action
+		 * @param Application $newApplication
+		 * @param array       $fileIds
+		 * @param string      $fieldName
+		 * @param string      $fileNamePrefix
 		 *
-		 * @param \ITX\Jobapplications\Domain\Model\Application $newApplication
-		 * @param \ITX\Jobapplications\Domain\Model\Posting     $posting
-		 *
+		 * @return array
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFileNameException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFolderException
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderWritePermissionsException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
+		 * @throws \TYPO3\CMS\Form\Domain\Exception\IdentifierNotValidException
+		 */
+		private function processFiles(Application $newApplication, array $fileIds, string $fieldName, $fileNamePrefix = ''): array
+		{
+			$uploadUtility = new UploadFileUtility();
+
+			$i = 0;
+			$return_files = [];
+			foreach ($fileIds as $fileId)
+			{
+				if (empty($fileId)) {
+					break;
+				}
+
+				$movedNewFile = $this->handleFileUploadMutliple(
+					$uploadUtility->getFilePath($fileId), $uploadUtility->getFileName($fileId),
+					$newApplication, $fileNamePrefix);
+				$return_files[] = $movedNewFile;
+				$uploadUtility->deleteFolder($fileId);
+
+				$this->buildRelations($newApplication->getUid(), $movedNewFile->getUid(), $newApplication->getPid(), $fieldName, $i, count($fileIds));
+				$i++;
+			}
+
+			return $return_files;
+		}
+
+		/**
+		 * @param Application  $newApplication
+		 * @param Posting|null $posting
+		 *
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFileNameException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFolderException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderWritePermissionsException
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
 		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
 		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
 		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
+		 * @throws \TYPO3\CMS\Form\Domain\Exception\IdentifierNotValidException
 		 */
 		public function createAction(\ITX\Jobapplications\Domain\Model\Application $newApplication, \ITX\Jobapplications\Domain\Model\Posting $posting = null): void
 		{
-			$allowedFileTypes = explode(',', $this->allowedFileTypesString) ?: ['.pdf'];
-
 			$problemWithApplicantMail = false;
 			$problemWithNotificationMail = false;
 			$savedInBackend = true;
 
-			$fileErrors = $_FILES['tx_jobapplications_applicationform']['error'];
-			$emptySingleFileUpload = $fileErrors['cv'] === 4 && $fileErrors['cover_letter'] === 4 && $fileErrors['testimonials'] === 4 && $fileErrors['other_files'] === 4;
-			$multiFileUpload = $_FILES['tx_jobapplications_applicationform']['name']['upload'];
-			$multiUploadFiles = [];
+			$arguments = $this->request->getArguments();
 
-			if (is_array($multiFileUpload))
+			$isMultiFile = false;
+
+			// Check which kind of uploads were sent
+			if (!empty($arguments['files']))
 			{
-				$amountOfFiles = count($multiFileUpload);
-			}
-			else
-			{
-				$amountOfFiles = 0;
-			}
-
-			// Single file upload fields
-			if ($amountOfFiles === 0 && !$emptySingleFileUpload)
-			{
-				//Uploads in order as defined in Domain Model
-				$uploads = array("cv", "cover_letter", "testimonials", "other_files");
-
-				//Check if $_FILES Entries have errors
-				foreach ($uploads as $upload)
-				{
-					//Check if Filetype is accepted
-					if (!in_array('.'.pathinfo($_FILES['tx_jobapplications_applicationform']['name'][$upload])['extension'], $allowedFileTypes, true) && $_FILES['tx_jobapplications_applicationform']['type'][$upload] !== "")
-					{
-						if (!in_array('.'.pathinfo($_FILES['tx_jobapplications_applicationform']['name'][$upload])['extension'], $allowedFileTypes, true))
-						{
-							$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileType', 'jobapplications', [$this->allowedFileTypesString]), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
-						}
-						else
-						{
-							$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileSize', 'jobapplications', array("0" => (int)$this->fileSizeLimit / 1024)), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
-						}
-
-						$this->redirect("new", "Application", null, array(
-							"posting" => $posting,
-							"fileError" => $upload
-						));
-
-						return;
+				$isMultiFile = true;
+			} else {
+				// Normalize file array -> free choice whether multi or single upload
+				$fileIndices = ['cv', 'cover_letter', 'testimonials', 'other_files'];
+				foreach ($fileIndices as $fileIndex) {
+					if ($arguments[$fileIndex]['error'] === 4) {
+						$arguments[$fileIndex] = [];
+						continue;
 					}
-				}
-			}
-			else if ($amountOfFiles > 0)
-			{
-				for ($i = 0; $i < $amountOfFiles; $i++)
-				{
-					$error_bit = false;
-
-					if (!in_array('.'.pathinfo($_FILES['tx_jobapplications_applicationform']['name']['upload'][$i])['extension'], $allowedFileTypes, true))
-					{
-						$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileType', 'jobapplications', [$this->allowedFileTypesString]), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
-						$error_bit = true;
+					if ($arguments[$fileIndex][0]['error'] === 4) {
+						$arguments[$fileIndex] = [];
+						continue;
 					}
-
-					if ((int)$_FILES['tx_jobapplications_applicationform']['error']['upload'][$i] !== 0)
-					{
-						$this->addFlashMessage(LocalizationUtility::translate('fe.error.fileSize', 'jobapplications', array("0" => intval($this->fileSizeLimit) / 1024)), null, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
-						$error_bit = true;
-					}
-
-					if ($error_bit === true)
-					{
-						$this->redirect("new", "Application", null, array(
-							"posting" => $posting,
-							"fileError" => 'files'
-						));
-
-						return;
+					if (is_string($arguments[$fileIndex])) {
+						$arguments[$fileIndex] = [
+							$arguments[$fileIndex]
+						];
 					}
 				}
 			}
@@ -401,69 +382,24 @@
 			// Temporary posting object for unsolicited application
 			if (!($posting instanceof Posting))
 			{
+				/** @var Posting $posting */
 				$posting = GeneralUtility::makeInstance(\ITX\Jobapplications\Domain\Model\Posting::class);
 				$posting->setTitle(LocalizationUtility::translate("fe.application.unsolicited.title", "jobapplications"));
 
 				$newApplication->setPosting($posting);
 			}
 
-			if ($amountOfFiles === 0)
+			if (!$isMultiFile)
 			{
-				$files = [];
-				$fields = [];
-				$fieldNames = [];
-
-				$movedNewFileCover = null;
-				$movedNewFileCv = null;
-				$movedNewFileOther = null;
-				$movedNewFileTestimonial = null;
-
-				// Processing files
-				if ($_FILES['tx_jobapplications_applicationform']['name']['cv'])
-				{
-					$movedNewFileCv = $this->handleFileUpload("cv", $newApplication);
-					$files[] = $movedNewFileCv->getUid();
-					$fieldNames[] = 'cv';
-					$fields['cv'] = 1;
-				}
-
-				if ($_FILES['tx_jobapplications_applicationform']['name']['cover_letter'])
-				{
-					$movedNewFileCover = $this->handleFileUpload("cover_letter", $newApplication);
-					$files[] = $movedNewFileCover->getUid();
-					$fieldNames[] = 'cover_letter';
-					$fields['cover_letter'] = 1;
-				}
-
-				if ($_FILES['tx_jobapplications_applicationform']['name']['testimonials'])
-				{
-					$movedNewFileTestimonial = $this->handleFileUpload("testimonials", $newApplication);
-					$files[] = $movedNewFileTestimonial->getUid();
-					$fieldNames[] = 'testimonials';
-					$fields['testimonials'] = 1;
-				}
-
-				if ($_FILES['tx_jobapplications_applicationform']['name']['other_files'])
-				{
-					$movedNewFileOther = $this->handleFileUpload("other_files", $newApplication);
-					$files[] = $movedNewFileOther->getUid();
-					$fieldNames[] = 'other_files';
-					$fields['other_files'] = 1;
-				}
-
-				if (count($files) > 0)
-				{
-					$this->buildRelationsLegacy($newApplication->getUid(), $files, $fields, $fieldNames, 'tx_jobapplications_domain_model_application', $newApplication->getPid());
-				}
+				// Process files
+				$fileCover = $this->processFiles($newApplication, $arguments['cv'], 'cv', 'cv_');
+				$fileCv = $this->processFiles($newApplication, $arguments['cover_letter'], 'cover_letter', 'cover_letter_');
+				$fileOther = $this->processFiles($newApplication, $arguments['testimonials'], 'testimonials', 'testimonials_');
+				$fileTestimonial = $this->processFiles($newApplication, $arguments['other_files'], 'other_files', 'other_files_');
 			}
 			else
 			{
-				for ($i = 0; $i < $amountOfFiles; $i++)
-				{
-					$movedNewFile = $this->handleFileUploadMutliple($i, $newApplication);
-					$multiUploadFiles[] = $movedNewFile;
-					$this->buildRelations($newApplication->getUid(), $movedNewFile->getUid(), $newApplication->getPid(), $i, $amountOfFiles);
-				}
+				$multiUploadFiles = $this->processFiles($newApplication, $arguments['files'], 'files');
 			}
 
 			// Mail Handling
@@ -539,13 +475,21 @@
 								 $addressChunk
 								 .$message.'</p>', ['application' => $newApplication, 'settings' => $this->settings, 'currentPosting' => $currentPosting]);
 
-				// Attach all found legacy files
-				$files = array($movedNewFileCv, $movedNewFileCover, $movedNewFileTestimonial, $movedNewFileOther);
-				foreach ($files as $file)
+				// Attach all found files
+				$files = array(
+					$fileCover,
+					$fileCv,
+					$fileOther,
+					$fileTestimonial
+				);
+
+				foreach ($files as $fileArray)
 				{
-					if ($file instanceof FileInterface)
-					{
-						$mail->addAttachment($file->getPublicUrl());
+					foreach ($fileArray as $file) {
+						if ($file instanceof FileInterface)
+						{
+							$mail->addAttachment($file->getPublicUrl());
+						}
 					}
 				}
 
@@ -683,56 +627,13 @@
 		}
 
 		/**
-		 * Attaches existing File to Domain Model Record
-		 *
-		 * @param $newStorageUid ;UID of Record or Domain Model the file will attach to
-		 * @param $files         ;from Objectmanagers storage repository
-		 * @param $fields
-		 * @param $fieldNames    ;fieldnames
-		 * @param $table         ;table tca domain table name e.g. tx_<extensionName>_domain_model_<domainModelName>
-		 * @param $newStoragePid ;PID of Record or Domain Model the file will attach to
-		 */
-		private function buildRelationsLegacy($newStorageUid, array $files, array $fields, array $fieldNames, $table, $newStoragePid)
-		{
-			$database = GeneralUtility::makeInstance(ConnectionPool::class);
-			for ($i = 0, $iMax = count($files); $i < $iMax; $i++)
-			{
-				$database
-					->getConnectionForTable('sys_file_reference')
-					->insert(
-						'sys_file_reference',
-						[
-							'tstamp' => time(),
-							'crdate' => time(),
-							'cruser_id' => 1,
-							'uid_local' => $files[$i],
-							'uid_foreign' => $newStorageUid,
-							'tablenames' => $table,
-							'fieldname' => $fieldNames[$i],
-							'pid' => $newStoragePid,
-							'table_local' => 'sys_file',
-							'sorting_foreign' => 1
-						]
-					);
-			}
-
-			$database
-				->getConnectionForTable('tx_jobapplications_domain_model_application')
-				->update(
-					"tx_jobapplications_domain_model_application",
-					$fields, [
-						'uid' => $newStorageUid
-					]);
-		}
-
-		/**
 		 * @param int $objectUid  The Uid of the domain object
 		 * @param int $fileUid    The Uid of the actual file
 		 * @param int $objectPid  The pid of the domain object
 		 * @param int $iteration  The current iteration
 		 * @param int $totalFiles The total amount of iterations
 		 */
-		private function buildRelations(int $objectUid, int $fileUid, int $objectPid, $iteration = 0, $totalFiles = 1): void
+		private function buildRelations(int $objectUid, int $fileUid, int $objectPid, string $field, $iteration = 0, $totalFiles = 1): void
 		{
 			/** @var ConnectionPool $database */
 			$database = GeneralUtility::makeInstance(ConnectionPool::class);
@@ -748,7 +649,7 @@
 						'uid_local' => $fileUid,
 						'uid_foreign' => $objectUid,
 						'tablenames' => "tx_jobapplications_domain_model_application",
-						'fieldname' => "files",
+						'fieldname' => $field,
 						'pid' => $objectPid,
 						'table_local' => 'sys_file',
 						'sorting_foreign' => $iteration + 1
@@ -768,56 +669,6 @@
 		}
 
 		/**
-		 * @param string                                        $fieldName
-		 * @param \ITX\Jobapplications\Domain\Model\Application $domainObject
-		 *
-		 * @return \TYPO3\CMS\Core\Resource\FileInterface
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFileNameException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFolderException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderWritePermissionsException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
-		 */
-		private function handleFileUpload(string $fieldName, \ITX\Jobapplications\Domain\Model\Application $domainObject)
-		{
-
-			$folder = $this->applicationFileService->getApplicantFolder($domainObject);
-
-			$tmpFile = $_FILES['tx_jobapplications_applicationform']['tmp_name'][$fieldName];
-
-			/* @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
-			$storageRepository = $this->objectManager->get(StorageRepository::class);
-			$storage = $storageRepository->findByUid('1');
-
-			//build the new storage folder
-			if ($storage->hasFolder($folder))
-			{
-				$targetFolder = $storage->getFolder($folder);
-			}
-			else
-			{
-				$targetFolder = $storage->createFolder($folder);
-			}
-
-			//file name
-			$newFileName = $fieldName."_".$domainObject->getLastName()."_".$domainObject->getFirstName();
-			if (strlen($newFileName) > 255)
-			{
-				$newFileName = substr($newFileName, 0, 245);
-			}
-
-			$fileExtension = '.'.pathinfo($_FILES['tx_jobapplications_applicationform']['name'][$fieldName])['extension'];
-
-			$newFileName .= "_id_".$domainObject->getPosting()->getUid().$fileExtension;
-
-			//build sys_file
-			$movedNewFile = $storage->addFile($tmpFile, $targetFolder, $newFileName);
-			$this->persistenceManager->persistAll();
-
-			return $movedNewFile;
-		}
-
-		/**
 		 * @param int                                           $position
 		 * @param \ITX\Jobapplications\Domain\Model\Application $domainObject
 		 *
@@ -829,13 +680,10 @@
 		 *
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFileNameException
 		 */
-		private function handleFileUploadMutliple(int $position, \ITX\Jobapplications\Domain\Model\Application $domainObject)
+		private function handleFileUploadMutliple(string $filePath, string $fileName, \ITX\Jobapplications\Domain\Model\Application $domainObject, $prefix = '')
 		{
 
 			$folder = $this->applicationFileService->getApplicantFolder($domainObject);
-
-			$tmpFile = $_FILES['tx_jobapplications_applicationform']['tmp_name']['upload'][$position];
-			$oGfileName = $_FILES['tx_jobapplications_applicationform']['name']['upload'][$position];
 
 			/* @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
 			$storageRepository = $this->objectManager->get('TYPO3\\CMS\\Core\\Resource\\StorageRepository');
@@ -852,10 +700,10 @@
 			}
 
 			//file name
-			$newFileName = (new \TYPO3\CMS\Core\Resource\Driver\LocalDriver)->sanitizeFileName($oGfileName);
+			$newFileName = (new \TYPO3\CMS\Core\Resource\Driver\LocalDriver)->sanitizeFileName($prefix.$fileName);
 
 			//build sys_file
-			$movedNewFile = $storage->addFile($tmpFile, $targetFolder, $newFileName);
+			$movedNewFile = $storage->addFile($filePath, $targetFolder, $newFileName);
 			$this->persistenceManager->persistAll();
 
 			return $movedNewFile;

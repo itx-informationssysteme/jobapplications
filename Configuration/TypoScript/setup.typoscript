@@ -4,7 +4,7 @@ plugin.tx_jobapplications.settings.legacy_upload = {$plugin.tx_jobapplications.s
 plugin.tx_jobapplications.settings.defaultContactMailAddress = {$plugin.tx_jobapplications.settings.defaultContactMailAddress}
 plugin.tx_jobapplications.settings.defaultContactFirstName = {$plugin.tx_jobapplications.settings.defaultContactFirstName}
 plugin.tx_jobapplications.settings.defaultContactLastName = {$plugin.tx_jobapplications.settings.defaultContactLastName}
-plugin.tx_jobapplications.settings.allowedFileTypes = {$plugin.tx_jobapplications.settings.allowedFileTypes}
+plugin.tx_jobapplications.settings.maxItemsOnPage = {$plugin.tx_jobapplications.settings.maxItemsOnPage}
 
 plugin.tx_jobapplications {
 	view {
@@ -12,8 +12,10 @@ plugin.tx_jobapplications {
 		templateRootPaths.1 = {$plugin.tx_jobapplications.view.templateRootPath}
 		partialRootPaths.0 = EXT:jobapplications/Resources/Private/Partials/
 		partialRootPaths.1 = {$plugin.tx_jobapplications.view.partialRootPath}
-		layoutRootPaths.0 = EXT:tx_jobapplications/Resources/Private/Layouts/
+		layoutRootPaths.0 = EXT:jobapplications/Resources/Private/Layouts/
 		layoutRootPaths.1 = {$plugin.tx_jobapplications.view.layoutRootPath}
+
+		widget.TYPO3\CMS\Fluid\ViewHelpers\Widget\PaginateViewHelper.templateRootPath = EXT:jobapplications/Resources/Private/Templates/
 	}
 
 	persistence {
@@ -33,10 +35,35 @@ plugin.tx_jobapplications {
 		#callDefaultActionIfActionCantBeResolved = 1
 	}
 
-	settings.list {
-		ordering {
-			field = date_posted
-			order = descending
+	settings {
+		list {
+			ordering {
+				field = date_posted
+				order = descending
+			}
+		}
+		filter {
+			repositoryConfiguration {
+				division {
+					relation = division
+					relationType = equals
+				}
+
+				careerLevel {
+					relation = careerLevel
+					relationType = equals
+				}
+
+				employmentType {
+					relation = employmentType
+					relationType = contains
+				}
+
+				location {
+					relation = location
+					relationType = equals
+				}
+			}
 		}
 	}
 }
