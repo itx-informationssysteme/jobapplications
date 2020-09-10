@@ -33,3 +33,9 @@ is very helpful to understand what kind of issue the **PR** is going to solve.
 
 - Bugfixes: Please describe what kind of bug your fix solves and tell us how to reproduce the issue.
 - Features: If we think it's relevant for the majority of users we accept the PR with great appreciation
+
+## 5. Credits
+This extension comes bundled with several Open-Source libraries:
+- JQuery 3.5.1 [(Github)](https://github.com/jquery/jquery)
+- Filepond 4.19.2 [(Github)](https://github.com/pqina/filepond)
+- Selectize v0.12.6 [(Github)](https://github.com/selectize/selectize.js)

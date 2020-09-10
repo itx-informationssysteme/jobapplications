@@ -122,7 +122,6 @@
 			/** @var SchemaMigrator $schemaMigrationService */
 			$schemaMigrationService = GeneralUtility::makeInstance(SchemaMigrator::class);
 			$return = $schemaMigrationService->importStaticData($statements, true);
-			DebugUtility::debug($return);
 		}
 
 		/**

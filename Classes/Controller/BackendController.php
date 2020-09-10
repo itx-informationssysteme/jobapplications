@@ -29,8 +29,10 @@
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Model\Status;
 	use ITX\Jobapplications\Utility\GoogleIndexingApiConnector;
+	use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Resource\Exception\InsufficientUserPermissionsException;
+	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 
 	/**
@@ -97,6 +99,13 @@
 		public function listApplicationsAction()
 		{
 			$sessionData = $GLOBALS['BE_USER']->getSessionData('tx_jobapplications');
+			$contact = $this->getActiveBeContact();
+
+			$dailyLogin = $sessionData['dailyLogin'];
+			if ((empty($dailyLogin) && $contact instanceof Contact) || ($dailyLogin === false && $contact instanceof Contact)) {
+				$this->redirect('dashboard');
+				return;
+			}
 
 			// Get all filter elements and set them to empty if there are none and use session storage for persisting selection
 			if ($this->request->hasArgument('submit'))
@@ -113,8 +122,6 @@
 				$selectedContact = $sessionData['selectedContact'];
 				$selectedStatus = $sessionData['selectedStatus'];
 			}
-
-			$contact = $this->getActiveBeContact();
 
 			// Handling a status change, triggered in listApplications View
 			if ($this->request->hasArgument('statusChange'))
@@ -242,6 +249,16 @@
 		{
 			// Get data for counter of new applications with referenced contact
 			$contact = $this->getActiveBeContact();
+
+			/** @var BackendUserAuthentication $backendUser */
+			$backendUser = $GLOBALS['BE_USER'];
+
+			$session = $backendUser->getSessionData('tx_jobapplications') ?? [];
+
+			if ((empty($session['dailyLogin']) && $contact instanceof Contact) || ($session['dailyLogin'] === false && $contact instanceof Contact)) {
+				$session['dailyLogin'] = true;
+				$backendUser->setAndSaveSessionData('tx_jobapplications', $session);
+			}
 
 			if ($contact)
 			{

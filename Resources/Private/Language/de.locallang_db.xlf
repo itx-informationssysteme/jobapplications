@@ -121,7 +121,7 @@
             </trans-unit>
             <trans-unit id="tx_jobapplications_domain_model_location.name" resname="tx_jobapplications_domain_model_location.name" approved="yes">
                 <source>Name</source>
-                <target state="translated">Name</target>
+                <target state="translated">Haus</target>
             </trans-unit>
             <trans-unit id="tx_jobapplications_domain_model_location.address" resname="tx_jobapplications_domain_model_location.address" approved="yes">
                 <source>Address</source>

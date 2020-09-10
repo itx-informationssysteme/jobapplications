@@ -114,7 +114,8 @@
 								$result = $flexformArray['settings']['detailViewUid'];
 								break;
 							}
-							else if (count($categories) > 1)
+
+							if (count($categories) > 1)
 							{
 								$fallback = $flexformArray['settings']['detailViewUid'];
 							}
@@ -138,20 +139,20 @@
 				}
 			}
 
-			return $result ? $result : $fallback;
+			return $result ?: $fallback;
 		}
 
 		/**
 		 * Sends requests to Google Indexing API
 		 *
-		 * @param      $uid
-		 * @param bool $delete
+		 * @param         $uid
+		 * @param bool    $delete
 		 * @param Posting $specificPosting
 		 *
 		 * @return bool
 		 * @throws \Exception
 		 */
-		public function updateGoogleIndex($uid, $delete = false, $specificPosting = null)
+		public function updateGoogleIndex($uid, $delete = false, $specificPosting = null): ?bool
 		{
 			if (\TYPO3\CMS\Core\Utility\GeneralUtility::getApplicationContext()->isDevelopment() && $this->backendConfiguration['indexing_api_dev'] === "0")
 			{
@@ -170,7 +171,15 @@
 			}
 			else
 			{
-				$posting = $postingRepository->findByUid($uid);
+				$query = $postingRepository->createQuery();
+				$query->getQuerySettings()->setIgnoreEnableFields(true)
+					  ->setRespectStoragePage(false);
+				$query->matching(
+					$query->equals('uid', $uid)
+				);
+
+				$posting = $query->execute()->getFirst();
+
 				if (!$posting instanceof Posting)
 				{
 					$this->sendFlashMessage("Posting ".$uid." is not accessible (anymore). No request sent.");
@@ -179,7 +188,6 @@
 				}
 			}
 
-			/** @var FrontendUriBuilder $uriBuilder */
 			$uriBuilder = new FrontendUriBuilder();
 
 			/** @var QueryResult $contentElements */
@@ -211,9 +219,14 @@
 				$result = $this->makeRequest($url);
 			}
 
-			if ($result)
+			if ($result && $delete === false)
 			{
 				$this->sendFlashMessage("Successfully requested Google to crawl this posting. URL generated: ".$url);
+			}
+
+			if ($result && $delete === true)
+			{
+				$this->sendFlashMessage("Successfully requested Google to remove this posting from their index. URL generated: ".$url);
 			}
 
 			return $result;
@@ -225,7 +238,7 @@
 		 *
 		 * @return bool true success, false something went wrong
 		 */
-		public function makeRequest(string $url, $deleteInsteadOfUpdate = false)
+		public function makeRequest(string $url, $deleteInsteadOfUpdate = false): ?bool
 		{
 			$accessToken = "";
 
@@ -295,12 +308,10 @@
 			{
 				return true;
 			}
-			else
-			{
-				$this->sendFlashMessage($response->getBody()->getContents(), "Error trying to send crawl request to Google", true);
 
-				return false;
-			}
+			$this->sendFlashMessage($response->getBody()->getContents(), "Error trying to send crawl request to Google", true);
+
+			return false;
 		}
 
 		/**

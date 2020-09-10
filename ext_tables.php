@@ -12,7 +12,7 @@ call_user_func(
                 'backend', // Submodule key
                 '', // Position
                 [
-                    'Backend' => 'dashboard, listApplications, showApplication, settings'
+                    'Backend' => 'listApplications, dashboard, showApplication, settings'
                 ],
                 [
                     'access' => 'user,group',

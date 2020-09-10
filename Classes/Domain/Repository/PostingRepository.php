@@ -2,10 +2,16 @@
 
 	namespace ITX\Jobapplications\Domain\Repository;
 
+	use ITX\Jobapplications\Domain\Model\Constraint;
 	use ITX\Jobapplications\Domain\Model\Contact;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
+	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use ITX\Jobapplications\Domain\Repository\RepoHelpers;
+	use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+	use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+	use TYPO3\CMS\Extbase\Reflection\ClassSchema\Property;
+	use TYPO3\CMS\Extbase\Reflection\ReflectionService;
 
 	/***************************************************************
 	 *  Copyright notice
@@ -42,7 +48,7 @@
 		 *
 		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 		 */
-		public function findByCategory(array $categories, $orderBy, $ordering)
+		public function findByCategory(array $categories)
 		{
 			$query = $this->createQuery();
 
@@ -58,25 +64,6 @@
 
 			$query->statement($qb->getSQL());
 
-			$query->setOrderings([
-									 $orderBy => $ordering
-								 ]);
-
-			return $query->execute();
-		}
-
-		/**
-		 * @param $orderBy
-		 * @param $order
-		 *
-		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-		 */
-		public function findAllWithOrder($orderBy, $order)
-		{
-			$query = $this->createQuery();
-			$query->setOrderings([
-									 $orderBy => $order
-								 ]);
 			return $query->execute();
 		}
 
@@ -105,12 +92,16 @@
 					->where($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()))
 					->join("tx_jobapplications_domain_model_posting", "sys_category_record_mm",
 						   "sys_category_record_mm", $qb->expr()->eq("tx_jobapplications_domain_model_posting.uid",
-																	 "sys_category_record_mm.uid_foreign"));
-				$qb = parent::buildCategoriesToSQL($categories, $qb);
+																	 "sys_category_record_mm.uid_foreign"))
+					->orderBy('division', QueryInterface::ORDER_ASCENDING);
+				$qb = $this->buildCategoriesToSQL($categories, $qb);
 			}
 			$query->statement($qb->getSQL());
 
-			return $query->execute(true);
+			/** @var array $result */
+			$result = $query->execute(true);
+
+			return array_column($result, 'division');
 		}
 
 		/**
@@ -118,7 +109,7 @@
 		 */
 		public function findAllCareerLevels(array $categories = null)
 		{
-			$qb = parent::getQueryBuilder("tx_jobapplications_domain_model_posting");
+			$qb = $this->getQueryBuilder("tx_jobapplications_domain_model_posting");
 
 			$query = $this->createQuery();
 			if (count($categories) == 0)
@@ -137,12 +128,16 @@
 					->where($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()))
 					->join("tx_jobapplications_domain_model_posting", "sys_category_record_mm",
 						   "sys_category_record_mm", $qb->expr()->eq("tx_jobapplications_domain_model_posting.uid",
-																	 "sys_category_record_mm.uid_foreign"));
-				$qb = parent::buildCategoriesToSQL($categories, $qb);
+																	 "sys_category_record_mm.uid_foreign"))
+					->orderBy('careerLevel', QueryInterface::ORDER_ASCENDING);
+				$qb = $this->buildCategoriesToSQL($categories, $qb);
 			}
 			$query->statement($qb->getSQL());
 
-			return $query->execute(true);
+			/** @var array $result */
+			$result = $query->execute(true);
+
+			return array_column($result, 'careerLevel');
 		}
 
 		/**
@@ -150,7 +145,7 @@
 		 */
 		public function findAllEmploymentTypes(array $categories = null)
 		{
-			$qb = parent::getQueryBuilder("tx_jobapplications_domain_model_posting");
+			$qb = $this->getQueryBuilder("tx_jobapplications_domain_model_posting");
 
 			$query = $this->createQuery();
 			if (count($categories) == 0)
@@ -159,7 +154,8 @@
 					->select("employment_type AS employmentType")
 					->groupBy("employmentType")
 					->from("tx_jobapplications_domain_model_posting")
-					->andWhere($qb->expr()->in('pid', $query->getQuerySettings()->getStoragePageIds()));
+					->andWhere($qb->expr()->in('pid', $query->getQuerySettings()->getStoragePageIds()))
+					->orderBy('employmentType', QueryInterface::ORDER_ASCENDING);
 			}
 			else
 			{
@@ -170,77 +166,143 @@
 					->where($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()))
 					->join("tx_jobapplications_domain_model_posting", "sys_category_record_mm",
 						   "sys_category_record_mm", $qb->expr()->eq("tx_jobapplications_domain_model_posting.uid",
-																	 "sys_category_record_mm.uid_foreign"));
-				$qb = parent::buildCategoriesToSQL($categories, $qb);
+																	 "sys_category_record_mm.uid_foreign"))
+					->orderBy('employmentType', QueryInterface::ORDER_ASCENDING);
+				$qb = $this->buildCategoriesToSQL($categories, $qb);
 
 			}
 
 			$query->statement($qb->getSQL());
+
+			/** @var array $result */
+			$result = $query->execute(true);
+			$return = [];
+			foreach (array_column($result, 'employmentType') as $string)
+			{
+				$explodedString = explode(',', $string);
+				if (count($explodedString) < 2)
+				{
+					$return[] = $string;
+				}
+				else
+				{
+					$return = array_merge($return, $explodedString);
+				}
+			}
+
+			$result = array_unique($return);
+			asort($result);
+			return $result;
+		}
+
+		/**
+		 * @param $categories
+		 *
+		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+		 */
+		public function findAllCategories($categories)
+		{
+
+			$query = $this->createQuery();
+
+			$sb = $this->getQueryBuilder("sys_category");
+			$sb
+				->select("sys_category.*")
+				->from("sys_category")
+				->join("sys_category", "sys_category_record_mm",
+					   "sys_category_record_mm",
+					   $sb->expr()->eq("sys_category.uid", "sys_category_record_mm.uid_local"))
+				->join("sys_category_record_mm", "tx_jobapplications_domain_model_posting", 'tx_jobapplications_domain_model_posting',
+					   $sb->expr()->eq("tx_jobapplications_domain_model_posting.uid", "sys_category_record_mm.uid_foreign"))
+				->groupBy('uid')
+				->orderBy('title', QueryInterface::ORDER_ASCENDING);
+			$sb = $this->buildCategoriesToSQL($categories, $sb);
+
+			$query->statement($sb->getSQL());
 
 			return $query->execute(true);
 		}
 
 		/**
-		 * @param $division       String
-		 * @param $careerLevel    String
-		 * @param $employmentType String
-		 * @param $location       int
-		 * @param $categories     array
+		 * @param array           $categories
+		 * @param array           $repositoryConfig
+		 * @param Constraint|null $constraint
+		 * @param string          $orderBy
+		 * @param string          $order
 		 *
-		 *
-		 * @return array
+		 * @return array|QueryResultInterface
+		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+		 * @throws \TYPO3\CMS\Extbase\Reflection\Exception\UnknownClassException
 		 */
-		public function findByFilter(string $division, string $careerLevel, string $employmentType, int $location, array $categories, $orderBy, $order)
+		public function findByFilter(array $categories, array $repositoryConfig, Constraint $constraint = null,
+									 $orderBy = 'date_posted',
+									 $order = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING)
 		{
 			$query = $this->createQuery();
 
-			$qb = parent::getQueryBuilder("tx_jobapplications_domain_model_posting");
+			$andConstraints = [];
 
-			if (count($categories) > 0)
+			if ($constraint instanceof Constraint)
 			{
-				$qb
-					->select("*")
-					->from("tx_jobapplications_domain_model_posting")
-					->join("tx_jobapplications_domain_model_posting", "sys_category_record_mm",
-						   "sys_category_record_mm",
-						   "tx_jobapplications_domain_model_posting.uid = sys_category_record_mm.uid_foreign")
-					->where($qb->expr()->eq("deleted", 0))
-					->andWhere($qb->expr()->eq("hidden", 0),$qb->expr()->in('pid', $query->getQuerySettings()->getStoragePageIds()));
+				/** @var ReflectionService $reflection */
+				$reflection = GeneralUtility::makeInstance(ReflectionService::class);
+				$schema = $reflection->getClassSchema($constraint);
+				$constraints = $schema->getProperties();
 
-				$qb = parent::buildCategoriesToSQL($categories, $qb);
+				foreach ($constraints as $index => $property)
+				{
+					// TYPO3 v9 compatibility
+					$propertyName = is_array[$property] ? $index : $property->getName();
+					$propertyMethodName = GeneralUtility::underscoredToUpperCamelCase($propertyName);
+					$array = $constraint->{'get'.$propertyMethodName}();
+					if (empty($array))
+					{
+						continue;
+					}
 
-			}
-			else
-			{
-				$qb = parent::getQueryBuilder("tx_jobapplications_domain_model_posting");
-				$qb
-					->select("*")
-					->from("tx_jobapplications_domain_model_posting")
-					->where($qb->expr()->eq("deleted", 0))
-					->andWhere($qb->expr()->eq("hidden", 0),$qb->expr()->in('pid', $query->getQuerySettings()->getStoragePageIds()));
+					$orConstraints = [];
+					foreach ($array as $input)
+					{
+						if ($repositoryConfig[$propertyName] === null) {
+							throw new \RuntimeException("Missing TypoScript repository config for property: ".$propertyName);
+						}
+
+						switch ($repositoryConfig[$propertyName]['relationType'])
+						{
+							case 'equals':
+								$orConstraints[] = $query->equals($repositoryConfig[$propertyName]['relation'], $input);
+								break;
+							case 'contains':
+								$orConstraints[] = $query->contains($repositoryConfig[$propertyName]['relation'], $input);
+								break;
+							case 'in':
+								$orConstraints[] = $query->in($repositoryConfig[$propertyName]['relation'], $input);
+								break;
+							default:
+								throw new \InvalidArgumentException(sprintf('Invalid relation type %s', $repositoryConfig[$propertyName]['relationType']));
+						}
+					}
+
+					if (count($orConstraints) > 0)
+					{
+						$andConstraints[] = $query->logicalOr($orConstraints);
+					}
+				}
 			}
 
-			if ($division)
+			if (!empty($categories))
 			{
-				$qb->andWhere($qb->expr()->eq("division", "\"$division\""));
-			}
-			if ($careerLevel)
-			{
-				$qb->andWhere($qb->expr()->eq("career_level", "\"$careerLevel\""));
-			}
-			if ($employmentType)
-			{
-				$qb->andWhere($qb->expr()->eq("employment_type", "\"".$employmentType."\""));
-			}
-			if ($location != -1)
-			{
-				$qb->andWhere($qb->expr()->eq("location", $location));
+				$andConstraints[] = $query->contains('categories', $categories);
 			}
 
-			$query->statement($qb->getSQL());
-			$query->setOrderings([
-									 $orderBy => $order
-								 ]);
+			if (!empty($andConstraints))
+			{
+				$query->matching(
+					$query->logicalAnd($andConstraints)
+				);
+			}
+
+			$query->setOrderings([$orderBy => $order]);
 
 			return $query->execute();
 		}

@@ -122,37 +122,38 @@
 				</div>
 			</f:if>
 			<div class="row file-container">
-				<f:if condition="{application.cv}">
-					<a class="file" href="{baseUri}{application.cv.originalResource.publicUrl}" download>
+				<f:for as="file" each="{application.cv}">
+					<a class="file" href="{baseUri}{file.originalResource.publicUrl}" download>
 						<img class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}" alt="pdf">
 						<span><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.cv"/></span>
 						<img class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}" alt="download">
 					</a>
-				</f:if>
+				</f:for>
 
-				<f:if condition="{application.cv}">
-					<a class="file" href="{baseUri}{application.coverLetter.originalResource.publicUrl}" download>
+				<f:for as="file" each="{application.coverLetter}">
+					<a class="file" href="{baseUri}{file.originalResource.publicUrl}" download>
 						<img class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}" alt="pdf">
 						<span><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.cover_letter"/></span>
 						<img class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}" alt="download">
 					</a>
-				</f:if>
+				</f:for>
 
-				<f:if condition="{application.testimonials}">
-					<a class="file" href="{baseUri}{application.testimonials.originalResource.publicUrl}" download>
+				<f:for as="file" each="{application.testimonials}">
+					<a class="file" href="{baseUri}{file.originalResource.publicUrl}" download>
 						<img class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}" alt="pdf">
 						<span><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.testimonials"/></span>
 						<img class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}" alt="download">
 					</a>
-				</f:if>
+				</f:for>
 
-				<f:if condition="{application.otherFiles}">
-					<a class="file" href="{baseUri}{application.otherFiles.originalResource.publicUrl}" download>
+				<f:for as="file" each="{application.otherFiles}">
+					<a class="file" href="{baseUri}{file.originalResource.publicUrl}" download>
 						<img class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}" alt="pdf">
 						<span><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.other_files"/></span>
 						<img class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}" alt="download">
 					</a>
-				</f:if>
+				</f:for>
+
 				<f:for each="{application.files}" as="file">
 					<a class="file" href="{baseUri}{file.originalResource.publicUrl}" download>
 						<img class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}" alt="pdf">

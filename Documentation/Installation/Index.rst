@@ -33,10 +33,12 @@ You have to include the static typoscript file the Jobapplications extension pro
 
 #. Here you can also include the Bootstrap entry, provided by the jobapplications extension, to have a working default layout.
 
+#. Also to have working default filters jQuery is required. If not already included elsewhere, you can include a jQuery version via a static template.
+
 Route Enhancers
 ---------------
 For making the URL readable there is a file provided which can be imported in *config->sites->main->config.yaml*
 or copied and modified.
 This file is provided in the extension folder in *Configuration->Routes->Default.yaml*.
 
-The provided Route Enhancers enhance the listview, detailview and applicationform.
+The provided Route Enhancers enhances the listview, detailview and applicationform.

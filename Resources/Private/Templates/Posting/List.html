@@ -1,26 +1,33 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true" xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers" xmlns:jobs="http://typo3.org/ns/ITX/Jobapplications/ViewHelpers">
+
 <f:layout name="Default"/>
 
 <f:section name="content">
+	<v:page.header>
+		<script src="{f:uri.resource(path: 'Js/selectize.js')}"></script>
+		<link href="{f:uri.resource(path: 'Css/selectize.css')}" rel="stylesheet">
+		<link href="{f:uri.resource(path: 'Css/selectize.bootstrap3.css')}" rel="stylesheet">
+	</v:page.header>
+
 	<div class="container">
 		<f:flashMessages/>
 		<h3>
 			<f:translate key="fe.posting.page.title"/>
 		</h3>
 		<f:comment><!--f:if for filter--></f:comment>
-		<f:if condition="{postings -> f:count()} > 0 || {divisionName} || {careerLevelType} || {selectedEmploymentType} || {selectedLocation}">
+		<f:if condition="{postings -> f:count()} > 0 || {isFiltering}">
 			<f:then>
 				<f:comment><!--Filter start--></f:comment>
-				<f:form action="list" name="filter" method="get">
+				<f:form action="list" name="constraint" method="get" object="{constraint}">
 					<div class="form-row m-0">
 						<div class="form-group pl-0 col">
 							<label for="division">
 								<f:translate key="fe.filter.divisions"/>
 							</label>
-							<f:form.select class="form-control" name="division" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
-								<f:for each="{divisions}" as="division">
-									<f:if condition="{division.division}">
-										<f:form.select.option value="{division.division}" additionalAttributes="{f:if(condition: '{divisionName} == {division.division}', then: '{selected: true}')}">{division.division}</f:form.select.option>
+							<f:form.select class="form-control" property="division" multiple="true" name="division" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
+								<f:for each="{filterOptions.division}" as="division">
+									<f:if condition="{division}">
+										<f:form.select.option value="{division}" additionalAttributes="{v:condition.iterator.contains(needle: division, haystack: constraint.division, then: '{selected: true}')}">{division}</f:form.select.option>
 									</f:if>
 								</f:for>
 							</f:form.select>
@@ -29,10 +36,10 @@
 							<label for="careerLevel">
 								<f:translate key="fe.filter.careerLevel"/>
 							</label>
-							<f:form.select class="form-control" name="careerLevel" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
-								<f:for each="{careerLevels}" as="careerLevel">
-									<f:if condition="{careerLevel.careerLevel}">
-										<f:form.select.option value="{careerLevel.careerLevel}" additionalAttributes="{f:if(condition: '{careerLevelType} == {careerLevel.careerLevel}', then: '{selected: true}')}">{careerLevel.careerLevel}</f:form.select.option>
+							<f:form.select class="form-control" property="careerLevel" multiple="true" name="careerLevel" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
+								<f:for each="{filterOptions.careerLevel}" as="careerLevel">
+									<f:if condition="{careerLevel}">
+										<f:form.select.option value="{careerLevel}" additionalAttributes="{v:condition.iterator.contains(needle: careerLevel, haystack: constraint.careerLevel, then: '{selected: true}')}">{careerLevel}</f:form.select.option>
 									</f:if>
 								</f:for>
 							</f:form.select>
@@ -41,23 +48,23 @@
 							<label for="employmentType">
 								<f:translate key="fe.filter.employmentType"/>
 							</label>
-							<f:form.select class="form-control" name="employmentType" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
-								<f:for each="{employmentTypes}" as="employmentType">
-									<f:if condition="{employmentType.employmentType}">
-										<f:form.select.option value="{employmentType.employmentType}" additionalAttributes="{f:if(condition: '{selectedEmploymentType} == {employmentType.employmentType}', then: '{selected: true}')}">
-											<f:translate key="fe.posting.employment.selector.{employmentType.employmentType}"/>
+							<f:form.select class="form-control" property="employmentType" multiple="true" name="employmentType" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
+								<f:for each="{filterOptions.employmentType}" as="employmentType">
+									<f:if condition="{employmentType}">
+										<f:form.select.option value="{employmentType}" additionalAttributes="{v:condition.iterator.contains(needle: employmentType, haystack: constraint.employmentType, then: '{selected: true}')}">
+											<f:translate key="fe.posting.employment.selector.{employmentType}"/>
 										</f:form.select.option>
 									</f:if>
 								</f:for>
 							</f:form.select>
 						</div>
-						<div class="form-group col {f:if(condition: '{locations -> f:count()} < 2', then: 'd-none')}">
+						<div class="form-group col {f:if(condition: '{filterOptions.location -> f:count()} < 2', then: 'd-none')}">
 							<label for="location">
 								<f:translate key="fe.filter.location"/>
 							</label>
-							<f:form.select class="form-control" name="location" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
-								<f:for each="{locations}" as="location">
-									<f:form.select.option value="{location.uid}" additionalAttributes="{f:if(condition: '{selectedLocation} == {location.uid}', then: '{selected: true}')}">{location.name}</f:form.select.option>
+							<f:form.select class="form-control" property="location" multiple="true" name="location" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
+								<f:for each="{filterOptions.location}" as="location">
+									<f:form.select.option value="{location.uid}" additionalAttributes="{v:condition.iterator.contains(needle: location.uid, haystack: constraint.location, then: '{selected: true}')}">{location.name}</f:form.select.option>
 								</f:for>
 							</f:form.select>
 						</div>
@@ -76,74 +83,13 @@
 				</f:form>
 				<f:if condition="{postings -> f:count()} > 0">
 					<f:then>
-						<div class="row">
-							<f:for each="{postings}" as="posting">
-								<f:comment><!--Posting in list view start--></f:comment>
-								<div class="col-12 col-md-4">
-									<div class="card my-3">
-										<f:if condition="{posting.listViewImage}">
-											<f:image class="card-img-top h-auto" src="{posting.listViewImage.originalResource.publicUrl}"/>
-										</f:if>
-										<div class="row">
-											<div class="col"></div>
-											<div class="col-9">
-												<div class="card-title mt-3">
-													<f:if condition="{settings.singleDetailandApp}">
-														<f:then>
-															<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" pluginName="DetailView" additionalParams="{postingApp: posting}">{posting.title}</f:link.action>
-														</f:then>
-														<f:else>
-															<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" pluginName="DetailView">{posting.title}</f:link.action>
-														</f:else>
-													</f:if>
-												</div>
-												<div class="card-body p-0 pb-3">
-													<div class="row">
-														<div class="col">
-															<f:translate key="tx_jobapplications_domain_model_posting.career_level"/>
-															:
-														</div>
-														<div class="col-md-auto"><span>{posting.careerLevel}</span></div>
-													</div>
-													<div class="row">
-														<div class="col">
-															<f:translate key="tx_jobapplications_domain_model_posting.location"/>
-															:
-														</div>
-														<div class="col-md-auto"><span>{posting.location.name}</span></div>
-													</div>
-													<div class="row">
-														<div class="col">
-															<f:translate key="tx_jobapplications_domain_model_posting.date_posted"/>
-															:
-														</div>
-														<div class="col-md-auto">
-															<f:format.date format="{f:translate(key: 'date_format')}">{posting.datePosted}</f:format.date>
-														</div>
-													</div>
-													<div class="row mt-3">
-														<f:if condition="{settings.singleDetailandApp}">
-															<f:then>
-																<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView" additionalParams="{postingApp: posting}">
-																	<f:translate key="fe.posting.button.detailview"/>
-																</f:link.action>
-															</f:then>
-															<f:else>
-																<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView">
-																	<f:translate key="fe.posting.button.detailview"/>
-																</f:link.action>
-															</f:else>
-														</f:if>
-													</div>
-												</div>
-											</div>
-											<div class="col"></div>
-										</div>
-									</div>
-								</div>
-								<f:comment><!--Posting in list view end--></f:comment>
-							</f:for>
-						</div>
+						<f:widget.paginate objects="{postings}" as="paginatedPostings" configuration="{itemsPerPage: settings.maxItemsOnPage}">
+							<div class="row">
+								<f:for as="posting" each="{paginatedPostings}">
+									<f:render partial="Posting/ListItem" arguments="{_all}"></f:render>
+								</f:for>
+							</div>
+						</f:widget.paginate>
 					</f:then>
 					<f:else>
 						<f:comment><!--If filter returns no postings--></f:comment>
@@ -157,5 +103,11 @@
 			</f:else>
 		</f:if>
 	</div>
+	<script>
+		const options = {
+			plugins : ['remove_button']
+		}
+		$('select').selectize(options)
+	</script>
 </f:section>
 </html>

@@ -161,9 +161,8 @@
 				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.employment_type',
 				'config' => [
 					'type' => 'select',
-					'renderType' => 'selectSingle',
+					'renderType' => 'selectMultipleSideBySide',
 					'items' => [
-						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.chooseMessage', ""],
 						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.fulltime', "fulltime"],
 						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.parttime', "parttime"],
 						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.contractor', "contractor"],
@@ -173,9 +172,6 @@
 						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.perdiem', "perdiem"],
 						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.other', "other"]
 					],
-					'size' => 1,
-					'cols' => 5,
-					'maxitems' => 1,
 					'eval' => ''
 				],
 			],
@@ -441,8 +437,7 @@
 					'type' => 'select',
 					'renderType' => 'selectSingle',
 					'foreign_table' => 'tx_jobapplications_domain_model_location',
-					'minitems' => 0,
-					'maxitems' => 1,
+					'maxitems' => 1
 				],
 			],
 			'contact' => [

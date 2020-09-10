@@ -1,0 +1,65 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<div class="col-12 col-md-4">
+	<div class="card my-3">
+		<f:if condition="{posting.listViewImage}">
+			<f:image class="card-img-top h-auto" src="{posting.listViewImage.originalResource.publicUrl}"/>
+		</f:if>
+		<div class="row">
+			<div class="col"></div>
+			<div class="col-9">
+				<div class="card-title mt-3">
+					<f:if condition="{settings.singleDetailandApp}">
+						<f:then>
+							<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" pluginName="DetailView" additionalParams="{postingApp: posting}">{posting.title}</f:link.action>
+						</f:then>
+						<f:else>
+							<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" pluginName="DetailView">{posting.title}</f:link.action>
+						</f:else>
+					</f:if>
+				</div>
+				<div class="card-body p-0 pb-3">
+					<div class="row">
+						<div class="col">
+							<f:translate key="tx_jobapplications_domain_model_posting.career_level"/>
+							:
+						</div>
+						<div class="col-md-auto"><span>{posting.careerLevel}</span></div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<f:translate key="tx_jobapplications_domain_model_posting.location"/>
+							:
+						</div>
+						<div class="col-md-auto">
+							<span>{posting.location.name}</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<f:translate key="tx_jobapplications_domain_model_posting.date_posted"/>
+							:
+						</div>
+						<div class="col-md-auto">
+							<f:format.date format="{f:translate(key: 'date_format')}">{posting.datePosted}</f:format.date>
+						</div>
+					</div>
+					<div class="row mt-3">
+						<f:if condition="{settings.singleDetailandApp}">
+							<f:then>
+								<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView" additionalParams="{postingApp: posting}">
+									<f:translate key="fe.posting.button.detailview"/>
+								</f:link.action>
+							</f:then>
+							<f:else>
+								<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView">
+									<f:translate key="fe.posting.button.detailview"/>
+								</f:link.action>
+							</f:else>
+						</f:if>
+					</div>
+				</div>
+			</div>
+			<div class="col"></div>
+		</div>
+	</div>
+</div>
