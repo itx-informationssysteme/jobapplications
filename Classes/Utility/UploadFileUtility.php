@@ -110,6 +110,7 @@
 					throw new \RuntimeException('Not allowed to have more than one file in unique folder.');
 				}
 				$returnPath = $filePath.$file;
+				$i++;
 			}
 
 			if (empty($returnPath))
