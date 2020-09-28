@@ -216,6 +216,11 @@ Allowed application upload file types
 Here you can specify multiple file types by naming their extension by using the following notation: .pdf,.docx,.xlsx .
 Fallback is .pdf.
 
+Slug behaviour
+-------------------------------------
+Slug behavior:"uniqueInSite": The same slug can be used for postings in different sites.
+Use this setting only if no posting records are shared between sites. "unique" means that the same posting title will lead to different slug names.
+
 Google Indexing API interface
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 This extension implements the Google Indexing API. It provides a possibility for telling Google when a job posting was created, updated

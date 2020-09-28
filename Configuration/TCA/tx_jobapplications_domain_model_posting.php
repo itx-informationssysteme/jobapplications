@@ -1,4 +1,6 @@
 <?php
+	$slugBehaviour = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)
+														   ->get('jobapplications', 'slugBehaviour');
 	return [
 		'ctrl' => [
 			'title' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting',
@@ -116,7 +118,6 @@
 					]
 				],
 			],
-
 			'title' => [
 				'exclude' => true,
 				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title',
@@ -200,7 +201,6 @@
 					'rows' => 15,
 					'eval' => 'trim',
 				],
-
 			],
 			'job_description' => [
 				'exclude' => true,
@@ -281,19 +281,6 @@
 					'type' => 'input',
 					'size' => 30,
 					'eval' => 'trim'
-				],
-			],
-			// @deprecated
-			'valid_through' => [
-				'exclude' => true,
-				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.valid_through',
-				'config' => [
-					'dbType' => 'date',
-					'type' => 'input',
-					'renderType' => 'inputDateTime',
-					'size' => 7,
-					'eval' => 'date',
-					'default' => null,
 				],
 			],
 			'required_documents' => [
@@ -464,7 +451,7 @@
 						],
 					],
 					'fallbackCharacter' => '-',
-					'eval' => 'uniqueInSite',
+					'eval' => $slugBehaviour,
 					'default' => ''
 				],
 			],

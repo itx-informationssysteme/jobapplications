@@ -55,6 +55,8 @@ As this update touched quite a lot of code there may be bugs. If you find one pl
 
 * [FEATURE] added smarter background routing, now skipping the dashboard view in case it was already seen in the current session
 
+* [FEATURE] added slug behaviour extension configuration
+
 * [BUGFIX] corrected output order in contact display
 
 * [BUGFIX] fixed Google Indexing API implementation in v10
