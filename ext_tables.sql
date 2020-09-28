@@ -4,26 +4,27 @@
 CREATE TABLE tx_jobapplications_domain_model_posting
 (
 
-    title               varchar(255)     DEFAULT '' NOT NULL,
+    title               varchar(255)     DEFAULT ''  NOT NULL,
+    categories          int(11) unsigned DEFAULT '0' NOT NULL,
     date_posted         date             DEFAULT NULL,
-    career_level        varchar(255)     DEFAULT '' NOT NULL,
-    division            varchar(255)     DEFAULT '' NOT NULL,
-    employment_type     varchar(255)     DEFAULT '' NOT NULL,
-    terms_of_employment varchar(255)     DEFAULT '' NOT NULL,
+    career_level        varchar(255)     DEFAULT ''  NOT NULL,
+    division            varchar(255)     DEFAULT ''  NOT NULL,
+    employment_type     varchar(255)     DEFAULT ''  NOT NULL,
+    terms_of_employment varchar(255)     DEFAULT ''  NOT NULL,
     company_description text,
     job_description     text,
     role_description    text,
     skill_requirements  text,
     benefits            text,
-    base_salary         varchar(255)     DEFAULT '' NOT NULL,
+    base_salary         varchar(255)     DEFAULT ''  NOT NULL,
     valid_through       date             DEFAULT NULL,
     required_documents  text,
     company_information text,
-    detail_view_image   int(11) unsigned            NOT NULL default '0',
-    list_view_image     int(11) unsigned            NOT NULL default '0',
+    detail_view_image   int(11) unsigned             NOT NULL default '0',
+    list_view_image     int(11) unsigned             NOT NULL default '0',
     location            int(11) unsigned DEFAULT '0',
     contact             int(11) unsigned DEFAULT '0',
-    slug                varchar(255)     DEFAULT '' NOT NULL
+    slug                varchar(255)     DEFAULT ''  NOT NULL
 
 );
 
@@ -88,14 +89,6 @@ CREATE TABLE tx_jobapplications_domain_model_application
     posting                   int(11) unsigned     DEFAULT '0' NOT NULL,
     archived                  smallint(5) unsigned DEFAULT '0' NOT NULL,
     status                    int(11) unsigned     DEFAULT '1' NOT NULL
-);
-
-#
-# Table structure for table 'tx_jobapplications_domain_model_posting'
-#
-CREATE TABLE tx_jobapplications_domain_model_posting
-(
-    categories int(11) unsigned DEFAULT '0' NOT NULL
 );
 
 #

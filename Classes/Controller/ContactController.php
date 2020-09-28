@@ -74,6 +74,15 @@
 				$contacts = explode(",", $selectedContactsStr);
 			}
 			$contactObjects = $this->contactRepository->findMultipleByUid($contacts);
+
+			$contactByUid = [];
+
+			foreach ($contactObjects as $contact) {
+				$contactByUid[$contact->getLocalizedUid()] = $contact;
+			}
+
+			$contactObjects = array_replace(array_flip($contacts), $contactByUid);
+
 			$this->view->assign('contacts', $contactObjects);
 		}
 	}

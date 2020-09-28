@@ -2,14 +2,20 @@
 
 	namespace ITX\Jobapplications\Controller;
 
+	use ITX\Jobapplications\Domain\Model\Constraint;
+	use Psr\Http\Message\ServerRequestInterface;
 	use ScssPhp\ScssPhp\Formatter\Debug;
+	use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+	use TYPO3\CMS\Core\Http\ImmediateResponseException;
 	use TYPO3\CMS\Core\Page\PageRenderer;
+	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
 	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 	use TYPO3\CMS\Core\MetaTag\MetaTagManagerRegistry;
 	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
+	use TYPO3\CMS\Frontend\Controller\ErrorController;
 
 	/***************************************************************
 	 *  Copyright notice
@@ -99,23 +105,54 @@
 		}
 
 		/**
-		 * action list
+		 * This function makes calls to repositories to get all available filter options.
+		 * These then get cached for performance reasons.
+		 * Override for customization.
 		 *
-		 * @return void
-		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
-		 * @throws InvalidArgumentValueException
+		 * @param $categories array categories
+		 *
+		 * @return array
 		 */
-		public function listAction()
+		public function getFilterOptions($categories): array
 		{
-			$divisionName = "";
-			$careerLevelType = "";
-			$selectedEmploymentType = "";
-			$selectedLocation = -1;
-			$category_str = $this->settings["categories"];
-			$categories = array();
+			return [
+				'division' => $this->postingRepository->findAllDivisions($categories),
+				'careerLevel' => $this->postingRepository->findAllCareerLevels($categories),
+				'employmentType' => $this->postingRepository->findAllEmploymentTypes($categories),
+				'location' => $this->locationRepository->findAll($categories)->toArray(),
+			];
+		}
 
-			$orderBy = $this->settings['list']['ordering']['field'];
-			$order = null;
+		private function getCachedFilterOptions($categories): array
+		{
+			/** @var FrontendInterface $cache */
+			$cache = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Cache\CacheManager::class)->getCache('jobapplications_cache');
+
+			// If $entry is false, it hasn't been cached. Calculate the value and store it in the cache:
+			if (($entry = $cache->get('filterOptions')) === false)
+			{
+				$entry = $this->getFilterOptions($categories);
+
+				$cache->set('filterOptions', $entry, [], null);
+			}
+
+			return $entry;
+		}
+
+		/**
+		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
+		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
+		 * @throws \TYPO3\CMS\Extbase\Reflection\Exception\UnknownClassException
+		 */
+		public function listAction(Constraint $constraint = null): void
+		{
+			// Plugin selected categories
+			$category_str = $this->settings["categories"];
+			$categories = !empty($category_str) ? explode(",", $category_str) : [];
+
+			$orderBy = $this->settings['list']['ordering']['field'] ?: 'date_posted';
+			$order = '';
 			switch ($this->settings['list']['ordering']['order'])
 			{
 				case 'descending':
@@ -125,71 +162,21 @@
 					$order = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING;
 					break;
 				default:
-					throw new \InvalidArgumentException("Could not decode order: ".$this->settings['filter']['ordering']['order']);
+					$order = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING;
 			}
 
-			if (!empty($category_str))
+			// Get repository configuration from typoscript
+			$repositoryConfiguration = $this->settings['filter']['repositoryConfiguration'];
+			if (!$repositoryConfiguration)
 			{
-				$categories = explode(",", $category_str);
+				$repositoryConfiguration = [];
 			}
 
-			$divisions = $this->postingRepository->findAllDivisions($categories);
-			$careerLevels = $this->postingRepository->findAllCareerLevels($categories);
-			$employmentTypes = $this->postingRepository->findAllEmploymentTypes($categories);
-			$locations = $this->locationRepository->findAll($categories)->toArray();
+			// Get cached filter options
+			$filterOptions = $this->getCachedFilterOptions($categories);
 
-			if ($this->request->hasArgument("division") &&
-				$this->request->hasArgument("careerLevel") &&
-				$this->request->hasArgument("employmentType") &&
-				$this->request->hasArgument("location"))
-			{
-				$divisionName = $this->request->getArgument('division');
-				$careerLevelType = $this->request->getArgument('careerLevel');
-				$selectedEmploymentType = $this->request->getArgument('employmentType');
-				$selectedLocation = $this->request->getArgument('location') ? intval($this->request->getArgument('location')) : -1;
-
-				// Prepare for sanity check by aggregating all possible values
-				$tmp_divisions = array_column($divisions, "division");
-				$tmp_careerLevels = array_column($careerLevels, "careerLevel");
-				$tmp_employmentTypes = array_column($employmentTypes, "employmentType");
-
-				$tmp_divisions[] = "";
-				$tmp_careerLevels[] = "";
-				$tmp_employmentTypes[] = "";
-
-				$locationUids = array_map(function ($element) {
-					return $element->getUid();
-				}, $locations);
-				$locationUids[] = -1;
-
-				// Check for user input sanity
-				$result_division = in_array($divisionName, $tmp_divisions);
-				$result_careerLevel = in_array($careerLevelType, $tmp_careerLevels);
-				$result_employmentType = in_array($selectedEmploymentType, $tmp_employmentTypes);
-				$result_location = in_array($selectedLocation, $locationUids);
-
-				if (!$result_division || !$result_careerLevel || !$result_employmentType || !$result_location)
-				{
-					throw new InvalidArgumentValueException("Input not valid.");
-				}
-			}
-
-			if (!empty($divisionName) || !empty($careerLevelType) || !empty($selectedEmploymentType) || $selectedLocation != -1)
-			{
-				$postings = $this->postingRepository->findByFilter($divisionName, $careerLevelType, $selectedEmploymentType, $selectedLocation, $categories, $orderBy, $order);
-
-			}
-			else
-			{
-				if (count($categories) == 0)
-				{
-					$postings = $this->postingRepository->findAllWithOrder($orderBy, $order);
-				}
-				else
-				{
-					$postings = $this->postingRepository->findByCategory($categories, $orderBy, $order);
-				}
-			}
+			// Make the actual repository call
+			$postings = $this->postingRepository->findByFilter($categories, $repositoryConfiguration , $constraint, $orderBy, $order);
 
 			// SignalSlotDispatcher BeforePostingAssign
 			$changedPostings = $this->signalSlotDispatcher->dispatch(__CLASS__, "BeforePostingAssign", ["postings" => $postings]);
@@ -198,29 +185,43 @@
 				$postings = $changedPostings['postings'];
 			}
 
-			$this->view->assign('divisionName', $divisionName);
-			$this->view->assign('careerLevelType', $careerLevelType);
-			$this->view->assign('selectedEmploymentType', $selectedEmploymentType);
-			$this->view->assign('selectedLocation', $selectedLocation);
-			$this->view->assign('employmentTypes', $employmentTypes);
+			// Determines whether user tried to filter
+			$isFiltering = false;
+
+			if ($constraint instanceof Constraint) {
+				$isFiltering = true;
+			}
+
 			$this->view->assign('postings', $postings);
-			$this->view->assign('divisions', $divisions);
-			$this->view->assign('careerLevels', $careerLevels);
-			$this->view->assign('locations', $locations);
+			$this->view->assign('isFiltering', $isFiltering);
+			$this->view->assign('filterOptions', $filterOptions);
+			$this->view->assign('constraint', $constraint);
 		}
 
 		/**
-		 * action show
+		 * @param \ITX\Jobapplications\Domain\Model\Posting|null $posting
 		 *
-		 * @param \ITX\Jobapplications\Domain\Model\Posting $posting
-		 *
-		 * @return void
+		 * @throws ImmediateResponseException
+		 * @throws \JsonException
+		 * @throws \TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException
+		 * @throws \TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException
+		 * @throws \TYPO3\CMS\Core\Error\Http\PageNotFoundException
+		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
+		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
 		 */
-		public function showAction(\ITX\Jobapplications\Domain\Model\Posting $posting = null)
+		public function showAction(\ITX\Jobapplications\Domain\Model\Posting $posting = null): void
 		{
+			if ($posting === null)
+			{
+				/** @var ErrorController $errorController */
+				$errorController = GeneralUtility::makeInstance(ErrorController::class);
+				$response = $errorController->pageNotFoundAction($GLOBALS['TYPO3_REQUEST'], 'Posting not available');
+				throw new ImmediateResponseException($response, 1599638331);
+			}
 
 			$titleProvider = GeneralUtility::makeInstance(JobsPageTitleProvider::class);
 
+			/** @var ExtensionConfiguration $extconf */
 			$extconf = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class);
 
 			//Google Jobs
@@ -238,34 +239,39 @@
 					$hiringOrganization["logo"] = $logo;
 				}
 
-				switch ($posting->getEmploymentType())
+				$employmentTypes = [];
+
+				foreach ($posting->getDeserializedEmploymentTypes() as $employmentType)
 				{
-					case "fulltime":
-						$employmentType = "FULL_TIME";
-						break;
-					case "parttime":
-						$employmentType = "PART_TIME";
-						break;
-					case "contractor":
-						$employmentType = "CONTRACTOR";
-						break;
-					case "temporary":
-						$employmentType = "TEMPORARY";
-						break;
-					case "intern":
-						$employmentType = "INTERN";
-						break;
-					case "volunteer":
-						$employmentType = "VOLUNTEER";
-						break;
-					case "perdiem":
-						$employmentType = "PER_DIEM";
-						break;
-					case "other":
-						$employmentType = "OTHER";
-						break;
-					default:
-						$employmentType = "";
+					switch ($employmentType)
+					{
+						case "fulltime":
+							$employmentTypes[] = "FULL_TIME";
+							break;
+						case "parttime":
+							$employmentTypes[] = "PART_TIME";
+							break;
+						case "contractor":
+							$employmentTypes[] = "CONTRACTOR";
+							break;
+						case "temporary":
+							$employmentTypes[] = "TEMPORARY";
+							break;
+						case "intern":
+							$employmentTypes[] = "INTERN";
+							break;
+						case "volunteer":
+							$employmentTypes[] = "VOLUNTEER";
+							break;
+						case "perdiem":
+							$employmentTypes[] = "PER_DIEM";
+							break;
+						case "other":
+							$employmentTypes[] = "OTHER";
+							break;
+						default:
+							$employmentTypes = [];
+					}
 				}
 
 				$googleJobsJSON = array(
@@ -280,12 +286,12 @@
 						"address" => [
 							"streetAddress" => $posting->getLocation()->getAddressStreetAndNumber(),
 							"addressLocality" => $posting->getLocation()->getAddressCity(),
-							"postalCode" => strval($posting->getLocation()->getAddressPostCode()),
+							"postalCode" => (string)$posting->getLocation()->getAddressPostCode(),
 							"addressCountry" => $posting->getLocation()->getAddressCountry()
 						]
 					],
 					"title" => $posting->getTitle(),
-					"employmentType" => $employmentType
+					"employmentType" => $employmentTypes
 				);
 
 				$googleJobsJSON["hiringOrganization"] = $hiringOrganization;
@@ -304,18 +310,12 @@
 					];
 				}
 
-				/** @deprecated */
-				if ($posting->getValidThrough() instanceof \DateTime)
-				{
-					$googleJobsJSON["validThrough"] = $posting->getValidThrough()->format("c");
-				}
-
 				if ($posting->getEndtime() instanceof \DateTime)
 				{
 					$googleJobsJSON["validThrough"] = $posting->getEndtime()->format("c");
 				}
 
-				$googleJobs = "<script type=\"application/ld+json\">".strval(json_encode($googleJobsJSON))."</script>";
+				$googleJobs = "<script type=\"application/ld+json\">".json_encode($googleJobsJSON, JSON_THROW_ON_ERROR)."</script>";
 
 				$pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
 				$pageRenderer->addHeaderData($googleJobs);
@@ -323,7 +323,7 @@
 
 			// Pagetitle Templating
 			$title = $this->settings["pageTitle"];
-			if ($title != "")
+			if ($title !== "")
 			{
 				$title = str_replace("%postingTitle%", $posting->getTitle(), $title);
 			}

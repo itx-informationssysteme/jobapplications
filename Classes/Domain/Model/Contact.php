@@ -215,4 +215,21 @@
 		{
 			$this->beUser = $beUser;
 		}
+
+
+		/**
+		 * @return int
+		 */
+		public function getLocalizedUid()
+		{
+			return $this->_localizedUid;
+		}
+
+		/**
+		 * @param int $localizedUid
+		 */
+		public function setLocalizedUid(int $localizedUid): void
+		{
+			$this->_localizedUid = $localizedUid;
+		}
 	}

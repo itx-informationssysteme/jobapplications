@@ -41,16 +41,16 @@
 		/**
 		 * Function for filtering applications
 		 *
-		 * @param int    $contact
-		 * @param int    $posting
-		 * @param int    $status
-		 * @param int    $archived
-		 * @param string $orderBy
-		 * @param string $order
+		 * @param int|null $contact
+		 * @param int|null $posting
+		 * @param int|null $status
+		 * @param int      $archived
+		 * @param string   $orderBy
+		 * @param string   $order
 		 *
 		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 		 */
-		public function findByFilter(int $contact, int $posting, int $status, int $archived = 0,
+		public function findByFilter(?int $contact, ?int $posting, ?int $status, int $archived = 0,
 									 string $orderBy = "crdate",
 									 string $order = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING)
 		{

@@ -2,6 +2,7 @@
 
 	namespace ITX\Jobapplications\Domain\Repository;
 
+	use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 	/***************************************************************
@@ -39,44 +40,25 @@
 		 *
 		 * @return QueryResultInterface|array
 		 */
-		public function findAll(array $categories = null)
+		public function findAll(array $categories = null, string $orderBy = "name", string $order = QueryInterface::ORDER_ASCENDING)
 		{
-			$qb = parent::getQueryBuilder("tx_jobapplications_domain_model_location");
 			$query = $this->createQuery();
 
-			if (count($categories) == 0)
-			{
-				$qb->select("*")
-				   ->from("tx_jobapplications_domain_model_location");
-			}
-			else
-			{
-				$sb = parent::getQueryBuilder("tx_jobapplications_domain_model_posting");
-				$sb
-					->select("location")
-					->from("tx_jobapplications_domain_model_posting")
-					->join("tx_jobapplications_domain_model_posting", "sys_category_record_mm",
-						   "sys_category_record_mm",
-						   $sb->expr()->eq("tx_jobapplications_domain_model_posting.uid", "sys_category_record_mm.uid_foreign"));
-				$sb = parent::buildCategoriesToSQL($categories, $sb);
-				$result = $sb->execute()->fetchAll(\Doctrine\DBAL\FetchMode::COLUMN);
+			$andConstraints = [];
 
-				if (count($result) > 0)
-				{
-					$qb->select("*")
-					   ->from("tx_jobapplications_domain_model_location")
-					   ->where($qb->expr()->in("uid", $result));
-				}
-				else
-				{
-					$qb->select("*")
-					   ->from("tx_jobapplications_domain_model_location")
-					   ->where('1 = 0');
-				}
-
+			if (!empty($categories))
+			{
+				$andConstraints[] = $query->contains('categories', $categories);
 			}
 
-			$query->statement($qb->getSQL());
+			if (!empty($andConstraints))
+			{
+				$query->matching(
+					$query->logicalAnd($andConstraints)
+				);
+			}
+
+			$query->setOrderings([$orderBy => $order]);
 
 			return $query->execute();
 		}

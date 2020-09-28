@@ -1,0 +1,63 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<script>
+	FilePond.registerPlugin(FilePondPluginFileValidateType);
+	FilePond.setOptions({
+		allowFileTypeValidation     : false,
+		server                      : {
+			process : {
+				url     : 'index.php?eID=jobapplications_upload',
+				onerror : (response) => {
+					return response;
+				}
+			},
+			revert  : {
+				url: 'index.php?eID=jobapplications_revert'
+			},
+			restore : null,
+			load    : null,
+			fetch   : null
+		},
+		labelFileProcessingError    : (error) => {
+			let returnString = '';
+			console.log(error);
+			switch (error.body)
+			{
+				case 'file_size':
+					returnString = '<f:translate key="fe.upload.file_size"></f:translate>'
+					break;
+				case 'file_type':
+					returnString = '<f:translate key="fe.upload.file_type"></f:translate>'
+					break;
+				case 'file_error':
+					returnString = '<f:translate key="fe.upload.file_error"></f:translate>'
+					break;
+				default:
+					if (error.code === 500) {
+						returnString = '<f:translate key="fe.upload.server_error"></f:translate>'
+					} else {
+						returnString = '<f:translate key="fe.upload.file_error"></f:translate>'
+					}
+					break;
+			}
+			return returnString;
+		},
+		fileValidateTypeDetectType  : (source, type) => new Promise((resolve, reject) => {
+			if (type === '')
+			{
+				reject(type)
+			}
+			// Do custom type detection here and return with promise
+
+			resolve(type);
+		}),
+		labelIdle                   : '<f:translate key="fe.upload.idle.drag"></f:translate> <span class="filepond--label-action"><f:translate key="fe.upload.idle.browse"></f:translate> </span>',
+		labelFileLoading            : '<f:translate key="fe.upload.loading"></f:translate>',
+		labelFileLoadError          : '<f:translate key="fe.upload.loading.error"></f:translate>',
+		labelFileProcessing         : '<f:translate key="fe.upload.uploading"></f:translate>',
+		labelTapToCancel            : '<f:translate key="fe.upload.cancel"></f:translate>',
+		labelTapToRetry             : '<f:translate key="fe.upload.retry"></f:translate>',
+		labelFileProcessingComplete : '<f:translate key="fe.upload.complete"></f:translate>',
+		labelTapToUndo              : '<f:translate key="fe.upload.undo"></f:translate>'
+	});
+	FilePond.parse(document.body);
+</script>

@@ -211,6 +211,16 @@ Override the automatically fetched server upload file size limit
 Here you can choose to provide a custom upload file size limit, that gets shown in the frontend and checked in backend.
 This must be a smaller than or equal the value the server sets. Specifiy the value in kilobytes.
 
+Allowed application upload file types
+-------------------------------------
+Here you can specify multiple file types by naming their extension by using the following notation: .pdf,.docx,.xlsx .
+Fallback is .pdf.
+
+Slug behaviour
+-------------------------------------
+Slug behavior:"uniqueInSite": The same slug can be used for postings in different sites.
+Use this setting only if no posting records are shared between sites. "unique" means that the same posting title will lead to different slug names.
+
 Google Indexing API interface
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 This extension implements the Google Indexing API. It provides a possibility for telling Google when a job posting was created, updated
@@ -279,11 +289,6 @@ Send Email as HTML or Text or Both
 ----------------------------------
 This setting only has an effect in TYPO3 v10. You can choose to send out emails as their html, text or both combined versions.
 There are email templates, for both the html and text versions.
-
-Allowed application upload file types
--------------------------------------
-Here you can specify multiple file types by naming their extension by using the following notation: .pdf,.docx,.xlsx .
-Fallback is .pdf.
 
 Enable Google Jobs
 ------------------

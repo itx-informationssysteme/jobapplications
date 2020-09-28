@@ -1,4 +1,6 @@
 <?php
+	$slugBehaviour = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)
+														   ->get('jobapplications', 'slugBehaviour');
 	return [
 		'ctrl' => [
 			'title' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting',
@@ -116,7 +118,6 @@
 					]
 				],
 			],
-
 			'title' => [
 				'exclude' => true,
 				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title',
@@ -161,9 +162,8 @@
 				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.employment_type',
 				'config' => [
 					'type' => 'select',
-					'renderType' => 'selectSingle',
+					'renderType' => 'selectMultipleSideBySide',
 					'items' => [
-						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.chooseMessage', ""],
 						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.fulltime', "fulltime"],
 						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.parttime', "parttime"],
 						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.contractor', "contractor"],
@@ -173,9 +173,6 @@
 						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.perdiem', "perdiem"],
 						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.other', "other"]
 					],
-					'size' => 1,
-					'cols' => 5,
-					'maxitems' => 1,
 					'eval' => ''
 				],
 			],
@@ -204,7 +201,6 @@
 					'rows' => 15,
 					'eval' => 'trim',
 				],
-
 			],
 			'job_description' => [
 				'exclude' => true,
@@ -285,19 +281,6 @@
 					'type' => 'input',
 					'size' => 30,
 					'eval' => 'trim'
-				],
-			],
-			// @deprecated
-			'valid_through' => [
-				'exclude' => true,
-				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.valid_through',
-				'config' => [
-					'dbType' => 'date',
-					'type' => 'input',
-					'renderType' => 'inputDateTime',
-					'size' => 7,
-					'eval' => 'date',
-					'default' => null,
 				],
 			],
 			'required_documents' => [
@@ -441,8 +424,7 @@
 					'type' => 'select',
 					'renderType' => 'selectSingle',
 					'foreign_table' => 'tx_jobapplications_domain_model_location',
-					'minitems' => 0,
-					'maxitems' => 1,
+					'maxitems' => 1
 				],
 			],
 			'contact' => [
@@ -469,7 +451,7 @@
 						],
 					],
 					'fallbackCharacter' => '-',
-					'eval' => 'uniqueInSite',
+					'eval' => $slugBehaviour,
 					'default' => ''
 				],
 			],

@@ -5,5 +5,11 @@
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
 		'jobapplications',
 		'Configuration/TypoScript/IncludeBootstrap',
-		'[Optional] Include Bootstrap for working default layout'
+		'Jobapplications: [Optional] Include Bootstrap for working default layout'
+	);
+
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
+		'jobapplications',
+		'Configuration/TypoScript/IncludeJQuery',
+		'Jobapplications: [Optional] Include jQuery (if necessary) for working filters'
 	);

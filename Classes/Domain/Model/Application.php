@@ -110,7 +110,7 @@
 		/**
 		 * cv
 		 *
-		 * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+		 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
 		 * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade remove
 		 */
 		protected $cv = null;
@@ -118,7 +118,7 @@
 		/**
 		 * coverLetter
 		 *
-		 * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+		 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
 		 * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade remove
 		 */
 		protected $coverLetter = null;
@@ -126,7 +126,7 @@
 		/**
 		 * testimonials
 		 *
-		 * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+		 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
 		 * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade remove
 		 */
 		protected $testimonials = null;
@@ -134,7 +134,7 @@
 		/**
 		 * otherFiles
 		 *
-		 * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+		 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
 		 * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade remove
 		 */
 		protected $otherFiles = null;
@@ -204,6 +204,10 @@
 		public function __construct()
 		{
 			$this->files = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+			$this->cv = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+			$this->coverLetter = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+			$this->testimonials = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+			$this->otherFiles = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		}
 
 		/**
@@ -363,7 +367,7 @@
 		/**
 		 * Returns the cv
 		 *
-		 * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference cv
+		 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage cv
 		 */
 		public function getCv()
 		{
@@ -373,11 +377,11 @@
 		/**
 		 * Sets the cv
 		 *
-		 * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $cv
+		 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $cv
 		 *
 		 * @return void
 		 */
-		public function setCv(\TYPO3\CMS\Extbase\Domain\Model\FileReference $cv)
+		public function setCv(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $cv)
 		{
 			$this->cv = $cv;
 		}
@@ -385,7 +389,7 @@
 		/**
 		 * Returns the coverLetter
 		 *
-		 * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference coverLetter
+		 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage coverLetter
 		 */
 		public function getCoverLetter()
 		{
@@ -395,11 +399,11 @@
 		/**
 		 * Sets the coverLetter
 		 *
-		 * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $coverLetter
+		 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $coverLetter
 		 *
 		 * @return void
 		 */
-		public function setCoverLetter(\TYPO3\CMS\Extbase\Domain\Model\FileReference $coverLetter)
+		public function setCoverLetter(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $coverLetter)
 		{
 			$this->coverLetter = $coverLetter;
 		}
@@ -407,7 +411,7 @@
 		/**
 		 * Returns the testimonials
 		 *
-		 * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference testimonials
+		 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage testimonials
 		 */
 		public function getTestimonials()
 		{
@@ -417,11 +421,11 @@
 		/**
 		 * Sets the testimonials
 		 *
-		 * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $testimonials
+		 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $testimonials
 		 *
 		 * @return void
 		 */
-		public function setTestimonials(\TYPO3\CMS\Extbase\Domain\Model\FileReference $testimonials)
+		public function setTestimonials(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $testimonials)
 		{
 			$this->testimonials = $testimonials;
 		}
@@ -429,7 +433,7 @@
 		/**
 		 * Returns the otherFiles
 		 *
-		 * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference otherFiles
+		 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage otherFiles
 		 */
 		public function getOtherFiles()
 		{
@@ -439,11 +443,11 @@
 		/**
 		 * Sets the otherFiles
 		 *
-		 * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $otherFiles
+		 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $otherFiles
 		 *
 		 * @return void
 		 */
-		public function setOtherFiles(\TYPO3\CMS\Extbase\Domain\Model\FileReference $otherFiles)
+		public function setOtherFiles(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $otherFiles)
 		{
 			$this->otherFiles = $otherFiles;
 		}

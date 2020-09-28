@@ -3,6 +3,12 @@
 # cat=general; type=int; label=LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:conf.customFileSizeLimit
 customFileSizeLimit =
 
+# cat=general; type=string; label=Allowed application upload file types:As comma separated list e.g. .pdf,.docx
+allowedFileTypes = .pdf
+
+# cat=general; type=options[uniqueInSite=uniqueInSite,unique=unique]; label=Slug behavior:"uniqueInSite": The same slug can be used for postings in different sites. Use this setting only if no posting records are shared between sites. "unique" means that same posting title will lead to different slug names.
+slugBehaviour = uniqueInSite
+
 # cat=google; type=string; label=LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:conf.companyName
 companyName =
 
