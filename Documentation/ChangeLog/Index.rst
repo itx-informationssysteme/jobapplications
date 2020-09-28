@@ -33,12 +33,12 @@ As this update touched quite a lot of code there may be bugs. If you find one pl
   This change also introduces the option to simply change whether the former single file uploads (cv, cover_letter...)
   are single or multi upload directly in the template. The controller will handle both.
 
-* [BREAKING] filters became a JavaScript and functionality upgrade as well. They are now powered by selectize.js (also included).
+* [BREAKING] filters got a JavaScript and functionality upgrade as well. They are now powered by selectize.js (also included).
   selectize.js requires jQuery which is also optionally included as static template.
   The main reason for using JavaScript selects, was to have good looking multi selects. This means filters can now be
   implemented in templates as single or multiselect, without changing something else.
   Apart from that, the entire filter system was reworked, now allowing custom filters to be configured via TypoScript and
-  the PostingController. Details on how to do this can be found in the developer section of the documentation.
+  the PostingController and the Constraint model. Details on how to do this can be found in the developer section of the documentation.
 
 * [BREAKING] the allowed file extension list was moved from the template constants to the Extension Configuration.
 
@@ -50,6 +50,10 @@ As this update touched quite a lot of code there may be bugs. If you find one pl
   also including a typoscript constant allowing to set the maximum number of postings on one page
 
 * [FEATURE] added error handler if no posting was found for the detail view
+
+* [FEATURE] added pagination to the backend modules application entries
+
+* [FEATURE] added smarter background routing, now skipping the dashboard view in case it was already seen in the current session
 
 * [BUGFIX] corrected output order in contact display
 
