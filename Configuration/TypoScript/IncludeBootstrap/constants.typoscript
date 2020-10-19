@@ -1,5 +1,5 @@
 plugin.tx_jobapplications {
 
     # cat=plugin.tx_jobapplications; type=string; label=Css file path
-    bootstrapPath = EXT:jobapplications/Resources/Public/Css/bootstrap.min.css
+    bootstrapPath = EXT:jobapplications/Resources/Public/Css/Vendor/bootstrap.min.css
 }
