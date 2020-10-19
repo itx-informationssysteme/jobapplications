@@ -5,7 +5,6 @@
 	use ITX\Jobapplications\Domain\Model\Constraint;
 	use ITX\Jobapplications\Domain\Model\Contact;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
-	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use ITX\Jobapplications\Domain\Repository\RepoHelpers;
 	use TYPO3\CMS\Extbase\Persistence\QueryInterface;
@@ -252,7 +251,8 @@
 				foreach ($constraints as $index => $property)
 				{
 					// TYPO3 v9 compatibility
-					$propertyName = is_array[$property] ? $index : $property->getName();
+					$propertyName = is_array($property) ? $index : $property->getName();
+
 					$propertyMethodName = GeneralUtility::underscoredToUpperCamelCase($propertyName);
 					$array = $constraint->{'get'.$propertyMethodName}();
 					if (empty($array))
