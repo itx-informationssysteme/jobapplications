@@ -282,7 +282,8 @@
 			$return_files = [];
 			foreach ($fileIds as $fileId)
 			{
-				if (empty($fileId)) {
+				if (empty($fileId))
+				{
 					break;
 				}
 
@@ -329,23 +330,33 @@
 			if (!empty($arguments['files']))
 			{
 				$isMultiFile = true;
-			} else {
+			}
+			else
+			{
 				// Normalize file array -> free choice whether multi or single upload
 				$fileIndices = ['cv', 'cover_letter', 'testimonials', 'other_files'];
-				foreach ($fileIndices as $fileIndex) {
-					if ($arguments[$fileIndex]['error'] === 4) {
-						$arguments[$fileIndex] = [];
+
+				foreach ($fileIndices as $fileIndex)
+				{
+					if (is_string($arguments[$fileIndex]) && !empty($arguments[$fileIndex]))
+					{
+						$arguments[$fileIndex] = [$arguments[$fileIndex]];
 						continue;
 					}
-					if ($arguments[$fileIndex][0]['error'] === 4) {
-						$arguments[$fileIndex] = [];
+
+					if (is_array($arguments[$fileIndex]))
+					{
+						foreach ($arguments[$fileIndex] as $index => $fileId)
+						{
+							if (!is_string($fileId) || empty($fileId))
+							{
+								array_splice($arguments[$fileIndex], $index, 1);
+							}
+						}
 						continue;
 					}
-					if (is_string($arguments[$fileIndex])) {
-						$arguments[$fileIndex] = [
-							$arguments[$fileIndex]
-						];
-					}
+
+					$arguments[$fileIndex] = [];
 				}
 			}
 
@@ -485,7 +496,8 @@
 
 				foreach ($files as $fileArray)
 				{
-					foreach ($fileArray as $file) {
+					foreach ($fileArray as $file)
+					{
 						if ($file instanceof FileInterface)
 						{
 							$mail->addAttachment($file->getPublicUrl());
