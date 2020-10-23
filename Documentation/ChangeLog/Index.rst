@@ -11,6 +11,12 @@
 Changelog
 =========
 
+1.0.1 - Bugfixes
+----------------
+* [BUGFIX] fixed edge case where application sending would fail because of file upload (Issue #19)
+* [BUGFIX] fixed wrong wrong selectize.css file contents (Issue #17)
+* [BUGFIX] fixed php warning thrown when using the filter (Issue #18)
+
 1.0.0 - [BREAKING] Better file uploads and better filters
 ---------------------------------------------------------
 This release is one of the more feature rich releases, in this case it demanded a lot of rewriting of essential features, like
