@@ -494,24 +494,26 @@
 					$fileTestimonial
 				);
 
-				foreach ($files as $fileArray)
-				{
-					foreach ($fileArray as $file)
-					{
-						if ($file instanceof FileInterface)
-						{
-							$mail->addAttachment($file->getPublicUrl());
-						}
-					}
-				}
-
-				foreach ($multiUploadFiles as $file)
-				{
-					if ($file instanceof FileInterface)
-					{
-						$mail->addAttachment($file->getPublicUrl());
-					}
-				}
+				if (!$isMultiFile) {
+                    foreach ($files as $fileArray)
+                    {
+                        foreach ($fileArray as $file)
+                        {
+                            if ($file instanceof FileInterface)
+                            {
+                                $mail->addAttachment($file->getPublicUrl());
+                            }
+                        }
+                    }
+                } else {
+                    foreach ($multiUploadFiles as $file)
+                    {
+                        if ($file instanceof FileInterface)
+                        {
+                            $mail->addAttachment($file->getPublicUrl());
+                        }
+                    }
+                }
 
 				//Figure out who the email will be sent to and how
 				if ($this->settings['sendEmailToInternal'] != "" && $this->settings['sendEmailToContact'] == "1")
