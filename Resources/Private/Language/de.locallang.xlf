@@ -301,7 +301,7 @@
             </trans-unit>
             <trans-unit id="fe.filter.employmentType" resname="fe.filter.employmentType" approved="yes">
                 <source>Employment Type</source>
-                <target state="translated">Arbeitsverhätnis</target>
+                <target state="translated">Arbeitsverhältnis</target>
             </trans-unit>
             <trans-unit id="fe.filter.location" resname="fe.filter.location" approved="yes">
                 <source>Location</source>
