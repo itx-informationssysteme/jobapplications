@@ -263,6 +263,10 @@
 					$orConstraints = [];
 					foreach ($array as $input)
 					{
+					    //Skip empty values. The prepend option, associated with 'All', returns this empty string.
+					    if (is_string($input) && $input === '')
+					        continue;
+
 						if ($repositoryConfig[$propertyName] === null) {
 							throw new \RuntimeException("Missing TypoScript repository config for property: ".$propertyName);
 						}
