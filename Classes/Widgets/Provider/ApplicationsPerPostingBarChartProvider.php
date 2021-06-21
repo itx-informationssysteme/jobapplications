@@ -26,9 +26,6 @@
 
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Repository\ApplicationRepository;
-	use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
-	use TYPO3\CMS\Backend\Routing\UriBuilder;
-	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Dashboard\Widgets\AbstractBarChartWidget;
 	use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 

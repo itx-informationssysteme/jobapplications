@@ -2,13 +2,6 @@
 
 	namespace ITX\Jobapplications\Domain\Repository;
 
-	use ITX\Jobapplications\Domain\Model\Contact;
-	use ITX\Jobapplications\Domain\Model\Posting;
-	use TYPO3\CMS\Core\Database\ConnectionPool;
-	use TYPO3\CMS\Core\Utility\DebugUtility;
-	use TYPO3\CMS\Core\Utility\GeneralUtility;
-	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
-
 	/***************************************************************
 	 *  Copyright notice
 	 *
@@ -88,7 +81,7 @@
 				$query->logicalAnd($andArray)
 			);
 
-			$query->setOrderings(array($orderBy => $order));
+			$query->setOrderings([$orderBy => $order]);
 
 			return $query->execute();
 		}
@@ -103,9 +96,9 @@
 			$query = $this->createQuery()->getQuerySettings()
 						  ->setRespectStoragePage(false)
 						  ->setIgnoreEnableFields(true);
-			$query->setOrderings(array(
+			$query->setOrderings([
 									 "crdate" => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
-								 ));
+								 ]);
 
 			return $query->execute();
 		}

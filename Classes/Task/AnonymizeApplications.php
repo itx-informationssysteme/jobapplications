@@ -25,9 +25,8 @@
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
 
-	use TYPO3\CMS\Extbase\Object\ObjectManager;
-	use TYPO3\CMS\Core\Database\ConnectionPool;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
+	use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 	/**
 	 * Task for deleting all applications older than a specific amount of time
@@ -50,7 +49,7 @@
 		public function execute()
 		{
 			$anonymizeChars = "***";
-			/* @var $objectManager ObjectManager*/
+			/* @var $objectManager ObjectManager */
 			$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 			$persistenceManager = $objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager::class);
 			$applicationRepository = $objectManager->get(\ITX\Jobapplications\Domain\Repository\ApplicationRepository::class);
@@ -76,7 +75,7 @@
 			{
 				// Actual anonymization + deleting application files
 
-				/* @var \ITX\Jobapplications\Service\ApplicationFileService $applicationFileService*/
+				/* @var \ITX\Jobapplications\Service\ApplicationFileService $applicationFileService */
 				$applicationFileService->deleteApplicationFolder($applicationFileService->getApplicantFolder($application));
 
 				$application->setFirstName($anonymizeChars);

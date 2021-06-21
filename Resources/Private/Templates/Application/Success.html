@@ -1,7 +1,7 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-		xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers"
+<html data-namespace-typo3-fluid="true"
 		v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd"
-		data-namespace-typo3-fluid="true">
+		xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+		xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers">
 <f:layout name="Default"/>
 
 <f:section name="content">
@@ -22,10 +22,14 @@
 	<f:if condition="{problems.problemWithApplicantMail} || {problems.problemWithNotificationMail}">
 		<f:then>
 			<f:if condition="{problems.problemWithApplicantMail}">
-				<p><f:translate id="fe.success.problemApplicantMail"></f:translate></p>
+				<p>
+					<f:translate id="fe.success.problemApplicantMail"></f:translate>
+				</p>
 			</f:if>
 			<f:if condition="{problems.problemWithNotificationMail}">
-				<p><f:translate id="fe.success.problemWithNotificationMail"></f:translate></p>
+				<p>
+					<f:translate id="fe.success.problemWithNotificationMail"></f:translate>
+				</p>
 			</f:if>
 		</f:then>
 		<f:else>

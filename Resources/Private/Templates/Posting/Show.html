@@ -1,11 +1,11 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 <f:layout name="Default"/>
 
 <f:section name="content">
-	<f:render partial="Posting/MetaTags" arguments="{posting:posting}"/>
+	<f:render arguments="{posting:posting}" partial="Posting/MetaTags"/>
 	<div class="row">
 		<f:if condition="{posting.detailViewImage}">
-			<f:image src="{posting.detailViewImage.originalResource.publicUrl}" class="h-auto w-100 mb-3"/>
+			<f:image class="h-auto w-100 mb-3" src="{posting.detailViewImage.originalResource.publicUrl}"/>
 		</f:if>
 		<div class="col">
 			<div class="row">
@@ -17,13 +17,13 @@
 		<div class="col-8">
 			<f:flashMessages/>
 			<h3>{posting.title}</h3>
-			<f:render partial="Posting/Properties" arguments="{posting:posting}"/>
+			<f:render arguments="{posting:posting}" partial="Posting/Properties"/>
 			<div class="row">
 				<div class="col-4"></div>
 				<f:if condition="{settings.applicationsEnabled}">
 					<div class="col-4 text-center">
 						<f:comment><!--Button for going to the application form--></f:comment>
-						<f:link.action class="btn btn-primary m-auto" controller="Application" action="new" arguments="{posting: posting}" pageUid="{settings.applicationFormUid}" pluginName="ApplicationForm">
+						<f:link.action action="new" arguments="{posting: posting}" class="btn btn-primary m-auto" controller="Application" pageUid="{settings.applicationFormUid}" pluginName="ApplicationForm">
 							<f:translate key="fe.posting.button.cta"/>
 						</f:link.action>
 					</div>

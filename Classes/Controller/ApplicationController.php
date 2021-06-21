@@ -33,23 +33,14 @@
 	use ITX\Jobapplications\Utility\Typo3VersionUtility;
 	use ITX\Jobapplications\Utility\UploadFileUtility;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
-	use TYPO3\CMS\Core\Context\LanguageAspect;
-	use TYPO3\CMS\Core\Core\Environment;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
-	use TYPO3\CMS\Core\Mail\MailMessage;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Resource\FileInterface;
-	use TYPO3\CMS\Core\Resource\ResourceFactory;
-	use TYPO3\CMS\Core\Utility\DebugUtility;
-	use TYPO3\CMS\Core\Utility\GeneralUtility;
-	use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
-	use TYPO3\CMS\Extbase\Domain\Model\FileReference;
-	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
-	use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-	use TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter;
-	use TYPO3\CMS\Fluid\View\TemplatePaths;
-	use TYPO3\CMS\Fluid\View\TemplateView;
 	use TYPO3\CMS\Core\Resource\StorageRepository;
+	use TYPO3\CMS\Core\Utility\GeneralUtility;
+	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+	use TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter;
+	use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 	/**
 	 * ApplicationController
@@ -70,31 +61,16 @@
 
 		/** @var string $allowedFileTypesString */
 		protected $allowedFileTypesString;
-
-		/**
-		 * @var \ITX\Jobapplications\Domain\Repository\PostingRepository
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
-		 */
-		private $postingRepository;
-
-		/**
-		 * @var \ITX\Jobapplications\Domain\Repository\StatusRepository
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
-		 */
-		private $statusRepository;
-
 		/**
 		 * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
 		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $persistenceManager;
-
 		/**
 		 * @var \ITX\Jobapplications\Service\ApplicationFileService
 		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $applicationFileService;
-
 		/**
 		 * signalSlotDispatcher
 		 *
@@ -102,14 +78,22 @@
 		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $signalSlotDispatcher;
-
 		/**
 		 * @var \TYPO3\CMS\Core\Log\Logger
 		 */
 		protected $logger;
-
 		/** @var int Major TYPO3 Version number */
 		protected $version;
+		/**
+		 * @var \ITX\Jobapplications\Domain\Repository\PostingRepository
+		 * @TYPO3\CMS\Extbase\Annotation\Inject
+		 */
+		private $postingRepository;
+		/**
+		 * @var \ITX\Jobapplications\Domain\Repository\StatusRepository
+		 * @TYPO3\CMS\Extbase\Annotation\Inject
+		 */
+		private $statusRepository;
 
 		/**
 		 * initialize create action
@@ -261,46 +245,6 @@
 		}
 
 		/**
-		 * @param Application $newApplication
-		 * @param array       $fileIds
-		 * @param string      $fieldName
-		 * @param string      $fileNamePrefix
-		 *
-		 * @return array
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFileNameException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFolderException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderWritePermissionsException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
-		 * @throws \TYPO3\CMS\Form\Domain\Exception\IdentifierNotValidException
-		 */
-		private function processFiles(Application $newApplication, array $fileIds, string $fieldName, $fileNamePrefix = ''): array
-		{
-			$uploadUtility = new UploadFileUtility();
-
-			$i = 0;
-			$return_files = [];
-			foreach ($fileIds as $fileId)
-			{
-				if (empty($fileId))
-				{
-					break;
-				}
-
-				$movedNewFile = $this->handleFileUploadMutliple(
-					$uploadUtility->getFilePath($fileId), $uploadUtility->getFileName($fileId),
-					$newApplication, $fileNamePrefix);
-				$return_files[] = $movedNewFile;
-				$uploadUtility->deleteFolder($fileId);
-
-				$this->buildRelations($newApplication->getUid(), $movedNewFile->getUid(), $newApplication->getPid(), $fieldName, $i, count($fileIds));
-				$i++;
-			}
-
-			return $return_files;
-		}
-
-		/**
 		 * @param Application  $newApplication
 		 * @param Posting|null $posting
 		 *
@@ -426,7 +370,7 @@
 			$contact->setFirstName($this->settings["defaultContactFirstName"]);
 			$contact->setLastName($this->settings["defaultContactLastName"]);
 
-			$contact = ($currentPosting->getContact() ? $currentPosting->getContact() : $contact);
+			$contact = ($currentPosting->getContact() ?: $contact);
 
 			// Get and translate labels
 			$salutation = LocalizationUtility::translate("fe.application.selector.".$newApplication->getSalutation(), "jobapplications");
@@ -475,9 +419,9 @@
 
 				// Prepare and send the message
 				$mail
-					->setSubject(LocalizationUtility::translate("fe.email.toContactSubject", 'jobapplications', array(0 => $currentPosting->getTitle())))
-					->setFrom(array($this->settings["emailSender"] => $this->settings["emailSenderName"]))
-					->setReply(array($newApplication->getEmail() => $newApplication->getFirstName()." ".$newApplication->getLastName()))
+					->setSubject(LocalizationUtility::translate("fe.email.toContactSubject", 'jobapplications', [0 => $currentPosting->getTitle()]))
+					->setFrom([$this->settings["emailSender"] => $this->settings["emailSenderName"]])
+					->setReply([$newApplication->getEmail() => $newApplication->getFirstName()." ".$newApplication->getLastName()])
 					->setContent('<p>'.
 								 $nameLabel.$salutation.' '.$newApplication->getFirstName().' '.$newApplication->getLastName().'<br>'.
 								 $emailLabel.$newApplication->getEmail().'<br>'.
@@ -488,12 +432,12 @@
 								 .$message.'</p>', ['application' => $newApplication, 'settings' => $this->settings, 'currentPosting' => $currentPosting]);
 
 				// Attach all found files
-				$files = array(
+				$files = [
 					$fileCover,
 					$fileCv,
 					$fileOther,
 					$fileTestimonial
-				);
+				];
 
 				foreach ($files as $fileArray)
 				{
@@ -517,16 +461,16 @@
 				//Figure out who the email will be sent to and how
 				if ($this->settings['sendEmailToInternal'] != "" && $this->settings['sendEmailToContact'] == "1")
 				{
-					$mail->setTo(array($contact->getEmail() => $contact->getFirstName().' '.$contact->getLastName()));
+					$mail->setTo([$contact->getEmail() => $contact->getFirstName().' '.$contact->getLastName()]);
 					$mail->setBlindcopies([$this->settings['sendEmailToInternal']]);
 				}
-				elseif ($this->settings['sendEmailToContact'] != "1" && $this->settings['sendEmailToInternal'] != "")
+				else if ($this->settings['sendEmailToContact'] != "1" && $this->settings['sendEmailToInternal'] != "")
 				{
-					$mail->setTo(array($this->settings['sendEmailToInternal'] => 'Internal'));
+					$mail->setTo([$this->settings['sendEmailToInternal'] => 'Internal']);
 				}
-				elseif ($this->settings['sendEmailToContact'] == "1" && $this->settings['sendEmailToInternal'] != "1")
+				else if ($this->settings['sendEmailToContact'] == "1" && $this->settings['sendEmailToInternal'] != "1")
 				{
-					$mail->setTo(array($contact->getEmail() => $contact->getFirstName()." ".$contact->getLastName()));
+					$mail->setTo([$contact->getEmail() => $contact->getFirstName()." ".$contact->getLastName()]);
 				}
 
 				try
@@ -538,7 +482,7 @@
 				}
 				catch (\Exception $e)
 				{
-					$this->logger->log(\TYPO3\CMS\Core\Log\LogLevel::CRITICAL, 'Error trying to send a mail: '.$e->getMessage(), array($this->settings, $mail));
+					$this->logger->log(\TYPO3\CMS\Core\Log\LogLevel::CRITICAL, 'Error trying to send a mail: '.$e->getMessage(), [$this->settings, $mail]);
 					$problemWithNotificationMail = true;
 				}
 			}
@@ -584,8 +528,8 @@
 
 				$mail
 					->setSubject($subject)
-					->setFrom(array($this->settings["emailSender"] => $this->settings["emailSenderName"]))
-					->setTo(array($newApplication->getEmail() => $newApplication->getFirstName()." ".$newApplication->getLastName()))
+					->setFrom([$this->settings["emailSender"] => $this->settings["emailSenderName"]])
+					->setTo([$newApplication->getEmail() => $newApplication->getFirstName()." ".$newApplication->getLastName()])
 					->setContent($body, ['application' => $newApplication, 'settings' => $this->settings]);
 
 				try
@@ -597,7 +541,7 @@
 				}
 				catch (\Exception $e)
 				{
-					$this->logger->log(\TYPO3\CMS\Core\Log\LogLevel::CRITICAL, 'Error trying to send a mail: '.$e->getMessage(), array($this->settings, $mail));
+					$this->logger->log(\TYPO3\CMS\Core\Log\LogLevel::CRITICAL, 'Error trying to send a mail: '.$e->getMessage(), [$this->settings, $mail]);
 					$problemWithApplicantMail = true;
 				}
 			}
@@ -640,6 +584,89 @@
 		}
 
 		/**
+		 * @param Application $newApplication
+		 * @param array       $fileIds
+		 * @param string      $fieldName
+		 * @param string      $fileNamePrefix
+		 *
+		 * @return array
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFileNameException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFolderException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderWritePermissionsException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
+		 * @throws \TYPO3\CMS\Form\Domain\Exception\IdentifierNotValidException
+		 */
+		private function processFiles(Application $newApplication, array $fileIds, string $fieldName, $fileNamePrefix = ''): array
+		{
+			$uploadUtility = new UploadFileUtility();
+
+			$i = 0;
+			$return_files = [];
+			foreach ($fileIds as $fileId)
+			{
+				if (empty($fileId))
+				{
+					break;
+				}
+
+				$movedNewFile = $this->handleFileUpload(
+					$uploadUtility->getFilePath($fileId), $uploadUtility->getFileName($fileId),
+					$newApplication, $fileNamePrefix);
+				$return_files[] = $movedNewFile;
+				$uploadUtility->deleteFolder($fileId);
+
+				$this->buildRelations($newApplication->getUid(), $movedNewFile->getUid(), $newApplication->getPid(), $fieldName, $i, count($fileIds));
+				$i++;
+			}
+
+			return $return_files;
+		}
+
+		/**
+		 * @param string                                        $filePath
+		 * @param string                                        $fileName
+		 * @param \ITX\Jobapplications\Domain\Model\Application $domainObject
+		 * @param string                                        $prefix
+		 *
+		 * @return FileInterface
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFileNameException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFolderException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderWritePermissionsException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
+		 */
+		private function handleFileUpload(string $filePath, string $fileName,
+										  \ITX\Jobapplications\Domain\Model\Application $domainObject, string $prefix = ''): FileInterface
+		{
+
+			$folder = $this->applicationFileService->getApplicantFolder($domainObject);
+
+			/* @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
+			$storageRepository = $this->objectManager->get(StorageRepository::class);
+			$storage = $storageRepository->findByUid('1');
+
+			//build the new storage folder
+			if ($storage->hasFolder($folder))
+			{
+				$targetFolder = $storage->getFolder($folder);
+			}
+			else
+			{
+				$targetFolder = $storage->createFolder($folder);
+			}
+
+			//file name
+			$newFileName = (new \TYPO3\CMS\Core\Resource\Driver\LocalDriver)->sanitizeFileName($prefix.$fileName);
+
+			//build sys_file
+			$movedNewFile = $storage->addFile($filePath, $targetFolder, $newFileName);
+			$this->persistenceManager->persistAll();
+
+			return $movedNewFile;
+		}
+
+		/**
 		 * @param int $objectUid  The Uid of the domain object
 		 * @param int $fileUid    The Uid of the actual file
 		 * @param int $objectPid  The pid of the domain object
@@ -679,46 +706,5 @@
 							'uid' => $newStorageUid
 						]);
 			}
-		}
-
-		/**
-		 * @param int                                           $position
-		 * @param \ITX\Jobapplications\Domain\Model\Application $domainObject
-		 *
-		 * @return FileInterface
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFolderException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderWritePermissionsException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
-		 *
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFileNameException
-		 */
-		private function handleFileUploadMutliple(string $filePath, string $fileName, \ITX\Jobapplications\Domain\Model\Application $domainObject, $prefix = '')
-		{
-
-			$folder = $this->applicationFileService->getApplicantFolder($domainObject);
-
-			/* @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
-			$storageRepository = $this->objectManager->get('TYPO3\\CMS\\Core\\Resource\\StorageRepository');
-			$storage = $storageRepository->findByUid('1');
-
-			//build the new storage folder
-			if ($storage->hasFolder($folder))
-			{
-				$targetFolder = $storage->getFolder($folder);
-			}
-			else
-			{
-				$targetFolder = $storage->createFolder($folder);
-			}
-
-			//file name
-			$newFileName = (new \TYPO3\CMS\Core\Resource\Driver\LocalDriver)->sanitizeFileName($prefix.$fileName);
-
-			//build sys_file
-			$movedNewFile = $storage->addFile($filePath, $targetFolder, $newFileName);
-			$this->persistenceManager->persistAll();
-
-			return $movedNewFile;
 		}
 	}

@@ -49,7 +49,8 @@
 		public function setTo(array $addresses, string $name = ''): MailInterface;
 
 		/**
-		 * @param string $email
+		 * @param array  $addresses
+		 * @param string $name
 		 *
 		 * @return MailInterface
 		 */

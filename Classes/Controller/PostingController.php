@@ -3,18 +3,13 @@
 	namespace ITX\Jobapplications\Controller;
 
 	use ITX\Jobapplications\Domain\Model\Constraint;
-	use Psr\Http\Message\ServerRequestInterface;
-	use ScssPhp\ScssPhp\Formatter\Debug;
+	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
 	use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\Http\ImmediateResponseException;
 	use TYPO3\CMS\Core\Page\PageRenderer;
-	use TYPO3\CMS\Core\Utility\DebugUtility;
-	use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
-	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
-	use TYPO3\CMS\Core\MetaTag\MetaTagManagerRegistry;
-	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
+	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 	use TYPO3\CMS\Frontend\Controller\ErrorController;
 
 	/***************************************************************
@@ -105,41 +100,6 @@
 		}
 
 		/**
-		 * This function makes calls to repositories to get all available filter options.
-		 * These then get cached for performance reasons.
-		 * Override for customization.
-		 *
-		 * @param $categories array categories
-		 *
-		 * @return array
-		 */
-		public function getFilterOptions($categories): array
-		{
-			return [
-				'division' => $this->postingRepository->findAllDivisions($categories),
-				'careerLevel' => $this->postingRepository->findAllCareerLevels($categories),
-				'employmentType' => $this->postingRepository->findAllEmploymentTypes($categories),
-				'location' => $this->locationRepository->findAll($categories)->toArray(),
-			];
-		}
-
-		private function getCachedFilterOptions($categories): array
-		{
-			/** @var FrontendInterface $cache */
-			$cache = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Cache\CacheManager::class)->getCache('jobapplications_cache');
-
-			// If $entry is false, it hasn't been cached. Calculate the value and store it in the cache:
-			if (($entry = $cache->get('filterOptions')) === false)
-			{
-				$entry = $this->getFilterOptions($categories);
-
-				$cache->set('filterOptions', $entry, [], null);
-			}
-
-			return $entry;
-		}
-
-		/**
 		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
 		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
 		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
@@ -176,7 +136,7 @@
 			$filterOptions = $this->getCachedFilterOptions($categories);
 
 			// Make the actual repository call
-			$postings = $this->postingRepository->findByFilter($categories, $repositoryConfiguration , $constraint, $orderBy, $order);
+			$postings = $this->postingRepository->findByFilter($categories, $repositoryConfiguration, $constraint, $orderBy, $order);
 
 			// SignalSlotDispatcher BeforePostingAssign
 			$changedPostings = $this->signalSlotDispatcher->dispatch(__CLASS__, "BeforePostingAssign", ["postings" => $postings]);
@@ -188,7 +148,8 @@
 			// Determines whether user tried to filter
 			$isFiltering = false;
 
-			if ($constraint instanceof Constraint) {
+			if ($constraint instanceof Constraint)
+			{
 				$isFiltering = true;
 			}
 
@@ -196,6 +157,41 @@
 			$this->view->assign('isFiltering', $isFiltering);
 			$this->view->assign('filterOptions', $filterOptions);
 			$this->view->assign('constraint', $constraint);
+		}
+
+		private function getCachedFilterOptions($categories): array
+		{
+			/** @var FrontendInterface $cache */
+			$cache = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Cache\CacheManager::class)->getCache('jobapplications_cache');
+
+			// If $entry is false, it hasn't been cached. Calculate the value and store it in the cache:
+			if (($entry = $cache->get('filterOptions')) === false)
+			{
+				$entry = $this->getFilterOptions($categories);
+
+				$cache->set('filterOptions', $entry, [], null);
+			}
+
+			return $entry;
+		}
+
+		/**
+		 * This function makes calls to repositories to get all available filter options.
+		 * These then get cached for performance reasons.
+		 * Override for customization.
+		 *
+		 * @param $categories array categories
+		 *
+		 * @return array
+		 */
+		public function getFilterOptions($categories): array
+		{
+			return [
+				'division' => $this->postingRepository->findAllDivisions($categories),
+				'careerLevel' => $this->postingRepository->findAllCareerLevels($categories),
+				'employmentType' => $this->postingRepository->findAllEmploymentTypes($categories),
+				'location' => $this->locationRepository->findAll($categories)->toArray(),
+			];
 		}
 
 		/**
@@ -226,10 +222,10 @@
 
 			//Google Jobs
 
-			$hiringOrganization = array(
+			$hiringOrganization = [
 				"@type" => "Organization",
 				"name" => $extconf->get('jobapplications', 'companyName')
-			);
+			];
 
 			if (!empty($hiringOrganization['name']) && $this->settings['enableGoogleJobs'] == "1")
 			{
@@ -274,7 +270,7 @@
 					}
 				}
 
-				$googleJobsJSON = array(
+				$googleJobsJSON = [
 					"@context" => "http://schema.org",
 					"@type" => "JobPosting",
 					"datePosted" => $posting->getDatePosted()->format("c"),
@@ -292,7 +288,7 @@
 					],
 					"title" => $posting->getTitle(),
 					"employmentType" => $employmentTypes
-				);
+				];
 
 				$googleJobsJSON["hiringOrganization"] = $hiringOrganization;
 

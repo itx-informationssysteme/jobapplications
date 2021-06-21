@@ -32,8 +32,6 @@
 	use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Resource\Exception\InsufficientUserPermissionsException;
-	use TYPO3\CMS\Core\Utility\DebugUtility;
-	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 
 	/**
 	 * Class BackendController
@@ -102,8 +100,10 @@
 			$contact = $this->getActiveBeContact();
 
 			$dailyLogin = $sessionData['dailyLogin'];
-			if ((empty($dailyLogin) && $contact instanceof Contact) || ($dailyLogin === false && $contact instanceof Contact)) {
+			if ((empty($dailyLogin) && $contact instanceof Contact) || ($dailyLogin === false && $contact instanceof Contact))
+			{
 				$this->redirect('dashboard');
+
 				return;
 			}
 
@@ -177,6 +177,18 @@
 			$this->view->assign('postings', $postingsFilter);
 			$this->view->assign('contacts', $contactsFilter);
 			$this->view->assign('statuses', $statusesFilter);
+		}
+
+		/**
+		 * Returns the Contact which has the currently logged in backend user referenced
+		 *
+		 * @return Contact
+		 */
+		private function getActiveBeContact()
+		{
+			$beUserUid = $GLOBALS['BE_USER']->user['uid'];
+
+			return $this->contactRepository->findByBackendUser($beUserUid)[0];
 		}
 
 		/**
@@ -255,7 +267,8 @@
 
 			$session = $backendUser->getSessionData('tx_jobapplications') ?? [];
 
-			if ((empty($session['dailyLogin']) && $contact instanceof Contact) || ($session['dailyLogin'] === false && $contact instanceof Contact)) {
+			if ((empty($session['dailyLogin']) && $contact instanceof Contact) || ($session['dailyLogin'] === false && $contact instanceof Contact))
+			{
 				$session['dailyLogin'] = true;
 				$backendUser->setAndSaveSessionData('tx_jobapplications', $session);
 			}
@@ -266,7 +279,7 @@
 			}
 			else
 			{
-				$newApps = array();
+				$newApps = [];
 			}
 
 			$this->view->assign('admin', $GLOBALS['BE_USER']->isAdmin());
@@ -347,17 +360,5 @@
 			}
 
 			$this->view->assign('admin', $GLOBALS['BE_USER']->isAdmin());
-		}
-
-		/**
-		 * Returns the Contact which has the currently logged in backend user referenced
-		 *
-		 * @return Contact
-		 */
-		private function getActiveBeContact()
-		{
-			$beUserUid = $GLOBALS['BE_USER']->user['uid'];
-
-			return $this->contactRepository->findByBackendUser($beUserUid)[0];
 		}
 	}

@@ -1,5 +1,5 @@
 plugin.tx_jobapplications {
 
-    # cat=plugin.tx_jobapplications; type=string; label=JQuery path
-    jqueryPath = EXT:jobapplications/Resources/Public/Js/Vendor/jquery-3.5.1.min.js
+	# cat=plugin.tx_jobapplications; type=string; label=JQuery path
+	jqueryPath = EXT:jobapplications/Resources/Public/Js/Vendor/jquery-3.5.1.min.js
 }

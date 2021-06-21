@@ -11,7 +11,8 @@
 	 */
 	class Typo3VersionUtility
 	{
-		public static function getMajorVersion(): int {
+		public static function getMajorVersion(): int
+		{
 			$version = null;
 			if (constant('TYPO3_version'))
 			{
@@ -24,6 +25,7 @@
 
 				$version = $version->getMajorVersion();
 			}
+
 			return $version;
 		}
 	}

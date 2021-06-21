@@ -26,7 +26,6 @@
 
 	use TYPO3\CMS\Core\Core\Environment;
 	use TYPO3\CMS\Core\Http\UploadedFile;
-	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Form\Domain\Exception\IdentifierNotValidException;
 
@@ -83,8 +82,9 @@
 		}
 
 		/**
-		 * @param $uniqueIdentifier
+		 * @param string $uniqueIdentifier
 		 *
+		 * @return string
 		 * @throws IdentifierNotValidException
 		 */
 		public function getFilePath(string $uniqueIdentifier): string
@@ -122,8 +122,9 @@
 		}
 
 		/**
-		 * @param $uniqueIdentifier
+		 * @param string $uniqueIdentifier
 		 *
+		 * @return string
 		 * @throws IdentifierNotValidException
 		 */
 		public function getFileName(string $uniqueIdentifier): string

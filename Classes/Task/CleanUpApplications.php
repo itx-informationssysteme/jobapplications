@@ -25,10 +25,8 @@
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
 
-	use TYPO3\CMS\Extbase\Object\ObjectManager;
-	use TYPO3\CMS\Core\Database\ConnectionPool;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
-	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+	use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 	/**
 	 * Task for deleting all applications older than a specific amount of time

@@ -25,8 +25,6 @@
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
 
-	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
-
 	/**
 	 * Class CleanUpApplicationsAdditionalFieldProvider
 	 *
@@ -110,6 +108,14 @@
 		}
 
 		/**
+		 * @return LanguageService|null
+		 */
+		protected function getLanguageService(): ?LanguageService
+		{
+			return $GLOBALS['LANG'] ?? null;
+		}
+
+		/**
 		 * This method is used to save any additional input into the current task object
 		 * if the task class matches
 		 *
@@ -120,13 +126,5 @@
 		{
 			$task->days = $submittedData['days'];
 			$task->status = $submittedData['status'];
-		}
-
-		/**
-		 * @return LanguageService|null
-		 */
-		protected function getLanguageService(): ?LanguageService
-		{
-			return $GLOBALS['LANG'] ?? null;
 		}
 	}

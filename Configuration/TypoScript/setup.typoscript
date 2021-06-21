@@ -42,6 +42,7 @@ plugin.tx_jobapplications {
 				order = descending
 			}
 		}
+
 		filter {
 			repositoryConfiguration {
 				division {

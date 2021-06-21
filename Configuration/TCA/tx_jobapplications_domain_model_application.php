@@ -30,11 +30,11 @@
 			'crdate' => [
 				'exclude' => true,
 				'label' => 'Creation date',
-				'config' => Array(
+				'config' => [
 					'type' => 'none',
 					'format' => 'date',
 					'eval' => 'date'
-				)
+				]
 			],
 			'sys_language_uid' => [
 				'exclude' => true,

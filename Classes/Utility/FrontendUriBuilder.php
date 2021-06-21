@@ -2,8 +2,6 @@
 
 	namespace ITX\Jobapplications\Utility;
 
-	use TYPO3\CMS\Core\Utility\GeneralUtility;
-
 	/**
 	 * Class FrontendUriBuilder
 	 *
@@ -126,9 +124,12 @@
 		public function build()
 		{
 
-			if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
+			if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+			{
 				$http = 'https://';
-			} else {
+			}
+			else
+			{
 				$http = 'http://';
 			}
 

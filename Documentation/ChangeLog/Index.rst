@@ -11,6 +11,12 @@
 Changelog
 =========
 
+1.0.2 - Bugfixes
+----------------
+* [BUGFIX] fixed PHP warning when google key path configuration is empty (thank you @NarkNiro)
+* [BUGFIX] fixed spelling mistake in translation "Arbeitsverhältnis" (thank you @chschatz)
+* [BUGFIX] fixed PHP error when having legacy file upload mode enabled (thank you @thofas and @luii)
+
 1.0.1 - Bugfixes
 ----------------
 * [BUGFIX] fixed edge case where application sending would fail because of file upload (Issue #19)

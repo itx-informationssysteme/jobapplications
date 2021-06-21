@@ -23,24 +23,24 @@
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
 
-$EM_CONF[$_EXTKEY] = [
-    'title' => 'Jobapplications',
-    'description' => 'This extension enables you to manage job postings, provides you with an application form and a backend module to manage incoming applications.',
-    'category' => 'plugin',
-    'author' => 'Stefanie Döll, Benjamin Jasper',
-	'author_company' => 'it.x informationssysteme gmbh',
-    'author_email' => 'typo-itx@itx.de',
-    'state' => 'beta',
-    'uploadfolder' => 1,
-    'createDirs' => '',
-    'clearCacheOnLoad' => 1,
-    'version' => '1.0.1',
-    'constraints' => [
-        'depends' => [
-            'typo3' => '9.5.0 - 10.4.99',
-			'vhs' => '6.0.0 - 6.2.99'
-        ],
-        'conflicts' => [],
-        'suggests' => [],
-    ],
-];
+	$EM_CONF[$_EXTKEY] = [
+		'title' => 'Jobapplications',
+		'description' => 'This extension enables you to manage job postings, provides you with an application form and a backend module to manage incoming applications.',
+		'category' => 'plugin',
+		'author' => 'Stefanie Döll, Benjamin Jasper',
+		'author_company' => 'it.x informationssysteme gmbh',
+		'author_email' => 'typo-itx@itx.de',
+		'state' => 'stable',
+		'uploadfolder' => 1,
+		'createDirs' => '',
+		'clearCacheOnLoad' => 1,
+		'version' => '1.0.1',
+		'constraints' => [
+			'depends' => [
+				'typo3' => '9.5.0 - 10.4.99',
+				'vhs' => '6.0.0 - 6.2.99'
+			],
+			'conflicts' => [],
+			'suggests' => [],
+		],
+	];

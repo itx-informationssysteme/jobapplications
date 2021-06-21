@@ -1,4 +1,4 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 <script>
 	FilePond.registerPlugin(FilePondPluginFileValidateType);
 	FilePond.setOptions({
@@ -11,7 +11,7 @@
 				}
 			},
 			revert  : {
-				url: 'index.php?eID=jobapplications_revert'
+				url : 'index.php?eID=jobapplications_revert'
 			},
 			restore : null,
 			load    : null,
@@ -32,9 +32,12 @@
 					returnString = '<f:translate key="fe.upload.file_error"></f:translate>'
 					break;
 				default:
-					if (error.code === 500) {
+					if (error.code === 500)
+					{
 						returnString = '<f:translate key="fe.upload.server_error"></f:translate>'
-					} else {
+					}
+					else
+					{
 						returnString = '<f:translate key="fe.upload.file_error"></f:translate>'
 					}
 					break;
