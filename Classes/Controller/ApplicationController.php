@@ -325,6 +325,7 @@
 			$arguments = $this->request->getArguments();
 
 			$isMultiFile = false;
+			$multiUploadFiles = [];
 
 			// Check which kind of uploads were sent
 			if (!empty($arguments['files']))
