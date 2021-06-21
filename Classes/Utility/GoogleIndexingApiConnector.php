@@ -70,7 +70,15 @@
 		{
 			$this->backendConfiguration = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class)
 																				->get('jobapplications');
-			$this->googleConfig = json_decode(file_get_contents(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->backendConfiguration['key_path'])), true);
+            if ($this->backendConfiguration['key_path'] !== '') {
+                $fileName = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->backendConfiguration['key_path']);
+                if (file_exists($fileName)) {
+                    $this->googleConfig = json_decode(file_get_contents(
+                        $fileName
+                    ), true);
+                }
+            }
+
 			$this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 			$this->requestFactory = $this->objectManager->get(RequestFactory::class);
 
