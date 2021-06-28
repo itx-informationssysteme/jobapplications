@@ -159,6 +159,11 @@
 			$this->view->assign('constraint', $constraint);
 		}
 
+		/**
+		 * @param $categories
+		 *
+		 * @return array
+		 */
 		private function getCachedFilterOptions($categories): array
 		{
 			/** @var FrontendInterface $cache */
@@ -282,7 +287,7 @@
 						"address" => [
 							"streetAddress" => $posting->getLocation()->getAddressStreetAndNumber(),
 							"addressLocality" => $posting->getLocation()->getAddressCity(),
-							"postalCode" => (string)$posting->getLocation()->getAddressPostCode(),
+							"postalCode" => $posting->getLocation()->getAddressPostCode(),
 							"addressCountry" => $posting->getLocation()->getAddressCountry()
 						]
 					],

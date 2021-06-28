@@ -148,8 +148,8 @@
 				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.address_post_code',
 				'config' => [
 					'type' => 'input',
-					'size' => 4,
-					'eval' => 'int'
+					'size' => 30,
+					'eval' => 'trim'
 				]
 			],
 			'address_city' => [
