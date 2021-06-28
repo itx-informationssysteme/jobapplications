@@ -43,10 +43,8 @@
 		 */
 		public function __construct(string $title, string $link, string $target = '')
 		{
-			if (!$GLOBALS['BE_USER']->check('modules', 'web_jobapplications_backend'))
+			if (!$GLOBALS['BE_USER']->check('modules', 'web_JobapplicationsBackend'))
 			{
-				parent::initializeView();
-
 				return;
 			}
 
