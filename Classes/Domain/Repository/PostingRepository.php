@@ -297,7 +297,14 @@
 
 			if (!empty($categories))
 			{
-				$andConstraints[] = $query->contains('categories', $categories);
+				$orConstraints = [];
+
+				foreach($categories as $category)
+				{
+					$orConstraints[] = $query->contains('categories', $category);
+				}
+
+				$andConstraints[] = $query->logicalOr($orConstraints);
 			}
 
 			if (!empty($andConstraints))
