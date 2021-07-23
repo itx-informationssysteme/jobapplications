@@ -16,6 +16,8 @@ Changelog
 * [BUGFIX] fixed PHP warning when google key path configuration is empty (thank you @NarkNiro)
 * [BUGFIX] fixed spelling mistake in translation "Arbeitsverhältnis" (thank you @chschatz)
 * [BUGFIX] fixed PHP error when having legacy file upload mode enabled (thank you @thofas and @luii)
+* [BUGFIX] fixed bad "Postings" plugin category filter
+* [BUGFIX] fixed exception when trying to delete a hidden application #39
 
 1.0.1 - Bugfixes
 ----------------
