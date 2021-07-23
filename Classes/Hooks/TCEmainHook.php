@@ -130,8 +130,20 @@
 				/** @var ApplicationRepository $applicationRepository */
 				$applicationRepository = $objectManager->get(ApplicationRepository::class);
 
-				/** @var Application $application */
-				$application = $applicationRepository->findByUid($uid);
+				if ($record['hidden'] === 1)
+				{
+
+					/** @var DataMapper $dataMapper */
+					$dataMapper = $objectManager->get(DataMapper::class);
+					$applications = $dataMapper->map(Application::class, [$record]);
+					$application = $applications[0];
+				}
+				else
+				{
+					/** @var Application $application */
+					$application = $applicationRepository->findByUid($uid);
+				}
+
 				$path = $fileService->getApplicantFolder($application);
 				$fileService->deleteApplicationFolder($path);
 			}
