@@ -1,4 +1,4 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 <div class="col-12 col-md-4">
 	<div class="card my-3">
 		<f:if condition="{posting.listViewImage}">
@@ -10,10 +10,10 @@
 				<div class="card-title mt-3">
 					<f:if condition="{settings.singleDetailandApp}">
 						<f:then>
-							<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" pluginName="DetailView" additionalParams="{postingApp: posting}">{posting.title}</f:link.action>
+							<f:link.action action="show" additionalParams="{postingApp: posting}" arguments="{posting : posting}" pageUid="{settings.detailViewUid}" pluginName="DetailView">{posting.title}</f:link.action>
 						</f:then>
 						<f:else>
-							<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" pluginName="DetailView">{posting.title}</f:link.action>
+							<f:link.action action="show" arguments="{posting : posting}" pageUid="{settings.detailViewUid}" pluginName="DetailView">{posting.title}</f:link.action>
 						</f:else>
 					</f:if>
 				</div>
@@ -46,12 +46,12 @@
 					<div class="row mt-3">
 						<f:if condition="{settings.singleDetailandApp}">
 							<f:then>
-								<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView" additionalParams="{postingApp: posting}">
+								<f:link.action action="show" additionalParams="{postingApp: posting}" arguments="{posting : posting}" class="btn btn-primary m-auto" pageUid="{settings.detailViewUid}" pluginName="DetailView">
 									<f:translate key="fe.posting.button.detailview"/>
 								</f:link.action>
 							</f:then>
 							<f:else>
-								<f:link.action action="show" pageUid="{settings.detailViewUid}" arguments="{posting : posting}" class="btn btn-primary m-auto" pluginName="DetailView">
+								<f:link.action action="show" arguments="{posting : posting}" class="btn btn-primary m-auto" pageUid="{settings.detailViewUid}" pluginName="DetailView">
 									<f:translate key="fe.posting.button.detailview"/>
 								</f:link.action>
 							</f:else>

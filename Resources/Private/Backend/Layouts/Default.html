@@ -1,12 +1,12 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers" data-namespace-typo3-fluid="true">
+<html data-namespace-typo3-fluid="true" xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 
 <be:moduleLayout>
 	<f:be.pageRenderer
+			includeCssFiles="{0: '{f:uri.resource(path:\'Css/backend.css\')}'}"
 			includeRequireJsModules="{
             0:'TYPO3/CMS/Backend/ContextMenu',
             1:'TYPO3/CMS/Backend/Modal'
         }"
-			includeCssFiles="{0: '{f:uri.resource(path:\'Css/backend.css\')}'}"
 	/>
 
 	<be:moduleLayout.menu identifier="BackendUserModuleMenu">

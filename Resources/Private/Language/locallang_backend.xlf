@@ -1,270 +1,272 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="EXT:jobapplications/Resources/Private/Language/locallang_mod" date="2019-10-21T16:03:17Z" product-name="jobapplications">
-		<header/>
-		<body>
-			<trans-unit id="mlang_tabs_tab" resname="mlang_tabs_tab">
-				<source>Applications</source>
-			</trans-unit>
-			<trans-unit id="mlang_labels_tabdescr" resname="mlang_labels_tabdescr">
-				<source></source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_frontend.description" resname="tx_jobapplications_frontend.description">
-				<source>Plugins, enabling you to list and show job postings and letting people apply.</source>
-			</trans-unit>
-			<trans-unit id="flexform.showSalarayExpectation" resname="flexform.showSalarayExpectation">
-				<source>Show "Salary Expectation" Field</source>
-			</trans-unit>
+    <file source-language="en" datatype="plaintext" original="EXT:jobapplications/Resources/Private/Language/locallang_mod" date="2019-10-21T16:03:17Z" product-name="jobapplications">
+        <header/>
+        <body>
+            <trans-unit id="mlang_tabs_tab" resname="mlang_tabs_tab">
+                <source>Applications</source>
+            </trans-unit>
+            <trans-unit id="mlang_labels_tabdescr" resname="mlang_labels_tabdescr">
+                <source></source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_frontend.description" resname="tx_jobapplications_frontend.description">
+                <source>Plugins, enabling you to list and show job postings and letting people apply.</source>
+            </trans-unit>
+            <trans-unit id="flexform.showSalarayExpectation" resname="flexform.showSalarayExpectation">
+                <source>Show "Salary Expectation" Field</source>
+            </trans-unit>
             <trans-unit id="flexform.showEarliestDateOfJoining" resname="flexform.showEarliestDateOfJoining">
                 <source>Show "Earliest Date Of Joining" Field</source>
             </trans-unit>
             <trans-unit id="flexform.tab.applicationTitle" resname="flexform.tab.applicationTitle">
                 <source>Application Handling Settings</source>
             </trans-unit>
-			<trans-unit id="flexform.title.contactDisplay" resname="flexform.title.contactDisplay">
+            <trans-unit id="flexform.title.contactDisplay" resname="flexform.title.contactDisplay">
                 <source>Contact Display Settings</source>
             </trans-unit>
-			<trans-unit id="flexform.general.detailView" resname="flexform.general.detailView">
-				<source>Set Detail Page</source>
-			</trans-unit>
-			<trans-unit id="flexform.general.applicationForm" resname="flexform.general.applicationForm">
-				<source>Set Application Form Page Uid</source>
-			</trans-unit>
-			<trans-unit id="flexform.customCardFontColor" resname="flexform.customCardFontColor">
-				<source>Specific font color of the posting cards content</source>
-			</trans-unit>
-			<trans-unit id="flexform.successPage" resname="flexform.successPage">
-				<source>Success Page Specification</source>
-			</trans-unit>
-			<trans-unit id="flexform.tab.postingTitle" resname="flexform.tab.postingTitle">
-				<source>Postings Settings</source>
-			</trans-unit>
-			<trans-unit id="flexform.linkPrivacy" resname="flexform.linkPrivacy">
-				<source>Link Privacy Agreement Page</source>
-			</trans-unit>
-			<trans-unit id="flexform.sendEmailToInternal" resname="flexform.sendEmailToInternal">
-				<source>Should new applications be sent to a specific E-Mail address?</source>
-			</trans-unit>
-			<trans-unit id="flexform.saveApplicationInBackend" resname="flexform.saveApplicationInBackend">
-				<source>Should Applications be saved in the backend?</source>
-			</trans-unit>
-			<trans-unit id="flexform.sendEmailToContact" resname="flexform.sendEmailToContact">
-				<source>Should the referenced contact receive an E-Mail?</source>
-			</trans-unit>
-			<trans-unit id="flexform.sendEmailToApplicantText" resname="flexform.sendEmailToApplicantText">
-				<source>E-Mail to Applicant Text\nTemplating available: \nPosting Title: %postingTitle% \nApplicant Salutation: %applicantSalutation% \nApplicant Firstname: %applicantFirstname% \nApplicant Lastname: %applicantLastname%</source>
-			</trans-unit>
-			<trans-unit id="flexform.sendEmailToApplicantSubject" resname="flexform.sendEmailToApplicantSubject">
-				<source>E-Mail to Applicant Subject (Templating available: Posting Title: %postingTitle%)</source>
-			</trans-unit>
-			<trans-unit id="flexform.emailSenderName" resname="flexform.emailSenderName">
-				<source>E-Mail Sender Name (name of the person/entity the email comes from)</source>
-			</trans-unit>
-			<trans-unit id="flexform.emailSender" resname="flexform.emailSender">
-				<source>E-Mail Sender E-Mail (email address of where the emails should appear to come from)</source>
-			</trans-unit>
-			<trans-unit id="flexform.sendEmailToApplicant" resname="flexform.sendEmailToApplicant">
-				<source>Should an E-Mail be sent to the applicant?</source>
-			</trans-unit>
-			<trans-unit id="flexform.applicationsEnabled" resname="flexform.applicationsEnabled">
-				<source>Application Module</source>
-			</trans-unit>
-			<trans-unit id="flexform.showContact" resname="flexform.showContact">
-				<source>Show Contact?</source>
-			</trans-unit>
-			<trans-unit id="flexform.category" resname="flexform.category">
-				<source>[Optional] Show only postings of:</source>
-			</trans-unit>
-			<trans-unit id="flexform.googleMapsApiKey" resname="flexform.googleMapsApiKey">
-				<source>Enter a Google Maps API Key here to enable contact info maps support</source>
-			</trans-unit>
-			<trans-unit id="flexform.showLocationTitle" resname="flexform.showLocationTitle">
-				<source>Show title of location?</source>
-			</trans-unit>
-			<trans-unit id="flexform.showContactPhoto" resname="flexform.showContactPhoto">
-				<source>Show contact photo?</source>
-			</trans-unit>
-			<trans-unit id="flexform.pageTitle" resname="flexform.pageTitle">
-				<source>Define page title here (%postingTitle% gets replaced with title of posting)</source>
-			</trans-unit>
-			<trans-unit id="flexform.showMessage" resname="flexform.showMessage">
-				<source>Show "Message" field</source>
-			</trans-unit>
-			<trans-unit id="flexform.messageMaxLength" resname="flexform.messageMaxLength">
-				<source>Maximum message number of characters:</source>
-			</trans-unit>
-			<trans-unit id="flexform.singleDetailandApp" resname="flexform.singleDetailandApp">
-				<source>Setting needed if applicationform should be on the same page as Detailview</source>
-			</trans-unit>
-			<trans-unit id="flexform.successMessage" resname="flexform.successMessage">
-				<source>Enter the message that will be shown to the applicant after submitting the application</source>
-			</trans-unit>
-			<trans-unit id="flexform.selectedContacts" resname="flexform.selectedContacts">
-				<source>Select contact to display in frontend</source>
-			</trans-unit>
-			<trans-unit id="flexform.header" resname="flexform.header">
-				<source>[Optional] Header to be shown as section header</source>
-			</trans-unit>
-			<trans-unit id="be.listApplications.showButton" resname="be.listApplications.showButton">
-				<source>Show</source>
-			</trans-unit>
-			<trans-unit id="be.listApplications.filter.noApps" resname="be.listApplications.filter.noApps">
-				<source>There are no applications matching your selection</source>
-			</trans-unit>
-			<trans-unit id="be.filter.contacts" resname="be.filter.contacts">
-				<source>Contact</source>
-			</trans-unit>
-			<trans-unit id="be.filter.postings" resname="be.filter.postings">
-				<source>Posting</source>
-			</trans-unit>
-			<trans-unit id="be.showApp.address" resname="be.showApp.address">
-				<source>Address</source>
-			</trans-unit>
-			<trans-unit id="be.show.privacy_agreement.yes" resname="be.show.privacy_agreement.yes">
-				<source>Accepted</source>
-			</trans-unit>
-			<trans-unit id="be.show.privacy_agreement.no" resname="be.show.privacy_agreement.no">
-				<source>Not accepted</source>
-			</trans-unit>
-			<trans-unit id="be.filter.archived" resname="be.filter.archived">
-				<source>Archived</source>
-			</trans-unit>
-			<trans-unit id="be.filter.status" resname="be.filter.status">
-				<source>Status</source>
-			</trans-unit>
-			<trans-unit id="be.show.archive" resname="be.show.archive">
-				<source>Archive</source>
-			</trans-unit>
-			<trans-unit id="be.show.dearchive" resname="be.show.dearchive">
-				<source>De-Archive</source>
-			</trans-unit>
-			<trans-unit id="be.show.delete" resname="be.show.delete">
-				<source>Delete Application</source>
-			</trans-unit>
-			<trans-unit id="conf.companyName" resname="conf.companyName">
-				<source>Company Name: Used for google jobs structured data</source>
-			</trans-unit>
-			<trans-unit id="conf.logo" resname="conf.logo">
-				<source>[Optional] Logo: Logo as public link</source>
-			</trans-unit>
-			<trans-unit id="conf.currency" resname="conf.currency">
-				<source>Currency: Used for Google Jobs. In ISO 4217 format!</source>
-			</trans-unit>
-			<trans-unit id="be.dashboard.welcome" resname="be.dashboard.welcome">
-				<source>Welcome back %s %s!</source>
-			</trans-unit>
-			<trans-unit id="be.dashboard.unread.multiple" resname="be.dashboard.unread.multiple">
-				<source>You have %s new applications.</source>
-			</trans-unit>
-			<trans-unit id="be.dashboard.unread.one" resname="be.dashboard.unread.one">
-				<source>You have %s new application.</source>
-			</trans-unit>
-			<trans-unit id="be.dashboard.applicationAdmin" resname="be.dashboard.applicationAdmin">
-				<source>Application Administration</source>
-			</trans-unit>
-			<trans-unit id="be.dashboard.settings" resname="be.dashboard.settings">
-				<source>Settings</source>
-			</trans-unit>
-			<trans-unit id="be.show.title" resname="be.show.title">
-				<source>Applicant Overview</source>
-			</trans-unit>
-			<trans-unit id="be.dashboard.title" resname="be.dashboard.title">
-				<source>Dashboard</source>
-			</trans-unit>
-			<trans-unit id="be.settings.generateStatus" resname="be.settings.generateStatusDe">
-				<source>Generate status elements in different languages. Set the PID where you want them to go.<br/>
-				Use with caution as this operation deletes all status elements if there are any.</source>
-			</trans-unit>
-			<trans-unit id="task.days.label" resname="task.days.label">
-				<source>How many days old?</source>
-			</trans-unit>
-			<trans-unit id="task.status.label" resname="task.status.label">
-				<source>Should the status be considered? (End state)</source>
-			</trans-unit>
-			<trans-unit id="task.days.empty" resname="task.days.empty">
-				<source>Days can't be empty!</source>
-			</trans-unit>
-			<trans-unit id="CleanUpApplications.title" resname="CleanUpApplications.title">
-				<source>Clean up old applications</source>
-			</trans-unit>
-			<trans-unit id="CleanUpApplications.description" resname="CleanUpApplications.description">
-				<source>This task deletes all applications which are equal or older than the given days.</source>
-			</trans-unit>
-			<trans-unit id="AnonymizeApplications.title" resname="AnonymizeApplications.title">
-				<source>Anonymize old applications</source>
-			</trans-unit>
-			<trans-unit id="AnonymizeApplications.description" resname="AnonymizeApplications.description">
-				<source>This task anonymizes all applications which are equal or older than the given days.</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_contactdisplay.title" resname="tx_jobapplications_contactdisplay.title">
-				<source>Jobapplications: Contact Display</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_applicationform.title" resname="tx_jobapplications_applicationform.title">
-				<source>Jobapplications: Application Form</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_detailview.title" resname="tx_jobapplications_detailview.title">
-				<source>Jobapplications: Detail View</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_frontend.title" resname="tx_jobapplications_frontend.title">
-				<source>Jobapplications: Postings</source>
-			</trans-unit>
-			<trans-unit id="tx_jobapplications_successpage.title" resname="tx_jobapplications_successpage.title">
-				<source>Jobapplications: Application Success Page</source>
-			</trans-unit>
-			<trans-unit id="legacy_upload" resname="legacy_upload">
-				<source>Use 4 predefined file upload fields (4 Fields Cover Letter, CV, Testimonials, Other) instead of a single mutli file upload</source>
-			</trans-unit>
-			<trans-unit id="be.settings.batchIndex" resname="be.settings.batchIndex">
-				<source>This option allows you to regenerate new indexing requests for Google Jobs. It iterates over each Posting and
-					sends an request for each of them. That means it could take a while. You will be notified when the process has findished.
-					Beware each request consumes a up your Google request contigent (standard is 200), so use this feature economically.
-				</source>
-			</trans-unit>
-			<trans-unit id="conf.key_path" resname="conf.key_path">
-				<source>Path to google config .json file:E.g. EXT:your_extension/Resources/Private/Files/keys.json. Look this up in the documentation if you don't know what file to put here.</source>
-			</trans-unit>
-			<trans-unit id="conf.indexing_api" resname="conf.indexing_api">
-				<source>Enable Google Indexing API (read documentation for how to set up)</source>
-			</trans-unit>
-			<trans-unit id="conf.indexing_api_debug" resname="conf.indexing_api_debug">
-				<source>Enable Google Indexing API debug messages</source>
-			</trans-unit>
-			<trans-unit id="conf.indexing_api_dev" resname="conf.indexing_api_dev">
-				<source>Trigger Google Indexing API while in develoment environment as well</source>
-			</trans-unit>
-			<trans-unit id="conf.customFileSizeLimit" resname="conf.customFileSizeLimit">
-				<source>Override the automatically fetched server upload file size limit. (in kilobytes)</source>
-			</trans-unit>
-			<trans-unit id="be.filter.unsolicited" resname="be.filter.unsolicited">
-				<source>Unsolicited applications</source>
-			</trans-unit>
-			<trans-unit id="be.filter.unsolicited.single" resname="be.filter.unsolicited.single">
-				<source>Unsolicited application</source>
-			</trans-unit>
-			<trans-unit id="be.widget.postings_active.title" resname="be.widget.postings_active.title">
-				<source>Open positions</source>
-			</trans-unit>
-			<trans-unit id="be.widget.postings_active.subtitle" resname="be.widget.postings_active.subtitle">
-				<source>Currently active postings</source>
-			</trans-unit>
-			<trans-unit id="be.widget.postings_active.description" resname="be.widget.postings_active.description">
-				<source>Number of currently active job postings.</source>
-			</trans-unit>
-			<trans-unit id="be.widget.applications_per_posting.title" resname="be.widget.applications_per_posting.title">
-				<source>Number of applications per posting</source>
-			</trans-unit>
-			<trans-unit id="be.widget.applications_per_posting.description" resname="be.widget.applications_per_posting.description">
-				<source>Bar chart regarding number of job applications in relation to every job posting.</source>
-			</trans-unit>
-			<trans-unit id="be.widget.applications_per_posting.button" resname="be.widget.applications_per_posting.button">
-				<source>See applications</source>
-			</trans-unit>
-			<trans-unit id="be.widget.applications_per_posting.label" resname="be.widget.applications_per_posting.label">
-				<source>Number of applications</source>
-			</trans-unit>
-			<trans-unit id="be.widget_group.jobapplications" resname="be.widget_group.jobapplications">
-				<source>Jobs</source>
-			</trans-unit>
-		</body>
-	</file>
+            <trans-unit id="flexform.general.detailView" resname="flexform.general.detailView">
+                <source>Set Detail Page</source>
+            </trans-unit>
+            <trans-unit id="flexform.general.applicationForm" resname="flexform.general.applicationForm">
+                <source>Set Application Form Page Uid</source>
+            </trans-unit>
+            <trans-unit id="flexform.customCardFontColor" resname="flexform.customCardFontColor">
+                <source>Specific font color of the posting cards content</source>
+            </trans-unit>
+            <trans-unit id="flexform.successPage" resname="flexform.successPage">
+                <source>Success Page Specification</source>
+            </trans-unit>
+            <trans-unit id="flexform.tab.postingTitle" resname="flexform.tab.postingTitle">
+                <source>Postings Settings</source>
+            </trans-unit>
+            <trans-unit id="flexform.linkPrivacy" resname="flexform.linkPrivacy">
+                <source>Link Privacy Agreement Page</source>
+            </trans-unit>
+            <trans-unit id="flexform.sendEmailToInternal" resname="flexform.sendEmailToInternal">
+                <source>Should new applications be sent to a specific E-Mail address?</source>
+            </trans-unit>
+            <trans-unit id="flexform.saveApplicationInBackend" resname="flexform.saveApplicationInBackend">
+                <source>Should Applications be saved in the backend?</source>
+            </trans-unit>
+            <trans-unit id="flexform.sendEmailToContact" resname="flexform.sendEmailToContact">
+                <source>Should the referenced contact receive an E-Mail?</source>
+            </trans-unit>
+            <trans-unit id="flexform.sendEmailToApplicantText" resname="flexform.sendEmailToApplicantText">
+                <source>E-Mail to Applicant Text\nTemplating available: \nPosting Title: %postingTitle% \nApplicant Salutation: %applicantSalutation% \nApplicant Firstname: %applicantFirstname% \nApplicant Lastname: %applicantLastname%</source>
+            </trans-unit>
+            <trans-unit id="flexform.sendEmailToApplicantSubject" resname="flexform.sendEmailToApplicantSubject">
+                <source>E-Mail to Applicant Subject (Templating available: Posting Title: %postingTitle%)</source>
+            </trans-unit>
+            <trans-unit id="flexform.emailSenderName" resname="flexform.emailSenderName">
+                <source>E-Mail Sender Name (name of the person/entity the email comes from)</source>
+            </trans-unit>
+            <trans-unit id="flexform.emailSender" resname="flexform.emailSender">
+                <source>E-Mail Sender E-Mail (email address of where the emails should appear to come from)</source>
+            </trans-unit>
+            <trans-unit id="flexform.sendEmailToApplicant" resname="flexform.sendEmailToApplicant">
+                <source>Should an E-Mail be sent to the applicant?</source>
+            </trans-unit>
+            <trans-unit id="flexform.applicationsEnabled" resname="flexform.applicationsEnabled">
+                <source>Application Module</source>
+            </trans-unit>
+            <trans-unit id="flexform.showContact" resname="flexform.showContact">
+                <source>Show Contact?</source>
+            </trans-unit>
+            <trans-unit id="flexform.category" resname="flexform.category">
+                <source>[Optional] Show only postings of:</source>
+            </trans-unit>
+            <trans-unit id="flexform.googleMapsApiKey" resname="flexform.googleMapsApiKey">
+                <source>Enter a Google Maps API Key here to enable contact info maps support</source>
+            </trans-unit>
+            <trans-unit id="flexform.showLocationTitle" resname="flexform.showLocationTitle">
+                <source>Show title of location?</source>
+            </trans-unit>
+            <trans-unit id="flexform.showContactPhoto" resname="flexform.showContactPhoto">
+                <source>Show contact photo?</source>
+            </trans-unit>
+            <trans-unit id="flexform.pageTitle" resname="flexform.pageTitle">
+                <source>Define page title here (%postingTitle% gets replaced with title of posting)</source>
+            </trans-unit>
+            <trans-unit id="flexform.showMessage" resname="flexform.showMessage">
+                <source>Show "Message" field</source>
+            </trans-unit>
+            <trans-unit id="flexform.messageMaxLength" resname="flexform.messageMaxLength">
+                <source>Maximum message number of characters:</source>
+            </trans-unit>
+            <trans-unit id="flexform.singleDetailandApp" resname="flexform.singleDetailandApp">
+                <source>Setting needed if applicationform should be on the same page as Detailview</source>
+            </trans-unit>
+            <trans-unit id="flexform.successMessage" resname="flexform.successMessage">
+                <source>Enter the message that will be shown to the applicant after submitting the application</source>
+            </trans-unit>
+            <trans-unit id="flexform.selectedContacts" resname="flexform.selectedContacts">
+                <source>Select contact to display in frontend</source>
+            </trans-unit>
+            <trans-unit id="flexform.header" resname="flexform.header">
+                <source>[Optional] Header to be shown as section header</source>
+            </trans-unit>
+            <trans-unit id="be.listApplications.showButton" resname="be.listApplications.showButton">
+                <source>Show</source>
+            </trans-unit>
+            <trans-unit id="be.listApplications.filter.noApps" resname="be.listApplications.filter.noApps">
+                <source>There are no applications matching your selection</source>
+            </trans-unit>
+            <trans-unit id="be.filter.contacts" resname="be.filter.contacts">
+                <source>Contact</source>
+            </trans-unit>
+            <trans-unit id="be.filter.postings" resname="be.filter.postings">
+                <source>Posting</source>
+            </trans-unit>
+            <trans-unit id="be.showApp.address" resname="be.showApp.address">
+                <source>Address</source>
+            </trans-unit>
+            <trans-unit id="be.show.privacy_agreement.yes" resname="be.show.privacy_agreement.yes">
+                <source>Accepted</source>
+            </trans-unit>
+            <trans-unit id="be.show.privacy_agreement.no" resname="be.show.privacy_agreement.no">
+                <source>Not accepted</source>
+            </trans-unit>
+            <trans-unit id="be.filter.archived" resname="be.filter.archived">
+                <source>Archived</source>
+            </trans-unit>
+            <trans-unit id="be.filter.status" resname="be.filter.status">
+                <source>Status</source>
+            </trans-unit>
+            <trans-unit id="be.show.archive" resname="be.show.archive">
+                <source>Archive</source>
+            </trans-unit>
+            <trans-unit id="be.show.dearchive" resname="be.show.dearchive">
+                <source>De-Archive</source>
+            </trans-unit>
+            <trans-unit id="be.show.delete" resname="be.show.delete">
+                <source>Delete Application</source>
+            </trans-unit>
+            <trans-unit id="conf.companyName" resname="conf.companyName">
+                <source>Company Name: Used for google jobs structured data</source>
+            </trans-unit>
+            <trans-unit id="conf.logo" resname="conf.logo">
+                <source>[Optional] Logo: Logo as public link</source>
+            </trans-unit>
+            <trans-unit id="conf.currency" resname="conf.currency">
+                <source>Currency: Used for Google Jobs. In ISO 4217 format!</source>
+            </trans-unit>
+            <trans-unit id="be.dashboard.welcome" resname="be.dashboard.welcome">
+                <source>Welcome back %s %s!</source>
+            </trans-unit>
+            <trans-unit id="be.dashboard.unread.multiple" resname="be.dashboard.unread.multiple">
+                <source>You have %s new applications.</source>
+            </trans-unit>
+            <trans-unit id="be.dashboard.unread.one" resname="be.dashboard.unread.one">
+                <source>You have %s new application.</source>
+            </trans-unit>
+            <trans-unit id="be.dashboard.applicationAdmin" resname="be.dashboard.applicationAdmin">
+                <source>Application Administration</source>
+            </trans-unit>
+            <trans-unit id="be.dashboard.settings" resname="be.dashboard.settings">
+                <source>Settings</source>
+            </trans-unit>
+            <trans-unit id="be.show.title" resname="be.show.title">
+                <source>Applicant Overview</source>
+            </trans-unit>
+            <trans-unit id="be.dashboard.title" resname="be.dashboard.title">
+                <source>Dashboard</source>
+            </trans-unit>
+            <trans-unit id="be.settings.generateStatus" resname="be.settings.generateStatusDe">
+                <source>Generate status elements in different languages. Set the PID where you want them to go.
+                    <br/>
+                    Use with caution as this operation deletes all status elements if there are any.
+                </source>
+            </trans-unit>
+            <trans-unit id="task.days.label" resname="task.days.label">
+                <source>How many days old?</source>
+            </trans-unit>
+            <trans-unit id="task.status.label" resname="task.status.label">
+                <source>Should the status be considered? (End state)</source>
+            </trans-unit>
+            <trans-unit id="task.days.empty" resname="task.days.empty">
+                <source>Days can't be empty!</source>
+            </trans-unit>
+            <trans-unit id="CleanUpApplications.title" resname="CleanUpApplications.title">
+                <source>Clean up old applications</source>
+            </trans-unit>
+            <trans-unit id="CleanUpApplications.description" resname="CleanUpApplications.description">
+                <source>This task deletes all applications which are equal or older than the given days.</source>
+            </trans-unit>
+            <trans-unit id="AnonymizeApplications.title" resname="AnonymizeApplications.title">
+                <source>Anonymize old applications</source>
+            </trans-unit>
+            <trans-unit id="AnonymizeApplications.description" resname="AnonymizeApplications.description">
+                <source>This task anonymizes all applications which are equal or older than the given days.</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_contactdisplay.title" resname="tx_jobapplications_contactdisplay.title">
+                <source>Jobapplications: Contact Display</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_applicationform.title" resname="tx_jobapplications_applicationform.title">
+                <source>Jobapplications: Application Form</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_detailview.title" resname="tx_jobapplications_detailview.title">
+                <source>Jobapplications: Detail View</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_frontend.title" resname="tx_jobapplications_frontend.title">
+                <source>Jobapplications: Postings</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_successpage.title" resname="tx_jobapplications_successpage.title">
+                <source>Jobapplications: Application Success Page</source>
+            </trans-unit>
+            <trans-unit id="legacy_upload" resname="legacy_upload">
+                <source>Use 4 predefined file upload fields (4 Fields Cover Letter, CV, Testimonials, Other) instead of a single mutli file upload</source>
+            </trans-unit>
+            <trans-unit id="be.settings.batchIndex" resname="be.settings.batchIndex">
+                <source>This option allows you to regenerate new indexing requests for Google Jobs. It iterates over each Posting and
+                    sends an request for each of them. That means it could take a while. You will be notified when the process has findished.
+                    Beware each request consumes a up your Google request contigent (standard is 200), so use this feature economically.
+                </source>
+            </trans-unit>
+            <trans-unit id="conf.key_path" resname="conf.key_path">
+                <source>Path to google config .json file:E.g. EXT:your_extension/Resources/Private/Files/keys.json. Look this up in the documentation if you don't know what file to put here.</source>
+            </trans-unit>
+            <trans-unit id="conf.indexing_api" resname="conf.indexing_api">
+                <source>Enable Google Indexing API (read documentation for how to set up)</source>
+            </trans-unit>
+            <trans-unit id="conf.indexing_api_debug" resname="conf.indexing_api_debug">
+                <source>Enable Google Indexing API debug messages</source>
+            </trans-unit>
+            <trans-unit id="conf.indexing_api_dev" resname="conf.indexing_api_dev">
+                <source>Trigger Google Indexing API while in develoment environment as well</source>
+            </trans-unit>
+            <trans-unit id="conf.customFileSizeLimit" resname="conf.customFileSizeLimit">
+                <source>Override the automatically fetched server upload file size limit. (in kilobytes)</source>
+            </trans-unit>
+            <trans-unit id="be.filter.unsolicited" resname="be.filter.unsolicited">
+                <source>Unsolicited applications</source>
+            </trans-unit>
+            <trans-unit id="be.filter.unsolicited.single" resname="be.filter.unsolicited.single">
+                <source>Unsolicited application</source>
+            </trans-unit>
+            <trans-unit id="be.widget.postings_active.title" resname="be.widget.postings_active.title">
+                <source>Open positions</source>
+            </trans-unit>
+            <trans-unit id="be.widget.postings_active.subtitle" resname="be.widget.postings_active.subtitle">
+                <source>Currently active postings</source>
+            </trans-unit>
+            <trans-unit id="be.widget.postings_active.description" resname="be.widget.postings_active.description">
+                <source>Number of currently active job postings.</source>
+            </trans-unit>
+            <trans-unit id="be.widget.applications_per_posting.title" resname="be.widget.applications_per_posting.title">
+                <source>Number of applications per posting</source>
+            </trans-unit>
+            <trans-unit id="be.widget.applications_per_posting.description" resname="be.widget.applications_per_posting.description">
+                <source>Bar chart regarding number of job applications in relation to every job posting.</source>
+            </trans-unit>
+            <trans-unit id="be.widget.applications_per_posting.button" resname="be.widget.applications_per_posting.button">
+                <source>See applications</source>
+            </trans-unit>
+            <trans-unit id="be.widget.applications_per_posting.label" resname="be.widget.applications_per_posting.label">
+                <source>Number of applications</source>
+            </trans-unit>
+            <trans-unit id="be.widget_group.jobapplications" resname="be.widget_group.jobapplications">
+                <source>Jobs</source>
+            </trans-unit>
+        </body>
+    </file>
 </xliff>

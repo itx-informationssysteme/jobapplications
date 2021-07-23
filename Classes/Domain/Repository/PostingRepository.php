@@ -3,13 +3,10 @@
 	namespace ITX\Jobapplications\Domain\Repository;
 
 	use ITX\Jobapplications\Domain\Model\Constraint;
-	use ITX\Jobapplications\Domain\Model\Contact;
-	use TYPO3\CMS\Core\Database\ConnectionPool;
-	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use ITX\Jobapplications\Domain\Repository\RepoHelpers;
+	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 	use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
-	use TYPO3\CMS\Extbase\Reflection\ClassSchema\Property;
 	use TYPO3\CMS\Extbase\Reflection\ReflectionService;
 
 	/***************************************************************
@@ -191,6 +188,7 @@
 
 			$result = array_unique($return);
 			asort($result);
+
 			return $result;
 		}
 
@@ -263,7 +261,14 @@
 					$orConstraints = [];
 					foreach ($array as $input)
 					{
-						if ($repositoryConfig[$propertyName] === null) {
+						//Skip empty values. The prepend option, associated with 'All', returns this empty string.
+						if (is_string($input) && $input === '')
+						{
+							continue;
+						}
+
+						if ($repositoryConfig[$propertyName] === null)
+						{
 							throw new \RuntimeException("Missing TypoScript repository config for property: ".$propertyName);
 						}
 
@@ -292,7 +297,14 @@
 
 			if (!empty($categories))
 			{
-				$andConstraints[] = $query->contains('categories', $categories);
+				$orConstraints = [];
+
+				foreach($categories as $category)
+				{
+					$orConstraints[] = $query->contains('categories', $category);
+				}
+
+				$andConstraints[] = $query->logicalOr($orConstraints);
 			}
 
 			if (!empty($andConstraints))
@@ -313,6 +325,8 @@
 		 * @param $contact int Contact Uid
 		 * @param $orderBy string
 		 * @param $order   string
+		 *
+		 * @return array|QueryResultInterface
 		 */
 		public function findByContact(int $contact, string $orderBy = "title", string $order = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING)
 		{

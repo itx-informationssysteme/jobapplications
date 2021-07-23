@@ -216,7 +216,6 @@
 			$this->beUser = $beUser;
 		}
 
-
 		/**
 		 * @return int
 		 */

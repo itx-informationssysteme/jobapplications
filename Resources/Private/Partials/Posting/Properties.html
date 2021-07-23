@@ -1,4 +1,4 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 <div class="row">
 	<div class="col">
 		<hr/>
@@ -32,8 +32,9 @@
 					</h6>
 				</div>
 				<div class="col-3">
-					<f:for each="{posting.deserializedEmploymentTypes}" as="employmentType" iteration="iterator">
-						<f:translate key="fe.posting.employment.selector.{employmentType}"/><f:if condition="!{iterator.isLast}" then=","></f:if>
+					<f:for as="employmentType" each="{posting.deserializedEmploymentTypes}" iteration="iterator">
+						<f:translate key="fe.posting.employment.selector.{employmentType}"/>
+						<f:if condition="!{iterator.isLast}" then=","></f:if>
 					</f:for>
 				</div>
 			</f:if>
@@ -191,7 +192,7 @@
 					<div class="row">
 						<div class="col">
 							<f:if condition="{posting.contact.photo}">
-								<img src="{posting.contact.photo.originalResource.publicUrl}" width="100" alt="contactImage" class="rounded-circle float-left mr-3"/>
+								<img alt="contactImage" class="rounded-circle float-left mr-3" src="{posting.contact.photo.originalResource.publicUrl}" width="100"/>
 							</f:if>
 							<div class="container-flex text-left float-left">
 								{posting.contact.firstName} {posting.contact.lastName}<br>

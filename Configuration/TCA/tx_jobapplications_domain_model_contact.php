@@ -173,7 +173,7 @@
 							'showAllLocalizationLink' => true,
 							'showSynchronizationLink' => true
 						],
-						'foreign_types' => array(
+						'foreign_types' => [
 							'0' => [
 								'showitem' => '
 								--palette--;;imageoverlayPalette,
@@ -204,7 +204,7 @@
 								--palette--;;imageoverlayPalette,
 								--palette--;;filePalette'
 							]
-						),
+						],
 						'maxitems' => 1
 					],
 					$GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']

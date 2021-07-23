@@ -1,48 +1,48 @@
 {
-    "name": "itx/jobapplications",
-    "type": "typo3-cms-extension",
-    "description": "This extension enables you to manage job postings, has an application form for applicants to apply and an Application Managment Backend Module",
-    "license": "GPL-3.0-or-later",
-    "version": "1.0.1",
-    "homepage": "http://www.itx.de",
-    "authors": [
-        {
-            "name": "Stefanie D\u00f6ll",
-            "email": "stefanie.doell@itx.de",
-            "role": "Developer"
-        },
-        {
-            "name": "Benjamin Jasper",
-            "email": "benjamin.jasper@itx.de",
-            "role": "Developer"
-        }
-    ],
-    "support": {
-        "email": "typo-itx@itx.de",
-        "issues": "https://github.com/typo3-itx/jobapplications/issues",
-        "docs": "https://docs.typo3.org/p/itx/jobapplications/master/en-us/"
+  "name": "itx/jobapplications",
+  "type": "typo3-cms-extension",
+  "description": "This extension enables you to manage job postings, has an application form for applicants to apply and an Application Managment Backend Module",
+  "license": "GPL-3.0-or-later",
+  "version": "1.0.2",
+  "homepage": "http://www.itx.de",
+  "authors": [
+    {
+      "name": "Stefanie D\u00f6ll",
+      "email": "stefanie.doell@itx.de",
+      "role": "Developer"
     },
-    "require": {
-        "typo3/cms-core": "^9.5 || ^10.4",
-        "fluidtypo3/vhs": "^6"
-    },
-    "extra": {
-        "typo3/cms": {
-            "extension-key": "jobapplications"
-        }
-    },
-    "autoload": {
-        "psr-4": {
-            "ITX\\Jobapplications\\": "Classes"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "ITX\\Jobapplications\\Tests\\": "Tests"
-        }
-    },
-    "replace": {
-        "itx/jobapplications": "self.version",
-        "typo3-ter/jobapplications": "self.version"
+    {
+      "name": "Benjamin Jasper",
+      "email": "benjamin.jasper@itx.de",
+      "role": "Developer"
     }
+  ],
+  "support": {
+    "email": "typo-itx@itx.de",
+    "issues": "https://github.com/typo3-itx/jobapplications/issues",
+    "docs": "https://docs.typo3.org/p/itx/jobapplications/master/en-us/"
+  },
+  "require": {
+    "typo3/cms-core": "^9.5 || ^10.4",
+    "fluidtypo3/vhs": "^6"
+  },
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "jobapplications"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "ITX\\Jobapplications\\": "Classes"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ITX\\Jobapplications\\Tests\\": "Tests"
+    }
+  },
+  "replace": {
+    "itx/jobapplications": "self.version",
+    "typo3-ter/jobapplications": "self.version"
+  }
 }

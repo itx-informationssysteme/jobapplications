@@ -14,7 +14,8 @@
 
             <trans-unit id="is_new_status.description" resname="is_new_status.description">
                 <source>This should be marked if this is the status that new application should arrive in.
-                    This should only be checked once in all of the statuses.</source>
+                    This should only be checked once in all of the statuses.
+                </source>
                 <target state="translated">Diese Option sollte angewählt werden, wenn dieser Status der Status sein soll,
                     in welchem neue Bewerbungen ankommen. Diese Option sollte nur einmal in allen Status angewählt sein.
                 </target>

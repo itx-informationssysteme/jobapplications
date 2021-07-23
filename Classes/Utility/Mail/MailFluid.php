@@ -24,7 +24,6 @@
 
 	namespace ITX\Jobapplications\Utility\Mail;
 
-	use Symfony\Component\Mailer\Exception\TransportException;
 	use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 	use Symfony\Component\Mime\Address;
 	use Symfony\Component\Mime\Header\Headers;
@@ -43,7 +42,9 @@
 	class MailFluid extends FluidEmail implements MailInterface
 	{
 		/**
-		 * @param iterable|string $message
+		 * @param TemplatePaths|null $templatePaths
+		 * @param Headers|null       $headers
+		 * @param AbstractPart|null  $body
 		 */
 		public function __construct(TemplatePaths $templatePaths = null, Headers $headers = null, AbstractPart $body = null)
 		{
@@ -64,6 +65,27 @@
 			}
 
 			return $this;
+		}
+
+		/**
+		 * @param $key
+		 * @param $address
+		 *
+		 * @return Address
+		 */
+		private function addressArrayToObject($key, $address): Address
+		{
+			$addressObject = null;
+			if (is_int($key))
+			{
+				$addressObject = new Address($address);
+			}
+			else
+			{
+				$addressObject = new Address($key, $address);
+			}
+
+			return $addressObject;
 		}
 
 		/**
@@ -166,27 +188,6 @@
 			}
 
 			return $this;
-		}
-
-		/**
-		 * @param $key
-		 * @param $address
-		 *
-		 * @return Address
-		 */
-		private function addressArrayToObject($key, $address): Address
-		{
-			$addressObject = null;
-			if (is_int($key))
-			{
-				$addressObject = new Address($address);
-			}
-			else
-			{
-				$addressObject = new Address($key, $address);
-			}
-
-			return $addressObject;
 		}
 
 		/**

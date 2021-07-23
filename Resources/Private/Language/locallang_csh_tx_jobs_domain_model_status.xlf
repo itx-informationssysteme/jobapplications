@@ -5,11 +5,13 @@
         <body>
             <trans-unit id="is_end_status.description" resname="is_end_status.description">
                 <source>This can be important if the clean up task is configured. It means every application with this
-                enabled will be up for deletion.</source>
+                    enabled will be up for deletion.
+                </source>
             </trans-unit>
             <trans-unit id="is_new_status.description" resname="is_new_status.description">
                 <source>This should be marked if this is the status that new application should arrive in.
-                    This should only be checked once in all of the statuses.</source>
+                    This should only be checked once in all of the statuses.
+                </source>
             </trans-unit>
         </body>
     </file>

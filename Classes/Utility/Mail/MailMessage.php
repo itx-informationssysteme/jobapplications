@@ -34,6 +34,7 @@
 	class MailMessage extends \TYPO3\CMS\Core\Mail\MailMessage implements MailInterface
 	{
 		protected $contentType;
+
 		/**
 		 * @inheritDoc
 		 */
@@ -72,7 +73,8 @@
 		 * associated with the address.
 		 *
 		 * @param string|array $addresses
-		 * @param string $name optional
+		 * @param string       $name optional
+		 *
 		 * @return \TYPO3\CMS\Core\Mail\MailMessage
 		 */
 		public function setFrom($addresses, $name = ''): MailInterface
@@ -110,6 +112,7 @@
 		public function setContent(string $content, $objects = []): MailInterface
 		{
 			$this->setBody($content);
+
 			return $this;
 		}
 

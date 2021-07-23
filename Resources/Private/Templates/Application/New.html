@@ -1,4 +1,4 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers" data-namespace-typo3-fluid="true">
+<html data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers">
 <f:layout name="Default"/>
 
 <f:section name="content">
@@ -8,33 +8,33 @@
 		<link href="{f:uri.resource(path: 'Css/Vendor/filepond.css')}" rel="stylesheet">
 	</v:page.header>
 
-	<f:render partial="Posting/MetaTags" arguments="{posting:posting}"/>
+	<f:render arguments="{posting:posting}" partial="Posting/MetaTags"/>
 	<div class="row">
 		<div class="col"></div>
 		<div class="col-6">
 			<f:if condition="{posting}">
 				<f:then>
 					<h3>
-						<f:translate key="fe.application.new.title" arguments="{0: posting.title}" extensionName="jobapplications"/>
+						<f:translate arguments="{0: posting.title}" extensionName="jobapplications" key="fe.application.new.title"/>
 					</h3>
 				</f:then>
 				<f:else>
-					<f:translate key="fe.application.unsolicited.title" extensionName="jobapplications"/>
+					<f:translate extensionName="jobapplications" key="fe.application.unsolicited.title"/>
 				</f:else>
 			</f:if>
 
 			<f:flashMessages/>
 			<f:render partial="FormErrors"/>
-			<f:form id="application-form" action="create" enctype="multipart/form-data" name="newApplication" object="{newApplication}" arguments="{posting: posting}">
-				<f:render partial="Application/FormFields" arguments="{_all}"/>
+			<f:form action="create" arguments="{posting: posting}" enctype="multipart/form-data" id="application-form" name="newApplication" object="{newApplication}">
+				<f:render arguments="{_all}" partial="Application/FormFields"/>
 				<div class="row">
 					<div class="col-4">
-						<button id="application-button-back" class="btn btn-link px-0" onclick="window.history.back()">
+						<button class="btn btn-link px-0" id="application-button-back" onclick="window.history.back()">
 							<f:translate key="fe.application.backlink"/>
 						</button>
 					</div>
 					<div class="col-4 text-center">
-						<f:form.submit id="application-submit" class="btn btn-primary mx-auto" value="{f:translate(key:'fe.application.new.submit')}"/>
+						<f:form.submit class="btn btn-primary mx-auto" id="application-submit" value="{f:translate(key:'fe.application.new.submit')}"/>
 					</div>
 				</div>
 			</f:form>
@@ -42,8 +42,7 @@
 		<div class="col"></div>
 	</div>
 	<script>
-		document.getElementById('application-form').addEventListener('submit', function ()
-		{
+		document.getElementById('application-form').addEventListener('submit', function () {
 			document.getElementById('application-submit').disabled = true;
 			document.getElementById('application-button-back').disabled = true;
 		});

@@ -1,5 +1,7 @@
 <?php
+
 	namespace ITX\Jobapplications\Service;
+
 	use TYPO3\CMS\Core\Resource\Exception\FileOperationErrorException;
 	use TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException;
 	use TYPO3\CMS\Core\Resource\Exception\InsufficientUserPermissionsException;
@@ -13,10 +15,9 @@
 	 * For the full copyright and license information, please read the
 	 * LICENSE.txt file that was distributed with this source code.
 	 */
-
 	class ApplicationFileService
 	{
-		const APP_FILE_FOLDER = "applications/";
+		public const APP_FILE_FOLDER = "applications/";
 
 		/**
 		 * Helper function to generate the folder for an application
@@ -27,13 +28,13 @@
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
 		 */
 
-		function getApplicantFolder(\ITX\Jobapplications\Domain\Model\Application $applicationObject)
+		public function getApplicantFolder(\ITX\Jobapplications\Domain\Model\Application $applicationObject): string
 		{
 			return self::APP_FILE_FOLDER.(new \TYPO3\CMS\Core\Resource\Driver\LocalDriver)
 					->sanitizeFileName($applicationObject->getFirstName()."_".$applicationObject->getLastName()
 									   ."_".hash("md5", $applicationObject->getFirstName()."|"
-																							 .$applicationObject->getLastName()
-																							 .$applicationObject->getUid()));
+													  .$applicationObject->getLastName()
+													  .$applicationObject->getUid()));
 		}
 
 		/**
@@ -43,7 +44,7 @@
 		 *
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
 		 */
-		function deleteApplicationFolder($folderPath)
+		public function deleteApplicationFolder(string $folderPath): void
 		{
 			$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 
@@ -62,16 +63,8 @@
 				{
 					$storage->deleteFolder($folder, true);
 				}
-				catch (FileOperationErrorException $e)
-				{
-				}
-				catch (InsufficientFolderAccessPermissionsException $e)
-				{
-				}
-				catch (InsufficientUserPermissionsException $e)
-				{
-				}
-				catch (InvalidPathException $e)
+				catch (FileOperationErrorException | InsufficientFolderAccessPermissionsException
+				| InsufficientUserPermissionsException | InvalidPathException $e)
 				{
 				}
 			}

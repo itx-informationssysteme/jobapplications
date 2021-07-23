@@ -103,20 +103,20 @@
 			);
 
 			// Add CleanUpApplications task
-			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\ITX\Jobapplications\Task\CleanUpApplications::class] = array(
+			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\ITX\Jobapplications\Task\CleanUpApplications::class] = [
 				'extension' => 'jobapplications',
 				'title' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:CleanUpApplications.title',
 				'description' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:CleanUpApplications.description',
 				'additionalFields' => \ITX\Jobapplications\Task\CleanUpApplicationsAdditionalFieldProvider::class
-			);
+			];
 
 			// Add Anonymize Applications task
-			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\ITX\Jobapplications\Task\AnonymizeApplications::class] = array(
+			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\ITX\Jobapplications\Task\AnonymizeApplications::class] = [
 				'extension' => 'jobapplications',
 				'title' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:AnonymizeApplications.title',
 				'description' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:AnonymizeApplications.description',
 				'additionalFields' => \ITX\Jobapplications\Task\CleanUpApplicationsAdditionalFieldProvider::class
-			);
+			];
 
 			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['jobapplications'] = \ITX\Jobapplications\Hooks\TCEmainHook::class;
 			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass']['jobapplications'] = \ITX\Jobapplications\Hooks\TCEmainHook::class;
@@ -125,11 +125,12 @@
 			$GLOBALS['TYPO3_CONF_VARS']['MAIL']['templateRootPaths'][283] = 'EXT:jobapplications/Resources/Private/Templates/Mail';
 
 			// Ajax routes
-			$GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['jobapplications_upload'] = \ITX\Jobapplications\Controller\AjaxController::class . '::uploadAction';
-			$GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['jobapplications_revert'] = \ITX\Jobapplications\Controller\AjaxController::class . '::revertAction';
+			$GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['jobapplications_upload'] = \ITX\Jobapplications\Controller\AjaxController::class.'::uploadAction';
+			$GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['jobapplications_revert'] = \ITX\Jobapplications\Controller\AjaxController::class.'::revertAction';
 
 			// Cache
-			if (!is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['jobapplications_cache'])) {
+			if (!is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['jobapplications_cache']))
+			{
 				$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['jobapplications_cache'] = [];
 			}
 

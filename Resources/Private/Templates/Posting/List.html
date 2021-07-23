@@ -1,4 +1,4 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true" xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers" xmlns:jobs="http://typo3.org/ns/ITX/Jobapplications/ViewHelpers">
+<html data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:jobs="http://typo3.org/ns/ITX/Jobapplications/ViewHelpers" xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers">
 
 <f:layout name="Default"/>
 
@@ -18,16 +18,16 @@
 		<f:if condition="{postings -> f:count()} > 0 || {isFiltering}">
 			<f:then>
 				<f:comment><!--Filter start--></f:comment>
-				<f:form action="list" name="constraint" method="get" object="{constraint}">
+				<f:form action="list" method="get" name="constraint" object="{constraint}">
 					<div class="form-row m-0">
 						<div class="form-group pl-0 col">
 							<label for="division">
 								<f:translate key="fe.filter.divisions"/>
 							</label>
-							<f:form.select class="form-control" property="division" multiple="true" name="division" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
-								<f:for each="{filterOptions.division}" as="division">
+							<f:form.select class="form-control" multiple="true" name="division" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}" property="division">
+								<f:for as="division" each="{filterOptions.division}">
 									<f:if condition="{division}">
-										<f:form.select.option value="{division}" additionalAttributes="{v:condition.iterator.contains(needle: division, haystack: constraint.division, then: '{selected: true}')}">{division}</f:form.select.option>
+										<f:form.select.option additionalAttributes="{v:condition.iterator.contains(needle: division, haystack: constraint.division, then: '{selected: true}')}" value="{division}">{division}</f:form.select.option>
 									</f:if>
 								</f:for>
 							</f:form.select>
@@ -36,10 +36,10 @@
 							<label for="careerLevel">
 								<f:translate key="fe.filter.careerLevel"/>
 							</label>
-							<f:form.select class="form-control" property="careerLevel" multiple="true" name="careerLevel" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
-								<f:for each="{filterOptions.careerLevel}" as="careerLevel">
+							<f:form.select class="form-control" multiple="true" name="careerLevel" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}" property="careerLevel">
+								<f:for as="careerLevel" each="{filterOptions.careerLevel}">
 									<f:if condition="{careerLevel}">
-										<f:form.select.option value="{careerLevel}" additionalAttributes="{v:condition.iterator.contains(needle: careerLevel, haystack: constraint.careerLevel, then: '{selected: true}')}">{careerLevel}</f:form.select.option>
+										<f:form.select.option additionalAttributes="{v:condition.iterator.contains(needle: careerLevel, haystack: constraint.careerLevel, then: '{selected: true}')}" value="{careerLevel}">{careerLevel}</f:form.select.option>
 									</f:if>
 								</f:for>
 							</f:form.select>
@@ -48,10 +48,10 @@
 							<label for="employmentType">
 								<f:translate key="fe.filter.employmentType"/>
 							</label>
-							<f:form.select class="form-control" property="employmentType" multiple="true" name="employmentType" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
-								<f:for each="{filterOptions.employmentType}" as="employmentType">
+							<f:form.select class="form-control" multiple="true" name="employmentType" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}" property="employmentType">
+								<f:for as="employmentType" each="{filterOptions.employmentType}">
 									<f:if condition="{employmentType}">
-										<f:form.select.option value="{employmentType}" additionalAttributes="{v:condition.iterator.contains(needle: employmentType, haystack: constraint.employmentType, then: '{selected: true}')}">
+										<f:form.select.option additionalAttributes="{v:condition.iterator.contains(needle: employmentType, haystack: constraint.employmentType, then: '{selected: true}')}" value="{employmentType}">
 											<f:translate key="fe.posting.employment.selector.{employmentType}"/>
 										</f:form.select.option>
 									</f:if>
@@ -62,19 +62,19 @@
 							<label for="location">
 								<f:translate key="fe.filter.location"/>
 							</label>
-							<f:form.select class="form-control" property="location" multiple="true" name="location" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
-								<f:for each="{filterOptions.location}" as="location">
-									<f:form.select.option value="{location.uid}" additionalAttributes="{v:condition.iterator.contains(needle: location.uid, haystack: constraint.location, then: '{selected: true}')}">{location.name}</f:form.select.option>
+							<f:form.select class="form-control" multiple="true" name="location" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}" property="location">
+								<f:for as="location" each="{filterOptions.location}">
+									<f:form.select.option additionalAttributes="{v:condition.iterator.contains(needle: location.uid, haystack: constraint.location, then: '{selected: true}')}" value="{location.uid}">{location.name}</f:form.select.option>
 								</f:for>
 							</f:form.select>
 						</div>
 						<div class="form-group col-1">
 							<label for="submit">&nbsp;</label>
-							<f:form.submit name="submit" class="form-control btn btn-primary mx-2" value="{f:translate(key: 'fe.posting.button.filter')}"></f:form.submit>
+							<f:form.submit class="form-control btn btn-primary mx-2" name="submit" value="{f:translate(key: 'fe.posting.button.filter')}"></f:form.submit>
 						</div>
 						<div class="form-group col-1">
 							<label for="reset">&nbsp;</label>
-							<f:link.action name="reset" class="form-control btn mx-2" action="list">
+							<f:link.action action="list" class="form-control btn mx-2" name="reset">
 								<f:translate key="fe.posting.button.reset"></f:translate>
 							</f:link.action>
 						</div>
@@ -83,10 +83,10 @@
 				</f:form>
 				<f:if condition="{postings -> f:count()} > 0">
 					<f:then>
-						<f:widget.paginate objects="{postings}" as="paginatedPostings" configuration="{itemsPerPage: settings.maxItemsOnPage}">
+						<f:widget.paginate as="paginatedPostings" configuration="{itemsPerPage: settings.maxItemsOnPage}" objects="{postings}">
 							<div class="row">
 								<f:for as="posting" each="{paginatedPostings}">
-									<f:render partial="Posting/ListItem" arguments="{_all}"></f:render>
+									<f:render arguments="{_all}" partial="Posting/ListItem"></f:render>
 								</f:for>
 							</div>
 						</f:widget.paginate>

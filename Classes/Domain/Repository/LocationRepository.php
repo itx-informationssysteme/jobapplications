@@ -3,7 +3,6 @@
 	namespace ITX\Jobapplications\Domain\Repository;
 
 	use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 	/***************************************************************
 	 *  Copyright notice
@@ -36,9 +35,12 @@
 		/**
 		 * Returns all objects of this repository.
 		 *
-		 * @param $categories array
+		 * @param array|null $categories array
+		 * @param string     $orderBy
+		 * @param string     $order
 		 *
 		 * @return QueryResultInterface|array
+		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
 		 */
 		public function findAll(array $categories = null, string $orderBy = "name", string $order = QueryInterface::ORDER_ASCENDING)
 		{

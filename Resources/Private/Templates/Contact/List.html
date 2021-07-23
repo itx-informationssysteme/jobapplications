@@ -1,15 +1,15 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 <f:layout name="Default"/>
 
 <f:section name="content">
 	<div class="container-fluid">
 		<h3>{settings.header}</h3>
 		<div class="row justify-content-around">
-			<f:for each="{contacts}" as="contact">
+			<f:for as="contact" each="{contacts}">
 				<div class="col">
 					<div class="row m-0">
 						<f:if condition="{contact.photo}">
-							<f:image src="{contact.photo.originalResource.publicUrl}" style="width: 100px !important" class="w-50 h-auto img-fluid rounded-circle text-center d-block m-auto"/>
+							<f:image class="w-50 h-auto img-fluid rounded-circle text-center d-block m-auto" src="{contact.photo.originalResource.publicUrl}" style="width: 100px !important"/>
 						</f:if>
 					</div>
 					<div class="row mx-auto text-center d-block mt-2">

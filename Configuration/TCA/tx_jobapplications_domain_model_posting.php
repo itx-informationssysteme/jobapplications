@@ -1,6 +1,7 @@
 <?php
 	$slugBehaviour = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)
 														   ->get('jobapplications', 'slugBehaviour');
+
 	return [
 		'ctrl' => [
 			'title' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting',
@@ -85,13 +86,13 @@
 					],
 				],
 			],
-			'deleted' => array(
+			'deleted' => [
 				'exclude' => 1,
 				'label' => 'Deleted',
-				'config' => array(
+				'config' => [
 					'type' => 'check',
-				),
-			),
+				],
+			],
 			'starttime' => [
 				'exclude' => true,
 				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.starttime',
@@ -330,7 +331,7 @@
 							'showAllLocalizationLink' => true,
 							'showSynchronizationLink' => true
 						],
-						'foreign_types' => array(
+						'foreign_types' => [
 							'0' => [
 								'showitem' => '
 								--palette--;;imageoverlayPalette,
@@ -361,7 +362,7 @@
 								--palette--;;imageoverlayPalette,
 								--palette--;;filePalette'
 							]
-						),
+						],
 						'maxitems' => 1
 					],
 					$GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
@@ -380,7 +381,7 @@
 							'showAllLocalizationLink' => true,
 							'showSynchronizationLink' => true
 						],
-						'foreign_types' => array(
+						'foreign_types' => [
 							'0' => [
 								'showitem' => '
 								--palette--;;imageoverlayPalette,
@@ -411,7 +412,7 @@
 								--palette--;;imageoverlayPalette,
 								--palette--;;filePalette'
 							]
-						),
+						],
 						'maxitems' => 1
 					],
 					$GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']

@@ -26,13 +26,10 @@
 
 	use ITX\Jobapplications\Utility\UploadFileUtility;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
-	use TYPO3\CMS\Core\Context\LanguageAspect;
 	use TYPO3\CMS\Core\Core\Environment;
 	use TYPO3\CMS\Core\Http\HtmlResponse;
 	use TYPO3\CMS\Core\Http\UploadedFile;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
-	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-	use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 	/**
 	 * Class AjaxController
@@ -150,11 +147,13 @@
 		): \Psr\Http\Message\ResponseInterface
 		{
 			$body = $request->getBody();
-			if (strlen($body) === 23) {
+			if (strlen($body) === 23)
+			{
 				$utility = new UploadFileUtility();
 				$utility->deleteFolder($body);
 			}
 			$response->getBody()->write('');
+
 			return $response;
 		}
 	}

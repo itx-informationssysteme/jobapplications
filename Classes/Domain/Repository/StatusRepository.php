@@ -2,16 +2,9 @@
 
 	namespace ITX\Jobapplications\Domain\Repository;
 
-	use ITX\Jobapplications\Domain\Model\Status;
-	use ScssPhp\ScssPhp\Formatter\Debug;
-	use TYPO3\CMS\Core\Core\Environment;
-	use TYPO3\CMS\Core\Utility\DebugUtility;
-	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Core\Database\Schema\SchemaMigrator;
 	use TYPO3\CMS\Core\Database\Schema\SqlReader;
-	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
-	use TYPO3\CMS\Core\Utility\PathUtility;
-	use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+	use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 	/***************************************************************
 	 *  Copyright notice
@@ -97,7 +90,7 @@
 			{
 				throw new \RuntimeException("Jobapplications: Error trying to load sql file at {$file1}");
 			}
-			$contentStatus = str_replace(array('%pid%', '%lang%'), array($pid, $langUid), $contentStatus);
+			$contentStatus = str_replace(['%pid%', '%lang%'], [$pid, $langUid], $contentStatus);
 			$contentStatusMM = file_get_contents($file2);
 			if ($contentStatusMM === false)
 			{

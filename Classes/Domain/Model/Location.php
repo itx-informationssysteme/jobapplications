@@ -55,9 +55,9 @@
 		/**
 		 * addressPostCode
 		 *
-		 * @var int
+		 * @var string
 		 */
-		protected $addressPostCode = 0;
+		protected $addressPostCode = '';
 
 		/**
 		 * addressCity
@@ -130,17 +130,17 @@
 		}
 
 		/**
-		 * @return int
+		 * @return string
 		 */
-		public function getAddressPostCode(): int
+		public function getAddressPostCode(): string
 		{
 			return $this->addressPostCode;
 		}
 
 		/**
-		 * @param int $addressPostCode
+		 * @param string $addressPostCode
 		 */
-		public function setAddressPostCode(int $addressPostCode): void
+		public function setAddressPostCode(string $addressPostCode): void
 		{
 			$this->addressPostCode = $addressPostCode;
 		}

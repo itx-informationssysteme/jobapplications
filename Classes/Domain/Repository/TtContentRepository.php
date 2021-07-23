@@ -35,8 +35,11 @@
 
 		/**
 		 * @param string $listType
+		 *
+		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 		 */
-		function findByListType(string $listType) {
+		function findByListType(string $listType)
+		{
 			$query = $this->createQuery();
 			$query->getQuerySettings()->setRespectStoragePage(false);
 

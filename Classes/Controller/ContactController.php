@@ -67,7 +67,7 @@
 		 */
 		public function listAction()
 		{
-			$contacts = array();
+			$contacts = [];
 			$selectedContactsStr = $this->settings["selectedContacts"];
 			if (!empty($selectedContactsStr))
 			{
@@ -77,7 +77,8 @@
 
 			$contactByUid = [];
 
-			foreach ($contactObjects as $contact) {
+			foreach ($contactObjects as $contact)
+			{
 				$contactByUid[$contact->getLocalizedUid()] = $contact;
 			}
 

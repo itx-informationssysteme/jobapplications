@@ -2,9 +2,6 @@
 
 	namespace ITX\Jobapplications\Domain\Model;
 
-	use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
-
 	/***************************************************************
 	 *  Copyright notice
 	 *
@@ -303,14 +300,6 @@
 		}
 
 		/**
-		 * @return string[]
-		 */
-		public function getDeserializedEmploymentTypes()
-		{
-			return explode(',', $this->employmentType);
-		}
-
-		/**
 		 * Sets the employmentType
 		 *
 		 * @param string $employmentType
@@ -320,6 +309,14 @@
 		public function setEmploymentType($employmentType)
 		{
 			$this->employmentType = $employmentType;
+		}
+
+		/**
+		 * @return string[]
+		 */
+		public function getDeserializedEmploymentTypes()
+		{
+			return explode(',', $this->employmentType);
 		}
 
 		/**

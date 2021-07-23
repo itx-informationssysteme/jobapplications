@@ -1,4 +1,4 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 <f:layout name="Default"/>
 
 <f:section name="content">
@@ -8,14 +8,14 @@
 				<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.dashboard.applicationAdmin"></f:translate>
 			</h1>
 			<div class="filter">
-				<f:form action="listApplications" name="filter" method="post">
+				<f:form action="listApplications" method="post" name="filter">
 					<div class="filter-element">
 						<label for="contact">
 							<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.filter.contacts"/>
 						</label>
 						<f:form.select class="" name="contact" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
-							<f:for each="{contacts}" as="contact">
-								<f:form.select.option value="{contact.uid}" additionalAttributes="{f:if(condition: '{selectedContact} == {contact.uid}', then: '{selected: true}')}">{contact.firstName} {contact.lastName}</f:form.select.option>
+							<f:for as="contact" each="{contacts}">
+								<f:form.select.option additionalAttributes="{f:if(condition: '{selectedContact} == {contact.uid}', then: '{selected: true}')}" value="{contact.uid}">{contact.firstName} {contact.lastName}</f:form.select.option>
 							</f:for>
 						</f:form.select>
 					</div>
@@ -24,11 +24,11 @@
 							<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.filter.postings"/>
 						</label>
 						<f:form.select class="" name="posting" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
-							<f:form.select.option value="-1" additionalAttributes="{f:if(condition: '{selectedPosting} == -1', then: '{selected: true}')}">
+							<f:form.select.option additionalAttributes="{f:if(condition: '{selectedPosting} == -1', then: '{selected: true}')}" value="-1">
 								<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.filter.unsolicited"/>
 							</f:form.select.option>
-							<f:for each="{postings}" as="posting">
-								<f:form.select.option value="{posting.uid}" additionalAttributes="{f:if(condition: '{selectedPosting} == {posting.uid}', then: '{selected: true}')}">{posting.title}</f:form.select.option>
+							<f:for as="posting" each="{postings}">
+								<f:form.select.option additionalAttributes="{f:if(condition: '{selectedPosting} == {posting.uid}', then: '{selected: true}')}" value="{posting.uid}">{posting.title}</f:form.select.option>
 							</f:for>
 						</f:form.select>
 					</div>
@@ -37,8 +37,8 @@
 							<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.filter.status"/>
 						</label>
 						<f:form.select class="" name="status" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}">
-							<f:for each="{statuses}" as="status">
-								<f:form.select.option value="{status.uid}" additionalAttributes="{f:if(condition: '{selectedStatus} == {status.uid}', then: '{selected: true}')}">{status.name}</f:form.select.option>
+							<f:for as="status" each="{statuses}">
+								<f:form.select.option additionalAttributes="{f:if(condition: '{selectedStatus} == {status.uid}', then: '{selected: true}')}" value="{status.uid}">{status.name}</f:form.select.option>
 							</f:for>
 						</f:form.select>
 					</div>
@@ -46,12 +46,12 @@
 						<label for="archived">
 							<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.filter.archived"/>
 						</label>
-						<f:form.checkbox name="archived" value="1" checked="{f:if(condition: '{archivedSelected} == 1', then: 'checked')}"/>
+						<f:form.checkbox checked="{f:if(condition: '{archivedSelected} == 1', then: 'checked')}" name="archived" value="1"/>
 					</div>
 					<div class="filter-buttons">
-						<f:form.submit name="submit" class="btn-jobapplications form-btn" value="{f:translate(key: 'fe.posting.button.filter')}"></f:form.submit>
+						<f:form.submit class="btn-jobapplications form-btn" name="submit" value="{f:translate(key: 'fe.posting.button.filter')}"></f:form.submit>
 
-						<f:link.action name="reset" class="btn-jobapplications form-btn btn-secondary" action="listApplications">
+						<f:link.action action="listApplications" class="btn-jobapplications form-btn btn-secondary" name="reset">
 							<f:translate key="fe.posting.button.reset"></f:translate>
 						</f:link.action>
 					</div>
@@ -62,9 +62,9 @@
 		<div class="app-list">
 			<f:if condition="{applications}">
 				<f:then>
-					<f:be.widget.paginate as="paginatedApplications" objects="{applications}" configuration="{itemsPerPage: 6}">
+					<f:be.widget.paginate as="paginatedApplications" configuration="{itemsPerPage: 6}" objects="{applications}">
 						<ul class="application-list">
-							<f:for each="{paginatedApplications}" as="application">
+							<f:for as="application" each="{paginatedApplications}">
 								<li>
 									<div class="list-item-container">
 										<div class="row-section left">
@@ -90,12 +90,12 @@
 										</div>
 
 										<div class="row-section right">
-											<f:form class="status-select" name="statusChange" action="listApplications" arguments="{application: application}">
-												<f:form.select class="list" name="statusChange" additionalAttributes="{onchange: 'this.form.submit();'}">
-													<f:form.select.option value="{application.status.uid}" additionalAttributes="{selected: true}">
+											<f:form action="listApplications" arguments="{application: application}" class="status-select" name="statusChange">
+												<f:form.select additionalAttributes="{onchange: 'this.form.submit();'}" class="list" name="statusChange">
+													<f:form.select.option additionalAttributes="{selected: true}" value="{application.status.uid}">
 														{application.status.name}
 													</f:form.select.option>
-													<f:for each="{application.status.followers}" as="status">
+													<f:for as="status" each="{application.status.followers}">
 														<f:form.select.option value="{status.uid}">
 															{status.name}
 														</f:form.select.option>
@@ -129,7 +129,7 @@
 						:
 					</h2>
 					<ul>
-						<f:for each="{archivedApplications}" as="application">
+						<f:for as="application" each="{archivedApplications}">
 							<li class="archived">
 								<div class="list-item-container">
 									<div class="row-section left">

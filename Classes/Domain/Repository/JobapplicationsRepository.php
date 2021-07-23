@@ -37,8 +37,8 @@
 		/**
 		 * Helper function for building the sql for categories
 		 *
-		 * @param array $categories  Array of category uids
-		 * @param \TYPO3\CMS\Core\Database\Query\QueryBuilder $qb Query Builder to add to
+		 * @param array                                       $categories Array of category uids
+		 * @param \TYPO3\CMS\Core\Database\Query\QueryBuilder $qb         Query Builder to add to
 		 *
 		 * @return \TYPO3\CMS\Core\Database\Query\QueryBuilder
 		 */

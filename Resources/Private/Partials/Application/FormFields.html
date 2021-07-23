@@ -1,10 +1,10 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 <div class="form-row">
 	<div class="form-group col-md-3">
 		<label for="salutation">
 			<f:translate key="tx_jobapplications_domain_model_application.salutation"/>
 		</label>
-		<f:form.select class="form-control" name="salutation" property="salutation" prependOptionLabel="{f:translate(key: 'fe.application.selector.chooseMessage')}">
+		<f:form.select class="form-control" name="salutation" prependOptionLabel="{f:translate(key: 'fe.application.selector.chooseMessage')}" property="salutation">
 			<f:form.select.option value="mr">
 				<f:translate key="fe.application.selector.mr"/>
 			</f:form.select.option>
@@ -24,7 +24,7 @@
 			<f:translate key="tx_jobapplications_domain_model_application.first_name"/>
 			*
 		</label>
-		<f:form.textfield property="firstName" class="form-control" required="true"/>
+		<f:form.textfield class="form-control" property="firstName" required="true"/>
 	</div>
 	<div class="form-group col-md-6">
 		<label for="lastName">
@@ -40,13 +40,13 @@
 			<f:translate key="tx_jobapplications_domain_model_application.email"/>
 			*
 		</label>
-		<f:form.textfield type="email" property="email" class="form-control" required="true"/>
+		<f:form.textfield class="form-control" property="email" required="true" type="email"/>
 	</div>
 	<div class="form-group col-md-6">
 		<label for="phone">
 			<f:translate key="tx_jobapplications_domain_model_application.phone"/>
 		</label>
-		<f:form.textfield property="phone" class="form-control" type="tel"/>
+		<f:form.textfield class="form-control" property="phone" type="tel"/>
 	</div>
 </div>
 <div class="form-row">
@@ -54,12 +54,12 @@
 		<label for="addressStreetAndNumber">
 			<f:translate key="tx_jobapplications_domain_model_application.address_street_and_number"/>
 		</label>
-		<f:form.textfield property="addressStreetAndNumber" class="form-control"/>
+		<f:form.textfield class="form-control" property="addressStreetAndNumber"/>
 	</div>
 </div>
 <div class="form-row">
 	<div class="form-group col-md-12">
-		<f:form.textfield property="addressAddition" class="form-control" placeholder="{f:translate(key: 'tx_jobapplications_domain_model_application.address_addition')}"/>
+		<f:form.textfield class="form-control" placeholder="{f:translate(key: 'tx_jobapplications_domain_model_application.address_addition')}" property="addressAddition"/>
 	</div>
 </div>
 <div class="form-row">
@@ -67,13 +67,13 @@
 		<label for="addressPostCode">
 			<f:translate key="tx_jobapplications_domain_model_application.address_post_code"/>
 		</label>
-		<f:form.textfield property="addressPostCode" class="form-control"/>
+		<f:form.textfield class="form-control" property="addressPostCode"/>
 	</div>
 	<div class="form-group col-md-8">
 		<label for="addressCity">
 			<f:translate key="tx_jobapplications_domain_model_application.address_city"/>
 		</label>
-		<f:form.textfield property="addressCity" class="form-control"/>
+		<f:form.textfield class="form-control" property="addressCity"/>
 	</div>
 </div>
 <div class="form-row">
@@ -81,7 +81,7 @@
 		<label for="addressCountry">
 			<f:translate key="tx_jobapplications_domain_model_application.address_country"/>
 		</label>
-		<f:form.textfield property="addressCountry" class="form-control"/>
+		<f:form.textfield class="form-control" property="addressCountry"/>
 	</div>
 </div>
 
@@ -93,7 +93,7 @@
 					<f:translate key="tx_jobapplications_domain_model_application.salary_expectation"/>
 					*
 				</label>
-				<f:form.textfield property="salaryExpectation" class="form-control" required="true"/>
+				<f:form.textfield class="form-control" property="salaryExpectation" required="true"/>
 			</div>
 		</f:if>
 		<f:if condition="{settings.showEarliestDateOfJoining}">
@@ -101,7 +101,7 @@
 				<label for="earliestDateOfJoining">
 					<f:translate key="tx_jobapplications_domain_model_application.earliest_date_of_joining"/>
 				</label>
-				<f:form.textfield type="date" property="earliestDateOfJoining" value="{application.earliestDateOfJoining -> f:format.date()}" class="form-control" required="true"/>
+				<f:form.textfield class="form-control" property="earliestDateOfJoining" required="true" type="date" value="{application.earliestDateOfJoining -> f:format.date()}"/>
 			</div>
 		</f:if>
 	</div>
@@ -112,7 +112,7 @@
 			<label for="message">
 				<f:translate key="tx_jobapplications_domain_model_application.message"/>
 			</label>
-			<f:form.textarea class="form-control" name="message" property="message" rows="10" additionalAttributes="{maxlength: settings.messageMaxLength}"></f:form.textarea>
+			<f:form.textarea additionalAttributes="{maxlength: settings.messageMaxLength}" class="form-control" name="message" property="message" rows="10"></f:form.textarea>
 		</div>
 	</div>
 </f:if>
@@ -124,7 +124,7 @@
 					<f:translate key="tx_jobapplications_domain_model_application.files_upload"/>
 					*
 				</label>
-				<f:form.upload id="upload" name="files" additionalAttributes="{accept: allowedFileTypes, required: 'true'}" multiple="true" class="form-control-file filepond"></f:form.upload>
+				<f:form.upload additionalAttributes="{accept: allowedFileTypes, required: 'true'}" class="form-control-file filepond" id="upload" multiple="true" name="files"></f:form.upload>
 			</div>
 		</div>
 	</f:then>
@@ -135,14 +135,14 @@
 					<f:translate key="tx_jobapplications_domain_model_application.cv"/>
 					*
 				</label>
-				<f:form.upload id="upload-cv" name="cv" additionalAttributes="{accept: allowedFileTypes, required: 'true'}" class="form-control-file filepond"></f:form.upload>
+				<f:form.upload additionalAttributes="{accept: allowedFileTypes, required: 'true'}" class="form-control-file filepond" id="upload-cv" name="cv"></f:form.upload>
 			</div>
 			<div class="form-group col-md-6">
 				<label for="cover_letter">
 					<f:translate key="tx_jobapplications_domain_model_application.cover_letter"/>
 					*
 				</label>
-				<f:form.upload name="cover_letter" additionalAttributes="{accept: allowedFileTypes, required: 'true'}" class="form-control-file filepond"></f:form.upload>
+				<f:form.upload additionalAttributes="{accept: allowedFileTypes, required: 'true'}" class="form-control-file filepond" name="cover_letter"></f:form.upload>
 			</div>
 		</div>
 		<div class="form-row">
@@ -150,34 +150,34 @@
 				<label for="testimonials">
 					<f:translate key="tx_jobapplications_domain_model_application.testimonials"/>
 				</label>
-				<f:form.upload name="testimonials" multiple="true" additionalAttributes="{accept: allowedFileTypes}" class="form-control-file filepond"></f:form.upload>
+				<f:form.upload additionalAttributes="{accept: allowedFileTypes}" class="form-control-file filepond" multiple="true" name="testimonials"></f:form.upload>
 			</div>
 			<div class="form-group col-md-6">
 				<label for="other_files">
 					<f:translate key="tx_jobapplications_domain_model_application.other_files"/>
 				</label>
-				<f:form.upload name="other_files" multiple="true" additionalAttributes="{accept: allowedFileTypes}" class="form-control-file filepond"></f:form.upload>
+				<f:form.upload additionalAttributes="{accept: allowedFileTypes}" class="form-control-file filepond" multiple="true" name="other_files"></f:form.upload>
 			</div>
 		</div>
 	</f:else>
 </f:if>
 <div class="form-row">
-	<small id="upload-message" class="form-text text-muted m-auto">
+	<small class="form-text text-muted m-auto" id="upload-message">
 		<p>
-			<f:translate key="fe.info.fileSize" arguments="{0: fileSizeLimit, 1 : allowedFileTypes}"/>
+			<f:translate arguments="{0: fileSizeLimit, 1 : allowedFileTypes}" key="fe.info.fileSize"/>
 		</p>
 	</small>
-	<small id="required-message" class="form-text text-muted m-auto">
+	<small class="form-text text-muted m-auto" id="required-message">
 		<p>
 			<f:translate key="fe.info.required"/>
 		</p>
 	</small>
 </div>
-<f:render partial="Application/FilepondConfig" arguments="{_all}"></f:render>
+<f:render arguments="{_all}" partial="Application/FilepondConfig"></f:render>
 <div class="form-row">
 	<div class="form-check mb-3 ml-1">
 		<label class="form-check-label">
-			<f:form.checkbox class="form-check-input" property="privacyAgreement" value="1" additionalAttributes="{required:'required'}"/>
+			<f:form.checkbox additionalAttributes="{required:'required'}" class="form-check-input" property="privacyAgreement" value="1"/>
 			<f:translate key="fe.application.privacy_agreement"></f:translate>
 			<f:link.typolink parameter="{settings.linkPrivacy}" target="_blank">
 				<f:translate key="tx_jobapplications_domain_model_application.privacy_agreement"/>

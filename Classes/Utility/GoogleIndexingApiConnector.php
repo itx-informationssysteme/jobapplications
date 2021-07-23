@@ -28,7 +28,6 @@
 	use ITX\Jobapplications\Domain\Repository\PostingRepository;
 	use ITX\Jobapplications\Domain\Repository\TtContentRepository;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
-	use TYPO3\CMS\Core\Exception;
 	use TYPO3\CMS\Core\Http\RequestFactory;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Messaging\FlashMessageQueue;
@@ -70,76 +69,21 @@
 		{
 			$this->backendConfiguration = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class)
 																				->get('jobapplications');
-			$this->googleConfig = json_decode(file_get_contents(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->backendConfiguration['key_path'])), true);
+			if ($this->backendConfiguration['key_path'] !== '')
+			{
+				$fileName = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->backendConfiguration['key_path']);
+				if (file_exists($fileName))
+				{
+					$this->googleConfig = json_decode(file_get_contents(
+														  $fileName
+													  ), true, 512, JSON_THROW_ON_ERROR);
+				}
+			}
+
 			$this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 			$this->requestFactory = $this->objectManager->get(RequestFactory::class);
 
 			$this->supressFlashMessages = $supressFlashMessages;
-		}
-
-		/**
-		 * Finds the first plugin fit for posting display
-		 *
-		 * @param $contentElements array
-		 * @param $posting         Posting
-		 */
-		private function findBestPluginPageFit($contentElements, $posting)
-		{
-
-			/** @var FlexFormService $flexformService */
-			$flexformService = $this->objectManager->get(FlexFormService::class);
-
-			$postingCategories = $posting->getCategories()->toArray();
-
-			$fallback = $flexformService->convertFlexFormContentToArray($contentElements[0]->getPiFlexform(), "lDEF")['settings']['detailViewUid'];
-
-			$result = null;
-
-			if (count($postingCategories) > 0)
-			{
-				/** @var Category $postingCategory */
-				foreach ($postingCategories as $postingCategory)
-				{
-					foreach ($contentElements as $contentElement)
-					{
-						$flexformArray = $flexformService->convertFlexFormContentToArray($contentElement->getPiFlexform(), "lDEF");
-
-						$categories = explode(",", $flexformArray['settings']['categories']);
-						$postingCategoryUid = $postingCategory->getUid();
-
-						if (in_array($postingCategoryUid, $categories))
-						{
-							if (count($categories) === 1)
-							{
-								$result = $flexformArray['settings']['detailViewUid'];
-								break;
-							}
-
-							if (count($categories) > 1)
-							{
-								$fallback = $flexformArray['settings']['detailViewUid'];
-							}
-						}
-					}
-				}
-			}
-			else
-			{
-				foreach ($contentElements as $contentElement)
-				{
-					$flexformArray = $flexformService->convertFlexFormContentToArray($contentElement->getPiFlexform(), "lDEF");
-
-					$categories = explode(",", $flexformArray['settings']['categories']);
-
-					if (count($categories) === 0)
-					{
-						$result = $flexformArray['settings']['detailViewUid'];
-						break;
-					}
-				}
-			}
-
-			return $result ?: $fallback;
 		}
 
 		/**
@@ -230,6 +174,105 @@
 			}
 
 			return $result;
+		}
+
+		/**
+		 * Helper method for sending Flash Messages
+		 *
+		 * @param string $msg
+		 * @param string $header
+		 * @param bool   $error
+		 */
+		private function sendFlashMessage(string $msg, string $header = "", bool $error = false)
+		{
+			$debug = $this->backendConfiguration['indexing_api_debug'];
+
+			if ($debug === "0" || $this->suppressFlashMessages)
+			{
+				return;
+			}
+
+			$type = \TYPO3\CMS\Core\Messaging\FlashMessage::OK;
+
+			if ($error)
+			{
+				$type = \TYPO3\CMS\Core\Messaging\FlashMessage::WARNING;
+			}
+
+			/** @var FlashMessage $message */
+			$message = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Messaging\FlashMessage::class, $msg, $header, $type, true);
+
+			/** @var FlashMessageService $flashMessageService */
+			$flashMessageService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Messaging\FlashMessageService::class);
+			/** @var FlashMessageQueue $messageQueue */
+			$messageQueue = $flashMessageService->getMessageQueueByIdentifier();
+			// @extensionScannerIgnoreLine
+			$messageQueue->addMessage($message);
+		}
+
+		/**
+		 * Finds the first plugin fit for posting display
+		 *
+		 * @param $contentElements array
+		 * @param $posting         Posting
+		 */
+		private function findBestPluginPageFit($contentElements, $posting)
+		{
+
+			/** @var FlexFormService $flexformService */
+			$flexformService = $this->objectManager->get(FlexFormService::class);
+
+			$postingCategories = $posting->getCategories()->toArray();
+
+			$fallback = $flexformService->convertFlexFormContentToArray($contentElements[0]->getPiFlexform(), "lDEF")['settings']['detailViewUid'];
+
+			$result = null;
+
+			if (count($postingCategories) > 0)
+			{
+				/** @var Category $postingCategory */
+				foreach ($postingCategories as $postingCategory)
+				{
+					foreach ($contentElements as $contentElement)
+					{
+						$flexformArray = $flexformService->convertFlexFormContentToArray($contentElement->getPiFlexform(), "lDEF");
+
+						$categories = explode(",", $flexformArray['settings']['categories']);
+						$postingCategoryUid = $postingCategory->getUid();
+
+						if (in_array($postingCategoryUid, $categories))
+						{
+							if (count($categories) === 1)
+							{
+								$result = $flexformArray['settings']['detailViewUid'];
+								break;
+							}
+
+							if (count($categories) > 1)
+							{
+								$fallback = $flexformArray['settings']['detailViewUid'];
+							}
+						}
+					}
+				}
+			}
+			else
+			{
+				foreach ($contentElements as $contentElement)
+				{
+					$flexformArray = $flexformService->convertFlexFormContentToArray($contentElement->getPiFlexform(), "lDEF");
+
+					$categories = explode(",", $flexformArray['settings']['categories']);
+
+					if (count($categories) === 0)
+					{
+						$result = $flexformArray['settings']['detailViewUid'];
+						break;
+					}
+				}
+			}
+
+			return $result ?: $fallback;
 		}
 
 		/**
@@ -404,39 +447,5 @@
 			}
 
 			return $accessToken;
-		}
-
-		/**
-		 * Helper method for sending Flash Messages
-		 *
-		 * @param string $msg
-		 * @param string $header
-		 * @param bool   $error
-		 */
-		private function sendFlashMessage(string $msg, string $header = "", bool $error = false)
-		{
-			$debug = $this->backendConfiguration['indexing_api_debug'];
-
-			if ($debug === "0" || $this->suppressFlashMessages)
-			{
-				return;
-			}
-
-			$type = \TYPO3\CMS\Core\Messaging\FlashMessage::OK;
-
-			if ($error)
-			{
-				$type = \TYPO3\CMS\Core\Messaging\FlashMessage::WARNING;
-			}
-
-			/** @var FlashMessage $message */
-			$message = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Messaging\FlashMessage::class, $msg, $header, $type, true);
-
-			/** @var FlashMessageService $flashMessageService */
-			$flashMessageService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Messaging\FlashMessageService::class);
-			/** @var FlashMessageQueue $messageQueue */
-			$messageQueue = $flashMessageService->getMessageQueueByIdentifier();
-			// @extensionScannerIgnoreLine
-			$messageQueue->addMessage($message);
 		}
 	}
