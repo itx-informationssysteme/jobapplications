@@ -9,6 +9,7 @@
 	use ITX\Jobapplications\Utility\GoogleIndexingApiConnector;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\DataHandling\DataHandler;
+	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Object\ObjectManager;
 	use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
@@ -39,7 +40,7 @@
 				$enabled = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class)
 																 ->get('jobapplications', 'indexing_api');
 
-				if ($enabled === "0")
+				if ($enabled !== "1")
 				{
 					return;
 				}
@@ -78,7 +79,7 @@
 			{
 				$enabled = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class)
 																 ->get('jobapplications', 'indexing_api');
-				if ($enabled === "0")
+				if ($enabled !== "1")
 				{
 					return;
 				}
@@ -95,10 +96,6 @@
 						$connector->updateGoogleIndex($uid);
 					}
 				}
-			}
-			else
-			{
-				return;
 			}
 		}
 
@@ -117,6 +114,13 @@
 		{
 			if ($table === "tx_jobapplications_domain_model_posting")
 			{
+				$enabled = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class)
+																 ->get('jobapplications', 'indexing_api');
+				if ($enabled !== "1")
+				{
+					return;
+				}
+
 				$connector = new GoogleIndexingApiConnector();
 				$connector->updateGoogleIndex($uid, true);
 			}

@@ -11,6 +11,10 @@
 Changelog
 =========
 
+1.0.3 - Bugfixes
+----------------
+* [BUGFIX] fixed record deletion hook not checking if indexing is enabled
+
 1.0.2 - Bugfixes
 ----------------
 * [BUGFIX] fixed PHP warning when google key path configuration is empty (thank you @NarkNiro)
