@@ -11,6 +11,12 @@
 Changelog
 =========
 
+1.0.3 - Bugfixes
+----------------
+* [BUGFIX] fixed record deletion hook not checking if indexing is enabled
+* [BUGFIX] fixed broken revert function in file upload file removals
+* [BUGFIX] fixed php warning for some systems, when single multi file upload enabled
+
 1.0.2 - Bugfixes
 ----------------
 * [BUGFIX] fixed PHP warning when google key path configuration is empty (thank you @NarkNiro)
