@@ -14,6 +14,7 @@ Changelog
 1.0.3 - Bugfixes
 ----------------
 * [BUGFIX] fixed record deletion hook not checking if indexing is enabled
+* [BUGFIX] fixed broken revert function in file upload file removals
 
 1.0.2 - Bugfixes
 ----------------

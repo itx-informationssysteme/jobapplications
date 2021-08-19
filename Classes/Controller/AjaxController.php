@@ -142,17 +142,16 @@
 		}
 
 		public function revertAction(
-			\Psr\Http\Message\ServerRequestInterface $request,
-			\Psr\Http\Message\ResponseInterface $response
+			\Psr\Http\Message\ServerRequestInterface $request
 		): \Psr\Http\Message\ResponseInterface
 		{
+			$response = new HtmlResponse('');
 			$body = $request->getBody();
 			if (strlen($body) === 23)
 			{
 				$utility = new UploadFileUtility();
 				$utility->deleteFolder($body);
 			}
-			$response->getBody()->write('');
 
 			return $response;
 		}
