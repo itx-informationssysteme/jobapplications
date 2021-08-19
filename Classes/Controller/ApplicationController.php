@@ -37,6 +37,7 @@
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Resource\FileInterface;
 	use TYPO3\CMS\Core\Resource\StorageRepository;
+	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 	use TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter;
@@ -270,6 +271,7 @@
 
 			$isMultiFile = false;
 			$multiUploadFiles = [];
+			$legacyUploadfiles = [];
 
 			// Check which kind of uploads were sent
 			if (!empty($arguments['files']))
@@ -348,10 +350,10 @@
 			if (!$isMultiFile)
 			{
 				// Process files
-				$fileCover = $this->processFiles($newApplication, $arguments['cv'], 'cv', 'cv_');
-				$fileCv = $this->processFiles($newApplication, $arguments['cover_letter'], 'cover_letter', 'cover_letter_');
-				$fileOther = $this->processFiles($newApplication, $arguments['testimonials'], 'testimonials', 'testimonials_');
-				$fileTestimonial = $this->processFiles($newApplication, $arguments['other_files'], 'other_files', 'other_files_');
+				$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['cv'], 'cv', 'cv_');
+				$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['cover_letter'], 'cover_letter', 'cover_letter_');
+				$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['testimonials'], 'testimonials', 'testimonials_');
+				$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['other_files'], 'other_files', 'other_files_');
 			}
 			else
 			{
@@ -431,15 +433,7 @@
 								 $addressChunk
 								 .$message.'</p>', ['application' => $newApplication, 'settings' => $this->settings, 'currentPosting' => $currentPosting]);
 
-				// Attach all found files
-				$files = [
-					$fileCover,
-					$fileCv,
-					$fileOther,
-					$fileTestimonial
-				];
-
-				foreach ($files as $fileArray)
+				foreach ($legacyUploadfiles as $fileArray)
 				{
 					foreach ($fileArray as $file)
 					{
