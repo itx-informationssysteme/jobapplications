@@ -466,7 +466,7 @@
 				base_salary,
 				--palette--;;circumstances,
 				--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.advanced,
-				--palette--;;general,
+				sys_language_uid, hidden, slug, l10n_parent, l10n_diffsource,
 				--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.texts,
 				company_description, job_description, role_description, skill_requirements, benefits, 
 				required_documents, company_information,
@@ -475,9 +475,6 @@
 			],
 		],
 		'palettes' => [
-			'general' => [
-				'showitem' => 'sys_language_uid, hidden, slug, l10n_parent, l10n_diffsource',
-			],
 			'mainInfo' => [
 				'showitem' => 'title, division'
 			],
