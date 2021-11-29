@@ -11,6 +11,10 @@
 Changelog
 =========
 
+1.0.4 - Bugfixes
+----------------
+* [BUGFIX] fixed error "Unsupported or non-existing property name "categories" used in relation matching" when using categories with filters
+
 1.0.3 - Bugfixes
 ----------------
 * [BUGFIX] fixed record deletion hook not checking if indexing is enabled
