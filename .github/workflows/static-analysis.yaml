@@ -12,12 +12,3 @@ jobs:
 
             -   name: Psalm
                 uses: docker://vimeo/psalm-github-actions
-    php-stan:
-        runs-on: ubuntu-latest
-        steps:
-            -   uses: actions/checkout@v2
-            -   name: Build composer
-                uses: php-actions/composer@v6 # or alternative dependency management
-                with:
-                    php_version: 7.3
-            -   uses: php-actions/phpstan@v3
