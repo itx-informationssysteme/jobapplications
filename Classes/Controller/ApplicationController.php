@@ -237,6 +237,9 @@
 				$salutation = LocalizationUtility::translate('fe.application.selector.'.$salutation, 'jobapplications');
 			}
 
+			/** @var Posting|null $posting */
+			$posting = null;
+
 			if ($postingUid !== -1)
 			{
 				$posting = $this->postingRepository->findByUid($postingUid);
