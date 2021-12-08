@@ -33,16 +33,17 @@
 	use ITX\Jobapplications\Utility\Typo3VersionUtility;
 	use ITX\Jobapplications\Utility\UploadFileUtility;
 	use Psr\Log\LogLevel;
-	use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 	use Symfony\Component\Mime\Address;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
+	use TYPO3\CMS\Core\Localization\Exception\FileNotFoundException;
 	use TYPO3\CMS\Core\Mail\FluidEmail;
 	use TYPO3\CMS\Core\Mail\Mailer;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
+	use TYPO3\CMS\Core\Resource\File;
 	use TYPO3\CMS\Core\Resource\FileInterface;
+	use TYPO3\CMS\Core\Resource\ResourceStorage;
 	use TYPO3\CMS\Core\Resource\StorageRepository;
-	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 	use TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter;
@@ -105,7 +106,6 @@
 		 * initialize create action
 		 * adjusts date time format to y-m-d
 		 *
-		 * @param void
 		 *
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
 		 */
@@ -319,7 +319,10 @@
 				$this->redirect("new", "Application", null, ["posting" => $posting]);
 			}
 
-			$newApplication->setPosting($posting);
+			if ($posting instanceof Posting)
+			{
+				$newApplication->setPosting($posting);
+			}
 
 			/* @var \ITX\Jobapplications\Domain\Model\Status $firstStatus */
 			$firstStatus = $this->statusRepository->findNewStatus();
@@ -386,7 +389,6 @@
 			{
 				$mail = GeneralUtility::makeInstance(FluidEmail::class);
 				$mail->setTemplate('JobsNotificationMail');
-
 
 				$mail->format($this->settings['emailContentType']);
 
@@ -497,13 +499,13 @@
 			];
 
 			$uri = $this->uriBuilder->uriFor('success',
-											 [
-												 'firstName' => $newApplication->getFirstName(),
-												 'lastName' => $newApplication->getLastName(),
-												 'salutation' => $newApplication->getSalutation(),
-												 'problems' => $problems,
-												 'postingUid' => $currentPosting->getUid() ?: -1
-											 ], 'Application', null, 'SuccessPage');
+				[
+					'firstName' => $newApplication->getFirstName(),
+					'lastName' => $newApplication->getLastName(),
+					'salutation' => $newApplication->getSalutation(),
+					'problems' => $problems,
+					'postingUid' => $currentPosting->getUid() ?: -1
+				], 'Application', null, 'SuccessPage');
 
 			$this->redirectToUri($uri);
 		}
@@ -520,9 +522,8 @@
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderWritePermissionsException
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
-		 * @throws \TYPO3\CMS\Form\Domain\Exception\IdentifierNotValidException
 		 */
-		private function processFiles(Application $newApplication, array $fileIds, string $fieldName, $fileNamePrefix = ''): array
+		private function processFiles(Application $newApplication, array $fileIds, string $fieldName, string $fileNamePrefix = ''): array
 		{
 			$uploadUtility = new UploadFileUtility();
 
@@ -554,15 +555,15 @@
 		 * @param \ITX\Jobapplications\Domain\Model\Application $domainObject
 		 * @param string                                        $prefix
 		 *
-		 * @return FileInterface
+		 * @return File|FileInterface
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFileNameException
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFolderException
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderWritePermissionsException
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
 		 */
-		private function handleFileUpload(string $filePath, string $fileName,
-										  \ITX\Jobapplications\Domain\Model\Application $domainObject, string $prefix = ''): FileInterface
+		private function handleFileUpload(string                                        $filePath, string $fileName,
+										  \ITX\Jobapplications\Domain\Model\Application $domainObject, string $prefix = '')
 		{
 
 			$folder = $this->applicationFileService->getApplicantFolder($domainObject);
@@ -570,6 +571,10 @@
 			/* @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
 			$storageRepository = $this->objectManager->get(StorageRepository::class);
 			$storage = $storageRepository->findByUid('1');
+
+			if (!$storage instanceof ResourceStorage) {
+				throw new FileNotFoundException("Could not find fileadmin with uid 1");
+			}
 
 			//build the new storage folder
 			if ($storage->hasFolder($folder))
@@ -598,7 +603,7 @@
 		 * @param int $iteration  The current iteration
 		 * @param int $totalFiles The total amount of iterations
 		 */
-		private function buildRelations(int $objectUid, int $fileUid, int $objectPid, string $field, $iteration = 0, $totalFiles = 1): void
+		private function buildRelations(int $objectUid, int $fileUid, int $objectPid, string $field, int $iteration = 0, int $totalFiles = 1): void
 		{
 			/** @var ConnectionPool $database */
 			$database = GeneralUtility::makeInstance(ConnectionPool::class);

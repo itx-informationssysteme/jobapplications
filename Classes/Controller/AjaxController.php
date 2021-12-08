@@ -50,7 +50,6 @@
 
 		/**
 		 * @param \Psr\Http\Message\ServerRequestInterface $request
-		 * @param \Psr\Http\Message\ResponseInterface      $response
 		 *
 		 * @return \Psr\Http\Message\ResponseInterface
 		 */
