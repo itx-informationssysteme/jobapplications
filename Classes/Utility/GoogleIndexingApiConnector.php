@@ -187,7 +187,7 @@
 		{
 			$debug = $this->backendConfiguration['indexing_api_debug'];
 
-			if ($debug === "0" || $this->suppressFlashMessages)
+			if ($debug === "0")
 			{
 				return;
 			}
@@ -399,7 +399,7 @@
 
 			$signatureSignedBase64 = base64_encode($signatureSigned);
 
-			$token .= $signatureInput.".".$signatureSignedBase64;
+			$token = $signatureInput.".".$signatureSignedBase64;
 
 			$accessTokenRequestData = [
 				"grant_type" => "urn:ietf:params:oauth:grant-type:jwt-bearer",

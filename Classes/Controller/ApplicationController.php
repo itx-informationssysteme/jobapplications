@@ -32,8 +32,13 @@
 	use ITX\Jobapplications\Utility\Mail\MailInterface;
 	use ITX\Jobapplications\Utility\Typo3VersionUtility;
 	use ITX\Jobapplications\Utility\UploadFileUtility;
+	use Psr\Log\LogLevel;
+	use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+	use Symfony\Component\Mime\Address;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
+	use TYPO3\CMS\Core\Mail\FluidEmail;
+	use TYPO3\CMS\Core\Mail\Mailer;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Resource\FileInterface;
 	use TYPO3\CMS\Core\Resource\StorageRepository;
@@ -255,7 +260,6 @@
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderWritePermissionsException
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
-		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
 		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
 		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
 		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
@@ -374,64 +378,24 @@
 
 			$contact = ($currentPosting->getContact() ?: $contact);
 
-			// Get and translate labels
-			$salutation = LocalizationUtility::translate("fe.application.selector.".$newApplication->getSalutation(), "jobapplications");
-			$salary = $newApplication->getSalaryExpectation() ? LocalizationUtility::translate("tx_jobapplications_domain_model_application.salary_expectation", "jobapplications").": ".$newApplication->getSalaryExpectation()."<br>" : "";
-			$dateOfJoining = $newApplication->getEarliestDateOfJoining() ?
-				LocalizationUtility::translate("tx_jobapplications_domain_model_application.earliest_date_of_joining", "jobapplications")
-				.": ".$newApplication->getEarliestDateOfJoining()->format(LocalizationUtility::translate("date_format", "jobapplications"))."<br>" : "";
-			$nameLabel = LocalizationUtility::translate("tx_jobapplications_domain_model_location.name", "jobapplications").": ";
-			$emailLabel = LocalizationUtility::translate("tx_jobapplications_domain_model_application.email", "jobapplications").": ";
-			$phoneLabel = LocalizationUtility::translate("tx_jobapplications_domain_model_application.phone", "jobapplications").": ";
-			$addressLabel = LocalizationUtility::translate("tx_jobapplications_domain_model_location.address", "jobapplications").": ";
-			$additionalAddress = $newApplication->getAddressAddition() ? $newApplication->getAddressAddition().'<br>' : "";
-			$messageLabel = LocalizationUtility::translate("tx_jobapplications_domain_model_application.message", "jobapplications").": ";
-			$message = $newApplication->getMessage() ? '<br><br>'.$messageLabel.'<br>'.$newApplication->getMessage() : "";
-
-			$phoneLine = $newApplication->getPhone() !== '' ? $phoneLabel.$newApplication->getPhone().'<br>' : '';
-
-			$addressChunk = "";
-			if ($newApplication->getAddressStreetAndNumber()
-				|| $newApplication->getAddressPostCode()
-				|| $newApplication->getAddressCity()
-				|| $newApplication->getAddressCountry()
-			)
-			{
-				$addressChunk = $addressLabel.'<br>'.$newApplication->getAddressStreetAndNumber().'<br>'
-					.$additionalAddress.
-					$newApplication->getAddressPostCode().' '.$newApplication->getAddressCity()
-					.'<br>'.$newApplication->getAddressCountry();
-			}
+			/** @var Mailer $mailer */
+			$mailer = GeneralUtility::makeInstance(Mailer::class);
 
 			// Send mail to Contact E-Mail or/and internal E-Mail
 			if ($this->settings["sendEmailToContact"] === "1" || $this->settings['sendEmailToInternal'] !== "")
 			{
-				/** @var \ITX\Jobapplications\Utility\Mail\MailInterface $mail */
-				if ($this->version >= 10)
-				{
-					$mail = GeneralUtility::makeInstance(\ITX\Jobapplications\Utility\Mail\MailFluid::class);
-					$mail->setTemplate('JobsNotificationMail');
-				}
-				else
-				{
-					$mail = GeneralUtility::makeInstance(\ITX\Jobapplications\Utility\Mail\MailMessage::class);
-				}
+				$mail = GeneralUtility::makeInstance(FluidEmail::class);
+				$mail->setTemplate('JobsNotificationMail');
 
-				$mail->setContentType($this->settings['emailContentType']);
+
+				$mail->format($this->settings['emailContentType']);
 
 				// Prepare and send the message
 				$mail
-					->addSubject(LocalizationUtility::translate("fe.email.toContactSubject", 'jobapplications', [0 => $currentPosting->getTitle()]))
-					->from([$this->settings["emailSender"] => $this->settings["emailSenderName"]])
-					->setReply([$newApplication->getEmail() => $newApplication->getFirstName()." ".$newApplication->getLastName()])
-					->setContent('<p>'.
-								 $nameLabel.$salutation.' '.$newApplication->getFirstName().' '.$newApplication->getLastName().'<br>'.
-								 $emailLabel.$newApplication->getEmail().'<br>'.
-								 $phoneLine.
-								 $salary.
-								 $dateOfJoining.'<br>'.
-								 $addressChunk
-								 .$message.'</p>', ['application' => $newApplication, 'settings' => $this->settings, 'currentPosting' => $currentPosting]);
+					->subject(LocalizationUtility::translate("fe.email.toContactSubject", 'jobapplications', [0 => $currentPosting->getTitle()]))
+					->from(new Address($this->settings["emailSender"], $this->settings["emailSenderName"]))
+					->replyTo(new Address($newApplication->getEmail(), $newApplication->getFirstName()." ".$newApplication->getLastName()))
+					->assignMultiple(['application' => $newApplication, 'settings' => $this->settings, 'currentPosting' => $currentPosting]);
 
 				foreach ($legacyUploadfiles as $fileArray)
 				{
@@ -439,7 +403,7 @@
 					{
 						if ($file instanceof FileInterface)
 						{
-							$mail->addAttachment($file->getPublicUrl());
+							$mail->attach($file->getPublicUrl());
 						}
 					}
 				}
@@ -448,35 +412,32 @@
 				{
 					if ($file instanceof FileInterface)
 					{
-						$mail->addAttachment($file->getPublicUrl());
+						$mail->attach($file->getPublicUrl());
 					}
 				}
 
 				//Figure out who the email will be sent to and how
 				if ($this->settings['sendEmailToInternal'] != "" && $this->settings['sendEmailToContact'] == "1")
 				{
-					$mail->to([$contact->getEmail() => $contact->getFirstName().' '.$contact->getLastName()]);
-					$mail->setBlindcopies([$this->settings['sendEmailToInternal']]);
+					$mail->to(new Address($contact->getEmail(), $contact->getFirstName().' '.$contact->getLastName()));
+					$mail->bcc(new Address($this->settings['sendEmailToInternal']));
 				}
 				else if ($this->settings['sendEmailToContact'] != "1" && $this->settings['sendEmailToInternal'] != "")
 				{
-					$mail->to([$this->settings['sendEmailToInternal'] => 'Internal']);
+					$mail->to(new Address($this->settings['sendEmailToInternal'], 'Internal'));
 				}
 				else if ($this->settings['sendEmailToContact'] == "1" && $this->settings['sendEmailToInternal'] != "1")
 				{
-					$mail->to([$contact->getEmail() => $contact->getFirstName()." ".$contact->getLastName()]);
+					$mail->to(new Address($contact->getEmail(), $contact->getFirstName()." ".$contact->getLastName()));
 				}
 
 				try
 				{
-					if (!$mail->send())
-					{
-						throw new \RuntimeException('Failed to send mail!');
-					}
+					$mailer->send($mail);
 				}
 				catch (\Exception $e)
 				{
-					$this->logger->log(\TYPO3\CMS\Core\Log\LogLevel::CRITICAL, 'Error trying to send a mail: '.$e->getMessage(), [$this->settings, $mail]);
+					$this->logger->log(LogLevel::CRITICAL, 'Error trying to send a mail: '.$e->getMessage(), [$this->settings, $mail]);
 					$problemWithNotificationMail = true;
 				}
 			}
@@ -484,54 +445,24 @@
 			// Now send a mail to the applicant
 			if ($this->settings["sendEmailToApplicant"] === "1")
 			{
-				/** @var MailInterface $mail */
-				if ($this->version >= 10)
-				{
-					$mail = GeneralUtility::makeInstance(\ITX\Jobapplications\Utility\Mail\MailFluid::class);
-					$mail->setTemplate('JobsApplicantMail');
-				}
-				else
-				{
-					$mail = GeneralUtility::makeInstance(\ITX\Jobapplications\Utility\Mail\MailMessage::class);
-				}
+				$mail = GeneralUtility::makeInstance(FluidEmail::class);
+				$mail->setTemplate('JobsApplicantMail');
 
-				$mail->setContentType($this->settings['emailContentType']);
+				$mail->format($this->settings['emailContentType']);
 
 				//Template Messages
 				$subject = $this->settings['sendEmailToApplicantSubject'];
 				$subject = str_replace("%postingTitle%", $currentPosting->getTitle(), $subject);
 
-				$body = $this->settings["sendEmailToApplicantText"];
-				switch ((int)$newApplication->getSalutation())
-				{
-					case 3:
-					case 0:
-						$salutation = "";
-						break;
-					case 1:
-						$salutation = LocalizationUtility::translate("fe.application.selector.mr", "jobapplications");
-						break;
-					case 2:
-						$salutation = LocalizationUtility::translate("fe.application.selector.mrs", "jobapplications");
-						break;
-				}
-				$body = str_replace("%applicantSalutation%", $salutation, $body);
-				$body = str_replace("%applicantFirstname%", $newApplication->getFirstName(), $body);
-				$body = str_replace("%applicantLastname%", $newApplication->getLastName(), $body);
-				$body = str_replace("%postingTitle%", $currentPosting->getTitle(), $body);
-
 				$mail
-					->addSubject($subject)
-					->from([$this->settings["emailSender"] => $this->settings["emailSenderName"]])
-					->to([$newApplication->getEmail() => $newApplication->getFirstName()." ".$newApplication->getLastName()])
-					->setContent($body, ['application' => $newApplication, 'settings' => $this->settings]);
+					->subject($subject)
+					->from(new Address($this->settings["emailSender"], $this->settings["emailSenderName"]))
+					->to(new Address($newApplication->getEmail(), $newApplication->getFirstName()." ".$newApplication->getLastName()))
+					->assignMultiple(['application' => $newApplication, 'settings' => $this->settings]);
 
 				try
 				{
-					if (!$mail->send())
-					{
-						throw new \RuntimeException('Failed to send mail!');
-					}
+					$mailer->send($mail);
 				}
 				catch (\Exception $e)
 				{
@@ -697,7 +628,7 @@
 					->update(
 						"tx_jobapplications_domain_model_application",
 						["files" => $totalFiles], [
-							'uid' => $newStorageUid
+							'uid' => $objectUid
 						]);
 			}
 		}

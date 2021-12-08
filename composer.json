@@ -23,8 +23,9 @@
     "docs": "https://docs.typo3.org/p/itx/jobapplications/master/en-us/"
   },
   "require": {
-    "typo3/cms-core": "^9.5 || ^10.4",
+    "typo3/cms-core": "^10.4",
     "typo3/cms-scheduler": "*",
+    "typo3/cms-dashboard": "*",
     "fluidtypo3/vhs": "^6"
   },
   "require-dev": {

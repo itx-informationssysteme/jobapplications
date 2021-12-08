@@ -2,6 +2,9 @@
 
 	namespace ITX\Jobapplications\Task;
 
+	use TYPO3\CMS\Core\Messaging\AbstractMessage;
+	use TYPO3\CMS\Core\Messaging\FlashMessage;
+
 	/***************************************************************
 	 *  Copyright notice
 	 *
@@ -95,7 +98,7 @@
 				// @extensionScannerIgnoreLine
 				$this->addMessage(
 					$this->getLanguageService()->sL('LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:task.days.empty'),
-					FlashMessage::ERROR
+					AbstractMessage::ERROR
 				);
 				$result = false;
 			}
