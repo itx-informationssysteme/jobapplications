@@ -91,7 +91,7 @@
 		/**
 		 * @inheritDoc
 		 */
-		public function setSubject(string $subject): MailInterface
+		public function addSubject(string $subject): MailInterface
 		{
 			return $this->subject($subject);
 		}
@@ -163,7 +163,7 @@
 		/**
 		 * @inheritDoc
 		 */
-		public function setTo(array $addresses, string $name = ''): MailInterface
+		public function to(array $addresses, string $name = ''): MailInterface
 		{
 			foreach ($addresses as $key => $address)
 			{
@@ -178,7 +178,7 @@
 		/**
 		 * @inheritDoc
 		 */
-		public function setFrom(array $addresses, $name = ''): MailInterface
+		public function from(array $addresses, $name = ''): MailInterface
 		{
 			foreach ($addresses as $key => $address)
 			{

@@ -57,9 +57,9 @@
 		 *
 		 * @return \TYPO3\CMS\Core\Mail\MailMessage
 		 */
-		public function setTo($addresses, $name = ''): MailInterface
+		public function to($addresses, $name = ''): MailInterface
 		{
-			parent::setTo($addresses, $name);
+			$this->setTo($addresses, $name);
 
 			return $this;
 		}
@@ -77,9 +77,9 @@
 		 *
 		 * @return \TYPO3\CMS\Core\Mail\MailMessage
 		 */
-		public function setFrom($addresses, $name = ''): MailInterface
+		public function from($addresses, $name = ''): MailInterface
 		{
-			parent::setFrom($addresses, $name);
+			$this->setFrom($addresses, $name);
 
 			return $this;
 		}
@@ -149,9 +149,9 @@
 		 *
 		 * @return $this
 		 */
-		public function setSubject($subject): MailInterface
+		public function addSubject($subject): MailInterface
 		{
-			parent::setSubject($subject);
+			$this->setSubject($subject);
 
 			return $this;
 		}

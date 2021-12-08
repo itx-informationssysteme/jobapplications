@@ -421,8 +421,8 @@
 
 				// Prepare and send the message
 				$mail
-					->setSubject(LocalizationUtility::translate("fe.email.toContactSubject", 'jobapplications', [0 => $currentPosting->getTitle()]))
-					->setFrom([$this->settings["emailSender"] => $this->settings["emailSenderName"]])
+					->addSubject(LocalizationUtility::translate("fe.email.toContactSubject", 'jobapplications', [0 => $currentPosting->getTitle()]))
+					->from([$this->settings["emailSender"] => $this->settings["emailSenderName"]])
 					->setReply([$newApplication->getEmail() => $newApplication->getFirstName()." ".$newApplication->getLastName()])
 					->setContent('<p>'.
 								 $nameLabel.$salutation.' '.$newApplication->getFirstName().' '.$newApplication->getLastName().'<br>'.
@@ -455,16 +455,16 @@
 				//Figure out who the email will be sent to and how
 				if ($this->settings['sendEmailToInternal'] != "" && $this->settings['sendEmailToContact'] == "1")
 				{
-					$mail->setTo([$contact->getEmail() => $contact->getFirstName().' '.$contact->getLastName()]);
+					$mail->to([$contact->getEmail() => $contact->getFirstName().' '.$contact->getLastName()]);
 					$mail->setBlindcopies([$this->settings['sendEmailToInternal']]);
 				}
 				else if ($this->settings['sendEmailToContact'] != "1" && $this->settings['sendEmailToInternal'] != "")
 				{
-					$mail->setTo([$this->settings['sendEmailToInternal'] => 'Internal']);
+					$mail->to([$this->settings['sendEmailToInternal'] => 'Internal']);
 				}
 				else if ($this->settings['sendEmailToContact'] == "1" && $this->settings['sendEmailToInternal'] != "1")
 				{
-					$mail->setTo([$contact->getEmail() => $contact->getFirstName()." ".$contact->getLastName()]);
+					$mail->to([$contact->getEmail() => $contact->getFirstName()." ".$contact->getLastName()]);
 				}
 
 				try
@@ -521,9 +521,9 @@
 				$body = str_replace("%postingTitle%", $currentPosting->getTitle(), $body);
 
 				$mail
-					->setSubject($subject)
-					->setFrom([$this->settings["emailSender"] => $this->settings["emailSenderName"]])
-					->setTo([$newApplication->getEmail() => $newApplication->getFirstName()." ".$newApplication->getLastName()])
+					->addSubject($subject)
+					->from([$this->settings["emailSender"] => $this->settings["emailSenderName"]])
+					->to([$newApplication->getEmail() => $newApplication->getFirstName()." ".$newApplication->getLastName()])
 					->setContent($body, ['application' => $newApplication, 'settings' => $this->settings]);
 
 				try

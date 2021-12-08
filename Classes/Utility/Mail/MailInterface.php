@@ -46,7 +46,7 @@
 		 *
 		 * @return MailInterface
 		 */
-		public function setTo(array $addresses, string $name = ''): MailInterface;
+		public function to(array $addresses, string $name = ''): MailInterface;
 
 		/**
 		 * @param array  $addresses
@@ -68,7 +68,7 @@
 		 *
 		 * @return MailInterface
 		 */
-		public function setSubject(string $subject): MailInterface;
+		public function addSubject(string $subject): MailInterface;
 
 		/**
 		 * @param array  $addresses
@@ -76,7 +76,7 @@
 		 *
 		 * @return MailInterface
 		 */
-		public function setFrom(array $addresses, $name = ''): MailInterface;
+		public function from(array $addresses, $name = ''): MailInterface;
 
 		/**
 		 * @param array $addresses
