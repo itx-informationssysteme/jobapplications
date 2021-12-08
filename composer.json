@@ -26,6 +26,9 @@
     "typo3/cms-core": "^9.5 || ^10.4",
     "fluidtypo3/vhs": "^6"
   },
+  "require-dev": {
+    "phpstan/phpstan": "^1.2"
+  },
   "extra": {
     "typo3/cms": {
       "extension-key": "jobapplications"
