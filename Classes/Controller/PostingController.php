@@ -3,6 +3,7 @@
 	namespace ITX\Jobapplications\Controller;
 
 	use ITX\Jobapplications\Domain\Model\Constraint;
+	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
 	use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;

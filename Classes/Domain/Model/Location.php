@@ -178,18 +178,6 @@
 		}
 
 		/**
-		 * Sets the address
-		 *
-		 * @param string $address
-		 *
-		 * @return void
-		 */
-		public function setAddress($address)
-		{
-			$this->address = $address;
-		}
-
-		/**
 		 * Returns the latitude
 		 *
 		 * @return string $latitude

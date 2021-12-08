@@ -24,6 +24,7 @@
   },
   "require": {
     "typo3/cms-core": "^9.5 || ^10.4",
+    "typo3/cms-scheduler": "*",
     "fluidtypo3/vhs": "^6"
   },
   "require-dev": {
