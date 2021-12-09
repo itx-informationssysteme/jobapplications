@@ -2,10 +2,12 @@
 
 	namespace ITX\Jobapplications\Service;
 
+	use TYPO3\CMS\Core\Localization\Exception\FileNotFoundException;
 	use TYPO3\CMS\Core\Resource\Exception\FileOperationErrorException;
 	use TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException;
 	use TYPO3\CMS\Core\Resource\Exception\InsufficientUserPermissionsException;
 	use TYPO3\CMS\Core\Resource\Exception\InvalidPathException;
+	use TYPO3\CMS\Core\Resource\ResourceStorage;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Object\ObjectManager;
 
@@ -51,7 +53,12 @@
 			/* @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
 			$storageRepository = $objectManager->get(\TYPO3\CMS\Core\Resource\StorageRepository::class);
 			$storage = $storageRepository->findByUid(1);
+			if (!$storage instanceof ResourceStorage) {
+				throw new FileNotFoundException("Could not find fileadmin with uid 1");
+			}
 
+			/** @var \TYPO3\CMS\Core\Resource\Folder|null $folder */
+			$folder = null;
 			if ($storage->hasFolder($folderPath))
 			{
 				$folder = $storage->getFolder($folderPath);

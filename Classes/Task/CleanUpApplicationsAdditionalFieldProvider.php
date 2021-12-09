@@ -2,6 +2,7 @@
 
 	namespace ITX\Jobapplications\Task;
 
+	use TYPO3\CMS\Core\Localization\LanguageService;
 	use TYPO3\CMS\Core\Messaging\AbstractMessage;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 
@@ -90,7 +91,7 @@
 		 *
 		 * @return bool TRUE if validation was ok (or selected class is not relevant), FALSE otherwise
 		 */
-		public function validateAdditionalFields(array &$submittedData, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule)
+		public function validateAdditionalFields(array &$submittedData, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule): bool
 		{
 			$submittedData['days'] = trim($submittedData['days']);
 			if (empty($submittedData['days']))
@@ -111,11 +112,15 @@
 		}
 
 		/**
-		 * @return LanguageService|null
+		 * @return LanguageService
 		 */
-		protected function getLanguageService(): ?LanguageService
+		protected function getLanguageService(): LanguageService
 		{
-			return $GLOBALS['LANG'] ?? null;
+			if (!$GLOBALS['LANG'] instanceof LanguageService) {
+				throw new FileNotFoundException("Could not fetch language service");
+			}
+
+			return $GLOBALS['LANG'];
 		}
 
 		/**

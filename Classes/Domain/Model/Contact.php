@@ -2,6 +2,8 @@
 
 	namespace ITX\Jobapplications\Domain\Model;
 
+	use TYPO3\CMS\Core\Http\ApplicationType;
+
 	/***************************************************************
 	 *  Copyright notice
 	 *
@@ -200,8 +202,7 @@
 		 */
 		public function getBeUser()
 		{
-			if (TYPO3_MODE === 'BE')
-			{
+			if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
 				return $this->beUser;
 			}
 

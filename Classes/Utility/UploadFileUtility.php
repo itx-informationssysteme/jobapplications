@@ -70,7 +70,7 @@
 				$renameResult = rename($filePath.reset($files), $filePath.$file->getClientFilename());
 				if (!$renameResult)
 				{
-					throw new \RuntimeException("Could not rename file: ".$filePath.files[0]);
+					throw new \RuntimeException("Could not rename file: ".$filePath.$files[0]);
 				}
 			}
 			else

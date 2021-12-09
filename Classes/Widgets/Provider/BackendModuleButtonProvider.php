@@ -37,11 +37,9 @@
 		/**
 		 * BackendModuleButtonProvider constructor.
 		 *
-		 * @param string $title
-		 * @param string $link
 		 * @param string $target
 		 */
-		public function __construct(string $title, string $link, string $target = '')
+		public function __construct(string $target = '')
 		{
 			if (!$GLOBALS['BE_USER']->check('modules', 'web_JobapplicationsBackend'))
 			{

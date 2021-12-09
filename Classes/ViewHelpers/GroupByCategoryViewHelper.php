@@ -50,6 +50,7 @@
 				throw new ViewHelper\Exception('GroupByCategoryViewHelper only supports arrays and objects implementing \Traversable interface', 1248728393);
 			}
 
+			$iterationData = [];
 			if (isset($arguments['iteration']))
 			{
 				$iterationData = [
