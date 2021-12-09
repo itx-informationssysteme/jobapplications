@@ -117,7 +117,7 @@
 		protected function getLanguageService(): LanguageService
 		{
 			if (!$GLOBALS['LANG'] instanceof LanguageService) {
-				throw new FileNotFoundException("Could not fetch language service");
+				throw new \RuntimeException("Could not fetch language service");
 			}
 
 			return $GLOBALS['LANG'];
