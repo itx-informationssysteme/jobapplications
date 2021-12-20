@@ -32,12 +32,12 @@
 	use ITX\Jobapplications\Utility\Mail\MailInterface;
 	use ITX\Jobapplications\Utility\Typo3VersionUtility;
 	use ITX\Jobapplications\Utility\UploadFileUtility;
+	use Psr\Log\LogLevel;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Resource\FileInterface;
 	use TYPO3\CMS\Core\Resource\StorageRepository;
-	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 	use TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter;
@@ -48,6 +48,9 @@
 	 */
 	class ApplicationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	{
+		public const UPLOAD_MODE_FILES = 'files';
+		public const UPLOAD_MODE_LEGACY = 'legacy';
+		public const UPLOAD_MODE_NONE = 'none';
 
 		/**
 		 * applicationRepository
@@ -245,6 +248,37 @@
 			$posting ? $this->view->assign('salutationValue', $salutationValue) : false;
 		}
 
+		private function hasArrayWithIndicesNonEmpty(array $array, array $indices): bool
+		{
+			foreach ($indices as $index)
+			{
+				if (isset($array[$index]) && count($array[$index]) > 0)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		private function isStringArray(?array $array): bool
+		{
+			if (!is_array($array))
+			{
+				return false;
+			}
+
+			foreach ($array as $item)
+			{
+				if (is_string($item))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		/**
 		 * @param Application  $newApplication
 		 * @param Posting|null $posting
@@ -255,7 +289,6 @@
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderWritePermissionsException
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
-		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
 		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
 		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
 		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
@@ -269,42 +302,44 @@
 
 			$arguments = $this->request->getArguments();
 
-			$isMultiFile = false;
+			$uploadMode = self::UPLOAD_MODE_NONE;
+
 			$multiUploadFiles = [];
 			$legacyUploadfiles = [];
+			$fileIndices = ['cv', 'cover_letter', 'testimonials', 'other_files'];
+
+			// Normalize file array -> free choice whether multi or single upload
+			foreach ($fileIndices as $fileIndex)
+			{
+				if (isset($arguments[$fileIndex]) && is_string($arguments[$fileIndex]) && !empty($arguments[$fileIndex]))
+				{
+					$arguments[$fileIndex] = [$arguments[$fileIndex]];
+					continue;
+				}
+
+				if (isset($arguments[$fileIndex]) && is_array($arguments[$fileIndex]))
+				{
+					foreach ($arguments[$fileIndex] as $index => $fileId)
+					{
+						if (!is_string($fileId) || empty($fileId))
+						{
+							array_splice($arguments[$fileIndex], $index, 1);
+						}
+					}
+					continue;
+				}
+
+				$arguments[$fileIndex] = [];
+			}
 
 			// Check which kind of uploads were sent
-			if (!empty($arguments['files']))
+			if ($this->isStringArray($arguments['files']))
 			{
-				$isMultiFile = true;
+				$uploadMode = self::UPLOAD_MODE_FILES;
 			}
-			else
+			else if ($this->hasArrayWithIndicesNonEmpty($arguments, $fileIndices))
 			{
-				// Normalize file array -> free choice whether multi or single upload
-				$fileIndices = ['cv', 'cover_letter', 'testimonials', 'other_files'];
-
-				foreach ($fileIndices as $fileIndex)
-				{
-					if (is_string($arguments[$fileIndex]) && !empty($arguments[$fileIndex]))
-					{
-						$arguments[$fileIndex] = [$arguments[$fileIndex]];
-						continue;
-					}
-
-					if (is_array($arguments[$fileIndex]))
-					{
-						foreach ($arguments[$fileIndex] as $index => $fileId)
-						{
-							if (!is_string($fileId) || empty($fileId))
-							{
-								array_splice($arguments[$fileIndex], $index, 1);
-							}
-						}
-						continue;
-					}
-
-					$arguments[$fileIndex] = [];
-				}
+				$uploadMode = self::UPLOAD_MODE_LEGACY;
 			}
 
 			// Verify length in message field;
@@ -347,17 +382,20 @@
 				$newApplication->setPosting($posting);
 			}
 
-			if (!$isMultiFile)
+			// Process files
+			switch ($uploadMode)
 			{
-				// Process files
-				$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['cv'], 'cv', 'cv_');
-				$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['cover_letter'], 'cover_letter', 'cover_letter_');
-				$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['testimonials'], 'testimonials', 'testimonials_');
-				$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['other_files'], 'other_files', 'other_files_');
-			}
-			else
-			{
-				$multiUploadFiles = $this->processFiles($newApplication, $arguments['files'], 'files');
+				case self::UPLOAD_MODE_LEGACY:
+					$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['cv'], 'cv', 'cv_');
+					$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['cover_letter'], 'cover_letter', 'cover_letter_');
+					$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['testimonials'], 'testimonials', 'testimonials_');
+					$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['other_files'], 'other_files', 'other_files_');
+					break;
+				case self::UPLOAD_MODE_FILES:
+					$multiUploadFiles = $this->processFiles($newApplication, $arguments['files'], 'files');
+					break;
+				default:
+					// No files were uploaded, so we don't have to process any
 			}
 
 			// Mail Handling
@@ -476,7 +514,7 @@
 				}
 				catch (\Exception $e)
 				{
-					$this->logger->log(\TYPO3\CMS\Core\Log\LogLevel::CRITICAL, 'Error trying to send a mail: '.$e->getMessage(), [$this->settings, $mail]);
+					$this->logger->log(LogLevel::CRITICAL, 'Error trying to send a mail: '.$e->getMessage(), [$this->settings, $mail]);
 					$problemWithNotificationMail = true;
 				}
 			}
@@ -566,13 +604,13 @@
 			];
 
 			$uri = $this->uriBuilder->uriFor('success',
-											 [
-												 'firstName' => $newApplication->getFirstName(),
-												 'lastName' => $newApplication->getLastName(),
-												 'salutation' => $newApplication->getSalutation(),
-												 'problems' => $problems,
-												 'postingUid' => $currentPosting->getUid() ?: -1
-											 ], 'Application', null, 'SuccessPage');
+				[
+					'firstName' => $newApplication->getFirstName(),
+					'lastName' => $newApplication->getLastName(),
+					'salutation' => $newApplication->getSalutation(),
+					'problems' => $problems,
+					'postingUid' => $currentPosting->getUid() ?: -1
+				], 'Application', null, 'SuccessPage');
 
 			$this->redirectToUri($uri);
 		}
@@ -630,7 +668,7 @@
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderWritePermissionsException
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
 		 */
-		private function handleFileUpload(string $filePath, string $fileName,
+		private function handleFileUpload(string                                        $filePath, string $fileName,
 										  \ITX\Jobapplications\Domain\Model\Application $domainObject, string $prefix = ''): FileInterface
 		{
 
