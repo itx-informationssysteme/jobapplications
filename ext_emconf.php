@@ -31,9 +31,7 @@
 		'author_company' => 'it.x informationssysteme gmbh',
 		'author_email' => 'typo-itx@itx.de',
 		'state' => 'stable',
-		'uploadfolder' => 1,
-		'createDirs' => '',
-		'clearCacheOnLoad' => 1,
+		'clearCacheOnLoad' => true,
 		'version' => '1.0.4',
 		'constraints' => [
 			'depends' => [

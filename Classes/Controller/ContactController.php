@@ -2,6 +2,9 @@
 
 	namespace ITX\Jobapplications\Controller;
 
+	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+	use Psr\Http\Message\ResponseInterface;
+	use ITX\Jobapplications\Domain\Repository\ContactRepository;
 	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 
 	/***************************************************************
@@ -30,14 +33,13 @@
 	/**
 	 * ContactController
 	 */
-	class ContactController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+	class ContactController extends ActionController
 	{
 
 		/**
 		 * contactRepository
 		 *
 		 * @var \ITX\Jobapplications\Domain\Repository\ContactRepository
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $contactRepository = null;
 
@@ -65,7 +67,7 @@
 		 *
 		 * @return void
 		 */
-		public function listAction()
+		public function listAction(): ResponseInterface
 		{
 			$contacts = [];
 			$selectedContactsStr = $this->settings["selectedContacts"];
@@ -85,5 +87,11 @@
 			$contactObjects = array_replace(array_flip($contacts), $contactByUid);
 
 			$this->view->assign('contacts', $contactObjects);
+			return $this->htmlResponse();
+		}
+
+		public function injectContactRepository(ContactRepository $contactRepository): void
+		{
+			$this->contactRepository = $contactRepository;
 		}
 	}

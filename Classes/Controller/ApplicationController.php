@@ -24,7 +24,17 @@
 	 *
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
-
+	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+	use TYPO3\CMS\Core\Log\LogManager;
+	use Psr\Http\Message\ResponseInterface;
+	use ITX\Jobapplications\Domain\Model\Contact;
+	use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
+	use ITX\Jobapplications\Domain\Repository\ApplicationRepository;
+	use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+	use ITX\Jobapplications\Service\ApplicationFileService;
+	use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
+	use ITX\Jobapplications\Domain\Repository\PostingRepository;
+	use ITX\Jobapplications\Domain\Repository\StatusRepository;
 	use ITX\Jobapplications\Domain\Model\Application;
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Model\Status;
@@ -52,14 +62,13 @@
 	/**
 	 * ApplicationController
 	 */
-	class ApplicationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+	class ApplicationController extends ActionController
 	{
 
 		/**
 		 * applicationRepository
 		 *
 		 * @var \ITX\Jobapplications\Domain\Repository\ApplicationRepository
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $applicationRepository = null;
 
@@ -70,19 +79,16 @@
 		protected $allowedFileTypesString;
 		/**
 		 * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $persistenceManager;
 		/**
 		 * @var \ITX\Jobapplications\Service\ApplicationFileService
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $applicationFileService;
 		/**
 		 * signalSlotDispatcher
 		 *
 		 * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $signalSlotDispatcher;
 		/**
@@ -93,12 +99,10 @@
 		protected $version;
 		/**
 		 * @var \ITX\Jobapplications\Domain\Repository\PostingRepository
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		private $postingRepository;
 		/**
 		 * @var \ITX\Jobapplications\Domain\Repository\StatusRepository
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		private $statusRepository;
 
@@ -115,11 +119,11 @@
 							->getPropertyMappingConfiguration()->forProperty('earliestDateOfJoining')
 							->setTypeConverterOption(
 								DateTimeConverter::class,
-								\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,
+								DateTimeConverter::CONFIGURATION_DATE_FORMAT,
 								'Y-m-d'
 							);
 
-			$this->logger = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Log\LogManager::class)->getLogger(__CLASS__);
+			$this->logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__);
 		}
 
 		/**
@@ -146,7 +150,7 @@
 		public function initializeAction(): void
 		{
 			/** @var ExtensionConfiguration $extconf */
-			$extconf = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class);
+			$extconf = GeneralUtility::makeInstance(ExtensionConfiguration::class);
 			$extConfLimit = $extconf->get('jobapplications', 'customFileSizeLimit');
 			$this->allowedFileTypesString = $extconf->get('jobapplications', 'allowedFileTypes');
 
@@ -168,7 +172,7 @@
 		 *
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
 		 */
-		public function newAction(Posting $posting = null): void
+		public function newAction(Posting $posting = null): ResponseInterface
 		{
 			/*
 			Getting posting when Detailview and applicationform are on the same page.
@@ -215,6 +219,7 @@
 			{
 				$this->view->assign("fileError", 0);
 			}
+			return $this->htmlResponse();
 		}
 
 		/**
@@ -224,7 +229,7 @@
 		 * @param array  $problems
 		 * @param int    $postingUid
 		 */
-		public function successAction($firstName, $lastName, $salutation, $problems, $postingUid = -1)
+		public function successAction($firstName, $lastName, $salutation, $problems, $postingUid = -1): ResponseInterface
 		{
 			$salutationValue = $salutation;
 
@@ -251,6 +256,7 @@
 			$this->view->assign('salutation', $salutation);
 			$this->view->assign('problems', $problems);
 			$posting ? $this->view->assign('salutationValue', $salutationValue) : false;
+			return $this->htmlResponse();
 		}
 
 		/**
@@ -268,7 +274,7 @@
 		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
 		 * @throws \TYPO3\CMS\Form\Domain\Exception\IdentifierNotValidException
 		 */
-		public function createAction(\ITX\Jobapplications\Domain\Model\Application $newApplication, \ITX\Jobapplications\Domain\Model\Posting $posting = null): void
+		public function createAction(Application $newApplication, Posting $posting = null): void
 		{
 			$problemWithApplicantMail = false;
 			$problemWithNotificationMail = false;
@@ -351,7 +357,7 @@
 			if (!($posting instanceof Posting))
 			{
 				/** @var Posting $posting */
-				$posting = GeneralUtility::makeInstance(\ITX\Jobapplications\Domain\Model\Posting::class);
+				$posting = GeneralUtility::makeInstance(Posting::class);
 				$posting->setTitle(LocalizationUtility::translate("fe.application.unsolicited.title", "jobapplications"));
 
 				$newApplication->setPosting($posting);
@@ -376,7 +382,7 @@
 			$currentPosting = $newApplication->getPosting();
 
 			// Default contact is not available
-			$contact = GeneralUtility::makeInstance(\ITX\Jobapplications\Domain\Model\Contact::class);
+			$contact = GeneralUtility::makeInstance(Contact::class);
 
 			$contact->setEmail($this->settings["defaultContactMailAddress"]);
 			$contact->setFirstName($this->settings["defaultContactFirstName"]);
@@ -490,7 +496,7 @@
 
 			$this->uriBuilder->setTargetPageUid((int)$this->settings['successPage']);
 
-			if (\TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SSL'))
+			if (GeneralUtility::getIndpEnv('TYPO3_SSL'))
 			{
 				$this->uriBuilder->setAbsoluteUriScheme('https');
 			}
@@ -566,7 +572,7 @@
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
 		 */
 		private function handleFileUpload(string                                        $filePath, string $fileName,
-										  \ITX\Jobapplications\Domain\Model\Application $domainObject, string $prefix = '')
+										  Application $domainObject, string $prefix = '')
 		{
 
 			$folder = $this->applicationFileService->getApplicantFolder($domainObject);
@@ -590,7 +596,7 @@
 			}
 
 			//file name
-			$newFileName = (new \TYPO3\CMS\Core\Resource\Driver\LocalDriver)->sanitizeFileName($prefix.$fileName);
+			$newFileName = (new LocalDriver)->sanitizeFileName($prefix.$fileName);
 
 			//build sys_file
 			$movedNewFile = $storage->addFile($filePath, $targetFolder, $newFileName);
@@ -639,5 +645,35 @@
 							'uid' => $objectUid
 						]);
 			}
+		}
+
+		public function injectApplicationRepository(ApplicationRepository $applicationRepository): void
+		{
+			$this->applicationRepository = $applicationRepository;
+		}
+
+		public function injectPersistenceManager(PersistenceManager $persistenceManager): void
+		{
+			$this->persistenceManager = $persistenceManager;
+		}
+
+		public function injectApplicationFileService(ApplicationFileService $applicationFileService): void
+		{
+			$this->applicationFileService = $applicationFileService;
+		}
+
+		public function injectSignalSlotDispatcher(Dispatcher $signalSlotDispatcher): void
+		{
+			$this->signalSlotDispatcher = $signalSlotDispatcher;
+		}
+
+		public function injectPostingRepository(PostingRepository $postingRepository): void
+		{
+			$this->postingRepository = $postingRepository;
+		}
+
+		public function injectStatusRepository(StatusRepository $statusRepository): void
+		{
+			$this->statusRepository = $statusRepository;
 		}
 	}

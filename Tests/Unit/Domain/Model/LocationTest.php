@@ -1,14 +1,16 @@
 <?php
 
 	namespace ITX\Jobapplications\Tests\Unit\Domain\Model;
-
+	
+	use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+	use ITX\Jobapplications\Domain\Model\Location;
 	/**
 	 * Test case.
 	 *
 	 * @author Stefanie Döll
 	 * @author Benjamin Jasper
 	 */
-	class LocationTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
+	class LocationTest extends UnitTestCase
 	{
 		/**
 		 * @var \ITX\Jobapplications\Domain\Model\Location
@@ -118,7 +120,7 @@
 		protected function setUp()
 		{
 			parent::setUp();
-			$this->subject = new \ITX\Jobapplications\Domain\Model\Location();
+			$this->subject = new Location();
 		}
 
 		protected function tearDown()

@@ -24,6 +24,8 @@
 
 	namespace ITX\Jobapplications\Domain\Repository;
 
+	use TYPO3\CMS\Extbase\Persistence\Repository;
+	use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -32,7 +34,7 @@
 	 *
 	 * Parent Repository for other repos
 	 */
-	abstract class JobapplicationsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+	abstract class JobapplicationsRepository extends Repository
 	{
 		/**
 		 * Helper function for building the sql for categories
@@ -43,7 +45,7 @@
 		 * @return \TYPO3\CMS\Core\Database\Query\QueryBuilder
 		 */
 
-		public function buildCategoriesToSQL(array $categories, \TYPO3\CMS\Core\Database\Query\QueryBuilder $qb)
+		public function buildCategoriesToSQL(array $categories, QueryBuilder $qb)
 		{
 			$statement = "";
 			for ($i = 0, $iMax = count($categories); $i < $iMax; $i++)

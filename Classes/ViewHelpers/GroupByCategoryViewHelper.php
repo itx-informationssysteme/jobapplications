@@ -6,7 +6,7 @@
 	 * This file belongs to the package "TYPO3 Fluid".
 	 * See LICENSE.txt that was shipped with this package.
 	 */
-
+	use TYPO3Fluid\Fluid\Core\ViewHelper\Exception;
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use TYPO3\CMS\Extbase\Domain\Model\Category;
 	use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
@@ -47,7 +47,7 @@
 			}
 			if (is_object($arguments['postings']) && !$arguments['postings'] instanceof \Traversable)
 			{
-				throw new ViewHelper\Exception('GroupByCategoryViewHelper only supports arrays and objects implementing \Traversable interface', 1248728393);
+				throw new Exception('GroupByCategoryViewHelper only supports arrays and objects implementing \Traversable interface', 1248728393);
 			}
 
 			$iterationData = [];

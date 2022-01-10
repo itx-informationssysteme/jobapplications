@@ -24,7 +24,10 @@
 	 *
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
-
+	use TYPO3\CMS\Scheduler\Task\AbstractTask;
+	use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+	use ITX\Jobapplications\Domain\Repository\ApplicationRepository;
+	use ITX\Jobapplications\Service\ApplicationFileService;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Object\ObjectManager;
 
@@ -33,7 +36,7 @@
 	 *
 	 * @package ITX\Jobapplications
 	 */
-	class CleanUpApplications extends \TYPO3\CMS\Scheduler\Task\AbstractTask
+	class CleanUpApplications extends AbstractTask
 	{
 		public $days = null;
 		public $status = 0;
@@ -47,9 +50,9 @@
 		public function execute()
 		{
 			$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-			$persistenceManager = $objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager::class);
-			$applicationRepository = $objectManager->get(\ITX\Jobapplications\Domain\Repository\ApplicationRepository::class);
-			$applicationFileService = $objectManager->get(\ITX\Jobapplications\Service\ApplicationFileService::class);
+			$persistenceManager = $objectManager->get(PersistenceManager::class);
+			$applicationRepository = $objectManager->get(ApplicationRepository::class);
+			$applicationFileService = $objectManager->get(ApplicationFileService::class);
 
 			$now = new \DateTime();
 			$timestamp = $now->modify("-".$this->days." days")->getTimestamp();

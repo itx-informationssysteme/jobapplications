@@ -1,7 +1,8 @@
 <?php
 
 	namespace ITX\Jobapplications\Domain\Model;
-
+	
+	use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 	/***************************************************************
 	 *  Copyright notice
 	 *
@@ -24,11 +25,10 @@
 	 *
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
-
 	/**
 	 * Model of tt_content
 	 */
-	class TtContent extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+	class TtContent extends AbstractEntity
 	{
 
 		/**

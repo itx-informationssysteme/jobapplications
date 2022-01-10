@@ -1,14 +1,18 @@
 <?php
 
 	namespace ITX\Jobapplications\Tests\Unit\Domain\Model;
-
+	
+	use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+	use TYPO3\CMS\Extbase\Domain\Model\FileReference;
+	use ITX\Jobapplications\Domain\Model\Posting;
+	use ITX\Jobapplications\Domain\Model\Application;
 	/**
 	 * Test case.
 	 *
 	 * @author Stefanie Döll
 	 * @author Benjamin Jasper
 	 */
-	class ApplicationTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
+	class ApplicationTest extends UnitTestCase
 	{
 		/**
 		 * @var \ITX\Jobapplications\Domain\Model\Application
@@ -332,7 +336,7 @@
 		 */
 		public function setCvForFileReferenceSetsCv()
 		{
-			$fileReferenceFixture = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
+			$fileReferenceFixture = new FileReference();
 			$this->subject->setCv($fileReferenceFixture);
 
 			self::assertAttributeEquals(
@@ -358,7 +362,7 @@
 		 */
 		public function setCoverLetterForFileReferenceSetsCoverLetter()
 		{
-			$fileReferenceFixture = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
+			$fileReferenceFixture = new FileReference();
 			$this->subject->setCoverLetter($fileReferenceFixture);
 
 			self::assertAttributeEquals(
@@ -384,7 +388,7 @@
 		 */
 		public function setTestimonialsForFileReferenceSetsTestimonials()
 		{
-			$fileReferenceFixture = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
+			$fileReferenceFixture = new FileReference();
 			$this->subject->setTestimonials($fileReferenceFixture);
 
 			self::assertAttributeEquals(
@@ -410,7 +414,7 @@
 		 */
 		public function setOtherFilesForFileReferenceSetsOtherFiles()
 		{
-			$fileReferenceFixture = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
+			$fileReferenceFixture = new FileReference();
 			$this->subject->setOtherFiles($fileReferenceFixture);
 
 			self::assertAttributeEquals(
@@ -461,7 +465,7 @@
 		 */
 		public function setPostingForPostingSetsPosting()
 		{
-			$postingFixture = new \ITX\Jobapplications\Domain\Model\Posting();
+			$postingFixture = new Posting();
 			$this->subject->setPosting($postingFixture);
 
 			self::assertAttributeEquals(
@@ -474,7 +478,7 @@
 		protected function setUp()
 		{
 			parent::setUp();
-			$this->subject = new \ITX\Jobapplications\Domain\Model\Application();
+			$this->subject = new Application();
 		}
 
 		protected function tearDown()

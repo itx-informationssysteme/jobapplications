@@ -1,7 +1,9 @@
 <?php
 
 	namespace ITX\Jobapplications\Domain\Model;
-
+	
+	use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+	use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 	/***************************************************************
 	 *  Copyright notice
 	 *
@@ -24,11 +26,10 @@
 	 *
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
-
 	/**
 	 * Application
 	 */
-	class Application extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+	class Application extends AbstractEntity
 	{
 		/** @var int */
 		protected $crdate;
@@ -203,11 +204,11 @@
 		 */
 		public function __construct()
 		{
-			$this->files = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-			$this->cv = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-			$this->coverLetter = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-			$this->testimonials = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-			$this->otherFiles = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+			$this->files = new ObjectStorage();
+			$this->cv = new ObjectStorage();
+			$this->coverLetter = new ObjectStorage();
+			$this->testimonials = new ObjectStorage();
+			$this->otherFiles = new ObjectStorage();
 		}
 
 		/**
@@ -381,7 +382,7 @@
 		 *
 		 * @return void
 		 */
-		public function setCv(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $cv)
+		public function setCv(ObjectStorage $cv)
 		{
 			$this->cv = $cv;
 		}
@@ -403,7 +404,7 @@
 		 *
 		 * @return void
 		 */
-		public function setCoverLetter(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $coverLetter)
+		public function setCoverLetter(ObjectStorage $coverLetter)
 		{
 			$this->coverLetter = $coverLetter;
 		}
@@ -425,7 +426,7 @@
 		 *
 		 * @return void
 		 */
-		public function setTestimonials(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $testimonials)
+		public function setTestimonials(ObjectStorage $testimonials)
 		{
 			$this->testimonials = $testimonials;
 		}
@@ -447,7 +448,7 @@
 		 *
 		 * @return void
 		 */
-		public function setOtherFiles(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $otherFiles)
+		public function setOtherFiles(ObjectStorage $otherFiles)
 		{
 			$this->otherFiles = $otherFiles;
 		}

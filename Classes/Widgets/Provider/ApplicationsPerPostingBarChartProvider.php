@@ -24,6 +24,10 @@
 
 	namespace ITX\Jobapplications\Widgets\Provider;
 
+	use TYPO3\CMS\Dashboard\Widgets\ChartDataProviderInterface;
+	use TYPO3\CMS\Core\Utility\GeneralUtility;
+	use TYPO3\CMS\Extbase\Object\ObjectManager;
+	use ITX\Jobapplications\Domain\Repository\PostingRepository;
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Repository\ApplicationRepository;
 	use TYPO3\CMS\Dashboard\Widgets\AbstractBarChartWidget;
@@ -34,7 +38,7 @@
 	 *
 	 * @package ITX\Jobapplications\Widgets
 	 */
-	class ApplicationsPerPostingBarChartProvider implements \TYPO3\CMS\Dashboard\Widgets\ChartDataProviderInterface
+	class ApplicationsPerPostingBarChartProvider implements ChartDataProviderInterface
 	{
 		/** @var array */
 		protected $labels = [];
@@ -42,10 +46,10 @@
 		public function getChartData(): array
 		{
 			/** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectmanager */
-			$objectmanager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class);
+			$objectmanager = GeneralUtility::makeInstance(ObjectManager::class);
 
 			/** @var \ITX\Jobapplications\Domain\Repository\PostingRepository $postingRepo */
-			$postingRepo = $objectmanager->get(\ITX\Jobapplications\Domain\Repository\PostingRepository::class);
+			$postingRepo = $objectmanager->get(PostingRepository::class);
 
 			/** @var ApplicationRepository $applicationRepo */
 			$applicationRepo = $objectmanager->get(ApplicationRepository::class);

@@ -24,6 +24,9 @@
 
 	namespace ITX\Jobapplications\Widgets\Provider;
 
+	use TYPO3\CMS\Core\Utility\GeneralUtility;
+	use TYPO3\CMS\Extbase\Object\ObjectManager;
+	use ITX\Jobapplications\Domain\Repository\PostingRepository;
 	use TYPO3\CMS\Dashboard\Widgets\NumberWithIconDataProviderInterface;
 
 	/**
@@ -36,10 +39,10 @@
 		public function getNumber(): int
 		{
 			/** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectmanager */
-			$objectmanager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class);
+			$objectmanager = GeneralUtility::makeInstance(ObjectManager::class);
 
 			/** @var \ITX\Jobapplications\Domain\Repository\PostingRepository $postingRepo */
-			$postingRepo = $objectmanager->get(\ITX\Jobapplications\Domain\Repository\PostingRepository::class);
+			$postingRepo = $objectmanager->get(PostingRepository::class);
 
 			return $postingRepo->findAllIgnoreStoragePage()->count();
 		}

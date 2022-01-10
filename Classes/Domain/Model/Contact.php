@@ -2,6 +2,8 @@
 
 	namespace ITX\Jobapplications\Domain\Model;
 
+	use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+	use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 	use TYPO3\CMS\Core\Http\ApplicationType;
 
 	/***************************************************************
@@ -30,7 +32,7 @@
 	/**
 	 * A Contact is the person who handles the application process for this posting.
 	 */
-	class Contact extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+	class Contact extends AbstractEntity
 	{
 
 		/**
@@ -192,7 +194,7 @@
 		/**
 		 * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $photo
 		 */
-		public function setPhoto(\TYPO3\CMS\Extbase\Domain\Model\FileReference $photo)
+		public function setPhoto(FileReference $photo)
 		{
 			$this->photo = $photo;
 		}

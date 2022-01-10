@@ -1,56 +1,60 @@
 <?php
-	defined('TYPO3_MODE') || die('Access denied.');
+
+	use ITX\Jobapplications\Controller\ApplicationController;
+	use ITX\Jobapplications\Controller\PostingController;
+
+	defined('TYPO3') || die('Access denied.');
 
 	call_user_func(
 		function () {
 
 			\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-				'ITX.Jobapplications',
+				'Jobapplications',
 				'Frontend',
 				[
-					'Posting' => 'list'
+					PostingController::class => 'list'
 				],
 				// non-cacheable actions
 				[
-					'Posting' => 'list'
+					PostingController::class => 'list'
 				]
 			);
 
 			\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-				'ITX.Jobapplications',
+				'Jobapplications',
 				'DetailView',
 				[
-					'Posting' => 'show',
+					PostingController::class => 'show',
 				]
 			);
 
 			\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-				'ITX.Jobapplications',
+				'Jobapplications',
 				'ApplicationForm',
 				[
-					'Application' => 'new, create'
+					ApplicationController::class => 'new, create'
 				],
 				[
-					'Application' => 'create, new'
+					ApplicationController::class => 'create, new'
 				]
 			);
 
 			\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-				'ITX.Jobapplications',
+				'Jobapplications',
 				'ContactDisplay',
 				[
-					'Contact' => 'list'
+					\ITX\Jobapplications\Controller\ContactController::class => 'list'
 				]
 			);
 
 			\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-				'ITX.Jobapplications',
+				'Jobapplications',
 				'SuccessPage',
 				[
-					'Application' => 'success'
+					ApplicationController::class => 'success'
 				],
 				[
-					'Application' => 'success'
+					ApplicationController::class => 'success'
 				]
 			);
 
@@ -79,7 +83,7 @@
             			provider = ITX\Jobapplications\PageTitle\JobsPageTitleProvider
             			before = record
             			after = altPageTitle
-					}			
+					}
 				}
 			'));
 			$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);

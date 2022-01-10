@@ -2,6 +2,13 @@
 
 	namespace ITX\Jobapplications\Controller;
 
+	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+	use Psr\Http\Message\ResponseInterface;
+	use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+	use TYPO3\CMS\Core\Cache\CacheManager;
+	use ITX\Jobapplications\Domain\Repository\PostingRepository;
+	use ITX\Jobapplications\Domain\Repository\LocationRepository;
+	use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 	use ITX\Jobapplications\Domain\Model\Constraint;
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
@@ -39,14 +46,13 @@
 	/**
 	 * PostingController
 	 */
-	class PostingController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+	class PostingController extends ActionController
 	{
 
 		/**
 		 * postingRepository
 		 *
 		 * @var \ITX\Jobapplications\Domain\Repository\PostingRepository
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $postingRepository = null;
 
@@ -54,7 +60,6 @@
 		 * locationRepository
 		 *
 		 * @var \ITX\Jobapplications\Domain\Repository\LocationRepository
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $locationRepository = null;
 
@@ -62,7 +67,6 @@
 		 * signalSlotDispatcher
 		 *
 		 * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $signalSlotDispatcher;
 
@@ -106,7 +110,7 @@
 		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
 		 * @throws \TYPO3\CMS\Extbase\Reflection\Exception\UnknownClassException
 		 */
-		public function listAction(Constraint $constraint = null): void
+		public function listAction(Constraint $constraint = null): ResponseInterface
 		{
 			// Plugin selected categories
 			$category_str = $this->settings["categories"];
@@ -117,13 +121,13 @@
 			switch ($this->settings['list']['ordering']['order'])
 			{
 				case 'descending':
-					$order = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING;
+					$order = QueryInterface::ORDER_DESCENDING;
 					break;
 				case 'ascending':
-					$order = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING;
+					$order = QueryInterface::ORDER_ASCENDING;
 					break;
 				default:
-					$order = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING;
+					$order = QueryInterface::ORDER_DESCENDING;
 			}
 
 			// Get repository configuration from typoscript
@@ -158,6 +162,7 @@
 			$this->view->assign('isFiltering', $isFiltering);
 			$this->view->assign('filterOptions', $filterOptions);
 			$this->view->assign('constraint', $constraint);
+			return $this->htmlResponse();
 		}
 
 		/**
@@ -168,7 +173,7 @@
 		private function getCachedFilterOptions($categories): array
 		{
 			/** @var FrontendInterface $cache */
-			$cache = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Cache\CacheManager::class)->getCache('jobapplications_cache');
+			$cache = GeneralUtility::makeInstance(CacheManager::class)->getCache('jobapplications_cache');
 
 			// If $entry is false, it hasn't been cached. Calculate the value and store it in the cache:
 			if (($entry = $cache->get('filterOptions')) === false)
@@ -211,7 +216,7 @@
 		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
 		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
 		 */
-		public function showAction(\ITX\Jobapplications\Domain\Model\Posting $posting = null): void
+		public function showAction(Posting $posting = null): ResponseInterface
 		{
 			if ($posting === null)
 			{
@@ -224,7 +229,7 @@
 			$titleProvider = GeneralUtility::makeInstance(JobsPageTitleProvider::class);
 
 			/** @var ExtensionConfiguration $extconf */
-			$extconf = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class);
+			$extconf = GeneralUtility::makeInstance(ExtensionConfiguration::class);
 
 			//Google Jobs
 
@@ -344,5 +349,21 @@
 			}
 
 			$this->view->assign('posting', $posting);
+			return $this->htmlResponse();
+		}
+
+		public function injectPostingRepository(PostingRepository $postingRepository): void
+		{
+			$this->postingRepository = $postingRepository;
+		}
+
+		public function injectLocationRepository(LocationRepository $locationRepository): void
+		{
+			$this->locationRepository = $locationRepository;
+		}
+
+		public function injectSignalSlotDispatcher(Dispatcher $signalSlotDispatcher): void
+		{
+			$this->signalSlotDispatcher = $signalSlotDispatcher;
 		}
 	}

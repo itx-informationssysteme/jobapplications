@@ -1,14 +1,20 @@
 <?php
 
 	namespace ITX\Jobapplications\Tests\Unit\Controller;
-
+	
+	use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+	use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+	use ITX\Jobapplications\Domain\Repository\ContactRepository;
+	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+	use ITX\Jobapplications\Domain\Model\Contact;
+	use ITX\Jobapplications\Controller\ContactController;
 	/**
 	 * Test case.
 	 *
 	 * @author Stefanie Döll
 	 * @author Benjamin Jasper
 	 */
-	class ContactControllerTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
+	class ContactControllerTest extends UnitTestCase
 	{
 		/**
 		 * @var \ITX\Jobapplications\Controller\ContactController
@@ -21,18 +27,18 @@
 		public function listActionFetchesAllContactsFromRepositoryAndAssignsThemToView()
 		{
 
-			$allContacts = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+			$allContacts = $this->getMockBuilder(ObjectStorage::class)
 								->disableOriginalConstructor()
 								->getMock();
 
-			$contactRepository = $this->getMockBuilder(\ITX\Jobapplications\Domain\Repository\ContactRepository::class)
+			$contactRepository = $this->getMockBuilder(ContactRepository::class)
 									  ->setMethods(['findAll'])
 									  ->disableOriginalConstructor()
 									  ->getMock();
 			$contactRepository->expects(self::once())->method('findAll')->will(self::returnValue($allContacts));
 			$this->inject($this->subject, 'contactRepository', $contactRepository);
 
-			$view = $this->getMockBuilder(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class)->getMock();
+			$view = $this->getMockBuilder(ViewInterface::class)->getMock();
 			$view->expects(self::once())->method('assign')->with('contacts', $allContacts);
 			$this->inject($this->subject, 'view', $view);
 
@@ -44,9 +50,9 @@
 		 */
 		public function showActionAssignsTheGivenContactToView()
 		{
-			$contact = new \ITX\Jobapplications\Domain\Model\Contact();
+			$contact = new Contact();
 
-			$view = $this->getMockBuilder(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class)->getMock();
+			$view = $this->getMockBuilder(ViewInterface::class)->getMock();
 			$this->inject($this->subject, 'view', $view);
 			$view->expects(self::once())->method('assign')->with('contact', $contact);
 
@@ -58,9 +64,9 @@
 		 */
 		public function createActionAddsTheGivenContactToContactRepository()
 		{
-			$contact = new \ITX\Jobapplications\Domain\Model\Contact();
+			$contact = new Contact();
 
-			$contactRepository = $this->getMockBuilder(\ITX\Jobapplications\Domain\Repository\ContactRepository::class)
+			$contactRepository = $this->getMockBuilder(ContactRepository::class)
 									  ->setMethods(['add'])
 									  ->disableOriginalConstructor()
 									  ->getMock();
@@ -76,9 +82,9 @@
 		 */
 		public function editActionAssignsTheGivenContactToView()
 		{
-			$contact = new \ITX\Jobapplications\Domain\Model\Contact();
+			$contact = new Contact();
 
-			$view = $this->getMockBuilder(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class)->getMock();
+			$view = $this->getMockBuilder(ViewInterface::class)->getMock();
 			$this->inject($this->subject, 'view', $view);
 			$view->expects(self::once())->method('assign')->with('contact', $contact);
 
@@ -90,9 +96,9 @@
 		 */
 		public function updateActionUpdatesTheGivenContactInContactRepository()
 		{
-			$contact = new \ITX\Jobapplications\Domain\Model\Contact();
+			$contact = new Contact();
 
-			$contactRepository = $this->getMockBuilder(\ITX\Jobapplications\Domain\Repository\ContactRepository::class)
+			$contactRepository = $this->getMockBuilder(ContactRepository::class)
 									  ->setMethods(['update'])
 									  ->disableOriginalConstructor()
 									  ->getMock();
@@ -108,9 +114,9 @@
 		 */
 		public function deleteActionRemovesTheGivenContactFromContactRepository()
 		{
-			$contact = new \ITX\Jobapplications\Domain\Model\Contact();
+			$contact = new Contact();
 
-			$contactRepository = $this->getMockBuilder(\ITX\Jobapplications\Domain\Repository\ContactRepository::class)
+			$contactRepository = $this->getMockBuilder(ContactRepository::class)
 									  ->setMethods(['remove'])
 									  ->disableOriginalConstructor()
 									  ->getMock();
@@ -124,7 +130,7 @@
 		protected function setUp()
 		{
 			parent::setUp();
-			$this->subject = $this->getMockBuilder(\ITX\Jobapplications\Controller\ContactController::class)
+			$this->subject = $this->getMockBuilder(ContactController::class)
 								  ->setMethods(['redirect', 'forward', 'addFlashMessage'])
 								  ->disableOriginalConstructor()
 								  ->getMock();

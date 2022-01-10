@@ -25,6 +25,15 @@
 
 	namespace ITX\Jobapplications\Controller;
 
+	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+	use ITX\Jobapplications\Domain\Model\Application;
+	use Psr\Http\Message\ResponseInterface;
+	use ITX\Jobapplications\Domain\Repository\ApplicationRepository;
+	use ITX\Jobapplications\Domain\Repository\PostingRepository;
+	use ITX\Jobapplications\Domain\Repository\ContactRepository;
+	use ITX\Jobapplications\Domain\Repository\StatusRepository;
+	use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+	use ITX\Jobapplications\Service\ApplicationFileService;
 	use ITX\Jobapplications\Domain\Model\Contact;
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Model\Status;
@@ -38,13 +47,12 @@
 	 *
 	 * @package ITX\Jobapplications\Controller
 	 */
-	class BackendController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+	class BackendController extends ActionController
 	{
 		/**
 		 * applicationRepository
 		 *
 		 * @var \ITX\Jobapplications\Domain\Repository\ApplicationRepository
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $applicationRepository = null;
 
@@ -52,7 +60,6 @@
 		 * postingRepository
 		 *
 		 * @var \ITX\Jobapplications\Domain\Repository\PostingRepository
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $postingRepository = null;
 
@@ -60,7 +67,6 @@
 		 * contactRepository
 		 *
 		 * @var \ITX\Jobapplications\Domain\Repository\ContactRepository
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $contactRepository = null;
 
@@ -68,7 +74,6 @@
 		 * statusRepository
 		 *
 		 * @var \ITX\Jobapplications\Domain\Repository\StatusRepository
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $statusRepository = null;
 
@@ -76,13 +81,11 @@
 		 * persistenceManager
 		 *
 		 * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $persistenceManager;
 
 		/**
 		 * @var \ITX\Jobapplications\Service\ApplicationFileService
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $applicationFileService;
 
@@ -202,7 +205,7 @@
 		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
 		 */
-		public function showApplicationAction(\ITX\Jobapplications\Domain\Model\Application $application)
+		public function showApplicationAction(Application $application)
 		{
 			$statusDatabaseOp = false;
 
@@ -257,7 +260,7 @@
 		 * Action for Backend Dashboard
 		 *
 		 */
-		public function dashboardAction()
+		public function dashboardAction(): ResponseInterface
 		{
 			// Get data for counter of new applications with referenced contact
 			$contact = $this->getActiveBeContact();
@@ -285,6 +288,7 @@
 			$this->view->assign('admin', $GLOBALS['BE_USER']->isAdmin());
 			$this->view->assign('newApps', count($newApps));
 			$this->view->assign('contact', $contact);
+			return $this->htmlResponse();
 		}
 
 		/**
@@ -294,7 +298,7 @@
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
 		 * @throws \Exception
 		 */
-		public function settingsAction()
+		public function settingsAction(): ResponseInterface
 		{
 			if (!$GLOBALS['BE_USER']->isAdmin())
 			{
@@ -360,5 +364,36 @@
 			}
 
 			$this->view->assign('admin', $GLOBALS['BE_USER']->isAdmin());
+			return $this->htmlResponse();
+		}
+
+		public function injectApplicationRepository(ApplicationRepository $applicationRepository): void
+		{
+			$this->applicationRepository = $applicationRepository;
+		}
+
+		public function injectPostingRepository(PostingRepository $postingRepository): void
+		{
+			$this->postingRepository = $postingRepository;
+		}
+
+		public function injectContactRepository(ContactRepository $contactRepository): void
+		{
+			$this->contactRepository = $contactRepository;
+		}
+
+		public function injectStatusRepository(StatusRepository $statusRepository): void
+		{
+			$this->statusRepository = $statusRepository;
+		}
+
+		public function injectPersistenceManager(PersistenceManager $persistenceManager): void
+		{
+			$this->persistenceManager = $persistenceManager;
+		}
+
+		public function injectApplicationFileService(ApplicationFileService $applicationFileService): void
+		{
+			$this->applicationFileService = $applicationFileService;
 		}
 	}

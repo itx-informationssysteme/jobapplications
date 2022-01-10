@@ -19,11 +19,8 @@
 			'searchFields' => 'last_name,email,phone,division',
 			'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/Extension.svg'
 		],
-		'interface' => [
-			'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, first_name, last_name, email, phone, division, photo, be_user',
-		],
 		'types' => [
-			'1' => ['showitem' => 'sys_language_uid, first_name, last_name, email, phone, division, photo, be_user, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden, l10n_parent, l10n_diffsource, starttime, endtime'],
+			'1' => ['showitem' => 'sys_language_uid,first_name,last_name,email,phone,division,photo,be_user,--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access,hidden,l10n_parent,l10n_diffsource,starttime,endtime'],
 		],
 		'columns' => [
 			'sys_language_uid' => [
@@ -45,7 +42,6 @@
 			],
 			'l10n_parent' => [
 				'displayCond' => 'FIELD:sys_language_uid:>:0',
-				'exclude' => true,
 				'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
 				'config' => [
 					'type' => 'select',
@@ -173,7 +169,8 @@
 							'showAllLocalizationLink' => true,
 							'showSynchronizationLink' => true
 						],
-						'foreign_types' => [
+						'maxitems' => 1,
+						'overrideChildTca' => ['types' => [
 							'0' => [
 								'showitem' => '
 								--palette--;;imageoverlayPalette,
@@ -204,8 +201,7 @@
 								--palette--;;imageoverlayPalette,
 								--palette--;;filePalette'
 							]
-						],
-						'maxitems' => 1
+						]]
 					],
 					$GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
 				),

@@ -1,7 +1,8 @@
 <?php
 
 	namespace ITX\Jobapplications\Domain\Repository;
-
+	
+	use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 	/***************************************************************
 	 *  Copyright notice
 	 *
@@ -24,11 +25,10 @@
 	 *
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
-
 	/**
 	 * The repository for Applications
 	 */
-	class ApplicationRepository extends \ITX\Jobapplications\Domain\Repository\JobapplicationsRepository
+	class ApplicationRepository extends JobapplicationsRepository
 	{
 
 		/**
@@ -45,7 +45,7 @@
 		 */
 		public function findByFilter(?int $contact, ?int $posting, ?int $status, int $archived = 0,
 									 string $orderBy = "crdate",
-									 string $order = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING)
+									 string $order = QueryInterface::ORDER_ASCENDING)
 		{
 			$query = $this->createQuery();
 			$query->getQuerySettings()->setRespectStoragePage(false)
@@ -97,7 +97,7 @@
 						  ->setRespectStoragePage(false)
 						  ->setIgnoreEnableFields(true);
 			$query->setOrderings([
-									 "crdate" => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
+									 "crdate" => QueryInterface::ORDER_DESCENDING
 								 ]);
 
 			return $query->execute();

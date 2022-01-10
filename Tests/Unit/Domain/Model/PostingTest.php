@@ -1,14 +1,19 @@
 <?php
 
 	namespace ITX\Jobapplications\Tests\Unit\Domain\Model;
-
+	
+	use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+	use TYPO3\CMS\Extbase\Domain\Model\FileReference;
+	use ITX\Jobapplications\Domain\Model\Location;
+	use ITX\Jobapplications\Domain\Model\Contact;
+	use ITX\Jobapplications\Domain\Model\Posting;
 	/**
 	 * Test case.
 	 *
 	 * @author Stefanie Döll
 	 * @author Benjamin Jasper
 	 */
-	class PostingTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
+	class PostingTest extends UnitTestCase
 	{
 		/**
 		 * @var \ITX\Jobapplications\Domain\Model\Posting
@@ -382,7 +387,7 @@
 		 */
 		public function setDetailViewImageForFileReferenceSetsDetailViewImage()
 		{
-			$fileReferenceFixture = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
+			$fileReferenceFixture = new FileReference();
 			$this->subject->setDetailViewImage($fileReferenceFixture);
 
 			self::assertAttributeEquals(
@@ -408,7 +413,7 @@
 		 */
 		public function setListViewImageForFileReferenceSetsListViewImage()
 		{
-			$fileReferenceFixture = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
+			$fileReferenceFixture = new FileReference();
 			$this->subject->setListViewImage($fileReferenceFixture);
 
 			self::assertAttributeEquals(
@@ -434,7 +439,7 @@
 		 */
 		public function setLocationForLocationSetsLocation()
 		{
-			$locationFixture = new \ITX\Jobapplications\Domain\Model\Location();
+			$locationFixture = new Location();
 			$this->subject->setLocation($locationFixture);
 
 			self::assertAttributeEquals(
@@ -460,7 +465,7 @@
 		 */
 		public function setContactForContactSetsContact()
 		{
-			$contactFixture = new \ITX\Jobapplications\Domain\Model\Contact();
+			$contactFixture = new Contact();
 			$this->subject->setContact($contactFixture);
 
 			self::assertAttributeEquals(
@@ -473,7 +478,7 @@
 		protected function setUp()
 		{
 			parent::setUp();
-			$this->subject = new \ITX\Jobapplications\Domain\Model\Posting();
+			$this->subject = new Posting();
 		}
 
 		protected function tearDown()

@@ -20,11 +20,8 @@
 			'searchFields' => 'first_name,last_name,email,phone,address_street_and_number,address_addition,address_city,address_country,salary_expectation',
 			'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/Extension.svg'
 		],
-		'interface' => [
-			'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, salutation, first_name, last_name, email, phone, address_street_and_number, address_addition, address_post_code, address_city, address_country, salary_expectation, message, earliest_date_of_joining, files, cv, cover_letter, testimonials, other_files, privacy_agreement, posting, archived, status',
-		],
 		'types' => [
-			'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, salutation, first_name, last_name, email, phone, address_street_and_number, address_addition, address_post_code, address_city, address_country, salary_expectation, message ,earliest_date_of_joining, files, cv, cover_letter, testimonials, other_files, privacy_agreement, posting, archived, status, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+			'1' => ['showitem' => 'sys_language_uid,l10n_parent,l10n_diffsource,hidden,salutation,first_name,last_name,email,phone,address_street_and_number,address_addition,address_post_code,address_city,address_country,salary_expectation,message,earliest_date_of_joining,files,cv,cover_letter,testimonials,other_files,privacy_agreement,posting,archived,status,--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access,starttime,endtime'],
 		],
 		'columns' => [
 			'crdate' => [
@@ -55,7 +52,6 @@
 			],
 			'l10n_parent' => [
 				'displayCond' => 'FIELD:sys_language_uid:>:0',
-				'exclude' => true,
 				'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
 				'config' => [
 					'type' => 'select',
@@ -267,32 +263,32 @@
 								'types' => [
 									'0' => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									],
 									\TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									],
 									\TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									],
 									\TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									],
 									\TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									],
 									\TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									]
 								]
@@ -316,32 +312,32 @@
 								'types' => [
 									'0' => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									],
 									\TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									],
 									\TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									],
 									\TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									],
 									\TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									],
 									\TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									]
 								]
@@ -365,32 +361,32 @@
 								'types' => [
 									'0' => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									],
 									\TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									],
 									\TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									],
 									\TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									],
 									\TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									],
 									\TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									]
 								]
@@ -414,32 +410,32 @@
 								'types' => [
 									'0' => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									],
 									\TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									],
 									\TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									],
 									\TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									],
 									\TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									],
 									\TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									]
 								],
@@ -463,32 +459,32 @@
 								'types' => [
 									'0' => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									],
 									\TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									],
 									\TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									],
 									\TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									],
 									\TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									],
 									\TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
 										'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
 									]
 								]
@@ -505,7 +501,7 @@
 					'type' => 'check',
 					'items' => [
 						'1' => [
-							'0' => 'LLL:EXT:lang/locallang_core.xlf:labels.enabled'
+							'0' => 'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.enabled'
 						]
 					],
 					'default' => 0,
@@ -529,7 +525,7 @@
 					'type' => 'check',
 					'items' => [
 						'1' => [
-							'0' => 'LLL:EXT:lang/locallang_core.xlf:labels.enabled'
+							'0' => 'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.enabled'
 						]
 					],
 					'default' => 0,

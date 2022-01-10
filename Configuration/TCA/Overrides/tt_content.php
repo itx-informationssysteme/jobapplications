@@ -1,30 +1,30 @@
 <?php
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-		'ITX.Jobapplications',
+		'Jobapplications',
 		'Frontend',
 		'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:tx_jobapplications_frontend.title'
 	);
 
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-		'ITX.Jobapplications',
+		'Jobapplications',
 		'DetailView',
 		'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:tx_jobapplications_detailview.title'
 	);
 
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-		'ITX.Jobapplications',
+		'Jobapplications',
 		'ApplicationForm',
 		'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:tx_jobapplications_applicationform.title'
 	);
 
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-		'ITX.Jobapplications',
+		'Jobapplications',
 		'ContactDisplay',
 		'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:tx_jobapplications_contactdisplay.title'
 	);
 
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-		'ITX.Jobapplications',
+		'Jobapplications',
 		'SuccessPage',
 		'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:tx_jobapplications_successpage.title'
 	);

@@ -35,7 +35,7 @@
 	/**
 	 * The repository for Postings
 	 */
-	class PostingRepository extends \ITX\Jobapplications\Domain\Repository\JobapplicationsRepository
+	class PostingRepository extends JobapplicationsRepository
 	{
 		/**
 		 * Helper function for finding postings by category
@@ -233,7 +233,7 @@
 		 */
 		public function findByFilter(array $categories, array $repositoryConfig, Constraint $constraint = null,
 									 $orderBy = 'date_posted',
-									 $order = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING)
+									 $order = QueryInterface::ORDER_DESCENDING)
 		{
 			$query = $this->createQuery();
 
@@ -328,7 +328,7 @@
 		 *
 		 * @return array|QueryResultInterface
 		 */
-		public function findByContact(int $contact, string $orderBy = "title", string $order = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING)
+		public function findByContact(int $contact, string $orderBy = "title", string $order = QueryInterface::ORDER_ASCENDING)
 		{
 			$query = $this->createQuery();
 			$query->getQuerySettings()->setRespectStoragePage(false)
@@ -345,7 +345,7 @@
 		 *
 		 * @return QueryResultInterface|array
 		 */
-		public function findAllWithOrderIgnoreEnable(string $orderBy = "title", string $order = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING)
+		public function findAllWithOrderIgnoreEnable(string $orderBy = "title", string $order = QueryInterface::ORDER_ASCENDING)
 		{
 			$query = $this->createQuery();
 			$query->getQuerySettings()->setRespectStoragePage(false)->setIgnoreEnableFields(true);

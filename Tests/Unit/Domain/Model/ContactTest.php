@@ -1,14 +1,16 @@
 <?php
 
 	namespace ITX\Jobapplications\Tests\Unit\Domain\Model;
-
+	
+	use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+	use ITX\Jobapplications\Domain\Model\Contact;
 	/**
 	 * Test case.
 	 *
 	 * @author Stefanie Döll
 	 * @author Benjamin Jasper
 	 */
-	class ContactTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
+	class ContactTest extends UnitTestCase
 	{
 		/**
 		 * @var \ITX\Jobapplications\Domain\Model\Contact
@@ -118,7 +120,7 @@
 		protected function setUp()
 		{
 			parent::setUp();
-			$this->subject = new \ITX\Jobapplications\Domain\Model\Contact();
+			$this->subject = new Contact();
 		}
 
 		protected function tearDown()

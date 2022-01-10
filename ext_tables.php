@@ -1,5 +1,5 @@
 <?php
-	defined('TYPO3_MODE') || die('Access denied.');
+	defined('TYPO3') || die('Access denied.');
 
 	call_user_func(
 		function () {
@@ -7,12 +7,12 @@
 			{
 
 				\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-					'ITX.Jobapplications',
+					'Jobapplications',
 					'web', // Make module a submodule of 'web'
 					'backend', // Submodule key
 					'', // Position
 					[
-						'Backend' => 'listApplications, dashboard, showApplication, settings'
+						\ITX\Jobapplications\Controller\BackendController::class => 'listApplications, dashboard, showApplication, settings'
 					],
 					[
 						'access' => 'user,group',

@@ -24,6 +24,8 @@
 
 	namespace ITX\Jobapplications\Widgets\Provider;
 
+	use TYPO3\CMS\Dashboard\Widgets\Provider\ButtonProvider;
+	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 	use TYPO3\CMS\Backend\Routing\UriBuilder;
 
@@ -32,7 +34,7 @@
 	 *
 	 * @package ITX\Jobapplications\Widgets\Provider
 	 */
-	class BackendModuleButtonProvider extends \TYPO3\CMS\Dashboard\Widgets\Provider\ButtonProvider
+	class BackendModuleButtonProvider extends ButtonProvider
 	{
 		/**
 		 * BackendModuleButtonProvider constructor.
@@ -47,7 +49,7 @@
 			}
 
 			/** @var UriBuilder $uriBuilder */
-			$uriBuilder = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(UriBuilder::class);
+			$uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
 
 			try
 			{

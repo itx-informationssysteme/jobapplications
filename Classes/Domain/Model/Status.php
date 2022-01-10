@@ -2,6 +2,7 @@
 
 	namespace ITX\Jobapplications\Domain\Model;
 
+	use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 	use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 	/***************************************************************
@@ -30,7 +31,7 @@
 	/**
 	 * Status
 	 */
-	class Status extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+	class Status extends AbstractEntity
 	{
 		/**
 		 * name
@@ -87,7 +88,7 @@
 		/**
 		 * @param ObjectStorage $followers
 		 */
-		public function setFollowers(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $followers)
+		public function setFollowers(ObjectStorage $followers)
 		{
 			$this->followers = $followers;
 		}

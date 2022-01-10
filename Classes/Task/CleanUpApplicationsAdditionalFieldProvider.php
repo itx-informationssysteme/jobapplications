@@ -2,6 +2,7 @@
 
 	namespace ITX\Jobapplications\Task;
 
+	use TYPO3\CMS\Scheduler\AbstractAdditionalFieldProvider;
 	use TYPO3\CMS\Core\Localization\LanguageService;
 	use TYPO3\CMS\Core\Messaging\AbstractMessage;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
@@ -34,7 +35,7 @@
 	 *
 	 * @package ITX\Jobapplications\TaskAdditionalFieldProvider
 	 */
-	class CleanUpApplicationsAdditionalFieldProvider extends \TYPO3\CMS\Scheduler\AbstractAdditionalFieldProvider
+	class CleanUpApplicationsAdditionalFieldProvider extends AbstractAdditionalFieldProvider
 	{
 		/**
 		 * This method is used to define new fields for adding or editing a task

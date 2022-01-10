@@ -24,6 +24,7 @@
 
 	namespace ITX\Jobapplications\Utility;
 
+	use TYPO3\CMS\Core\Core\Environment;
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Repository\PostingRepository;
 	use ITX\Jobapplications\Domain\Repository\TtContentRepository;
@@ -67,11 +68,11 @@
 		 */
 		public function __construct($supressFlashMessages = false)
 		{
-			$this->backendConfiguration = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class)
+			$this->backendConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class)
 																				->get('jobapplications');
 			if ($this->backendConfiguration['key_path'] !== '')
 			{
-				$fileName = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->backendConfiguration['key_path']);
+				$fileName = GeneralUtility::getFileAbsFileName($this->backendConfiguration['key_path']);
 				if (file_exists($fileName))
 				{
 					$this->googleConfig = json_decode(file_get_contents(
@@ -98,15 +99,15 @@
 		 */
 		public function updateGoogleIndex($uid, $delete = false, $specificPosting = null): ?bool
 		{
-			if (\TYPO3\CMS\Core\Utility\GeneralUtility::getApplicationContext()->isDevelopment() && $this->backendConfiguration['indexing_api_dev'] === "0")
+			if (Environment::getContext()->isDevelopment() && $this->backendConfiguration['indexing_api_dev'] === "0")
 			{
 				return false;
 			}
 
 			/** @var PostingRepository $postingRepository */
-			$postingRepository = $this->objectManager->get(\ITX\Jobapplications\Domain\Repository\PostingRepository::class);
+			$postingRepository = $this->objectManager->get(PostingRepository::class);
 			/** @var TtContentRepository $ttContentRepository */
-			$ttContentRepository = $this->objectManager->get(\ITX\Jobapplications\Domain\Repository\TtContentRepository::class);
+			$ttContentRepository = $this->objectManager->get(TtContentRepository::class);
 
 			/** @var Posting $posting */
 			if ($specificPosting instanceof Posting)
@@ -192,18 +193,18 @@
 				return;
 			}
 
-			$type = \TYPO3\CMS\Core\Messaging\FlashMessage::OK;
+			$type = FlashMessage::OK;
 
 			if ($error)
 			{
-				$type = \TYPO3\CMS\Core\Messaging\FlashMessage::WARNING;
+				$type = FlashMessage::WARNING;
 			}
 
 			/** @var FlashMessage $message */
-			$message = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Messaging\FlashMessage::class, $msg, $header, $type, true);
+			$message = GeneralUtility::makeInstance(FlashMessage::class, $msg, $header, $type, true);
 
 			/** @var FlashMessageService $flashMessageService */
-			$flashMessageService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Messaging\FlashMessageService::class);
+			$flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
 			/** @var FlashMessageQueue $messageQueue */
 			$messageQueue = $flashMessageService->getMessageQueueByIdentifier();
 			// @extensionScannerIgnoreLine

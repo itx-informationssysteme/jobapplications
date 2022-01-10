@@ -32,12 +32,12 @@
 		 *
 		 * @throws \Exception
 		 */
-		public function processDatamap_afterDatabaseOperations($status, $table, $id, array $fieldArray, \TYPO3\CMS\Core\DataHandling\DataHandler &$pObj)
+		public function processDatamap_afterDatabaseOperations($status, $table, $id, array $fieldArray, DataHandler &$pObj)
 		{
 
 			if ($table === 'tx_jobapplications_domain_model_posting')
 			{
-				$enabled = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class)
+				$enabled = GeneralUtility::makeInstance(ExtensionConfiguration::class)
 																 ->get('jobapplications', 'indexing_api');
 
 				if ($enabled !== "1")
@@ -73,11 +73,11 @@
 		 *
 		 * @throws \Exception
 		 */
-		public function processDatamap_postProcessFieldArray($command, $table, $uid, $value, \TYPO3\CMS\Core\DataHandling\DataHandler &$pObj)
+		public function processDatamap_postProcessFieldArray($command, $table, $uid, $value, DataHandler &$pObj)
 		{
 			if ($table === "tx_jobapplications_domain_model_posting")
 			{
-				$enabled = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class)
+				$enabled = GeneralUtility::makeInstance(ExtensionConfiguration::class)
 																 ->get('jobapplications', 'indexing_api');
 				if ($enabled !== "1")
 				{
@@ -114,7 +114,7 @@
 		{
 			if ($table === "tx_jobapplications_domain_model_posting")
 			{
-				$enabled = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class)
+				$enabled = GeneralUtility::makeInstance(ExtensionConfiguration::class)
 																 ->get('jobapplications', 'indexing_api');
 				if ($enabled !== "1")
 				{

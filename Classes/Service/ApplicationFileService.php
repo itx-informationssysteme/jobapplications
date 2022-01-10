@@ -2,6 +2,10 @@
 
 	namespace ITX\Jobapplications\Service;
 
+	use ITX\Jobapplications\Domain\Model\Application;
+	use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
+	use TYPO3\CMS\Core\Resource\StorageRepository;
+	use TYPO3\CMS\Core\Resource\Folder;
 	use TYPO3\CMS\Core\Localization\Exception\FileNotFoundException;
 	use TYPO3\CMS\Core\Resource\Exception\FileOperationErrorException;
 	use TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException;
@@ -30,9 +34,9 @@
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
 		 */
 
-		public function getApplicantFolder(\ITX\Jobapplications\Domain\Model\Application $applicationObject): string
+		public function getApplicantFolder(Application $applicationObject): string
 		{
-			return self::APP_FILE_FOLDER.(new \TYPO3\CMS\Core\Resource\Driver\LocalDriver)
+			return self::APP_FILE_FOLDER.(new LocalDriver)
 					->sanitizeFileName($applicationObject->getFirstName()."_".$applicationObject->getLastName()
 									   ."_".hash("md5", $applicationObject->getFirstName()."|"
 													  .$applicationObject->getLastName()
@@ -51,7 +55,7 @@
 			$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 
 			/* @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
-			$storageRepository = $objectManager->get(\TYPO3\CMS\Core\Resource\StorageRepository::class);
+			$storageRepository = $objectManager->get(StorageRepository::class);
 			$storage = $storageRepository->findByUid(1);
 			if (!$storage instanceof ResourceStorage) {
 				throw new FileNotFoundException("Could not find fileadmin with uid 1");
@@ -64,7 +68,7 @@
 				$folder = $storage->getFolder($folderPath);
 			}
 
-			if ($folder instanceof \TYPO3\CMS\Core\Resource\Folder)
+			if ($folder instanceof Folder)
 			{
 				try
 				{

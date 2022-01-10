@@ -22,9 +22,6 @@
 			'searchFields' => 'title,career_level,division,employment_type,terms_of_employment,company_description,job_description,role_description,skill_requirements,benefits,base_salary,required_documents,company_information',
 			'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/Extension.svg'
 		],
-		'interface' => [
-			'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, starttime, endtime, title, date_posted, career_level, division, employment_type, terms_of_employment, company_description, job_description, role_description, skill_requirements, benefits, base_salary, required_documents, company_information, detail_view_image, list_view_image, location, contact',
-		],
 		'columns' => [
 			'sys_language_uid' => [
 				'exclude' => true,
@@ -45,7 +42,6 @@
 			],
 			'l10n_parent' => [
 				'displayCond' => 'FIELD:sys_language_uid:>:0',
-				'exclude' => true,
 				'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
 				'config' => [
 					'type' => 'select',
@@ -331,7 +327,8 @@
 							'showAllLocalizationLink' => true,
 							'showSynchronizationLink' => true
 						],
-						'foreign_types' => [
+						'maxitems' => 1,
+						'overrideChildTca' => ['types' => [
 							'0' => [
 								'showitem' => '
 								--palette--;;imageoverlayPalette,
@@ -362,8 +359,7 @@
 								--palette--;;imageoverlayPalette,
 								--palette--;;filePalette'
 							]
-						],
-						'maxitems' => 1
+						]]
 					],
 					$GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
 				),
@@ -381,7 +377,8 @@
 							'showAllLocalizationLink' => true,
 							'showSynchronizationLink' => true
 						],
-						'foreign_types' => [
+						'maxitems' => 1,
+						'overrideChildTca' => ['types' => [
 							'0' => [
 								'showitem' => '
 								--palette--;;imageoverlayPalette,
@@ -412,8 +409,7 @@
 								--palette--;;imageoverlayPalette,
 								--palette--;;filePalette'
 							]
-						],
-						'maxitems' => 1
+						]]
 					],
 					$GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
 				),
@@ -459,19 +455,7 @@
 		],
 		'types' => [
 			'1' => [
-				'showitem' => ' 
-				--palette--;;mainInfo,
-				--palette--;;relations,
-				--palette--;;dates,
-				base_salary,
-				--palette--;;circumstances,
-				--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.advanced,
-				--palette--;;general,
-				--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.texts,
-				company_description, job_description, role_description, skill_requirements, benefits, 
-				required_documents, company_information,
-				--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.images,
-				--palette--;;images'
+				'showitem' => '--palette--;;mainInfo,--palette--;;relations,--palette--;;dates,base_salary,--palette--;;circumstances,--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.advanced,--palette--;;general,--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.texts,company_description,job_description,role_description,skill_requirements,benefits,required_documents,company_information,--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.images,--palette--;;images'
 			],
 		],
 		'palettes' => [
