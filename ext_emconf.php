@@ -32,7 +32,7 @@
 		'author_email' => 'typo-itx@itx.de',
 		'state' => 'stable',
 		'clearCacheOnLoad' => true,
-		'version' => '1.0.4',
+		'version' => '2.0.0',
 		'constraints' => [
 			'depends' => [
 				'typo3' => '10.4.13-11.9.99'
