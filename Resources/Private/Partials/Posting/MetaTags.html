@@ -1,10 +1,15 @@
 <html data-namespace-typo3-fluid="true"
-		v:schemaLocation="https://fluidtypo3.org/schemas/vhs-master.xsd" xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers">
+		xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+		xmlns:jobs="http://typo3.org/ns/ITX/Jobapplications/ViewHelpers">
 
-<v:page.header.meta content="{posting.jobDescription -> f:format.stripTags()}" name="og:description"/>
-<v:page.header.meta content="{posting.jobDescription -> f:format.stripTags()}" name="description"></v:page.header.meta>
-<v:page.header.meta content="{posting.title}" name="og:title"/>
+<jobs:page.header.meta content="{posting.jobDescription -> f:format.stripTags()}" name="og:description"/>
+<jobs:page.header.meta content="{posting.jobDescription -> f:format.stripTags()}" name="description"></jobs:page.header.meta>
+<jobs:page.header.meta content="{posting.title}" name="og:title"/>
 <f:if condition="{posting.listViewImage}">
-	<v:page.header.meta content="{f:uri.image(src:posting.listViewImage.originalResource.publicUrl, treatIdAsReference: 1)-> v:format.prepend(add: '{v:site.url() -> v:format.substring(length: \'-1\')}')}" name="og:image"/>
-</f:if>
+	<f:commtent>
+		to Do:
+		replace url
+		<jobs:page.header.meta content="{f:uri.image(src:posting.listViewImage.originalResource.publicUrl, treatIdAsReference: 1)-> v:format.prepend(add: '{v:site.url() -> v:format.substring(length: \'-1\')}')}" name="og:image"/>
+	</f:commtent>
+	</f:if>
 </html>

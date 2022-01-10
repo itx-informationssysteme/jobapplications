@@ -35,8 +35,7 @@
 		'version' => '1.0.4',
 		'constraints' => [
 			'depends' => [
-				'typo3' => '9.5.0 - 10.4.99',
-				'vhs' => '6.0.0 - 6.2.99'
+				'typo3' => '10.4.13-11.9.99'
 			],
 			'conflicts' => [],
 			'suggests' => [],

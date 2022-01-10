@@ -3,11 +3,9 @@
 <f:layout name="Default"/>
 
 <f:section name="content">
-	<v:page.header>
-		<script src="{f:uri.resource(path: 'Js/Vendor/selectize.js')}"></script>
-		<link href="{f:uri.resource(path: 'Css/Vendor/selectize.css')}" rel="stylesheet">
-		<link href="{f:uri.resource(path: 'Css/Vendor/selectize.bootstrap3.css')}" rel="stylesheet">
-	</v:page.header>
+	<f:asset.script identifier="selectize" src="EXT:jobapplications/Resources/Public/Js/Vendor/selectize.js" priority="true"/>
+	<f:asset.css identifier="selectize-css" href="EXT:jobapplications/Resources/Public/Css/Vendor/selectize.css" priority="true"/>
+	<f:asset.css identifier="bootstrap3-css" href="EXT:jobapplications/Resources/Public/Css/Vendor/selectize.bootstrap3.css" priority="true"/>
 
 	<div class="container">
 		<f:flashMessages/>
@@ -25,9 +23,9 @@
 								<f:translate key="fe.filter.divisions"/>
 							</label>
 							<f:form.select class="form-control" multiple="true" name="division" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}" property="division">
-								<f:for as="division" each="{filterOptions.division}">
+								<f:for each="{filterOptions.division}" as="division" >
 									<f:if condition="{division}">
-										<f:form.select.option additionalAttributes="{v:condition.iterator.contains(needle: division, haystack: constraint.division, then: '{selected: true}')}" value="{division}">{division}</f:form.select.option>
+										<f:form.select.option additionalAttributes="{jobs:inArray(needle: division, haystack: constraint.division, then: '{selected: true}')}" value="{division}">{division}</f:form.select.option>
 									</f:if>
 								</f:for>
 							</f:form.select>
@@ -37,9 +35,9 @@
 								<f:translate key="fe.filter.careerLevel"/>
 							</label>
 							<f:form.select class="form-control" multiple="true" name="careerLevel" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}" property="careerLevel">
-								<f:for as="careerLevel" each="{filterOptions.careerLevel}">
+								<f:for each="{filterOptions.careerLevel}" as="careerLevel">
 									<f:if condition="{careerLevel}">
-										<f:form.select.option additionalAttributes="{v:condition.iterator.contains(needle: careerLevel, haystack: constraint.careerLevel, then: '{selected: true}')}" value="{careerLevel}">{careerLevel}</f:form.select.option>
+										<f:form.select.option additionalAttributes="{jobs:inArray(needle: careerLevel, haystack: constraint.careerLevel, then: '{selected: true}')}" value="{careerLevel}">{careerLevel}</f:form.select.option>
 									</f:if>
 								</f:for>
 							</f:form.select>
@@ -51,7 +49,7 @@
 							<f:form.select class="form-control" multiple="true" name="employmentType" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}" property="employmentType">
 								<f:for as="employmentType" each="{filterOptions.employmentType}">
 									<f:if condition="{employmentType}">
-										<f:form.select.option additionalAttributes="{v:condition.iterator.contains(needle: employmentType, haystack: constraint.employmentType, then: '{selected: true}')}" value="{employmentType}">
+										<f:form.select.option additionalAttributes="{jobs:inArray(needle: employmentType, haystack: constraint.employmentType, then: '{selected: true}')}" value="{employmentType}">
 											<f:translate key="fe.posting.employment.selector.{employmentType}"/>
 										</f:form.select.option>
 									</f:if>
@@ -64,7 +62,7 @@
 							</label>
 							<f:form.select class="form-control" multiple="true" name="location" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}" property="location">
 								<f:for as="location" each="{filterOptions.location}">
-									<f:form.select.option additionalAttributes="{v:condition.iterator.contains(needle: location.uid, haystack: constraint.location, then: '{selected: true}')}" value="{location.uid}">{location.name}</f:form.select.option>
+									<f:form.select.option additionalAttributes="{jobs:inArray(needle: location.uid, haystack: constraint.location, then: '{selected: true}')}" value="{location.uid}">{location.name}</f:form.select.option>
 								</f:for>
 							</f:form.select>
 						</div>
