@@ -586,7 +586,7 @@
 			{
 				$savedInBackend = false;
 				$this->applicationRepository->remove($newApplication);
-				$this->applicationFileService->deleteApplicationFolder($this->applicationFileService->getApplicantFolder($newApplication));
+				$this->applicationFileService->deleteApplicationFolder($this->applicationFileService->getApplicantFolder($newApplication), $fileStorage);
 				$this->persistenceManager->persistAll();
 			}
 

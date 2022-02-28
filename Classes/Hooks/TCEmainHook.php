@@ -149,7 +149,8 @@
 				}
 
 				$path = $fileService->getApplicantFolder($application);
-				$fileService->deleteApplicationFolder($path);
+				$fileStorage = $fileService->getFileStorage($application);
+				$fileService->deleteApplicationFolder($path, $fileStorage);
 			}
 		}
 	}
