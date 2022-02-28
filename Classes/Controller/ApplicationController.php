@@ -37,6 +37,7 @@
 	use TYPO3\CMS\Core\Database\ConnectionPool;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Resource\FileInterface;
+	use TYPO3\CMS\Core\Resource\ResourceStorageInterface;
 	use TYPO3\CMS\Core\Resource\StorageRepository;
 	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -308,6 +309,8 @@
 			$legacyUploadfiles = [];
 			$fileIndices = ['cv', 'cover_letter', 'testimonials', 'other_files'];
 
+			$fileStorage = (int)($this->settings['fileStorage'] ?? 1);
+
 			// Normalize file array -> free choice whether multi or single upload
 			foreach ($fileIndices as $fileIndex)
 			{
@@ -386,13 +389,13 @@
 			switch ($uploadMode)
 			{
 				case self::UPLOAD_MODE_LEGACY:
-					$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['cv'], 'cv', 'cv_');
-					$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['cover_letter'], 'cover_letter', 'cover_letter_');
-					$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['testimonials'], 'testimonials', 'testimonials_');
-					$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['other_files'], 'other_files', 'other_files_');
+					$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['cv'], 'cv', $fileStorage, 'cv_');
+					$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['cover_letter'], $fileStorage, 'cover_letter', 'cover_letter_');
+					$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['testimonials'], $fileStorage, 'testimonials', 'testimonials_');
+					$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['other_files'], $fileStorage, 'other_files', 'other_files_');
 					break;
 				case self::UPLOAD_MODE_FILES:
-					$multiUploadFiles = $this->processFiles($newApplication, $arguments['files'], 'files');
+					$multiUploadFiles = $this->processFiles($newApplication, $arguments['files'], 'files', $fileStorage);
 					break;
 				default:
 					// No files were uploaded, so we don't have to process any
@@ -477,7 +480,7 @@
 					{
 						if ($file instanceof FileInterface)
 						{
-							$mail->addAttachment($file->getPublicUrl());
+							$mail->addAttachment($file->getForLocalProcessing(false));
 						}
 					}
 				}
@@ -486,7 +489,7 @@
 				{
 					if ($file instanceof FileInterface)
 					{
-						$mail->addAttachment($file->getPublicUrl());
+						$mail->addAttachment($file->getForLocalProcessing(false));
 					}
 				}
 
@@ -619,6 +622,7 @@
 		 * @param Application $newApplication
 		 * @param array       $fileIds
 		 * @param string      $fieldName
+		 * @param int         $fileStorage
 		 * @param string      $fileNamePrefix
 		 *
 		 * @return array
@@ -629,7 +633,7 @@
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
 		 * @throws \TYPO3\CMS\Form\Domain\Exception\IdentifierNotValidException
 		 */
-		private function processFiles(Application $newApplication, array $fileIds, string $fieldName, $fileNamePrefix = ''): array
+		private function processFiles(Application $newApplication, array $fileIds, string $fieldName, int $fileStorage, $fileNamePrefix = ''): array
 		{
 			$uploadUtility = new UploadFileUtility();
 
@@ -644,7 +648,7 @@
 
 				$movedNewFile = $this->handleFileUpload(
 					$uploadUtility->getFilePath($fileId), $uploadUtility->getFileName($fileId),
-					$newApplication, $fileNamePrefix);
+					$newApplication, $fileStorage, $fileNamePrefix);
 				$return_files[] = $movedNewFile;
 				$uploadUtility->deleteFolder($fileId);
 
@@ -659,6 +663,7 @@
 		 * @param string                                        $filePath
 		 * @param string                                        $fileName
 		 * @param \ITX\Jobapplications\Domain\Model\Application $domainObject
+		 * @param int                                           $fileStorage
 		 * @param string                                        $prefix
 		 *
 		 * @return FileInterface
@@ -669,14 +674,18 @@
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
 		 */
 		private function handleFileUpload(string                                        $filePath, string $fileName,
-										  \ITX\Jobapplications\Domain\Model\Application $domainObject, string $prefix = ''): FileInterface
+										  \ITX\Jobapplications\Domain\Model\Application $domainObject, int $fileStorage, string $prefix = ''): FileInterface
 		{
 
 			$folder = $this->applicationFileService->getApplicantFolder($domainObject);
 
 			/* @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
 			$storageRepository = $this->objectManager->get(StorageRepository::class);
-			$storage = $storageRepository->findByUid('1');
+
+			$storage = $storageRepository->findByUid($fileStorage);
+			if (!$storage instanceof ResourceStorageInterface) {
+				throw new \RuntimeException(sprintf("Resource storage with uid %d could not be found.", $fileStorage));
+			}
 
 			//build the new storage folder
 			if ($storage->hasFolder($folder))

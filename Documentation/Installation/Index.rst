@@ -35,6 +35,10 @@ You have to include the static typoscript file the Jobapplications extension pro
 
 #. Also to have working default filters jQuery is required. If not already included elsewhere, you can include a jQuery version via a static template.
 
+Create a secure file storage
+----------------------------
+If your planning to use the application form, create a secure file storage, that is not accessible from the web (if not present already). You can read here how to configure it and set it up: :ref:`Filestorage for applications <filestorage>`. This step is optional, but highly recommended.
+
 Route Enhancers
 ---------------
 For making the URL readable there is a file provided which can be imported in *config->sites->main->config.yaml*
