@@ -38,7 +38,9 @@
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Resource\FileInterface;
 	use TYPO3\CMS\Core\Resource\StorageRepository;
+	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
+	use TYPO3\CMS\Core\Utility\MathUtility;
 	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 	use TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter;
 	use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -168,14 +170,12 @@
 		 */
 		public function newAction(Posting $posting = null): void
 		{
-			/*
-			Getting posting when Detailview and applicationform are on the same page.
-			Limited to posting via GET Variable which isn't the best way of.
-			Might need to find a better solution in the future
-			*/
-			if ($posting === null && $_REQUEST['postingApp'])
+
+			// Getting posting when Detailview and applicationform are on the same page.
+			$parameters = GeneralUtility::_GET("tx_jobapplications_detailview");
+			if ($posting === null && !empty($parameters) && !empty($parameters['posting']) && MathUtility::canBeInterpretedAsInteger($parameters['posting']))
 			{
-				$postingUid = (int)$_REQUEST['postingApp'];
+				$postingUid = (int)$parameters['posting'];
 				/** @var Posting $posting */
 				$posting = $this->postingRepository->findByUid($postingUid);
 			}

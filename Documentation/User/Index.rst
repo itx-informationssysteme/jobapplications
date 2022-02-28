@@ -51,8 +51,7 @@ Between that there are other settings as well:
 
 Detail view and Application form on same page
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Simply turn this setting on, when you want to have the detail view and the application form on the same page.
-You still have to put these two plugins on the page.
+You can put them on the same page. The application form plugin will automatically fetch the correct posting.
 
 Show only postings of
 ~~~~~~~~~~~~~~~~~~~~~
