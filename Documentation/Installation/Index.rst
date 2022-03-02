@@ -46,3 +46,30 @@ or copied and modified.
 This file is provided in the extension folder in *Configuration->Routes->Default.yaml*.
 
 The provided Route Enhancers enhances the listview, detailview and applicationform.
+
+Sitemap Example
+---------------
+Here is an example of a sitemap provider configuration for the extension. Fill in "xxx" with the corresponding ids.
+
+.. code-block:: typoscript
+
+   jobs {
+	provider = TYPO3\CMS\Seo\XmlSitemap\RecordsXmlSitemapDataProvider
+	config {
+	   table = tx_jobapplications_domain_model_posting
+	   sortField = uid
+	   lastModifiedField = tstamp
+	   pid = xxx
+	   recursive = 0
+	   url {
+		  pageId = xxx
+		  fieldToParameterMap {
+			 uid = tx_jobapplications_detailview[posting]
+		  }
+		  additionalGetParameters {
+			 tx_jobapplications_detailview.controller = Posting
+			 tx_jobapplications_detailview.action = show
+		  }
+	   }
+	}
+   }
