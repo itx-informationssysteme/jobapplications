@@ -1,4 +1,20 @@
 routeEnhancers:
+    JobapplicationsListView:
+        type: Extbase
+        namespace: tx_jobapplications_frontend
+        routes:
+            -   routePath: '/page-{page}'
+                _controller: 'Posting::list'
+                _arguments:
+                    page: '@widget_0/currentPage'
+                requirements:
+                    page: \d+
+        defaultController: 'Posting::list'
+        aspects:
+            page:
+                type: StaticRangeMapper
+                start: '1'
+                end: '25'
     JobapplicationsDetailView:
         type: Extbase
         namespace: 'tx_jobapplications_detailview'
