@@ -11,19 +11,19 @@
 	{
 		/** @var array
 		 */
-		protected $division;
+		protected $division = [];
 
 		/** @var array
 		 */
-		protected $careerLevel;
+		protected $careerLevel = [];
 
 		/** @var array
 		 */
-		protected $employmentType;
+		protected $employmentType = [];
 
 		/** @var array
 		 */
-		protected $location;
+		protected $location = [];
 
 		/**
 		 * @return array
