@@ -1,3 +1,6 @@
+name: Static analysis
+
+on: [ push, pull_request ]
 
 jobs:
     phpstan:
