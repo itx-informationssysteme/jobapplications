@@ -162,7 +162,7 @@
 			}
 			else
 			{
-				$result = $this->makeRequest($url);
+				$result = $this->makeRequest($url, false);
 			}
 
 			if ($result && $delete === false)
