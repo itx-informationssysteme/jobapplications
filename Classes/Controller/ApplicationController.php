@@ -349,7 +349,7 @@
 			}
 
 			// Check which kind of uploads were sent
-			if ($this->isStringArray($arguments['files']))
+			if ($this->isStringArray($arguments['files'] ?? []))
 			{
 				$uploadMode = self::UPLOAD_MODE_FILES;
 			}

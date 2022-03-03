@@ -198,10 +198,10 @@
 		public function getFilterOptions($categories): array
 		{
 			return [
-				'division' => $this->postingRepository->findAllDivisions($categories),
-				'careerLevel' => $this->postingRepository->findAllCareerLevels($categories),
-				'employmentType' => $this->postingRepository->findAllEmploymentTypes($categories),
-				'location' => $this->locationRepository->findAll($categories)->toArray(),
+				//'division' => $this->postingRepository->findAllDivisions($categories),
+				//'careerLevel' => $this->postingRepository->findAllCareerLevels($categories),
+				//'employmentType' => $this->postingRepository->findAllEmploymentTypes($categories),
+				//'location' => $this->locationRepository->findAll($categories)->toArray(),
 			];
 		}
 

@@ -6,10 +6,12 @@
 <jobs:page.header.meta content="{posting.jobDescription -> f:format.stripTags()}" name="description"></jobs:page.header.meta>
 <jobs:page.header.meta content="{posting.title}" name="og:title"/>
 <f:if condition="{posting.listViewImage}">
-	<f:commtent>
+	<f:comment><!--
+	<![CDATA[
 		to Do:
 		replace url
 		<jobs:page.header.meta content="{f:uri.image(src:posting.listViewImage.originalResource.publicUrl, treatIdAsReference: 1)-> v:format.prepend(add: '{v:site.url() -> v:format.substring(length: \'-1\')}')}" name="og:image"/>
-	</f:commtent>
+		]]>
+	--></f:comment>
 	</f:if>
 </html>

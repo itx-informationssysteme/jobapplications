@@ -25,7 +25,7 @@
 							<f:form.select class="form-control" multiple="true" name="division" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}" property="division">
 								<f:for each="{filterOptions.division}" as="division" >
 									<f:if condition="{division}">
-										<f:form.select.option additionalAttributes="{jobs:inArray(needle: division, haystack: constraint.division, then: '{selected: true}')}" value="{division}">{division}</f:form.select.option>
+										<f:form.select.option additionalAttributes="{jobs:condition.inArray(needle: division, haystack: constraint.division, then: '{selected: true}')}" value="{division}">{division}</f:form.select.option>
 									</f:if>
 								</f:for>
 							</f:form.select>
@@ -37,7 +37,7 @@
 							<f:form.select class="form-control" multiple="true" name="careerLevel" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}" property="careerLevel">
 								<f:for each="{filterOptions.careerLevel}" as="careerLevel">
 									<f:if condition="{careerLevel}">
-										<f:form.select.option additionalAttributes="{jobs:inArray(needle: careerLevel, haystack: constraint.careerLevel, then: '{selected: true}')}" value="{careerLevel}">{careerLevel}</f:form.select.option>
+										<f:form.select.option additionalAttributes="{jobs:condition.inArray(needle: careerLevel, haystack: constraint.careerLevel, then: '{selected: true}')}" value="{careerLevel}">{careerLevel}</f:form.select.option>
 									</f:if>
 								</f:for>
 							</f:form.select>
@@ -49,7 +49,7 @@
 							<f:form.select class="form-control" multiple="true" name="employmentType" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}" property="employmentType">
 								<f:for as="employmentType" each="{filterOptions.employmentType}">
 									<f:if condition="{employmentType}">
-										<f:form.select.option additionalAttributes="{jobs:inArray(needle: employmentType, haystack: constraint.employmentType, then: '{selected: true}')}" value="{employmentType}">
+										<f:form.select.option additionalAttributes="{jobs:condition.inArray(needle: employmentType, haystack: constraint.employmentType, then: '{selected: true}')}" value="{employmentType}">
 											<f:translate key="fe.posting.employment.selector.{employmentType}"/>
 										</f:form.select.option>
 									</f:if>
@@ -62,7 +62,7 @@
 							</label>
 							<f:form.select class="form-control" multiple="true" name="location" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}" property="location">
 								<f:for as="location" each="{filterOptions.location}">
-									<f:form.select.option additionalAttributes="{jobs:inArray(needle: location.uid, haystack: constraint.location, then: '{selected: true}')}" value="{location.uid}">{location.name}</f:form.select.option>
+									<f:form.select.option additionalAttributes="{jobs:condition.inArray(needle: location.uid, haystack: constraint.location, then: '{selected: true}')}" value="{location.uid}">{location.name}</f:form.select.option>
 								</f:for>
 							</f:form.select>
 						</div>
@@ -81,13 +81,11 @@
 				</f:form>
 				<f:if condition="{postings -> f:count()} > 0">
 					<f:then>
-						<f:widget.paginate as="paginatedPostings" configuration="{itemsPerPage: settings.maxItemsOnPage}" objects="{postings}">
-							<div class="row">
-								<f:for as="posting" each="{paginatedPostings}">
-									<f:render arguments="{_all}" partial="Posting/ListItem"></f:render>
-								</f:for>
-							</div>
-						</f:widget.paginate>
+						<div class="row">
+							<f:for as="posting" each="{postings}">
+								<f:render arguments="{_all}" partial="Posting/ListItem"></f:render>
+							</f:for>
+						</div>
 					</f:then>
 					<f:else>
 						<f:comment><!--If filter returns no postings--></f:comment>
