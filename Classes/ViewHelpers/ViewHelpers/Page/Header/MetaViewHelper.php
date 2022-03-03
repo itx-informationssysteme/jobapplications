@@ -54,10 +54,6 @@
 		 */
 		public function render()
 		{
-			if ('BE' === TYPO3_MODE)
-			{
-				return;
-			}
 			$content = $this->arguments['content'];
 			if (!empty($content))
 			{
