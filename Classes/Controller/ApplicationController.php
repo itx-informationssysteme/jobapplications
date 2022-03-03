@@ -406,9 +406,9 @@
 			{
 				case self::UPLOAD_MODE_LEGACY:
 					$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['cv'], 'cv', $fileStorage, 'cv_');
-					$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['cover_letter'], $fileStorage, 'cover_letter', 'cover_letter_');
-					$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['testimonials'], $fileStorage, 'testimonials', 'testimonials_');
-					$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['other_files'], $fileStorage, 'other_files', 'other_files_');
+					$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['cover_letter'], 'cover_letter', $fileStorage, 'cover_letter_');
+					$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['testimonials'], 'testimonials', $fileStorage, 'testimonials_');
+					$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['other_files'], 'other_files', $fileStorage, 'other_files_');
 					break;
 				case self::UPLOAD_MODE_FILES:
 					$multiUploadFiles = $this->processFiles($newApplication, $arguments['files'], 'files', $fileStorage);
