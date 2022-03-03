@@ -48,6 +48,11 @@
 	use TYPO3\CMS\Core\Mail\Mailer;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
+	use TYPO3\CMS\Core\Resource\Exception\ExistingTargetFileNameException;
+	use TYPO3\CMS\Core\Resource\Exception\ExistingTargetFolderException;
+	use TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException;
+	use TYPO3\CMS\Core\Resource\Exception\InsufficientFolderWritePermissionsException;
+	use TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException;
 	use TYPO3\CMS\Core\Resource\File;
 	use TYPO3\CMS\Core\Resource\FileInterface;
 	use TYPO3\CMS\Core\Resource\ResourceStorage;
@@ -56,10 +61,14 @@
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Core\Utility\MathUtility;
 	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+	use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+	use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 	use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 	use TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter;
 	use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
+	use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
+	use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 	use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 	/**
@@ -307,16 +316,15 @@
 		 * @param Application  $newApplication
 		 * @param Posting|null $posting
 		 *
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFileNameException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFolderException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderWritePermissionsException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
-		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
-		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
-		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
-		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
-		 * @throws \TYPO3\CMS\Form\Domain\Exception\IdentifierNotValidException
+		 * @throws ExistingTargetFileNameException
+		 * @throws ExistingTargetFolderException
+		 * @throws InsufficientFolderAccessPermissionsException
+		 * @throws InsufficientFolderWritePermissionsException
+		 * @throws InvalidFileNameException
+		 * @throws StopActionException
+		 * @throws IllegalObjectTypeException
+		 * @throws InvalidSlotException
+		 * @throws InvalidSlotReturnException
 		 */
 		public function createAction(Application $newApplication, Posting $posting = null): void
 		{
@@ -578,11 +586,11 @@
 		 * @param string      $fileNamePrefix
 		 *
 		 * @return array
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFileNameException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFolderException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderWritePermissionsException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
+		 * @throws ExistingTargetFileNameException
+		 * @throws ExistingTargetFolderException
+		 * @throws InsufficientFolderAccessPermissionsException
+		 * @throws InsufficientFolderWritePermissionsException
+		 * @throws InvalidFileNameException
 		 */
 		private function processFiles(Application $newApplication, array $fileIds, string $fieldName, int $fileStorage, string $fileNamePrefix = ''): array
 		{
@@ -611,21 +619,21 @@
 		}
 
 		/**
-		 * @param string                                        $filePath
-		 * @param string                                        $fileName
-		 * @param \ITX\Jobapplications\Domain\Model\Application $domainObject
-		 * @param int                                           $fileStorage
-		 * @param string                                        $prefix
+		 * @param string      $filePath
+		 * @param string      $fileName
+		 * @param Application $domainObject
+		 * @param int         $fileStorage
+		 * @param string      $prefix
 		 *
 		 * @return File|FileInterface
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFileNameException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFolderException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderWritePermissionsException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
+		 * @throws ExistingTargetFileNameException
+		 * @throws ExistingTargetFolderException
+		 * @throws InsufficientFolderAccessPermissionsException
+		 * @throws InsufficientFolderWritePermissionsException
+		 * @throws InvalidFileNameException
 		 */
-		private function handleFileUpload(string                                        $filePath, string $fileName,
-										  \ITX\Jobapplications\Domain\Model\Application $domainObject, int $fileStorage, string $prefix = ''): FileInterface
+		private function handleFileUpload(string      $filePath, string $fileName,
+										  Application $domainObject, int $fileStorage, string $prefix = ''): File|FileInterface
 		{
 
 			$folder = $this->applicationFileService->getApplicantFolder($domainObject);
@@ -634,11 +642,6 @@
 			if (!$storage instanceof ResourceStorageInterface)
 			{
 				throw new \RuntimeException(sprintf("Resource storage with uid %d could not be found.", $fileStorage));
-			}
-
-			if (!$storage instanceof ResourceStorage)
-			{
-				throw new FileNotFoundException("Could not find fileadmin with uid 1");
 			}
 
 			//build the new storage folder

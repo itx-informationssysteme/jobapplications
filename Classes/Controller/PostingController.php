@@ -2,22 +2,22 @@
 
 	namespace ITX\Jobapplications\Controller;
 
-	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-	use Psr\Http\Message\ResponseInterface;
-	use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-	use TYPO3\CMS\Core\Cache\CacheManager;
-	use ITX\Jobapplications\Domain\Repository\PostingRepository;
-	use ITX\Jobapplications\Domain\Repository\LocationRepository;
-	use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 	use ITX\Jobapplications\Domain\Model\Constraint;
 	use ITX\Jobapplications\Domain\Model\Posting;
+	use ITX\Jobapplications\Domain\Repository\LocationRepository;
+	use ITX\Jobapplications\Domain\Repository\PostingRepository;
 	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
+	use Psr\Http\Message\ResponseInterface;
+	use TYPO3\CMS\Core\Cache\CacheManager;
 	use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\Http\ImmediateResponseException;
 	use TYPO3\CMS\Core\Page\PageRenderer;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
+	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+	use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+	use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 	use TYPO3\CMS\Frontend\Controller\ErrorController;
 
 	/***************************************************************
@@ -75,15 +75,12 @@
 		 *
 		 * @param void
 		 */
-		public function initializeShowAction()
+		public function initializeShowAction(): void
 		{
 			// If application form an posting are on the same page, the posting object is part of the application plugin.
-			if (!$this->request->hasArgument("posting"))
+			if (!$this->request->hasArgument("posting") && isset($_REQUEST["tx_jobapplications_applicationform"]["posting"]))
 			{
-				if (isset($_REQUEST["tx_jobapplications_applicationform"]["posting"]))
-				{
-					$this->request->setArgument("posting", $_REQUEST["tx_jobapplications_applicationform"]["posting"]);
-				}
+				$this->request->setArgument("posting", $_REQUEST["tx_jobapplications_applicationform"]["posting"]);
 			}
 		}
 
@@ -162,6 +159,7 @@
 			$this->view->assign('isFiltering', $isFiltering);
 			$this->view->assign('filterOptions', $filterOptions);
 			$this->view->assign('constraint', $constraint);
+
 			return $this->htmlResponse();
 		}
 
@@ -349,6 +347,7 @@
 			}
 
 			$this->view->assign('posting', $posting);
+
 			return $this->htmlResponse();
 		}
 

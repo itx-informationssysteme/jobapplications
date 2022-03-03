@@ -2,9 +2,9 @@
 
 	namespace ITX\Jobapplications\Controller;
 
-	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-	use Psr\Http\Message\ResponseInterface;
 	use ITX\Jobapplications\Domain\Repository\ContactRepository;
+	use Psr\Http\Message\ResponseInterface;
+	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 
 	/***************************************************************
@@ -35,13 +35,7 @@
 	 */
 	class ContactController extends ActionController
 	{
-
-		/**
-		 * contactRepository
-		 *
-		 * @var \ITX\Jobapplications\Domain\Repository\ContactRepository
-		 */
-		protected $contactRepository = null;
+		protected ContactRepository $contactRepository;
 
 		/**
 		 * Initializes the view before invoking an action method.
@@ -65,7 +59,7 @@
 		 *
 		 * @param ITX\Jobapplications\Domain\Model\Contact
 		 *
-		 * @return void
+		 * @return ResponseInterface
 		 */
 		public function listAction(): ResponseInterface
 		{
@@ -87,6 +81,7 @@
 			$contactObjects = array_replace(array_flip($contacts), $contactByUid);
 
 			$this->view->assign('contacts', $contactObjects);
+
 			return $this->htmlResponse();
 		}
 
