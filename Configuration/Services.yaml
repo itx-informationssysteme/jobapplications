@@ -1,13 +1,21 @@
 # Variant 1, widget identifier as attribute
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    ITX\Jobapplications\:
+        resource: '../Classes/*'
+        exclude:
+            - '../Classes/Domain/Model/*'
+
     ITX\Jobapplications\Widgets\Provider\PostingsActiveProvider:
 
     ITX\Jobapplications\Widgets\Provider\ApplicationsPerPostingBarChartProvider:
 
     ITX\Jobapplications\Widgets\Provider\BackendModuleButtonProvider:
         arguments:
-            $title: ''
-            $link: ''
             $target: ''
 
     dashboard.widget.postingsActive:

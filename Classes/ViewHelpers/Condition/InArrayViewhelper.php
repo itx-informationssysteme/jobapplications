@@ -1,6 +1,6 @@
 <?php
 
-	namespace ITX\Jobapplications\ViewHelpers;
+	namespace ITX\Jobapplications\ViewHelpers\Condition;
 
 	use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
 

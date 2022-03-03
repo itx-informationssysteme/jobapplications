@@ -133,7 +133,7 @@
 			$GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['jobapplications_revert'] = \ITX\Jobapplications\Controller\AjaxController::class.'::revertAction';
 
 			// Cache
-			if (!is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['jobapplications_cache']))
+			if (!isset($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['jobapplications_cache']) || !is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['jobapplications_cache']))
 			{
 				$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['jobapplications_cache'] = [];
 			}
