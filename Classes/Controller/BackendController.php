@@ -89,6 +89,13 @@
 		 */
 		protected $applicationFileService;
 
+		protected GoogleIndexingApiConnector $connector;
+
+		public function __construct(GoogleIndexingApiConnector $connector)
+		{
+			$this->connector = $connector;
+		}
+
 		/**
 		 * action listApplications
 		 *
@@ -321,7 +328,6 @@
 
 			if ($this->request->hasArgument('batch_index'))
 			{
-				$connector = new GoogleIndexingApiConnector(true);
 				$postings = $this->postingRepository->findAllIncludingHiddenAndDeleted();
 
 				$removeCounter = 0;
@@ -333,7 +339,7 @@
 				{
 					if ($posting->isHidden() || $posting->isDeleted())
 					{
-						if (!$connector->updateGoogleIndex($posting->getUid(), true, $posting))
+						if (!$this->connector->updateGoogleIndex($posting->getUid(), true, $posting))
 						{
 							$error_bit = true;
 						}
@@ -342,17 +348,13 @@
 							$removeCounter++;
 						}
 					}
+					else if (!$this->connector->updateGoogleIndex($posting->getUid(), false, $posting))
+					{
+						$error_bit = true;
+					}
 					else
 					{
-						if (!$connector->updateGoogleIndex($posting->getUid(), false, $posting))
-						{
-							$error_bit = true;
-						}
-						else
-						{
-							$updateCounter++;
-						}
-
+						$updateCounter++;
 					}
 				}
 				if ($error_bit)

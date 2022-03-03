@@ -43,7 +43,13 @@
 		public int $days = 90;
 		public int $status = 0;
 
-		public function __construct(PersistenceManager $persistenceManager, ApplicationRepository $applicationRepository, ApplicationFileService $applicationFileService)
+		protected PersistenceManager $persistenceManager;
+		protected ApplicationRepository $applicationRepository;
+		protected ApplicationFileService $applicationFileService;
+
+		public function __construct(PersistenceManager $persistenceManager,
+									ApplicationRepository $applicationRepository,
+									ApplicationFileService $applicationFileService)
 		{
 			$this->persistenceManager = $persistenceManager;
 			$this->applicationRepository = $applicationRepository;

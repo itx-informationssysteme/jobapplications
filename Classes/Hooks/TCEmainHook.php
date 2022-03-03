@@ -146,9 +146,9 @@
 					$application = $this->applicationRepository->findByUid($uid);
 				}
 
-				$path = $this->fileService->getApplicantFolder($application);
-				$fileStorage = $this->fileService->getFileStorage($application);
-				$this->fileService->deleteApplicationFolder($path, $fileStorage);
+				$path = $this->applicationFileService->getApplicantFolder($application);
+				$fileStorage = $this->applicationFileService->getFileStorage($application);
+				$this->applicationFileService->deleteApplicationFolder($path, $fileStorage);
 			}
 		}
 	}
