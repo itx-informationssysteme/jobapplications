@@ -81,6 +81,7 @@
 				</f:form>
 				<f:if condition="{postings -> f:count()} > 0">
 					<f:then>
+						<f:comment><!--paginate--></f:comment>
 						<div class="row">
 							<f:for as="posting" each="{postings}">
 								<f:render arguments="{_all}" partial="Posting/ListItem"></f:render>

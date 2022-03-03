@@ -24,41 +24,42 @@
 	 *
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
-	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-	use TYPO3\CMS\Core\Log\LogManager;
-	use Psr\Http\Message\ResponseInterface;
-	use ITX\Jobapplications\Domain\Model\Contact;
-	use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
-	use ITX\Jobapplications\Domain\Repository\ApplicationRepository;
-	use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
-	use ITX\Jobapplications\Service\ApplicationFileService;
-	use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
-	use ITX\Jobapplications\Domain\Repository\PostingRepository;
-	use ITX\Jobapplications\Domain\Repository\StatusRepository;
+
 	use ITX\Jobapplications\Domain\Model\Application;
+	use ITX\Jobapplications\Domain\Model\Contact;
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Model\Status;
+	use ITX\Jobapplications\Domain\Repository\ApplicationRepository;
+	use ITX\Jobapplications\Domain\Repository\PostingRepository;
+	use ITX\Jobapplications\Domain\Repository\StatusRepository;
 	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
+	use ITX\Jobapplications\Service\ApplicationFileService;
 	use ITX\Jobapplications\Utility\Mail\MailInterface;
 	use ITX\Jobapplications\Utility\Typo3VersionUtility;
 	use ITX\Jobapplications\Utility\UploadFileUtility;
+	use Psr\Http\Message\ResponseInterface;
 	use Psr\Log\LogLevel;
 	use Symfony\Component\Mime\Address;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
 	use TYPO3\CMS\Core\Localization\Exception\FileNotFoundException;
+	use TYPO3\CMS\Core\Log\LogManager;
 	use TYPO3\CMS\Core\Mail\FluidEmail;
 	use TYPO3\CMS\Core\Mail\Mailer;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
+	use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
 	use TYPO3\CMS\Core\Resource\File;
 	use TYPO3\CMS\Core\Resource\FileInterface;
-	use TYPO3\CMS\Core\Resource\ResourceStorageInterface;
 	use TYPO3\CMS\Core\Resource\ResourceStorage;
+	use TYPO3\CMS\Core\Resource\ResourceStorageInterface;
 	use TYPO3\CMS\Core\Resource\StorageRepository;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Core\Utility\MathUtility;
+	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+	use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 	use TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter;
+	use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 	use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 	/**
@@ -110,6 +111,13 @@
 		 * @var \ITX\Jobapplications\Domain\Repository\StatusRepository
 		 */
 		private $statusRepository;
+
+		protected StorageRepository $storageRepository;
+
+		public function __construct(StorageRepository $storageRepository)
+		{
+			$this->storageRepository = $storageRepository;
+		}
 
 		/**
 		 * initialize create action
@@ -222,6 +230,7 @@
 			{
 				$this->view->assign("fileError", 0);
 			}
+
 			return $this->htmlResponse();
 		}
 
@@ -259,6 +268,7 @@
 			$this->view->assign('salutation', $salutation);
 			$this->view->assign('problems', $problems);
 			$posting ? $this->view->assign('salutationValue', $salutationValue) : false;
+
 			return $this->htmlResponse();
 		}
 
@@ -455,7 +465,7 @@
 					{
 						if ($file instanceof FileInterface)
 						{
-							$mail->attach($file->getForLocalProcessing(false));
+							$mail->attachFromPath($file->getForLocalProcessing(false));
 						}
 					}
 				}
@@ -464,21 +474,21 @@
 				{
 					if ($file instanceof FileInterface)
 					{
-						$mail->attach($file->getForLocalProcessing(false));
+						$mail->attachFromPath($file->getForLocalProcessing(false));
 					}
 				}
 
 				//Figure out who the email will be sent to and how
-				if ($this->settings['sendEmailToInternal'] != "" && $this->settings['sendEmailToContact'] == "1")
+				if ($this->settings['sendEmailToInternal'] !== "" && $this->settings['sendEmailToContact'] === '1')
 				{
 					$mail->to(new Address($contact->getEmail(), $contact->getFirstName().' '.$contact->getLastName()));
 					$mail->bcc(new Address($this->settings['sendEmailToInternal']));
 				}
-				else if ($this->settings['sendEmailToContact'] != "1" && $this->settings['sendEmailToInternal'] != "")
+				else if ($this->settings['sendEmailToContact'] !== '1' && $this->settings['sendEmailToInternal'] !== "")
 				{
 					$mail->to(new Address($this->settings['sendEmailToInternal'], 'Internal'));
 				}
-				else if ($this->settings['sendEmailToContact'] == "1" && $this->settings['sendEmailToInternal'] != "1")
+				else if ($this->settings['sendEmailToContact'] === '1' && $this->settings['sendEmailToInternal'] !== '1')
 				{
 					$mail->to(new Address($contact->getEmail(), $contact->getFirstName()." ".$contact->getLastName()));
 				}
@@ -620,15 +630,14 @@
 
 			$folder = $this->applicationFileService->getApplicantFolder($domainObject);
 
-			/* @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
-			$storageRepository = $this->objectManager->get(StorageRepository::class);
-
-			$storage = $storageRepository->findByUid($fileStorage);
-			if (!$storage instanceof ResourceStorageInterface) {
+			$storage = $this->storageRepository->findByUid($fileStorage);
+			if (!$storage instanceof ResourceStorageInterface)
+			{
 				throw new \RuntimeException(sprintf("Resource storage with uid %d could not be found.", $fileStorage));
 			}
 
-			if (!$storage instanceof ResourceStorage) {
+			if (!$storage instanceof ResourceStorage)
+			{
 				throw new FileNotFoundException("Could not find fileadmin with uid 1");
 			}
 

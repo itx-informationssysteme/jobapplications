@@ -102,7 +102,7 @@
 			$sessionData = $GLOBALS['BE_USER']->getSessionData('tx_jobapplications');
 			$contact = $this->getActiveBeContact();
 
-			$dailyLogin = $sessionData['dailyLogin'];
+			$dailyLogin = $sessionData['dailyLogin'] ?? null;
 			if ((empty($dailyLogin) && $contact instanceof Contact) || ($dailyLogin === false && $contact instanceof Contact))
 			{
 				$this->redirect('dashboard');
@@ -120,10 +120,10 @@
 			}
 			else
 			{
-				$selectedPosting = $sessionData['selectedPosting'];
-				$archivedSelected = $sessionData['archivedSelected'];
-				$selectedContact = $sessionData['selectedContact'];
-				$selectedStatus = $sessionData['selectedStatus'];
+				$selectedPosting = $sessionData['selectedPosting'] ?? null;
+				$archivedSelected = $sessionData['archivedSelected'] ?? null;
+				$selectedContact = $sessionData['selectedContact'] ?? null;
+				$selectedStatus = $sessionData['selectedStatus'] ?? null;
 			}
 
 			// Handling a status change, triggered in listApplications View
@@ -152,9 +152,9 @@
 			$applications = $this->applicationRepository->findByFilter($selectedContact, $selectedPosting, $selectedStatus, 0, 'crdate', 'DESC');
 
 			// Set posting-selectBox content dynamically based on selected contact
-			if ((empty($selectedPosting) && !empty($selectedContact)))
+			if (empty($selectedPosting) && $selectedContact !== null)
 			{
-				$postingsFilter = $this->postingRepository->findByContact(intval($selectedContact));
+				$postingsFilter = $this->postingRepository->findByContact($selectedContact);
 			}
 			else
 			{
@@ -204,6 +204,7 @@
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
 		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
+		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
 		 */
 		public function showApplicationAction(Application $application)
 		{
@@ -272,7 +273,7 @@
 
 			$session = $backendUser->getSessionData('tx_jobapplications') ?? [];
 
-			if ((empty($session['dailyLogin']) && $contact instanceof Contact) || ($session['dailyLogin'] === false && $contact instanceof Contact))
+			if ((isset($session['dailyLogin']) && $contact instanceof Contact) || (!isset($session['dailyLogin']) && $contact instanceof Contact))
 			{
 				$session['dailyLogin'] = true;
 				$backendUser->setAndSaveSessionData('tx_jobapplications', $session);

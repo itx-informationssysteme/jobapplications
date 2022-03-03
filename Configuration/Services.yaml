@@ -1,4 +1,3 @@
-# Variant 1, widget identifier as attribute
 services:
     _defaults:
         autowire: true

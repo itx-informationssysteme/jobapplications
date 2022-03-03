@@ -26,7 +26,6 @@
 
 	use TYPO3\CMS\Dashboard\Widgets\ChartDataProviderInterface;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
-	use TYPO3\CMS\Extbase\Object\ObjectManager;
 	use ITX\Jobapplications\Domain\Repository\PostingRepository;
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Repository\ApplicationRepository;
@@ -41,27 +40,26 @@
 	class ApplicationsPerPostingBarChartProvider implements ChartDataProviderInterface
 	{
 		/** @var array */
-		protected $labels = [];
+		protected array $labels = [];
+
+		protected ApplicationRepository $applicationRepository;
+		protected PostingRepository $postingRepository;
+
+		public function __construct(PostingRepository $postingRepository, ApplicationRepository $applicationRepository) {
+			$this->postingRepository = $postingRepository;
+			$this->applicationRepository = $applicationRepository;
+		}
 
 		public function getChartData(): array
 		{
-			/** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectmanager */
-			$objectmanager = GeneralUtility::makeInstance(ObjectManager::class);
-
-			/** @var \ITX\Jobapplications\Domain\Repository\PostingRepository $postingRepo */
-			$postingRepo = $objectmanager->get(PostingRepository::class);
-
-			/** @var ApplicationRepository $applicationRepo */
-			$applicationRepo = $objectmanager->get(ApplicationRepository::class);
-
-			$postings = $postingRepo->findAllIncludingHiddenAndDeleted();
+			$postings = $this->postingRepository->findAllIncludingHiddenAndDeleted();
 
 			$data = [];
 
 			/** @var Posting $posting */
 			foreach ($postings as $posting)
 			{
-				$applicationCount = $applicationRepo->findByPostingIncludingHiddenAndDeleted($posting->getUid())->count();
+				$applicationCount = $this->applicationRepository->findByPostingIncludingHiddenAndDeleted($posting->getUid())->count();
 				$this->labels[] = $posting->getTitle();
 				$data[] = $applicationCount;
 			}

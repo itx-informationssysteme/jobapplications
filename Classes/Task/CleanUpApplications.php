@@ -24,12 +24,14 @@
 	 *
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
-	use TYPO3\CMS\Scheduler\Task\AbstractTask;
-	use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+
 	use ITX\Jobapplications\Domain\Repository\ApplicationRepository;
 	use ITX\Jobapplications\Service\ApplicationFileService;
-	use TYPO3\CMS\Core\Utility\GeneralUtility;
-	use TYPO3\CMS\Extbase\Object\ObjectManager;
+	use TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException;
+	use TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException;
+	use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
+	use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+	use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
 	/**
 	 * Task for deleting all applications older than a specific amount of time
@@ -38,49 +40,54 @@
 	 */
 	class CleanUpApplications extends AbstractTask
 	{
-		public $days = null;
-		public $status = 0;
+		public int $days = 90;
+		public int $status = 0;
+
+		public function __construct(PersistenceManager $persistenceManager, ApplicationRepository $applicationRepository, ApplicationFileService $applicationFileService)
+		{
+			$this->persistenceManager = $persistenceManager;
+			$this->applicationRepository = $applicationRepository;
+			$this->applicationFileService = $applicationFileService;
+
+			parent::__construct();
+		}
 
 		/**
 		 * This is the main method that is called when a task is executed
 		 * Should return TRUE on successful execution, FALSE on error.
 		 *
 		 * @return bool Returns TRUE on successful execution, FALSE on error
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
+		 * @throws InvalidFileNameException
+		 * @throws InsufficientFolderAccessPermissionsException
+		 * @throws InvalidQueryException
 		 */
 		public function execute()
 		{
-			$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-			$persistenceManager = $objectManager->get(PersistenceManager::class);
-			$applicationRepository = $objectManager->get(ApplicationRepository::class);
-			$applicationFileService = $objectManager->get(ApplicationFileService::class);
-
 			$now = new \DateTime();
 			$timestamp = $now->modify("-".$this->days." days")->getTimestamp();
 
-			if ($status = 1)
+			if ($this->status = 1)
 			{
-				$applications = $applicationRepository->findOlderThan($timestamp, true);
+				$applications = $this->applicationRepository->findOlderThan($timestamp, true);
 			}
 			else
 			{
-				$applications = $applicationRepository->findOlderThan($timestamp);
+				$applications = $this->applicationRepository->findOlderThan($timestamp);
 			}
 
 			$resultCount = count($applications);
 
 			foreach ($applications as $application)
 			{
-				$fileStorage = $applicationFileService->getFileStorage($application);
-				$applicationRepository->remove($application);
+				$fileStorage = $this->applicationFileService->getFileStorage($application);
+				$this->applicationRepository->remove($application);
 
-				$applicationFileService->deleteApplicationFolder($applicationFileService->getApplicantFolder($application), $fileStorage);
+				$this->applicationFileService->deleteApplicationFolder($this->applicationFileService->getApplicantFolder($application), $fileStorage);
 			}
 
 			if ($resultCount > 0)
 			{
-				$persistenceManager->persistAll();
+				$this->persistenceManager->persistAll();
 			}
 
 			$this->logger->info('[ITX\\Jobapplications\\Task\\CleanUpApplications]: '.$resultCount.' Applications deleted.');
