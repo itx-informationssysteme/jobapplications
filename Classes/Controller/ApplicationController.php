@@ -52,9 +52,11 @@
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Resource\File;
 	use TYPO3\CMS\Core\Resource\FileInterface;
+	use TYPO3\CMS\Core\Resource\ResourceStorageInterface;
 	use TYPO3\CMS\Core\Resource\ResourceStorage;
 	use TYPO3\CMS\Core\Resource\StorageRepository;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
+	use TYPO3\CMS\Core\Utility\MathUtility;
 	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 	use TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter;
 	use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -64,6 +66,9 @@
 	 */
 	class ApplicationController extends ActionController
 	{
+		public const UPLOAD_MODE_FILES = 'files';
+		public const UPLOAD_MODE_LEGACY = 'legacy';
+		public const UPLOAD_MODE_NONE = 'none';
 
 		/**
 		 * applicationRepository
@@ -174,14 +179,12 @@
 		 */
 		public function newAction(Posting $posting = null): ResponseInterface
 		{
-			/*
-			Getting posting when Detailview and applicationform are on the same page.
-			Limited to posting via GET Variable which isn't the best way of.
-			Might need to find a better solution in the future
-			*/
-			if ($posting === null && $_REQUEST['postingApp'])
+
+			// Getting posting when Detailview and applicationform are on the same page.
+			$parameters = GeneralUtility::_GET("tx_jobapplications_detailview");
+			if ($posting === null && !empty($parameters) && !empty($parameters['posting']) && MathUtility::canBeInterpretedAsInteger($parameters['posting']))
 			{
-				$postingUid = (int)$_REQUEST['postingApp'];
+				$postingUid = (int)$parameters['posting'];
 				/** @var Posting $posting */
 				$posting = $this->postingRepository->findByUid($postingUid);
 			}
@@ -259,6 +262,37 @@
 			return $this->htmlResponse();
 		}
 
+		private function hasArrayWithIndicesNonEmpty(array $array, array $indices): bool
+		{
+			foreach ($indices as $index)
+			{
+				if (isset($array[$index]) && count($array[$index]) > 0)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		private function isStringArray(?array $array): bool
+		{
+			if (!is_array($array))
+			{
+				return false;
+			}
+
+			foreach ($array as $item)
+			{
+				if (is_string($item))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		/**
 		 * @param Application  $newApplication
 		 * @param Posting|null $posting
@@ -282,42 +316,46 @@
 
 			$arguments = $this->request->getArguments();
 
-			$isMultiFile = false;
+			$uploadMode = self::UPLOAD_MODE_NONE;
+
 			$multiUploadFiles = [];
 			$legacyUploadfiles = [];
+			$fileIndices = ['cv', 'cover_letter', 'testimonials', 'other_files'];
+
+			$fileStorage = (int)($this->settings['fileStorage'] ?? 1);
+
+			// Normalize file array -> free choice whether multi or single upload
+			foreach ($fileIndices as $fileIndex)
+			{
+				if (isset($arguments[$fileIndex]) && is_string($arguments[$fileIndex]) && !empty($arguments[$fileIndex]))
+				{
+					$arguments[$fileIndex] = [$arguments[$fileIndex]];
+					continue;
+				}
+
+				if (isset($arguments[$fileIndex]) && is_array($arguments[$fileIndex]))
+				{
+					foreach ($arguments[$fileIndex] as $index => $fileId)
+					{
+						if (!is_string($fileId) || empty($fileId))
+						{
+							array_splice($arguments[$fileIndex], $index, 1);
+						}
+					}
+					continue;
+				}
+
+				$arguments[$fileIndex] = [];
+			}
 
 			// Check which kind of uploads were sent
-			if (!empty($arguments['files']))
+			if ($this->isStringArray($arguments['files']))
 			{
-				$isMultiFile = true;
+				$uploadMode = self::UPLOAD_MODE_FILES;
 			}
-			else
+			else if ($this->hasArrayWithIndicesNonEmpty($arguments, $fileIndices))
 			{
-				// Normalize file array -> free choice whether multi or single upload
-				$fileIndices = ['cv', 'cover_letter', 'testimonials', 'other_files'];
-
-				foreach ($fileIndices as $fileIndex)
-				{
-					if (is_string($arguments[$fileIndex]) && !empty($arguments[$fileIndex]))
-					{
-						$arguments[$fileIndex] = [$arguments[$fileIndex]];
-						continue;
-					}
-
-					if (is_array($arguments[$fileIndex]))
-					{
-						foreach ($arguments[$fileIndex] as $index => $fileId)
-						{
-							if (!is_string($fileId) || empty($fileId))
-							{
-								array_splice($arguments[$fileIndex], $index, 1);
-							}
-						}
-						continue;
-					}
-
-					$arguments[$fileIndex] = [];
-				}
+				$uploadMode = self::UPLOAD_MODE_LEGACY;
 			}
 
 			// Verify length in message field;
@@ -363,17 +401,20 @@
 				$newApplication->setPosting($posting);
 			}
 
-			if (!$isMultiFile)
+			// Process files
+			switch ($uploadMode)
 			{
-				// Process files
-				$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['cv'], 'cv', 'cv_');
-				$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['cover_letter'], 'cover_letter', 'cover_letter_');
-				$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['testimonials'], 'testimonials', 'testimonials_');
-				$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['other_files'], 'other_files', 'other_files_');
-			}
-			else
-			{
-				$multiUploadFiles = $this->processFiles($newApplication, $arguments['files'], 'files');
+				case self::UPLOAD_MODE_LEGACY:
+					$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['cv'], 'cv', $fileStorage, 'cv_');
+					$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['cover_letter'], $fileStorage, 'cover_letter', 'cover_letter_');
+					$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['testimonials'], $fileStorage, 'testimonials', 'testimonials_');
+					$legacyUploadfiles[] = $this->processFiles($newApplication, $arguments['other_files'], $fileStorage, 'other_files', 'other_files_');
+					break;
+				case self::UPLOAD_MODE_FILES:
+					$multiUploadFiles = $this->processFiles($newApplication, $arguments['files'], 'files', $fileStorage);
+					break;
+				default:
+					// No files were uploaded, so we don't have to process any
 			}
 
 			// Mail Handling
@@ -414,7 +455,7 @@
 					{
 						if ($file instanceof FileInterface)
 						{
-							$mail->attach($file->getPublicUrl());
+							$mail->attach($file->getForLocalProcessing(false));
 						}
 					}
 				}
@@ -423,7 +464,7 @@
 				{
 					if ($file instanceof FileInterface)
 					{
-						$mail->attach($file->getPublicUrl());
+						$mail->attach($file->getForLocalProcessing(false));
 					}
 				}
 
@@ -487,7 +528,7 @@
 			{
 				$savedInBackend = false;
 				$this->applicationRepository->remove($newApplication);
-				$this->applicationFileService->deleteApplicationFolder($this->applicationFileService->getApplicantFolder($newApplication));
+				$this->applicationFileService->deleteApplicationFolder($this->applicationFileService->getApplicantFolder($newApplication), $fileStorage);
 				$this->persistenceManager->persistAll();
 			}
 
@@ -523,6 +564,7 @@
 		 * @param Application $newApplication
 		 * @param array       $fileIds
 		 * @param string      $fieldName
+		 * @param int         $fileStorage
 		 * @param string      $fileNamePrefix
 		 *
 		 * @return array
@@ -532,7 +574,7 @@
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderWritePermissionsException
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
 		 */
-		private function processFiles(Application $newApplication, array $fileIds, string $fieldName, string $fileNamePrefix = ''): array
+		private function processFiles(Application $newApplication, array $fileIds, string $fieldName, int $fileStorage, string $fileNamePrefix = ''): array
 		{
 			$uploadUtility = new UploadFileUtility();
 
@@ -547,7 +589,7 @@
 
 				$movedNewFile = $this->handleFileUpload(
 					$uploadUtility->getFilePath($fileId), $uploadUtility->getFileName($fileId),
-					$newApplication, $fileNamePrefix);
+					$newApplication, $fileStorage, $fileNamePrefix);
 				$return_files[] = $movedNewFile;
 				$uploadUtility->deleteFolder($fileId);
 
@@ -562,6 +604,7 @@
 		 * @param string                                        $filePath
 		 * @param string                                        $fileName
 		 * @param \ITX\Jobapplications\Domain\Model\Application $domainObject
+		 * @param int                                           $fileStorage
 		 * @param string                                        $prefix
 		 *
 		 * @return File|FileInterface
@@ -572,14 +615,18 @@
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
 		 */
 		private function handleFileUpload(string                                        $filePath, string $fileName,
-										  Application $domainObject, string $prefix = '')
+										  \ITX\Jobapplications\Domain\Model\Application $domainObject, int $fileStorage, string $prefix = ''): FileInterface
 		{
 
 			$folder = $this->applicationFileService->getApplicantFolder($domainObject);
 
 			/* @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
 			$storageRepository = $this->objectManager->get(StorageRepository::class);
-			$storage = $storageRepository->findByUid('1');
+
+			$storage = $storageRepository->findByUid($fileStorage);
+			if (!$storage instanceof ResourceStorageInterface) {
+				throw new \RuntimeException(sprintf("Resource storage with uid %d could not be found.", $fileStorage));
+			}
 
 			if (!$storage instanceof ResourceStorage) {
 				throw new FileNotFoundException("Could not find fileadmin with uid 1");

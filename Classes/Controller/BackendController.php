@@ -227,8 +227,10 @@
 			// Handles delete request
 			if ($this->request->hasArgument('delete'))
 			{
+				$fileStorage = (int)$this->settings['fileStorage'];
+
 				$this->applicationRepository->remove($application);
-				$this->applicationFileService->deleteApplicationFolder($this->applicationFileService->getApplicantFolder($application));
+				$this->applicationFileService->deleteApplicationFolder($this->applicationFileService->getApplicantFolder($application), $fileStorage);
 				$this->persistenceManager->persistAll();
 				$this->redirect('listApplications', 'Backend', 'jobapplications');
 			}

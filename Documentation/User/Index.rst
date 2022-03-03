@@ -51,8 +51,7 @@ Between that there are other settings as well:
 
 Detail view and Application form on same page
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Simply turn this setting on, when you want to have the detail view and the application form on the same page.
-You still have to put these two plugins on the page.
+You can put them on the same page. The application form plugin will automatically fetch the correct posting.
 
 Show only postings of
 ~~~~~~~~~~~~~~~~~~~~~
@@ -271,6 +270,15 @@ Template constants
 In the Template Constant Editor the plugin registered a few settings.
 
 Simply select *PLUGIN.TX_JOBS*.
+
+.. _filestorage:
+
+Filestorage for applications
+----------------------------
+This is where you can configure a seperate non publicly accessible file storage where all application files are saved.
+The value is the uid of a file storage. The default value is the auto created fileadmin, which is not recommended to use.
+
+The file storage must be **browsable** and **writable**, but **not publicly accessible**. Depending on your setup you might have to do more than just deactivate the flag. See the documentation `here <https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ApiOverview/Fal/Administration/Storages.html>`__
 
 Change template path
 --------------------

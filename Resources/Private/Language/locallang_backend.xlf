@@ -93,9 +93,6 @@
             <trans-unit id="flexform.messageMaxLength" resname="flexform.messageMaxLength">
                 <source>Maximum message number of characters:</source>
             </trans-unit>
-            <trans-unit id="flexform.singleDetailandApp" resname="flexform.singleDetailandApp">
-                <source>Setting needed if applicationform should be on the same page as Detailview</source>
-            </trans-unit>
             <trans-unit id="flexform.successMessage" resname="flexform.successMessage">
                 <source>Enter the message that will be shown to the applicant after submitting the application</source>
             </trans-unit>

@@ -1,4 +1,6 @@
 plugin.tx_jobapplications.settings {
+	# cat=plugin.tx_jobapplications; type=int; label=Filestorage for applications (UID)
+	fileStorage = 1
 
 	# cat=plugin.tx_jobapplications; type=boolean; label=Enable Google Jobs
 	enableGoogleJobs = 0

@@ -11,7 +11,7 @@
 	use TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException;
 	use TYPO3\CMS\Core\Resource\Exception\InsufficientUserPermissionsException;
 	use TYPO3\CMS\Core\Resource\Exception\InvalidPathException;
-	use TYPO3\CMS\Core\Resource\ResourceStorage;
+	use TYPO3\CMS\Core\Resource\ResourceStorageInterface;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Object\ObjectManager;
 
@@ -44,21 +44,68 @@
 		}
 
 		/**
+		 * Helper function to get the correct file storage
+		 *
+		 * @param $applicationObject
+		 *
+		 * @return string
+		 */
+		public function getFileStorage(\ITX\Jobapplications\Domain\Model\Application $applicationObject): ?int
+		{
+			if ($applicationObject->getFiles()->count() > 0) {
+				/** @var \TYPO3\CMS\Extbase\Domain\Model\FileReference $file */
+				$file = $applicationObject->getFiles()->toArray()[0];
+				return $file->getOriginalResource()->getStorage()->getUid();
+			}
+
+			if ($applicationObject->getCv() !== null && $applicationObject->getCv()->count() > 0) {
+				/** @var \TYPO3\CMS\Extbase\Domain\Model\FileReference $file */
+				$file = $applicationObject->getCv()->toArray()[0];
+				return $file->getOriginalResource()->getStorage()->getUid();
+			}
+
+			if ($applicationObject->getCoverLetter() !== null && $applicationObject->getCoverLetter()->count() > 0) {
+				/** @var \TYPO3\CMS\Extbase\Domain\Model\FileReference $file */
+				$file = $applicationObject->getCoverLetter()->toArray()[0];
+				return $file->getOriginalResource()->getStorage()->getUid();
+			}
+
+			if ($applicationObject->getTestimonials() !== null && $applicationObject->getTestimonials()->count() > 0) {
+				/** @var \TYPO3\CMS\Extbase\Domain\Model\FileReference $file */
+				$file = $applicationObject->getTestimonials()->toArray()[0];
+				return $file->getOriginalResource()->getStorage()->getUid();
+			}
+
+			if ($applicationObject->getOtherFiles() !== null && $applicationObject->getOtherFiles()->count() > 0) {
+				/** @var \TYPO3\CMS\Extbase\Domain\Model\FileReference $file */
+				$file = $applicationObject->getOtherFiles()->toArray()[0];
+				return $file->getOriginalResource()->getStorage()->getUid();
+			}
+
+			return null;
+		}
+
+		/**
 		 * Deletes the entire Folder
 		 *
 		 * @param $folderPath string
+		 * @param $fileStorage int|null
 		 *
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
+		 * @throws InsufficientFolderAccessPermissionsException
 		 */
-		public function deleteApplicationFolder(string $folderPath): void
+		public function deleteApplicationFolder(string $folderPath, ?int $fileStorage): void
 		{
+			if ($fileStorage === null) {
+				return;
+			}
+
 			$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 
 			/* @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
-			$storageRepository = $objectManager->get(StorageRepository::class);
-			$storage = $storageRepository->findByUid(1);
-			if (!$storage instanceof ResourceStorage) {
-				throw new FileNotFoundException("Could not find fileadmin with uid 1");
+			$storageRepository = $objectManager->get(\TYPO3\CMS\Core\Resource\StorageRepository::class);
+			$storage = $storageRepository->findByUid($fileStorage);
+			if (!$storage instanceof ResourceStorageInterface) {
+				throw new \RuntimeException(sprintf("Resource storage with uid %d could not be found.", $fileStorage));
 			}
 
 			/** @var \TYPO3\CMS\Core\Resource\Folder|null $folder */

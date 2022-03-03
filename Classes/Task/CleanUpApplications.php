@@ -46,6 +46,8 @@
 		 * Should return TRUE on successful execution, FALSE on error.
 		 *
 		 * @return bool Returns TRUE on successful execution, FALSE on error
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
 		 */
 		public function execute()
 		{
@@ -70,8 +72,10 @@
 
 			foreach ($applications as $application)
 			{
+				$fileStorage = $applicationFileService->getFileStorage($application);
 				$applicationRepository->remove($application);
-				$applicationFileService->deleteApplicationFolder($applicationFileService->getApplicantFolder($application));
+
+				$applicationFileService->deleteApplicationFolder($applicationFileService->getApplicantFolder($application), $fileStorage);
 			}
 
 			if ($resultCount > 0)
