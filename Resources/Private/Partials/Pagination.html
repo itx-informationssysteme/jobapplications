@@ -1,0 +1,17 @@
+<html data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
+<nav aria-label="Pagination">
+	<ul class="pagination">
+		<li class="page-item {f:if(condition: '{paginator.currentPageNumber} === {pagination.firstPageNumber}', then: 'disabled')}">
+			<f:link.action class="page-link" action="{action}" arguments="{page: pagination.previousPageNumber}">Previous</f:link.action>
+		</li>
+		<f:for each="{pagination.allPageNumbers}" as="number">
+			<li class="page-item {f:if(condition: '{number} === {paginator.currentPageNumber}', then: 'active')}">
+				<f:link.action class="page-link" action="{action}" arguments="{page: number}">{number}</f:link.action>
+			</li>
+		</f:for>
+		<li class="page-item {f:if(condition: '{paginator.currentPageNumber} === {pagination.lastPageNumber}', then: 'disabled')}">
+			<f:link.action class="page-link" action="{action}" arguments="{page: pagination.nextPageNumber}">Next</f:link.action>
+		</li>
+	</ul>
+</nav>
+</html>

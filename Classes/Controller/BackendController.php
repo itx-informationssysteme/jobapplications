@@ -25,6 +25,7 @@
 
 	namespace ITX\Jobapplications\Controller;
 
+	use TYPO3\CMS\Core\Pagination\SimplePagination;
 	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 	use ITX\Jobapplications\Domain\Model\Application;
 	use Psr\Http\Message\ResponseInterface;
@@ -32,6 +33,10 @@
 	use ITX\Jobapplications\Domain\Repository\PostingRepository;
 	use ITX\Jobapplications\Domain\Repository\ContactRepository;
 	use ITX\Jobapplications\Domain\Repository\StatusRepository;
+	use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
+	use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
+	use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
+	use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 	use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 	use ITX\Jobapplications\Service\ApplicationFileService;
 	use ITX\Jobapplications\Domain\Model\Contact;
@@ -100,12 +105,15 @@
 		 * action listApplications
 		 *
 		 * @return void
-		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
-		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
-		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+		 * @throws NoSuchArgumentException
+		 * @throws UnknownObjectException
+		 * @throws IllegalObjectTypeException
 		 */
 		public function listApplicationsAction()
 		{
+			$page = $this->request->hasArgument('page') ? (int)$this->request->getArgument('page') : 1;
+			$itemsPerPage = 12;
+
 			$sessionData = $GLOBALS['BE_USER']->getSessionData('tx_jobapplications');
 			$contact = $this->getActiveBeContact();
 
@@ -179,11 +187,18 @@
 			$sessionData['selectedStatus'] = $selectedStatus;
 			$GLOBALS['BE_USER']->setAndSaveSessionData('tx_jobapplications', $sessionData);
 
+			$paginator = new QueryResultPaginator($applications, $page, $itemsPerPage);
+
+			$pagination = new SimplePagination($paginator);
+
+			$this->view->assign('paginator', $paginator);
+			$this->view->assign('pagination', $pagination);
+			$this->view->assign('applications', $paginator->getPaginatedItems());
+
 			$this->view->assign('selectedPosting', $selectedPosting);
 			$this->view->assign('archivedSelected', $archivedSelected);
 			$this->view->assign('selectedContact', $selectedContact);
 			$this->view->assign('selectedStatus', $selectedStatus);
-			$this->view->assign('applications', $applications);
 			$this->view->assign('postings', $postingsFilter);
 			$this->view->assign('contacts', $contactsFilter);
 			$this->view->assign('statuses', $statusesFilter);
@@ -206,11 +221,11 @@
 		 *
 		 * @param \ITX\Jobapplications\Domain\Model\Application $application
 		 *
-		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+		 * @throws UnknownObjectException
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
-		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
-		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
+		 * @throws IllegalObjectTypeException
+		 * @throws NoSuchArgumentException
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
 		 */
 		public function showApplicationAction(Application $application)
@@ -305,7 +320,7 @@
 		 * Action for settings page
 		 *
 		 * @throws InsufficientUserPermissionsException
-		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
+		 * @throws NoSuchArgumentException
 		 * @throws \Exception
 		 */
 		public function settingsAction(): ResponseInterface

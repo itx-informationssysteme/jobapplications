@@ -5,7 +5,7 @@
 <f:section name="content">
 	<f:asset.script identifier="selectize" src="EXT:jobapplications/Resources/Public/Js/Vendor/selectize.js" priority="true"/>
 	<f:asset.css identifier="selectize-css" href="EXT:jobapplications/Resources/Public/Css/Vendor/selectize.css" priority="true"/>
-	<f:asset.css identifier="bootstrap3-css" href="EXT:jobapplications/Resources/Public/Css/Vendor/selectize.bootstrap3.css" priority="true"/>
+	<f:asset.css identifier="selectize-bootstrap5-css" href="EXT:jobapplications/Resources/Public/Css/Vendor/selectize.bootstrap5.css" priority="true"/>
 
 	<div class="container">
 		<f:flashMessages/>
@@ -86,6 +86,11 @@
 							<f:for as="posting" each="{postings}">
 								<f:render arguments="{_all}" partial="Posting/ListItem"></f:render>
 							</f:for>
+						</div>
+						<div class="row">
+							<div class="col">
+								<f:render partial="Pagination" arguments="{pagination: pagination, paginator: paginator, action: 'list'}"></f:render>
+							</div>
 						</div>
 					</f:then>
 					<f:else>

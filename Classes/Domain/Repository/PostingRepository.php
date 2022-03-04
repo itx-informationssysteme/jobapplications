@@ -43,13 +43,13 @@
 		 *
 		 * @param $category array
 		 *
-		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+		 * @return array|QueryResultInterface
 		 */
 		public function findByCategory(array $categories)
 		{
 			$query = $this->createQuery();
 
-			$qb = parent::getQueryBuilder("tx_jobapplications_domain_model_posting");
+			$qb = $this->getQueryBuilder("tx_jobapplications_domain_model_posting");
 
 			$qb
 				->select("*")
@@ -57,7 +57,7 @@
 				->join("tx_jobapplications_domain_model_posting", "sys_category_record_mm", "sys_category_record_mm", "tx_jobapplications_domain_model_posting.uid = sys_category_record_mm.uid_foreign")
 				->andWhere($qb->expr()->in('pid', $query->getQuerySettings()->getStoragePageIds()));
 
-			$qb = parent::buildCategoriesToSQL($categories, $qb);
+			$qb = $this->buildCategoriesToSQL($categories, $qb);
 
 			$query->statement($qb->getSQL());
 
@@ -67,12 +67,16 @@
 		/**
 		 * Gets all divisions
 		 *
-		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+		 * @param array|null $categories
+		 *
+		 * @return array|QueryResultInterface
 		 */
-		public function findAllDivisions(array $categories = null)
+		public function findAllDivisions(array $categories = null): QueryResultInterface|array
 		{
 			$qb = $this->getQueryBuilder("tx_jobapplications_domain_model_posting");
 			$query = $this->createQuery();
+			$query->getQuerySettings()->setLanguageOverlayMode(false);
+
 			if (count($categories) === 0)
 			{
 				$qb
@@ -103,13 +107,15 @@
 		}
 
 		/**
-		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+		 * @return array|QueryResultInterface
 		 */
 		public function findAllCareerLevels(array $categories = null)
 		{
 			$qb = $this->getQueryBuilder("tx_jobapplications_domain_model_posting");
 
 			$query = $this->createQuery();
+			$query->getQuerySettings()->setLanguageOverlayMode(false);
+
 			if (count($categories) === 0)
 			{
 				$qb
@@ -147,6 +153,8 @@
 			$qb = $this->getQueryBuilder("tx_jobapplications_domain_model_posting");
 
 			$query = $this->createQuery();
+			$query->getQuerySettings()->setLanguageOverlayMode(false);
+
 			if (count($categories) === 0)
 			{
 				$qb
@@ -198,7 +206,7 @@
 		/**
 		 * @param $categories
 		 *
-		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+		 * @return array|QueryResultInterface
 		 */
 		public function findAllCategories($categories)
 		{
@@ -361,7 +369,7 @@
 		}
 
 		/**
-		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+		 * @return array|QueryResultInterface
 		 */
 		public function findAllIgnoreStoragePage()
 		{

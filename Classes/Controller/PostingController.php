@@ -13,12 +13,19 @@
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\Http\ImmediateResponseException;
 	use TYPO3\CMS\Core\Page\PageRenderer;
+	use TYPO3\CMS\Core\Pagination\SimplePagination;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Core\Utility\MathUtility;
 	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+	use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
 	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+	use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
+	use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 	use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+	use TYPO3\CMS\Extbase\Reflection\Exception\UnknownClassException;
 	use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
+	use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
+	use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 	use TYPO3\CMS\Frontend\Controller\ErrorController;
 
 	/***************************************************************
@@ -103,13 +110,17 @@
 		}
 
 		/**
-		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
-		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
-		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
-		 * @throws \TYPO3\CMS\Extbase\Reflection\Exception\UnknownClassException
+		 * @throws InvalidQueryException
+		 * @throws InvalidSlotException
+		 * @throws InvalidSlotReturnException
+		 * @throws UnknownClassException
+		 * @throws NoSuchArgumentException
 		 */
 		public function listAction(Constraint $constraint = null): ResponseInterface
 		{
+			$page = $this->request->hasArgument('page') ? (int)$this->request->getArgument('page') : 1;
+			$itemsPerPage = 1;
+
 			// Plugin selected categories
 			$category_str = $this->settings["categories"];
 			$categories = !empty($category_str) ? explode(",", $category_str) : [];
@@ -156,7 +167,13 @@
 				$isFiltering = true;
 			}
 
-			$this->view->assign('postings', $postings);
+			$paginator = new QueryResultPaginator($postings, $page, $itemsPerPage);
+
+			$pagination = new SimplePagination($paginator);
+
+			$this->view->assign('postings', $paginator->getPaginatedItems());
+			$this->view->assign('paginator', $paginator);
+			$this->view->assign('pagination', $pagination);
 			$this->view->assign('isFiltering', $isFiltering);
 			$this->view->assign('filterOptions', $filterOptions);
 			$this->view->assign('constraint', $constraint);
@@ -168,7 +185,7 @@
 		 * @param array $categories
 		 *
 		 * @return array
-		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+		 * @throws InvalidQueryException
 		 */
 		private function getCachedFilterOptions(array $categories): array
 		{
@@ -206,15 +223,15 @@
 		 * @param $categories array categories
 		 *
 		 * @return array
-		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+		 * @throws InvalidQueryException
 		 */
 		public function getFilterOptions(array $categories): array
 		{
 			return [
-				//'division' => $this->postingRepository->findAllDivisions($categories),
-				//'careerLevel' => $this->postingRepository->findAllCareerLevels($categories),
-				//'employmentType' => $this->postingRepository->findAllEmploymentTypes($categories),
-				//'location' => $this->locationRepository->findAll($categories)->toArray(),
+				'division' => $this->postingRepository->findAllDivisions($categories),
+				'careerLevel' => $this->postingRepository->findAllCareerLevels($categories),
+				'employmentType' => $this->postingRepository->findAllEmploymentTypes($categories),
+				'location' => $this->locationRepository->findAll($categories)->toArray(),
 			];
 		}
 
@@ -226,8 +243,8 @@
 		 * @throws \TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException
 		 * @throws \TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException
 		 * @throws \TYPO3\CMS\Core\Error\Http\PageNotFoundException
-		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
-		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
+		 * @throws InvalidSlotException
+		 * @throws InvalidSlotReturnException
 		 */
 		public function showAction(Posting $posting = null): ResponseInterface
 		{

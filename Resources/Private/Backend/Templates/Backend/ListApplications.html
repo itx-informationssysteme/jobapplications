@@ -62,7 +62,6 @@
 		<div class="app-list">
 			<f:if condition="{applications}">
 				<f:then>
-						<f:comment><!--paginate--></f:comment>
 						<ul class="application-list">
 							<f:for as="application" each="{applications}">
 								<li>
@@ -113,6 +112,8 @@
 								</li>
 							</f:for>
 						</ul>
+
+					<f:render partial="Pagination" arguments="{pagination: pagination, paginator: paginator, action: 'listApplications'}"></f:render>
 				</f:then>
 				<f:else>
 					<span><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.listApplications.filter.noApps"/></span>
