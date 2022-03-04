@@ -8,7 +8,9 @@
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\Http\ImmediateResponseException;
 	use TYPO3\CMS\Core\Page\PageRenderer;
+	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
+	use TYPO3\CMS\Core\Utility\MathUtility;
 	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 	use TYPO3\CMS\Frontend\Controller\ErrorController;
 
@@ -160,21 +162,34 @@
 		}
 
 		/**
-		 * @param $categories
+		 * @param array $categories
 		 *
 		 * @return array
+		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
 		 */
-		private function getCachedFilterOptions($categories): array
+		private function getCachedFilterOptions(array $categories): array
 		{
+			$contentObj = $this->configurationManager->getContentObject();
+			if ($contentObj === null) {
+				throw new \RuntimeException("Could not retrieve content object. Make sure to call this with a plugin.");
+			}
+
+			$pageId = $contentObj->data['pid'];
+			if (!MathUtility::canBeInterpretedAsInteger($pageId)) {
+				throw new \RuntimeException("Page id $pageId is not valid.");
+			}
+
+			$cacheKey = "filterOptions-$pageId";
+
 			/** @var FrontendInterface $cache */
 			$cache = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Cache\CacheManager::class)->getCache('jobapplications_cache');
 
 			// If $entry is false, it hasn't been cached. Calculate the value and store it in the cache:
-			if (($entry = $cache->get('filterOptions')) === false)
+			if (($entry = $cache->get($cacheKey)) === false)
 			{
 				$entry = $this->getFilterOptions($categories);
 
-				$cache->set('filterOptions', $entry, [], null);
+				$cache->set($cacheKey, $entry, [], null);
 			}
 
 			return $entry;
@@ -188,8 +203,9 @@
 		 * @param $categories array categories
 		 *
 		 * @return array
+		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
 		 */
-		public function getFilterOptions($categories): array
+		public function getFilterOptions(array $categories): array
 		{
 			return [
 				'division' => $this->postingRepository->findAllDivisions($categories),
