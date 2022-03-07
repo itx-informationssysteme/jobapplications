@@ -35,7 +35,7 @@
   },
   "require-dev": {
     "phpstan/phpstan": "^1.4",
-    "typo3/testing-framework": "^4"
+    "typo3/testing-framework": "^7"
   },
   "extra": {
     "typo3/cms": {
