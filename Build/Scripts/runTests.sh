@@ -33,7 +33,7 @@ setUpDockerComposeDotEnv() {
 
 # Load help text into $HELP
 read -r -d '' HELP <<EOF
-jobpplications test runner. Execute unit test suite and some other details.
+jobapplications test runner. Execute unit test suite and some other details.
 Also used by github actions for test execution.
 Usage: $0 [options] [file]
 No arguments: Run all unit tests with PHP 7.2
@@ -176,7 +176,7 @@ DOCKER_PHP_IMAGE=`echo "php${PHP_VERSION}" | sed -e 's/\.//'`
 # Set $1 to first mass argument, this is the optional test file or test directory to execute
 shift $((OPTIND - 1))
 if [ -n "${1}" ]; then
-    TEST_FILE="Web/typo3conf/ext/jobpplications/${1}"
+    TEST_FILE="Web/typo3conf/ext/jobapplications/${1}"
 fi
 
 if [ ${SCRIPT_VERBOSE} -eq 1 ]; then
