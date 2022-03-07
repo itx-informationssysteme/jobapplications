@@ -5,6 +5,11 @@ on: [ push, pull_request ]
 jobs:
     phpstan:
         runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                include:
+                    -   php-version: 7.4
+                    -   php-version: 8.0
         steps:
             -   uses: actions/checkout@v2
 
@@ -19,7 +24,7 @@ jobs:
                         ${{ runner.os }}-composer-
             -   uses: shivammathur/setup-php@v2
                 with:
-                    php-version: 8.0
+                    php-version: ${{ matrix.php-version }}
                     coverage: none
 
             -   run: composer install --no-progress
