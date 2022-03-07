@@ -69,9 +69,9 @@
 		 *
 		 * @param array|null $categories
 		 *
-		 * @return array|QueryResultInterface
+		 * @return array
 		 */
-		public function findAllDivisions(array $categories = null): QueryResultInterface|array
+		public function findAllDivisions(array $categories = null): array
 		{
 			$qb = $this->getQueryBuilder("tx_jobapplications_domain_model_posting");
 			$query = $this->createQuery();
@@ -107,9 +107,11 @@
 		}
 
 		/**
-		 * @return array|QueryResultInterface
+		 * @param array|null $categories
+		 *
+		 * @return array
 		 */
-		public function findAllCareerLevels(array $categories = null)
+		public function findAllCareerLevels(array $categories = null): array
 		{
 			$qb = $this->getQueryBuilder("tx_jobapplications_domain_model_posting");
 
