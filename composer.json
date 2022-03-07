@@ -53,11 +53,6 @@
       "ITX\\Jobapplications\\Tests\\": "Tests"
     }
   },
-  "scripts": {
-    "post-autoload-dump": [
-      "TYPO3\\TestingFramework\\Composer\\ExtensionTestEnvironment::prepare"
-    ]
-  },
   "replace": {
     "itx/jobapplications": "self.version",
     "typo3-ter/jobapplications": "self.version"
