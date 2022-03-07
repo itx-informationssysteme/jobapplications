@@ -32,7 +32,6 @@
 										  ->getMock();
 
 			$applicationRepository->expects(self::once())->method('add')->with($application);
-			$this->inject($this->subject, 'applicationRepository', $applicationRepository);
 
 			$this->subject->createAction($application);
 		}
