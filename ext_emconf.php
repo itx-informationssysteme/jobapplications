@@ -35,7 +35,7 @@
 		'version' => '2.0.0',
 		'constraints' => [
 			'depends' => [
-				'typo3' => '10.4.13-11.9.99'
+				'typo3' => '11.5.1-11.9.99'
 			],
 			'conflicts' => [],
 			'suggests' => [],

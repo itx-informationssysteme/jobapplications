@@ -1,8 +1,9 @@
 <?php
 
 	namespace ITX\Jobapplications\Domain\Repository;
-	
+
 	use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+
 	/***************************************************************
 	 *  Copyright notice
 	 *
@@ -25,6 +26,7 @@
 	 *
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
+
 	/**
 	 * The repository for Applications
 	 */
@@ -43,7 +45,7 @@
 		 *
 		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 		 */
-		public function findByFilter(?int $contact, ?int $posting, ?int $status, int $archived = 0,
+		public function findByFilter(?int   $contact, ?int $posting, ?int $status, int $archived = 0,
 									 string $orderBy = "crdate",
 									 string $order = QueryInterface::ORDER_ASCENDING)
 		{
@@ -128,19 +130,25 @@
 		/**
 		 * Finds applications which are older than or equal the given timestamp
 		 *
-		 * @param $timestamp int
-		 * @param $status    bool
+		 * @param      $timestamp int
+		 * @param      $status    bool
+		 * @param bool $notAnonymized
 		 *
 		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
 		 */
-		public function findOlderThan(int $timestamp, bool $status = false)
+		public function findOlderThan(int $timestamp, bool $status = false, bool $notAnonymized = false)
 		{
 			$query = $this->createQuery();
 			$query->getQuerySettings()->setRespectStoragePage(false)->setIgnoreEnableFields(true);
 
 			$andArray = [];
 			$andArray[] = $query->lessThanOrEqual("crdate", $timestamp);
+
+			if ($notAnonymized)
+			{
+				$andArray[] = $query->equals("anonymized", 0);
+			}
 
 			if ($status)
 			{

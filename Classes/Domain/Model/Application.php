@@ -188,6 +188,9 @@
 		 * @var bool
 		 */
 		protected $archived = false;
+		
+		
+		protected bool $anonymized = false;
 
 		/**
 		 * status
@@ -690,5 +693,21 @@
 		public function setFiles($files): void
 		{
 			$this->files = $files;
+		}
+
+		/**
+		 * @return bool
+		 */
+		public function isAnonymized(): bool
+		{
+			return $this->anonymized;
+		}
+
+		/**
+		 * @param bool $anonymized
+		 */
+		public function setAnonymized(bool $anonymized): void
+		{
+			$this->anonymized = $anonymized;
 		}
 	}

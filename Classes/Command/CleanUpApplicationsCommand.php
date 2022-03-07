@@ -1,6 +1,6 @@
 <?php
 
-	namespace ITX\Jobapplications\Task;
+	namespace ITX\Jobapplications\Command;
 
 	/***************************************************************
 	 *  Copyright notice
@@ -25,89 +25,80 @@
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
 
-	use ITX\Jobapplications\Domain\Model\Application;
 	use ITX\Jobapplications\Domain\Repository\ApplicationRepository;
 	use ITX\Jobapplications\Service\ApplicationFileService;
+	use Psr\Log\LoggerInterface;
+	use Symfony\Component\Console\Command\Command;
+	use Symfony\Component\Console\Input\InputArgument;
+	use Symfony\Component\Console\Input\InputOption;
 	use TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException;
 	use TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException;
+	use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
+	use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 	use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
-	use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
 	/**
 	 * Task for deleting all applications older than a specific amount of time
 	 *
 	 * @package ITX\Jobapplications
 	 */
-	class AnonymizeApplications extends AbstractTask
+	class CleanUpApplicationsCommand extends Command
 	{
-		public int $days = 90;
-		public int $status = 0;
+		private LoggerInterface $logger;
 
 		protected PersistenceManager $persistenceManager;
 		protected ApplicationRepository $applicationRepository;
 		protected ApplicationFileService $applicationFileService;
 
-		public function __construct(PersistenceManager $persistenceManager, ApplicationRepository $applicationRepository, ApplicationFileService $applicationFileService)
+		public function __construct(PersistenceManager     $persistenceManager,
+									ApplicationRepository  $applicationRepository,
+									ApplicationFileService $applicationFileService,
+									LoggerInterface        $logger)
 		{
 			$this->persistenceManager = $persistenceManager;
 			$this->applicationRepository = $applicationRepository;
 			$this->applicationFileService = $applicationFileService;
+			$this->logger = $logger;
 
 			parent::__construct();
+		}
+
+		public function configure()
+		{
+			$this
+				->setDescription("Deletes applications that are older than the specified days.")
+				->addArgument("days", InputArgument::OPTIONAL, "How old can an application be before is should be deleted?", 90)
+				->addOption("withStatus", "s", InputOption::VALUE_NONE, "Should applications only be deleted if they are in an end status?");
 		}
 
 		/**
 		 * This is the main method that is called when a task is executed
 		 * Should return TRUE on successful execution, FALSE on error.
 		 *
-		 * @return bool Returns TRUE on successful execution, FALSE on error
+		 * @return int Returns TRUE on successful execution, FALSE on error
 		 * @throws InvalidFileNameException
 		 * @throws InsufficientFolderAccessPermissionsException
-		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+		 * @throws InvalidQueryException
+		 * @throws IllegalObjectTypeException
 		 */
-		public function execute()
+		public function execute($input, $output): int
 		{
-			$anonymizeChars = "***";
+			$days = $input->getArgument('days') ?? 90;
+			$withStatus = $input->getOption('withStatus') ?? false;
 
-			// Calculate Timestamp for how old the application must be to give to the repo
 			$now = new \DateTime();
-			$timestamp = $now->modify("-".$this->days." days")->getTimestamp();
+			$timestamp = $now->modify("-".$days." days")->getTimestamp();
 
-			if ($this->status = 1)
-			{
-				$applications = $this->applicationRepository->findNotAnonymizedOlderThan($timestamp, true);
-			}
-			else
-			{
-				$applications = $this->applicationRepository->findNotAnonymizedOlderThan($timestamp);
-			}
+			$applications = $this->applicationRepository->findOlderThan($timestamp, $withStatus);
 
 			$resultCount = count($applications);
 
-			/* @var Application $application */
 			foreach ($applications as $application)
 			{
-				// Actual anonymization + deleting application files
-
-				/* @var ApplicationFileService $applicationFileService */
 				$fileStorage = $this->applicationFileService->getFileStorage($application);
+				$this->applicationRepository->remove($application);
 
 				$this->applicationFileService->deleteApplicationFolder($this->applicationFileService->getApplicantFolder($application), $fileStorage);
-
-				$application->setFirstName($anonymizeChars);
-				$application->setLastName($anonymizeChars);
-				$application->setAddressStreetAndNumber($anonymizeChars);
-				$application->setAddressAddition($anonymizeChars);
-				$application->setAddressPostCode(0);
-				$application->setEmail("anonymized@anonymized.anonymized");
-				$application->setPhone($anonymizeChars);
-				$application->setMessage($anonymizeChars);
-				$application->setArchived(true);
-				$application->setSalutation("");
-				$application->setSalaryExpectation($anonymizeChars);
-				$application->setEarliestDateOfJoining(new \DateTime("@0"));
-
-				$this->applicationRepository->update($application);
 			}
 
 			if ($resultCount > 0)
@@ -115,8 +106,9 @@
 				$this->persistenceManager->persistAll();
 			}
 
-			$this->logger->info('[ITX\\Jobapplications\\Task\\AnonymizeApplications]: '.$resultCount.' Applications anonymized.');
+			$this->logger->info('[ITX\\Jobapplications\\Task\\CleanUpApplications]: '.$resultCount.' applications deleted.');
+			$output->writeln("$resultCount applications deleted.");
 
-			return true;
+			return Command::SUCCESS;
 		}
 	}

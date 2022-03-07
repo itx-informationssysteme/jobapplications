@@ -9,6 +9,22 @@ services:
         exclude:
             - '../Classes/Domain/Model/*'
 
+    ITX\Jobapplications\Command\AnonymizeApplicationsCommand:
+        tags:
+            -   name: 'console.command'
+                command: 'jobapplications:anonymizeApplicationsCommand'
+                description: 'This command anonymizes applications and deletes the application''s files.'
+                # not required, defaults to false
+                hidden: false
+
+    ITX\Jobapplications\Command\CleanUpApplicationsCommand:
+        tags:
+            -   name: 'console.command'
+                command: 'jobapplications:cleanupApplicationsCommand'
+                description: 'This command deletes applications and deletes the application''s files.'
+                # not required, defaults to false
+                hidden: false
+
     ITX\Jobapplications\Widgets\Provider\PostingsActiveProvider:
 
     ITX\Jobapplications\Widgets\Provider\ApplicationsPerPostingBarChartProvider:

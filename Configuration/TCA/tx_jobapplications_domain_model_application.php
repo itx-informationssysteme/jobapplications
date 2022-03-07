@@ -541,7 +541,14 @@
 					'minitems' => 0,
 					'maxitems' => 1,
 				],
-			]
-
+			],
+			'anonymized' => [
+				'exclude' => true,
+				'label' => 'Anonymized',
+				'config' => [
+					'type' => 'check',
+					'renderType' => 'checkboxToggle'
+				],
+			],
 		],
 	];
