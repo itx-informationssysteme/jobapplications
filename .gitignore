@@ -1,6 +1,6 @@
 /vendor/
 .idea
-docker-compose.yml
+./docker-compose.yml
 Documentation-GENERATED-temp
 /Resources/Private/Files/
 .Build/
