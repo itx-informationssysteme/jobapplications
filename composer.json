@@ -4,7 +4,7 @@
   "description": "This extension enables you to manage job postings, has an application form for applicants to apply and an Application Managment Backend Module",
   "license": "GPL-3.0-or-later",
   "version": "2.0.0",
-  "homepage": "http://www.itx.de",
+  "homepage": "https://www.itx.de",
   "authors": [
     {
       "name": "Stefanie D\u00f6ll",
@@ -22,6 +22,10 @@
     "issues": "https://github.com/typo3-itx/jobapplications/issues",
     "docs": "https://docs.typo3.org/p/itx/jobapplications/master/en-us/"
   },
+  "config": {
+    "vendor-dir": ".Build/vendor",
+    "bin-dir": ".Build/bin"
+  },
   "require": {
     "php": ">=7.4",
     "ext-openssl": "*",
@@ -30,11 +34,13 @@
     "typo3/cms-dashboard": "*"
   },
   "require-dev": {
-    "phpstan/phpstan": "^1.4"
+    "phpstan/phpstan": "^1.4",
+    "typo3/testing-framework": "^4"
   },
   "extra": {
     "typo3/cms": {
-      "extension-key": "jobapplications"
+      "extension-key": "jobapplications",
+      "web-dir": ".Build/Web"
     }
   },
   "autoload": {
@@ -46,6 +52,11 @@
     "psr-4": {
       "ITX\\Jobapplications\\Tests\\": "Tests"
     }
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "TYPO3\\TestingFramework\\Composer\\ExtensionTestEnvironment::prepare"
+    ]
   },
   "replace": {
     "itx/jobapplications": "self.version",
