@@ -119,7 +119,7 @@
 		public function listAction(Constraint $constraint = null): ResponseInterface
 		{
 			$page = $this->request->hasArgument('page') ? (int)$this->request->getArgument('page') : 1;
-			$itemsPerPage = 1;
+			$itemsPerPage = $this->settings['itemsOnPage'] ?? 9;
 
 			// Plugin selected categories
 			$category_str = $this->settings["categories"];

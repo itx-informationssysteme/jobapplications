@@ -1,11 +1,3 @@
-plugin.tx_jobapplications.settings.enableGoogleJobs = {$plugin.tx_jobapplications.settings.enableGoogleJobs}
-plugin.tx_jobapplications.settings.emailContentType = {$plugin.tx_jobapplications.settings.emailContentType}
-plugin.tx_jobapplications.settings.legacy_upload = {$plugin.tx_jobapplications.settings.legacy_upload}
-plugin.tx_jobapplications.settings.defaultContactMailAddress = {$plugin.tx_jobapplications.settings.defaultContactMailAddress}
-plugin.tx_jobapplications.settings.defaultContactFirstName = {$plugin.tx_jobapplications.settings.defaultContactFirstName}
-plugin.tx_jobapplications.settings.defaultContactLastName = {$plugin.tx_jobapplications.settings.defaultContactLastName}
-plugin.tx_jobapplications.settings.maxItemsOnPage = {$plugin.tx_jobapplications.settings.maxItemsOnPage}
-
 plugin.tx_jobapplications {
 	view {
 		templateRootPaths.0 = EXT:{extension.shortExtensionKey}/Resources/Private/Templates/
@@ -37,6 +29,12 @@ plugin.tx_jobapplications {
 
 	settings {
 		fileStorage = {$plugin.tx_jobapplications.settings.fileStorage}
+		enableGoogleJobs = {$plugin.tx_jobapplications.settings.enableGoogleJobs}
+		emailContentType = {$plugin.tx_jobapplications.settings.emailContentType}
+		legacy_upload = {$plugin.tx_jobapplications.settings.legacy_upload}
+		defaultContactMailAddress = {$plugin.tx_jobapplications.settings.defaultContactMailAddress}
+		defaultContactFirstName = {$plugin.tx_jobapplications.settings.defaultContactFirstName}
+		defaultContactLastName = {$plugin.tx_jobapplications.settings.defaultContactLastName}
 
 		list {
 			ordering {
