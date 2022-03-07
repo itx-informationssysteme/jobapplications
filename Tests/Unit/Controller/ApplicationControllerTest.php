@@ -15,7 +15,7 @@
 	class ApplicationControllerTest extends UnitTestCase
 	{
 		/**
-		 * @var \ITX\Jobapplications\Controller\ApplicationController
+		 * @var ApplicationController
 		 */
 		protected $subject = null;
 
@@ -37,7 +37,7 @@
 			$this->subject->createAction($application);
 		}
 
-		protected function setUp()
+		protected function setUp(): void
 		{
 			parent::setUp();
 			$this->subject = $this->getMockBuilder(ApplicationController::class)
@@ -46,7 +46,7 @@
 								  ->getMock();
 		}
 
-		protected function tearDown()
+		protected function tearDown(): void
 		{
 			parent::tearDown();
 		}
