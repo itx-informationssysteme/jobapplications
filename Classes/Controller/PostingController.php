@@ -6,11 +6,13 @@
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Repository\LocationRepository;
 	use ITX\Jobapplications\Domain\Repository\PostingRepository;
+	use ITX\Jobapplications\Event\DisplayPostingEvent;
 	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
 	use Psr\Http\Message\ResponseInterface;
 	use TYPO3\CMS\Core\Cache\CacheManager;
 	use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+	use TYPO3\CMS\Core\Error\Http\PageNotFoundException;
 	use TYPO3\CMS\Core\Http\ImmediateResponseException;
 	use TYPO3\CMS\Core\Page\PageRenderer;
 	use TYPO3\CMS\Core\Pagination\SimplePagination;
@@ -23,9 +25,6 @@
 	use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 	use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 	use TYPO3\CMS\Extbase\Reflection\Exception\UnknownClassException;
-	use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
-	use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-	use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 	use TYPO3\CMS\Frontend\Controller\ErrorController;
 
 	/***************************************************************
@@ -56,28 +55,8 @@
 	 */
 	class PostingController extends ActionController
 	{
-
-		/**
-		 * postingRepository
-		 *
-		 * @var \ITX\Jobapplications\Domain\Repository\PostingRepository
-		 */
-		protected $postingRepository = null;
-
-		/**
-		 * locationRepository
-		 *
-		 * @var \ITX\Jobapplications\Domain\Repository\LocationRepository
-		 */
-		protected $locationRepository = null;
-
-		/**
-		 * signalSlotDispatcher
-		 *
-		 * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-		 */
-		protected $signalSlotDispatcher;
-
+		protected PostingRepository $postingRepository;
+		protected LocationRepository $locationRepository;
 		protected PageRenderer $pageRenderer;
 
 		public function __construct(PageRenderer $pageRenderer)
@@ -118,8 +97,6 @@
 
 		/**
 		 * @throws InvalidQueryException
-		 * @throws InvalidSlotException
-		 * @throws InvalidSlotReturnException
 		 * @throws UnknownClassException
 		 * @throws NoSuchArgumentException
 		 */
@@ -158,13 +135,6 @@
 
 			// Make the actual repository call
 			$postings = $this->postingRepository->findByFilter($categories, $repositoryConfiguration, $constraint, $orderBy, $order);
-
-			// SignalSlotDispatcher BeforePostingAssign
-			$changedPostings = $this->signalSlotDispatcher->dispatch(__CLASS__, "BeforePostingAssign", ["postings" => $postings]);
-			if (count($changedPostings["postings"]) > 0)
-			{
-				$postings = $changedPostings['postings'];
-			}
 
 			// Determines whether user tried to filter
 			$isFiltering = false;
@@ -245,17 +215,14 @@
 		}
 
 		/**
-		 * @param \ITX\Jobapplications\Domain\Model\Posting|null $posting
+		 * @param Posting|null $posting
 		 *
+		 * @return ResponseInterface
 		 * @throws ImmediateResponseException
+		 * @throws PageNotFoundException
 		 * @throws \JsonException
-		 * @throws \TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException
-		 * @throws \TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException
-		 * @throws \TYPO3\CMS\Core\Error\Http\PageNotFoundException
-		 * @throws InvalidSlotException
-		 * @throws InvalidSlotReturnException
 		 */
-		public function showAction(Posting $posting = null): ResponseInterface
+		public function showAction(?Posting $posting = null): ResponseInterface
 		{
 			if ($posting === null)
 			{
@@ -282,12 +249,10 @@
 
 			$this->addGoogleJobsDataToPage($posting);
 
-			// SignalSlotDispatcher BeforePostingShowAssign
-			$changedPosting = $this->signalSlotDispatcher->dispatch(__CLASS__, "BeforePostingShowAssign", ["posting" => $posting]);
-			if ($changedPosting["posting"] instanceof Posting)
-			{
-				$posting = $changedPosting['posting'];
-			}
+			//  Event DisplayPostingEvent
+			/** @var DisplayPostingEvent $event */
+			$event = $this->eventDispatcher->dispatch(new DisplayPostingEvent($posting));
+			$posting = $event->getPosting();
 
 			$this->view->assign('posting', $posting);
 
@@ -410,10 +375,5 @@
 		public function injectLocationRepository(LocationRepository $locationRepository): void
 		{
 			$this->locationRepository = $locationRepository;
-		}
-
-		public function injectSignalSlotDispatcher(Dispatcher $signalSlotDispatcher): void
-		{
-			$this->signalSlotDispatcher = $signalSlotDispatcher;
 		}
 	}

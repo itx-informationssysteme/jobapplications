@@ -32,6 +32,7 @@
 	use ITX\Jobapplications\Domain\Repository\ApplicationRepository;
 	use ITX\Jobapplications\Domain\Repository\PostingRepository;
 	use ITX\Jobapplications\Domain\Repository\StatusRepository;
+	use ITX\Jobapplications\Event\BeforeApplicationPersisted;
 	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
 	use ITX\Jobapplications\Service\ApplicationFileService;
 	use ITX\Jobapplications\Utility\Mail\MailInterface;
@@ -42,7 +43,6 @@
 	use Symfony\Component\Mime\Address;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
-	use TYPO3\CMS\Core\Localization\Exception\FileNotFoundException;
 	use TYPO3\CMS\Core\Log\LogManager;
 	use TYPO3\CMS\Core\Mail\FluidEmail;
 	use TYPO3\CMS\Core\Mail\Mailer;
@@ -55,7 +55,6 @@
 	use TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException;
 	use TYPO3\CMS\Core\Resource\File;
 	use TYPO3\CMS\Core\Resource\FileInterface;
-	use TYPO3\CMS\Core\Resource\ResourceStorage;
 	use TYPO3\CMS\Core\Resource\ResourceStorageInterface;
 	use TYPO3\CMS\Core\Resource\StorageRepository;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -66,9 +65,6 @@
 	use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 	use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 	use TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter;
-	use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
-	use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-	use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 	use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 	/**
@@ -100,12 +96,7 @@
 		 * @var \ITX\Jobapplications\Service\ApplicationFileService
 		 */
 		protected $applicationFileService;
-		/**
-		 * signalSlotDispatcher
-		 *
-		 * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-		 */
-		protected $signalSlotDispatcher;
+
 		/**
 		 * @var \TYPO3\CMS\Core\Log\Logger
 		 */
@@ -323,8 +314,6 @@
 		 * @throws InvalidFileNameException
 		 * @throws StopActionException
 		 * @throws IllegalObjectTypeException
-		 * @throws InvalidSlotException
-		 * @throws InvalidSlotReturnException
 		 */
 		public function createAction(Application $newApplication, Posting $posting = null): void
 		{
@@ -389,7 +378,7 @@
 				$newApplication->setPosting($posting);
 			}
 
-			/* @var \ITX\Jobapplications\Domain\Model\Status $firstStatus */
+			/* @var Status $firstStatus */
 			$firstStatus = $this->statusRepository->findNewStatus();
 
 			if ($firstStatus instanceof Status)
@@ -397,14 +386,10 @@
 				$newApplication->setStatus($firstStatus);
 			}
 
-			// SignalSlotDispatcher BeforePostingAssign
-			$signalArguments = ["application" => $newApplication];
-			$signalArguments = $this->signalSlotDispatcher->dispatch(__CLASS__, "BeforeApplicationAdd", $signalArguments);
-
-			if ($signalArguments["application"] instanceof Application)
-			{
-				$newApplication = $signalArguments['application'];
-			}
+			// Event BeforeApplicationPersisted
+			/** @var BeforeApplicationPersisted $event */
+			$event = $this->eventDispatcher->dispatch(new BeforeApplicationPersisted($newApplication));
+			$newApplication = $event->getApplication();
 
 			$this->applicationRepository->add($newApplication);
 			$this->persistenceManager->persistAll();
@@ -719,11 +704,6 @@
 		public function injectApplicationFileService(ApplicationFileService $applicationFileService): void
 		{
 			$this->applicationFileService = $applicationFileService;
-		}
-
-		public function injectSignalSlotDispatcher(Dispatcher $signalSlotDispatcher): void
-		{
-			$this->signalSlotDispatcher = $signalSlotDispatcher;
 		}
 
 		public function injectPostingRepository(PostingRepository $postingRepository): void
