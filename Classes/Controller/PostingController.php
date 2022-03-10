@@ -78,6 +78,13 @@
 		 */
 		protected $signalSlotDispatcher;
 
+		protected PageRenderer $pageRenderer;
+
+		public function __construct(PageRenderer $pageRenderer)
+		{
+			$this->pageRenderer = $pageRenderer;
+		}
+
 		/**
 		 * initialize show action
 		 *
@@ -190,12 +197,14 @@
 		private function getCachedFilterOptions(array $categories): array
 		{
 			$contentObj = $this->configurationManager->getContentObject();
-			if ($contentObj === null) {
+			if ($contentObj === null)
+			{
 				throw new \RuntimeException("Could not retrieve content object. Make sure to call this with a plugin.");
 			}
 
 			$pageId = $contentObj->data['pid'];
-			if (!MathUtility::canBeInterpretedAsInteger($pageId)) {
+			if (!MathUtility::canBeInterpretedAsInteger($pageId))
+			{
 				throw new \RuntimeException("Page id $pageId is not valid.");
 			}
 
@@ -258,106 +267,6 @@
 
 			$titleProvider = GeneralUtility::makeInstance(JobsPageTitleProvider::class);
 
-			/** @var ExtensionConfiguration $extconf */
-			$extconf = GeneralUtility::makeInstance(ExtensionConfiguration::class);
-
-			//Google Jobs
-
-			$hiringOrganization = [
-				"@type" => "Organization",
-				"name" => $extconf->get('jobapplications', 'companyName')
-			];
-
-			if (!empty($hiringOrganization['name']) && $this->settings['enableGoogleJobs'] == "1")
-			{
-				$logo = $extconf->get('jobapplications', 'logo');
-				if (!empty($logo))
-				{
-					$hiringOrganization["logo"] = $logo;
-				}
-
-				$employmentTypes = [];
-
-				foreach ($posting->getDeserializedEmploymentTypes() as $employmentType)
-				{
-					switch ($employmentType)
-					{
-						case "fulltime":
-							$employmentTypes[] = "FULL_TIME";
-							break;
-						case "parttime":
-							$employmentTypes[] = "PART_TIME";
-							break;
-						case "contractor":
-							$employmentTypes[] = "CONTRACTOR";
-							break;
-						case "temporary":
-							$employmentTypes[] = "TEMPORARY";
-							break;
-						case "intern":
-							$employmentTypes[] = "INTERN";
-							break;
-						case "volunteer":
-							$employmentTypes[] = "VOLUNTEER";
-							break;
-						case "perdiem":
-							$employmentTypes[] = "PER_DIEM";
-							break;
-						case "other":
-							$employmentTypes[] = "OTHER";
-							break;
-						default:
-							$employmentTypes = [];
-					}
-				}
-
-				$googleJobsJSON = [
-					"@context" => "http://schema.org",
-					"@type" => "JobPosting",
-					"datePosted" => $posting->getDatePosted()->format("c"),
-					"description" => $posting->getCompanyDescription()."<br>".$posting->getJobDescription()."<br>"
-						.$posting->getRoleDescription()."<br>".$posting->getSkillRequirements()
-						."<br>".$posting->getBenefits(),
-					"jobLocation" => [
-						"@type" => "Place",
-						"address" => [
-							"streetAddress" => $posting->getLocation()->getAddressStreetAndNumber(),
-							"addressLocality" => $posting->getLocation()->getAddressCity(),
-							"postalCode" => $posting->getLocation()->getAddressPostCode(),
-							"addressCountry" => $posting->getLocation()->getAddressCountry()
-						]
-					],
-					"title" => $posting->getTitle(),
-					"employmentType" => $employmentTypes
-				];
-
-				$googleJobsJSON["hiringOrganization"] = $hiringOrganization;
-
-				if (!empty($posting->getBaseSalary()))
-				{
-					$currency = $logo = $extconf->get('jobapplications', 'currency') ?: "EUR";
-					$googleJobsJSON["baseSalary"] = [
-						"@type" => "MonetaryAmount",
-						"currency" => $currency,
-						"value" => [
-							"@type" => "QuantitativeValue",
-							"value" => preg_replace('/\D/', '', $posting->getBaseSalary()),
-							"unitText" => "YEAR"
-						]
-					];
-				}
-
-				if ($posting->getEndtime() instanceof \DateTime)
-				{
-					$googleJobsJSON["validThrough"] = $posting->getEndtime()->format("c");
-				}
-
-				$googleJobs = "<script type=\"application/ld+json\">".json_encode($googleJobsJSON, JSON_THROW_ON_ERROR)."</script>";
-
-				$pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
-				$pageRenderer->addHeaderData($googleJobs);
-			}
-
 			// Pagetitle Templating
 			$title = $this->settings["pageTitle"];
 			if ($title !== "")
@@ -371,6 +280,8 @@
 
 			$titleProvider->setTitle($title);
 
+			$this->addGoogleJobsDataToPage($posting);
+
 			// SignalSlotDispatcher BeforePostingShowAssign
 			$changedPosting = $this->signalSlotDispatcher->dispatch(__CLASS__, "BeforePostingShowAssign", ["posting" => $posting]);
 			if ($changedPosting["posting"] instanceof Posting)
@@ -381,6 +292,114 @@
 			$this->view->assign('posting', $posting);
 
 			return $this->htmlResponse();
+		}
+
+		/**
+		 * This function generates the Google Jobs structured on page data.
+		 * This can be overriden if any field customizations are done.
+		 */
+		protected function addGoogleJobsDataToPage(Posting $posting): void
+		{
+			/** @var ExtensionConfiguration $extconf */
+			$extconf = GeneralUtility::makeInstance(ExtensionConfiguration::class);
+
+			$companyName = $extconf->get('jobapplications', 'companyName');
+
+			if (empty($companyName) || $this->settings['enableGoogleJobs'] !== "1")
+			{
+				return;
+			}
+
+			$hiringOrganization = [
+				"@type" => "Organization",
+				"name" => $companyName
+			];
+
+			$logo = $extconf->get('jobapplications', 'logo');
+			if (!empty($logo))
+			{
+				$hiringOrganization["logo"] = $logo;
+			}
+
+			$employmentTypes = [];
+
+			foreach ($posting->getDeserializedEmploymentTypes() as $employmentType)
+			{
+				switch ($employmentType)
+				{
+					case "fulltime":
+						$employmentTypes[] = "FULL_TIME";
+						break;
+					case "parttime":
+						$employmentTypes[] = "PART_TIME";
+						break;
+					case "contractor":
+						$employmentTypes[] = "CONTRACTOR";
+						break;
+					case "temporary":
+						$employmentTypes[] = "TEMPORARY";
+						break;
+					case "intern":
+						$employmentTypes[] = "INTERN";
+						break;
+					case "volunteer":
+						$employmentTypes[] = "VOLUNTEER";
+						break;
+					case "perdiem":
+						$employmentTypes[] = "PER_DIEM";
+						break;
+					case "other":
+						$employmentTypes[] = "OTHER";
+						break;
+					default:
+						$employmentTypes = [];
+				}
+			}
+
+			$googleJobsJSON = [
+				"@context" => "http://schema.org",
+				"@type" => "JobPosting",
+				"datePosted" => $posting->getDatePosted()->format("c"),
+				"description" => $posting->getCompanyDescription()."<br>".$posting->getJobDescription()."<br>"
+					.$posting->getRoleDescription()."<br>".$posting->getSkillRequirements()
+					."<br>".$posting->getBenefits(),
+				"jobLocation" => [
+					"@type" => "Place",
+					"address" => [
+						"streetAddress" => $posting->getLocation()->getAddressStreetAndNumber(),
+						"addressLocality" => $posting->getLocation()->getAddressCity(),
+						"postalCode" => $posting->getLocation()->getAddressPostCode(),
+						"addressCountry" => $posting->getLocation()->getAddressCountry()
+					]
+				],
+				"title" => $posting->getTitle(),
+				"employmentType" => $employmentTypes
+			];
+
+			$googleJobsJSON["hiringOrganization"] = $hiringOrganization;
+
+			if (!empty($posting->getBaseSalary()))
+			{
+				$currency = $logo = $extconf->get('jobapplications', 'currency') ?: "EUR";
+				$googleJobsJSON["baseSalary"] = [
+					"@type" => "MonetaryAmount",
+					"currency" => $currency,
+					"value" => [
+						"@type" => "QuantitativeValue",
+						"value" => preg_replace('/\D/', '', $posting->getBaseSalary()),
+						"unitText" => "YEAR"
+					]
+				];
+			}
+
+			if ($posting->getEndtime() instanceof \DateTime)
+			{
+				$googleJobsJSON["validThrough"] = $posting->getEndtime()->format("c");
+			}
+
+			$googleJobs = "<script type=\"application/ld+json\">".json_encode($googleJobsJSON, JSON_THROW_ON_ERROR)."</script>";
+
+			$this->pageRenderer->addHeaderData($googleJobs);
 		}
 
 		public function injectPostingRepository(PostingRepository $postingRepository): void
