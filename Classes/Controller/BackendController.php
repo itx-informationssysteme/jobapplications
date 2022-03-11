@@ -25,6 +25,7 @@
 
 	namespace ITX\Jobapplications\Controller;
 
+	use Psr\Http\Message\ServerRequestInterface;
 	use TYPO3\CMS\Core\Pagination\SimplePagination;
 	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 	use ITX\Jobapplications\Domain\Model\Application;
@@ -274,11 +275,7 @@
 				$this->persistenceManager->persistAll();
 			}
 
-			// Fetch baseuri for f:uri to access Public folder
-			$baseUri = str_replace('typo3/', '', $this->request->getBaseUri());
-
 			$this->view->assign('application', $application);
-			$this->view->assign('baseUri', $baseUri);
 		}
 
 		/**
