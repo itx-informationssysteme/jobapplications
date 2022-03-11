@@ -58,34 +58,28 @@
 			if (!empty($content))
 			{
 				$pageRenderer = static::getPageRenderer();
-				if (!method_exists($pageRenderer, 'setMetaTag'))
+
+				$properties = [];
+				$type = 'name';
+				$name = $this->tag->getAttribute('name');
+				if (!empty($this->tag->getAttribute('property')))
 				{
-					$pageRenderer->addMetaTag($this->renderTag($this->tagName, null, ['content' => $content]));
+					$type = 'property';
+					$name = $this->tag->getAttribute('property');
 				}
-				else
+				elseif (!empty($this->tag->getAttribute('http-equiv')))
 				{
-					$properties = [];
-					$type = 'name';
-					$name = $this->tag->getAttribute('name');
-					if (!empty($this->tag->getAttribute('property')))
-					{
-						$type = 'property';
-						$name = $this->tag->getAttribute('property');
-					}
-					elseif (!empty($this->tag->getAttribute('http-equiv')))
-					{
-						$type = 'http-equiv';
-						$name = $this->tag->getAttribute('http-equiv');
-					}
-					foreach (['http-equiv', 'property', 'scheme', 'lang', 'dir'] as $propertyName)
-					{
-						if (!empty($this->tag->getAttribute($propertyName)))
-						{
-							$properties[$propertyName] = $this->tag->getAttribute($propertyName);
-						}
-					}
-					$pageRenderer->setMetaTag($type, $name, $content, $properties);
+					$type = 'http-equiv';
+					$name = $this->tag->getAttribute('http-equiv');
 				}
+				foreach (['http-equiv', 'property', 'scheme', 'lang', 'dir'] as $propertyName)
+				{
+					if (!empty($this->tag->getAttribute($propertyName)))
+					{
+						$properties[$propertyName] = $this->tag->getAttribute($propertyName);
+					}
+				}
+				$pageRenderer->setMetaTag($type, $name, $content, $properties);
 			}
 		}
 	}
