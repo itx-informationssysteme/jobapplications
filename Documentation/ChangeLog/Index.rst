@@ -11,6 +11,10 @@
 Changelog
 =========
 
+1.0.6 - Build fix
+-----------------
+* this update contains no actual content, and only fixes a build issue
+
 1.0.5 - Bugfixes
 ----------------
 * [BUGFIX] fixed error "Unsupported or non-existing property name "categories" used in relation matching" when using categories with filters #51
