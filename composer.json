@@ -54,7 +54,6 @@
     }
   },
   "replace": {
-    "itx/jobapplications": "self.version",
     "typo3-ter/jobapplications": "self.version"
   }
 }
