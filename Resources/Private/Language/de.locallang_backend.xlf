@@ -111,10 +111,6 @@
                 <source>Show message field?</source>
                 <target state="translated">Zeige Nachricht-Feld?</target>
             </trans-unit>
-            <trans-unit id="flexform.singleDetailandApp" resname="flexform.singleDetailandApp">
-                <source>Setting needed if applicationform should be on the same page as Detailview</source>
-                <target state="translated">Anwählen, falls sich Bewerbungsformular und Detailplugin auf der gleichen Seite befinden</target>
-            </trans-unit>
             <trans-unit id="flexform.successMessage" resname="flexform.successMessage">
                 <source>Enter the message that will be shown to the applicant after submitting the application</source>
                 <target state="translated">Die Nachricht für den Bewerber, nachdem dieser die Bewerbung abgeschickt hat</target>

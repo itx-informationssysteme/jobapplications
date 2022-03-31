@@ -8,14 +8,7 @@
 			<div class="col"></div>
 			<div class="col-9">
 				<div class="card-title mt-3">
-					<f:if condition="{settings.singleDetailandApp}">
-						<f:then>
-							<f:link.action action="show" additionalParams="{postingApp: posting}" arguments="{posting : posting}" pageUid="{settings.detailViewUid}" pluginName="DetailView">{posting.title}</f:link.action>
-						</f:then>
-						<f:else>
-							<f:link.action action="show" arguments="{posting : posting}" pageUid="{settings.detailViewUid}" pluginName="DetailView">{posting.title}</f:link.action>
-						</f:else>
-					</f:if>
+					<f:link.action action="show" arguments="{posting : posting}" pageUid="{settings.detailViewUid}" pluginName="DetailView">{posting.title}</f:link.action>
 				</div>
 				<div class="card-body p-0 pb-3">
 					<div class="row">
@@ -44,18 +37,9 @@
 						</div>
 					</div>
 					<div class="row mt-3">
-						<f:if condition="{settings.singleDetailandApp}">
-							<f:then>
-								<f:link.action action="show" additionalParams="{postingApp: posting}" arguments="{posting : posting}" class="btn btn-primary m-auto" pageUid="{settings.detailViewUid}" pluginName="DetailView">
-									<f:translate key="fe.posting.button.detailview"/>
-								</f:link.action>
-							</f:then>
-							<f:else>
-								<f:link.action action="show" arguments="{posting : posting}" class="btn btn-primary m-auto" pageUid="{settings.detailViewUid}" pluginName="DetailView">
-									<f:translate key="fe.posting.button.detailview"/>
-								</f:link.action>
-							</f:else>
-						</f:if>
+						<f:link.action action="show" arguments="{posting : posting}" class="btn btn-primary m-auto" pageUid="{settings.detailViewUid}" pluginName="DetailView">
+							<f:translate key="fe.posting.button.detailview"/>
+						</f:link.action>
 					</div>
 				</div>
 			</div>

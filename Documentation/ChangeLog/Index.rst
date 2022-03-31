@@ -11,6 +11,15 @@
 Changelog
 =========
 
+1.0.4 - Bugfixes
+----------------
+* [BUGFIX] fixed error "Unsupported or non-existing property name "categories" used in relation matching" when using categories with filters #51
+* [BUGFIX] fixed error when removing filters from fluid template #44
+* [BUGFIX] fixed and issue where filter options would not be contained to their relevant page and storage folders #28
+* [FEATURE] added support for optional file uploads, you can now disable the required attribute on the file uploads #48
+* [FEATURE] removed postingApp parameter from links where a detail view and an application form are on the same page, it now works automatically #41
+* [FEATURE] added configurable file storage #38
+
 1.0.3 - Bugfixes
 ----------------
 * [BUGFIX] fixed record deletion hook not checking if indexing is enabled

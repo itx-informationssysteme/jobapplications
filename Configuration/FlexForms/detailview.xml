@@ -35,7 +35,6 @@
                                         <type>suggest</type>
                                     </suggest>
                                 </wizards>
-                                <eval>required</eval>
                             </config>
                         </TCEforms>
                     </settings.applicationFormUid>

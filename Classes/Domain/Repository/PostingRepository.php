@@ -4,6 +4,7 @@
 
 	use ITX\Jobapplications\Domain\Model\Constraint;
 	use ITX\Jobapplications\Domain\Repository\RepoHelpers;
+	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 	use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -70,14 +71,15 @@
 		 */
 		public function findAllDivisions(array $categories = null)
 		{
-			$qb = parent::getQueryBuilder("tx_jobapplications_domain_model_posting");
+			$qb = $this->getQueryBuilder("tx_jobapplications_domain_model_posting");
 			$query = $this->createQuery();
-			if (count($categories) == 0)
+			if (count($categories) === 0)
 			{
 				$qb
 					->select("division")
 					->groupBy("division")
-					->from("tx_jobapplications_domain_model_posting");
+					->from("tx_jobapplications_domain_model_posting")
+					->andWhere($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()));
 			}
 			else
 			{
@@ -85,7 +87,7 @@
 					->select("division")
 					->groupBy("division")
 					->from("tx_jobapplications_domain_model_posting")
-					->where($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()))
+					->andWhere($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()))
 					->join("tx_jobapplications_domain_model_posting", "sys_category_record_mm",
 						   "sys_category_record_mm", $qb->expr()->eq("tx_jobapplications_domain_model_posting.uid",
 																	 "sys_category_record_mm.uid_foreign"))
@@ -108,12 +110,13 @@
 			$qb = $this->getQueryBuilder("tx_jobapplications_domain_model_posting");
 
 			$query = $this->createQuery();
-			if (count($categories) == 0)
+			if (count($categories) === 0)
 			{
 				$qb
 					->select("career_level AS careerLevel")
 					->groupBy("careerLevel")
-					->from("tx_jobapplications_domain_model_posting");
+					->from("tx_jobapplications_domain_model_posting")
+					->where($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()));
 			}
 			else
 			{
@@ -144,7 +147,7 @@
 			$qb = $this->getQueryBuilder("tx_jobapplications_domain_model_posting");
 
 			$query = $this->createQuery();
-			if (count($categories) == 0)
+			if (count($categories) === 0)
 			{
 				$qb
 					->select("employment_type AS employmentType")
@@ -262,7 +265,7 @@
 					foreach ($array as $input)
 					{
 						//Skip empty values. The prepend option, associated with 'All', returns this empty string.
-						if (is_string($input) && $input === '')
+						if ($input === '')
 						{
 							continue;
 						}

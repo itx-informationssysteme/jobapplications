@@ -76,7 +76,9 @@
 				// Actual anonymization + deleting application files
 
 				/* @var \ITX\Jobapplications\Service\ApplicationFileService $applicationFileService */
-				$applicationFileService->deleteApplicationFolder($applicationFileService->getApplicantFolder($application));
+				$fileStorage = $applicationFileService->getFileStorage($application);
+
+				$applicationFileService->deleteApplicationFolder($applicationFileService->getApplicantFolder($application), $fileStorage);
 
 				$application->setFirstName($anonymizeChars);
 				$application->setLastName($anonymizeChars);

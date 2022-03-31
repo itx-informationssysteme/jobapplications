@@ -36,6 +36,8 @@ plugin.tx_jobapplications {
 	}
 
 	settings {
+		fileStorage = {$plugin.tx_jobapplications.settings.fileStorage}
+
 		list {
 			ordering {
 				field = date_posted

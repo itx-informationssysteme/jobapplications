@@ -25,6 +25,7 @@
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
 
+	use ITX\Jobapplications\Service\ApplicationFileService;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Object\ObjectManager;
 
@@ -43,12 +44,15 @@
 		 * Should return TRUE on successful execution, FALSE on error.
 		 *
 		 * @return bool Returns TRUE on successful execution, FALSE on error
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
+		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
 		 */
 		public function execute()
 		{
 			$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 			$persistenceManager = $objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager::class);
 			$applicationRepository = $objectManager->get(\ITX\Jobapplications\Domain\Repository\ApplicationRepository::class);
+			/** @var ApplicationFileService $applicationFileService */
 			$applicationFileService = $objectManager->get(\ITX\Jobapplications\Service\ApplicationFileService::class);
 
 			$now = new \DateTime();
@@ -67,8 +71,10 @@
 
 			foreach ($applications as $application)
 			{
+				$fileStorage = $applicationFileService->getFileStorage($application);
 				$applicationRepository->remove($application);
-				$applicationFileService->deleteApplicationFolder($applicationFileService->getApplicantFolder($application));
+
+				$applicationFileService->deleteApplicationFolder($applicationFileService->getApplicantFolder($application), $fileStorage);
 			}
 
 			if ($resultCount > 0)

@@ -38,6 +38,7 @@
 	 */
 	class AjaxController
 	{
+		protected $fileTempPath;
 
 		/**
 		 * CustomerServerAssignment constructor.
