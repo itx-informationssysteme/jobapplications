@@ -409,9 +409,12 @@
 				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.location',
 				'config' => [
 					'type' => 'select',
-					'renderType' => 'selectSingle',
+					'renderType' => 'selectMultipleSideBySide',
 					'foreign_table' => 'tx_jobapplications_domain_model_location',
-					'maxitems' => 1
+					'foreign_table_where' => 'tx_jobapplications_domain_model_location.sys_language_uid IN (0,-1) ORDER BY tx_jobapplications_domain_model_location.name ASC',
+					'MM' => 'tx_jobapplications_postings_locations_mm',
+					'size' => 3,
+					'autoSizeMax' => 5,
 				],
 			],
 			'contact' => [

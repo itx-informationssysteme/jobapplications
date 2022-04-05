@@ -22,7 +22,7 @@ CREATE TABLE tx_jobapplications_domain_model_posting
 	company_information text,
 	detail_view_image   int(11) unsigned             NOT NULL default '0',
 	list_view_image     int(11) unsigned             NOT NULL default '0',
-	location            int(11) unsigned DEFAULT '0',
+	location            int(11) unsigned DEFAULT '0' NOT NULL,
 	contact             int(11) unsigned DEFAULT '0',
 	slug                varchar(255)     DEFAULT ''  NOT NULL
 
@@ -60,6 +60,16 @@ CREATE TABLE tx_jobapplications_domain_model_location
 	londitude                 varchar(255)     DEFAULT ''  NOT NULL,
 	categories                int(11) unsigned DEFAULT '0' NOT NULL
 
+);
+
+CREATE TABLE tx_jobapplications_postings_locations_mm (
+                                                       uid_local int(11) unsigned DEFAULT '0' NOT NULL,
+                                                       uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+                                                       sorting int(11) unsigned DEFAULT '0' NOT NULL,
+                                                       sorting_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+
+                                                       KEY uid_local (uid_local),
+                                                       KEY uid_foreign (uid_foreign)
 );
 
 #
