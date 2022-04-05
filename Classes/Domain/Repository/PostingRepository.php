@@ -4,6 +4,7 @@
 
 	use ITX\Jobapplications\Domain\Model\Constraint;
 	use ITX\Jobapplications\Domain\Repository\RepoHelpers;
+	use TYPO3\CMS\Core\Context\Context;
 	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Persistence\QueryInterface;
@@ -68,10 +69,11 @@
 		 * Gets all divisions
 		 *
 		 * @param array|null $categories
+		 * @param int $languageUid
 		 *
 		 * @return array
 		 */
-		public function findAllDivisions(array $categories = null): array
+		public function findAllDivisions(array $categories = null, int $languageUid): array
 		{
 			$qb = $this->getQueryBuilder("tx_jobapplications_domain_model_posting");
 			$query = $this->createQuery();
@@ -80,18 +82,20 @@
 			if (count($categories) === 0)
 			{
 				$qb
-					->select("division")
-					->groupBy("division")
+					->select("division", "sys_language_uid")
+					->groupBy("division", "sys_language_uid")
 					->from("tx_jobapplications_domain_model_posting")
-					->andWhere($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()));
+					->andWhere($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()))
+					->andWhere($qb->expr()->eq("sys_language_uid", $languageUid));
 			}
 			else
 			{
 				$qb
-					->select("division")
-					->groupBy("division")
+					->select("division", "sys_language_uid")
+					->groupBy("division", "sys_language_uid")
 					->from("tx_jobapplications_domain_model_posting")
 					->andWhere($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()))
+					->andWhere($qb->expr()->eq("sys_language_uid", $languageUid))
 					->join("tx_jobapplications_domain_model_posting", "sys_category_record_mm",
 						   "sys_category_record_mm", $qb->expr()->eq("tx_jobapplications_domain_model_posting.uid",
 																	 "sys_category_record_mm.uid_foreign"))
@@ -108,10 +112,11 @@
 
 		/**
 		 * @param array|null $categories
+		 * @param int $languageUid
 		 *
 		 * @return array
 		 */
-		public function findAllCareerLevels(array $categories = null): array
+		public function findAllCareerLevels(array $categories = null, int $languageUid): array
 		{
 			$qb = $this->getQueryBuilder("tx_jobapplications_domain_model_posting");
 
@@ -121,18 +126,20 @@
 			if (count($categories) === 0)
 			{
 				$qb
-					->select("career_level AS careerLevel")
-					->groupBy("careerLevel")
+					->select("career_level AS careerLevel", "sys_language_uid")
+					->groupBy("careerLevel", "sys_language_uid")
 					->from("tx_jobapplications_domain_model_posting")
-					->where($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()));
+					->where($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()))
+					->andWhere($qb->expr()->eq("sys_language_uid", $languageUid));
 			}
 			else
 			{
 				$qb
-					->select("career_level AS careerLevel")
-					->groupBy("careerLevel")
+					->select("career_level AS careerLevel", "sys_language_uid")
+					->groupBy("careerLevel", "sys_language_uid")
 					->from("tx_jobapplications_domain_model_posting")
 					->where($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()))
+					->andWhere($qb->expr()->eq("sys_language_uid", $languageUid))
 					->join("tx_jobapplications_domain_model_posting", "sys_category_record_mm",
 						   "sys_category_record_mm", $qb->expr()->eq("tx_jobapplications_domain_model_posting.uid",
 																	 "sys_category_record_mm.uid_foreign"))
@@ -148,9 +155,12 @@
 		}
 
 		/**
+		 * @param array|null $categories
+		 * @param int $languageUid
+		 *
 		 * @return array
 		 */
-		public function findAllEmploymentTypes(array $categories = null)
+		public function findAllEmploymentTypes(array $categories = null, int $languageUid)
 		{
 			$qb = $this->getQueryBuilder("tx_jobapplications_domain_model_posting");
 
@@ -160,19 +170,21 @@
 			if (count($categories) === 0)
 			{
 				$qb
-					->select("employment_type AS employmentType")
-					->groupBy("employmentType")
+					->select("employment_type AS employmentType", "sys_language_uid")
+					->groupBy("employmentType", "sys_language_uid")
 					->from("tx_jobapplications_domain_model_posting")
 					->andWhere($qb->expr()->in('pid', $query->getQuerySettings()->getStoragePageIds()))
+					->andWhere($qb->expr()->eq("sys_language_uid", $languageUid))
 					->orderBy('employmentType', QueryInterface::ORDER_ASCENDING);
 			}
 			else
 			{
 				$qb
-					->select("employment_type AS employmentType")
-					->groupBy("employmentType")
+					->select("employment_type AS employmentType", "sys_language_uid")
+					->groupBy("employmentType", "sys_language_uid")
 					->from("tx_jobapplications_domain_model_posting")
 					->where($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()))
+					->andWhere($qb->expr()->eq("sys_language_uid", $languageUid))
 					->join("tx_jobapplications_domain_model_posting", "sys_category_record_mm",
 						   "sys_category_record_mm", $qb->expr()->eq("tx_jobapplications_domain_model_posting.uid",
 																	 "sys_category_record_mm.uid_foreign"))

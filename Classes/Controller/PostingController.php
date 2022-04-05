@@ -12,6 +12,7 @@
 	use TYPO3\CMS\Core\Cache\CacheManager;
 	use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+	use TYPO3\CMS\Core\Context\Context;
 	use TYPO3\CMS\Core\Error\Http\PageNotFoundException;
 	use TYPO3\CMS\Core\Http\ImmediateResponseException;
 	use TYPO3\CMS\Core\Page\PageRenderer;
@@ -182,16 +183,18 @@
 
 			/** @var FrontendInterface $cache */
 			$cache = GeneralUtility::makeInstance(CacheManager::class)->getCache('jobapplications_cache');
+			$languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
+			$languageId = $languageAspect->getId();
 
-			// If $entry is false, it hasn't been cached. Calculate the value and store it in the cache:
-			if (($entry = $cache->get($cacheKey)) === false)
+			// If $entry is false, or language key does not exist it hasn't been cached. Calculate the value and store it in the cache:
+			if (($entry = $cache->get($cacheKey)) === false || !key_exists($languageId, $entry))
 			{
-				$entry = $this->getFilterOptions($categories);
+				$entry = $this->getFilterOptions($categories, $languageId);
 
 				$cache->set($cacheKey, $entry, [], null);
 			}
 
-			return $entry;
+			return $entry[$languageId];
 		}
 
 		/**
@@ -200,17 +203,20 @@
 		 * Override for customization.
 		 *
 		 * @param $categories array categories
+		 * @param $languageId int
 		 *
 		 * @return array
 		 * @throws InvalidQueryException
 		 */
-		public function getFilterOptions(array $categories): array
+		public function getFilterOptions(array $categories, $languageId): array
 		{
 			return [
-				'division' => $this->postingRepository->findAllDivisions($categories),
-				'careerLevel' => $this->postingRepository->findAllCareerLevels($categories),
-				'employmentType' => $this->postingRepository->findAllEmploymentTypes($categories),
-				'location' => $this->locationRepository->findAll($categories)->toArray(),
+				$languageId => [
+					'division' => $this->postingRepository->findAllDivisions($categories, $languageId),
+					'careerLevel' => $this->postingRepository->findAllCareerLevels($categories, $languageId),
+					'employmentType' => $this->postingRepository->findAllEmploymentTypes($categories, $languageId),
+					'location' => $this->locationRepository->findAll($categories)->toArray()
+				]
 			];
 		}
 
