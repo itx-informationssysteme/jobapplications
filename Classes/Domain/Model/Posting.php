@@ -1,7 +1,7 @@
 <?php
 
 	namespace ITX\Jobapplications\Domain\Model;
-	
+
 	use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 	use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 	use TYPO3\CMS\Extbase\Domain\Model\FileReference;
@@ -143,11 +143,11 @@
 		protected $companyInformation = '';
 
 		/**
-		 * location
+		 * locations
 		 *
-		 * @var \ITX\Jobapplications\Domain\Model\Location
+		 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobapplications\Domain\Model\Location>
 		 */
-		protected $location = null;
+		protected $locations = null;
 
 		/**
 		 * contact
@@ -520,25 +520,25 @@
 		}
 
 		/**
-		 * Returns the location
+		 * Returns the locations
 		 *
-		 * @return \ITX\Jobapplications\Domain\Model\Location location
+		 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobapplications\Domain\Model\Location> $locations
 		 */
-		public function getLocation()
+		public function getLocations()
 		{
-			return $this->location;
+			return $this->locations;
 		}
 
 		/**
 		 * Sets the location
 		 *
-		 * @param \ITX\Jobapplications\Domain\Model\Location $location
+		 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobapplications\Domain\Model\Location> $locations
 		 *
 		 * @return void
 		 */
-		public function setLocation(Location $location)
+		public function setLocations(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $locations)
 		{
-			$this->location = $location;
+			$this->locations = $locations;
 		}
 
 		/**

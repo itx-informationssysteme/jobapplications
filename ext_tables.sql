@@ -22,7 +22,7 @@ CREATE TABLE tx_jobapplications_domain_model_posting
 	company_information text,
 	detail_view_image   int(11) unsigned             NOT NULL default '0',
 	list_view_image     int(11) unsigned             NOT NULL default '0',
-	location            int(11) unsigned DEFAULT '0' NOT NULL,
+	locations            int(11) unsigned DEFAULT '0' NOT NULL,
 	contact             int(11) unsigned DEFAULT '0',
 	slug                varchar(255)     DEFAULT ''  NOT NULL
 

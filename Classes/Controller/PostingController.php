@@ -215,7 +215,7 @@
 					'division' => $this->postingRepository->findAllDivisions($categories, $languageId),
 					'careerLevel' => $this->postingRepository->findAllCareerLevels($categories, $languageId),
 					'employmentType' => $this->postingRepository->findAllEmploymentTypes($categories, $languageId),
-					'location' => $this->locationRepository->findAll($categories)->toArray()
+					'locations' => $this->locationRepository->findAll($categories)->toArray()
 				]
 			];
 		}
@@ -337,10 +337,10 @@
 				"jobLocation" => [
 					"@type" => "Place",
 					"address" => [
-						"streetAddress" => $posting->getLocation()->getAddressStreetAndNumber(),
-						"addressLocality" => $posting->getLocation()->getAddressCity(),
-						"postalCode" => $posting->getLocation()->getAddressPostCode(),
-						"addressCountry" => $posting->getLocation()->getAddressCountry()
+						"streetAddress" => $posting->getLocations()->getAddressStreetAndNumber(),
+						"addressLocality" => $posting->getLocations()->getAddressCity(),
+						"postalCode" => $posting->getLocations()->getAddressPostCode(),
+						"addressCountry" => $posting->getLocations()->getAddressCountry()
 					]
 				],
 				"title" => $posting->getTitle(),

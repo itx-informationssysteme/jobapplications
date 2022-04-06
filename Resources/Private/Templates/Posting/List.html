@@ -56,13 +56,13 @@
 								</f:for>
 							</f:form.select>
 						</div>
-						<div class="form-group col {f:if(condition: '{filterOptions.location -> f:count()} < 2', then: 'd-none')}">
-							<label for="location">
+						<div class="form-group col {f:if(condition: '{filterOptions.locations -> f:count()} < 2', then: 'd-none')}">
+							<label for="locations">
 								<f:translate key="fe.filter.location"/>
 							</label>
-							<f:form.select class="form-control" multiple="true" name="location" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}" property="location">
-								<f:for as="location" each="{filterOptions.location}">
-									<f:form.select.option additionalAttributes="{jobs:condition.inArray(needle: location.uid, haystack: constraint.location, then: '{selected: true}')}" value="{location.uid}">{location.name}</f:form.select.option>
+							<f:form.select class="form-control" multiple="true" name="locations" prependOptionLabel="{f:translate(key: 'fe.posting.filter.chooseMessage')}" property="locations">
+								<f:for as="location" each="{filterOptions.locations}">
+									<f:form.select.option additionalAttributes="{jobs:condition.inArray(needle: location.uid, haystack: constraint.locations, then: '{selected: true}')}" value="{location.uid}">{location.name}</f:form.select.option>
 								</f:for>
 							</f:form.select>
 						</div>

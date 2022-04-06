@@ -60,8 +60,8 @@
             <trans-unit id="tx_jobapplications_domain_model_posting.list_view_image" resname="tx_jobapplications_domain_model_posting.list_view_image">
                 <source>List View Image</source>
             </trans-unit>
-            <trans-unit id="tx_jobapplications_domain_model_posting.location" resname="tx_jobapplications_domain_model_posting.location">
-                <source>Location</source>
+            <trans-unit id="tx_jobapplications_domain_model_posting.locations" resname="tx_jobapplications_domain_model_posting.locations">
+                <source>Locations</source>
             </trans-unit>
             <trans-unit id="tx_jobapplications_domain_model_posting.contact" resname="tx_jobapplications_domain_model_posting.contact">
                 <source>Contact</source>

@@ -404,9 +404,9 @@
 					$GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
 				),
 			],
-			'location' => [
+			'locations' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.location',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.locations',
 				'config' => [
 					'type' => 'select',
 					'renderType' => 'selectMultipleSideBySide',
@@ -465,7 +465,7 @@
 				'showitem' => 'date_posted, starttime ,endtime'
 			],
 			'relations' => [
-				'showitem' => 'location, contact'
+				'showitem' => 'locations, contact'
 			],
 			'images' => [
 				'showitem' => 'detail_view_image, list_view_image'
