@@ -347,7 +347,7 @@
 
 			// Verify length in message field;
 			// front end check is already covered, this should only block requests avoiding the frontend
-			if (strlen($newApplication->getMessage()) > (int)$this->settings['messageMaxLength'])
+			if (array_key_exists("messageMaxLength", $this->settings) && (strlen($newApplication->getMessage()) > (int)$this->settings['messageMaxLength']))
 			{
 				$this->addFlashMessage("Message too long", "Rejected", FlashMessage::ERROR);
 				$this->redirect("new", "Application", null, ["posting" => $posting]);
@@ -557,8 +557,8 @@
 						break;
 				}
 				$body = str_replace("%applicantSalutation%", $salutation, $body);
-				$body = str_replace("%applicantFirstname%", $newApplication->getFirstName(), $body);
-				$body = str_replace("%applicantLastname%", $newApplication->getLastName(), $body);
+				$body = str_replace("%applicantFirstName%", $newApplication->getFirstName(), $body);
+				$body = str_replace("%applicantLastName%", $newApplication->getLastName(), $body);
 				$body = str_replace("%postingTitle%", $currentPosting->getTitle(), $body);
 
 				$mail
