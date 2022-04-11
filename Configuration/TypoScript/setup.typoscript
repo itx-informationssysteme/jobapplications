@@ -62,7 +62,7 @@ plugin.tx_jobapplications {
 
 				locations {
 					relation = locations
-					relationType = equals
+					relationType = contains
 				}
 			}
 		}
