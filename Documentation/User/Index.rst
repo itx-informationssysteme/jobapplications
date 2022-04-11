@@ -189,6 +189,7 @@ Placeholders:
 * Lastname: %lastName%
 * Firstname: %firstName%
 * Salutation: %salutation%
+* Posting Title: %postingTitle%
 
 When the applicant entered *divers* or nothing as salutation the salutation will be automatically replaced with the
 applicants first name.

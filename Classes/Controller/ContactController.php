@@ -68,17 +68,12 @@
 			if (!empty($selectedContactsStr))
 			{
 				$contacts = explode(",", $selectedContactsStr);
+				$contactObjects = $this->contactRepository->findMultipleByUid($contacts);
 			}
-			$contactObjects = $this->contactRepository->findMultipleByUid($contacts);
-
-			$contactByUid = [];
-
-			foreach ($contactObjects as $contact)
+			else
 			{
-				$contactByUid[$contact->getLocalizedUid()] = $contact;
+				$contactObjects = $this->contactRepository->findAll();
 			}
-
-			$contactObjects = array_replace(array_flip($contacts), $contactByUid);
 
 			$this->view->assign('contacts', $contactObjects);
 

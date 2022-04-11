@@ -367,7 +367,7 @@
 
 			// Verify length in message field;
 			// front end check is already covered, this should only block requests avoiding the frontend
-			if (strlen($newApplication->getMessage()) > (int)$this->settings['messageMaxLength'])
+			if (array_key_exists("messageMaxLength", $this->settings) && (strlen($newApplication->getMessage()) > (int)$this->settings['messageMaxLength']))
 			{
 				$this->addFlashMessage("Message too long", "Rejected", FlashMessage::ERROR);
 				$this->redirect("new", "Application", null, ["posting" => $posting]);
