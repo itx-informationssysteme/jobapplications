@@ -4,7 +4,7 @@
         <header/>
         <body>
             <trans-unit id="settings.sendEmailToApplicantText.description" resname="settings.sendEmailToApplicantText.description">
-                <source>\nTemplating available: \nPosting Title: postingTitle \nApplicant Salutation: %applicantSalutation% \nApplicant Firstname: %applicantFirstname% \nApplicant Lastname: %applicantLastname%</source>
+                <source>\nTemplating available: \nPosting Title: postingTitle \nApplicant Salutation: %applicantSalutation% \nApplicant First name: %applicantFirstName% \nApplicant LastName: %applicantLastName%</source>
             </trans-unit>
         </body>
     </file>
