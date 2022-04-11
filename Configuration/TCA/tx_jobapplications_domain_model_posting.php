@@ -448,24 +448,24 @@
 		],
 		'types' => [
 			'1' => [
-				'showitem' => '--palette--;;mainInfo,--palette--;;relations,--palette--;;dates,base_salary,--palette--;;circumstances,--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.advanced,--palette--;;general,--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.texts,company_description,job_description,role_description,skill_requirements,benefits,required_documents,company_information,--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.images,--palette--;;images'
+				'showitem' => '--palette--;;mainInfo,--palette--;;relations,--palette--;;dates,--palette--;;circumstances,--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.advanced,--palette--;;general,--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.texts,company_description,job_description,role_description,skill_requirements,benefits,required_documents,company_information,--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.images,--palette--;;images'
 			],
 		],
 		'palettes' => [
 			'general' => [
-				'showitem' => 'sys_language_uid, hidden, slug, l10n_parent, l10n_diffsource',
+				'showitem' => 'sys_language_uid, hidden, --linebreak--, slug, l10n_parent, l10n_diffsource',
 			],
 			'mainInfo' => [
 				'showitem' => 'title, division'
 			],
 			'circumstances' => [
-				'showitem' => 'career_level, employment_type, terms_of_employment'
+				'showitem' => 'base_salary, career_level, --linebreak--, employment_type, terms_of_employment'
 			],
 			'dates' => [
 				'showitem' => 'date_posted, starttime ,endtime'
 			],
 			'relations' => [
-				'showitem' => 'locations, contact'
+				'showitem' => 'contact, --linebreak--, locations,'
 			],
 			'images' => [
 				'showitem' => 'detail_view_image, list_view_image'
