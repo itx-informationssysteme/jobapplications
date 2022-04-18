@@ -3,6 +3,7 @@
 	namespace ITX\Jobapplications\Controller;
 
 	use ITX\Jobapplications\Domain\Model\Constraint;
+	use ITX\Jobapplications\Domain\Model\Location;
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Repository\LocationRepository;
 	use ITX\Jobapplications\Domain\Repository\PostingRepository;
@@ -327,6 +328,20 @@
 				}
 			}
 
+			$arrayLocations = [];
+			/** @var Location $location */
+			foreach($posting->getLocations() as $location) {
+				$arrayLocations[] =  [
+					"@type" => "Place",
+					"address" => [
+						"streetAddress" => $location->getAddressStreetAndNumber(),
+						"addressLocality" => $location->getAddressCity(),
+						"postalCode" => $location->getAddressPostCode(),
+						"addressCountry" => $location->getAddressCountry()
+					]
+				];
+			}
+
 			$googleJobsJSON = [
 				"@context" => "http://schema.org",
 				"@type" => "JobPosting",
@@ -334,15 +349,7 @@
 				"description" => $posting->getCompanyDescription()."<br>".$posting->getJobDescription()."<br>"
 					.$posting->getRoleDescription()."<br>".$posting->getSkillRequirements()
 					."<br>".$posting->getBenefits(),
-				"jobLocation" => [
-					"@type" => "Place",
-					"address" => [
-						"streetAddress" => $posting->getLocations()->getAddressStreetAndNumber(),
-						"addressLocality" => $posting->getLocations()->getAddressCity(),
-						"postalCode" => $posting->getLocations()->getAddressPostCode(),
-						"addressCountry" => $posting->getLocations()->getAddressCountry()
-					]
-				],
+				"jobLocation" => $arrayLocations,
 				"title" => $posting->getTitle(),
 				"employmentType" => $employmentTypes
 			];
