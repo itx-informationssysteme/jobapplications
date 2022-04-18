@@ -23,26 +23,27 @@ If you want to have custom filters you can do that by performing three steps.
 	#. Configure every filter you want in TypoScript settings, like the default config:
 		.. code-block:: php
 
-		   filter {
-			repositoryConfiguration {
-				division {  // Relation name: This is the name you should assign the form element property and the constraint property
-					relation = division // Define the relation a la Repository query e.g.: posting.contact.email
-					relationType = equals // choose equals, contains or in. This depends on the given relation
-				}
+			filter {
+				repositoryConfiguration {
+					division {  // Relation name: This is the name you should assign the form element property and the constraint property
+						relation = division // Define the relation a la Repository query e.g.: posting.contact.email
+						relationType = equals // choose equals, contains or in. This depends on the given relation
+					}
 
-				careerLevel {
-					relation = careerLevel
-					relationType = equals
-				}
+					careerLevel {
+						relation = careerLevel
+						relationType = equals
+					}
 
-				employmentType {
-					relation = employmentType
-					relationType = contains
-				}
+					employmentType {
+						relation = employmentType
+						relationType = contains
+					}
 
-				location {
-					relation = location
-					relationType = contains
+					location {
+						relation = location
+						relationType = contains
+					}
 				}
 			}
 
