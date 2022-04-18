@@ -11,6 +11,12 @@
 Changelog
 =========
 
+1.0.7 - Bugfixes
+-----------------
+* [BUGFIX] fixed plugin text about available placeholder in mail text
+* [BUGFIX] fixed error in application form when no messageMaxLength is configured
+* [FEATURE] show all contacts if no contact is selected in the contact plugin
+
 1.0.6 - Build fix
 -----------------
 * this update contains no actual content, and only fixes a build issue
