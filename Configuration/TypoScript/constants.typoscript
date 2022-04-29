@@ -8,11 +8,8 @@ plugin.tx_jobapplications.settings {
 	# cat=plugin.tx_jobapplications; type=boolean; label=LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:legacy_upload
 	legacy_upload = 1
 
-	# cat=plugin.tx_jobapplications; type=options[html,text,both]; label=Send Email as HTML or Text or Both
+	# cat=plugin.tx_jobapplications; type=options[html,plain,both]; label=Send Email as HTML or Text or Both
 	emailContentType = both
-
-	# cat=plugin.tx_jobapplications; type=int; label=Maximum number of items on one page
-	maxItemsOnPage = 9
 
 	# cat=plugin.tx_jobapplications; type=string; label=Default contact (mail address) for unsolicited application form mail
 	defaultContactMailAddress = address@address.de

@@ -4,6 +4,7 @@
 
 	use ITX\Jobapplications\Domain\Model\Constraint;
 	use ITX\Jobapplications\Domain\Repository\RepoHelpers;
+	use TYPO3\CMS\Core\Context\Context;
 	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Persistence\QueryInterface;
@@ -36,20 +37,20 @@
 	/**
 	 * The repository for Postings
 	 */
-	class PostingRepository extends \ITX\Jobapplications\Domain\Repository\JobapplicationsRepository
+	class PostingRepository extends JobapplicationsRepository
 	{
 		/**
 		 * Helper function for finding postings by category
 		 *
 		 * @param $category array
 		 *
-		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+		 * @return array|QueryResultInterface
 		 */
 		public function findByCategory(array $categories)
 		{
 			$query = $this->createQuery();
 
-			$qb = parent::getQueryBuilder("tx_jobapplications_domain_model_posting");
+			$qb = $this->getQueryBuilder("tx_jobapplications_domain_model_posting");
 
 			$qb
 				->select("*")
@@ -57,7 +58,7 @@
 				->join("tx_jobapplications_domain_model_posting", "sys_category_record_mm", "sys_category_record_mm", "tx_jobapplications_domain_model_posting.uid = sys_category_record_mm.uid_foreign")
 				->andWhere($qb->expr()->in('pid', $query->getQuerySettings()->getStoragePageIds()));
 
-			$qb = parent::buildCategoriesToSQL($categories, $qb);
+			$qb = $this->buildCategoriesToSQL($categories, $qb);
 
 			$query->statement($qb->getSQL());
 
@@ -67,27 +68,34 @@
 		/**
 		 * Gets all divisions
 		 *
-		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+		 * @param array|null $categories
+		 * @param int $languageUid
+		 *
+		 * @return array
 		 */
-		public function findAllDivisions(array $categories = null)
+		public function findAllDivisions(array $categories = null, int $languageUid): array
 		{
 			$qb = $this->getQueryBuilder("tx_jobapplications_domain_model_posting");
 			$query = $this->createQuery();
+			$query->getQuerySettings()->setLanguageOverlayMode(false);
+
 			if (count($categories) === 0)
 			{
 				$qb
-					->select("division")
-					->groupBy("division")
+					->select("division", "sys_language_uid")
+					->groupBy("division", "sys_language_uid")
 					->from("tx_jobapplications_domain_model_posting")
-					->andWhere($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()));
+					->andWhere($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()))
+					->andWhere($qb->expr()->eq("sys_language_uid", $languageUid));
 			}
 			else
 			{
 				$qb
-					->select("division")
-					->groupBy("division")
+					->select("division", "sys_language_uid")
+					->groupBy("division", "sys_language_uid")
 					->from("tx_jobapplications_domain_model_posting")
 					->andWhere($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()))
+					->andWhere($qb->expr()->eq("sys_language_uid", $languageUid))
 					->join("tx_jobapplications_domain_model_posting", "sys_category_record_mm",
 						   "sys_category_record_mm", $qb->expr()->eq("tx_jobapplications_domain_model_posting.uid",
 																	 "sys_category_record_mm.uid_foreign"))
@@ -103,28 +111,35 @@
 		}
 
 		/**
-		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+		 * @param array|null $categories
+		 * @param int $languageUid
+		 *
+		 * @return array
 		 */
-		public function findAllCareerLevels(array $categories = null)
+		public function findAllCareerLevels(array $categories = null, int $languageUid): array
 		{
 			$qb = $this->getQueryBuilder("tx_jobapplications_domain_model_posting");
 
 			$query = $this->createQuery();
+			$query->getQuerySettings()->setLanguageOverlayMode(false);
+
 			if (count($categories) === 0)
 			{
 				$qb
-					->select("career_level AS careerLevel")
-					->groupBy("careerLevel")
+					->select("career_level AS careerLevel", "sys_language_uid")
+					->groupBy("careerLevel", "sys_language_uid")
 					->from("tx_jobapplications_domain_model_posting")
-					->where($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()));
+					->where($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()))
+					->andWhere($qb->expr()->eq("sys_language_uid", $languageUid));
 			}
 			else
 			{
 				$qb
-					->select("career_level AS careerLevel")
-					->groupBy("careerLevel")
+					->select("career_level AS careerLevel", "sys_language_uid")
+					->groupBy("careerLevel", "sys_language_uid")
 					->from("tx_jobapplications_domain_model_posting")
 					->where($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()))
+					->andWhere($qb->expr()->eq("sys_language_uid", $languageUid))
 					->join("tx_jobapplications_domain_model_posting", "sys_category_record_mm",
 						   "sys_category_record_mm", $qb->expr()->eq("tx_jobapplications_domain_model_posting.uid",
 																	 "sys_category_record_mm.uid_foreign"))
@@ -140,29 +155,36 @@
 		}
 
 		/**
+		 * @param array|null $categories
+		 * @param int $languageUid
+		 *
 		 * @return array
 		 */
-		public function findAllEmploymentTypes(array $categories = null)
+		public function findAllEmploymentTypes(array $categories = null, int $languageUid)
 		{
 			$qb = $this->getQueryBuilder("tx_jobapplications_domain_model_posting");
 
 			$query = $this->createQuery();
+			$query->getQuerySettings()->setLanguageOverlayMode(false);
+
 			if (count($categories) === 0)
 			{
 				$qb
-					->select("employment_type AS employmentType")
-					->groupBy("employmentType")
+					->select("employment_type AS employmentType", "sys_language_uid")
+					->groupBy("employmentType", "sys_language_uid")
 					->from("tx_jobapplications_domain_model_posting")
 					->andWhere($qb->expr()->in('pid', $query->getQuerySettings()->getStoragePageIds()))
+					->andWhere($qb->expr()->eq("sys_language_uid", $languageUid))
 					->orderBy('employmentType', QueryInterface::ORDER_ASCENDING);
 			}
 			else
 			{
 				$qb
-					->select("employment_type AS employmentType")
-					->groupBy("employmentType")
+					->select("employment_type AS employmentType", "sys_language_uid")
+					->groupBy("employmentType", "sys_language_uid")
 					->from("tx_jobapplications_domain_model_posting")
 					->where($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()))
+					->andWhere($qb->expr()->eq("sys_language_uid", $languageUid))
 					->join("tx_jobapplications_domain_model_posting", "sys_category_record_mm",
 						   "sys_category_record_mm", $qb->expr()->eq("tx_jobapplications_domain_model_posting.uid",
 																	 "sys_category_record_mm.uid_foreign"))
@@ -198,7 +220,7 @@
 		/**
 		 * @param $categories
 		 *
-		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+		 * @return array|QueryResultInterface
 		 */
 		public function findAllCategories($categories)
 		{
@@ -236,7 +258,7 @@
 		 */
 		public function findByFilter(array $categories, array $repositoryConfig, Constraint $constraint = null,
 									 $orderBy = 'date_posted',
-									 $order = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING)
+									 $order = QueryInterface::ORDER_DESCENDING)
 		{
 			$query = $this->createQuery();
 
@@ -331,7 +353,7 @@
 		 *
 		 * @return array|QueryResultInterface
 		 */
-		public function findByContact(int $contact, string $orderBy = "title", string $order = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING)
+		public function findByContact(int $contact, string $orderBy = "title", string $order = QueryInterface::ORDER_ASCENDING)
 		{
 			$query = $this->createQuery();
 			$query->getQuerySettings()->setRespectStoragePage(false)
@@ -348,7 +370,7 @@
 		 *
 		 * @return QueryResultInterface|array
 		 */
-		public function findAllWithOrderIgnoreEnable(string $orderBy = "title", string $order = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING)
+		public function findAllWithOrderIgnoreEnable(string $orderBy = "title", string $order = QueryInterface::ORDER_ASCENDING)
 		{
 			$query = $this->createQuery();
 			$query->getQuerySettings()->setRespectStoragePage(false)->setIgnoreEnableFields(true);
@@ -361,7 +383,7 @@
 		}
 
 		/**
-		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+		 * @return array|QueryResultInterface
 		 */
 		public function findAllIgnoreStoragePage()
 		{

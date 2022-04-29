@@ -53,6 +53,10 @@ Detail view and Application form on same page
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 You can put them on the same page. The application form plugin will automatically fetch the correct posting.
 
+Number of postings per page
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This defines how many postings are displayed on a paginated page.
+
 Show only postings of
 ~~~~~~~~~~~~~~~~~~~~~
 This setting allows you to filter the postings shown based on which categories they are assigned to.

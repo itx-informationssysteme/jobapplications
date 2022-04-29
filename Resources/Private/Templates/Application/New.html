@@ -1,12 +1,10 @@
-<html data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers">
+<html data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 <f:layout name="Default"/>
 
 <f:section name="content">
-	<v:page.header>
-		<script src="{f:uri.resource(path: 'Js/Vendor/filepond-plugin-file-validate-type.js')}"></script>
-		<script src="{f:uri.resource(path: 'Js/Vendor/filepond.js')}"></script>
-		<link href="{f:uri.resource(path: 'Css/Vendor/filepond.css')}" rel="stylesheet">
-	</v:page.header>
+	<f:asset.script identifier="filepond-validate" src="EXT:jobapplications/Resources/Public/Js/Vendor/filepond-plugin-file-validate-type.js" priority="true"/>
+	<f:asset.script identifier="filepond" src="EXT:jobapplications/Resources/Public/Js/Vendor/filepond.js" priority="true"/>
+	<f:asset.css identifier="filepond-css" href="EXT:jobapplications/Resources/Public/Css/Vendor/filepond.css" priority="true"/>
 
 	<f:render arguments="{posting:posting}" partial="Posting/MetaTags"/>
 	<div class="row">

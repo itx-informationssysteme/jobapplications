@@ -75,9 +75,9 @@
                 <source>List View Image</source>
                 <target state="translated">Bild Listenansicht</target>
             </trans-unit>
-            <trans-unit id="tx_jobapplications_domain_model_posting.location" resname="tx_jobapplications_domain_model_posting.location" approved="yes">
-                <source>Location</source>
-                <target state="translated">Standort</target>
+            <trans-unit id="tx_jobapplications_domain_model_posting.locations" resname="tx_jobapplications_domain_model_posting.locations" approved="yes">
+                <source>Locations</source>
+                <target state="translated">Standorte</target>
             </trans-unit>
             <trans-unit id="tx_jobapplications_domain_model_posting.contact" resname="tx_jobapplications_domain_model_posting.contact" approved="yes">
                 <source>Contact</source>

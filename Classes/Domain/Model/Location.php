@@ -1,7 +1,8 @@
 <?php
 
 	namespace ITX\Jobapplications\Domain\Model;
-
+	
+	use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 	/***************************************************************
 	 *  Copyright notice
 	 *
@@ -24,11 +25,10 @@
 	 *
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
-
 	/**
 	 * Location
 	 */
-	class Location extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+	class Location extends AbstractEntity
 	{
 
 		/**
@@ -175,18 +175,6 @@
 		public function setAddressCountry(string $addressCountry): void
 		{
 			$this->addressCountry = $addressCountry;
-		}
-
-		/**
-		 * Sets the address
-		 *
-		 * @param string $address
-		 *
-		 * @return void
-		 */
-		public function setAddress($address)
-		{
-			$this->address = $address;
 		}
 
 		/**

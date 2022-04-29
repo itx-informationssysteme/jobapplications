@@ -22,30 +22,16 @@
 			'searchFields' => 'title,career_level,division,employment_type,terms_of_employment,company_description,job_description,role_description,skill_requirements,benefits,base_salary,required_documents,company_information',
 			'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/Extension.svg'
 		],
-		'interface' => [
-			'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, starttime, endtime, title, date_posted, career_level, division, employment_type, terms_of_employment, company_description, job_description, role_description, skill_requirements, benefits, base_salary, required_documents, company_information, detail_view_image, list_view_image, location, contact',
-		],
 		'columns' => [
 			'sys_language_uid' => [
 				'exclude' => true,
 				'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
 				'config' => [
-					'type' => 'select',
-					'renderType' => 'selectSingle',
-					'special' => 'languages',
-					'items' => [
-						[
-							'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages',
-							-1,
-							'flags-multiple'
-						]
-					],
-					'default' => 0,
+					'type' => 'language'
 				],
 			],
 			'l10n_parent' => [
 				'displayCond' => 'FIELD:sys_language_uid:>:0',
-				'exclude' => true,
 				'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
 				'config' => [
 					'type' => 'select',
@@ -331,7 +317,8 @@
 							'showAllLocalizationLink' => true,
 							'showSynchronizationLink' => true
 						],
-						'foreign_types' => [
+						'maxitems' => 1,
+						'overrideChildTca' => ['types' => [
 							'0' => [
 								'showitem' => '
 								--palette--;;imageoverlayPalette,
@@ -362,8 +349,7 @@
 								--palette--;;imageoverlayPalette,
 								--palette--;;filePalette'
 							]
-						],
-						'maxitems' => 1
+						]]
 					],
 					$GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
 				),
@@ -381,7 +367,8 @@
 							'showAllLocalizationLink' => true,
 							'showSynchronizationLink' => true
 						],
-						'foreign_types' => [
+						'maxitems' => 1,
+						'overrideChildTca' => ['types' => [
 							'0' => [
 								'showitem' => '
 								--palette--;;imageoverlayPalette,
@@ -412,20 +399,22 @@
 								--palette--;;imageoverlayPalette,
 								--palette--;;filePalette'
 							]
-						],
-						'maxitems' => 1
+						]]
 					],
 					$GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
 				),
 			],
-			'location' => [
+			'locations' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.location',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.locations',
 				'config' => [
 					'type' => 'select',
-					'renderType' => 'selectSingle',
+					'renderType' => 'selectMultipleSideBySide',
 					'foreign_table' => 'tx_jobapplications_domain_model_location',
-					'maxitems' => 1
+					'foreign_table_where' => 'tx_jobapplications_domain_model_location.sys_language_uid IN (0,-1) ORDER BY tx_jobapplications_domain_model_location.name ASC',
+					'MM' => 'tx_jobapplications_postings_locations_mm',
+					'size' => 3,
+					'autoSizeMax' => 5,
 				],
 			],
 			'contact' => [
@@ -437,6 +426,7 @@
 					'foreign_table' => 'tx_jobapplications_domain_model_contact',
 					'minitems' => 0,
 					'maxitems' => 1,
+					'allowNonIdValues' => true
 				],
 			],
 			'slug' => [
@@ -459,36 +449,24 @@
 		],
 		'types' => [
 			'1' => [
-				'showitem' => ' 
-				--palette--;;mainInfo,
-				--palette--;;relations,
-				--palette--;;dates,
-				base_salary,
-				--palette--;;circumstances,
-				--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.advanced,
-				--palette--;;general,
-				--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.texts,
-				company_description, job_description, role_description, skill_requirements, benefits, 
-				required_documents, company_information,
-				--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.images,
-				--palette--;;images'
+				'showitem' => '--palette--;;mainInfo,--palette--;;relations,--palette--;;dates,--palette--;;circumstances,--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.advanced,--palette--;;general,--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.texts,company_description,job_description,role_description,skill_requirements,benefits,required_documents,company_information,--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.images,--palette--;;images'
 			],
 		],
 		'palettes' => [
 			'general' => [
-				'showitem' => 'sys_language_uid, hidden, slug, l10n_parent, l10n_diffsource',
+				'showitem' => 'sys_language_uid, hidden, --linebreak--, slug, l10n_parent, l10n_diffsource',
 			],
 			'mainInfo' => [
 				'showitem' => 'title, division'
 			],
 			'circumstances' => [
-				'showitem' => 'career_level, employment_type, terms_of_employment'
+				'showitem' => 'base_salary, career_level, --linebreak--, employment_type, terms_of_employment'
 			],
 			'dates' => [
 				'showitem' => 'date_posted, starttime ,endtime'
 			],
 			'relations' => [
-				'showitem' => 'location, contact'
+				'showitem' => 'contact, --linebreak--, locations,'
 			],
 			'images' => [
 				'showitem' => 'detail_view_image, list_view_image'

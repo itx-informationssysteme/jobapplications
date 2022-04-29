@@ -62,9 +62,8 @@
 		<div class="app-list">
 			<f:if condition="{applications}">
 				<f:then>
-					<f:be.widget.paginate as="paginatedApplications" configuration="{itemsPerPage: 6}" objects="{applications}">
 						<ul class="application-list">
-							<f:for as="application" each="{paginatedApplications}">
+							<f:for as="application" each="{applications}">
 								<li>
 									<div class="list-item-container">
 										<div class="row-section left">
@@ -113,7 +112,8 @@
 								</li>
 							</f:for>
 						</ul>
-					</f:be.widget.paginate>
+
+					<f:render partial="Pagination" arguments="{pagination: pagination, paginator: paginator, action: 'listApplications'}"></f:render>
 				</f:then>
 				<f:else>
 					<span><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.listApplications.filter.noApps"/></span>

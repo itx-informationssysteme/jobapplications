@@ -32,7 +32,7 @@
 	/**
 	 * The repository for Applications
 	 */
-	class StatusRepository extends \ITX\Jobapplications\Domain\Repository\JobapplicationsRepository
+	class StatusRepository extends JobapplicationsRepository
 	{
 		/**
 		 * Finds all with option of specifiying order
@@ -75,8 +75,8 @@
 		 */
 		public function generateStatus(string $statusFile, string $statusMmFile, int $pid, int $langUid)
 		{
-			$file1 = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('EXT:jobapplications/Resources/Private/Sql/'.$statusFile);
-			$file2 = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('EXT:jobapplications/Resources/Private/Sql/'.$statusMmFile);
+			$file1 = GeneralUtility::getFileAbsFileName('EXT:jobapplications/Resources/Private/Sql/'.$statusFile);
+			$file2 = GeneralUtility::getFileAbsFileName('EXT:jobapplications/Resources/Private/Sql/'.$statusMmFile);
 
 			$queryDropStatus = $this->createQuery();
 			$queryDropStatus->statement('DROP TABLE tx_jobapplications_domain_model_status');

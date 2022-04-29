@@ -20,11 +20,8 @@
 			'searchFields' => 'name, followers',
 			'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/Extension.svg'
 		],
-		'interface' => [
-			'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, is_end_status, is_new_status, followers',
-		],
 		'types' => [
-			'1' => ['showitem' => 'name, is_end_status, is_new_status, followers, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden, sys_language_uid, starttime, endtime, l10n_parent, l10n_diffsource'],
+			'1' => ['showitem' => 'name,is_end_status,is_new_status,followers,--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access,hidden,sys_language_uid,starttime,endtime,l10n_parent,l10n_diffsource'],
 		],
 		'columns' => [
 			'crdate' => [
@@ -41,22 +38,11 @@
 				'exclude' => true,
 				'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
 				'config' => [
-					'type' => 'select',
-					'renderType' => 'selectSingle',
-					'special' => 'languages',
-					'items' => [
-						[
-							'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages',
-							-1,
-							'flags-multiple'
-						]
-					],
-					'default' => 0,
+					'type' => 'lanuage'
 				],
 			],
 			'l10n_parent' => [
 				'displayCond' => 'FIELD:sys_language_uid:>:0',
-				'exclude' => true,
 				'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
 				'config' => [
 					'type' => 'select',
@@ -141,9 +127,7 @@
 				'config' => [
 					'type' => 'check',
 					'items' => [
-						'1' => [
-							'0' => 'LLL:EXT:lang/locallang_core.xlf:labels.enabled'
-						]
+						['LLL:EXT:lang/locallang_core.xlf:labels.enabled', '']
 					],
 					'default' => 0,
 				]
@@ -154,9 +138,7 @@
 				'config' => [
 					'type' => 'check',
 					'items' => [
-						'1' => [
-							'0' => 'LLL:EXT:lang/locallang_core.xlf:labels.enabled'
-						]
+						['LLL:EXT:lang/locallang_core.xlf:labels.enabled', '']
 					],
 					'default' => 0,
 				]

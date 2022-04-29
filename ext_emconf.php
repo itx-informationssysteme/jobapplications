@@ -33,12 +33,11 @@
 		'state' => 'stable',
 		'uploadfolder' => 1,
 		'createDirs' => '',
-		'clearCacheOnLoad' => 1,
-		'version' => '1.0.7',
+		'clearCacheOnLoad' => true,
+		'version' => '2.0.0',
 		'constraints' => [
 			'depends' => [
-				'typo3' => '9.5.0 - 10.4.99',
-				'vhs' => '6.0.0 - 6.2.99'
+				'typo3' => '11.5.1-11.9.99'
 			],
 			'conflicts' => [],
 			'suggests' => [],

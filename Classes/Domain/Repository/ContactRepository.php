@@ -28,7 +28,7 @@
 	/**
 	 * The repository for Contacts
 	 */
-	class ContactRepository extends \ITX\Jobapplications\Domain\Repository\JobapplicationsRepository
+	class ContactRepository extends JobapplicationsRepository
 	{
 		/**
 		 * @param array $uids

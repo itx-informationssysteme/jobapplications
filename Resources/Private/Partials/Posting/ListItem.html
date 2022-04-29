@@ -20,11 +20,14 @@
 					</div>
 					<div class="row">
 						<div class="col">
-							<f:translate key="tx_jobapplications_domain_model_posting.location"/>
+							<f:translate key="tx_jobapplications_domain_model_posting.locations"/>
 							:
 						</div>
 						<div class="col-md-auto">
-							<span>{posting.location.name}</span>
+							<f:for each="{posting.locations}" as="location" iteration="iterator">
+								<span>{location.name}{f:if(condition: '!{iterator.isLast}', then: ', ')}</span>
+							</f:for>
+
 						</div>
 					</div>
 					<div class="row">

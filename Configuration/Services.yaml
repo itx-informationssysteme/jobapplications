@@ -1,13 +1,36 @@
-# Variant 1, widget identifier as attribute
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    ITX\Jobapplications\:
+        resource: '../Classes/*'
+        exclude:
+            - '../Classes/Domain/Model/*'
+
+    ITX\Jobapplications\Command\AnonymizeApplicationsCommand:
+        tags:
+            -   name: 'console.command'
+                command: 'jobapplications:anonymizeApplicationsCommand'
+                description: 'This command anonymizes applications and deletes the application''s files.'
+                # not required, defaults to false
+                hidden: false
+
+    ITX\Jobapplications\Command\CleanUpApplicationsCommand:
+        tags:
+            -   name: 'console.command'
+                command: 'jobapplications:cleanupApplicationsCommand'
+                description: 'This command deletes applications and deletes the application''s files.'
+                # not required, defaults to false
+                hidden: false
+
     ITX\Jobapplications\Widgets\Provider\PostingsActiveProvider:
 
     ITX\Jobapplications\Widgets\Provider\ApplicationsPerPostingBarChartProvider:
 
     ITX\Jobapplications\Widgets\Provider\BackendModuleButtonProvider:
         arguments:
-            $title: ''
-            $link: ''
             $target: ''
 
     dashboard.widget.postingsActive:

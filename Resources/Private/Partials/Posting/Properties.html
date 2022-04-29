@@ -159,25 +159,27 @@
 				</div>
 			</div>
 		</f:if>
-		<f:if condition="{posting.location}">
+		<f:if condition="{posting.locations}">
 			<div class="col">
 				<div class="row">
 					<h6>
-						<f:translate key="tx_jobapplications_domain_model_posting.location"/>
+						<f:translate key="tx_jobapplications_domain_model_posting.locations"/>
 					</h6>
 				</div>
 				<div class="container-flex">
-					<p>
-						<f:if condition="{settings.showLocationTitle}">
-							{posting.location.name}<br>
-						</f:if>
-						{posting.location.addressStreetAndNumber}<br>
-						<f:if condition="{posting.location.addressAddition}">
-							{posting.location.addressAddition}<br>
-						</f:if>
-						{posting.location.addressPostCode}&nbsp;{posting.location.addressCity}<br>
-						{posting.location.addressCountry}
-					</p>
+					<f:for each="{posting.locations}" as="location">
+						<p>
+							<f:if condition="{settings.showLocationTitle}">
+								{location.name}<br>
+							</f:if>
+							{location.addressStreetAndNumber}<br>
+							<f:if condition="{location.addressAddition}">
+								{location.addressAddition}<br>
+							</f:if>
+							{location.addressPostCode}&nbsp;{location.addressCity}<br>
+							{location.addressCountry}
+						</p>
+					</f:for>
 				</div>
 			</div>
 		</f:if>

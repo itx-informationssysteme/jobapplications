@@ -18,6 +18,7 @@ You can install it via composer by typing
    composer require itx/jobapplications
 
 or the Extension Manager in the Backend or install it locally for example directly from `Github <|project_repository|>`__.
+Please make sure to switch to the Maintainance tool and push the buttons *analyse database structure* and *flush cache*.
 
 Include Static Typoscript
 -------------------------

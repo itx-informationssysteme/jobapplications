@@ -23,7 +23,7 @@
 
 		/** @var array
 		 */
-		protected $location = [];
+		protected $locations = [];
 
 		/**
 		 * @return array
@@ -76,16 +76,16 @@
 		/**
 		 * @return array
 		 */
-		public function getLocation(): array
+		public function getLocations(): array
 		{
-			return $this->location;
+			return $this->locations;
 		}
 
 		/**
-		 * @param array $location
+		 * @param array $locations
 		 */
-		public function setLocation(array $location): void
+		public function setLocations(array $locations): void
 		{
-			$this->location = $location;
+			$this->locations = $locations;
 		}
 	}

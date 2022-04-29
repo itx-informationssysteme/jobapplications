@@ -24,6 +24,9 @@
 
 	namespace ITX\Jobapplications\Widgets\Provider;
 
+	use TYPO3\CMS\Dashboard\Widgets\ChartDataProviderInterface;
+	use TYPO3\CMS\Core\Utility\GeneralUtility;
+	use ITX\Jobapplications\Domain\Repository\PostingRepository;
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Repository\ApplicationRepository;
 	use TYPO3\CMS\Dashboard\Widgets\AbstractBarChartWidget;
@@ -34,30 +37,29 @@
 	 *
 	 * @package ITX\Jobapplications\Widgets
 	 */
-	class ApplicationsPerPostingBarChartProvider implements \TYPO3\CMS\Dashboard\Widgets\ChartDataProviderInterface
+	class ApplicationsPerPostingBarChartProvider implements ChartDataProviderInterface
 	{
 		/** @var array */
-		protected $labels = [];
+		protected array $labels = [];
+
+		protected ApplicationRepository $applicationRepository;
+		protected PostingRepository $postingRepository;
+
+		public function __construct(PostingRepository $postingRepository, ApplicationRepository $applicationRepository) {
+			$this->postingRepository = $postingRepository;
+			$this->applicationRepository = $applicationRepository;
+		}
 
 		public function getChartData(): array
 		{
-			/** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectmanager */
-			$objectmanager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class);
-
-			/** @var \ITX\Jobapplications\Domain\Repository\PostingRepository $postingRepo */
-			$postingRepo = $objectmanager->get(\ITX\Jobapplications\Domain\Repository\PostingRepository::class);
-
-			/** @var ApplicationRepository $applicationRepo */
-			$applicationRepo = $objectmanager->get(ApplicationRepository::class);
-
-			$postings = $postingRepo->findAllIncludingHiddenAndDeleted();
+			$postings = $this->postingRepository->findAllIncludingHiddenAndDeleted();
 
 			$data = [];
 
 			/** @var Posting $posting */
 			foreach ($postings as $posting)
 			{
-				$applicationCount = $applicationRepo->findByPostingIncludingHiddenAndDeleted($posting->getUid())->count();
+				$applicationCount = $this->applicationRepository->findByPostingIncludingHiddenAndDeleted($posting->getUid())->count();
 				$this->labels[] = $posting->getTitle();
 				$data[] = $applicationCount;
 			}

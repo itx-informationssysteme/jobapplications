@@ -2,6 +2,9 @@
 
 	namespace ITX\Jobapplications\Domain\Model;
 
+	use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+	use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+	use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 	/***************************************************************
 	 *  Copyright notice
 	 *
@@ -24,11 +27,10 @@
 	 *
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
-
 	/**
 	 * A Job Posting has a location and  a contact person.
 	 */
-	class Posting extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+	class Posting extends AbstractEntity
 	{
 		/** @var boolean */
 		protected $hidden;
@@ -141,11 +143,11 @@
 		protected $companyInformation = '';
 
 		/**
-		 * location
+		 * locations
 		 *
-		 * @var \ITX\Jobapplications\Domain\Model\Location
+		 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobapplications\Domain\Model\Location>
 		 */
-		protected $location = null;
+		protected $locations = null;
 
 		/**
 		 * contact
@@ -198,7 +200,7 @@
 		 */
 		protected function initStorageObjects()
 		{
-			$this->categories = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+			$this->categories = new ObjectStorage();
 		}
 
 		/**
@@ -518,25 +520,25 @@
 		}
 
 		/**
-		 * Returns the location
+		 * Returns the locations
 		 *
-		 * @return \ITX\Jobapplications\Domain\Model\Location location
+		 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobapplications\Domain\Model\Location> $locations
 		 */
-		public function getLocation()
+		public function getLocations()
 		{
-			return $this->location;
+			return $this->locations;
 		}
 
 		/**
 		 * Sets the location
 		 *
-		 * @param \ITX\Jobapplications\Domain\Model\Location $location
+		 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobapplications\Domain\Model\Location> $locations
 		 *
 		 * @return void
 		 */
-		public function setLocation(\ITX\Jobapplications\Domain\Model\Location $location)
+		public function setLocations(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $locations)
 		{
-			$this->location = $location;
+			$this->locations = $locations;
 		}
 
 		/**
@@ -556,7 +558,7 @@
 		 *
 		 * @return void
 		 */
-		public function setContact(\ITX\Jobapplications\Domain\Model\Contact $contact)
+		public function setContact(Contact $contact)
 		{
 			$this->contact = $contact;
 		}
@@ -578,7 +580,7 @@
 		 *
 		 * @return void
 		 */
-		public function setDetailViewImage(\TYPO3\CMS\Extbase\Domain\Model\FileReference $detailViewImage)
+		public function setDetailViewImage(FileReference $detailViewImage)
 		{
 			$this->detailViewImage = $detailViewImage;
 		}
@@ -600,7 +602,7 @@
 		 *
 		 * @return void
 		 */
-		public function setListViewImage(\TYPO3\CMS\Extbase\Domain\Model\FileReference $listViewImage)
+		public function setListViewImage(FileReference $listViewImage)
 		{
 			$this->listViewImage = $listViewImage;
 		}
@@ -616,7 +618,7 @@
 		/**
 		 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $categories
 		 */
-		public function setCategories(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $categories): void
+		public function setCategories(ObjectStorage $categories): void
 		{
 			$this->categories = $categories;
 		}

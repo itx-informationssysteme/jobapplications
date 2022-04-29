@@ -7,11 +7,13 @@
 	 * See LICENSE.txt that was shipped with this package.
 	 */
 
+	use Closure;
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use TYPO3\CMS\Extbase\Domain\Model\Category;
 	use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 	use TYPO3Fluid\Fluid\Core\ViewHelper;
 	use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+	use TYPO3Fluid\Fluid\Core\ViewHelper\Exception;
 	use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 	/**
@@ -32,13 +34,13 @@
 
 		/**
 		 * @param array                     $arguments
-		 * @param \Closure                  $renderChildrenClosure
+		 * @param Closure                   $renderChildrenClosure
 		 * @param RenderingContextInterface $renderingContext
 		 *
 		 * @return string
 		 * @throws ViewHelper\Exception
 		 */
-		public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+		public static function renderStatic(array $arguments, Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
 		{
 			$templateVariableContainer = $renderingContext->getVariableProvider();
 			if (!isset($arguments['postings']))
@@ -47,9 +49,10 @@
 			}
 			if (is_object($arguments['postings']) && !$arguments['postings'] instanceof \Traversable)
 			{
-				throw new ViewHelper\Exception('GroupByCategoryViewHelper only supports arrays and objects implementing \Traversable interface', 1248728393);
+				throw new Exception('GroupByCategoryViewHelper only supports arrays and objects implementing \Traversable interface', 1248728393);
 			}
 
+			$iterationData = [];
 			if (isset($arguments['iteration']))
 			{
 				$iterationData = [

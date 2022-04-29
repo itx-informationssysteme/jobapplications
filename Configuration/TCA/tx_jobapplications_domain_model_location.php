@@ -19,33 +19,19 @@
 			'searchFields' => 'name,address,latitude,londitude',
 			'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/Extension.svg'
 		],
-		'interface' => [
-			'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, address_street_and_number, address_addition, address_post_code, address_city, address_country, latitude, londitude',
-		],
 		'types' => [
-			'1' => ['showitem' => 'name, address_street_and_number, address_addition, address_post_code, address_city, address_country, latitude, londitude, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, sys_language_uid, hidden, starttime, endtime, l10n_parent, l10n_diffsource'],
+			'1' => ['showitem' => 'name,address_street_and_number,address_addition,address_post_code,address_city,address_country,latitude,londitude,--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access,sys_language_uid,hidden,starttime,endtime,l10n_parent,l10n_diffsource'],
 		],
 		'columns' => [
 			'sys_language_uid' => [
 				'exclude' => true,
 				'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
 				'config' => [
-					'type' => 'select',
-					'renderType' => 'selectSingle',
-					'special' => 'languages',
-					'items' => [
-						[
-							'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages',
-							-1,
-							'flags-multiple'
-						]
-					],
-					'default' => 0,
+					'type' => 'language'
 				],
 			],
 			'l10n_parent' => [
 				'displayCond' => 'FIELD:sys_language_uid:>:0',
-				'exclude' => true,
 				'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
 				'config' => [
 					'type' => 'select',

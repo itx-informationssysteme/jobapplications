@@ -24,6 +24,7 @@
 
 	namespace ITX\Jobapplications\Widgets\Provider;
 
+	use ITX\Jobapplications\Domain\Repository\PostingRepository;
 	use TYPO3\CMS\Dashboard\Widgets\NumberWithIconDataProviderInterface;
 
 	/**
@@ -33,14 +34,15 @@
 	 */
 	class PostingsActiveProvider implements NumberWithIconDataProviderInterface
 	{
+		protected PostingRepository $postingRepository;
+
+		public function __construct(PostingRepository $postingRepository)
+		{
+			$this->postingRepository = $postingRepository;
+		}
+
 		public function getNumber(): int
 		{
-			/** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectmanager */
-			$objectmanager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class);
-
-			/** @var \ITX\Jobapplications\Domain\Repository\PostingRepository $postingRepo */
-			$postingRepo = $objectmanager->get(\ITX\Jobapplications\Domain\Repository\PostingRepository::class);
-
-			return $postingRepo->findAllIgnoreStoragePage()->count();
+			return $this->postingRepository->findAllIgnoreStoragePage()->count();
 		}
 	}

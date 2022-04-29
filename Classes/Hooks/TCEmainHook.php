@@ -23,6 +23,22 @@
 	 */
 	class TCEmainHook
 	{
+		protected GoogleIndexingApiConnector $connector;
+		protected ApplicationFileService $applicationFileService;
+		protected ApplicationRepository $applicationRepository;
+		protected DataMapper $dataMapper;
+
+		public function __construct()
+		{
+			/** @var ObjectManager $objectManager */
+			$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+
+			$this->connector = $objectManager->get(GoogleIndexingApiConnector::class);
+			$this->applicationFileService = $objectManager->get(ApplicationFileService::class);
+			$this->applicationRepository = $objectManager->get(ApplicationRepository::class);
+			$this->dataMapper = $objectManager->get(DataMapper::class);
+		}
+
 		/**
 		 * @param             $status
 		 * @param             $table
@@ -32,12 +48,12 @@
 		 *
 		 * @throws \Exception
 		 */
-		public function processDatamap_afterDatabaseOperations($status, $table, $id, array $fieldArray, \TYPO3\CMS\Core\DataHandling\DataHandler &$pObj)
+		public function processDatamap_afterDatabaseOperations($status, $table, $id, array $fieldArray, DataHandler $pObj): void
 		{
 
 			if ($table === 'tx_jobapplications_domain_model_posting')
 			{
-				$enabled = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class)
+				$enabled = GeneralUtility::makeInstance(ExtensionConfiguration::class)
 																 ->get('jobapplications', 'indexing_api');
 
 				if ($enabled !== "1")
@@ -47,19 +63,13 @@
 
 				if ($status === "new")
 				{
-					/** @var DataMapper $dataMapper */
-					$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-					$dataMapper = $objectManager->get(DataMapper::class);
-
 					$uid = $pObj->substNEWwithIDs[$id];
 
 					$fieldArray['uid'] = $uid;
 
-					$posting = $dataMapper->map(Posting::class, [$fieldArray]);
+					$posting = $this->dataMapper->map(Posting::class, [$fieldArray]);
 
-					$connector = new GoogleIndexingApiConnector();
-
-					$connector->updateGoogleIndex($uid, false, $posting);
+					$this->connector->updateGoogleIndex($uid, false, $posting);
 				}
 			}
 		}
@@ -73,11 +83,11 @@
 		 *
 		 * @throws \Exception
 		 */
-		public function processDatamap_postProcessFieldArray($command, $table, $uid, $value, \TYPO3\CMS\Core\DataHandling\DataHandler &$pObj)
+		public function processDatamap_postProcessFieldArray($command, $table, $uid, $value, DataHandler $pObj)
 		{
 			if ($table === "tx_jobapplications_domain_model_posting")
 			{
-				$enabled = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class)
+				$enabled = GeneralUtility::makeInstance(ExtensionConfiguration::class)
 																 ->get('jobapplications', 'indexing_api');
 				if ($enabled !== "1")
 				{
@@ -86,14 +96,13 @@
 
 				if ($command === "update")
 				{
-					$connector = new GoogleIndexingApiConnector();
 					if ($value['hidden'] === '1')
 					{
-						$connector->updateGoogleIndex($uid, true);
+						$this->connector->updateGoogleIndex($uid, true);
 					}
 					else
 					{
-						$connector->updateGoogleIndex($uid);
+						$this->connector->updateGoogleIndex($uid, false);
 					}
 				}
 			}
@@ -114,43 +123,32 @@
 		{
 			if ($table === "tx_jobapplications_domain_model_posting")
 			{
-				$enabled = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class)
+				$enabled = GeneralUtility::makeInstance(ExtensionConfiguration::class)
 																 ->get('jobapplications', 'indexing_api');
 				if ($enabled !== "1")
 				{
 					return;
 				}
 
-				$connector = new GoogleIndexingApiConnector();
-				$connector->updateGoogleIndex($uid, true);
+				$this->connector->updateGoogleIndex($uid, true);
 			}
 
 			if ($table === "tx_jobapplications_domain_model_application")
 			{
-				/** @var ObjectManager $objectManager */
-				$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-				/** @var ApplicationFileService $fileService */
-				$fileService = $objectManager->get(ApplicationFileService::class);
-				/** @var ApplicationRepository $applicationRepository */
-				$applicationRepository = $objectManager->get(ApplicationRepository::class);
-
 				if ($record['hidden'] === 1)
 				{
-
-					/** @var DataMapper $dataMapper */
-					$dataMapper = $objectManager->get(DataMapper::class);
-					$applications = $dataMapper->map(Application::class, [$record]);
+					$applications = $this->dataMapper->map(Application::class, [$record]);
 					$application = $applications[0];
 				}
 				else
 				{
 					/** @var Application $application */
-					$application = $applicationRepository->findByUid($uid);
+					$application = $this->applicationRepository->findByUid($uid);
 				}
 
-				$path = $fileService->getApplicantFolder($application);
-				$fileStorage = $fileService->getFileStorage($application);
-				$fileService->deleteApplicationFolder($path, $fileStorage);
+				$path = $this->applicationFileService->getApplicantFolder($application);
+				$fileStorage = $this->applicationFileService->getFileStorage($application);
+				$this->applicationFileService->deleteApplicationFolder($path, $fileStorage);
 			}
 		}
 	}

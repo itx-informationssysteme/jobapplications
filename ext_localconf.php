@@ -1,56 +1,60 @@
 <?php
-	defined('TYPO3_MODE') || die('Access denied.');
+
+	use ITX\Jobapplications\Controller\ApplicationController;
+	use ITX\Jobapplications\Controller\PostingController;
+
+	defined('TYPO3') || die('Access denied.');
 
 	call_user_func(
 		function () {
 
 			\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-				'ITX.Jobapplications',
+				'Jobapplications',
 				'Frontend',
 				[
-					'Posting' => 'list'
+					PostingController::class => 'list'
 				],
 				// non-cacheable actions
 				[
-					'Posting' => 'list'
+					PostingController::class => 'list'
 				]
 			);
 
 			\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-				'ITX.Jobapplications',
+				'Jobapplications',
 				'DetailView',
 				[
-					'Posting' => 'show',
+					PostingController::class => 'show',
 				]
 			);
 
 			\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-				'ITX.Jobapplications',
+				'Jobapplications',
 				'ApplicationForm',
 				[
-					'Application' => 'new, create'
+					ApplicationController::class => 'new, create'
 				],
 				[
-					'Application' => 'create, new'
+					ApplicationController::class => 'create, new'
 				]
 			);
 
 			\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-				'ITX.Jobapplications',
+				'Jobapplications',
 				'ContactDisplay',
 				[
-					'Contact' => 'list'
+					\ITX\Jobapplications\Controller\ContactController::class => 'list'
 				]
 			);
 
 			\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-				'ITX.Jobapplications',
+				'Jobapplications',
 				'SuccessPage',
 				[
-					'Application' => 'success'
+					ApplicationController::class => 'success'
 				],
 				[
-					'Application' => 'success'
+					ApplicationController::class => 'success'
 				]
 			);
 
@@ -79,7 +83,7 @@
             			provider = ITX\Jobapplications\PageTitle\JobsPageTitleProvider
             			before = record
             			after = altPageTitle
-					}			
+					}
 				}
 			'));
 			$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
@@ -102,22 +106,6 @@
 				['source' => 'EXT:jobapplications/Resources/Public/Icons/logo_jobs.svg']
 			);
 
-			// Add CleanUpApplications task
-			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\ITX\Jobapplications\Task\CleanUpApplications::class] = [
-				'extension' => 'jobapplications',
-				'title' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:CleanUpApplications.title',
-				'description' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:CleanUpApplications.description',
-				'additionalFields' => \ITX\Jobapplications\Task\CleanUpApplicationsAdditionalFieldProvider::class
-			];
-
-			// Add Anonymize Applications task
-			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\ITX\Jobapplications\Task\AnonymizeApplications::class] = [
-				'extension' => 'jobapplications',
-				'title' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:AnonymizeApplications.title',
-				'description' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:AnonymizeApplications.description',
-				'additionalFields' => \ITX\Jobapplications\Task\CleanUpApplicationsAdditionalFieldProvider::class
-			];
-
 			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['jobapplications'] = \ITX\Jobapplications\Hooks\TCEmainHook::class;
 			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass']['jobapplications'] = \ITX\Jobapplications\Hooks\TCEmainHook::class;
 
@@ -129,12 +117,15 @@
 			$GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['jobapplications_revert'] = \ITX\Jobapplications\Controller\AjaxController::class.'::revertAction';
 
 			// Cache
-			if (!is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['jobapplications_cache']))
+			if (!isset($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['jobapplications_cache']) || !is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['jobapplications_cache']))
 			{
 				$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['jobapplications_cache'] = [];
 			}
 
 			$GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludeAllEmptyParameters'] = true;
 			$GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFoundOnCHashError'] = false;
+
+			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['jobapplications_makeLocationsMultiple']
+				= \ITX\Jobapplications\Updates\MakeLocationsMultiple::class;
 		}
 	);

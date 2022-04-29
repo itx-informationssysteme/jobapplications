@@ -11,6 +11,27 @@
 Changelog
 =========
 
+2.0.0 - [BREAKING] TYPO3 11 support and new features
+----------------------------------------------------
+* [BREAKING] added static coding analysis via phpstan
+* [FEATURE] upgrade to TYPO3 11. Removed support for older versions
+* [BREAKING] removed vhs dependency
+	* make sure to compare the templates, if you have overrides
+* [FIX] fixed position of traits
+* [BREAKING] fixed filter and reworked pagination on postings list
+	* make sure to compare the templates and css, if you have overrides
+* [FEATURE] added configurable page size via flexform to postings plugin
+* [FIX] refactoring of google jobs structured data
+* [BREAKING] replaced signal slots in favor of events
+	* please change your implementations if you used signal slots previously
+* [FEATURE] use new language configuration in tca
+* [FIX]: fixed problems of postings filter caching in multilanguage setup
+* [BREAKING]: postings can have multiple locations now
+	* make sure to use the upgrade wizard to migrate entries in the location field to the new locations field and its corresponding mm table
+	* make sure to compare the templates, if you have overrides
+* [FEATURE]: redesigned posting tca (more place for slugs, etc)
+* [FIX]: fixed error where postings could not be translated when no contact was selected
+
 1.0.7 - Bugfixes
 -----------------
 * [BUGFIX] fixed plugin text about available placeholder in mail text

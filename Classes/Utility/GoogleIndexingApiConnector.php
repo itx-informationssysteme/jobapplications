@@ -27,15 +27,16 @@
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Repository\PostingRepository;
 	use ITX\Jobapplications\Domain\Repository\TtContentRepository;
+	use JsonException;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+	use TYPO3\CMS\Core\Core\Environment;
 	use TYPO3\CMS\Core\Http\RequestFactory;
+	use TYPO3\CMS\Core\Messaging\AbstractMessage;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
-	use TYPO3\CMS\Core\Messaging\FlashMessageQueue;
 	use TYPO3\CMS\Core\Messaging\FlashMessageService;
 	use TYPO3\CMS\Core\Service\FlexFormService;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Domain\Model\Category;
-	use TYPO3\CMS\Extbase\Object\ObjectManager;
 	use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 
 	/**
@@ -45,33 +46,39 @@
 	 */
 	class GoogleIndexingApiConnector
 	{
-		/** @var ObjectManager */
-		protected $objectManager;
+		protected array $googleConfig;
 
-		/** @var array */
-		protected $googleConfig;
-
-		/** @var RequestFactory */
-		protected $requestFactory;
-
-		/** @var array */
-		protected $backendConfiguration;
+		protected array $backendConfiguration;
 
 		/** @var boolean */
-		protected $supressFlashMessages;
+		protected bool $supressFlashMessages;
+
+		protected RequestFactory $requestFactory;
+		protected TtContentRepository $ttContentRepository;
+		protected PostingRepository $postingRepository;
+		protected FlashMessageService $flashMessageService;
+		protected FlexFormService $flexFormService;
 
 		/**
 		 * GoogleIndexingApiConnector constructor.
 		 *
-		 * @param bool $supressFlashMessages
+		 * @throws JsonException
 		 */
-		public function __construct($supressFlashMessages = false)
+		public function __construct(RequestFactory    $requestFactory, TtContentRepository $ttContentRepository,
+									PostingRepository $postingRepository, FlashMessageService $flashMessageService,
+									FlexFormService   $flexFormService)
 		{
-			$this->backendConfiguration = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class)
-																				->get('jobapplications');
+			$this->requestFactory = $requestFactory;
+			$this->ttContentRepository = $ttContentRepository;
+			$this->postingRepository = $postingRepository;
+			$this->flashMessageService = $flashMessageService;
+			$this->flexFormService = $flexFormService;
+
+			$this->backendConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class)
+														->get('jobapplications');
 			if ($this->backendConfiguration['key_path'] !== '')
 			{
-				$fileName = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->backendConfiguration['key_path']);
+				$fileName = GeneralUtility::getFileAbsFileName($this->backendConfiguration['key_path']);
 				if (file_exists($fileName))
 				{
 					$this->googleConfig = json_decode(file_get_contents(
@@ -79,34 +86,29 @@
 													  ), true, 512, JSON_THROW_ON_ERROR);
 				}
 			}
+		}
 
-			$this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-			$this->requestFactory = $this->objectManager->get(RequestFactory::class);
-
-			$this->supressFlashMessages = $supressFlashMessages;
+		public function setSupressFlashMessages(bool $shouldSupress)
+		{
+			$this->supressFlashMessages = $shouldSupress;
 		}
 
 		/**
 		 * Sends requests to Google Indexing API
 		 *
-		 * @param         $uid
-		 * @param bool    $delete
-		 * @param Posting $specificPosting
+		 * @param              $uid
+		 * @param bool         $delete
+		 * @param Posting|null $specificPosting
 		 *
 		 * @return bool
 		 * @throws \Exception
 		 */
-		public function updateGoogleIndex($uid, $delete = false, $specificPosting = null): ?bool
+		public function updateGoogleIndex($uid, bool $delete, Posting $specificPosting = null): ?bool
 		{
-			if (\TYPO3\CMS\Core\Utility\GeneralUtility::getApplicationContext()->isDevelopment() && $this->backendConfiguration['indexing_api_dev'] === "0")
+			if (Environment::getContext()->isDevelopment() && $this->backendConfiguration['indexing_api_dev'] === "0")
 			{
 				return false;
 			}
-
-			/** @var PostingRepository $postingRepository */
-			$postingRepository = $this->objectManager->get(\ITX\Jobapplications\Domain\Repository\PostingRepository::class);
-			/** @var TtContentRepository $ttContentRepository */
-			$ttContentRepository = $this->objectManager->get(\ITX\Jobapplications\Domain\Repository\TtContentRepository::class);
 
 			/** @var Posting $posting */
 			if ($specificPosting instanceof Posting)
@@ -115,7 +117,7 @@
 			}
 			else
 			{
-				$query = $postingRepository->createQuery();
+				$query = $this->postingRepository->createQuery();
 				$query->getQuerySettings()->setIgnoreEnableFields(true)
 					  ->setRespectStoragePage(false);
 				$query->matching(
@@ -135,7 +137,7 @@
 			$uriBuilder = new FrontendUriBuilder();
 
 			/** @var QueryResult $contentElements */
-			$contentElements = $ttContentRepository->findByListType("jobapplications_frontend");
+			$contentElements = $this->ttContentRepository->findByListType("jobapplications_frontend");
 
 			$contentElements = $contentElements->toArray();
 
@@ -160,7 +162,7 @@
 			}
 			else
 			{
-				$result = $this->makeRequest($url);
+				$result = $this->makeRequest($url, false);
 			}
 
 			if ($result && $delete === false)
@@ -183,29 +185,26 @@
 		 * @param string $header
 		 * @param bool   $error
 		 */
-		private function sendFlashMessage(string $msg, string $header = "", bool $error = false)
+		private function sendFlashMessage(string $msg, string $header = "", bool $error = false): void
 		{
 			$debug = $this->backendConfiguration['indexing_api_debug'];
 
-			if ($debug === "0" || $this->suppressFlashMessages)
+			if ($debug === "0")
 			{
 				return;
 			}
 
-			$type = \TYPO3\CMS\Core\Messaging\FlashMessage::OK;
+			$type = AbstractMessage::OK;
 
 			if ($error)
 			{
-				$type = \TYPO3\CMS\Core\Messaging\FlashMessage::WARNING;
+				$type = AbstractMessage::WARNING;
 			}
 
 			/** @var FlashMessage $message */
-			$message = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Messaging\FlashMessage::class, $msg, $header, $type, true);
+			$message = GeneralUtility::makeInstance(FlashMessage::class, $msg, $header, $type, true);
 
-			/** @var FlashMessageService $flashMessageService */
-			$flashMessageService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Messaging\FlashMessageService::class);
-			/** @var FlashMessageQueue $messageQueue */
-			$messageQueue = $flashMessageService->getMessageQueueByIdentifier();
+			$messageQueue = $this->flashMessageService->getMessageQueueByIdentifier();
 			// @extensionScannerIgnoreLine
 			$messageQueue->addMessage($message);
 		}
@@ -215,16 +214,14 @@
 		 *
 		 * @param $contentElements array
 		 * @param $posting         Posting
+		 *
+		 * @return mixed
 		 */
-		private function findBestPluginPageFit($contentElements, $posting)
+		private function findBestPluginPageFit(array $contentElements, Posting $posting): mixed
 		{
-
-			/** @var FlexFormService $flexformService */
-			$flexformService = $this->objectManager->get(FlexFormService::class);
-
 			$postingCategories = $posting->getCategories()->toArray();
 
-			$fallback = $flexformService->convertFlexFormContentToArray($contentElements[0]->getPiFlexform(), "lDEF")['settings']['detailViewUid'];
+			$fallback = $this->flexFormService->convertFlexFormContentToArray($contentElements[0]->getPiFlexform())['settings']['detailViewUid'];
 
 			$result = null;
 
@@ -235,12 +232,12 @@
 				{
 					foreach ($contentElements as $contentElement)
 					{
-						$flexformArray = $flexformService->convertFlexFormContentToArray($contentElement->getPiFlexform(), "lDEF");
+						$flexformArray = $this->flexFormService->convertFlexFormContentToArray($contentElement->getPiFlexform());
 
 						$categories = explode(",", $flexformArray['settings']['categories']);
 						$postingCategoryUid = $postingCategory->getUid();
 
-						if (in_array($postingCategoryUid, $categories))
+						if (in_array($postingCategoryUid, $categories, true))
 						{
 							if (count($categories) === 1)
 							{
@@ -260,7 +257,7 @@
 			{
 				foreach ($contentElements as $contentElement)
 				{
-					$flexformArray = $flexformService->convertFlexFormContentToArray($contentElement->getPiFlexform(), "lDEF");
+					$flexformArray = $this->flexFormService->convertFlexFormContentToArray($contentElement->getPiFlexform(), "lDEF");
 
 					$categories = explode(",", $flexformArray['settings']['categories']);
 
@@ -280,8 +277,9 @@
 		 * @param bool   $deleteInsteadOfUpdate
 		 *
 		 * @return bool true success, false something went wrong
+		 * @throws JsonException
 		 */
-		public function makeRequest(string $url, $deleteInsteadOfUpdate = false): ?bool
+		public function makeRequest(string $url, bool $deleteInsteadOfUpdate): ?bool
 		{
 			$accessToken = "";
 
@@ -341,7 +339,7 @@
 						"Content-Type" => "application/json",
 						'Authorization' => "Bearer ".$accessToken
 					],
-				"body" => json_encode($actualBody),
+				"body" => json_encode($actualBody, JSON_THROW_ON_ERROR),
 				"http_errors" => false
 			];
 
@@ -358,11 +356,12 @@
 		}
 
 		/**
-		 * Authenticates with google oauth api
+		 * Authenticates with Google OAuth API
 		 *
 		 * @return string Bearer token
+		 * @throws JsonException
 		 */
-		private function makeAuthReq()
+		private function makeAuthReq(): string
 		{
 			// Authentication
 			$jwtHeader = [
@@ -370,7 +369,7 @@
 				"typ" => "JWT"
 			];
 
-			$jwtHeaderBase64 = base64_encode(json_encode($jwtHeader));
+			$jwtHeaderBase64 = base64_encode(json_encode($jwtHeader, JSON_THROW_ON_ERROR));
 
 			$jwtClaimSet = [
 				"iss" => $this->googleConfig["client_email"],
@@ -380,7 +379,7 @@
 				"iat" => time()
 			];
 
-			$jwtClaimSetBase64 = base64_encode(json_encode($jwtClaimSet));
+			$jwtClaimSetBase64 = base64_encode(json_encode($jwtClaimSet, JSON_THROW_ON_ERROR));
 
 			$signatureInput = $jwtHeaderBase64.".".$jwtClaimSetBase64;
 
@@ -399,7 +398,7 @@
 
 			$signatureSignedBase64 = base64_encode($signatureSigned);
 
-			$token .= $signatureInput.".".$signatureSignedBase64;
+			$token = $signatureInput.".".$signatureSignedBase64;
 
 			$accessTokenRequestData = [
 				"grant_type" => "urn:ietf:params:oauth:grant-type:jwt-bearer",
@@ -410,7 +409,7 @@
 				"headers" => [
 					"Content-Type" => "application/json"
 				],
-				"body" => json_encode($accessTokenRequestData),
+				"body" => json_encode($accessTokenRequestData, JSON_THROW_ON_ERROR),
 				"http_errors" => false
 			];
 
@@ -424,20 +423,18 @@
 
 				return "";
 			}
-			else
-			{
-				$accessRepsonseJson = json_decode($accessResponse->getBody()->getContents(), true);
 
-				$accessToken = $accessRepsonseJson["access_token"];
-				$sessionData = [
-					"indexingAccessToken" => [
-						"token" => $accessToken,
-						"validUntil" => time() + (int)$accessRepsonseJson["expires_in"]
-					]
-				];
+			$accessRepsonseJson = json_decode($accessResponse->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
 
-				$GLOBALS["BE_USER"]->setAndSaveSessionData("tx_jobapplications", $sessionData);
-			}
+			$accessToken = $accessRepsonseJson["access_token"];
+			$sessionData = [
+				"indexingAccessToken" => [
+					"token" => $accessToken,
+					"validUntil" => time() + (int)$accessRepsonseJson["expires_in"]
+				]
+			];
+
+			$GLOBALS["BE_USER"]->setAndSaveSessionData("tx_jobapplications", $sessionData);
 
 			if (!$accessToken)
 			{

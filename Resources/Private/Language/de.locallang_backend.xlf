@@ -107,6 +107,10 @@
                 <source>Maximum message number of characters:</source>
                 <target state="translated">Maximale Anzahl an Zeichen in Nachricht Feld:</target>
             </trans-unit>
+            <trans-unit id="flexform.itemsOnPage" resname="flexform.itemsOnPage">
+                <source>Number of postings per page: </source>
+                <target state="translated">Anzahl Stellenausschreibungen pro Seite: </target>
+            </trans-unit>
             <trans-unit id="flexform.showMessage" resname="flexform.showMessage">
                 <source>Show message field?</source>
                 <target state="translated">Zeige Nachricht-Feld?</target>

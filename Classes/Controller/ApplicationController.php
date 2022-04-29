@@ -26,30 +26,51 @@
 	 ***************************************************************/
 
 	use ITX\Jobapplications\Domain\Model\Application;
+	use ITX\Jobapplications\Domain\Model\Contact;
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Model\Status;
+	use ITX\Jobapplications\Domain\Repository\ApplicationRepository;
+	use ITX\Jobapplications\Domain\Repository\PostingRepository;
+	use ITX\Jobapplications\Domain\Repository\StatusRepository;
+	use ITX\Jobapplications\Event\BeforeApplicationPersisted;
 	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
+	use ITX\Jobapplications\Service\ApplicationFileService;
 	use ITX\Jobapplications\Utility\Mail\MailInterface;
 	use ITX\Jobapplications\Utility\Typo3VersionUtility;
 	use ITX\Jobapplications\Utility\UploadFileUtility;
+	use Psr\Http\Message\ResponseInterface;
 	use Psr\Log\LogLevel;
+	use Symfony\Component\Mime\Address;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
+	use TYPO3\CMS\Core\Log\LogManager;
+	use TYPO3\CMS\Core\Mail\FluidEmail;
+	use TYPO3\CMS\Core\Mail\Mailer;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
+	use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
+	use TYPO3\CMS\Core\Resource\Exception\ExistingTargetFileNameException;
+	use TYPO3\CMS\Core\Resource\Exception\ExistingTargetFolderException;
+	use TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException;
+	use TYPO3\CMS\Core\Resource\Exception\InsufficientFolderWritePermissionsException;
+	use TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException;
+	use TYPO3\CMS\Core\Resource\File;
 	use TYPO3\CMS\Core\Resource\FileInterface;
 	use TYPO3\CMS\Core\Resource\ResourceStorageInterface;
 	use TYPO3\CMS\Core\Resource\StorageRepository;
-	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Core\Utility\MathUtility;
+	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+	use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+	use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
+	use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 	use TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter;
 	use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 	/**
 	 * ApplicationController
 	 */
-	class ApplicationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+	class ApplicationController extends ActionController
 	{
 		public const UPLOAD_MODE_FILES = 'files';
 		public const UPLOAD_MODE_LEGACY = 'legacy';
@@ -59,7 +80,6 @@
 		 * applicationRepository
 		 *
 		 * @var \ITX\Jobapplications\Domain\Repository\ApplicationRepository
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $applicationRepository = null;
 
@@ -70,21 +90,13 @@
 		protected $allowedFileTypesString;
 		/**
 		 * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $persistenceManager;
 		/**
 		 * @var \ITX\Jobapplications\Service\ApplicationFileService
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $applicationFileService;
-		/**
-		 * signalSlotDispatcher
-		 *
-		 * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
-		 */
-		protected $signalSlotDispatcher;
+
 		/**
 		 * @var \TYPO3\CMS\Core\Log\Logger
 		 */
@@ -93,20 +105,24 @@
 		protected $version;
 		/**
 		 * @var \ITX\Jobapplications\Domain\Repository\PostingRepository
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		private $postingRepository;
 		/**
 		 * @var \ITX\Jobapplications\Domain\Repository\StatusRepository
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		private $statusRepository;
+
+		protected StorageRepository $storageRepository;
+
+		public function __construct(StorageRepository $storageRepository)
+		{
+			$this->storageRepository = $storageRepository;
+		}
 
 		/**
 		 * initialize create action
 		 * adjusts date time format to y-m-d
 		 *
-		 * @param void
 		 *
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
 		 */
@@ -116,11 +132,11 @@
 							->getPropertyMappingConfiguration()->forProperty('earliestDateOfJoining')
 							->setTypeConverterOption(
 								DateTimeConverter::class,
-								\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,
+								DateTimeConverter::CONFIGURATION_DATE_FORMAT,
 								'Y-m-d'
 							);
 
-			$this->logger = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Log\LogManager::class)->getLogger(__CLASS__);
+			$this->logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__);
 		}
 
 		/**
@@ -147,7 +163,7 @@
 		public function initializeAction(): void
 		{
 			/** @var ExtensionConfiguration $extconf */
-			$extconf = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class);
+			$extconf = GeneralUtility::makeInstance(ExtensionConfiguration::class);
 			$extConfLimit = $extconf->get('jobapplications', 'customFileSizeLimit');
 			$this->allowedFileTypesString = $extconf->get('jobapplications', 'allowedFileTypes');
 
@@ -169,7 +185,7 @@
 		 *
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
 		 */
-		public function newAction(Posting $posting = null): void
+		public function newAction(Posting $posting = null): ResponseInterface
 		{
 
 			// Getting posting when Detailview and applicationform are on the same page.
@@ -214,6 +230,8 @@
 			{
 				$this->view->assign("fileError", 0);
 			}
+
+			return $this->htmlResponse();
 		}
 
 		/**
@@ -223,7 +241,7 @@
 		 * @param array  $problems
 		 * @param int    $postingUid
 		 */
-		public function successAction($firstName, $lastName, $salutation, $problems, $postingUid = -1)
+		public function successAction($firstName, $lastName, $salutation, $problems, $postingUid = -1): ResponseInterface
 		{
 			$salutationValue = $salutation;
 
@@ -236,6 +254,9 @@
 				$salutation = LocalizationUtility::translate('fe.application.selector.'.$salutation, 'jobapplications');
 			}
 
+			/** @var Posting|null $posting */
+			$posting = null;
+
 			if ($postingUid !== -1)
 			{
 				$posting = $this->postingRepository->findByUid($postingUid);
@@ -247,6 +268,8 @@
 			$this->view->assign('salutation', $salutation);
 			$this->view->assign('problems', $problems);
 			$posting ? $this->view->assign('salutationValue', $salutationValue) : false;
+
+			return $this->htmlResponse();
 		}
 
 		private function hasArrayWithIndicesNonEmpty(array $array, array $indices): bool
@@ -284,18 +307,15 @@
 		 * @param Application  $newApplication
 		 * @param Posting|null $posting
 		 *
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFileNameException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFolderException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderWritePermissionsException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
-		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
-		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
-		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
-		 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
-		 * @throws \TYPO3\CMS\Form\Domain\Exception\IdentifierNotValidException
+		 * @throws ExistingTargetFileNameException
+		 * @throws ExistingTargetFolderException
+		 * @throws InsufficientFolderAccessPermissionsException
+		 * @throws InsufficientFolderWritePermissionsException
+		 * @throws InvalidFileNameException
+		 * @throws StopActionException
+		 * @throws IllegalObjectTypeException
 		 */
-		public function createAction(\ITX\Jobapplications\Domain\Model\Application $newApplication, \ITX\Jobapplications\Domain\Model\Posting $posting = null): void
+		public function createAction(Application $newApplication, Posting $posting = null): void
 		{
 			$problemWithApplicantMail = false;
 			$problemWithNotificationMail = false;
@@ -336,7 +356,7 @@
 			}
 
 			// Check which kind of uploads were sent
-			if ($this->isStringArray($arguments['files']))
+			if ($this->isStringArray($arguments['files'] ?? []))
 			{
 				$uploadMode = self::UPLOAD_MODE_FILES;
 			}
@@ -353,9 +373,12 @@
 				$this->redirect("new", "Application", null, ["posting" => $posting]);
 			}
 
-			$newApplication->setPosting($posting);
+			if ($posting instanceof Posting)
+			{
+				$newApplication->setPosting($posting);
+			}
 
-			/* @var \ITX\Jobapplications\Domain\Model\Status $firstStatus */
+			/* @var Status $firstStatus */
 			$firstStatus = $this->statusRepository->findNewStatus();
 
 			if ($firstStatus instanceof Status)
@@ -363,14 +386,10 @@
 				$newApplication->setStatus($firstStatus);
 			}
 
-			// SignalSlotDispatcher BeforePostingAssign
-			$signalArguments = ["application" => $newApplication];
-			$signalArguments = $this->signalSlotDispatcher->dispatch(__CLASS__, "BeforeApplicationAdd", $signalArguments);
-
-			if ($signalArguments["application"] instanceof Application)
-			{
-				$newApplication = $signalArguments['application'];
-			}
+			// Event BeforeApplicationPersisted
+			/** @var BeforeApplicationPersisted $event */
+			$event = $this->eventDispatcher->dispatch(new BeforeApplicationPersisted($newApplication));
+			$newApplication = $event->getApplication();
 
 			$this->applicationRepository->add($newApplication);
 			$this->persistenceManager->persistAll();
@@ -379,7 +398,7 @@
 			if (!($posting instanceof Posting))
 			{
 				/** @var Posting $posting */
-				$posting = GeneralUtility::makeInstance(\ITX\Jobapplications\Domain\Model\Posting::class);
+				$posting = GeneralUtility::makeInstance(Posting::class);
 				$posting->setTitle(LocalizationUtility::translate("fe.application.unsolicited.title", "jobapplications"));
 
 				$newApplication->setPosting($posting);
@@ -407,7 +426,7 @@
 			$currentPosting = $newApplication->getPosting();
 
 			// Default contact is not available
-			$contact = GeneralUtility::makeInstance(\ITX\Jobapplications\Domain\Model\Contact::class);
+			$contact = GeneralUtility::makeInstance(Contact::class);
 
 			$contact->setEmail($this->settings["defaultContactMailAddress"]);
 			$contact->setFirstName($this->settings["defaultContactFirstName"]);
@@ -415,64 +434,23 @@
 
 			$contact = ($currentPosting->getContact() ?: $contact);
 
-			// Get and translate labels
-			$salutation = LocalizationUtility::translate("fe.application.selector.".$newApplication->getSalutation(), "jobapplications");
-			$salary = $newApplication->getSalaryExpectation() ? LocalizationUtility::translate("tx_jobapplications_domain_model_application.salary_expectation", "jobapplications").": ".$newApplication->getSalaryExpectation()."<br>" : "";
-			$dateOfJoining = $newApplication->getEarliestDateOfJoining() ?
-				LocalizationUtility::translate("tx_jobapplications_domain_model_application.earliest_date_of_joining", "jobapplications")
-				.": ".$newApplication->getEarliestDateOfJoining()->format(LocalizationUtility::translate("date_format", "jobapplications"))."<br>" : "";
-			$nameLabel = LocalizationUtility::translate("tx_jobapplications_domain_model_location.name", "jobapplications").": ";
-			$emailLabel = LocalizationUtility::translate("tx_jobapplications_domain_model_application.email", "jobapplications").": ";
-			$phoneLabel = LocalizationUtility::translate("tx_jobapplications_domain_model_application.phone", "jobapplications").": ";
-			$addressLabel = LocalizationUtility::translate("tx_jobapplications_domain_model_location.address", "jobapplications").": ";
-			$additionalAddress = $newApplication->getAddressAddition() ? $newApplication->getAddressAddition().'<br>' : "";
-			$messageLabel = LocalizationUtility::translate("tx_jobapplications_domain_model_application.message", "jobapplications").": ";
-			$message = $newApplication->getMessage() ? '<br><br>'.$messageLabel.'<br>'.$newApplication->getMessage() : "";
-
-			$phoneLine = $newApplication->getPhone() !== '' ? $phoneLabel.$newApplication->getPhone().'<br>' : '';
-
-			$addressChunk = "";
-			if ($newApplication->getAddressStreetAndNumber()
-				|| $newApplication->getAddressPostCode()
-				|| $newApplication->getAddressCity()
-				|| $newApplication->getAddressCountry()
-			)
-			{
-				$addressChunk = $addressLabel.'<br>'.$newApplication->getAddressStreetAndNumber().'<br>'
-					.$additionalAddress.
-					$newApplication->getAddressPostCode().' '.$newApplication->getAddressCity()
-					.'<br>'.$newApplication->getAddressCountry();
-			}
+			/** @var Mailer $mailer */
+			$mailer = GeneralUtility::makeInstance(Mailer::class);
 
 			// Send mail to Contact E-Mail or/and internal E-Mail
 			if ($this->settings["sendEmailToContact"] === "1" || $this->settings['sendEmailToInternal'] !== "")
 			{
-				/** @var \ITX\Jobapplications\Utility\Mail\MailInterface $mail */
-				if ($this->version >= 10)
-				{
-					$mail = GeneralUtility::makeInstance(\ITX\Jobapplications\Utility\Mail\MailFluid::class);
-					$mail->setTemplate('JobsNotificationMail');
-				}
-				else
-				{
-					$mail = GeneralUtility::makeInstance(\ITX\Jobapplications\Utility\Mail\MailMessage::class);
-				}
+				$mail = GeneralUtility::makeInstance(FluidEmail::class);
+				$mail->setTemplate('JobsNotificationMail');
 
-				$mail->setContentType($this->settings['emailContentType']);
+				$mail->format($this->settings['emailContentType']);
 
 				// Prepare and send the message
 				$mail
-					->setSubject(LocalizationUtility::translate("fe.email.toContactSubject", 'jobapplications', [0 => $currentPosting->getTitle()]))
-					->setFrom([$this->settings["emailSender"] => $this->settings["emailSenderName"]])
-					->setReply([$newApplication->getEmail() => $newApplication->getFirstName()." ".$newApplication->getLastName()])
-					->setContent('<p>'.
-								 $nameLabel.$salutation.' '.$newApplication->getFirstName().' '.$newApplication->getLastName().'<br>'.
-								 $emailLabel.$newApplication->getEmail().'<br>'.
-								 $phoneLine.
-								 $salary.
-								 $dateOfJoining.'<br>'.
-								 $addressChunk
-								 .$message.'</p>', ['application' => $newApplication, 'settings' => $this->settings, 'currentPosting' => $currentPosting]);
+					->subject(LocalizationUtility::translate("fe.email.toContactSubject", 'jobapplications', [0 => $currentPosting->getTitle()]))
+					->from(new Address($this->settings["emailSender"], $this->settings["emailSenderName"]))
+					->replyTo(new Address($newApplication->getEmail(), $newApplication->getFirstName()." ".$newApplication->getLastName()))
+					->assignMultiple(['application' => $newApplication, 'settings' => $this->settings, 'currentPosting' => $currentPosting]);
 
 				foreach ($legacyUploadfiles as $fileArray)
 				{
@@ -480,7 +458,7 @@
 					{
 						if ($file instanceof FileInterface)
 						{
-							$mail->addAttachment($file->getForLocalProcessing(false));
+							$mail->attachFromPath($file->getForLocalProcessing(false));
 						}
 					}
 				}
@@ -489,31 +467,28 @@
 				{
 					if ($file instanceof FileInterface)
 					{
-						$mail->addAttachment($file->getForLocalProcessing(false));
+						$mail->attachFromPath($file->getForLocalProcessing(false));
 					}
 				}
 
 				//Figure out who the email will be sent to and how
-				if ($this->settings['sendEmailToInternal'] != "" && $this->settings['sendEmailToContact'] == "1")
+				if ($this->settings['sendEmailToInternal'] !== "" && $this->settings['sendEmailToContact'] === '1')
 				{
-					$mail->setTo([$contact->getEmail() => $contact->getFirstName().' '.$contact->getLastName()]);
-					$mail->setBlindcopies([$this->settings['sendEmailToInternal']]);
+					$mail->to(new Address($contact->getEmail(), $contact->getFirstName().' '.$contact->getLastName()));
+					$mail->bcc(new Address($this->settings['sendEmailToInternal']));
 				}
-				else if ($this->settings['sendEmailToContact'] != "1" && $this->settings['sendEmailToInternal'] != "")
+				else if ($this->settings['sendEmailToContact'] !== '1' && $this->settings['sendEmailToInternal'] !== "")
 				{
-					$mail->setTo([$this->settings['sendEmailToInternal'] => 'Internal']);
+					$mail->to(new Address($this->settings['sendEmailToInternal'], 'Internal'));
 				}
-				else if ($this->settings['sendEmailToContact'] == "1" && $this->settings['sendEmailToInternal'] != "1")
+				else if ($this->settings['sendEmailToContact'] === '1' && $this->settings['sendEmailToInternal'] !== '1')
 				{
-					$mail->setTo([$contact->getEmail() => $contact->getFirstName()." ".$contact->getLastName()]);
+					$mail->to(new Address($contact->getEmail(), $contact->getFirstName()." ".$contact->getLastName()));
 				}
 
 				try
 				{
-					if (!$mail->send())
-					{
-						throw new \RuntimeException('Failed to send mail!');
-					}
+					$mailer->send($mail);
 				}
 				catch (\Exception $e)
 				{
@@ -525,54 +500,24 @@
 			// Now send a mail to the applicant
 			if ($this->settings["sendEmailToApplicant"] === "1")
 			{
-				/** @var MailInterface $mail */
-				if ($this->version >= 10)
-				{
-					$mail = GeneralUtility::makeInstance(\ITX\Jobapplications\Utility\Mail\MailFluid::class);
-					$mail->setTemplate('JobsApplicantMail');
-				}
-				else
-				{
-					$mail = GeneralUtility::makeInstance(\ITX\Jobapplications\Utility\Mail\MailMessage::class);
-				}
+				$mail = GeneralUtility::makeInstance(FluidEmail::class);
+				$mail->setTemplate('JobsApplicantMail');
 
-				$mail->setContentType($this->settings['emailContentType']);
+				$mail->format($this->settings['emailContentType']);
 
 				//Template Messages
 				$subject = $this->settings['sendEmailToApplicantSubject'];
 				$subject = str_replace("%postingTitle%", $currentPosting->getTitle(), $subject);
 
-				$body = $this->settings["sendEmailToApplicantText"];
-				switch ((int)$newApplication->getSalutation())
-				{
-					case 3:
-					case 0:
-						$salutation = "";
-						break;
-					case 1:
-						$salutation = LocalizationUtility::translate("fe.application.selector.mr", "jobapplications");
-						break;
-					case 2:
-						$salutation = LocalizationUtility::translate("fe.application.selector.mrs", "jobapplications");
-						break;
-				}
-				$body = str_replace("%applicantSalutation%", $salutation, $body);
-				$body = str_replace("%applicantFirstName%", $newApplication->getFirstName(), $body);
-				$body = str_replace("%applicantLastName%", $newApplication->getLastName(), $body);
-				$body = str_replace("%postingTitle%", $currentPosting->getTitle(), $body);
-
 				$mail
-					->setSubject($subject)
-					->setFrom([$this->settings["emailSender"] => $this->settings["emailSenderName"]])
-					->setTo([$newApplication->getEmail() => $newApplication->getFirstName()." ".$newApplication->getLastName()])
-					->setContent($body, ['application' => $newApplication, 'settings' => $this->settings]);
+					->subject($subject)
+					->from(new Address($this->settings["emailSender"], $this->settings["emailSenderName"]))
+					->to(new Address($newApplication->getEmail(), $newApplication->getFirstName()." ".$newApplication->getLastName()))
+					->assignMultiple(['application' => $newApplication, 'settings' => $this->settings]);
 
 				try
 				{
-					if (!$mail->send())
-					{
-						throw new \RuntimeException('Failed to send mail!');
-					}
+					$mailer->send($mail);
 				}
 				catch (\Exception $e)
 				{
@@ -595,7 +540,7 @@
 
 			$this->uriBuilder->setTargetPageUid((int)$this->settings['successPage']);
 
-			if (\TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SSL'))
+			if (GeneralUtility::getIndpEnv('TYPO3_SSL'))
 			{
 				$this->uriBuilder->setAbsoluteUriScheme('https');
 			}
@@ -626,14 +571,13 @@
 		 * @param string      $fileNamePrefix
 		 *
 		 * @return array
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFileNameException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFolderException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderWritePermissionsException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
-		 * @throws \TYPO3\CMS\Form\Domain\Exception\IdentifierNotValidException
+		 * @throws ExistingTargetFileNameException
+		 * @throws ExistingTargetFolderException
+		 * @throws InsufficientFolderAccessPermissionsException
+		 * @throws InsufficientFolderWritePermissionsException
+		 * @throws InvalidFileNameException
 		 */
-		private function processFiles(Application $newApplication, array $fileIds, string $fieldName, int $fileStorage, $fileNamePrefix = ''): array
+		private function processFiles(Application $newApplication, array $fileIds, string $fieldName, int $fileStorage, string $fileNamePrefix = ''): array
 		{
 			$uploadUtility = new UploadFileUtility();
 
@@ -660,30 +604,28 @@
 		}
 
 		/**
-		 * @param string                                        $filePath
-		 * @param string                                        $fileName
-		 * @param \ITX\Jobapplications\Domain\Model\Application $domainObject
-		 * @param int                                           $fileStorage
-		 * @param string                                        $prefix
+		 * @param string      $filePath
+		 * @param string      $fileName
+		 * @param Application $domainObject
+		 * @param int         $fileStorage
+		 * @param string      $prefix
 		 *
-		 * @return FileInterface
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFileNameException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\ExistingTargetFolderException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderWritePermissionsException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
+		 * @return File|FileInterface
+		 * @throws ExistingTargetFileNameException
+		 * @throws ExistingTargetFolderException
+		 * @throws InsufficientFolderAccessPermissionsException
+		 * @throws InsufficientFolderWritePermissionsException
+		 * @throws InvalidFileNameException
 		 */
-		private function handleFileUpload(string                                        $filePath, string $fileName,
-										  \ITX\Jobapplications\Domain\Model\Application $domainObject, int $fileStorage, string $prefix = ''): FileInterface
+		private function handleFileUpload(string      $filePath, string $fileName,
+										  Application $domainObject, int $fileStorage, string $prefix = ''): mixed
 		{
 
 			$folder = $this->applicationFileService->getApplicantFolder($domainObject);
 
-			/* @var \TYPO3\CMS\Core\Resource\StorageRepository $storageRepository */
-			$storageRepository = $this->objectManager->get(StorageRepository::class);
-
-			$storage = $storageRepository->findByUid($fileStorage);
-			if (!$storage instanceof ResourceStorageInterface) {
+			$storage = $this->storageRepository->findByUid($fileStorage);
+			if (!$storage instanceof ResourceStorageInterface)
+			{
 				throw new \RuntimeException(sprintf("Resource storage with uid %d could not be found.", $fileStorage));
 			}
 
@@ -698,7 +640,7 @@
 			}
 
 			//file name
-			$newFileName = (new \TYPO3\CMS\Core\Resource\Driver\LocalDriver)->sanitizeFileName($prefix.$fileName);
+			$newFileName = (new LocalDriver)->sanitizeFileName($prefix.$fileName);
 
 			//build sys_file
 			$movedNewFile = $storage->addFile($filePath, $targetFolder, $newFileName);
@@ -714,7 +656,7 @@
 		 * @param int $iteration  The current iteration
 		 * @param int $totalFiles The total amount of iterations
 		 */
-		private function buildRelations(int $objectUid, int $fileUid, int $objectPid, string $field, $iteration = 0, $totalFiles = 1): void
+		private function buildRelations(int $objectUid, int $fileUid, int $objectPid, string $field, int $iteration = 0, int $totalFiles = 1): void
 		{
 			/** @var ConnectionPool $database */
 			$database = GeneralUtility::makeInstance(ConnectionPool::class);
@@ -744,8 +686,33 @@
 					->update(
 						"tx_jobapplications_domain_model_application",
 						["files" => $totalFiles], [
-							'uid' => $newStorageUid
+							'uid' => $objectUid
 						]);
 			}
+		}
+
+		public function injectApplicationRepository(ApplicationRepository $applicationRepository): void
+		{
+			$this->applicationRepository = $applicationRepository;
+		}
+
+		public function injectPersistenceManager(PersistenceManager $persistenceManager): void
+		{
+			$this->persistenceManager = $persistenceManager;
+		}
+
+		public function injectApplicationFileService(ApplicationFileService $applicationFileService): void
+		{
+			$this->applicationFileService = $applicationFileService;
+		}
+
+		public function injectPostingRepository(PostingRepository $postingRepository): void
+		{
+			$this->postingRepository = $postingRepository;
+		}
+
+		public function injectStatusRepository(StatusRepository $statusRepository): void
+		{
+			$this->statusRepository = $statusRepository;
 		}
 	}

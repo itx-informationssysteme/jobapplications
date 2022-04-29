@@ -30,7 +30,7 @@
 	/**
 	 * The repository for Locations
 	 */
-	class LocationRepository extends \ITX\Jobapplications\Domain\Repository\JobapplicationsRepository
+	class LocationRepository extends JobapplicationsRepository
 	{
 		/**
 		 * Returns all objects of this repository.

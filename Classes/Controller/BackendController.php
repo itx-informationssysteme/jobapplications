@@ -25,6 +25,21 @@
 
 	namespace ITX\Jobapplications\Controller;
 
+	use Psr\Http\Message\ServerRequestInterface;
+	use TYPO3\CMS\Core\Pagination\SimplePagination;
+	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+	use ITX\Jobapplications\Domain\Model\Application;
+	use Psr\Http\Message\ResponseInterface;
+	use ITX\Jobapplications\Domain\Repository\ApplicationRepository;
+	use ITX\Jobapplications\Domain\Repository\PostingRepository;
+	use ITX\Jobapplications\Domain\Repository\ContactRepository;
+	use ITX\Jobapplications\Domain\Repository\StatusRepository;
+	use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
+	use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
+	use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
+	use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
+	use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+	use ITX\Jobapplications\Service\ApplicationFileService;
 	use ITX\Jobapplications\Domain\Model\Contact;
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Model\Status;
@@ -38,13 +53,12 @@
 	 *
 	 * @package ITX\Jobapplications\Controller
 	 */
-	class BackendController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+	class BackendController extends ActionController
 	{
 		/**
 		 * applicationRepository
 		 *
 		 * @var \ITX\Jobapplications\Domain\Repository\ApplicationRepository
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $applicationRepository = null;
 
@@ -52,7 +66,6 @@
 		 * postingRepository
 		 *
 		 * @var \ITX\Jobapplications\Domain\Repository\PostingRepository
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $postingRepository = null;
 
@@ -60,7 +73,6 @@
 		 * contactRepository
 		 *
 		 * @var \ITX\Jobapplications\Domain\Repository\ContactRepository
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $contactRepository = null;
 
@@ -68,7 +80,6 @@
 		 * statusRepository
 		 *
 		 * @var \ITX\Jobapplications\Domain\Repository\StatusRepository
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $statusRepository = null;
 
@@ -76,30 +87,38 @@
 		 * persistenceManager
 		 *
 		 * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $persistenceManager;
 
 		/**
 		 * @var \ITX\Jobapplications\Service\ApplicationFileService
-		 * @TYPO3\CMS\Extbase\Annotation\Inject
 		 */
 		protected $applicationFileService;
+
+		protected GoogleIndexingApiConnector $connector;
+
+		public function __construct(GoogleIndexingApiConnector $connector)
+		{
+			$this->connector = $connector;
+		}
 
 		/**
 		 * action listApplications
 		 *
 		 * @return void
-		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
-		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
-		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+		 * @throws NoSuchArgumentException
+		 * @throws UnknownObjectException
+		 * @throws IllegalObjectTypeException
 		 */
 		public function listApplicationsAction()
 		{
+			$page = $this->request->hasArgument('page') ? (int)$this->request->getArgument('page') : 1;
+			$itemsPerPage = 12;
+
 			$sessionData = $GLOBALS['BE_USER']->getSessionData('tx_jobapplications');
 			$contact = $this->getActiveBeContact();
 
-			$dailyLogin = $sessionData['dailyLogin'];
+			$dailyLogin = $sessionData['dailyLogin'] ?? null;
 			if ((empty($dailyLogin) && $contact instanceof Contact) || ($dailyLogin === false && $contact instanceof Contact))
 			{
 				$this->redirect('dashboard');
@@ -117,10 +136,10 @@
 			}
 			else
 			{
-				$selectedPosting = $sessionData['selectedPosting'];
-				$archivedSelected = $sessionData['archivedSelected'];
-				$selectedContact = $sessionData['selectedContact'];
-				$selectedStatus = $sessionData['selectedStatus'];
+				$selectedPosting = $sessionData['selectedPosting'] ?? null;
+				$archivedSelected = $sessionData['archivedSelected'] ?? null;
+				$selectedContact = $sessionData['selectedContact'] ?? null;
+				$selectedStatus = $sessionData['selectedStatus'] ?? null;
 			}
 
 			// Handling a status change, triggered in listApplications View
@@ -149,9 +168,9 @@
 			$applications = $this->applicationRepository->findByFilter($selectedContact, $selectedPosting, $selectedStatus, 0, 'crdate', 'DESC');
 
 			// Set posting-selectBox content dynamically based on selected contact
-			if ((empty($selectedPosting) && !empty($selectedContact)))
+			if (empty($selectedPosting) && $selectedContact !== null)
 			{
-				$postingsFilter = $this->postingRepository->findByContact(intval($selectedContact));
+				$postingsFilter = $this->postingRepository->findByContact($selectedContact);
 			}
 			else
 			{
@@ -169,11 +188,18 @@
 			$sessionData['selectedStatus'] = $selectedStatus;
 			$GLOBALS['BE_USER']->setAndSaveSessionData('tx_jobapplications', $sessionData);
 
+			$paginator = new QueryResultPaginator($applications, $page, $itemsPerPage);
+
+			$pagination = new SimplePagination($paginator);
+
+			$this->view->assign('paginator', $paginator);
+			$this->view->assign('pagination', $pagination);
+			$this->view->assign('applications', $paginator->getPaginatedItems());
+
 			$this->view->assign('selectedPosting', $selectedPosting);
 			$this->view->assign('archivedSelected', $archivedSelected);
 			$this->view->assign('selectedContact', $selectedContact);
 			$this->view->assign('selectedStatus', $selectedStatus);
-			$this->view->assign('applications', $applications);
 			$this->view->assign('postings', $postingsFilter);
 			$this->view->assign('contacts', $contactsFilter);
 			$this->view->assign('statuses', $statusesFilter);
@@ -196,13 +222,14 @@
 		 *
 		 * @param \ITX\Jobapplications\Domain\Model\Application $application
 		 *
-		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+		 * @throws UnknownObjectException
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
 		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
-		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
-		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
+		 * @throws IllegalObjectTypeException
+		 * @throws NoSuchArgumentException
+		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
 		 */
-		public function showApplicationAction(\ITX\Jobapplications\Domain\Model\Application $application)
+		public function showApplicationAction(Application $application)
 		{
 			$statusDatabaseOp = false;
 
@@ -248,18 +275,14 @@
 				$this->persistenceManager->persistAll();
 			}
 
-			// Fetch baseuri for f:uri to access Public folder
-			$baseUri = str_replace('typo3/', '', $this->request->getBaseUri());
-
 			$this->view->assign('application', $application);
-			$this->view->assign('baseUri', $baseUri);
 		}
 
 		/**
 		 * Action for Backend Dashboard
 		 *
 		 */
-		public function dashboardAction()
+		public function dashboardAction(): ResponseInterface
 		{
 			// Get data for counter of new applications with referenced contact
 			$contact = $this->getActiveBeContact();
@@ -269,7 +292,7 @@
 
 			$session = $backendUser->getSessionData('tx_jobapplications') ?? [];
 
-			if ((empty($session['dailyLogin']) && $contact instanceof Contact) || ($session['dailyLogin'] === false && $contact instanceof Contact))
+			if ((isset($session['dailyLogin']) && $contact instanceof Contact) || (!isset($session['dailyLogin']) && $contact instanceof Contact))
 			{
 				$session['dailyLogin'] = true;
 				$backendUser->setAndSaveSessionData('tx_jobapplications', $session);
@@ -287,16 +310,17 @@
 			$this->view->assign('admin', $GLOBALS['BE_USER']->isAdmin());
 			$this->view->assign('newApps', count($newApps));
 			$this->view->assign('contact', $contact);
+			return $this->htmlResponse();
 		}
 
 		/**
 		 * Action for settings page
 		 *
 		 * @throws InsufficientUserPermissionsException
-		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
+		 * @throws NoSuchArgumentException
 		 * @throws \Exception
 		 */
-		public function settingsAction()
+		public function settingsAction(): ResponseInterface
 		{
 			if (!$GLOBALS['BE_USER']->isAdmin())
 			{
@@ -316,7 +340,6 @@
 
 			if ($this->request->hasArgument('batch_index'))
 			{
-				$connector = new GoogleIndexingApiConnector(true);
 				$postings = $this->postingRepository->findAllIncludingHiddenAndDeleted();
 
 				$removeCounter = 0;
@@ -328,7 +351,7 @@
 				{
 					if ($posting->isHidden() || $posting->isDeleted())
 					{
-						if (!$connector->updateGoogleIndex($posting->getUid(), true, $posting))
+						if (!$this->connector->updateGoogleIndex($posting->getUid(), true, $posting))
 						{
 							$error_bit = true;
 						}
@@ -337,17 +360,13 @@
 							$removeCounter++;
 						}
 					}
+					else if (!$this->connector->updateGoogleIndex($posting->getUid(), false, $posting))
+					{
+						$error_bit = true;
+					}
 					else
 					{
-						if (!$connector->updateGoogleIndex($posting->getUid(), false, $posting))
-						{
-							$error_bit = true;
-						}
-						else
-						{
-							$updateCounter++;
-						}
-
+						$updateCounter++;
 					}
 				}
 				if ($error_bit)
@@ -362,5 +381,36 @@
 			}
 
 			$this->view->assign('admin', $GLOBALS['BE_USER']->isAdmin());
+			return $this->htmlResponse();
+		}
+
+		public function injectApplicationRepository(ApplicationRepository $applicationRepository): void
+		{
+			$this->applicationRepository = $applicationRepository;
+		}
+
+		public function injectPostingRepository(PostingRepository $postingRepository): void
+		{
+			$this->postingRepository = $postingRepository;
+		}
+
+		public function injectContactRepository(ContactRepository $contactRepository): void
+		{
+			$this->contactRepository = $contactRepository;
+		}
+
+		public function injectStatusRepository(StatusRepository $statusRepository): void
+		{
+			$this->statusRepository = $statusRepository;
+		}
+
+		public function injectPersistenceManager(PersistenceManager $persistenceManager): void
+		{
+			$this->persistenceManager = $persistenceManager;
+		}
+
+		public function injectApplicationFileService(ApplicationFileService $applicationFileService): void
+		{
+			$this->applicationFileService = $applicationFileService;
 		}
 	}

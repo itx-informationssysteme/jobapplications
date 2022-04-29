@@ -123,7 +123,7 @@
 			</f:if>
 			<div class="row file-container">
 				<f:for as="file" each="{application.cv}">
-					<a class="file" download href="{baseUri}{file.originalResource.publicUrl}">
+					<a class="file" download href="{file.originalResource.publicUrl}">
 						<img alt="pdf" class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}">
 						<span><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.cv"/></span>
 						<img alt="download" class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}">
@@ -131,7 +131,7 @@
 				</f:for>
 
 				<f:for as="file" each="{application.coverLetter}">
-					<a class="file" download href="{baseUri}{file.originalResource.publicUrl}">
+					<a class="file" download href="{file.originalResource.publicUrl}">
 						<img alt="pdf" class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}">
 						<span><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.cover_letter"/></span>
 						<img alt="download" class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}">
@@ -139,7 +139,7 @@
 				</f:for>
 
 				<f:for as="file" each="{application.testimonials}">
-					<a class="file" download href="{baseUri}{file.originalResource.publicUrl}">
+					<a class="file" download href="{file.originalResource.publicUrl}">
 						<img alt="pdf" class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}">
 						<span><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.testimonials"/></span>
 						<img alt="download" class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}">
@@ -147,7 +147,7 @@
 				</f:for>
 
 				<f:for as="file" each="{application.otherFiles}">
-					<a class="file" download href="{baseUri}{file.originalResource.publicUrl}">
+					<a class="file" download href="{file.originalResource.publicUrl}">
 						<img alt="pdf" class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}">
 						<span><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.other_files"/></span>
 						<img alt="download" class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}">
@@ -155,7 +155,7 @@
 				</f:for>
 
 				<f:for as="file" each="{application.files}">
-					<a class="file" download href="{baseUri}{file.originalResource.publicUrl}">
+					<a class="file" download href="{file.originalResource.publicUrl}">
 						<img alt="pdf" class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}">
 						<span>{file.originalResource.name}</span>
 						<img alt="download" class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}">

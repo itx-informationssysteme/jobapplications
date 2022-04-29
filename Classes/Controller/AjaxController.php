@@ -24,6 +24,8 @@
 
 	namespace ITX\Jobapplications\Controller;
 
+	use Psr\Http\Message\ServerRequestInterface;
+	use Psr\Http\Message\ResponseInterface;
 	use ITX\Jobapplications\Utility\UploadFileUtility;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\Core\Environment;
@@ -50,13 +52,12 @@
 
 		/**
 		 * @param \Psr\Http\Message\ServerRequestInterface $request
-		 * @param \Psr\Http\Message\ResponseInterface      $response
 		 *
 		 * @return \Psr\Http\Message\ResponseInterface
 		 */
 		public function uploadAction(
-			\Psr\Http\Message\ServerRequestInterface $request
-		): \Psr\Http\Message\ResponseInterface
+			ServerRequestInterface $request
+		): ResponseInterface
 		{
 
 			$response = new HtmlResponse('');
@@ -66,7 +67,7 @@
 			$responseContent = '';
 
 			/** @var ExtensionConfiguration $extconf */
-			$extconf = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class);
+			$extconf = GeneralUtility::makeInstance(ExtensionConfiguration::class);
 			$extConfLimit = $extconf->get('jobapplications', 'customFileSizeLimit');
 			$allowedFileTypesString = $extconf->get('jobapplications', 'allowedFileTypes');
 			$allowedFileTypes = $allowedFileTypesString !== '' ? explode(',', $allowedFileTypesString) : [];
@@ -143,8 +144,8 @@
 		}
 
 		public function revertAction(
-			\Psr\Http\Message\ServerRequestInterface $request
-		): \Psr\Http\Message\ResponseInterface
+			ServerRequestInterface $request
+		): ResponseInterface
 		{
 			$response = new HtmlResponse('');
 			$body = $request->getBody();

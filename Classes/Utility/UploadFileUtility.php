@@ -70,7 +70,7 @@
 				$renameResult = rename($filePath.reset($files), $filePath.$file->getClientFilename());
 				if (!$renameResult)
 				{
-					throw new \RuntimeException("Could not rename file: ".$filePath.files[0]);
+					throw new \RuntimeException("Could not rename file: ".$filePath.$files[0]);
 				}
 			}
 			else
@@ -85,14 +85,13 @@
 		 * @param string $uniqueIdentifier
 		 *
 		 * @return string
-		 * @throws IdentifierNotValidException
 		 */
 		public function getFilePath(string $uniqueIdentifier): string
 		{
 			$filePath = $this->fileTempPath.$uniqueIdentifier.DIRECTORY_SEPARATOR;
 			if (strlen($uniqueIdentifier) !== 23)
 			{
-				throw new IdentifierNotValidException('Invalid identifier');
+				throw new \RuntimeException('Invalid identifier');
 			}
 
 			if (!GeneralUtility::validPathStr($filePath))
@@ -125,7 +124,7 @@
 		 * @param string $uniqueIdentifier
 		 *
 		 * @return string
-		 * @throws IdentifierNotValidException
+		 * @throws \RuntimeException
 		 */
 		public function getFileName(string $uniqueIdentifier): string
 		{
@@ -133,7 +132,7 @@
 
 			if (strlen($uniqueIdentifier) !== 23)
 			{
-				throw new IdentifierNotValidException('Invalid identifier');
+				throw new \RuntimeException('Invalid identifier');
 			}
 
 			if (!GeneralUtility::validPathStr($filePath))
