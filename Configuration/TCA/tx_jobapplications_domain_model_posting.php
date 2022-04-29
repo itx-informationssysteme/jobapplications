@@ -426,6 +426,7 @@
 					'foreign_table' => 'tx_jobapplications_domain_model_contact',
 					'minitems' => 0,
 					'maxitems' => 1,
+					'allowNonIdValues' => true
 				],
 			],
 			'slug' => [
