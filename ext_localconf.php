@@ -124,5 +124,8 @@
 
 			$GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludeAllEmptyParameters'] = true;
 			$GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFoundOnCHashError'] = false;
+
+			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['jobapplications_makeLocationsMultiple']
+				= \ITX\Jobapplications\Updates\MakeLocationsMultiple::class;
 		}
 	);

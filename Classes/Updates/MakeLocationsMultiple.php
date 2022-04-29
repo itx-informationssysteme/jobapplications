@@ -12,8 +12,8 @@
 	 */
 
 	use TYPO3\CMS\Core\Database\ConnectionPool;
+	use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 	use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
-	use TYPO3\CMS\Core\DataHandling\Model\RecordStateFactory;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
 	use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
@@ -30,7 +30,7 @@
 
 		public function getIdentifier(): string
 		{
-			return 'txJobapplicationsMultipleLocations';
+			return 'jobapplications_makeLocationsMultiple';
 		}
 
 		public function getTitle(): string
@@ -45,17 +45,70 @@
 
 		public function executeUpdate(): bool
 		{
-			$updateNeeded = false;
-			// Check if the database table even exists
-			if ($this->checkIfPostingsHasLocations()) {
-				$updateNeeded = true;
+			// Get Postings table
+			$connectionPostings = GeneralUtility::makeInstance(ConnectionPool::class)
+												->getConnectionForTable($this->tablePosting);
+			/** @var  QueryBuilder $queryBuilderPostings */
+			$queryBuilderPostings = $connectionPostings->createQueryBuilder();
+			$queryBuilderPostings->getRestrictions()->removeAll();
+
+			// Get Mm table
+			$connectionMm = GeneralUtility::makeInstance(ConnectionPool::class)
+										  ->getConnectionForTable($this->tableMm);
+
+			// Get all postings where location is not 0 and locations is 0
+			$statement = $queryBuilderPostings->select('uid', $this->oldFieldName)
+											  ->from($this->tablePosting)
+											  ->where(
+												  $queryBuilderPostings->expr()->neq($this->oldFieldName, 0),
+												  $queryBuilderPostings->expr()->eq($this->newFieldName, 0)
+											  )
+											  ->execute();
+
+			while ($record = $statement->fetch())
+			{
+				// Create mm entry
+				/** @var QueryBuilder $queryBuilderMm */
+				$queryBuilderMm = $connectionMm->createQueryBuilder();
+				$queryBuilderMm->getRestrictions()->removeAll();
+				$queryBuilderMm->insert($this->tableMm)
+					->values([
+								'uid_local' =>  (int)$record['uid'],
+								'uid_foreign' => (int)$record[$this->oldFieldName],
+								'sorting' => 1,
+								'sorting_foreign' => 0
+							 ])
+					->execute();
+
+				// Update locations field
+				/** @var  QueryBuilder $queryBuilderPostings */
+				$queryBuilderPostings = $connectionPostings->createQueryBuilder();
+
+				$queryBuilderPostings->update($this->tablePosting)
+									 ->where(
+										 $queryBuilderPostings->expr()->eq(
+											 'uid',
+											 $queryBuilderPostings->createNamedParameter($record['uid'], \PDO::PARAM_INT)
+										 )
+									 )
+									 ->set('locations', 1);
+				//$databaseQueries[] = $queryBuilderPostings->getSQL();
+				$queryBuilderPostings->execute();
 			}
-			return $updateNeeded;
+
+			return true;
 		}
 
 		public function updateNecessary(): bool
 		{
-			// TODO: Implement updateNecessary() method.
+			$updateNeeded = false;
+
+			if ($this->checkIfNeeded())
+			{
+				$updateNeeded = true;
+			}
+
+			return $updateNeeded;
 		}
 
 		public function getPrerequisites(): array
@@ -71,33 +124,32 @@
 		 * @return bool
 		 * @throws \InvalidArgumentException
 		 */
-		protected function checkIfPostingsHasLocations(): bool
+		protected function checkIfNeeded(): bool
 		{
-			// wenn in Location etwas anderes als 0 drin steht und Locations nicht existiert oder nichts drinsteht
-
+			/** @var  $connectionPool ConnectionPool */
 			$connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
+			$connection = $connectionPool->getConnectionForTable($this->tablePosting);
 
-			// Wenn es location gar nicht mehr gibt, hör auf
-			$tableColumns = $connectionPool->getSchemaManager()->listTableColumns($this->tablePosting);
-			if (!isset($tableColumns[$this->oldFieldName])) {
+			// Stop if there is no location field
+			$tableColumns = $connection->getSchemaManager()->listTableColumns($this->tablePosting);
+			if (!isset($tableColumns[$this->oldFieldName]))
+			{
 				return false;
 			}
 
 			$queryBuilder = $connectionPool->getQueryBuilderForTable($this->tablePosting);
 			$queryBuilder->getRestrictions()->removeAll()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
 
-			// Wenn es Felder gibt, wo bei location etwas drin steht, aber in locations nicht
+			// Are there postings with associated locations?
 			$numberOfEntries = $queryBuilder
 				->count('uid')
 				->from($this->tablePosting)
 				->where(
-					$queryBuilder->expr()->and(
-						$queryBuilder->expr()->neq($this->oldFieldName, $queryBuilder->createNamedParameter(0)),
-						$queryBuilder->expr()->eq($this->oldFieldName, $queryBuilder->createNamedParameter(0))
-					)
+					$queryBuilder->expr()->neq($this->oldFieldName, $queryBuilder->createNamedParameter(0))
 				)
 				->execute()
-				->fetchColumn();
+				->fetchOne();
+
 			return $numberOfEntries > 0;
 		}
 	}
