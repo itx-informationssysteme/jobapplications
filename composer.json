@@ -31,7 +31,7 @@
     "phpstan/phpstan": "^1.4",
     "typo3/cms-scheduler": "*",
     "typo3/cms-dashboard": "*",
-    "typo3/install": "*"
+    "typo3/cms-install": "*"
   },
   "extra": {
     "typo3/cms": {
