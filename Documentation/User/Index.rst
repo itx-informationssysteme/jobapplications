@@ -137,8 +137,8 @@ With this setting enabled, new fields will show up, so you can enter the texts f
 
   * posting title: %postingTitle%
   * applicant salutation: %applicantSalutation%
-  * applicant first name: %applicantFirstname%
-  * applicant last name: %applicantLastname%
+  * applicant first name: %applicantFirstName%
+  * applicant last name: %applicantLastName%
 
 Should applications be saved in the backend?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
