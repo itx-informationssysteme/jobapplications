@@ -1,4 +1,5 @@
 <html data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
+
 <f:layout name="Default"/>
 
 <f:section name="content">
@@ -49,9 +50,9 @@
 						<f:form.checkbox checked="{f:if(condition: '{archivedSelected} == 1', then: 'checked')}" name="archived" value="1"/>
 					</div>
 					<div class="filter-buttons">
-						<f:form.submit class="btn-jobapplications form-btn" name="submit" value="{f:translate(key: 'fe.posting.button.filter')}"></f:form.submit>
+						<f:form.submit class="btn btn-primary" name="submit" value="{f:translate(key: 'fe.posting.button.filter')}"></f:form.submit>
 
-						<f:link.action action="listApplications" class="btn-jobapplications form-btn btn-secondary" name="reset">
+						<f:link.action action="listApplications" class="btn btn-default" name="reset">
 							<f:translate key="fe.posting.button.reset"></f:translate>
 						</f:link.action>
 					</div>
@@ -104,7 +105,7 @@
 											<span>
 											<f:format.date format="{f:translate(key: 'date_format')}">{application.crdate}</f:format.date>
 										</span>
-											<f:link.action action="showApplication" arguments="{application: application}" class="btn-jobapplications">
+											<f:link.action action="showApplication" arguments="{application: application}" class="btn btn-primary">
 												<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.listApplications.showButton"/>
 											</f:link.action>
 										</div>

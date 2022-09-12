@@ -3,6 +3,7 @@
     <file source-language="en" datatype="plaintext" original="EXT:jobapplications/Resources/Private/Language/locallang_mod" date="2019-10-21T16:03:17Z" product-name="jobapplications">
         <header/>
         <body>
+
             <trans-unit id="mlang_tabs_tab" resname="mlang_tabs_tab">
                 <source>Applications</source>
             </trans-unit>

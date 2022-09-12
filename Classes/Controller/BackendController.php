@@ -167,8 +167,8 @@
 			// apply actual filter, handles query as well when no filters specified
 			$applications = $this->applicationRepository->findByFilter($selectedContact, $selectedPosting, $selectedStatus, 0, 'crdate', 'DESC');
 
-			// Set posting-selectBox content dynamically based on selected contact
-			if (empty($selectedPosting) && $selectedContact !== null)
+			// Set posting-selectBox content dynamically based on selected contact empty($selectedPosting)
+			if ( $selectedPosting === null && $selectedContact !== null)
 			{
 				$postingsFilter = $this->postingRepository->findByContact($selectedContact);
 			}

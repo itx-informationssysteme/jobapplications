@@ -7,6 +7,8 @@
 @color-grey: rgba(0, 0, 0, 0.13);
 @color-white-hover: #e2e2e2;
 
+
+
 html {
 	box-sizing: border-box;
 	font-size: 10px !important;
@@ -20,6 +22,10 @@ body {
 div {
 	display: block;
 	box-sizing: border-box;
+}
+
+.module-body{
+	background-color: #fff;
 }
 
 h1 {
@@ -38,6 +44,8 @@ h3 {
 hr {
 	border-top: 1px solid @color-grey;
 }
+
+
 
 #typo3-inner-docbody {
 	padding: 0;
@@ -69,7 +77,7 @@ hr {
 
 .btn-jobapplications {
 	background-color: transparent;
-	border: none;
+	//border: none;
 	color: @color-black;
 	padding: 1rem 2rem;
 	margin: 0 2rem;
@@ -77,6 +85,7 @@ hr {
 	transition: background-color 0.1s, color 0.1s, opacity 0.1s;
 	text-align: center;
 	font-size: 1.4rem;
+	border-radius: 0.125rem;
 
 	&:hover {
 		background-color: @color-primary;
@@ -140,10 +149,23 @@ hr {
 
 			.filter-buttons {
 				float: right;
+				margin-top: 25px;
 
 				.form-btn {
 					margin-top: 2.2rem;
 					float: left;
+				}
+
+				.btn {
+					&.btn-default {
+						font-size: 1.3rem;
+						height: 3rem;
+						width: 10rem;
+						padding: 0.5rem;
+						margin-bottom: auto;
+						margin-top: auto;
+						background-color: #eeeeee;
+					}
 				}
 			}
 		}
@@ -159,8 +181,11 @@ hr {
 		overflow-y: auto;
 		display: block;
 
+
+
+
 		ul.application-list {
-			padding: 0;
+			padding: 10px;
 			text-decoration: none;
 			list-style: none;
 
@@ -170,12 +195,14 @@ hr {
 				display: inline-block;
 				padding: 2rem;
 				border: solid 1px rgba(0, 0, 0, 0.13);
-				border-radius: 8px;
+				border-radius: 0.125rem;
+				background-color: #eee;
 
 				.list-item-container {
 					display: flex;
 					flex-flow: row;
-					justify-content: space-between;
+					justify-content: space-around;
+					align-items: center;
 					font-size: 1.4rem;
 
 					div {
@@ -185,6 +212,18 @@ hr {
 
 					span, a {
 						display: inline-block;
+
+					}
+
+					@media only screen and (max-width: 1050px){
+						font-size: 12px;
+					}
+
+					@media only screen and (max-width: 850px){
+						height: 150px;
+						flex-flow: column;
+
+
 					}
 				}
 
@@ -199,20 +238,87 @@ hr {
 
 			&.left {
 				text-align: left;
+				width: 13%;
+
+				@media only screen and (max-width: 900px){
+					width: 60%;
+					text-align: center;
+				}
+
+				@media only screen and (max-width: 750px){
+					width: 80%;
+				}
+
+				@media only screen and (max-width: 600px){
+					width: 100%;
+				}
 			}
 
 			&.middle {
 				text-align: center;
+				width:43%;
+
+				@media only screen and (max-width: 900px){
+				width: 60%;
+				}
+
+				@media only screen and (max-width: 750px){
+					width: 80%;
+					margin-top: 10px;
+					margin-bottom: 10px;
+				}
+
+				@media only screen and (max-width: 600px){
+					width: 100%;
+				}
 			}
 
 			&.right {
 				display: flex;
 				text-align: right;
+				width: 43%;
+				justify-content: space-between;
+				color: @color-black;
+
+
 
 				.status-select {
+
+					margin-top: 0;
 					select {
+						/*display: flex;
 						margin-left: 0px !important;
+						color: red;
+						border:1.5px solid red;
+						justify-content: center;
+						padding: 4px;
+						border-radius: 6px;
+						min-width: 105px;*/
+
+						display: block;
+						padding: 0.375rem 0.75rem;
+						font-weight: 400;
+						font-size: 1.4rem;
+						line-height: 1.5;
+						color: #495057;
+						background-color: #fff;
+						background-clip: padding-box;
+						border: 1px solid #bbb;
+						border-radius: 0;
+						transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+						margin: auto 2rem auto 0;
+						min-width: 130px;
+						background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23333333' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+						background-repeat: no-repeat;
+						background-position: right 0.5rem center;
+						background-size: 16px 12px;
+
 					}
+
+				}
+
+				.status-select option{
+					text-align: left;
 				}
 
 				span {
@@ -225,14 +331,69 @@ hr {
 						text-align: left;
 						float: left;
 						width: 60%;
-						margin-bottom: 0.5rem !important;
+						//margin-bottom: 0.5rem !important;
 					}
 
 					.btn-jobapplications {
 						width: 40%;
-						margin: 1vw 0 0;
+						margin: 0 0 0;
+
 					}
 				}
+
+				@media only screen and (max-width: 900px){
+					width: 60%;
+				}
+
+				@media only screen and (max-width: 750px){
+					width: 80%;
+				}
+
+				@media only screen and (max-width: 600px){
+					width: 50%;
+					flex-flow: wrap;
+					justify-content: center;
+					align-items: center;
+
+
+					.status-select{
+						align-self: center;
+
+
+						select{
+							margin-right: 0;
+							max-width: 100%;
+						}
+
+					}
+
+					span {
+						text-align: center;
+
+					}
+
+
+
+				}
+
+				@media only screen and (max-width: 400px){
+					width: 100%;
+				}
+
+				@media only screen and (max-width: 300px){
+
+					.status-select{
+						width: 100%;
+						select{
+							max-width: 80px;
+							font-size:1.2rem;
+						}
+					}
+
+
+				}
+
+
 			}
 		}
 	}
@@ -249,6 +410,7 @@ hr {
 		border-radius: 8px;
 		text-align: center;
 		font-size: 1.4rem;
+		background-color: #eee;
 
 		&.archived {
 			background-color: @color-grey;
@@ -256,13 +418,15 @@ hr {
 
 		.row {
 			width: 100%;
-			margin: 0;
+
+			margin-top: 4px;
 
 			label {
 				display: block;
 				float: left;
 				width: 45%;
 				text-align: right;
+				margin: 0;
 			}
 
 			span {
@@ -337,7 +501,6 @@ hr {
 			}
 
 			.date {
-				float: right;
 				width: auto;
 			}
 
@@ -350,14 +513,16 @@ hr {
 	}
 
 	.container-buttons {
-		width: 66%;
+		width: 80%;
+		height: 30%;
 		margin: 2rem auto auto;
 		display: flex;
 		text-align: center;
 		justify-content: space-between;
 
-		.btn-jobapplications {
-			margin: unset;
+		.btn {
+			height: auto;
+
 		}
 	}
 }
@@ -365,9 +530,9 @@ hr {
 .status-select {
 	width: auto;
 	margin: 0 !important;
-	margin-bottom: -5px !important;
+	//margin-bottom: -5px !important;
 	display: inline-block;
-	margin-top: 0.8rem !important;
+	//margin-top: 0.8rem !important;
 	float: left;
 
 	.spinner {
@@ -455,6 +620,7 @@ hr {
 			font-size: 1.6rem;
 			line-height: 1.5;
 			margin: auto 2rem;
+			border-radius: 20px;
 
 			span {
 				display: block;
@@ -491,19 +657,160 @@ hr {
 }
 
 .settings {
+
 	padding: 2rem;
+
 
 	.middle {
 
 		display: flex;
 		padding: 2rem;
 
+		@media only screen and(max-width: 750px){
+			flex-flow: wrap;
+			justify-content: center;
+
+
+		}
+
 		.container {
-			padding: 1rem;
+			padding: 2rem;
 			width: 45%;
 			margin: 0 5%;
 			border: solid 1px rgba(0, 0, 0, 0.13);
-			border-radius: 8px;
+			background-color: #eee;
+			border-radius: 0.125rem;
+
+
+
+			.btn {
+				&.btn-primary{
+					margin:0;
+				}
+
+				form {
+					width: 100%;
+
+					input{
+
+					}
+				}
+
+			}
+
+			@media only screen and (max-width: 1185px) {
+				.btn {
+					&.btn-primary{
+						margin-top: 10px;
+
+					}
+				}
+			}
+
+			@media only screen and(max-width: 750px){
+				margin-bottom: 10px;
+				min-width: 80%;
+
+				.btn {
+					&.btn-primary{
+						margin-top: 0;
+
+					}
+				}
+
+			}
+
+
+
+
+			@media only screen and (max-width: 616px) {
+				.btn {
+					&.btn-primary{
+						margin-top: 10px;
+
+					}
+				}
+			}
+
+			@media only screen and (max-width: 560px){
+				input{
+					max-width: 100px;
+				}
+
+				select{
+					margin-top: 10px;
+				}
+			}
+
+			@media only screen and (max-width: 400px){
+				.container {
+					form{
+						p{
+							font-size: 1rem;
+						}
+
+					}
+				}
+			}
+
 		}
 	}
+
 }
+
+.form-select-sm{
+	background-color: #fefefe;
+	width: 200px;
+	height: 3rem;
+	font-size: 1.4rem;
+	padding: 0.375rem 2.25rem 0.375rem 0.5rem;
+	font-weight: 400;
+	box-shadow: inset 0 1px 2px rgb(0 0 0 / 8%);
+
+	option{
+		padding-top: 2px;
+		padding-bottom: 2px;
+	}
+}
+
+.pagination li  a{
+
+	font-size: 1.3rem;
+}
+
+.btn {
+
+	/*&.btn-default{
+		font-size: 1.3rem;
+		height: 3rem;
+		width: 10rem;
+		padding: 0.5rem;
+		margin-bottom: auto;
+		margin-top: auto;
+		background-color: #eeeeee;
+	}*/
+
+	&.btn-primary{
+		font-size: 1.3rem;
+		height: 3rem;
+		width: 10rem;
+		padding: 0.5rem;
+		margin-bottom: auto;
+		margin-top: auto;
+		background-color: #0078e6;
+	}
+
+	&.btn-critical{
+		font-size: 1.3rem;
+		height: 3rem;
+		width: 10rem;
+		padding: 0.5rem;
+		margin-bottom: auto;
+		margin-top: auto;
+		color: white;
+		background-color: #c83c3c;
+	}
+
+}
+
+

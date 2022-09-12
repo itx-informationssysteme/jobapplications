@@ -3,8 +3,12 @@
     <file source-language="en" target-language="de" datatype="plaintext" original="EXT:jobapplications/Resources/Private/Language/locallang" date="2019-10-21T16:03:17Z" product-name="jobapplications">
         <header/>
         <body>
+            <trans-unit id="tx_jobapplications_domain_model_posting.date_of_application" resname="tx_jobapplications_domain_model_posting.date_of_application" approved="yes">
+                <source>Date of Application</source>
+                <target state="translated">Eingangsdatum</target>
+            </trans-unit>
             <trans-unit id="date_format" resname="date_format">
-                <source>m-d-Y</source>
+                <source>%d %m %Y</source>
                 <target state="translated">d.m.Y</target>
             </trans-unit>
             <trans-unit id="tx_jobapplications_domain_model_posting" resname="tx_jobapplications_domain_model_posting" approved="yes">
