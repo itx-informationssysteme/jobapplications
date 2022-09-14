@@ -7,8 +7,6 @@
 @color-grey: rgba(0, 0, 0, 0.13);
 @color-white-hover: #e2e2e2;
 
-
-
 html {
 	box-sizing: border-box;
 	font-size: 10px !important;
@@ -26,6 +24,10 @@ div {
 
 .module-body{
 	background-color: #fff;
+
+	@media only screen and (max-width: 400px){
+		//padding: 1px;
+	}
 }
 
 h1 {
@@ -44,8 +46,6 @@ h3 {
 hr {
 	border-top: 1px solid @color-grey;
 }
-
-
 
 #typo3-inner-docbody {
 	padding: 0;
@@ -73,7 +73,6 @@ hr {
 		}
 	}
 }
-
 
 .btn-jobapplications {
 	background-color: transparent;
@@ -165,6 +164,16 @@ hr {
 						margin-bottom: auto;
 						margin-top: auto;
 						background-color: #eeeeee;
+
+
+					}
+
+
+				}
+
+				@media only screen and(max-width: 320px){
+					.btn{
+						margin-bottom: 5px;
 					}
 				}
 			}
@@ -180,9 +189,6 @@ hr {
 		height: auto;
 		overflow-y: auto;
 		display: block;
-
-
-
 
 		ul.application-list {
 			padding: 10px;
@@ -280,8 +286,6 @@ hr {
 				justify-content: space-between;
 				color: @color-black;
 
-
-
 				.status-select {
 
 					margin-top: 0;
@@ -331,6 +335,8 @@ hr {
 						text-align: left;
 						float: left;
 						width: 60%;
+						margin-top: 5px;
+						margin-bottom: 5px;
 						//margin-bottom: 0.5rem !important;
 					}
 
@@ -355,10 +361,8 @@ hr {
 					justify-content: center;
 					align-items: center;
 
-
 					.status-select{
 						align-self: center;
-
 
 						select{
 							margin-right: 0;
@@ -369,11 +373,7 @@ hr {
 
 					span {
 						text-align: center;
-
 					}
-
-
-
 				}
 
 				@media only screen and (max-width: 400px){
@@ -385,15 +385,11 @@ hr {
 					.status-select{
 						width: 100%;
 						select{
-							max-width: 80px;
+							max-width: 65px;
 							font-size:1.2rem;
 						}
 					}
-
-
 				}
-
-
 			}
 		}
 	}
@@ -404,14 +400,14 @@ hr {
 
 	.personal-description {
 		padding: 5rem;
-		width: 66%;
+		width: 50%;
 		margin: auto;
 		border: solid 1px rgba(0, 0, 0, 0.13);
 		border-radius: 8px;
 		text-align: center;
 		font-size: 1.4rem;
 		background-color: #eee;
-
+		min-width: 300px;
 		&.archived {
 			background-color: @color-grey;
 		}
@@ -421,12 +417,22 @@ hr {
 
 			margin-top: 4px;
 
+			select{
+
+				text-align: left;
+				width: 70px;
+				option{
+					text-align: left;
+				}
+			}
+
 			label {
 				display: block;
 				float: left;
 				width: 45%;
 				text-align: right;
 				margin: 0;
+
 			}
 
 			span {
@@ -498,6 +504,8 @@ hr {
 				width: 80%;
 				margin: auto;
 				float: left;
+
+
 			}
 
 			.date {
@@ -510,10 +518,27 @@ hr {
 				width: 10%;
 			}
 		}
+
+		@media only screen and (max-width: 600px){
+			font-size: 1.2rem;
+
+			.name{
+				font-size: 1.3rem;
+			}
+
+		}
+
+		@media only screen and (max-width: 300px){
+			font-size: 1rem;
+			min-width: 240px;
+			padding: 2px;
+			margin:auto;
+
+		}
 	}
 
 	.container-buttons {
-		width: 80%;
+		width: 50%;
 		height: 30%;
 		margin: 2rem auto auto;
 		display: flex;
@@ -521,9 +546,20 @@ hr {
 		justify-content: space-between;
 
 		.btn {
+			width: auto;
 			height: auto;
-
+			margin: 5px;
 		}
+
+
+
+		@media only screen and (max-width: 400px){
+			flex-flow: wrap;
+		}
+	}
+
+	@media only screen and (max-width: 400px){
+		padding:0;
 	}
 }
 
@@ -607,12 +643,11 @@ hr {
 
 		.button-box {
 			display: inline-block;
-			background-color: @color-primary;
-			border: 0.2rem solid @color-primary;
+			background-color: #0078e6;
+			border: 0.2rem solid #005db3;
 			width: 26vh;
 			height: 26vh;
 			padding: 1rem;
-			transition: background-color 0.1s, color 0.1s, border 0.1s, box-shadow 0.1s, font-size 0.1s;
 			box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
 			text-align: center;
 			color: @color-white;
@@ -621,6 +656,7 @@ hr {
 			line-height: 1.5;
 			margin: auto 2rem;
 			border-radius: 20px;
+			transition: 0.3s ease-in-out;
 
 			span {
 				display: block;
@@ -632,19 +668,60 @@ hr {
 			}
 
 			&:hover {
-				border: 0.2rem solid @color-white;
-				font-size: 1.5rem;
+				border: 0.2rem solid whitesmoke;
+				font-size: 1.6rem;
 				cursor: pointer;
 				text-decoration: none;
 				color: @color-white;
 				box-shadow: none;
 				line-height: 1.5;
+				transition: 0.3s ease-in-out;
+
+
+
+				@media only screen and(max-width: 400px){
+					font-size: 1.1rem;
+				}
+
+				@media only screen and(max-width: 300px){
+					font-size: 1.1rem;
+				}
+
+				@media only screen and(max-width: 280px){
+					font-size: 0.9rem;
+				}
 			}
+
+			@media only screen and(max-width: 680px){
+				margin-bottom: 10px;
+			}
+
+			@media only screen and(max-width: 400px){
+				width: 17vh;
+				height: 17vh;
+				font-size: 1.1rem;
+			}
+
+			@media only screen and(max-width: 300px){
+				width: 15vh;
+				height: 15vh;
+				font-size: 1.1rem;
+			}
+
+			@media only screen and(max-width: 280px){
+
+				font-size: 0.9rem;
+			}
+
 		}
 
 		.settings {
-			background-color: #ffd02a;
-			border: 0.2rem solid #ffd02a;
+			background-color: #0078e6;
+			border: 0.2rem solid #005db3;
+		}
+
+		@media only screen and(max-width: 680px){
+			position: unset;
 		}
 	}
 }
@@ -654,6 +731,10 @@ hr {
 	bottom: 1rem;
 	width: 98%;
 	text-align: center;
+
+	@media only screen and(max-width: 475px){
+		position: unset;
+	}
 }
 
 .settings {
@@ -669,8 +750,6 @@ hr {
 		@media only screen and(max-width: 750px){
 			flex-flow: wrap;
 			justify-content: center;
-
-
 		}
 
 		.container {
@@ -682,6 +761,17 @@ hr {
 			border-radius: 0.125rem;
 
 
+			p{
+				margin-bottom: 50px;
+			}
+
+			select{
+				padding: 4px;
+			}
+
+			input{
+				padding: 1px;
+			}
 
 			.btn {
 				&.btn-primary{
@@ -699,12 +789,18 @@ hr {
 			}
 
 			@media only screen and (max-width: 1185px) {
+
+				min-width: 300px;
 				.btn {
 					&.btn-primary{
 						margin-top: 10px;
 
 					}
 				}
+			}
+
+			@media only screen and (max-width: 850px){
+				min-width: 250px;
 			}
 
 			@media only screen and(max-width: 750px){
@@ -719,9 +815,6 @@ hr {
 				}
 
 			}
-
-
-
 
 			@media only screen and (max-width: 616px) {
 				.btn {
@@ -743,15 +836,16 @@ hr {
 			}
 
 			@media only screen and (max-width: 400px){
+				min-width: 200px;
 				.container {
 					form{
-						p{
-							font-size: 1rem;
-						}
-
+							font-size: 10px;
 					}
 				}
 			}
+
+
+
 
 		}
 	}
