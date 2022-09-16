@@ -217,7 +217,7 @@
 		 *
 		 * @return mixed
 		 */
-		private function findBestPluginPageFit(array $contentElements, Posting $posting): mixed
+		private function findBestPluginPageFit(array $contentElements, Posting $posting)
 		{
 			$postingCategories = $posting->getCategories()->toArray();
 
