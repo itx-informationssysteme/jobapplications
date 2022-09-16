@@ -28,6 +28,6 @@ jobs:
                     php-version: ${{ matrix.php-version }}
                     coverage: none
 
-            -   run: composer install --no-progress
+            -   run: composer install --no-progress --no-suggest --no-interaction
 
             -   run: vendor/bin/phpstan analyse Classes -c phpstan.neon
