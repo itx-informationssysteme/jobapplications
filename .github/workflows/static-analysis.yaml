@@ -27,7 +27,10 @@ jobs:
                 with:
                     php-version: ${{ matrix.php-version }}
                     coverage: none
+                    tools: composer:v2
 
-            -   run: yes y | composer install --no-progress
+            -   run: composer config --no-plugins allow-plugins.typo3/class-alias-loader true && composer config --no-plugins allow-plugins.typo3/cms-composer-installers true
+
+            -   run: composer install --no-progress
 
             -   run: vendor/bin/phpstan analyse Classes -c phpstan.neon
