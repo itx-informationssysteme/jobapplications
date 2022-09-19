@@ -180,6 +180,14 @@
 		 */
 		protected $categories = null;
 
+
+		/**
+		 * region
+		 *
+		 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobapplications\Domain\Model\Region>
+		 */
+		protected $regions = null;
+
 		/**
 		 * __construct
 		 */
@@ -685,5 +693,23 @@
 		public function setEndtime($endtime)
 		{
 			$this->endtime = $endtime;
+		}
+
+		/**
+		 * @return region
+		 */
+		public function getRegions()
+		{
+			return $this->regions;
+		}
+
+		/**
+		 * @param $regions
+		 *
+		 * @return void
+		 */
+		public  function setRegions(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $regions)
+		{
+			$this->regions = $regions;
 		}
 	}

@@ -4,8 +4,10 @@
 
 	use ITX\Jobapplications\Domain\Model\Constraint;
 	use ITX\Jobapplications\Domain\Model\Location;
+	use ITX\Jobapplications\Domain\Model\Region;
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Repository\LocationRepository;
+	use ITX\Jobapplications\Domain\Repository\RegionRepository;
 	use ITX\Jobapplications\Domain\Repository\PostingRepository;
 	use ITX\Jobapplications\Event\DisplayPostingEvent;
 	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
@@ -18,6 +20,7 @@
 	use TYPO3\CMS\Core\Http\ImmediateResponseException;
 	use TYPO3\CMS\Core\Page\PageRenderer;
 	use TYPO3\CMS\Core\Pagination\SimplePagination;
+	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Core\Utility\MathUtility;
 	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -252,7 +255,11 @@
 				$title = $posting->getTitle();
 			}
 
+
+
 			$titleProvider->setTitle($title);
+
+
 
 			$this->addGoogleJobsDataToPage($posting);
 
@@ -337,10 +344,13 @@
 						"streetAddress" => $location->getAddressStreetAndNumber(),
 						"addressLocality" => $location->getAddressCity(),
 						"postalCode" => $location->getAddressPostCode(),
-						"addressCountry" => $location->getAddressCountry()
+						"addressCountry" => $location->getAddressCountry(),
+						"addressRegion" => $location->getAddressRegion()
 					]
 				];
 			}
+
+
 
 			$googleJobsJSON = [
 				"@context" => "http://schema.org",
@@ -352,6 +362,7 @@
 				"jobLocation" => $arrayLocations,
 				"title" => $posting->getTitle(),
 				"employmentType" => $employmentTypes
+
 			];
 
 			$googleJobsJSON["hiringOrganization"] = $hiringOrganization;
