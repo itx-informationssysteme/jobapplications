@@ -58,7 +58,7 @@ CREATE TABLE tx_jobapplications_domain_model_location
 	latitude                  varchar(255)     DEFAULT ''  NOT NULL,
 	londitude                 varchar(255)     DEFAULT ''  NOT NULL,
 	categories                int(11) unsigned DEFAULT '0' NOT NULL,
-	address_region					  varchar(255) 	   DEFAULT ''  NOT NULL
+	address_region			  varchar(255) 	   DEFAULT ''  NOT NULL
 
 );
 

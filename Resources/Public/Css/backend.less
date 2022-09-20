@@ -22,12 +22,9 @@ div {
 	box-sizing: border-box;
 }
 
-.module-body{
+.module-body {
 	background-color: #fff;
 
-	@media only screen and (max-width: 400px){
-		//padding: 1px;
-	}
 }
 
 h1 {
@@ -76,7 +73,6 @@ hr {
 
 .btn-jobapplications {
 	background-color: transparent;
-	//border: none;
 	color: @color-black;
 	padding: 1rem 2rem;
 	margin: 0 2rem;
@@ -164,15 +160,11 @@ hr {
 						margin-bottom: auto;
 						margin-top: auto;
 						background-color: #eeeeee;
-
-
 					}
-
-
 				}
 
-				@media only screen and(max-width: 320px){
-					.btn{
+				@media only screen and(max-width: 320px) {
+					.btn {
 						margin-bottom: 5px;
 					}
 				}
@@ -221,15 +213,13 @@ hr {
 
 					}
 
-					@media only screen and (max-width: 1050px){
+					@media only screen and (max-width: 1050px) {
 						font-size: 12px;
 					}
 
-					@media only screen and (max-width: 850px){
+					@media only screen and (max-width: 850px) {
 						height: 150px;
 						flex-flow: column;
-
-
 					}
 				}
 
@@ -246,35 +236,35 @@ hr {
 				text-align: left;
 				width: 13%;
 
-				@media only screen and (max-width: 900px){
+				@media only screen and (max-width: 900px) {
 					width: 60%;
 					text-align: center;
 				}
 
-				@media only screen and (max-width: 750px){
+				@media only screen and (max-width: 750px) {
 					width: 80%;
 				}
 
-				@media only screen and (max-width: 600px){
+				@media only screen and (max-width: 600px) {
 					width: 100%;
 				}
 			}
 
 			&.middle {
 				text-align: center;
-				width:43%;
+				width: 43%;
 
-				@media only screen and (max-width: 900px){
-				width: 60%;
+				@media only screen and (max-width: 900px) {
+					width: 60%;
 				}
 
-				@media only screen and (max-width: 750px){
+				@media only screen and (max-width: 750px) {
 					width: 80%;
 					margin-top: 10px;
 					margin-bottom: 10px;
 				}
 
-				@media only screen and (max-width: 600px){
+				@media only screen and (max-width: 600px) {
 					width: 100%;
 				}
 			}
@@ -289,16 +279,8 @@ hr {
 				.status-select {
 
 					margin-top: 0;
-					select {
-						/*display: flex;
-						margin-left: 0px !important;
-						color: red;
-						border:1.5px solid red;
-						justify-content: center;
-						padding: 4px;
-						border-radius: 6px;
-						min-width: 105px;*/
 
+					select {
 						display: block;
 						padding: 0.375rem 0.75rem;
 						font-weight: 400;
@@ -309,7 +291,7 @@ hr {
 						background-clip: padding-box;
 						border: 1px solid #bbb;
 						border-radius: 0;
-						transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+						transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 						margin: auto 2rem auto 0;
 						min-width: 130px;
 						background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23333333' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
@@ -318,10 +300,9 @@ hr {
 						background-size: 16px 12px;
 
 					}
-
 				}
 
-				.status-select option{
+				.status-select option {
 					text-align: left;
 				}
 
@@ -337,38 +318,35 @@ hr {
 						width: 60%;
 						margin-top: 5px;
 						margin-bottom: 5px;
-						//margin-bottom: 0.5rem !important;
 					}
 
 					.btn-jobapplications {
 						width: 40%;
 						margin: 0 0 0;
-
 					}
 				}
 
-				@media only screen and (max-width: 900px){
+				@media only screen and (max-width: 900px) {
 					width: 60%;
 				}
 
-				@media only screen and (max-width: 750px){
+				@media only screen and (max-width: 750px) {
 					width: 80%;
 				}
 
-				@media only screen and (max-width: 600px){
+				@media only screen and (max-width: 600px) {
 					width: 50%;
 					flex-flow: wrap;
 					justify-content: center;
 					align-items: center;
 
-					.status-select{
+					.status-select {
 						align-self: center;
 
-						select{
+						select {
 							margin-right: 0;
 							max-width: 100%;
 						}
-
 					}
 
 					span {
@@ -376,17 +354,18 @@ hr {
 					}
 				}
 
-				@media only screen and (max-width: 400px){
+				@media only screen and (max-width: 400px) {
 					width: 100%;
 				}
 
-				@media only screen and (max-width: 300px){
+				@media only screen and (max-width: 300px) {
 
-					.status-select{
+					.status-select {
 						width: 100%;
-						select{
+
+						select {
 							max-width: 65px;
-							font-size:1.2rem;
+							font-size: 1.2rem;
 						}
 					}
 				}
@@ -408,6 +387,7 @@ hr {
 		font-size: 1.4rem;
 		background-color: #eee;
 		min-width: 300px;
+
 		&.archived {
 			background-color: @color-grey;
 		}
@@ -417,11 +397,12 @@ hr {
 
 			margin-top: 4px;
 
-			select{
+			select {
 
 				text-align: left;
 				width: 70px;
-				option{
+
+				option {
 					text-align: left;
 				}
 			}
@@ -432,7 +413,6 @@ hr {
 				width: 45%;
 				text-align: right;
 				margin: 0;
-
 			}
 
 			span {
@@ -504,8 +484,6 @@ hr {
 				width: 80%;
 				margin: auto;
 				float: left;
-
-
 			}
 
 			.date {
@@ -519,21 +497,19 @@ hr {
 			}
 		}
 
-		@media only screen and (max-width: 600px){
+		@media only screen and (max-width: 600px) {
 			font-size: 1.2rem;
 
-			.name{
+			.name {
 				font-size: 1.3rem;
 			}
-
 		}
 
-		@media only screen and (max-width: 300px){
+		@media only screen and (max-width: 300px) {
 			font-size: 1rem;
 			min-width: 240px;
 			padding: 2px;
-			margin:auto;
-
+			margin: auto;
 		}
 	}
 
@@ -552,23 +528,20 @@ hr {
 		}
 
 
-
-		@media only screen and (max-width: 400px){
+		@media only screen and (max-width: 400px) {
 			flex-flow: wrap;
 		}
 	}
 
-	@media only screen and (max-width: 400px){
-		padding:0;
+	@media only screen and (max-width: 400px) {
+		padding: 0;
 	}
 }
 
 .status-select {
 	width: auto;
 	margin: 0 !important;
-	//margin-bottom: -5px !important;
 	display: inline-block;
-	//margin-top: 0.8rem !important;
 	float: left;
 
 	.spinner {
@@ -677,42 +650,39 @@ hr {
 				line-height: 1.5;
 				transition: 0.3s ease-in-out;
 
-
-
-				@media only screen and(max-width: 400px){
+				@media only screen and(max-width: 400px) {
 					font-size: 1.1rem;
 				}
 
-				@media only screen and(max-width: 300px){
+				@media only screen and(max-width: 300px) {
 					font-size: 1.1rem;
 				}
 
-				@media only screen and(max-width: 280px){
+				@media only screen and(max-width: 280px) {
 					font-size: 0.9rem;
 				}
 			}
 
-			@media only screen and(max-width: 680px){
+			@media only screen and(max-width: 680px) {
 				margin-bottom: 10px;
 			}
 
-			@media only screen and(max-width: 400px){
+			@media only screen and(max-width: 400px) {
 				width: 17vh;
 				height: 17vh;
 				font-size: 1.1rem;
 			}
 
-			@media only screen and(max-width: 300px){
+			@media only screen and(max-width: 300px) {
 				width: 15vh;
 				height: 15vh;
 				font-size: 1.1rem;
 			}
 
-			@media only screen and(max-width: 280px){
+			@media only screen and(max-width: 280px) {
 
 				font-size: 0.9rem;
 			}
-
 		}
 
 		.settings {
@@ -720,7 +690,7 @@ hr {
 			border: 0.2rem solid #005db3;
 		}
 
-		@media only screen and(max-width: 680px){
+		@media only screen and(max-width: 680px) {
 			position: unset;
 		}
 	}
@@ -732,7 +702,7 @@ hr {
 	width: 98%;
 	text-align: center;
 
-	@media only screen and(max-width: 475px){
+	@media only screen and(max-width: 475px) {
 		position: unset;
 	}
 }
@@ -741,13 +711,12 @@ hr {
 
 	padding: 2rem;
 
-
 	.middle {
 
 		display: flex;
 		padding: 2rem;
 
-		@media only screen and(max-width: 750px){
+		@media only screen and(max-width: 750px) {
 			flex-flow: wrap;
 			justify-content: center;
 		}
@@ -760,99 +729,91 @@ hr {
 			background-color: #eee;
 			border-radius: 0.125rem;
 
-
-			p{
+			p {
 				margin-bottom: 50px;
 			}
 
-			select{
+			select {
 				padding: 4px;
 			}
 
-			input{
+			input {
 				padding: 1px;
 			}
 
 			.btn {
-				&.btn-primary{
-					margin:0;
+				&.btn-primary {
+					margin: 0;
 				}
 
 				form {
 					width: 100%;
 
-					input{
+					input {
 
 					}
 				}
-
 			}
 
 			@media only screen and (max-width: 1185px) {
 
 				min-width: 300px;
 				.btn {
-					&.btn-primary{
+					&.btn-primary {
 						margin-top: 10px;
 
 					}
 				}
 			}
 
-			@media only screen and (max-width: 850px){
+			@media only screen and (max-width: 850px) {
 				min-width: 250px;
 			}
 
-			@media only screen and(max-width: 750px){
+			@media only screen and(max-width: 750px) {
 				margin-bottom: 10px;
 				min-width: 80%;
 
 				.btn {
-					&.btn-primary{
+					&.btn-primary {
 						margin-top: 0;
 
 					}
 				}
-
 			}
 
 			@media only screen and (max-width: 616px) {
 				.btn {
-					&.btn-primary{
+					&.btn-primary {
 						margin-top: 10px;
 
 					}
 				}
 			}
 
-			@media only screen and (max-width: 560px){
-				input{
+			@media only screen and (max-width: 560px) {
+				input {
 					max-width: 100px;
 				}
 
-				select{
+				select {
 					margin-top: 10px;
 				}
 			}
 
-			@media only screen and (max-width: 400px){
+			@media only screen and (max-width: 400px) {
 				min-width: 200px;
 				.container {
-					form{
-							font-size: 10px;
+					form {
+						font-size: 10px;
 					}
 				}
 			}
-
-
-
-
 		}
 	}
-
 }
 
-.form-select-sm{
+.form-select-sm {
 	background-color: #fefefe;
 	width: 200px;
 	height: 3rem;
@@ -861,30 +822,20 @@ hr {
 	font-weight: 400;
 	box-shadow: inset 0 1px 2px rgb(0 0 0 / 8%);
 
-	option{
+	option {
 		padding-top: 2px;
 		padding-bottom: 2px;
 	}
 }
 
-.pagination li  a{
+.pagination li a {
 
 	font-size: 1.3rem;
 }
 
 .btn {
 
-	/*&.btn-default{
-		font-size: 1.3rem;
-		height: 3rem;
-		width: 10rem;
-		padding: 0.5rem;
-		margin-bottom: auto;
-		margin-top: auto;
-		background-color: #eeeeee;
-	}*/
-
-	&.btn-primary{
+	&.btn-primary {
 		font-size: 1.3rem;
 		height: 3rem;
 		width: 10rem;
@@ -894,7 +845,7 @@ hr {
 		background-color: #0078e6;
 	}
 
-	&.btn-critical{
+	&.btn-critical {
 		font-size: 1.3rem;
 		height: 3rem;
 		width: 10rem;
@@ -904,6 +855,5 @@ hr {
 		color: white;
 		background-color: #c83c3c;
 	}
-
 }
 

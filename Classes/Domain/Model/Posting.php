@@ -184,9 +184,9 @@
 		/**
 		 * region
 		 *
-		 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobapplications\Domain\Model\Region>
+		 * @var string
 		 */
-		protected $regions = null;
+		protected $regions = '';
 
 		/**
 		 * __construct
@@ -698,7 +698,7 @@
 		/**
 		 * @return region
 		 */
-		public function getRegions()
+		public function getRegions():string
 		{
 			return $this->regions;
 		}
@@ -708,7 +708,7 @@
 		 *
 		 * @return void
 		 */
-		public  function setRegions(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $regions)
+		public  function setRegions(string $regions)
 		{
 			$this->regions = $regions;
 		}

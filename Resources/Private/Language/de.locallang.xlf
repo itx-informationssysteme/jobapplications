@@ -8,7 +8,7 @@
                 <target state="translated">Eingangsdatum</target>
             </trans-unit>
             <trans-unit id="date_format" resname="date_format">
-                <source>%d %m %Y</source>
+                <source>m-d-Y</source>
                 <target state="translated">d.m.Y</target>
             </trans-unit>
             <trans-unit id="tx_jobapplications_domain_model_posting" resname="tx_jobapplications_domain_model_posting" approved="yes">
