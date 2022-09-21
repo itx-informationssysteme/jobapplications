@@ -196,6 +196,21 @@
 			<f:link.action action="showApplication" arguments="{application: application, delete: 1}" class="btn btn-critical">
 				<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.show.delete"></f:translate>
 			</f:link.action>
+			<f:if condition="{application.status}">
+					<f:form action="showApplication" arguments="{application: application}" class="status-select" id="show-spinner" name="status">
+						<f:form.select additionalAttributes="{onchange: 'this.form.submit(); document.getElementsByClassName(\'spinner\')[0].classList.add(\'spinner-active\')'}" name="status">
+							<f:form.select.option additionalAttributes="{selected: true}" value="{application.status.uid}">
+								{application.status.name}
+							</f:form.select.option>
+							<f:for as="status" each="{application.status.followers}">
+								<f:form.select.option value="{status.uid}">
+									{status.name}
+								</f:form.select.option>
+							</f:for>
+						</f:form.select>
+						<f:image class="spinner" src="{f:uri.resource(path:'Icons/spinner.svg')}"></f:image>
+					</f:form>
+			</f:if>
 		</div>
 	</div>
 </f:section>
