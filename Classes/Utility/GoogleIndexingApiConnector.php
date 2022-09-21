@@ -38,6 +38,7 @@
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Domain\Model\Category;
 	use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
+	use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 
 	/**
 	 * Class GoogleIndexingApiConnector
@@ -134,7 +135,9 @@
 				}
 			}
 
-			$uriBuilder = new FrontendUriBuilder();
+			//$uriBuilder = new FrontendUriBuilder();
+
+			$uriBuilder = new UriBuilder();
 
 			/** @var QueryResult $contentElements */
 			$contentElements = $this->ttContentRepository->findByListType("jobapplications_frontend");
@@ -148,13 +151,18 @@
 
 			$detailViewUid = (int)$this->findBestPluginPageFit($contentElements, $posting);
 
-			$url = $uriBuilder->setController("Posting")
+			/*$url = $uriBuilder->setController("Posting")
 							  ->setAction("show")
 							  ->setPageId($detailViewUid)
 							  ->setPlugin("detailview")
 							  ->setArguments(['posting' => $posting])
 							  ->setExtensionName("jobapplications")
-							  ->build();
+							  ->build();*/
+
+			$url = $uriBuilder
+				->reset()
+				->setTargetPageUid($detailViewUid)
+				->uriFor('show', ['posting' => $posting], "Posting", "Jobapplications",  "DetailView");
 
 			if ($delete === true)
 			{
