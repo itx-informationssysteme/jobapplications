@@ -35,11 +35,12 @@
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Messaging\FlashMessageService;
 	use TYPO3\CMS\Core\Service\FlexFormService;
+	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Domain\Model\Category;
 	use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
-	use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
-
+	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+	use TYPO3\CMS\Extbase\Object\ObjectManager;
 	/**
 	 * Class GoogleIndexingApiConnector
 	 *
@@ -137,7 +138,8 @@
 
 			//$uriBuilder = new FrontendUriBuilder();
 
-			$uriBuilder = new UriBuilder();
+			//$uriBuilder = new UriBuilder();
+
 
 			/** @var QueryResult $contentElements */
 			$contentElements = $this->ttContentRepository->findByListType("jobapplications_frontend");
@@ -159,10 +161,45 @@
 							  ->setExtensionName("jobapplications")
 							  ->build();*/
 
+
+
+
+			//$objectManager = GeneralUtility::makeInstance(TYPO3\CMS\Extbase\Object\ObjectManager::class);
+			//$uriBuilder = $objectManager->get(\TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder::class);
+
+			$uriBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class)
+											->get(\TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder::class);
+
+			DebugUtility::debug($uriBuilder);
+
+			//$uriBuilder->injectConfigurationManager();
+			//$uriBuilder->initializeObject();
+
 			$url = $uriBuilder
 				->reset()
 				->setTargetPageUid($detailViewUid)
-				->uriFor('show', ['posting' => $posting], "Posting", "Jobapplications",  "DetailView");
+				->setArgumentPrefix("tx_jobapplications_detailview")
+				->uriForFrontend('show', ['posting' => $posting], "Posting", "Jobapplications",  "DetailView");
+
+
+
+
+
+
+
+
+			/*$url = $uriBuilder
+				->reset()
+				->setTargetPageUid($detailViewUid)
+				->setArgumentPrefix("tx_jobapplications_detailview")
+				->setArguments([
+					'posting' => $posting
+				   	])
+				->buildFrontendUri();*/
+
+
+			DebugUtility::debug($url);
+
 
 			if ($delete === true)
 			{
