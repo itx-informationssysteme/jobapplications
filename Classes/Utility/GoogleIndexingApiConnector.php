@@ -27,6 +27,7 @@
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Repository\PostingRepository;
 	use ITX\Jobapplications\Domain\Repository\TtContentRepository;
+	use ITX\Jobapplications\Routing\uriBuilderJobapplications;
 	use JsonException;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\Core\Environment;
@@ -136,10 +137,6 @@
 				}
 			}
 
-			//$uriBuilder = new FrontendUriBuilder();
-
-			//$uriBuilder = new UriBuilder();
-
 
 			/** @var QueryResult $contentElements */
 			$contentElements = $this->ttContentRepository->findByListType("jobapplications_frontend");
@@ -153,52 +150,15 @@
 
 			$detailViewUid = (int)$this->findBestPluginPageFit($contentElements, $posting);
 
-			/*$url = $uriBuilder->setController("Posting")
-							  ->setAction("show")
-							  ->setPageId($detailViewUid)
-							  ->setPlugin("detailview")
-							  ->setArguments(['posting' => $posting])
-							  ->setExtensionName("jobapplications")
-							  ->build();*/
-
-
-
-
-			//$objectManager = GeneralUtility::makeInstance(TYPO3\CMS\Extbase\Object\ObjectManager::class);
-			//$uriBuilder = $objectManager->get(\TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder::class);
 
 			$uriBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class)
-											->get(\TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder::class);
-
-			DebugUtility::debug($uriBuilder);
-
-			//$uriBuilder->injectConfigurationManager();
-			//$uriBuilder->initializeObject();
+										->get(uriBuilderJobapplications::class);
 
 			$url = $uriBuilder
 				->reset()
 				->setTargetPageUid($detailViewUid)
 				->setArgumentPrefix("tx_jobapplications_detailview")
 				->uriForFrontend('show', ['posting' => $posting], "Posting", "Jobapplications",  "DetailView");
-
-
-
-
-
-
-
-
-			/*$url = $uriBuilder
-				->reset()
-				->setTargetPageUid($detailViewUid)
-				->setArgumentPrefix("tx_jobapplications_detailview")
-				->setArguments([
-					'posting' => $posting
-				   	])
-				->buildFrontendUri();*/
-
-
-			DebugUtility::debug($url);
 
 
 			if ($delete === true)
