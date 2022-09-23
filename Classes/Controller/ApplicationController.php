@@ -25,6 +25,7 @@
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
 
+	use http\Exception\InvalidArgumentException;
 	use ITX\Jobapplications\Domain\Model\Application;
 	use ITX\Jobapplications\Domain\Model\Contact;
 	use ITX\Jobapplications\Domain\Model\Posting;
@@ -66,6 +67,7 @@
 	use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 	use TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter;
 	use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+	use TYPO3\CMS\Install\FolderStructure\Exception;
 
 	/**
 	 * ApplicationController
@@ -330,6 +332,9 @@
 			$fileIndices = ['cv', 'cover_letter', 'testimonials', 'other_files'];
 
 			$fileStorage = (int)($this->settings['fileStorage'] ?? 1);
+
+
+
 
 			// Normalize file array -> free choice whether multi or single upload
 			foreach ($fileIndices as $fileIndex)
