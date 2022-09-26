@@ -173,13 +173,21 @@
 		</p>
 	</small>
 	<f:if condition="{settings.honeypot} == 1">
-		<div class="honey">
-			<label for="message">
-				<f:translate key="tx_jobapplications_domain_model_application.email"/>
-			</label>
-			<f:form.textarea additionalAttributes="{maxlength: settings.messageMaxLength}" class="form-control" rows="10"></f:form.textarea>
+		<div class="new-mail">
+			<f:form.textfield additionalAttributes="{tabindex: '-1'}" class="form-control" name="new_mail"/>
 		</div>
-
+		<style>
+			.new-mail{
+				opacity: 0;
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 0;
+				width: 0;
+				z-index: -1;
+				tab-index: -1;
+			}
+		</style>
 	</f:if>
 </div>
 <f:render arguments="{_all}" partial="Application/FilepondConfig"></f:render>
@@ -194,16 +202,4 @@
 		</label>
 	</div>
 </div>
-
-<style>
-	/*.honey{
-		opacity: 0;
-		position: absolute;
-		top: 0;
-		left: 0;
-		height: 0;
-		width: 0;
-		z-index: -1;
-	}*/
-</style>
 </html>

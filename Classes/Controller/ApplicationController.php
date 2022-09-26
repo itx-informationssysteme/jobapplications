@@ -25,7 +25,6 @@
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
 
-	use http\Exception\InvalidArgumentException;
 	use ITX\Jobapplications\Domain\Model\Application;
 	use ITX\Jobapplications\Domain\Model\Contact;
 	use ITX\Jobapplications\Domain\Model\Posting;
@@ -333,8 +332,7 @@
 
 			$fileStorage = (int)($this->settings['fileStorage'] ?? 1);
 
-
-
+			$this->test_honeypot($arguments, $posting);
 
 			// Normalize file array -> free choice whether multi or single upload
 			foreach ($fileIndices as $fileIndex)
@@ -693,6 +691,21 @@
 						["files" => $totalFiles], [
 							'uid' => $objectUid
 						]);
+			}
+		}
+
+		/**
+		 * @param $arguments The arguments of the page
+		 * @param $posting The posting on which the message should be displayed
+		 *
+		 * @return void
+		 */
+		private function test_honeypot($arguments, $posting):void
+		{
+			if (array_key_exists("honeypot", $this->settings) && $this->settings["honeypot"] === '1' && $arguments["new_mail"] !== '')
+			{
+				$this->addFlashMessage("That shouldn't have happened, please try again.", "Oops", FlashMessage::ERROR);
+				$this->redirect("new", "Application", null, ["posting" => $posting]);
 			}
 		}
 
