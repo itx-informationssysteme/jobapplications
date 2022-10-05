@@ -1,6 +1,5 @@
 <html data-namespace-typo3-fluid="true" xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 <f:layout name="Default"/>
-
 <f:section name="content">
 	<div class="showapplication-wrapper">
 		<h1>
@@ -8,12 +7,11 @@
 		</h1>
 		<div class="personal-description {f:if(condition: '{application.archived}', then: 'archived')}">
 			<div class="row">
-				<div class="placeholder">&nbsp;</div>
+
 				<h5 class="name">
 					<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.application.selector.{application.salutation}"/>
 					{application.firstName} {application.lastName}
 				</h5>
-				<span class="date"><f:format.date format="{f:translate(key: 'date_format')}">{application.crdate}</f:format.date></span>
 			</div>
 			<div class="row">
 				<label>
@@ -29,6 +27,15 @@
 							{application.posting.title}
 						</f:else>
 					</f:if>
+				</span>
+			</div>
+			<div class="row">
+				<label>
+					<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_posting.date_of_application"></f:translate>
+					:
+				</label>
+				<span>
+					<span class="date"><f:format.date format="{f:translate(key: 'date_format')}">{application.crdate}</f:format.date></span>
 				</span>
 			</div>
 			<div class="row">
@@ -101,11 +108,67 @@
 					</f:else>
 				</f:if>
 			</div>
+			<div class="row file-container">
+				<f:for as="file" each="{application.cv}">
+					<a class="file" download href="{file.originalResource.publicUrl}">
+						<img alt="pdf" class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}">
+						<span><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.cv"/></span>
+						<img alt="download" class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}">
+					</a>
+				</f:for>
+				<f:for as="file" each="{application.coverLetter}">
+					<a class="file" download href="{file.originalResource.publicUrl}">
+						<img alt="pdf" class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}">
+						<span><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.cover_letter"/></span>
+						<img alt="download" class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}">
+					</a>
+				</f:for>
+				<f:for as="file" each="{application.testimonials}">
+					<a class="file" download href="{file.originalResource.publicUrl}">
+						<img alt="pdf" class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}">
+						<span><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.testimonials"/></span>
+						<img alt="download" class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}">
+					</a>
+				</f:for>
+				<f:for as="file" each="{application.otherFiles}">
+					<a class="file" download href="{file.originalResource.publicUrl}">
+						<img alt="pdf" class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}">
+						<span><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.other_files"/></span>
+						<img alt="download" class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}">
+					</a>
+				</f:for>
+				<f:for as="file" each="{application.files}">
+					<a class="file" download href="{file.originalResource.publicUrl}">
+						<img alt="pdf" class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}">
+						<span>{file.originalResource.name}</span>
+						<img alt="download" class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}">
+					</a>
+				</f:for>
+			</div>
+		</div>
+		<div class="container-buttons">
+			<f:link.action action="listApplications" arguments="{contact: contact}" class="btn btn-primary" id="btn-show-back">
+				<f:translate key="fe.posting.show.backlink"/>
+			</f:link.action>
+			<f:if condition="{application.archived}">
+				<f:then>
+					<f:link.action action="showApplication" arguments="{application: application, archive: 1}" class="btn btn-primary">
+						<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.show.dearchive"></f:translate>
+					</f:link.action>
+				</f:then>
+				<f:else>
+					<f:link.action action="showApplication" arguments="{application: application, archive: 1}" class="btn btn-primary">
+						<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.show.archive"></f:translate>
+					</f:link.action>
+				</f:else>
+			</f:if>
+			<f:link.action action="showApplication" arguments="{application: application, delete: 1}" class="btn btn-critical">
+				<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.show.delete"></f:translate>
+			</f:link.action>
 			<f:if condition="{application.status}">
-				<div class="row">
-					<label>
-						<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.status"></f:translate>
-						:&nbsp;</label>
+				<div class="status-container">
+					<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.filter.status"></f:translate>
+					:
 					<f:form action="showApplication" arguments="{application: application}" class="status-select" id="show-spinner" name="status">
 						<f:form.select additionalAttributes="{onchange: 'this.form.submit(); document.getElementsByClassName(\'spinner\')[0].classList.add(\'spinner-active\')'}" name="status">
 							<f:form.select.option additionalAttributes="{selected: true}" value="{application.status.uid}">
@@ -121,68 +184,6 @@
 					</f:form>
 				</div>
 			</f:if>
-			<div class="row file-container">
-				<f:for as="file" each="{application.cv}">
-					<a class="file" download href="{file.originalResource.publicUrl}">
-						<img alt="pdf" class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}">
-						<span><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.cv"/></span>
-						<img alt="download" class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}">
-					</a>
-				</f:for>
-
-				<f:for as="file" each="{application.coverLetter}">
-					<a class="file" download href="{file.originalResource.publicUrl}">
-						<img alt="pdf" class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}">
-						<span><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.cover_letter"/></span>
-						<img alt="download" class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}">
-					</a>
-				</f:for>
-
-				<f:for as="file" each="{application.testimonials}">
-					<a class="file" download href="{file.originalResource.publicUrl}">
-						<img alt="pdf" class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}">
-						<span><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.testimonials"/></span>
-						<img alt="download" class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}">
-					</a>
-				</f:for>
-
-				<f:for as="file" each="{application.otherFiles}">
-					<a class="file" download href="{file.originalResource.publicUrl}">
-						<img alt="pdf" class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}">
-						<span><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.other_files"/></span>
-						<img alt="download" class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}">
-					</a>
-				</f:for>
-
-				<f:for as="file" each="{application.files}">
-					<a class="file" download href="{file.originalResource.publicUrl}">
-						<img alt="pdf" class="icon-pdf" src="{f:uri.resource(path:'Icons/icon_pdf.svg')}">
-						<span>{file.originalResource.name}</span>
-						<img alt="download" class="icon-download" src="{f:uri.resource(path:'Icons/icon_download.png')}">
-					</a>
-				</f:for>
-			</div>
-		</div>
-		<div class="container-buttons">
-			<f:link.action action="listApplications" arguments="{contact: contact}" class="btn-jobapplications btn-secondary" id="btn-show-back">
-				<f:translate key="fe.posting.show.backlink"/>
-			</f:link.action>
-			<f:if condition="{application.archived}">
-				<f:then>
-					<f:link.action action="showApplication" arguments="{application: application, archive: 1}" class="btn-jobapplications btn-secondary">
-						<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.show.dearchive"></f:translate>
-					</f:link.action>
-				</f:then>
-				<f:else>
-					<f:link.action action="showApplication" arguments="{application: application, archive: 1}" class="btn-jobapplications btn-secondary">
-						<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.show.archive"></f:translate>
-					</f:link.action>
-				</f:else>
-			</f:if>
-
-			<f:link.action action="showApplication" arguments="{application: application, delete: 1}" class="btn-jobapplications btn-critical">
-				<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.show.delete"></f:translate>
-			</f:link.action>
 		</div>
 	</div>
 </f:section>
