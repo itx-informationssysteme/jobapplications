@@ -353,7 +353,8 @@
 					."<br>".$posting->getBenefits(),
 				"jobLocation" => $arrayLocations,
 				"title" => $posting->getTitle(),
-				"employmentType" => $employmentTypes
+				"employmentType" => $employmentTypes,
+				"directApply" => $this->settings["applicationsEnabled"] === "1"
 			];
 
 			$googleJobsJSON["hiringOrganization"] = $hiringOrganization;
