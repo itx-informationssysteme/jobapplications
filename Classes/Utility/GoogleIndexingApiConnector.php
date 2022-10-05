@@ -27,7 +27,7 @@
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Repository\PostingRepository;
 	use ITX\Jobapplications\Domain\Repository\TtContentRepository;
-	use ITX\Jobapplications\Routing\uriBuilderJobapplications;
+	use ITX\Jobapplications\Routing\UriBuilderJobapplications;
 	use JsonException;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\Core\Environment;
@@ -36,11 +36,9 @@
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Messaging\FlashMessageService;
 	use TYPO3\CMS\Core\Service\FlexFormService;
-	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Domain\Model\Category;
 	use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
-	use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 	use TYPO3\CMS\Extbase\Object\ObjectManager;
 	/**
 	 * Class GoogleIndexingApiConnector
@@ -152,7 +150,7 @@
 
 
 			$uriBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class)
-										->get(uriBuilderJobapplications::class);
+										->get(UriBuilderJobapplications::class);
 
 			$url = $uriBuilder
 				->reset()

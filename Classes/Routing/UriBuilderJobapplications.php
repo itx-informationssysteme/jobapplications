@@ -13,7 +13,7 @@
 	 * @extends TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 	 * @package ITX\Jobapplications\Routing;
 	 */
-	class uriBuilderJobapplications extends \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder
+	class UriBuilderJobapplications extends \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder
 	{
 		public function uriForFrontend(
 			?string $actionName = null,
