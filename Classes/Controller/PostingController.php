@@ -330,14 +330,16 @@
 
 			$arrayLocations = [];
 			/** @var Location $location */
-			foreach($posting->getLocations() as $location) {
-				$arrayLocations[] =  [
+			foreach ($posting->getLocations() as $location)
+			{
+				$arrayLocations[] = [
 					"@type" => "Place",
 					"address" => [
 						"streetAddress" => $location->getAddressStreetAndNumber(),
 						"addressLocality" => $location->getAddressCity(),
 						"postalCode" => $location->getAddressPostCode(),
-						"addressCountry" => $location->getAddressCountry()
+						"addressCountry" => $location->getAddressCountry(),
+						"addressRegion" => $location->getAddressRegion()
 					]
 				];
 			}

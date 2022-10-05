@@ -20,7 +20,7 @@
 			'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/Extension.svg'
 		],
 		'types' => [
-			'1' => ['showitem' => 'name,address_street_and_number,address_addition,address_post_code,address_city,address_country,latitude,londitude,--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access,sys_language_uid,hidden,starttime,endtime,l10n_parent,l10n_diffsource'],
+			'1' => ['showitem' => 'name,address_street_and_number,address_addition,address_post_code,address_city,address_country,address_region,latitude,londitude,--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access,sys_language_uid,hidden,starttime,endtime,l10n_parent,l10n_diffsource'],
 		],
 		'columns' => [
 			'sys_language_uid' => [
@@ -150,6 +150,15 @@
 			'address_country' => [
 				'exclude' => true,
 				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.address_country',
+				'config' => [
+					'type' => 'input',
+					'size' => 30,
+					'eval' => 'trim'
+				],
+			],
+			'address_region' => [
+				'exclude' => true,
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.address_region',
 				'config' => [
 					'type' => 'input',
 					'size' => 30,

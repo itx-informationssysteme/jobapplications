@@ -180,6 +180,14 @@
 		 */
 		protected $categories = null;
 
+
+		/**
+		 * region
+		 *
+		 * @var string
+		 */
+		protected $regions = '';
+
 		/**
 		 * __construct
 		 */
@@ -685,5 +693,23 @@
 		public function setEndtime($endtime)
 		{
 			$this->endtime = $endtime;
+		}
+
+		/**
+		 * @return region
+		 */
+		public function getRegions():string
+		{
+			return $this->regions;
+		}
+
+		/**
+		 * @param $regions
+		 *
+		 * @return void
+		 */
+		public  function setRegions(string $regions)
+		{
+			$this->regions = $regions;
 		}
 	}
