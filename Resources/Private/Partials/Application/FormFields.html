@@ -175,19 +175,8 @@
 	<f:if condition="{settings.honeypot} == 1">
 		<div class="new-mail">
 			<f:form.textfield additionalAttributes="{tabindex: '-1'}" class="form-control" name="new_mail"/>
+			<input name="tx_jobapplications_applicationform[timestamp]" id="timestamp">
 		</div>
-		<style>
-			.new-mail{
-				opacity: 0;
-				position: absolute;
-				top: 0;
-				left: 0;
-				height: 0;
-				width: 0;
-				z-index: -1;
-				tab-index: -1;
-			}
-		</style>
 	</f:if>
 </div>
 <f:render arguments="{_all}" partial="Application/FilepondConfig"></f:render>
