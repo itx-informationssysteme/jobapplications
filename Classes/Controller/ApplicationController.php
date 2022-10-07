@@ -66,7 +66,6 @@
 	use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 	use TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter;
 	use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-	use TYPO3\CMS\Install\FolderStructure\Exception;
 
 	/**
 	 * ApplicationController
