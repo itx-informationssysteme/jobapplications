@@ -98,12 +98,12 @@
 		 *
 		 * @param              $uid
 		 * @param bool         $delete
-		 * @param Posting|null $specificPosting
+		 * @param null         $specificPosting
 		 *
-		 * @return bool
-		 * @throws \Exception
+		 * @return bool|null
+		 * @throws JsonException
 		 */
-		public function updateGoogleIndex($uid, bool $delete, Posting $specificPosting = null): ?bool
+		public function updateGoogleIndex($uid, bool $delete, $specificPosting = null): ?bool
 		{
 			if (Environment::getContext()->isDevelopment() && $this->backendConfiguration['indexing_api_dev'] === "0")
 			{

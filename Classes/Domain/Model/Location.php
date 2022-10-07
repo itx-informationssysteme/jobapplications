@@ -1,7 +1,7 @@
 <?php
 
 	namespace ITX\Jobapplications\Domain\Model;
-	
+
 	use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 	/***************************************************************
 	 *  Copyright notice
@@ -72,6 +72,13 @@
 		 * @var string
 		 */
 		protected $addressCountry = '';
+
+		/**
+		 * addressRegion
+		 *
+		 * @var string
+		 */
+		protected $addressRegion = '';
 
 		/**
 		 * latitude
@@ -175,6 +182,19 @@
 		public function setAddressCountry(string $addressCountry): void
 		{
 			$this->addressCountry = $addressCountry;
+		}
+
+		/**
+		 * @return string
+		 */
+		public function getAddressRegion():string
+		{
+			return $this->addressRegion;
+		}
+
+		public function setAddressRegion(string $addressRegion):void
+		{
+			$this->addressRegion = $addressRegion;
 		}
 
 		/**

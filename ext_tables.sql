@@ -25,7 +25,6 @@ CREATE TABLE tx_jobapplications_domain_model_posting
 	locations            int(11) unsigned DEFAULT '0' NOT NULL,
 	contact             int(11) unsigned DEFAULT '0',
 	slug                varchar(255)     DEFAULT ''  NOT NULL
-
 );
 
 #
@@ -58,7 +57,8 @@ CREATE TABLE tx_jobapplications_domain_model_location
 	address_country           varchar(255)     DEFAULT ''  NOT NULL,
 	latitude                  varchar(255)     DEFAULT ''  NOT NULL,
 	londitude                 varchar(255)     DEFAULT ''  NOT NULL,
-	categories                int(11) unsigned DEFAULT '0' NOT NULL
+	categories                int(11) unsigned DEFAULT '0' NOT NULL,
+	address_region			  varchar(255) 	   DEFAULT ''  NOT NULL
 
 );
 
