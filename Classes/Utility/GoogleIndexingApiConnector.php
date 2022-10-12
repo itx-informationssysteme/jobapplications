@@ -27,6 +27,7 @@
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Repository\PostingRepository;
 	use ITX\Jobapplications\Domain\Repository\TtContentRepository;
+	use ITX\Jobapplications\Routing\UriBuilderJobapplications;
 	use JsonException;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\Core\Environment;
@@ -38,7 +39,7 @@
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Domain\Model\Category;
 	use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
-
+	use TYPO3\CMS\Extbase\Object\ObjectManager;
 	/**
 	 * Class GoogleIndexingApiConnector
 	 *
@@ -134,7 +135,6 @@
 				}
 			}
 
-			$uriBuilder = new FrontendUriBuilder();
 
 			/** @var QueryResult $contentElements */
 			$contentElements = $this->ttContentRepository->findByListType("jobapplications_frontend");
@@ -148,13 +148,16 @@
 
 			$detailViewUid = (int)$this->findBestPluginPageFit($contentElements, $posting);
 
-			$url = $uriBuilder->setController("Posting")
-							  ->setAction("show")
-							  ->setPageId($detailViewUid)
-							  ->setPlugin("detailview")
-							  ->setArguments(['posting' => $posting])
-							  ->setExtensionName("jobapplications")
-							  ->build();
+
+			$uriBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class)
+										->get(UriBuilderJobapplications::class);
+
+			$url = $uriBuilder
+				->reset()
+				->setTargetPageUid($detailViewUid)
+				->setArgumentPrefix("tx_jobapplications_detailview")
+				->uriForFrontend('show', ['posting' => $posting], "Posting", "Jobapplications",  "DetailView");
+
 
 			if ($delete === true)
 			{
