@@ -2,9 +2,10 @@
 
 	namespace ITX\Jobapplications\Domain\Model;
 
+	use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 	use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 	use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-	use TYPO3\CMS\Extbase\Domain\Model\FileReference;
+
 	/***************************************************************
 	 *  Copyright notice
 	 *
@@ -179,6 +180,8 @@
 		 * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
 		 */
 		protected $categories = null;
+
+		protected $slug = '';
 
 		/**
 		 * __construct
@@ -685,5 +688,21 @@
 		public function setEndtime($endtime)
 		{
 			$this->endtime = $endtime;
+		}
+
+		/**
+		 * @return string
+		 */
+		public function getSlug(): string
+		{
+			return $this->slug;
+		}
+
+		/**
+		 * @param string $slug
+		 */
+		public function setSlug(string $slug): void
+		{
+			$this->slug = $slug;
 		}
 	}

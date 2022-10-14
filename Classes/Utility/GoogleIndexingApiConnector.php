@@ -27,6 +27,7 @@
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Repository\PostingRepository;
 	use ITX\Jobapplications\Domain\Repository\TtContentRepository;
+	use ITX\Jobapplications\Routing\UriBuilderJobapplications;
 	use JsonException;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\Core\Environment;
@@ -96,14 +97,14 @@
 		/**
 		 * Sends requests to Google Indexing API
 		 *
-		 * @param              $uid
-		 * @param bool         $delete
-		 * @param Posting|null $specificPosting
+		 * @param                    $uid
+		 * @param bool               $delete
+		 * @param null|array|Posting $specificPosting
 		 *
-		 * @return bool
-		 * @throws \Exception
+		 * @return bool|null
+		 * @throws JsonException|\TYPO3\CMS\Extbase\Object\Exception
 		 */
-		public function updateGoogleIndex($uid, bool $delete, Posting $specificPosting = null): ?bool
+		public function updateGoogleIndex($uid, bool $delete, $specificPosting = null): ?bool
 		{
 			if (Environment::getContext()->isDevelopment() && $this->backendConfiguration['indexing_api_dev'] === "0")
 			{
@@ -134,8 +135,6 @@
 				}
 			}
 
-			$uriBuilder = new FrontendUriBuilder();
-
 			/** @var QueryResult $contentElements */
 			$contentElements = $this->ttContentRepository->findByListType("jobapplications_frontend");
 
@@ -148,13 +147,14 @@
 
 			$detailViewUid = (int)$this->findBestPluginPageFit($contentElements, $posting);
 
-			$url = $uriBuilder->setController("Posting")
-							  ->setAction("show")
-							  ->setPageId($detailViewUid)
-							  ->setPlugin("detailview")
-							  ->setArguments(['posting' => $posting])
-							  ->setExtensionName("jobapplications")
-							  ->build();
+			$uriBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class)
+										->get(UriBuilderJobapplications::class);
+
+			$url = $uriBuilder
+				->reset()
+				->setTargetPageUid($detailViewUid)
+				->setArgumentPrefix("tx_jobapplications_detailview")
+				->uriForFrontend('show', ['posting' => $posting], "Posting", "Jobapplications", "DetailView", true);
 
 			if ($delete === true)
 			{
@@ -217,7 +217,7 @@
 		 *
 		 * @return mixed
 		 */
-		private function findBestPluginPageFit(array $contentElements, Posting $posting): mixed
+		private function findBestPluginPageFit(array $contentElements, Posting $posting)
 		{
 			$postingCategories = $posting->getCategories()->toArray();
 
@@ -283,7 +283,7 @@
 		{
 			$accessToken = "";
 
-			if (!$this->googleConfig)
+			if (!isset($this->googleConfig))
 			{
 				$this->sendFlashMessage("Misconfigured config file path OR wrong file format.", "", true);
 

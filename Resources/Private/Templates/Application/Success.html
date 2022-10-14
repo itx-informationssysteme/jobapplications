@@ -11,10 +11,10 @@
 	<f:variable name="msg" value="{jobs:format.replaceString(substring: '%salutation%', content: '{msg}', replacement: '{salutation}')}"></f:variable>
 	<f:if condition="{posting}">
 		<f:then>
-			<f:variable name="msg" value="{jobs:format.replaceString(substring: '%posting%', content: '{msg}', replacement: '{posting.title}')}"></f:variable>
+			<f:variable name="msg" value="{jobs:format.replaceString(substring: '%postingTitle%', content: '{msg}', replacement: '{posting.title}')}"></f:variable>
 		</f:then>
 		<f:else>
-			<f:variable name="msg" value="{jobs:format.replaceString(substring: '%posting%', content: '{msg}', replacement: '{f:translate(key: \'fe.application.unsolicited.title\')}')}"></f:variable>
+			<f:variable name="msg" value="{jobs:format.replaceString(substring: '%postingTitle%', content: '{msg}', replacement: '{f:translate(key: \'fe.application.unsolicited.title\')}')}"></f:variable>
 		</f:else>
 	</f:if>
 	<f:comment><!--Error handling in case there was a problem with the email server--></f:comment>

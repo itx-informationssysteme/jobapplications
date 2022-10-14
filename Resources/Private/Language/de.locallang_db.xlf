@@ -3,6 +3,10 @@
     <file source-language="en" target-language="de" datatype="plaintext" original="EXT:jobapplications/Resources/Private/Language/locallang_db" date="2019-10-21T16:03:17Z" product-name="jobapplications">
         <header/>
         <body>
+            <trans-unit id="tx_jobapplications_domain_model_posting.address_region" resname="tx_jobapplications_domain_model_posting.address_region">
+                <source>Region</source>
+                <target state="translated">Region</target>
+            </trans-unit>
             <trans-unit id="tx_jobapplications_domain_model_posting" resname="tx_jobapplications_domain_model_posting" approved="yes">
                 <source>Posting</source>
                 <target state="translated">Stellenausschreibung</target>

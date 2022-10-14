@@ -1,37 +1,35 @@
 <html data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
+
 <div class="row">
 	<div class="col">
+		<f:if condition="{posting.datePosted}">
+			<f:format.date format="{f:translate(key: 'date_format')}">{posting.datePosted}</f:format.date>
+		</f:if>
 		<hr/>
 		<div class="row">
 			<f:if condition="{posting.careerLevel}">
-				<div class="col-3">
-					<h6>
+				<div class="col mb-1">
+					<strong>
 						<f:translate key="tx_jobapplications_domain_model_posting.career_level"/>
-					</h6>
-				</div>
-				<div class="col-3">
+					</strong>
 					{posting.careerLevel}
 				</div>
 			</f:if>
 			<f:if condition="{posting.division}">
-				<div class="col-3">
-					<h6>
+				<div class="col mb-1">
+					<strong>
 						<f:translate key="tx_jobapplications_domain_model_posting.division"/>
-					</h6>
-				</div>
-				<div class="col-3">
+					</strong>
 					{posting.division}
 				</div>
 			</f:if>
 		</div>
 		<div class="row">
 			<f:if condition="{posting.employmentType}">
-				<div class="col-3">
-					<h6>
+				<div class="col mb-1">
+					<strong>
 						<f:translate key="tx_jobapplications_domain_model_posting.employment_type"/>
-					</h6>
-				</div>
-				<div class="col-3">
+					</strong>
 					<f:for as="employmentType" each="{posting.deserializedEmploymentTypes}" iteration="iterator">
 						<f:translate key="fe.posting.employment.selector.{employmentType}"/>
 						<f:if condition="!{iterator.isLast}" then=","></f:if>
@@ -39,12 +37,10 @@
 				</div>
 			</f:if>
 			<f:if condition="{posting.termsOfEmployment}">
-				<div class="col-3">
-					<h6>
+				<div class="col mb-1">
+					<strong>
 						<f:translate key="tx_jobapplications_domain_model_posting.terms_of_employment"/>
-					</h6>
-				</div>
-				<div class="col-3">
+					</strong>
 					{posting.termsOfEmployment}
 				</div>
 			</f:if>
@@ -53,9 +49,9 @@
 		<f:if condition="{posting.companyDescription}">
 			<div class="col">
 				<div class="row">
-					<h6>
+					<strong>
 						<f:translate key="tx_jobapplications_domain_model_posting.company_description"/>
-					</h6>
+					</strong>
 				</div>
 				<div class="container-flex">
 					<f:format.raw>{posting.companyDescription}</f:format.raw>
@@ -65,9 +61,9 @@
 		<f:if condition="{posting.jobDescription}">
 			<div class="col">
 				<div class="row">
-					<h6>
+					<strong>
 						<f:translate key="tx_jobapplications_domain_model_posting.job_description"/>
-					</h6>
+					</strong>
 				</div>
 				<div class="container-flex">
 					<f:format.raw>{posting.jobDescription}</f:format.raw>
@@ -77,9 +73,9 @@
 		<f:if condition="{posting.roleDescription}">
 			<div class="col">
 				<div class="row">
-					<h6>
+					<strong>
 						<f:translate key="tx_jobapplications_domain_model_posting.role_description"/>
-					</h6>
+					</strong>
 				</div>
 				<div class="container-flex">
 					<f:format.raw>{posting.roleDescription}</f:format.raw>
@@ -89,9 +85,9 @@
 		<f:if condition="{posting.skillRequirements}">
 			<div class="col">
 				<div class="row">
-					<h6>
+					<strong>
 						<f:translate key="tx_jobapplications_domain_model_posting.skill_requirements"/>
-					</h6>
+					</strong>
 				</div>
 				<div class="container-flex">
 					<f:format.raw>{posting.skillRequirements}</f:format.raw>
@@ -101,9 +97,9 @@
 		<f:if condition="{posting.benefits}">
 			<div class="col">
 				<div class="row">
-					<h6>
+					<strong>
 						<f:translate key="tx_jobapplications_domain_model_posting.benefits"/>
-					</h6>
+					</strong>
 				</div>
 				<div class="container-flex">
 					<f:format.raw>{posting.benefits}</f:format.raw>
@@ -114,9 +110,9 @@
 			<div class="row">
 				<f:if condition="{posting.baseSalary}">
 					<div class="col-3">
-						<h6>
+						<strong>
 							<f:translate key="tx_jobapplications_domain_model_posting.base_salary"/>
-						</h6>
+						</strong>
 					</div>
 					<div class="col-3">
 						{posting.baseSalary}
@@ -124,9 +120,9 @@
 				</f:if>
 				<f:if condition="{posting.endtime}">
 					<div class="col-3">
-						<h6>
+						<strong>
 							<f:translate key="tx_jobapplications_domain_model_posting.valid_through"/>
-						</h6>
+						</strong>
 					</div>
 					<div class="col-3">
 						<f:format.date format="{f:translate(key: 'date_format')}">{posting.endtime}</f:format.date>
@@ -138,9 +134,9 @@
 		<f:if condition="{posting.requiredDocuments}">
 			<div class="col">
 				<div class="row">
-					<h6>
+					<strong>
 						<f:translate key="tx_jobapplications_domain_model_posting.required_documents"/>
-					</h6>
+					</strong>
 				</div>
 				<div class="container-flex">
 					<f:format.raw>{posting.requiredDocuments}</f:format.raw>
@@ -150,9 +146,9 @@
 		<f:if condition="{posting.companyInformation}">
 			<div class="col">
 				<div class="row">
-					<h6>
+					<strong>
 						<f:translate key="tx_jobapplications_domain_model_posting.company_information"/>
-					</h6>
+					</strong>
 				</div>
 				<div class="container-flex">
 					<f:format.raw>{posting.companyInformation}</f:format.raw>
@@ -162,9 +158,9 @@
 		<f:if condition="{posting.locations}">
 			<div class="col">
 				<div class="row">
-					<h6>
+					<strong>
 						<f:translate key="tx_jobapplications_domain_model_posting.locations"/>
-					</h6>
+					</strong>
 				</div>
 				<div class="container-flex">
 					<f:for each="{posting.locations}" as="location">
@@ -186,9 +182,9 @@
 		<f:if condition="{posting.contact} && {settings.showContact}">
 			<div class="col mb-4">
 				<div class="row">
-					<h6>
+					<strong>
 						<f:translate key="tx_jobapplications_domain_model_posting.contact"/>
-					</h6>
+					</strong>
 				</div>
 				<div class="container-flex">
 					<div class="row">

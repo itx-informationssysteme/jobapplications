@@ -157,18 +157,20 @@
 				$selectedContact = $contact->getUid();
 			}
 
-			// Handle show archived applications when selected in frontend-backend
+			// Handle show archived applications when selected in frontend-backend. If archived not selected show all applications which are not archived.
 			if ($archivedSelected != 0)
 			{
-				$archivedApplications = $this->applicationRepository->findByFilter($selectedContact, $selectedPosting, $selectedStatus, 1);
-				$this->view->assign('archivedApplications', $archivedApplications);
+				// apply actual filter
+				$applications = $this->applicationRepository->findByFilter($selectedContact, $selectedPosting, $selectedStatus, 1);
+			}
+			else
+			{
+				// apply actual filter, handles query as well when no filters specified
+				$applications = $this->applicationRepository->findByFilter($selectedContact, $selectedPosting, $selectedStatus, 0, 'crdate', 'DESC');
 			}
 
-			// apply actual filter, handles query as well when no filters specified
-			$applications = $this->applicationRepository->findByFilter($selectedContact, $selectedPosting, $selectedStatus, 0, 'crdate', 'DESC');
-
-			// Set posting-selectBox content dynamically based on selected contact
-			if (empty($selectedPosting) && $selectedContact !== null)
+			// Set posting-selectBox content dynamically based on selected contact empty($selectedPosting)
+			if ($selectedPosting === null && $selectedContact !== null)
 			{
 				$postingsFilter = $this->postingRepository->findByContact($selectedContact);
 			}

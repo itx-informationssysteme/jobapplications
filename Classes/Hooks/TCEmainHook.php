@@ -96,7 +96,7 @@
 
 				if ($command === "update")
 				{
-					if ($value['hidden'] === '1')
+					if (($value['hidden']?? '') === '1')
 					{
 						$this->connector->updateGoogleIndex($uid, true);
 					}
