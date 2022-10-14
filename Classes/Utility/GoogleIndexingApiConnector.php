@@ -39,7 +39,7 @@
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Domain\Model\Category;
 	use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
-	use TYPO3\CMS\Extbase\Object\ObjectManager;
+
 	/**
 	 * Class GoogleIndexingApiConnector
 	 *
@@ -97,12 +97,12 @@
 		/**
 		 * Sends requests to Google Indexing API
 		 *
-		 * @param              $uid
-		 * @param bool         $delete
-		 * @param null         $specificPosting
+		 * @param                    $uid
+		 * @param bool               $delete
+		 * @param null|array|Posting $specificPosting
 		 *
 		 * @return bool|null
-		 * @throws JsonException
+		 * @throws JsonException|\TYPO3\CMS\Extbase\Object\Exception
 		 */
 		public function updateGoogleIndex($uid, bool $delete, $specificPosting = null): ?bool
 		{
@@ -135,7 +135,6 @@
 				}
 			}
 
-
 			/** @var QueryResult $contentElements */
 			$contentElements = $this->ttContentRepository->findByListType("jobapplications_frontend");
 
@@ -148,7 +147,6 @@
 
 			$detailViewUid = (int)$this->findBestPluginPageFit($contentElements, $posting);
 
-
 			$uriBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class)
 										->get(UriBuilderJobapplications::class);
 
@@ -156,8 +154,7 @@
 				->reset()
 				->setTargetPageUid($detailViewUid)
 				->setArgumentPrefix("tx_jobapplications_detailview")
-				->uriForFrontend('show', ['posting' => $posting], "Posting", "Jobapplications",  "DetailView");
-
+				->uriForFrontend('show', ['posting' => $posting], "Posting", "Jobapplications", "DetailView", true);
 
 			if ($delete === true)
 			{
@@ -286,7 +283,7 @@
 		{
 			$accessToken = "";
 
-			if (!$this->googleConfig)
+			if (!isset($this->googleConfig))
 			{
 				$this->sendFlashMessage("Misconfigured config file path OR wrong file format.", "", true);
 

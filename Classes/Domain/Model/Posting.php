@@ -2,9 +2,10 @@
 
 	namespace ITX\Jobapplications\Domain\Model;
 
+	use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 	use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 	use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-	use TYPO3\CMS\Extbase\Domain\Model\FileReference;
+
 	/***************************************************************
 	 *  Copyright notice
 	 *
@@ -180,13 +181,7 @@
 		 */
 		protected $categories = null;
 
-
-		/**
-		 * region
-		 *
-		 * @var string
-		 */
-		protected $regions = '';
+		protected $slug = '';
 
 		/**
 		 * __construct
@@ -696,20 +691,18 @@
 		}
 
 		/**
-		 * @return region
+		 * @return string
 		 */
-		public function getRegions():string
+		public function getSlug(): string
 		{
-			return $this->regions;
+			return $this->slug;
 		}
 
 		/**
-		 * @param $regions
-		 *
-		 * @return void
+		 * @param string $slug
 		 */
-		public  function setRegions(string $regions)
+		public function setSlug(string $slug): void
 		{
-			$this->regions = $regions;
+			$this->slug = $slug;
 		}
 	}

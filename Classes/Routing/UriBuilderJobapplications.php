@@ -6,7 +6,6 @@
 	use TYPO3\CMS\Core\Http\ApplicationType;
 	use TYPO3\CMS\Core\Utility\ArrayUtility;
 
-
 	/**
 	 * Class uriBuilderJobapplications
 	 *
@@ -20,7 +19,8 @@
 			?array  $controllerArguments = null,
 			?string $controllerName = null,
 			?string $extensionName = null,
-			?string $pluginName = null
+			?string $pluginName = null,
+			bool $absolute = false
 		): string
 		{
 			$controllerArguments = $controllerArguments ?? [];
@@ -73,6 +73,8 @@
 				$prefixedControllerArguments = [$pluginNamespace => $controllerArguments];
 			}
 			ArrayUtility::mergeRecursiveWithOverrule($this->arguments, $prefixedControllerArguments);
+
+			$this->createAbsoluteUri = $absolute;
 
 			return $this->buildFrontendUri();
 		}
