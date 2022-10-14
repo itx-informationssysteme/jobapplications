@@ -11,6 +11,18 @@
 Changelog
 =========
 
+2.1.0 - Backend module design improvements and Google for Jobs overhaul
+-----------------------------------------------------------------------
+* [FEATURE] added Google For Jobs "directApply" property #75
+* [FEATURE] improved design of the backend module to be more consistent with TYPO3
+* [FEATURE] added route enhanced URLs for Indexing API Integration #80
+* [FEATURE] added region field to location record to resemble Google For Jobs #75
+* [FIX] fixed and issue where the ViewHelper "<jobs:condition.inArray>" could not be resolved #71
+* [FIX] restored compatibility with PHP 7.4 #65 and #66
+* [FIX] fixed an issue where a missing semicolon would break script execution #76 (thank you @der-phillip)
+* [FIX] fixed the value of the placeholder %postingTitle% has no output on the success page #70
+* [FIX] fixed exception when using Google Indexing and creating a new job #78
+
 2.0.0 - [BREAKING] TYPO3 11 support and new features
 ----------------------------------------------------
 * [BREAKING] added static coding analysis via phpstan
