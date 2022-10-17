@@ -319,6 +319,12 @@
             <trans-unit id="fe.upload.server_error" resname="fe.upload.server_error">
                 <source>A server error occured</source>
             </trans-unit>
+            <trans-unit id="fe.posting.page.homeoffice" resname="fe.posting.page.homeoffice">
+                <source>Homeoffice possible</source>
+            </trans-unit>
+            <trans-unit id="fe.posting.page.from" resname="fe.posting.page.from">
+                <source>from</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -271,6 +271,35 @@
                 <source>Jobapplications</source>
                 <target state="translated">Jobapplications</target>
             </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.homeoffice" resname="tx_jobapplications_domain_model_posting.homeoffice">
+                <source>Homeoffice Possible</source>
+                <target state="translated">Homeoffice möglich</target>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.applicationLocationRequirements" resname="tx_jobapplications_domain_model_posting.applicationLocationRequirements">
+                <source>Applicant Location Requirements</source>
+                <target state="translated">Bewerber Standort Einschränkungen</target>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_applicantLocationRequirement.location_type" resname="tx_jobapplications_domain_model_applicantLocationRequirement.location_type">
+                <source>Type of location</source>
+                <target state="translated">Art des Ortes</target>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_applicantLocationRequirement.name" resname="tx_jobapplications_domain_model_applicantLocationRequirement.name">
+                <source>Location Restriction</source>
+                <target state="translated">Name Ort</target>
+            </trans-unit>
+
+            <trans-unit id="tx_jobapplications_domain_model_applicantLocationRequirement.country" resname="tx_jobapplications_domain_model_applicantLocationRequirement.country">
+                <source>Country</source>
+                <target state="translated">Land</target>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_applicantLocationRequirement.state" resname="tx_jobapplications_domain_model_applicantLocationRequirement.state">
+                <source>State</source>
+                <target state="translated">Staat</target>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_applicantLocationRequirement.city" resname="tx_jobapplications_domain_model_applicantLocationRequirement.city">
+                <source>City</source>
+                <target state="translated">Stadt</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

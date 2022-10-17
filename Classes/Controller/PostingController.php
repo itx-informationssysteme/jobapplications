@@ -18,6 +18,7 @@
 	use TYPO3\CMS\Core\Http\ImmediateResponseException;
 	use TYPO3\CMS\Core\Page\PageRenderer;
 	use TYPO3\CMS\Core\Pagination\SimplePagination;
+	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Core\Utility\MathUtility;
 	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -357,6 +358,25 @@
 				"directApply" => $this->settings["applicationsEnabled"] === "1"
 			];
 
+			if ($posting->getHomeoffice() === '1')
+			{
+				$applicantLocationRequirements = [];
+				$googleJobsJSON["jobLocationType"] = "TELECOMMUTE";
+
+				if ($posting->getLocationrequirements() !== null)
+				{
+					/** @var ApplicantLocationRequirement $applicantLocation */
+					foreach ($posting->getLocationrequirements() as $applicantLocation)
+					{
+						$applicantLocationRequirements[] = [
+							"@type" => $applicantLocation->getType(),
+							"name" => $applicantLocation->getName()
+						];
+					}
+					$googleJobsJSON["applicantLocationRequirements"] = $applicantLocationRequirements;
+				}
+			}
+
 			$googleJobsJSON["hiringOrganization"] = $hiringOrganization;
 
 			if (!empty($posting->getBaseSalary()))
@@ -372,6 +392,8 @@
 					]
 				];
 			}
+
+			DebugUtility::debug($googleJobsJSON);
 
 			if ($posting->getEndtime() instanceof \DateTime)
 			{

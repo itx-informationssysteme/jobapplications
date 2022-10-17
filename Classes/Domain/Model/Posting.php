@@ -5,6 +5,7 @@
 	use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 	use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 	use TYPO3\CMS\Extbase\Domain\Model\FileReference;
+
 	/***************************************************************
 	 *  Copyright notice
 	 *
@@ -27,6 +28,7 @@
 	 *
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
+
 	/**
 	 * A Job Posting has a location and  a contact person.
 	 */
@@ -150,6 +152,20 @@
 		protected $locations = null;
 
 		/**
+		 * homeoffice
+		 *
+		 * @var string
+		 */
+		protected $homeoffice = '';
+
+		/**
+		 * applicantlocationrequirements
+		 *
+		 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobapplications\Domain\Model\LocationRequirement>
+		 */
+		protected $locationrequirements = null;
+
+		/**
 		 * contact
 		 *
 		 * @var \ITX\Jobapplications\Domain\Model\Contact
@@ -179,7 +195,6 @@
 		 * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
 		 */
 		protected $categories = null;
-
 
 		/**
 		 * region
@@ -698,7 +713,7 @@
 		/**
 		 * @return region
 		 */
-		public function getRegions():string
+		public function getRegions(): string
 		{
 			return $this->regions;
 		}
@@ -708,8 +723,40 @@
 		 *
 		 * @return void
 		 */
-		public  function setRegions(string $regions)
+		public function setRegions(string $regions)
 		{
 			$this->regions = $regions;
+		}
+
+		/**
+		 * @return string
+		 */
+		public function getHomeoffice(): string
+		{
+			return $this->homeoffice;
+		}
+
+		/**
+		 * @param string $homeoffice
+		 */
+		public function setHomeoffice(string $homeoffice): void
+		{
+			$this->homeoffice = $homeoffice;
+		}
+
+		/**
+		 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobapplications\Domain\Model\LocationRequirement>
+		 */
+		public function getLocationrequirements()
+		{
+			return $this->locationrequirements;
+		}
+
+		/**
+		 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobapplications\Domain\Model\LocationRequirement>
+		 */
+		public function setLocationrequirements(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $locationrequirements): void
+		{
+			$this->locationrequirements = $locationrequirements;
 		}
 	}

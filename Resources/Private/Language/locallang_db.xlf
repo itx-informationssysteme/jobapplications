@@ -207,6 +207,28 @@
             <trans-unit id="tx_jobapplications_frontend.name" resname="tx_jobapplications_frontend.name">
                 <source>Jobs</source>
             </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.homeoffice" resname="tx_jobapplications_domain_model_posting.homeoffice">
+                <source>Homeoffice Possible</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.applicationLocationRequirements" resname="tx_jobapplications_domain_model_posting.applicationLocationRequirements">
+                <source>Applicant Location Requirements</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_applicantLocationRequirement.location_type" resname="tx_jobapplications_domain_model_applicantLocationRequirement.location_type">
+                <source>Type of Location</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_applicantLocationRequirement.name" resname="tx_jobapplications_domain_model_applicantLocationRequirement.name">
+                <source>Location Restriction</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_applicantLocationRequirement.country" resname="tx_jobapplications_domain_model_applicantLocationRequirement.country">
+                <source>Country</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_applicantLocationRequirement.state" resname="tx_jobapplications_domain_model_applicantLocationRequirement.state">
+                <source>State</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_applicantLocationRequirement.city" resname="tx_jobapplications_domain_model_applicantLocationRequirement.city">
+                <source>City</source>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>
