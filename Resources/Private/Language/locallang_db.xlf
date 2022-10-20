@@ -210,22 +210,22 @@
             <trans-unit id="tx_jobapplications_domain_model_posting.homeoffice" resname="tx_jobapplications_domain_model_posting.homeoffice">
                 <source>Homeoffice Possible</source>
             </trans-unit>
-            <trans-unit id="tx_jobapplications_domain_model_posting.applicationLocationRequirements" resname="tx_jobapplications_domain_model_posting.applicationLocationRequirements">
+            <trans-unit id="tx_jobapplications_domain_model_posting.location_requirements" resname="tx_jobapplications_domain_model_posting.location_requirements">
                 <source>Applicant Location Requirements</source>
             </trans-unit>
-            <trans-unit id="tx_jobapplications_domain_model_applicantLocationRequirement.location_type" resname="tx_jobapplications_domain_model_applicantLocationRequirement.location_type">
+            <trans-unit id="tx_jobapplications_domain_model_location_requirement.location_type" resname="tx_jobapplications_domain_model_location_requirement.location_type">
                 <source>Type of Location</source>
             </trans-unit>
-            <trans-unit id="tx_jobapplications_domain_model_applicantLocationRequirement.name" resname="tx_jobapplications_domain_model_applicantLocationRequirement.name">
+            <trans-unit id="tx_jobapplications_domain_model_location_requirement.name" resname="tx_jobapplications_domain_model_location_requirement.name">
                 <source>Location Restriction</source>
             </trans-unit>
-            <trans-unit id="tx_jobapplications_domain_model_applicantLocationRequirement.country" resname="tx_jobapplications_domain_model_applicantLocationRequirement.country">
+            <trans-unit id="tx_jobapplications_domain_model_location_requirement.country" resname="tx_jobapplications_domain_model_location_requirement.country">
                 <source>Country</source>
             </trans-unit>
-            <trans-unit id="tx_jobapplications_domain_model_applicantLocationRequirement.state" resname="tx_jobapplications_domain_model_applicantLocationRequirement.state">
+            <trans-unit id="tx_jobapplications_domain_model_location_requirement.state" resname="tx_jobapplications_domain_model_location_requirement.state">
                 <source>State</source>
             </trans-unit>
-            <trans-unit id="tx_jobapplications_domain_model_applicantLocationRequirement.city" resname="tx_jobapplications_domain_model_applicantLocationRequirement.city">
+            <trans-unit id="tx_jobapplications_domain_model_location_requirement.city" resname="tx_jobapplications_domain_model_location_requirement.city">
                 <source>City</source>
             </trans-unit>
 

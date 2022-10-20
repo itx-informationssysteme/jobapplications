@@ -427,7 +427,7 @@
 			],
 			'locationrequirements' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_applicantLocationRequirement.name',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_location_requirement.name',
 				'displayCond' => 'FIELD:homeoffice:REQ:true',
 				'config' => [
 					'type' => 'select',

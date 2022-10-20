@@ -18,7 +18,6 @@
 	use TYPO3\CMS\Core\Http\ImmediateResponseException;
 	use TYPO3\CMS\Core\Page\PageRenderer;
 	use TYPO3\CMS\Core\Pagination\SimplePagination;
-	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Core\Utility\MathUtility;
 	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -393,7 +392,6 @@
 				];
 			}
 
-			DebugUtility::debug($googleJobsJSON);
 
 			if ($posting->getEndtime() instanceof \DateTime)
 			{

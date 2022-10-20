@@ -182,11 +182,11 @@
 		<div class="col mb-4">
 			<f:if condition="{posting.homeoffice}">
 				<f:translate key="fe.posting.page.homeoffice"/>
-				<f:if condition="{posting.applicantlocationrequirements}">
+				<f:if condition="{posting.locationrequirements}">
 					<f:translate key="fe.posting.page.from"/>
 					:
 					<br/>
-					<f:for each="{posting.applicantlocationrequirements}" as="alr">
+					<f:for each="{posting.locationrequirements}" as="alr">
 						<f:if condition="{alr.name}">
 							{alr.name} <br/>
 						</f:if>

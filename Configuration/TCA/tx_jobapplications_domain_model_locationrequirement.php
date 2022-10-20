@@ -1,7 +1,7 @@
 <?php
 	return [
 		'ctrl' => [
-			'title' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.applicationLocationRequirements',
+			'title' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.location_requirements',
 			'label' => 'name',
 			'tstamp' => 'tstamp',
 			'crdate' => 'crdate',
@@ -104,23 +104,24 @@
 
 			'name' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_applicantLocationRequirement.name',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_location_requirement.name',
 				'config' => [
 					'type' => 'input',
 					'size' => 30,
-					'eval' => 'trim'
+					'eval' => 'trim',
+					'required' => true
 				]
 			],
 			'type' => [
 				'exclude' => true,
-				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_applicantLocationRequirement.location_type',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_location_requirement.location_type',
 				'config' => [
 					'type' => 'select',
 					'renderType' => 'selectSingle',
 					'items' => [
-						['LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_applicantLocationRequirement.country', 'Country'],
-						['LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_applicantLocationRequirement.state', 'State'],
-						['LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_applicantLocationRequirement.city', 'City']
+						['LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_location_requirement.country', 'Country'],
+						['LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_location_requirement.state', 'State'],
+						['LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_location_requirement.city', 'City']
 					]
 
 				],

@@ -47,6 +47,11 @@ Location record
 ---------------
 This record can also be referenced by a posting to provide information about the whereabouts of the position.
 
+Applicant Location Requirement record
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This record can also be referenced by a posting to provide information about the location e.g. Country/State/City from
+which working from homeoffice is possible.
+
 Name
 ~~~~
 The location record expects a name, which will be shown in the frontend by default.
@@ -113,6 +118,16 @@ Terms of employment
 This field can be used to describe the terms in a simple and short way.
 
 E.g.: fixed-term contract, temporary-contract, open-ended contract
+
+Homeoffice Possible
+~~~~~~~~~~~~~~~~~~~
+Only check this field on postings where the job can or is required to be executed 100% in an homeoffice setting.
+
+Location Restriction
+~~~~~~~~~~~~~~~~~~~~
+If the homeoffice setting is enabled you need to specify which locations the applicant is allowed to work from.
+It is required to pick at least one location when the homeoffice setting is enabled on a posting to satisfy the Google
+Jobs requirement. To specify said locations use the Applicant Location Requirement records or create a new one.
 
 Slug
 ~~~~
