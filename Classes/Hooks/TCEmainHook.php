@@ -9,6 +9,7 @@
 	use ITX\Jobapplications\Utility\GoogleIndexingApiConnector;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\DataHandling\DataHandler;
+	use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Object\ObjectManager;
 	use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
@@ -95,7 +96,7 @@
 
 				if ($command === "update")
 				{
-					if ($value['hidden'] ?? '' === '1')
+					if (($value['hidden']?? '') === '1')
 					{
 						$this->connector->updateGoogleIndex($uid, true);
 					}
