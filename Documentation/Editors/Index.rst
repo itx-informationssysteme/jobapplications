@@ -50,7 +50,9 @@ This record can also be referenced by a posting to provide information about the
 Applicant Location Requirement record
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 This record can also be referenced by a posting to provide information about the location e.g. Country/State/City from
-which working from homeoffice is possible.
+which working from homeoffice is possible. If you are not sure if your location falls under one of the previously
+mentioned options or you want to reference, for example a union of countries like the EU or an rough area of the
+world/continent/timezone, you can use the value Administrative Area.
 
 Name
 ~~~~

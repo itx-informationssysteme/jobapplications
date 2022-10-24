@@ -434,6 +434,10 @@
                 <source>from</source>
                 <target>aus</target>
             </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_location_requirement.administrative_area" resname="tx_jobapplications_domain_model_location_requirement.administrative_area">
+               <source>Administrative Area</source>
+               <target>Administrativer Bereich</target>
+           </trans-unit>
         </body>
     </file>
 </xliff>

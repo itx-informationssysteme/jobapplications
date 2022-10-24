@@ -228,7 +228,9 @@
             <trans-unit id="tx_jobapplications_domain_model_location_requirement.city" resname="tx_jobapplications_domain_model_location_requirement.city">
                 <source>City</source>
             </trans-unit>
-
+            <trans-unit id="tx_jobapplications_domain_model_location_requirement.administrative_area" resname="tx_jobapplications_domain_model_location_requirement.administrative_area">
+               <source>Administrative Area</source>
+           </trans-unit>
         </body>
     </file>
 </xliff>
