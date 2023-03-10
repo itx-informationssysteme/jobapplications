@@ -187,12 +187,11 @@
                     </settings.linkPrivacy>
                     <settings.honeypot>
                         <TCEforms>
-                            <label>Honeypot</label>
+                            <label>Enable a honeypot for extra spam protection</label>
                             <config>
                                 <type>check</type>
                                 <default>0</default>
                             </config>
-                            <onChange>reload</onChange>
                         </TCEforms>
                     </settings.honeypot>
                 </el>

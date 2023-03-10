@@ -1,3 +1,1 @@
-$().ready(function() {
-	document.getElementById('timestamp').value = Date.now() / 1000;
-});
+document.getElementById('application-timestamp').value = Date.now();

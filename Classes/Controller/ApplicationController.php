@@ -703,13 +703,13 @@
 		 * @return void
 		 * @throws StopActionException
 		 */
-		private function checkHoneypot(array $arguments, Posting $posting): void
+		private function checkHoneypot(array $arguments, ?Posting $posting): void
 		{
 			//Minimal Seconds it should take someone to fill out the form.
-			$minSecondsToFillOutForm = 3;
+			$minMillisecondsToFillOutForm = 1000;
 
 			//Is the honeypot field not empty or was the form filled out extremely fast. If yes it is likely due to a bot. Do not send form redirect to page and display error.
-			if ($arguments["new_mail"] !== '' || (time() - (int)$arguments["timestamp"]) < $minSecondsToFillOutForm)
+			if ( $arguments["new_mail"] !== '' || ($arguments["timestamp"] != '' && (microtime(as_float: true) - (int)$arguments["timestamp"]) < $minMillisecondsToFillOutForm))
 			{
 				$this->addFlashMessage("That shouldn't have happened, please try again.", "Oops", FlashMessage::ERROR);
 				$this->redirect("new", "Application", null, ["posting" => $posting]);

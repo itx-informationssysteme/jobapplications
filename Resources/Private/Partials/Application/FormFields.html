@@ -172,12 +172,6 @@
 			<f:translate key="fe.info.required"/>
 		</p>
 	</small>
-	<f:if condition="{settings.honeypot} == 1">
-		<div class="new-mail">
-			<f:form.textfield additionalAttributes="{tabindex: '-1'}" class="form-control" name="new_mail"/>
-			<input name="tx_jobapplications_applicationform[timestamp]" id="timestamp">
-		</div>
-	</f:if>
 </div>
 <f:render arguments="{_all}" partial="Application/FilepondConfig"></f:render>
 <div class="form-row">
@@ -191,4 +185,10 @@
 		</label>
 	</div>
 </div>
+<f:if condition="{settings.honeypot} == 1">
+	<div class="new-mail">
+		<f:form.textfield additionalAttributes="{tabindex: '-1'}" class="form-control" name="new_mail"/>
+		<input name="tx_jobapplications_applicationform[timestamp]" id="application-timestamp">
+	</div>
+</f:if>
 </html>
