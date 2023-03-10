@@ -166,6 +166,11 @@ Link privacy agreement page
 Assign the privacy agreement page which the applicants will have to accept when they apply.
 Make sure to open this in a new tab, otherwise all the applicants data will possibly be lost.
 
+Enable a honeypot for extra spam protection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+With this option a honeypot field and a time validation is added to the form. A honeypot field is a not visible field. If it contains any values, the chances are high that a bot filled out the form.
+The timestamp validation checks how long it took to fill out the form. If it took less than 1 second, it was probably a bot instead of a real user.
+
 Unsolicited application
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 If you want to have a form for an unsolicited application, just place the plugin on the desired page.

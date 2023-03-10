@@ -185,6 +185,15 @@
                             </config>
                         </TCEforms>
                     </settings.linkPrivacy>
+                    <settings.honeypot>
+                        <TCEforms>
+                            <label>Enable a honeypot for extra spam protection</label>
+                            <config>
+                                <type>check</type>
+                                <default>0</default>
+                            </config>
+                        </TCEforms>
+                    </settings.honeypot>
                 </el>
             </ROOT>
         </singleView>
