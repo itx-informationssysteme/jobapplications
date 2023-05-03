@@ -65,22 +65,22 @@ See the full feature list here: :ref:`features`
 
 **TYPO3**
 
-   The content of this document is related to TYPO3 CMS,
-   a GNU/GPL CMS/Framework available from `typo3.org
-   <https://typo3.org/>`_ .
+The content of this document is related to TYPO3 CMS,
+a GNU/GPL CMS/Framework available from `typo3.org
+<https://typo3.org/>`_ .
 
 **Community Documentation:**
 
-    This documentation is community documentation for the TYPO3 Jobapplications extension
+This documentation is community documentation for the TYPO3 Jobapplications extension
 
-    It is maintained as part of this third party extension.
+It is maintained as part of this third party extension.
 
-    If you find an error or something is missing, please:
-    `Report a Problem <https://github.com/TYPO3-Documentation/TYPO3CMS-Example-ExtensionManual/issues/new>`__
+If you find an error or something is missing, please:
+`Report a Problem <https://github.com/TYPO3-Documentation/TYPO3CMS-Example-ExtensionManual/issues/new>`__
 
 **Sitemap:**
 
-   :ref:`sitemap`
+:ref:`sitemap`
 
 .. ---------------------------------------------------------------
    This generates the menu
