@@ -269,6 +269,8 @@
 		/**
 		 * This function generates the Google Jobs structured on page data.
 		 * This can be overriden if any field customizations are done.
+		 *
+		 * @throws \JsonException
 		 */
 		protected function addGoogleJobsDataToPage(Posting $posting): void
 		{
@@ -357,6 +359,19 @@
 				"directApply" => $this->settings["applicationsEnabled"] === "1"
 			];
 
+			if ($posting->getHomeoffice() === '1')
+			{
+				$googleJobsJSON["jobLocationType"] = "TELECOMMUTE";
+
+				if ($posting->getLocationrequirements() !== null)
+				{
+					$googleJobsJSON["applicantLocationRequirements"] = [
+							"@type" => $posting->getLocationrequirements()->getType(),
+							"name" => $posting->getLocationrequirements()->getName()
+					];
+				}
+			}
+
 			$googleJobsJSON["hiringOrganization"] = $hiringOrganization;
 
 			if (!empty($posting->getBaseSalary()))
@@ -372,6 +387,7 @@
 					]
 				];
 			}
+
 
 			if ($posting->getEndtime() instanceof \DateTime)
 			{

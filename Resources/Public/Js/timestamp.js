@@ -1,0 +1,1 @@
+document.getElementById('application-timestamp').value = Date.now();

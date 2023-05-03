@@ -38,5 +38,7 @@
 
 			\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_jobapplications_domain_model_status', 'EXT:jobapplications/Resources/Private/Language/locallang_csh_tx_jobapplications_domain_model_status.xlf');
 			\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_jobapplications_domain_model_status');
+
+			\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_jobapplications_domain_model_locationrequirement');
 		}
 	);

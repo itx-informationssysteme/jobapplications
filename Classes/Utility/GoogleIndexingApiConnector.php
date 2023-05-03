@@ -77,7 +77,7 @@
 
 			$this->backendConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class)
 														->get('jobapplications');
-			if ($this->backendConfiguration['key_path'] !== '')
+			if (isset($this->backendConfiguration['key_path']) && $this->backendConfiguration['key_path'] !== '')
 			{
 				$fileName = GeneralUtility::getFileAbsFileName($this->backendConfiguration['key_path']);
 				if (file_exists($fileName))

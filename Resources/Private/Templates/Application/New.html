@@ -5,6 +5,10 @@
 	<f:asset.script identifier="filepond-validate" src="EXT:jobapplications/Resources/Public/Js/Vendor/filepond-plugin-file-validate-type.js" priority="true"/>
 	<f:asset.script identifier="filepond" src="EXT:jobapplications/Resources/Public/Js/Vendor/filepond.js" priority="true"/>
 	<f:asset.css identifier="filepond-css" href="EXT:jobapplications/Resources/Public/Css/Vendor/filepond.css" priority="true"/>
+	<f:asset.css identifier="frontend-css" href="EXT:jobapplications/Resources/Public/Css/frontend.css" priority="true"></f:asset.css>
+	<f:if condition="{settings.honeypot} == 1">
+		<f:asset.script identifier="timestamp" src="EXT:jobapplications/Resources/Public/Js/timestamp.min.js"/>
+	</f:if>
 
 	<f:render arguments="{posting:posting}" partial="Posting/MetaTags"/>
 	<div class="row">

@@ -69,6 +69,17 @@
 			{
 				$contacts = explode(",", $selectedContactsStr);
 				$contactObjects = $this->contactRepository->findMultipleByUid($contacts);
+
+				$sortedMap = [];
+				foreach ($contacts as $contact) {
+					$sortedMap[$contact] = null;
+				}
+
+				foreach ($contactObjects as $contactObject) {
+					$sortedMap[$contactObject->getUid()] = $contactObject;
+				}
+
+				$contactObjects = array_values($sortedMap);
 			}
 			else
 			{

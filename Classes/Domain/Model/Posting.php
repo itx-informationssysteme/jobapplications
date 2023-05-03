@@ -146,21 +146,35 @@
 		/**
 		 * locations
 		 *
-		 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobapplications\Domain\Model\Location>
+		 * @var ObjectStorage<Location>
 		 */
 		protected $locations = null;
 
 		/**
+		 * homeoffice
+		 *
+		 * @var string
+		 */
+		protected $homeoffice = '';
+
+		/**
+		 * locationrequirements
+		 *
+		 * @var LocationRequirement
+		 */
+		protected $locationrequirements = null;
+
+		/**
 		 * contact
 		 *
-		 * @var \ITX\Jobapplications\Domain\Model\Contact
+		 * @var Contact
 		 */
 		protected $contact = null;
 
 		/**
 		 * detailViewImage
 		 *
-		 * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+		 * @var FileReference
 		 * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
 		 */
 		protected $detailViewImage = null;
@@ -168,7 +182,7 @@
 		/**
 		 * listViewImage
 		 *
-		 * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+		 * @var FileReference
 		 * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
 		 */
 		protected $listViewImage = null;
@@ -176,12 +190,18 @@
 		/**
 		 * categories
 		 *
-		 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+		 * @var ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
 		 * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
 		 */
 		protected $categories = null;
 
 		protected $slug = '';
+		/**
+		 * region
+		 *
+		 * @var string
+		 */
+		protected $regions = '';
 
 		/**
 		 * __construct
@@ -525,7 +545,7 @@
 		/**
 		 * Returns the locations
 		 *
-		 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobapplications\Domain\Model\Location> $locations
+		 * @return ObjectStorage<Location> $locations
 		 */
 		public function getLocations()
 		{
@@ -535,11 +555,11 @@
 		/**
 		 * Sets the location
 		 *
-		 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobapplications\Domain\Model\Location> $locations
+		 * @param ObjectStorage<Location> $locations
 		 *
 		 * @return void
 		 */
-		public function setLocations(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $locations)
+		public function setLocations(ObjectStorage $locations)
 		{
 			$this->locations = $locations;
 		}
@@ -547,7 +567,7 @@
 		/**
 		 * Returns the contact
 		 *
-		 * @return \ITX\Jobapplications\Domain\Model\Contact $contact
+		 * @return Contact $contact
 		 */
 		public function getContact()
 		{
@@ -557,7 +577,7 @@
 		/**
 		 * Sets the contact
 		 *
-		 * @param \ITX\Jobapplications\Domain\Model\Contact $contact
+		 * @param Contact $contact
 		 *
 		 * @return void
 		 */
@@ -569,7 +589,7 @@
 		/**
 		 * Returns the detailViewImage
 		 *
-		 * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference $detailViewImage
+		 * @return FileReference $detailViewImage
 		 */
 		public function getDetailViewImage()
 		{
@@ -579,7 +599,7 @@
 		/**
 		 * Sets the detailViewImage
 		 *
-		 * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $detailViewImage
+		 * @param FileReference $detailViewImage
 		 *
 		 * @return void
 		 */
@@ -591,7 +611,7 @@
 		/**
 		 * Returns the listViewImage
 		 *
-		 * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference $listViewImage
+		 * @return FileReference $listViewImage
 		 */
 		public function getListViewImage()
 		{
@@ -601,7 +621,7 @@
 		/**
 		 * Sets the listViewImage
 		 *
-		 * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $listViewImage
+		 * @param FileReference $listViewImage
 		 *
 		 * @return void
 		 */
@@ -611,7 +631,7 @@
 		}
 
 		/**
-		 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+		 * @return ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
 		 */
 		public function getCategories()
 		{
@@ -619,7 +639,7 @@
 		}
 
 		/**
-		 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $categories
+		 * @param ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $categories
 		 */
 		public function setCategories(ObjectStorage $categories): void
 		{
@@ -704,5 +724,55 @@
 		public function setSlug(string $slug): void
 		{
 			$this->slug = $slug;
+		}
+
+		/**
+		 * @return region
+		 */
+		public function getRegions(): string
+		{
+			return $this->regions;
+		}
+
+		/**
+		 * @param $regions
+		 *
+		 * @return void
+		 */
+		public function setRegions(string $regions)
+		{
+			$this->regions = $regions;
+		}
+
+		/**
+		 * @return string
+		 */
+		public function getHomeoffice(): string
+		{
+			return $this->homeoffice;
+		}
+
+		/**
+		 * @param string $homeoffice
+		 */
+		public function setHomeoffice(string $homeoffice): void
+		{
+			$this->homeoffice = $homeoffice;
+		}
+
+		/**
+		 * @return LocationRequirement
+		 */
+		public function getLocationrequirements()
+		{
+			return $this->locationrequirements;
+		}
+
+		/**
+		 * @param LocationRequirement
+		 */
+		public function setLocationrequirements(LocationRequirement $locationrequirements): void
+		{
+			$this->locationrequirements = $locationrequirements;
 		}
 	}
