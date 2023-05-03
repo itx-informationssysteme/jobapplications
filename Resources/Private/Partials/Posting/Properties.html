@@ -179,6 +179,21 @@
 				</div>
 			</div>
 		</f:if>
+		<div class="col mb-4">
+			<f:if condition="{posting.homeoffice}">
+				<f:translate key="fe.posting.page.homeoffice"/>
+				<f:if condition="{posting.locationrequirements}">
+					<f:translate key="fe.posting.page.from"/>
+					:
+					<br/>
+					<f:for each="{posting.locationrequirements}" as="alr">
+						<f:if condition="{alr.name}">
+							{alr.name} <br/>
+						</f:if>
+					</f:for>
+				</f:if>
+			</f:if>
+		</div>
 		<f:if condition="{posting.contact} && {settings.showContact}">
 			<div class="col mb-4">
 				<div class="row">

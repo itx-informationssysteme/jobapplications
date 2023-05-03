@@ -425,6 +425,19 @@
                 <source>A server error occured</source>
                 <target>Es ist ein Serverfehler aufgetreten</target>
             </trans-unit>
+
+            <trans-unit id="fe.posting.page.homeoffice" resname="fe.posting.page.homeoffice">
+                <source>Homeoffice possible</source>
+                <target>Homeoffice möglich</target>
+            </trans-unit>
+            <trans-unit id="fe.posting.page.from" resname="fe.posting.page.from">
+                <source>from</source>
+                <target>aus</target>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_location_requirement.administrative_area" resname="tx_jobapplications_domain_model_location_requirement.administrative_area">
+               <source>Administrative Area</source>
+               <target>Administrativer Bereich</target>
+           </trans-unit>
         </body>
     </file>
 </xliff>

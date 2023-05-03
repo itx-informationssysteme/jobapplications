@@ -151,6 +151,20 @@
 		protected $locations = null;
 
 		/**
+		 * homeoffice
+		 *
+		 * @var string
+		 */
+		protected $homeoffice = '';
+
+		/**
+		 * applicantlocationrequirements
+		 *
+		 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobapplications\Domain\Model\LocationRequirement>
+		 */
+		protected $locationrequirements = null;
+
+		/**
 		 * contact
 		 *
 		 * @var \ITX\Jobapplications\Domain\Model\Contact
@@ -182,6 +196,12 @@
 		protected $categories = null;
 
 		protected $slug = '';
+		/**
+		 * region
+		 *
+		 * @var string
+		 */
+		protected $regions = '';
 
 		/**
 		 * __construct
@@ -704,5 +724,55 @@
 		public function setSlug(string $slug): void
 		{
 			$this->slug = $slug;
+		}
+
+		/**
+		 * @return region
+		 */
+		public function getRegions(): string
+		{
+			return $this->regions;
+		}
+
+		/**
+		 * @param $regions
+		 *
+		 * @return void
+		 */
+		public function setRegions(string $regions)
+		{
+			$this->regions = $regions;
+		}
+
+		/**
+		 * @return string
+		 */
+		public function getHomeoffice(): string
+		{
+			return $this->homeoffice;
+		}
+
+		/**
+		 * @param string $homeoffice
+		 */
+		public function setHomeoffice(string $homeoffice): void
+		{
+			$this->homeoffice = $homeoffice;
+		}
+
+		/**
+		 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobapplications\Domain\Model\LocationRequirement>
+		 */
+		public function getLocationrequirements()
+		{
+			return $this->locationrequirements;
+		}
+
+		/**
+		 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ITX\Jobapplications\Domain\Model\LocationRequirement>
+		 */
+		public function setLocationrequirements(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $locationrequirements): void
+		{
+			$this->locationrequirements = $locationrequirements;
 		}
 	}

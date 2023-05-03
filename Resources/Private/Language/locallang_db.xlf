@@ -207,6 +207,30 @@
             <trans-unit id="tx_jobapplications_frontend.name" resname="tx_jobapplications_frontend.name">
                 <source>Jobs</source>
             </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.homeoffice" resname="tx_jobapplications_domain_model_posting.homeoffice">
+                <source>Homeoffice Possible</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.location_requirements" resname="tx_jobapplications_domain_model_posting.location_requirements">
+                <source>Applicant Location Requirements</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_location_requirement.location_type" resname="tx_jobapplications_domain_model_location_requirement.location_type">
+                <source>Type of Location</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_location_requirement.name" resname="tx_jobapplications_domain_model_location_requirement.name">
+                <source>Location Restriction</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_location_requirement.country" resname="tx_jobapplications_domain_model_location_requirement.country">
+                <source>Country</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_location_requirement.state" resname="tx_jobapplications_domain_model_location_requirement.state">
+                <source>State</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_location_requirement.city" resname="tx_jobapplications_domain_model_location_requirement.city">
+                <source>City</source>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_location_requirement.administrative_area" resname="tx_jobapplications_domain_model_location_requirement.administrative_area">
+               <source>Administrative Area</source>
+           </trans-unit>
         </body>
     </file>
 </xliff>

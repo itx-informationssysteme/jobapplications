@@ -417,6 +417,30 @@
 					'autoSizeMax' => 5,
 				],
 			],
+			'homeoffice' => [
+				'excluded' => true,
+				'onChange' => 'reload',
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.homeoffice',
+				'config' => [
+					'type' => 'check',
+				]
+			],
+			'locationrequirements' => [
+				'exclude' => true,
+				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_location_requirement.name',
+				'displayCond' => 'FIELD:homeoffice:REQ:true',
+				'config' => [
+					'type' => 'select',
+					'renderType' => 'selectMultipleSideBySide',
+					'foreign_table' => 'tx_jobapplications_domain_model_locationrequirement',
+					'foreign_table_where' => 'tx_jobapplications_domain_model_locationrequirement.sys_language_uid IN (0,-1) ORDER BY tx_jobapplications_domain_model_locationrequirement.name ASC',
+					'MM' => 'tx_jobapplications_domain_model_locationrequirements_mm',
+					'size' => 3,
+					'autoSizeMax' => 5,
+					'minitems'=>1
+
+				]
+			],
 			'contact' => [
 				'exclude' => true,
 				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.contact',
@@ -449,7 +473,7 @@
 		],
 		'types' => [
 			'1' => [
-				'showitem' => '--palette--;;mainInfo,--palette--;;relations,--palette--;;dates,--palette--;;circumstances,--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.advanced,--palette--;;general,--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.texts,company_description,job_description,role_description,skill_requirements,benefits,required_documents,company_information,--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.images,--palette--;;images'
+				'showitem' => '--palette--;;mainInfo,--palette--;;relations,--palette--;;dates,--palette--;;circumstances, --palette--;;homeoffice-settings, --div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.advanced,--palette--;;general,--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.texts,company_description,job_description,role_description,skill_requirements,benefits,required_documents,company_information,--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.images,--palette--;;images'
 			],
 		],
 		'palettes' => [
@@ -471,6 +495,9 @@
 			'images' => [
 				'showitem' => 'detail_view_image, list_view_image'
 			],
+			'homeoffice-settings' => [
+				'showitem' => 'homeoffice, locationrequirements'
+			]
 
 		],
 	];
