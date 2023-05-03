@@ -23,7 +23,7 @@
     "docs": "https://docs.typo3.org/p/itx/jobapplications/master/en-us/"
   },
   "require": {
-    "php": ">=7.4",
+    "php": ">=8",
     "ext-openssl": "*",
     "typo3/cms-core": "^11.5"
   },
