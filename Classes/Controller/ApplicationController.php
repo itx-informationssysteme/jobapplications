@@ -339,10 +339,9 @@
 			// Normalize file array -> free choice whether multi or single upload
 			foreach ($fileIndices as $fileIndex)
 			{
-				if (isset($arguments[$fileIndex]) && is_string($arguments[$fileIndex]) && !empty($arguments[$fileIndex]))
+				if (isset($arguments[$fileIndex]) && (is_string($arguments[$fileIndex]) || array_key_exists('name', $arguments[$fileIndex])) && !empty($arguments[$fileIndex]))
 				{
 					$arguments[$fileIndex] = [$arguments[$fileIndex]];
-					continue;
 				}
 
 				if (isset($arguments[$fileIndex]) && is_array($arguments[$fileIndex]))
