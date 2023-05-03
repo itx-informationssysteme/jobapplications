@@ -11,6 +11,15 @@
 Changelog
 =========
 
+2.2.0 - Honeypot & Homeoffice
+-----------------------------
+* [FEATURE] added honeypot field to application form #81
+* [FEATURE] added homeoffice fields to posting #83
+* [CHORE] increased PHP version requirement to 8.0
+* [FIX] fixed fixed non sortable contacts in contact plugin #86
+* [FIX] fixed not being able to remove the required attribute from file uploads #88
+* [FIX] fixed documentation formatting
+
 2.1.0 - Backend module design improvements and Google for Jobs overhaul
 -----------------------------------------------------------------------
 * [FEATURE] added Google For Jobs "directApply" property #75
