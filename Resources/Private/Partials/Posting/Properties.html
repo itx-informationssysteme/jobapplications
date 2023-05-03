@@ -186,11 +186,9 @@
 					<f:translate key="fe.posting.page.from"/>
 					:
 					<br/>
-					<f:for each="{posting.locationrequirements}" as="alr">
-						<f:if condition="{alr.name}">
-							{alr.name} <br/>
-						</f:if>
-					</f:for>
+					<f:if condition="{posting.locationrequirements.name}">
+						{posting.locationrequirements.name} <br/>
+					</f:if>
 				</f:if>
 			</f:if>
 		</div>

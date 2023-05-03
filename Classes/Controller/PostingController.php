@@ -269,6 +269,8 @@
 		/**
 		 * This function generates the Google Jobs structured on page data.
 		 * This can be overriden if any field customizations are done.
+		 *
+		 * @throws \JsonException
 		 */
 		protected function addGoogleJobsDataToPage(Posting $posting): void
 		{
@@ -359,20 +361,14 @@
 
 			if ($posting->getHomeoffice() === '1')
 			{
-				$applicantLocationRequirements = [];
 				$googleJobsJSON["jobLocationType"] = "TELECOMMUTE";
 
 				if ($posting->getLocationrequirements() !== null)
 				{
-					/** @var ApplicantLocationRequirement $applicantLocation */
-					foreach ($posting->getLocationrequirements() as $applicantLocation)
-					{
-						$applicantLocationRequirements[] = [
-							"@type" => $applicantLocation->getType(),
-							"name" => $applicantLocation->getName()
-						];
-					}
-					$googleJobsJSON["applicantLocationRequirements"] = $applicantLocationRequirements;
+					$googleJobsJSON["applicantLocationRequirements"] = [
+							"@type" => $posting->getLocationrequirements()->getType(),
+							"name" => $posting->getLocationrequirements()->getName()
+					];
 				}
 			}
 

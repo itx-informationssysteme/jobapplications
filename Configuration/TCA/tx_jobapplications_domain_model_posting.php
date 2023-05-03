@@ -431,14 +431,12 @@
 				'displayCond' => 'FIELD:homeoffice:REQ:true',
 				'config' => [
 					'type' => 'select',
-					'renderType' => 'selectMultipleSideBySide',
+					'renderType' => 'selectSingle',
 					'foreign_table' => 'tx_jobapplications_domain_model_locationrequirement',
 					'foreign_table_where' => 'tx_jobapplications_domain_model_locationrequirement.sys_language_uid IN (0,-1) ORDER BY tx_jobapplications_domain_model_locationrequirement.name ASC',
-					'MM' => 'tx_jobapplications_domain_model_locationrequirements_mm',
-					'size' => 3,
-					'autoSizeMax' => 5,
-					'minitems'=>1
-
+					'minitems' => 0,
+					'maxitems' => 1,
+					'eval' => 'required'
 				]
 			],
 			'contact' => [

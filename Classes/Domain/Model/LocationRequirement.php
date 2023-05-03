@@ -5,7 +5,7 @@
 	use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 	/**
-	 * Applicantlocationrequirement
+	 * LocationRequirement
 	 */
 	class LocationRequirement extends AbstractEntity
 	{
