@@ -445,9 +445,17 @@
 			if ($this->settings["sendEmailToContact"] === "1" || $this->settings['sendEmailToInternal'] !== "")
 			{
 				$mail = GeneralUtility::makeInstance(FluidEmail::class);
-				$mail->setTemplate('JobsNotificationMail');
 
-				$mail->format($this->settings['emailContentType']);
+				if (!empty($this->settings['emailPrivacyMode']))
+				{
+					// Send info without any personal data
+					$mail->setTemplate('JobsInfoMail');
+				} else {
+					// Send complete application
+					$mail->setTemplate('JobsNotificationMail');
+				}
+
+				$mail->format($this->settings['emailContentType'])->setRequest($this->request);
 
 				// Prepare and send the message
 				$mail
@@ -456,22 +464,26 @@
 					->replyTo(new Address($newApplication->getEmail(), $newApplication->getFirstName()." ".$newApplication->getLastName()))
 					->assignMultiple(['application' => $newApplication, 'settings' => $this->settings, 'currentPosting' => $currentPosting]);
 
-				foreach ($legacyUploadfiles as $fileArray)
+				if (empty($this->settings['emailPrivacyMode']))
 				{
-					foreach ($fileArray as $file)
+					// Attach application files
+					foreach ($legacyUploadfiles as $fileArray)
+					{
+						foreach ($fileArray as $file)
+						{
+							if ($file instanceof FileInterface)
+							{
+								$mail->attachFromPath($file->getForLocalProcessing(false));
+							}
+						}
+					}
+
+					foreach ($multiUploadFiles as $file)
 					{
 						if ($file instanceof FileInterface)
 						{
 							$mail->attachFromPath($file->getForLocalProcessing(false));
 						}
-					}
-				}
-
-				foreach ($multiUploadFiles as $file)
-				{
-					if ($file instanceof FileInterface)
-					{
-						$mail->attachFromPath($file->getForLocalProcessing(false));
 					}
 				}
 
@@ -507,7 +519,7 @@
 				$mail = GeneralUtility::makeInstance(FluidEmail::class);
 				$mail->setTemplate('JobsApplicantMail');
 
-				$mail->format($this->settings['emailContentType']);
+				$mail->format($this->settings['emailContentType'])->setRequest($this->request);
 
 				//Template Messages
 				$subject = $this->settings['sendEmailToApplicantSubject'];

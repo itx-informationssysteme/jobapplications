@@ -11,6 +11,9 @@ plugin.tx_jobapplications.settings {
 	# cat=plugin.tx_jobapplications; type=options[html,plain,both]; label=Send Email as HTML or Text or Both
 	emailContentType = both
 
+	# cat=plugin.tx_jobapplications; type=boolean; label=Send email without any personal application data (privacy protection)
+	emailPrivacyMode = 0
+
 	# cat=plugin.tx_jobapplications; type=string; label=Default contact (mail address) for unsolicited application form mail
 	defaultContactMailAddress = address@address.de
 	# cat=plugin.tx_jobapplications; type=string; label=Default contact (first name) for unsolicited application form mail
