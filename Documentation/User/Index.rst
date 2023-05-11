@@ -308,6 +308,10 @@ Send Email as HTML or Text or Both
 This setting only has an effect in TYPO3 v10. You can choose to send out emails as their html, text or both combined versions.
 There are email templates, for both the html and text versions.
 
+Send email without any personal application data (privacy protection)
+----------------------------------
+To avoid privacy issues, we recommend enabling this feature. When this function is enabled, only information about a new application without personal data is sent as an email.
+
 Enable Google Jobs
 ------------------
 Here you can enable Google Jobs. The data for it will be automatically generated based on the posting data.
