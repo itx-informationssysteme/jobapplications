@@ -319,7 +319,7 @@ You can find the extension configuration in *Settings->Extension Configuration->
 
 Tasks
 =====
-There are two tasks implemented to manage applications that are not needed anymore or have to be removed for
+There are two console commands implemented to manage applications that are not needed anymore or have to be removed for
 privacy law reasons.
 
 Both of them feature two additional settings:
