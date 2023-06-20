@@ -73,7 +73,7 @@
 		 */
 		public function initializeShowAction(): void
 		{
-			// If application form an posting are on the same page, the posting object is part of the application plugin.
+			// If application form and posting are on the same page, the posting object is part of the application plugin.
 			if (!$this->request->hasArgument("posting") && isset($_REQUEST["tx_jobapplications_applicationform"]["posting"]))
 			{
 				$this->request->setArgument("posting", $_REQUEST["tx_jobapplications_applicationform"]["posting"]);
@@ -125,6 +125,9 @@
 					$order = QueryInterface::ORDER_DESCENDING;
 			}
 
+			// Add pre-filtered locations to constraint
+			$constraint = $this->getPreFilteredLocations($constraint);
+
 			// Get repository configuration from typoscript
 			$repositoryConfiguration = $this->settings['filter']['repositoryConfiguration'];
 			if (!$repositoryConfiguration)
@@ -158,6 +161,34 @@
 			$this->view->assign('constraint', $constraint);
 
 			return $this->htmlResponse();
+		}
+
+		/**
+		 * @param Constraint|null $constraint
+		 *
+		 * @return Constraint
+		 */
+		private function getPreFilteredLocations(Constraint $constraint = null): Constraint
+		{
+			$prefilteredLocationsString = $this->settings['prefiltered_location'];
+			$prefilteredLocationsArray = explode(",", $prefilteredLocationsString);
+			$prefilteredLocations = $prefilteredLocationsArray ?? [];
+
+			if (!empty($prefilteredLocations))
+			{
+				if ($constraint === null)
+				{
+					$constraint = new Constraint();
+					$constraint->setLocations($prefilteredLocations);
+				} else
+				{
+					$selectedLocations = $constraint->getLocations();
+					$locations = array_merge($selectedLocations, $prefilteredLocations);
+					$constraint->setLocations($locations);
+				}
+			}
+
+			return $constraint;
 		}
 
 		/**
