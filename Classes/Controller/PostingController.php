@@ -171,21 +171,17 @@
 		private function getPreFilteredLocations(Constraint $constraint = null): Constraint
 		{
 			$prefilteredLocationsString = $this->settings['prefiltered_location'];
-			$prefilteredLocationsArray = explode(",", $prefilteredLocationsString);
-			$prefilteredLocations = $prefilteredLocationsArray ?? [];
+			$prefilteredLocations = explode(",", $prefilteredLocationsString);
 
-			if (!empty($prefilteredLocations))
+			if ($constraint === null)
 			{
-				if ($constraint === null)
-				{
-					$constraint = new Constraint();
-					$constraint->setLocations($prefilteredLocations);
-				} else
-				{
-					$selectedLocations = $constraint->getLocations();
-					$locations = array_merge($selectedLocations, $prefilteredLocations);
-					$constraint->setLocations($locations);
-				}
+				$constraint = new Constraint();
+				$constraint->setLocations($prefilteredLocations);
+			} else
+			{
+				$selectedLocations = $constraint->getLocations();
+				$locations = array_merge($selectedLocations, $prefilteredLocations);
+				$constraint->setLocations($locations);
 			}
 
 			return $constraint;
