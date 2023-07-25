@@ -2,10 +2,12 @@
 
 	namespace ITX\Jobapplications\Domain\Repository;
 
-	use ITX\Jobapplications\Domain\Model\Constraint;
+	use Doctrine\DBAL\Exception;
+    use ITX\Jobapplications\Domain\Model\Constraint;
 	use ITX\Jobapplications\Domain\Repository\RepoHelpers;
 	use TYPO3\CMS\Core\Context\Context;
-	use TYPO3\CMS\Core\Utility\DebugUtility;
+    use TYPO3\CMS\Core\Context\LanguageAspect;
+    use TYPO3\CMS\Core\Utility\DebugUtility;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 	use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -65,19 +67,19 @@
 			return $query->execute();
 		}
 
-		/**
-		 * Gets all divisions
-		 *
-		 * @param array|null $categories
-		 * @param int $languageUid
-		 *
-		 * @return array
-		 */
+        /**
+         * Gets all divisions
+         *
+         * @param array|null $categories
+         * @param int        $languageUid
+         *
+         * @return array
+         * @throws Exception
+         */
 		public function findAllDivisions(array $categories = null, int $languageUid): array
 		{
 			$qb = $this->getQueryBuilder("tx_jobapplications_domain_model_posting");
 			$query = $this->createQuery();
-			$query->getQuerySettings()->setLanguageOverlayMode(false);
 
 			if (count($categories) === 0)
 			{
@@ -102,26 +104,25 @@
 					->orderBy('division', QueryInterface::ORDER_ASCENDING);
 				$qb = $this->buildCategoriesToSQL($categories, $qb);
 			}
-			$query->statement($qb->getSQL());
 
 			/** @var array $result */
-			$result = $query->execute(true);
+			$result = $qb->executeQuery()->fetchAllAssociative();
 
 			return array_column($result, 'division');
 		}
 
-		/**
-		 * @param array|null $categories
-		 * @param int $languageUid
-		 *
-		 * @return array
-		 */
+        /**
+         * @param array|null $categories
+         * @param int        $languageUid
+         *
+         * @return array
+         * @throws Exception
+         */
 		public function findAllCareerLevels(array $categories = null, int $languageUid): array
 		{
 			$qb = $this->getQueryBuilder("tx_jobapplications_domain_model_posting");
 
 			$query = $this->createQuery();
-			$query->getQuerySettings()->setLanguageOverlayMode(false);
 
 			if (count($categories) === 0)
 			{
@@ -146,26 +147,25 @@
 					->orderBy('careerLevel', QueryInterface::ORDER_ASCENDING);
 				$qb = $this->buildCategoriesToSQL($categories, $qb);
 			}
-			$query->statement($qb->getSQL());
 
-			/** @var array $result */
-			$result = $query->execute(true);
+            /** @var array $result */
+            $result = $qb->executeQuery()->fetchAllAssociative();
 
 			return array_column($result, 'careerLevel');
 		}
 
-		/**
-		 * @param array|null $categories
-		 * @param int $languageUid
-		 *
-		 * @return array
-		 */
-		public function findAllEmploymentTypes(array $categories = null, int $languageUid)
-		{
+        /**
+         * @param array|null $categories
+         * @param int        $languageUid
+         *
+         * @return array
+         * @throws Exception
+         */
+		public function findAllEmploymentTypes(array $categories = null, int $languageUid): array
+        {
 			$qb = $this->getQueryBuilder("tx_jobapplications_domain_model_posting");
 
 			$query = $this->createQuery();
-			$query->getQuerySettings()->setLanguageOverlayMode(false);
 
 			if (count($categories) === 0)
 			{
@@ -193,10 +193,10 @@
 
 			}
 
-			$query->statement($qb->getSQL());
 
-			/** @var array $result */
-			$result = $query->execute(true);
+            /** @var array $result */
+            $result = $qb->executeQuery()->fetchAllAssociative();
+
 			$return = [];
 			foreach (array_column($result, 'employmentType') as $string)
 			{
@@ -217,16 +217,14 @@
 			return $result;
 		}
 
-		/**
-		 * @param $categories
-		 *
-		 * @return array|QueryResultInterface
-		 */
+        /**
+         * @param $categories
+         *
+         * @return array|QueryResultInterface
+         * @throws Exception
+         */
 		public function findAllCategories($categories)
 		{
-
-			$query = $this->createQuery();
-
 			$sb = $this->getQueryBuilder("sys_category");
 			$sb
 				->select("sys_category.*")
@@ -240,9 +238,8 @@
 				->orderBy('title', QueryInterface::ORDER_ASCENDING);
 			$sb = $this->buildCategoriesToSQL($categories, $sb);
 
-			$query->statement($sb->getSQL());
-
-			return $query->execute(true);
+            /** @var array $result */
+            return $sb->executeQuery()->fetchAllAssociative();
 		}
 
 		/**

@@ -20,16 +20,16 @@
 	use TYPO3\CMS\Core\Pagination\SimplePagination;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Core\Utility\MathUtility;
-	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+    use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 	use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
-	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 	use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 	use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 	use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 	use TYPO3\CMS\Extbase\Reflection\Exception\UnknownClassException;
 	use TYPO3\CMS\Frontend\Controller\ErrorController;
+    use TYPO3Fluid\Fluid\View\ViewInterface;
 
-	/***************************************************************
+    /***************************************************************
 	 *  Copyright notice
 	 *
 	 *  (c) 2020
@@ -76,7 +76,7 @@
 			// If application form an posting are on the same page, the posting object is part of the application plugin.
 			if (!$this->request->hasArgument("posting") && isset($_REQUEST["tx_jobapplications_applicationform"]["posting"]))
 			{
-				$this->request->setArgument("posting", $_REQUEST["tx_jobapplications_applicationform"]["posting"]);
+                $this->request = $this->request->withArgument("posting", $_REQUEST["tx_jobapplications_applicationform"]["posting"]);
 			}
 		}
 
@@ -94,7 +94,6 @@
 			{
 				$view->assign('pageData', $GLOBALS['TSFE']->page);
 			}
-			parent::initializeView($view);
 		}
 
 		/**

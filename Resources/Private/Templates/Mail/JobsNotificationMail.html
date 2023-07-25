@@ -1,4 +1,9 @@
+<html data-namespace-typo3-fluid="true"
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:jobs="http://typo3.org/ns/ITX/Jobapplications/ViewHelpers">
+
 <f:layout name="SystemEmail"/>
+
 <f:section name="Title">
 	<f:if condition="!{application.posting}">
 		<f:then>
@@ -15,7 +20,7 @@
 			<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.application.selector.{application.salutation}"/>
 			{application.firstName} {application.lastName}
 		</h4>
-		<span class="date"><f:format.date format="{f:translate(key: 'date_format', extensionName: '{Jobapplications}')}">{application.crdate}</f:format.date></span>
+		<span class="date"><f:format.date format="{f:translate(key: 'date_format', extensionName: 'Jobapplications')}">{application.crdate}</f:format.date></span>
 	</div>
 	<div class="row">
 		<label>
@@ -69,7 +74,7 @@
 			<label>
 				<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.earliest_date_of_joining"></f:translate>
 				:&nbsp;</label>
-			<span><f:format.date format="{f:translate(key: 'date_format')}">{application.earliestDateOfJoining}</f:format.date></span>
+			<span><f:format.date format="{f:translate(key: 'date_format', extensionName: 'Jobapplications')}">{application.earliestDateOfJoining}</f:format.date></span>
 		</div>
 	</f:if>
 	<f:if condition="{application.message}">
@@ -87,7 +92,7 @@
 			:&nbsp;</label>
 		<f:if condition="{application.privacyAgreement} == '1'">
 			<f:then>
-				<span><f:translate extensionName="Job" key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.show.privacy_agreement.yes"></f:translate></span>
+				<span><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.show.privacy_agreement.yes"></f:translate></span>
 			</f:then>
 			<f:else>
 				<span><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.show.privacy_agreement.no"></f:translate></span>

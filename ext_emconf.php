@@ -34,10 +34,10 @@
 		'uploadfolder' => 1,
 		'createDirs' => '',
 		'clearCacheOnLoad' => true,
-		'version' => '2.2.0',
+		'version' => '3.0.0',
 		'constraints' => [
 			'depends' => [
-				'typo3' => '11.5.1-11.9.99'
+				'typo3' => '12.4.1-12.9.99'
 			],
 			'conflicts' => [],
 			'suggests' => [],

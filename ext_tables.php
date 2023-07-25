@@ -3,27 +3,6 @@
 
 	call_user_func(
 		function () {
-			if (TYPO3_MODE === 'BE')
-			{
-
-				\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-					'Jobapplications',
-					'web', // Make module a submodule of 'web'
-					'backend', // Submodule key
-					'', // Position
-					[
-						\ITX\Jobapplications\Controller\BackendController::class => 'listApplications, dashboard, showApplication, settings'
-					],
-					[
-						'access' => 'user,group',
-						'icon' => 'EXT:jobapplications/Resources/Public/Icons/logo_jobs.svg',
-						'labels' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf',
-						'navigationComponentId' => '',
-						'inheritNavigationComponentFromMainModule' => false,
-					]
-				);
-			}
-
 			\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_jobapplications_domain_model_application', 'EXT:jobapplications/Resources/Private/Language/locallang_csh_tx_jobapplications_domain_model_application.xlf');
 			\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_jobapplications_domain_model_application');
 

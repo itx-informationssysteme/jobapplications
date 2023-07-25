@@ -30,6 +30,9 @@
 
 		public function __construct()
 		{
+            // TODO: FIX THIS
+
+            return;
 			/** @var ObjectManager $objectManager */
 			$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 
