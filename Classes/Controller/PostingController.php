@@ -2,7 +2,8 @@
 
 	namespace ITX\Jobapplications\Controller;
 
-	use ITX\Jobapplications\Domain\Model\Constraint;
+	use Doctrine\DBAL\Exception;
+    use ITX\Jobapplications\Domain\Model\Constraint;
 	use ITX\Jobapplications\Domain\Model\Location;
 	use ITX\Jobapplications\Domain\Model\Posting;
 	use ITX\Jobapplications\Domain\Repository\LocationRepository;
@@ -88,8 +89,8 @@
 		 *
 		 * @param ViewInterface $view The view to be initialized
 		 */
-		public function initializeView(ViewInterface $view)
-		{
+		public function initializeView(ViewInterface $view): void
+        {
 			if (is_object($GLOBALS['TSFE']))
 			{
 				$view->assign('pageData', $GLOBALS['TSFE']->page);
@@ -99,8 +100,7 @@
 		/**
 		 * @throws InvalidQueryException
 		 * @throws UnknownClassException
-		 * @throws NoSuchArgumentException
-		 */
+         */
 		public function listAction(Constraint $constraint = null): ResponseInterface
 		{
 			$page = $this->request->hasArgument('page') ? (int)$this->request->getArgument('page') : 1;
@@ -197,17 +197,18 @@
 			return $entry[$languageId];
 		}
 
-		/**
-		 * This function makes calls to repositories to get all available filter options.
-		 * These then get cached for performance reasons.
-		 * Override for customization.
-		 *
-		 * @param $categories array categories
-		 * @param $languageId int
-		 *
-		 * @return array
-		 * @throws InvalidQueryException
-		 */
+        /**
+         * This function makes calls to repositories to get all available filter options.
+         * These then get cached for performance reasons.
+         * Override for customization.
+         *
+         * @param $categories array categories
+         * @param $languageId int
+         *
+         * @return array
+         * @throws InvalidQueryException
+         * @throws Exception
+         */
 		public function getFilterOptions(array $categories, $languageId): array
 		{
 			return [
