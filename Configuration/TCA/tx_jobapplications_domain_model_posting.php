@@ -431,6 +431,7 @@
 				'displayCond' => 'FIELD:homeoffice:REQ:true',
 				'config' => [
 					'type' => 'select',
+					'default' => 0,
 					'renderType' => 'selectSingle',
 					'foreign_table' => 'tx_jobapplications_domain_model_locationrequirement',
 					'foreign_table_where' => 'tx_jobapplications_domain_model_locationrequirement.sys_language_uid IN (0,-1) ORDER BY tx_jobapplications_domain_model_locationrequirement.name ASC',
