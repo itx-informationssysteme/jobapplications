@@ -98,6 +98,26 @@
 		}
 
 		/**
+		 * @return void
+		 * @throws InvalidQueryException
+		 * @throws NoSuchArgumentException
+		 */
+		public function initializeListAction() {
+			$propertyMappingConfiguration = $this->arguments->getArgument("constraint")->getPropertyMappingConfiguration();
+			foreach ($this->getCachedFilterOptions($this->getCategoriesFromArguments()) as $index => $property) {
+				$propertyMappingConfiguration->allowProperties($index);
+			}
+		}
+
+		/**
+		 * @return array|string[]
+		 */
+		public function getCategoriesFromArguments() {
+			$category_str = $this->settings["categories"];
+			return !empty($category_str) ? explode(",", $category_str) : [];
+		}
+
+		/**
 		 * @throws InvalidQueryException
 		 * @throws UnknownClassException
 		 * @throws NoSuchArgumentException
@@ -108,8 +128,7 @@
 			$itemsPerPage = $this->settings['itemsOnPage'] ?? 9;
 
 			// Plugin selected categories
-			$category_str = $this->settings["categories"];
-			$categories = !empty($category_str) ? explode(",", $category_str) : [];
+			$categories = $this->getCategoriesFromArguments();
 
 			$orderBy = $this->settings['list']['ordering']['field'] ?: 'date_posted';
 			$order = '';
