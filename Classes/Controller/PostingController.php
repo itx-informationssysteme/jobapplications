@@ -112,7 +112,7 @@
 		/**
 		 * @return array|string[]
 		 */
-		public function getCategoriesFromArguments() {
+		private function getCategoriesFromArguments() {
 			$category_str = $this->settings["categories"];
 			return !empty($category_str) ? explode(",", $category_str) : [];
 		}

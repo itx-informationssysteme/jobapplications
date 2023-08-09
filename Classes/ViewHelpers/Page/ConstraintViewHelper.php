@@ -4,7 +4,6 @@
 
 	use ITX\Jobapplications\Domain\Model\Constraint;
 	use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-	use function _PHPStan_67a5964bf\RingCentral\Psr7\str;
 
 	/**
 	 * This file is part of the ITX\jobapplications project under GPLv2 or later.
