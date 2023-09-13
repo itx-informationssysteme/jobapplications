@@ -20,7 +20,7 @@
   "support": {
     "email": "typo-itx@itx.de",
     "issues": "https://github.com/typo3-itx/jobapplications/issues",
-    "docs": "https://docs.typo3.org/p/itx/jobapplications/master/en-us/"
+    "docs": "https://docs.typo3.org/p/itx/jobapplications/main/en-us/"
   },
   "require": {
     "php": ">=8",

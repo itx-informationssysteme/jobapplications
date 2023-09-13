@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Moved changelog to CHANGELOG.md
+- Internal: Changed from develop and master branch to single main branch
 
 ### Removed
 

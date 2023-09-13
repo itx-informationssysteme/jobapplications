@@ -8,10 +8,10 @@
 - Google Jobs integration
 - email notifications for new applications
 - confirmation email for applicants
-- supports application status managment in backend module
+- supports application status management in backend module
 
 see the full feature list in
-the [official documentation](https://docs.typo3.org/p/itx/jobapplications/master/en-us/Introduction/Index.html)
+the [official documentation](https://docs.typo3.org/p/itx/jobapplications/main/en-us/Introduction/Index.html)
 
 ## 2. Installation
 
@@ -26,7 +26,7 @@ Download and install the extension with the extension manager module.
 
 ## 3. Changelog
 
-Read in [official documentation](https://docs.typo3.org/p/itx/jobapplications/master/en-us/ChangeLog/Index.html)
+Read on [GitHub Changelog.md](https://github.com/itx-informationssysteme/jobapplications/blob/main/CHANGELOG.md)
 
 ## 4. Contribution
 
