@@ -8,7 +8,7 @@
 	use ITX\Jobapplications\Domain\Repository\LocationRepository;
 	use ITX\Jobapplications\Domain\Repository\PostingRepository;
 	use ITX\Jobapplications\Event\DisplayPostingEvent;
-	use ITX\Jobapplications\Event\EditGoogleForJobsDataEvent;
+	use ITX\Jobapplications\Event\ModifyGoogleForJobsDataEvent;
 	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
 	use Psr\Http\Message\ResponseInterface;
 	use TYPO3\CMS\Core\Cache\CacheManager;
@@ -442,8 +442,8 @@
 				$googleJobsJSON["validThrough"] = $posting->getEndtime()->format("c");
 			}
 
-			/** @var EditGoogleForJobsDataEvent $event */
-			$event = $this->eventDispatcher->dispatch(new EditGoogleForJobsDataEvent($googleJobsJSON, $posting));
+			/** @var ModifyGoogleForJobsDataEvent $event */
+			$event = $this->eventDispatcher->dispatch(new ModifyGoogleForJobsDataEvent($googleJobsJSON, $posting));
 			$googleJobsJSON = $event->getGoogleForJobsData();
 
 			$googleJobs = "<script type=\"application/ld+json\">".json_encode($googleJobsJSON, JSON_THROW_ON_ERROR)."</script>";

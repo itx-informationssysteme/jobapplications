@@ -4,7 +4,7 @@ namespace ITX\Jobapplications\Event;
 
 use ITX\Jobapplications\Domain\Model\Posting;
 
-class EditGoogleForJobsDataEvent
+class ModifyGoogleForJobsDataEvent
 {
 	protected array $googleForJobsData;
 	protected Posting $posting;
