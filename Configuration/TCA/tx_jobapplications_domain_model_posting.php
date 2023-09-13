@@ -493,7 +493,15 @@ return [
     ],
     'types' => [
         '1' => [
-            'showitem' => '--palette--;;mainInfo,--palette--;;relations,--palette--;;dates,--palette--;;circumstances, --palette--;;homeoffice-settings, --div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.advanced,--palette--;;general,--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.texts,company_description,job_description,role_description,skill_requirements,benefits,required_documents,company_information,--div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.images,--palette--;;images'
+            'showitem' => '--palette--;;mainInfo,--palette--;;relations,--palette--;;dates,--palette--;;circumstances, --palette--;;homeoffice-settings,
+                            --div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.advanced,
+                                --palette--;;general,
+                            --div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.texts,
+                                company_description,job_description,role_description,skill_requirements,benefits,required_documents,company_information,
+                            --div--;LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.title.images,
+                                --palette--;;images,
+                            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:categories,
+                                categories,'
         ],
     ],
     'palettes' => [

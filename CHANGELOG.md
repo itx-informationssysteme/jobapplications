@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Google Jobs enabled by default
+- Moved Google Jobs configuration from extension configuration to TypoScript (settings.googleJobs)
+
+### Removed
+- Removed support for v11
+
 ## [2.3.0] - 2023-09-13
 
 ### Added

@@ -37,6 +37,13 @@ plugin.tx_jobapplications {
 		defaultContactFirstName = {$plugin.tx_jobapplications.settings.defaultContactFirstName}
 		defaultContactLastName = {$plugin.tx_jobapplications.settings.defaultContactLastName}
 
+        googleJobs {
+            enabled = {$plugin.tx_jobapplications.settings.enableGoogleJobs}
+            companyName = {$plugin.tx_jobapplications.settings.companyName}
+            logo = {$plugin.tx_jobapplications.settings.logo}
+            currency = {$plugin.tx_jobapplications.settings.currency}
+        }
+
 		list {
 			ordering {
 				field = date_posted

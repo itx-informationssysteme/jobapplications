@@ -323,10 +323,8 @@
 		 */
 		protected function addGoogleJobsDataToPage(Posting $posting): void
 		{
-			/** @var ExtensionConfiguration $extconf */
-			$extconf = GeneralUtility::makeInstance(ExtensionConfiguration::class);
 
-			$companyName = $extconf->get('jobapplications', 'companyName');
+			$companyName = $this->settings['googleJobs']['companyName'] ?? '';
 
 			if (empty($companyName) || $this->settings['enableGoogleJobs'] !== "1")
 			{
@@ -338,7 +336,7 @@
 				"name" => $companyName
 			];
 
-			$logo = $extconf->get('jobapplications', 'logo');
+			$logo = $this->settings['googleJobs']['logo'] ?? '';
 			if (!empty($logo))
 			{
 				$hiringOrganization["logo"] = $logo;
@@ -425,7 +423,7 @@
 
 			if (!empty($posting->getBaseSalary()))
 			{
-				$currency = $logo = $extconf->get('jobapplications', 'currency') ?: "EUR";
+				$currency = $this->settings['googleJobs']['currency'] ?: "EUR";
 				$googleJobsJSON["baseSalary"] = [
 					"@type" => "MonetaryAmount",
 					"currency" => $currency,
