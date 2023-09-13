@@ -47,6 +47,10 @@ class ConstraintViewHelper extends AbstractViewHelper
 				"page" => $page,
 		];
 
+		if ($constraintArgument === null) {
+			return $returnArguments;
+		}
+
 		$properties = self::getReflectedProperties($constraintArgument);
 
 		foreach ($properties as $property) {
