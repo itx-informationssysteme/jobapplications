@@ -1,9 +1,9 @@
 <?php
 
-	use ITX\Jobapplications\Controller\ApplicationController;
-	use ITX\Jobapplications\Controller\PostingController;
+use ITX\Jobapplications\Controller\ApplicationController;
+use ITX\Jobapplications\Controller\PostingController;
 
-	defined('TYPO3') || die('Access denied.');
+defined('TYPO3') || die('Access denied.');
 
 	call_user_func(
 		function () {
@@ -121,10 +121,7 @@
 			{
 				$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['jobapplications_cache'] = [];
 			}
-
-			$GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludeAllEmptyParameters'] = true;
-			$GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFoundOnCHashError'] = false;
-
+			
 			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['jobapplications_makeLocationsMultiple']
 				= \ITX\Jobapplications\Updates\MakeLocationsMultiple::class;
 		}

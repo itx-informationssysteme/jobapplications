@@ -31,6 +31,7 @@ plugin.tx_jobapplications {
 		fileStorage = {$plugin.tx_jobapplications.settings.fileStorage}
 		enableGoogleJobs = {$plugin.tx_jobapplications.settings.enableGoogleJobs}
 		emailContentType = {$plugin.tx_jobapplications.settings.emailContentType}
+		emailPrivacyMode = {$plugin.tx_jobapplications.settings.emailPrivacyMode}
 		legacy_upload = {$plugin.tx_jobapplications.settings.legacy_upload}
 		defaultContactMailAddress = {$plugin.tx_jobapplications.settings.defaultContactMailAddress}
 		defaultContactFirstName = {$plugin.tx_jobapplications.settings.defaultContactFirstName}

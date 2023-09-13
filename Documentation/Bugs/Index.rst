@@ -19,4 +19,4 @@ what the correct behaviour should be and how to reproduce it.
 
 Known Problems
 ==============
-Nothing yet *fingers crossed*
+See GitHub Issues: https://github.com/itx-informationssysteme/jobapplications/issues?q=is%3Aopen+is%3Aissue+label%3Abug
