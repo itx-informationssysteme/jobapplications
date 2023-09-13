@@ -63,7 +63,7 @@
                             </config>
                         </TCEforms>
                     </settings.categories>
-                    <settings.prefiltered_location>
+                    <settings.prefilteredLocation>
                             <exclude>1</exclude>
                             <label>Pre-filtered Location(s):</label>
                             <config>
@@ -73,7 +73,7 @@
                                 <size>3</size>
                                 <autoSizeMax>10</autoSizeMax>
                             </config>
-                    </settings.prefiltered_location>
+                    </settings.prefilteredLocation>
                 </el>
             </ROOT>
         </singleView>

@@ -104,7 +104,7 @@
 		 */
 		public function initializeListAction() {
 			$propertyMappingConfiguration = $this->arguments->getArgument("constraint")->getPropertyMappingConfiguration();
-			foreach ($this->getCachedFilterOptions($this->getCategoriesFromArguments()) as $index => $property) {
+			foreach ($this->getCachedFilterOptions($this->getCategoriesFromSettings()) as $index => $property) {
 				$propertyMappingConfiguration->allowProperties($index);
 			}
 		}
@@ -112,7 +112,8 @@
 		/**
 		 * @return array|string[]
 		 */
-		private function getCategoriesFromArguments() {
+		private function getCategoriesFromSettings(): array
+		{
 			$category_str = $this->settings["categories"];
 			return !empty($category_str) ? explode(",", $category_str) : [];
 		}
@@ -128,7 +129,7 @@
 			$itemsPerPage = $this->settings['itemsOnPage'] ?? 9;
 
 			// Plugin selected categories
-			$categories = $this->getCategoriesFromArguments();
+			$categories = $this->getCategoriesFromSettings();
 
 			$orderBy = $this->settings['list']['ordering']['field'] ?: 'date_posted';
 			$order = '';
@@ -145,7 +146,9 @@
 			}
 
 			// Add pre-filtered locations to constraint
-			$constraint = $this->getPreFilteredLocations($constraint);
+			if (trim(($this->settings['prefilteredLocation'] ?? '')) !== '') {
+				$constraint = $this->getPreFilteredLocations($constraint);
+			}
 
 			// Get repository configuration from typoscript
 			$repositoryConfiguration = $this->settings['filter']['repositoryConfiguration'];
@@ -189,7 +192,7 @@
 		 */
 		private function getPreFilteredLocations(Constraint $constraint = null): Constraint
 		{
-			$prefilteredLocationsString = $this->settings['prefiltered_location'];
+			$prefilteredLocationsString = (string)($this->settings['prefilteredLocation'] ?? '');
 			$prefilteredLocations = explode(",", $prefilteredLocationsString);
 
 			if ($constraint === null)
@@ -198,9 +201,8 @@
 				$constraint->setLocations($prefilteredLocations);
 			} else
 			{
-				$selectedLocations = $constraint->getLocations();
-				$locations = array_merge($selectedLocations, $prefilteredLocations);
-				$constraint->setLocations($locations);
+				// Allow to override prefiltered locations when user changes something else
+				$constraint->setLocations($constraint->getLocations());
 			}
 
 			return $constraint;
