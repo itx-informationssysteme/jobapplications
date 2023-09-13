@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added privacy protection to option to send email without personal data by @hmccloy (#92)
+- Added list plugin option to set prefiltered locations (#68)
 
 ### Fixed
 

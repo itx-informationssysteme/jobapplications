@@ -73,7 +73,7 @@
 		 */
 		public function initializeShowAction(): void
 		{
-			// If application form an posting are on the same page, the posting object is part of the application plugin.
+			// If application form and posting are on the same page, the posting object is part of the application plugin.
 			if (!$this->request->hasArgument("posting") && isset($_REQUEST["tx_jobapplications_applicationform"]["posting"]))
 			{
 				$this->request->setArgument("posting", $_REQUEST["tx_jobapplications_applicationform"]["posting"]);
@@ -104,7 +104,7 @@
 		 */
 		public function initializeListAction() {
 			$propertyMappingConfiguration = $this->arguments->getArgument("constraint")->getPropertyMappingConfiguration();
-			foreach ($this->getCachedFilterOptions($this->getCategoriesFromArguments()) as $index => $property) {
+			foreach ($this->getCachedFilterOptions($this->getCategoriesFromSettings()) as $index => $property) {
 				$propertyMappingConfiguration->allowProperties($index);
 			}
 		}
@@ -112,7 +112,8 @@
 		/**
 		 * @return array|string[]
 		 */
-		private function getCategoriesFromArguments() {
+		private function getCategoriesFromSettings(): array
+		{
 			$category_str = $this->settings["categories"];
 			return !empty($category_str) ? explode(",", $category_str) : [];
 		}
@@ -128,7 +129,7 @@
 			$itemsPerPage = $this->settings['itemsOnPage'] ?? 9;
 
 			// Plugin selected categories
-			$categories = $this->getCategoriesFromArguments();
+			$categories = $this->getCategoriesFromSettings();
 
 			$orderBy = $this->settings['list']['ordering']['field'] ?: 'date_posted';
 			$order = '';
@@ -142,6 +143,11 @@
 					break;
 				default:
 					$order = QueryInterface::ORDER_DESCENDING;
+			}
+
+			// Add pre-filtered locations to constraint
+			if (trim(($this->settings['prefilteredLocation'] ?? '')) !== '') {
+				$constraint = $this->getPreFilteredLocations($constraint);
 			}
 
 			// Get repository configuration from typoscript
@@ -177,6 +183,29 @@
 			$this->view->assign('constraint', $constraint);
 
 			return $this->htmlResponse();
+		}
+
+		/**
+		 * @param Constraint|null $constraint
+		 *
+		 * @return Constraint
+		 */
+		private function getPreFilteredLocations(Constraint $constraint = null): Constraint
+		{
+			$prefilteredLocationsString = (string)($this->settings['prefilteredLocation'] ?? '');
+			$prefilteredLocations = explode(",", $prefilteredLocationsString);
+
+			if ($constraint === null)
+			{
+				$constraint = new Constraint();
+				$constraint->setLocations($prefilteredLocations);
+			} else
+			{
+				// Allow to override prefiltered locations when user changes something else
+				$constraint->setLocations($constraint->getLocations());
+			}
+
+			return $constraint;
 		}
 
 		/**
