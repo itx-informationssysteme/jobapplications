@@ -1,0 +1,16 @@
+<f:layout name="SystemEmail"/>
+<f:section name="Title">
+	<f:if condition="!{application.posting}">
+		<f:then>
+			{currentPosting.title}
+		</f:then>
+		<f:else>
+			<f:translate arguments="{0: currentPosting.title}" extensionName="Jobapplications" id="fe.email.toContactSubject"></f:translate>
+		</f:else>
+	</f:if>
+</f:section>
+<f:section name="Main">
+	<div class="row">
+		<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.review_in_backend"/>
+	</div>
+</f:section>

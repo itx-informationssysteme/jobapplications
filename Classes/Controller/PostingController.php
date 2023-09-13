@@ -9,6 +9,7 @@
 	use ITX\Jobapplications\Domain\Repository\LocationRepository;
 	use ITX\Jobapplications\Domain\Repository\PostingRepository;
 	use ITX\Jobapplications\Event\DisplayPostingEvent;
+	use ITX\Jobapplications\Event\ModifyGoogleForJobsDataEvent;
 	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
 	use Psr\Http\Message\ResponseInterface;
 	use TYPO3\CMS\Core\Cache\CacheManager;
@@ -74,7 +75,7 @@
 		 */
 		public function initializeShowAction(): void
 		{
-			// If application form an posting are on the same page, the posting object is part of the application plugin.
+			// If application form and posting are on the same page, the posting object is part of the application plugin.
 			if (!$this->request->hasArgument("posting") && isset($_REQUEST["tx_jobapplications_applicationform"]["posting"]))
 			{
                 $this->request = $this->request->withArgument("posting", $_REQUEST["tx_jobapplications_applicationform"]["posting"]);
@@ -98,6 +99,27 @@
 		}
 
 		/**
+		 * @return void
+		 * @throws InvalidQueryException
+		 * @throws NoSuchArgumentException
+		 */
+		public function initializeListAction() {
+			$propertyMappingConfiguration = $this->arguments->getArgument("constraint")->getPropertyMappingConfiguration();
+			foreach ($this->getCachedFilterOptions($this->getCategoriesFromSettings()) as $index => $property) {
+				$propertyMappingConfiguration->allowProperties($index);
+			}
+		}
+
+		/**
+		 * @return array|string[]
+		 */
+		private function getCategoriesFromSettings(): array
+		{
+			$category_str = $this->settings["categories"];
+			return !empty($category_str) ? explode(",", $category_str) : [];
+		}
+
+		/**
 		 * @throws InvalidQueryException
 		 * @throws UnknownClassException
          */
@@ -107,8 +129,7 @@
 			$itemsPerPage = $this->settings['itemsOnPage'] ?? 9;
 
 			// Plugin selected categories
-			$category_str = $this->settings["categories"];
-			$categories = !empty($category_str) ? explode(",", $category_str) : [];
+			$categories = $this->getCategoriesFromSettings();
 
 			$orderBy = $this->settings['list']['ordering']['field'] ?: 'date_posted';
 			$order = '';
@@ -122,6 +143,11 @@
 					break;
 				default:
 					$order = QueryInterface::ORDER_DESCENDING;
+			}
+
+			// Add pre-filtered locations to constraint
+			if (trim(($this->settings['prefilteredLocation'] ?? '')) !== '') {
+				$constraint = $this->getPreFilteredLocations($constraint);
 			}
 
 			// Get repository configuration from typoscript
@@ -157,6 +183,29 @@
 			$this->view->assign('constraint', $constraint);
 
 			return $this->htmlResponse();
+		}
+
+		/**
+		 * @param Constraint|null $constraint
+		 *
+		 * @return Constraint
+		 */
+		private function getPreFilteredLocations(Constraint $constraint = null): Constraint
+		{
+			$prefilteredLocationsString = (string)($this->settings['prefilteredLocation'] ?? '');
+			$prefilteredLocations = explode(",", $prefilteredLocationsString);
+
+			if ($constraint === null)
+			{
+				$constraint = new Constraint();
+				$constraint->setLocations($prefilteredLocations);
+			} else
+			{
+				// Allow to override prefiltered locations when user changes something else
+				$constraint->setLocations($constraint->getLocations());
+			}
+
+			return $constraint;
 		}
 
 		/**
@@ -241,7 +290,7 @@
 
 			$titleProvider = GeneralUtility::makeInstance(JobsPageTitleProvider::class);
 
-			// Pagetitle Templating
+			// Page-title Templating
 			$title = $this->settings["pageTitle"];
 			if ($title !== "")
 			{
@@ -268,7 +317,7 @@
 
 		/**
 		 * This function generates the Google Jobs structured on page data.
-		 * This can be overriden if any field customizations are done.
+		 * This can be overridden if any field customizations are done.
 		 *
 		 * @throws \JsonException
 		 */
@@ -349,7 +398,7 @@
 			$googleJobsJSON = [
 				"@context" => "http://schema.org",
 				"@type" => "JobPosting",
-				"datePosted" => $posting->getDatePosted()->format("c"),
+				"datePosted" => $posting->getDatePosted()?->format("c"),
 				"description" => $posting->getCompanyDescription()."<br>".$posting->getJobDescription()."<br>"
 					.$posting->getRoleDescription()."<br>".$posting->getSkillRequirements()
 					."<br>".$posting->getBenefits(),
@@ -388,11 +437,14 @@
 				];
 			}
 
-
 			if ($posting->getEndtime() instanceof \DateTime)
 			{
 				$googleJobsJSON["validThrough"] = $posting->getEndtime()->format("c");
 			}
+
+			/** @var ModifyGoogleForJobsDataEvent $event */
+			$event = $this->eventDispatcher->dispatch(new ModifyGoogleForJobsDataEvent($googleJobsJSON, $posting));
+			$googleJobsJSON = $event->getGoogleForJobsData();
 
 			$googleJobs = "<script type=\"application/ld+json\">".json_encode($googleJobsJSON, JSON_THROW_ON_ERROR)."</script>";
 

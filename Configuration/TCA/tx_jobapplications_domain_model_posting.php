@@ -452,6 +452,7 @@ return [
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
+                'default' => 0,
                 'foreign_table' => 'tx_jobapplications_domain_model_locationrequirement',
                 'foreign_table_where' => 'tx_jobapplications_domain_model_locationrequirement.sys_language_uid IN (0,-1) ORDER BY tx_jobapplications_domain_model_locationrequirement.name ASC',
                 'minitems' => 0,
@@ -517,6 +518,5 @@ return [
         'homeoffice-settings' => [
             'showitem' => 'homeoffice, locationrequirements'
         ]
-
     ],
 ];
