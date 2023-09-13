@@ -343,7 +343,11 @@
             </trans-unit>
             <trans-unit id="be.widget_group.jobapplications" resname="be.widget_group.jobapplications">
                 <source>Jobs</source>
-                <source>Stellenausschreibungen</source>
+                <target>Stellenausschreibungen</target>
+            </trans-unit>
+            <trans-unit id="be.review_in_backend" resname="be.review_in_backend">
+                <source>You can review this new application in your website's TYPO3 backend.</source>
+                <target>Sie finden diese Bewerbung im TYPO3 Backend Ihrer Website</target>
             </trans-unit>
         </body>
     </file>
