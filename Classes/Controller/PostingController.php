@@ -8,6 +8,7 @@
 	use ITX\Jobapplications\Domain\Repository\LocationRepository;
 	use ITX\Jobapplications\Domain\Repository\PostingRepository;
 	use ITX\Jobapplications\Event\DisplayPostingEvent;
+	use ITX\Jobapplications\Event\EditGoogleForJobsDataEvent;
 	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
 	use Psr\Http\Message\ResponseInterface;
 	use TYPO3\CMS\Core\Cache\CacheManager;
@@ -289,7 +290,7 @@
 
 			$titleProvider = GeneralUtility::makeInstance(JobsPageTitleProvider::class);
 
-			// Pagetitle Templating
+			// Page-title Templating
 			$title = $this->settings["pageTitle"];
 			if ($title !== "")
 			{
@@ -316,7 +317,7 @@
 
 		/**
 		 * This function generates the Google Jobs structured on page data.
-		 * This can be overriden if any field customizations are done.
+		 * This can be overridden if any field customizations are done.
 		 *
 		 * @throws \JsonException
 		 */
@@ -397,7 +398,7 @@
 			$googleJobsJSON = [
 				"@context" => "http://schema.org",
 				"@type" => "JobPosting",
-				"datePosted" => $posting->getDatePosted()->format("c"),
+				"datePosted" => $posting->getDatePosted()?->format("c"),
 				"description" => $posting->getCompanyDescription()."<br>".$posting->getJobDescription()."<br>"
 					.$posting->getRoleDescription()."<br>".$posting->getSkillRequirements()
 					."<br>".$posting->getBenefits(),
@@ -436,11 +437,14 @@
 				];
 			}
 
-
 			if ($posting->getEndtime() instanceof \DateTime)
 			{
 				$googleJobsJSON["validThrough"] = $posting->getEndtime()->format("c");
 			}
+
+			/** @var EditGoogleForJobsDataEvent $event */
+			$event = $this->eventDispatcher->dispatch(new EditGoogleForJobsDataEvent($googleJobsJSON, $posting));
+			$googleJobsJSON = $event->getGoogleForJobsData();
 
 			$googleJobs = "<script type=\"application/ld+json\">".json_encode($googleJobsJSON, JSON_THROW_ON_ERROR)."</script>";
 

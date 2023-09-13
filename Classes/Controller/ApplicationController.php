@@ -35,7 +35,6 @@
 	use ITX\Jobapplications\Event\BeforeApplicationPersisted;
 	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
 	use ITX\Jobapplications\Service\ApplicationFileService;
-	use ITX\Jobapplications\Utility\Mail\MailInterface;
 	use ITX\Jobapplications\Utility\Typo3VersionUtility;
 	use ITX\Jobapplications\Utility\UploadFileUtility;
 	use Psr\Http\Message\ResponseInterface;
