@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved task documentation
 - Fixed error when copying posting without location requirement (#101)
 - Fixed filter not working when using pagination (#90)
+- Removed hidden dashboard dependency (#112 and #73)
 
 ### Changed
 
