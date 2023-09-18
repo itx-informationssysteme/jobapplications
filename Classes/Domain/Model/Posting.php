@@ -155,7 +155,7 @@
 		 * homeoffice
 		 *
 		 */
-		protected bool $homeoffice;
+		protected bool $homeoffice = false;
 
 		/**
 		 * @var ObjectStorage<LocationRequirement>|null
