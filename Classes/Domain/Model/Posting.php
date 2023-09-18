@@ -158,9 +158,9 @@
 		protected bool $homeoffice = false;
 
 		/**
-		 * @var ObjectStorage<LocationRequirement>|null
+		 * @var LocationRequirement|null
 		 */
-		protected ?ObjectStorage $locationrequirements = null;
+		protected ?LocationRequirement $locationrequirements = null;
 
 		/**
 		 * contact
@@ -216,7 +216,6 @@
 		protected function initStorageObjects()
 		{
 			$this->categories = new ObjectStorage();
-			$this->locationrequirements = new ObjectStorage();
 			$this->locations = new ObjectStorage();
 		}
 
@@ -728,5 +727,15 @@
 		public function setHomeoffice(bool $homeoffice): void
 		{
 			$this->homeoffice = $homeoffice;
+		}
+
+		public function getLocationrequirements(): ?LocationRequirement
+		{
+			return $this->locationrequirements;
+		}
+
+		public function setLocationrequirements(?LocationRequirement $locationrequirements): void
+		{
+			$this->locationrequirements = $locationrequirements;
 		}
 	}
