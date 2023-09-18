@@ -42,7 +42,8 @@
 	use Symfony\Component\Mime\Address;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\Database\ConnectionPool;
-	use TYPO3\CMS\Core\Log\LogManager;
+    use TYPO3\CMS\Core\Http\RedirectResponse;
+    use TYPO3\CMS\Core\Log\LogManager;
 	use TYPO3\CMS\Core\Mail\FluidEmail;
 	use TYPO3\CMS\Core\Mail\Mailer;
 	use TYPO3\CMS\Core\Messaging\FlashMessage;
@@ -59,14 +60,13 @@
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Core\Utility\MathUtility;
 	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-	use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
-	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 	use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 	use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 	use TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter;
 	use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+    use TYPO3Fluid\Fluid\View\ViewInterface;
 
-	/**
+    /**
 	 * ApplicationController
 	 */
 	class ApplicationController extends ActionController
@@ -100,8 +100,7 @@
 		 * @var \TYPO3\CMS\Core\Log\Logger
 		 */
 		protected $logger;
-		/** @var int Major TYPO3 Version number */
-		protected $version;
+
 		/**
 		 * @var \ITX\Jobapplications\Domain\Repository\PostingRepository
 		 */
@@ -152,7 +151,6 @@
 			{
 				$view->assign('pageData', $GLOBALS['TSFE']->page);
 			}
-			parent::initializeView($view);
 		}
 
 		/**
@@ -175,8 +173,6 @@
 			{
 				$this->fileSizeLimit = (int)GeneralUtility::getMaxUploadFileSize();
 			}
-
-			$this->version = Typo3VersionUtility::getMajorVersion();
 		}
 
 		/**
@@ -186,9 +182,8 @@
 		 */
 		public function newAction(Posting $posting = null): ResponseInterface
 		{
-
 			// Getting posting when Detailview and applicationform are on the same page.
-			$parameters = GeneralUtility::_GET("tx_jobapplications_detailview");
+			$parameters = $_GET["tx_jobapplications_detailview"] ?? [];
 			if ($posting === null && !empty($parameters) && !empty($parameters['posting']) && MathUtility::canBeInterpretedAsInteger($parameters['posting']))
 			{
 				$postingUid = (int)$parameters['posting'];
@@ -311,11 +306,10 @@
 		 * @throws InsufficientFolderAccessPermissionsException
 		 * @throws InsufficientFolderWritePermissionsException
 		 * @throws InvalidFileNameException
-		 * @throws StopActionException
 		 * @throws IllegalObjectTypeException
 		 */
-		public function createAction(Application $newApplication, Posting $posting = null): void
-		{
+		public function createAction(Application $newApplication, Posting $posting = null): RedirectResponse
+        {
 			$problemWithApplicantMail = false;
 			$problemWithNotificationMail = false;
 			$savedInBackend = true;
@@ -332,7 +326,7 @@
 
 			if (array_key_exists("honeypot", $this->settings) && $this->settings["honeypot"] === '1')
 			{
-				$this->checkHoneypot($arguments, $posting);
+				$this->checkHoneypot($arguments, $posting, $newApplication);
 			}
 
 			// Normalize file array -> free choice whether multi or single upload
@@ -575,7 +569,7 @@
 					'postingUid' => $currentPosting->getUid() ?: -1
 				], 'Application', null, 'SuccessPage');
 
-			$this->redirectToUri($uri);
+			return new RedirectResponse($uri);
 		}
 
 		/**
@@ -706,20 +700,20 @@
 			}
 		}
 
-		/**
-		 * @param array   $arguments
-		 * @param Posting $posting
-		 *
-		 * @return void
-		 * @throws StopActionException
-		 */
-		private function checkHoneypot(array $arguments, ?Posting $posting): void
+        /**
+         * @param array            $arguments
+         * @param Posting|null     $posting
+         * @param Application|null $newApplication
+         *
+         * @return void
+         */
+		private function checkHoneypot(array $arguments, ?Posting $posting, ?Application $newApplication): void
 		{
 			//Minimal Seconds it should take someone to fill out the form.
 			$minMillisecondsToFillOutForm = 1000;
 
 			//Is the honeypot field not empty or was the form filled out extremely fast. If yes it is likely due to a bot. Do not send form redirect to page and display error.
-			if ( $arguments["new_mail"] !== '' || ($arguments["timestamp"] != '' && (microtime(as_float: true) - (int)$arguments["timestamp"]) < $minMillisecondsToFillOutForm))
+			if (($newApplication && ($arguments["new_mail"] ?? '') !== '') || ($arguments["timestamp"] != '' && (microtime(as_float: true) - (int)$arguments["timestamp"]) < $minMillisecondsToFillOutForm))
 			{
 				$this->addFlashMessage("That shouldn't have happened, please try again.", "Oops", FlashMessage::ERROR);
 				$this->redirect("new", "Application", null, ["posting" => $posting]);

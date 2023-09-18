@@ -232,6 +232,8 @@ Use this setting only if no posting records are shared between sites. "unique" m
 
 Google Indexing API interface
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(Not available for v12, see why here: `https://github.com/itx-informationssysteme/jobapplications/blob/main/CHANGELOG.md`
+
 This extension implements the Google Indexing API. It provides a possibility for telling Google when a job posting was created, updated
 or deleted. In this extension this happens (when everything is configured correcty) when a posting record is created, updated
 or deleted. The extension connects to the Google API and tells it that something changed to the postings url. Following that

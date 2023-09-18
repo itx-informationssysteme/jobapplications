@@ -2,12 +2,12 @@
 
 	namespace ITX\Jobapplications\Controller;
 
-	use ITX\Jobapplications\Domain\Repository\ContactRepository;
+    use ITX\Jobapplications\Domain\Repository\ContactRepository;
 	use Psr\Http\Message\ResponseInterface;
 	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-	use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+    use TYPO3Fluid\Fluid\View\ViewInterface;
 
-	/***************************************************************
+    /***************************************************************
 	 *  Copyright notice
 	 *
 	 *  (c) 2020
@@ -45,19 +45,16 @@
 		 *
 		 * @param ViewInterface $view The view to be initialized
 		 */
-		public function initializeView(ViewInterface $view)
-		{
+		public function initializeView(ViewInterface $view): void
+        {
 			if (is_object($GLOBALS['TSFE']))
 			{
 				$view->assign('pageData', $GLOBALS['TSFE']->page);
 			}
-			parent::initializeView($view);
 		}
 
 		/**
 		 * action list
-		 *
-		 * @param ITX\Jobapplications\Domain\Model\Contact
 		 *
 		 * @return ResponseInterface
 		 */

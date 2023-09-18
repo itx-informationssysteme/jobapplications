@@ -147,8 +147,7 @@
 
 			$detailViewUid = (int)$this->findBestPluginPageFit($contentElements, $posting);
 
-			$uriBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class)
-										->get(UriBuilderJobapplications::class);
+			$uriBuilder = GeneralUtility::makeInstance(UriBuilderJobapplications::class);
 
 			$url = $uriBuilder
 				->reset()

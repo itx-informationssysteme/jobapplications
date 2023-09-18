@@ -3,8 +3,9 @@
 	namespace ITX\Jobapplications\Domain\Repository;
 
 	use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+    use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
-	/***************************************************************
+    /***************************************************************
 	 *  Copyright notice
 	 *
 	 *  (c) 2020
@@ -80,7 +81,7 @@
 			}
 
 			$query->matching(
-				$query->logicalAnd($andArray)
+				$query->logicalAnd(...$andArray)
 			);
 
 			$query->setOrderings([$orderBy => $order]);
@@ -95,9 +96,11 @@
 		 */
 		public function findAll()
 		{
-			$query = $this->createQuery()->getQuerySettings()
-						  ->setRespectStoragePage(false)
-						  ->setIgnoreEnableFields(true);
+			$query = $this->createQuery();
+
+            $query->getQuerySettings()
+                  ->setRespectStoragePage(false)
+                  ->setIgnoreEnableFields(true);
 			$query->setOrderings([
 									 "crdate" => QueryInterface::ORDER_DESCENDING
 								 ]);
@@ -117,11 +120,11 @@
 				  ->setRespectStoragePage(false)
 				  ->setIgnoreEnableFields(true);
 			$query->matching(
-				$query->logicalAnd([
-									   $query->equals('posting.contact.uid', $contact),
-									   $query->equals('status.is_new_status', 1),
-									   $query->equals('archived', 0)
-								   ])
+				$query->logicalAnd($query->equals('posting.contact.uid', $contact),
+                                   $query->equals('status.is_new_status', 1),
+                                   $query->equals('archived', 0)
+
+                )
 			);
 
 			return $query->execute();
@@ -157,7 +160,7 @@
 
 			$query->matching(
 				$query->logicalAnd(
-					$andArray
+					...$andArray
 				)
 			);
 
@@ -209,9 +212,7 @@
 				  ->setRespectStoragePage(false)
 				  ->setIgnoreEnableFields(true);
 			$query->matching(
-				$query->logicalAnd([
-									   $query->equals('posting.uid', $uid)
-								   ])
+				$query->logicalAnd($query->equals('posting.uid', $uid))
 			);
 
 			return $query->execute();

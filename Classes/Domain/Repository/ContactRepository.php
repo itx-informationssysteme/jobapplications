@@ -40,13 +40,12 @@
 			$query = $this->createQuery();
 			$orArray = [];
 
-			for ($i = 0; $i < count($uids); $i++)
-			{
-				$orArray[] = $query->equals("uid", $uids[$i]);
-			}
+            foreach ($uids as $uid) {
+                $orArray[] = $query->equals("uid", $uid);
+            }
 
-			$query->matching(
-				$query->logicalOr($orArray)
+            $query->matching(
+				$query->logicalOr(...$orArray)
 			);
 
 			return $query->execute();

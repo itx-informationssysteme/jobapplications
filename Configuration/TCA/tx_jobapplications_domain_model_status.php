@@ -5,7 +5,6 @@
 			'label' => 'name',
 			'tstamp' => 'tstamp',
 			'crdate' => 'crdate',
-			'cruser_id' => 'cruser_id',
 			'versioningWS' => true,
 			'languageField' => 'sys_language_uid',
 			'transOrigPointerField' => 'l10n_parent',
@@ -38,7 +37,7 @@
 				'exclude' => true,
 				'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
 				'config' => [
-					'type' => 'lanuage'
+					'type' => 'language'
 				],
 			],
 			'l10n_parent' => [
@@ -48,9 +47,6 @@
 					'type' => 'select',
 					'renderType' => 'selectSingle',
 					'default' => 0,
-					'items' => [
-						['', 0],
-					],
 					'foreign_table' => 'tx_jobapplications_domain_model_application',
 					'foreign_table_where' => 'AND {#tx_jobapplications_domain_model_application}.{#pid}=###CURRENT_PID### AND {#tx_jobapplications_domain_model_application}.{#sys_language_uid} IN (-1,0)',
 				],
@@ -74,13 +70,6 @@
 				'config' => [
 					'type' => 'check',
 					'renderType' => 'checkboxToggle',
-					'items' => [
-						[
-							0 => '',
-							1 => '',
-							'invertStateDisplay' => true
-						]
-					],
 				],
 			],
 			'starttime' => [

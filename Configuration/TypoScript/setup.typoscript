@@ -37,6 +37,13 @@ plugin.tx_jobapplications {
 		defaultContactFirstName = {$plugin.tx_jobapplications.settings.defaultContactFirstName}
 		defaultContactLastName = {$plugin.tx_jobapplications.settings.defaultContactLastName}
 
+        googleJobs {
+            enabled = {$plugin.tx_jobapplications.settings.enableGoogleJobs}
+            companyName = {$plugin.tx_jobapplications.settings.companyName}
+            logo = {$plugin.tx_jobapplications.settings.logo}
+            currency = {$plugin.tx_jobapplications.settings.currency}
+        }
+
 		list {
 			ordering {
 				field = date_posted
@@ -79,14 +86,10 @@ config.tx_extbase.persistence.classes {
 }
 
 # Module configuration
-module.tx_jobapplications_web_jobapplicationsbackend < plugin.tx_jobapplications
-module.tx_jobapplications_web_jobapplicationsbackend {
+module.tx_jobapplications < plugin.tx_jobapplications
+module.tx_jobapplications {
 	view {
-		templateRootPaths.0 = EXT:jobapplications/Resources/Private/Backend/Templates/
-		templateRootPaths.1 = {$module.tx_jobapplications_backend.view.templateRootPath}
-		partialRootPaths.0 = EXT:jobapplications/Resources/Private/Backend/Partials/
-		partialRootPaths.1 = {$module.tx_jobapplications_backend.view.partialRootPath}
-		layoutRootPaths.0 = EXT:jobapplications/Resources/Private/Backend/Layouts/
+		layoutRootPaths.0 = EXT:jobapplications/Resources/Private/Layouts/Backend/
 		layoutRootPaths.1 = {$module.tx_jobapplications_backend.view.layoutRootPath}
 	}
 }

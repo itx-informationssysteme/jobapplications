@@ -7,7 +7,7 @@
 		</f:else>
 	</f:if>
 	<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.application.selector.{application.salutation}"/> {application.firstName} {application.lastName}
-	<f:format.date format="{f:translate(key: 'date_format', extensionName: '{Jobapplications}')}">{application.crdate}</f:format.date>
+	<f:format.date format="{f:translate(key: 'date_format', extensionName: 'Jobapplications')}">{application.crdate}</f:format.date>
 	<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.posting"></f:translate>: <f:if condition="!{application.posting}"><f:then><f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.filter.unsolicited.single"/></f:then><f:else>{application.posting.title}</f:else></f:if>
 	<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.email"></f:translate>: {application.email}
 	<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.phone"></f:translate>: {application.phone}
@@ -23,7 +23,7 @@
 	</f:if>
 	<f:if condition="{application.earliestDateOfJoining}">
 		<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.earliest_date_of_joining"></f:translate>:
-		<f:format.date format="{f:translate(key: 'date_format')}">{application.earliestDateOfJoining}</f:format.date>
+		<f:format.date format="{f:translate(key: 'date_format', extensionName: 'Jobapplications')}">{application.earliestDateOfJoining}</f:format.date>
 	</f:if>
 	<f:if condition="{application.message}">
 		<f:translate key="LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:tx_jobapplications_domain_model_application.message"></f:translate>: {application.message}
