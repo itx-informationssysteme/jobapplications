@@ -26,8 +26,13 @@
 	namespace ITX\Jobapplications\Controller;
 
 	use Psr\Http\Message\ServerRequestInterface;
-	use TYPO3\CMS\Core\Pagination\SimplePagination;
-	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+    use TYPO3\CMS\Backend\Attribute\Controller;
+    use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
+    use TYPO3\CMS\Core\Http\RedirectResponse;
+    use TYPO3\CMS\Core\Pagination\SimplePagination;
+    use TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException;
+    use TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException;
+    use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 	use ITX\Jobapplications\Domain\Model\Application;
 	use Psr\Http\Message\ResponseInterface;
 	use ITX\Jobapplications\Domain\Repository\ApplicationRepository;
@@ -53,6 +58,7 @@
 	 *
 	 * @package ITX\Jobapplications\Controller
 	 */
+    #[Controller]
 	class BackendController extends ActionController
 	{
 		/**
@@ -97,7 +103,7 @@
 
 		protected GoogleIndexingApiConnector $connector;
 
-		public function __construct(GoogleIndexingApiConnector $connector)
+		public function __construct(GoogleIndexingApiConnector $connector, protected readonly ModuleTemplateFactory $moduleTemplateFactory,)
 		{
 			$this->connector = $connector;
 		}
@@ -105,13 +111,14 @@
 		/**
 		 * action listApplications
 		 *
-		 * @return void
 		 * @throws NoSuchArgumentException
 		 * @throws UnknownObjectException
 		 * @throws IllegalObjectTypeException
 		 */
-		public function listApplicationsAction()
+		public function listApplicationsAction(): ResponseInterface
 		{
+            $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+
 			$page = $this->request->hasArgument('page') ? (int)$this->request->getArgument('page') : 1;
 			$itemsPerPage = 12;
 
@@ -121,9 +128,7 @@
 			$dailyLogin = $sessionData['dailyLogin'] ?? null;
 			if ((empty($dailyLogin) && $contact instanceof Contact) || ($dailyLogin === false && $contact instanceof Contact))
 			{
-				$this->redirect('dashboard');
-
-				return;
+				return $this->redirect('dashboard');
 			}
 
 			// Get all filter elements and set them to empty if there are none and use session storage for persisting selection
@@ -205,6 +210,9 @@
 			$this->view->assign('postings', $postingsFilter);
 			$this->view->assign('contacts', $contactsFilter);
 			$this->view->assign('statuses', $statusesFilter);
+
+            $moduleTemplate->setContent($this->view->render());
+            return $this->htmlResponse($moduleTemplate->renderContent());
 		}
 
 		/**
@@ -219,20 +227,21 @@
 			return $this->contactRepository->findByBackendUser($beUserUid)[0];
 		}
 
-		/**
-		 * action showApplication
-		 *
-		 * @param \ITX\Jobapplications\Domain\Model\Application $application
-		 *
-		 * @throws UnknownObjectException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
-		 * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
-		 * @throws IllegalObjectTypeException
-		 * @throws NoSuchArgumentException
-		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
-		 */
-		public function showApplicationAction(Application $application)
+        /**
+         * action showApplication
+         *
+         * @param Application $application
+         *
+         * @return ResponseInterface
+         * @throws IllegalObjectTypeException
+         * @throws UnknownObjectException
+         * @throws InsufficientFolderAccessPermissionsException
+         * @throws InvalidFileNameException
+         */
+		public function showApplicationAction(Application $application): ResponseInterface
 		{
+            $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+
 			$statusDatabaseOp = false;
 
 			// Handles archive request
@@ -278,6 +287,9 @@
 			}
 
 			$this->view->assign('application', $application);
+
+            $moduleTemplate->setContent($this->view->render());
+            return $this->htmlResponse($moduleTemplate->renderContent());
 		}
 
 		/**
@@ -286,6 +298,8 @@
 		 */
 		public function dashboardAction(): ResponseInterface
 		{
+            $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+
 			// Get data for counter of new applications with referenced contact
 			$contact = $this->getActiveBeContact();
 
@@ -312,7 +326,9 @@
 			$this->view->assign('admin', $GLOBALS['BE_USER']->isAdmin());
 			$this->view->assign('newApps', count($newApps));
 			$this->view->assign('contact', $contact);
-			return $this->htmlResponse();
+
+            $moduleTemplate->setContent($this->view->render());
+            return $this->htmlResponse($moduleTemplate->renderContent());
 		}
 
 		/**
@@ -324,6 +340,8 @@
 		 */
 		public function settingsAction(): ResponseInterface
 		{
+            $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+
 			if (!$GLOBALS['BE_USER']->isAdmin())
 			{
 				throw new InsufficientUserPermissionsException('Insufficient permissions');
@@ -383,7 +401,9 @@
 			}
 
 			$this->view->assign('admin', $GLOBALS['BE_USER']->isAdmin());
-			return $this->htmlResponse();
+
+            $moduleTemplate->setContent($this->view->render());
+            return $this->htmlResponse($moduleTemplate->renderContent());
 		}
 
 		public function injectApplicationRepository(ApplicationRepository $applicationRepository): void

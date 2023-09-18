@@ -10,7 +10,6 @@
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\DataHandling\DataHandler;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
-	use TYPO3\CMS\Extbase\Object\ObjectManager;
 	use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 
 	/**
@@ -90,10 +89,10 @@
 		 */
 		public function processDatamap_postProcessFieldArray($command, $table, $uid, $value, DataHandler $pObj)
 		{
+            return;
 			if ($table === "tx_jobapplications_domain_model_posting")
 			{
-				$enabled = GeneralUtility::makeInstance(ExtensionConfiguration::class)
-																 ->get('jobapplications', 'indexing_api');
+				$enabled = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('jobapplications', 'indexing_api');
 				if ($enabled !== "1")
 				{
 					return;
@@ -126,6 +125,7 @@
 		 */
 		public function processCmdmap_deleteAction($table, $uid, array $record, &$recordWasDeleted, DataHandler $dataHandler)
 		{
+            return;
 			if ($table === "tx_jobapplications_domain_model_posting")
 			{
 				$enabled = GeneralUtility::makeInstance(ExtensionConfiguration::class)

@@ -1,0 +1,14 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+    xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
+<f:be.pageRenderer includeCssFiles="{0: '{f:uri.resource(path: \'Css/backend.css\')}'}"></f:be.pageRenderer>
+<f:be.menus.actionMenu>
+    <f:be.menus.actionMenuItem controller="Backend" label="{f:translate(key: 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.dashboard.applicationAdmin')}" action="listApplications" arguments="{submit: 'Filter'}"></f:be.menus.actionMenuItem>
+    <f:be.menus.actionMenuItem controller="Backend" label="{f:translate(key: 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.dashboard.title')}" action="dashboard" arguments="{submit: 'Filter'}"></f:be.menus.actionMenuItem>
+    <f:be.menus.actionMenuItem controller="Backend" label="{f:translate(key: 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.dashboard.settings')}" action="settings" arguments="{submit: 'Filter'}"></f:be.menus.actionMenuItem>
+</f:be.menus.actionMenu>
+<f:render section="Content"/>
+
