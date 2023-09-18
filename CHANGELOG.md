@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.2] - 2023-09-18 Another Bugfix
+
+### Fixed
+
+- Fixed error in PostingController for generating Google JSON
+
 ## [2.3.1] - 2023-09-18 Bugfix
 
 ### Fixed
