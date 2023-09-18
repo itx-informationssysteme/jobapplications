@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.1] - 2023-09-18 Bugfix
+
 ### Fixed
 
 - Fixed wrong homeoffice field type in posting model
