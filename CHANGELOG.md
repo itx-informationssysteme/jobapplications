@@ -7,13 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+## [3.0.0] - 2023-09-18 TYPO3 v12 support
+
+### Added
+
+- TYPO3 12 support
+
 ### Changed
 
 - Google Jobs enabled by default
 - Moved Google Jobs configuration from extension configuration to TypoScript (settings.googleJobs)
 
 ### Removed
-- Removed support for v11
+
+- Dropped support for v11
+- Temporarily removed support for Indexing API Integration because of removal of ObjectManager and no adequate event in TYPO3 Core replacing data handler hooks
+    - this will be re-enabled eventually when events are supported in data handler
 
 ## [2.3.2] - 2023-09-18 Another Bugfix
 
