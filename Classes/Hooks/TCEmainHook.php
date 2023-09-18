@@ -28,7 +28,7 @@
 
 		public function __construct()
 		{
-            // TODO: FIX THIS
+            // TODO: Move to events if they eventually become available for data handler
 
             return;
 			/** @var ObjectManager $objectManager */
@@ -51,7 +51,7 @@
 		 */
 		public function processDatamap_afterDatabaseOperations($status, $table, $id, array $fieldArray, DataHandler $pObj): void
 		{
-
+            return;
 			if ($table === 'tx_jobapplications_domain_model_posting')
 			{
 				$enabled = GeneralUtility::makeInstance(ExtensionConfiguration::class)
