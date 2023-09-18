@@ -15,6 +15,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 - Removed support for v11
 
+## [2.3.1] - 2023-09-18 Bugfix
+
+### Fixed
+
+- Fixed wrong homeoffice field type in posting model
+
 ## [2.3.0] - 2023-09-13
 
 ### Added

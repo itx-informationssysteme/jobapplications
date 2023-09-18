@@ -2,6 +2,7 @@
 
 	namespace ITX\Jobapplications\Domain\Model;
 
+	use TYPO3\CMS\Extbase\Domain\Model\Category;
 	use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 	use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 	use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
@@ -146,23 +147,20 @@
 		/**
 		 * locations
 		 *
-		 * @var ObjectStorage<Location>
+		 * @var ObjectStorage<Location>|null
 		 */
 		protected $locations = null;
 
 		/**
 		 * homeoffice
 		 *
-		 * @var string
 		 */
-		protected $homeoffice = '';
+		protected bool $homeoffice = false;
 
 		/**
-		 * locationrequirements
-		 *
-		 * @var LocationRequirement
+		 * @var LocationRequirement|null
 		 */
-		protected $locationrequirements = null;
+		protected ?LocationRequirement $locationrequirements = null;
 
 		/**
 		 * contact
@@ -174,7 +172,7 @@
 		/**
 		 * detailViewImage
 		 *
-		 * @var FileReference
+		 * @var FileReference|null
 		 * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
 		 */
 		protected $detailViewImage = null;
@@ -182,7 +180,7 @@
 		/**
 		 * listViewImage
 		 *
-		 * @var FileReference
+		 * @var FileReference|null
 		 * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
 		 */
 		protected $listViewImage = null;
@@ -190,18 +188,12 @@
 		/**
 		 * categories
 		 *
-		 * @var ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+		 * @var ObjectStorage<Category>
 		 * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
 		 */
 		protected $categories = null;
 
 		protected $slug = '';
-		/**
-		 * region
-		 *
-		 * @var string
-		 */
-		protected $regions = '';
 
 		/**
 		 * __construct
@@ -224,6 +216,7 @@
 		protected function initStorageObjects()
 		{
 			$this->categories = new ObjectStorage();
+			$this->locations = new ObjectStorage();
 		}
 
 		/**
@@ -631,7 +624,7 @@
 		}
 
 		/**
-		 * @return ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+		 * @return ObjectStorage<Category>
 		 */
 		public function getCategories()
 		{
@@ -639,7 +632,7 @@
 		}
 
 		/**
-		 * @param ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $categories
+		 * @param ObjectStorage<Category> $categories
 		 */
 		public function setCategories(ObjectStorage $categories): void
 		{
@@ -726,52 +719,22 @@
 			$this->slug = $slug;
 		}
 
-		/**
-		 * @return region
-		 */
-		public function getRegions(): string
-		{
-			return $this->regions;
-		}
-
-		/**
-		 * @param $regions
-		 *
-		 * @return void
-		 */
-		public function setRegions(string $regions)
-		{
-			$this->regions = $regions;
-		}
-
-		/**
-		 * @return string
-		 */
-		public function getHomeoffice(): string
+		public function isHomeoffice(): bool
 		{
 			return $this->homeoffice;
 		}
 
-		/**
-		 * @param string $homeoffice
-		 */
-		public function setHomeoffice(string $homeoffice): void
+		public function setHomeoffice(bool $homeoffice): void
 		{
 			$this->homeoffice = $homeoffice;
 		}
 
-		/**
-		 * @return LocationRequirement
-		 */
-		public function getLocationrequirements()
+		public function getLocationrequirements(): ?LocationRequirement
 		{
 			return $this->locationrequirements;
 		}
 
-		/**
-		 * @param LocationRequirement
-		 */
-		public function setLocationrequirements(LocationRequirement $locationrequirements): void
+		public function setLocationrequirements(?LocationRequirement $locationrequirements): void
 		{
 			$this->locationrequirements = $locationrequirements;
 		}
