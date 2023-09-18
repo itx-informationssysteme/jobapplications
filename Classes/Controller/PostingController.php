@@ -406,7 +406,7 @@
 				"directApply" => $this->settings["applicationsEnabled"] === "1"
 			];
 
-			if ($posting->getHomeoffice() === '1')
+			if ($posting->isHomeoffice())
 			{
 				$googleJobsJSON["jobLocationType"] = "TELECOMMUTE";
 
