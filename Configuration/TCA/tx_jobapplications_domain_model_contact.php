@@ -3,8 +3,8 @@
 		'ctrl' => [
 			'title' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_contact',
 			'label' => 'last_name',
-			'label' => 'last_name',
 			'label_alt' => 'first_name',
+            'label_alt_force' => true,
 			'tstamp' => 'tstamp',
 			'crdate' => 'crdate',
 			'versioningWS' => true,
