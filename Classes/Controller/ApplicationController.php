@@ -423,6 +423,7 @@
 			$currentPosting = $newApplication->getPosting();
 
 			// Default contact is not available
+            /** @var Contact $contact */
 			$contact = GeneralUtility::makeInstance(Contact::class);
 
 			$contact->setEmail($this->settings["defaultContactMailAddress"]);
@@ -530,7 +531,7 @@
 				}
 				catch (\Exception $e)
 				{
-					$this->logger->log(\TYPO3\CMS\Core\Log\LogLevel::CRITICAL, 'Error trying to send a mail: '.$e->getMessage(), [$this->settings, $mail]);
+					$this->logger->log(LogLevel::CRITICAL, 'Error trying to send a mail: '.$e->getMessage(), [$this->settings, $mail]);
 					$problemWithApplicantMail = true;
 				}
 			}

@@ -2,7 +2,8 @@
 
 	namespace ITX\Jobapplications\Domain\Model;
 
-	use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+	use TYPO3\CMS\Core\Core\Environment;
+    use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 	use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 	use TYPO3\CMS\Core\Http\ApplicationType;
 
@@ -81,9 +82,9 @@
 		/**
 		 * beUser
 		 *
-		 * @var \TYPO3\CMS\Extbase\Domain\Model\BackendUser
+		 * @var BackendUser|null
 		 */
-		protected $beUser = null;
+		protected ?BackendUser $beUser = null;
 
 		/**
 		 * @return string
@@ -199,25 +200,19 @@
 			$this->photo = $photo;
 		}
 
-		/**
-		 * @return \TYPO3\CMS\Extbase\Domain\Model\BackendUser
-		 */
-		public function getBeUser()
-		{
-			if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
-				return $this->beUser;
-			}
+        public function getBeUser(): ?BackendUser
+        {
+            if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
+                return $this->beUser;
+            }
 
-			return null;
-		}
+            return null;
+        }
 
-		/**
-		 * @param \TYPO3\CMS\Extbase\Domain\Model\BackendUser $beUser
-		 */
-		public function setBeUser($beUser)
-		{
-			$this->beUser = $beUser;
-		}
+        public function setBeUser(?BackendUser $beUser): void
+        {
+            $this->beUser = $beUser;
+        }
 
 		/**
 		 * @return int
