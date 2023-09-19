@@ -150,6 +150,7 @@
 			// Handling a status change, triggered in listApplications View
 			if ($this->request->hasArgument('statusChange'))
 			{
+                /** @var Application $application */
 				$application = $this->applicationRepository->findByUid($this->request->getArgument('application'));
 				$application->setStatus($this->statusRepository->findByUid($this->request->getArgument('statusChange')));
 				$this->applicationRepository->update($application);

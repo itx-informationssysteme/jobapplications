@@ -628,8 +628,8 @@
 		 * @throws InvalidFileNameException
 		 */
 		private function handleFileUpload(string      $filePath, string $fileName,
-										  Application $domainObject, int $fileStorage, string $prefix = '')
-		{
+										  Application $domainObject, int $fileStorage, string $prefix = ''): File|FileInterface
+        {
 
 			$folder = $this->applicationFileService->getApplicantFolder($domainObject);
 

@@ -16,7 +16,8 @@
 	use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 	use TYPO3\CMS\Core\Context\Context;
-	use TYPO3\CMS\Core\Error\Http\PageNotFoundException;
+    use TYPO3\CMS\Core\Context\LanguageAspect;
+    use TYPO3\CMS\Core\Error\Http\PageNotFoundException;
 	use TYPO3\CMS\Core\Http\ImmediateResponseException;
 	use TYPO3\CMS\Core\Page\PageRenderer;
 	use TYPO3\CMS\Core\Pagination\SimplePagination;
@@ -71,7 +72,6 @@
 		/**
 		 * initialize show action
 		 *
-		 * @param void
 		 */
 		public function initializeShowAction(): void
 		{
@@ -231,8 +231,10 @@
 			$cacheKey = "filterOptions-$pageId";
 
 			/** @var FrontendInterface $cache */
-			$cache = GeneralUtility::makeInstance(CacheManager::class)->getCache('jobapplications_cache');
-			$languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
+			$cache = GeneralUtility::makeInstance(CacheManager::class)?->getCache('jobapplications_cache');
+
+            /** @var LanguageAspect $languageAspect */
+			$languageAspect = GeneralUtility::makeInstance(Context::class)?->getAspect('language');
 			$languageId = $languageAspect->getId();
 
 			// If $entry is false, or language key does not exist it hasn't been cached. Calculate the value and store it in the cache:

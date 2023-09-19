@@ -31,13 +31,14 @@
             // TODO: Move to events if they eventually become available for data handler
 
             return;
-			/** @var ObjectManager $objectManager */
+            /*
 			$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 
 			$this->connector = $objectManager->get(GoogleIndexingApiConnector::class);
 			$this->applicationFileService = $objectManager->get(ApplicationFileService::class);
 			$this->applicationRepository = $objectManager->get(ApplicationRepository::class);
 			$this->dataMapper = $objectManager->get(DataMapper::class);
+            */
 		}
 
 		/**
