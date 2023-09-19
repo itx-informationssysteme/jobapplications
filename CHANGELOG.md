@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.1] - 2023-09-19 Bugfix
+
+### Fixed
+- Fixed error when connecting a contact to a backend user (#116)
 
 ## [3.0.0] - 2023-09-18 TYPO3 v12 support
 
