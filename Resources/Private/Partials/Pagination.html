@@ -4,7 +4,16 @@
 <nav aria-label="Pagination">
 	<ul class="pagination">
 		<li class="page-item {f:if(condition: '{paginator.currentPageNumber} === {pagination.firstPageNumber}', then: 'disabled')}">
-			<f:link.action class="page-link" action="{action}" arguments="{jobs:page.constraint(page: pagination.previousPageNumber, constraint: constraint)}">Previous</f:link.action>
+			<f:if condition="{paginator.currentPageNumber} === {pagination.firstPageNumber}">
+				<f:then>
+					<a class="page-link">
+						Previous
+					</a>
+				</f:then>
+				<f:else>
+					<f:link.action class="page-link" action="{action}" arguments="{jobs:page.constraint(page: pagination.previousPageNumber, constraint: constraint)}">Previous</f:link.action>
+				</f:else>
+			</f:if>
 		</li>
 		<f:for each="{pagination.allPageNumbers}" as="number">
 			<li class="page-item {f:if(condition: '{number} === {paginator.currentPageNumber}', then: 'active')}">
@@ -12,7 +21,16 @@
 			</li>
 		</f:for>
 		<li class="page-item {f:if(condition: '{paginator.currentPageNumber} === {pagination.lastPageNumber}', then: 'disabled')}">
-			<f:link.action class="page-link" action="{action}" arguments="{jobs:page.constraint(page: pagination.nextPageNumber, constraint: constraint)}">Next</f:link.action>
+			<f:if condition="{paginator.currentPageNumber} === {pagination.lastPageNumber}">
+				<f:then>
+					<a class="page-link">
+						Next
+					</a>
+				</f:then>
+				<f:else>
+					<f:link.action class="page-link" action="{action}" arguments="{jobs:page.constraint(page: pagination.nextPageNumber, constraint: constraint)}">Next</f:link.action>
+				</f:else>
+			</f:if>
 		</li>
 	</ul>
 </nav>

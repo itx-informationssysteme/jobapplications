@@ -3,10 +3,12 @@ routeEnhancers:
         type: Extbase
         namespace: tx_jobapplications_frontend
         routes:
+            -   routePath: '/'
+                _controller: 'Posting::list'
             -   routePath: '/page-{page}'
                 _controller: 'Posting::list'
                 _arguments:
-                    page: '@widget_0/currentPage'
+                    page: 'page'
                 requirements:
                     page: \d+
         defaultController: 'Posting::list'
