@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.3] - 2023-09-27 Hotfix
+
+### Fixed
+
+- Fixed error originating in Services.php
+
 ## [2.3.2] - 2023-09-18 Another Bugfix
 
 ### Fixed
