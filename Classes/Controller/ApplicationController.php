@@ -683,7 +683,6 @@
 						'tablenames' => "tx_jobapplications_domain_model_application",
 						'fieldname' => $field,
 						'pid' => $objectPid,
-						'table_local' => 'sys_file',
 						'sorting_foreign' => $iteration + 1
 					]
 				);
