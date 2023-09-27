@@ -7,13 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.2] - 2023-09-27 Bugfixes
+
 ### Fixed
 
 - Fixed default route enhancer for pagination (#64)
+- Fixed error originating in Services.php (#118)
 
 ### Changed
 
 - Changed pagination partial to stop trying to render non-working links for previous and next pages
+
+## [2.3.3] - 2023-09-27 Hotfix
+
+### Fixed
+
+- Fixed error originating in Services.php
 
 ## [3.0.1] - 2023-09-19 Bugfix
 
