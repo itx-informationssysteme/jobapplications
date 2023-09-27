@@ -678,7 +678,6 @@
 					[
 						'tstamp' => time(),
 						'crdate' => time(),
-						'cruser_id' => 1,
 						'uid_local' => $fileUid,
 						'uid_foreign' => $objectUid,
 						'tablenames' => "tx_jobapplications_domain_model_application",
