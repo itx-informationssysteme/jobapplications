@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed issue where filtering would result in a 404 (#130)
 - Fixed og:url on detail page not being correct (#126)
 - Fixed status record generation not working (#125)
+- Fixed error when using category filter setting in list plugin (#125)
 
 ## [3.0.3] - 2023-09-27 One more fix
 

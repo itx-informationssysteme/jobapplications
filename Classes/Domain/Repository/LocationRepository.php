@@ -3,8 +3,9 @@
 	namespace ITX\Jobapplications\Domain\Repository;
 
 	use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+    use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
-	/***************************************************************
+    /***************************************************************
 	 *  Copyright notice
 	 *
 	 *  (c) 2020
@@ -42,8 +43,8 @@
 		 * @return QueryResultInterface|array
 		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
 		 */
-		public function findAll(array $categories = null, string $orderBy = "name", string $order = QueryInterface::ORDER_ASCENDING)
-		{
+		public function findAll(array $categories = null, string $orderBy = "name", string $order = QueryInterface::ORDER_ASCENDING): QueryResultInterface|array
+        {
 			$query = $this->createQuery();
 
 			$andConstraints = [];
@@ -56,7 +57,7 @@
 			if (!empty($andConstraints))
 			{
 				$query->matching(
-					$query->logicalAnd($andConstraints)
+					$query->logicalAnd(...$andConstraints)
 				);
 			}
 
