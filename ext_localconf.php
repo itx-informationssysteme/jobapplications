@@ -121,7 +121,13 @@ defined('TYPO3') || die('Access denied.');
 			{
 				$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['jobapplications_cache'] = [];
 			}
-			
+
+            // Filter requests are not cached, so these parameters don't need to influence the cache hash
+            $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = '^tx_jobapplications_frontend[constraint]';
+            $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = '^tx_jobapplications_frontend[__referrer]';
+            $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = '^tx_jobapplications_frontend[__trustedProperties]';
+            $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = 'tx_jobapplications_frontend[submit]';
+
 			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['jobapplications_makeLocationsMultiple']
 				= \ITX\Jobapplications\Updates\MakeLocationsMultiple::class;
 		}
