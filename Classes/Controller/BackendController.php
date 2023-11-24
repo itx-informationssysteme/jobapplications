@@ -32,6 +32,8 @@
     use TYPO3\CMS\Core\Pagination\SimplePagination;
     use TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException;
     use TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException;
+    use TYPO3\CMS\Core\Site\SiteFinder;
+    use TYPO3\CMS\Core\Utility\GeneralUtility;
     use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 	use ITX\Jobapplications\Domain\Model\Application;
 	use Psr\Http\Message\ResponseInterface;
@@ -352,7 +354,22 @@
 			{
 				$pid = $this->request->getArgument('pid');
 				$language = $this->request->getArgument('language');
-				$langUid = $this->statusRepository->findLangUid($language);
+
+                $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
+                $sites = $siteFinder->getAllSites();
+
+                $languages = [];
+                foreach ($sites as $site) {
+                    foreach ($site->getLanguages() as $lang) {
+                        $languages[$lang->getLocale()->getLanguageCode()] = $lang->getLanguageId();
+                    }
+                }
+
+                if (!isset($languages[$language])) {
+                    throw new NoSuchArgumentException('Language not found');
+                }
+
+                $langUid = $languages[$language];
 
 				$this->statusRepository->generateStatus('tx_jobapplications_domain_model_status_'.$language.'.sql', 'tx_jobapplications_domain_model_status_mm.sql', $pid, $langUid);
 

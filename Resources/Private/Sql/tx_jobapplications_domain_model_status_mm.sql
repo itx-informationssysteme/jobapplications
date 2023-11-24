@@ -12,25 +12,6 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `tx_jobapplications_domain_model_status_mm`
---
-
-CREATE TABLE `tx_jobapplications_domain_model_status_mm` (
-  `uid_local` int(10) UNSIGNED NOT NULL DEFAULT '0',
-  `uid_foreign` int(10) UNSIGNED NOT NULL DEFAULT '0',
-  `sorting` int(10) UNSIGNED NOT NULL DEFAULT '0',
-  `sorting_foreign` int(10) UNSIGNED NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 --
 -- Daten für Tabelle `tx_jobapplications_domain_model_status_mm`
 --

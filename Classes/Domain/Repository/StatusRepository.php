@@ -73,8 +73,8 @@
 		 * @param int    $pid
 		 * @param int    $langUid
 		 */
-		public function generateStatus(string $statusFile, string $statusMmFile, int $pid, int $langUid)
-		{
+		public function generateStatus(string $statusFile, string $statusMmFile, int $pid, int $langUid): void
+        {
 			$file1 = GeneralUtility::getFileAbsFileName('EXT:jobapplications/Resources/Private/Sql/'.$statusFile);
 			$file2 = GeneralUtility::getFileAbsFileName('EXT:jobapplications/Resources/Private/Sql/'.$statusMmFile);
 
@@ -101,11 +101,12 @@
 			$this->executeSqlImport($contentStatusMM);
 		}
 
-		/**
-		 * Helper function
-		 *
-		 * @param $fileContent
-		 */
+        /**
+         * Helper function
+         *
+         * @param string $fileContent
+         *
+         */
 		public function executeSqlImport(string $fileContent)
 		{
 			/** @var SqlReader $sqlReader */
@@ -114,26 +115,13 @@
 
 			/** @var SchemaMigrator $schemaMigrationService */
 			$schemaMigrationService = GeneralUtility::makeInstance(SchemaMigrator::class);
-			$return = $schemaMigrationService->importStaticData($statements, true);
-		}
+			$result = $schemaMigrationService->importStaticData($statements, true);
 
-		/**
-		 * @param $langIso string code as in language_isocode in sys_language table
-		 *
-		 * @return int uid of language
-		 */
-		public function findLangUid(string $langIso)
-		{
-			$query = $this->createQuery();
-			$query->statement("SELECT DISTINCT uid FROM sys_language WHERE language_isocode = '$langIso'");
-
-			$result = $query->execute(true)[0]['uid'];
-			if ($result === null)
-			{
-				$result = -1;
-			}
-
-			return $result;
+            foreach ($result as $statement => $connectionResult) {
+                if (!empty($connectionResult)) {
+                    throw new \RuntimeException("Jobapplications: Error trying to import sql statement $statement: $connectionResult");
+                }
+            }
 		}
 	}
 
