@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fixed issue where filtering would result in a 404 (#130)
+- Fixed rich text not using parseFunc to render text (#132)
 - Fixed og:url on detail page not being correct (#126)
 - Fixed status record generation not working (#125)
 - Fixed error when using category filter setting in list plugin (#125)

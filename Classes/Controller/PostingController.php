@@ -29,7 +29,8 @@
 	use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 	use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 	use TYPO3\CMS\Extbase\Reflection\Exception\UnknownClassException;
-	use TYPO3\CMS\Frontend\Controller\ErrorController;
+    use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+    use TYPO3\CMS\Frontend\Controller\ErrorController;
     use TYPO3Fluid\Fluid\View\ViewInterface;
 
     /***************************************************************
@@ -325,6 +326,8 @@
 		 */
 		protected function addGoogleJobsDataToPage(Posting $posting): void
 		{
+            /** @var ContentObjectRenderer $contentObject */
+            $contentObject = $this->request->getAttribute('currentContentObject');
 
 			$companyName = $this->settings['googleJobs']['companyName'] ?? '';
 
@@ -395,13 +398,27 @@
 				];
 			}
 
+            $descriptionFields = [
+                $posting->getCompanyDescription(),
+                $posting->getJobDescription(),
+                $posting->getRoleDescription(),
+                $posting->getSkillRequirements(),
+                $posting->getBenefits()
+            ];
+
+            array_filter($descriptionFields, function ($val) {
+                return !empty($val);
+            });
+
+            $description = implode("<br>", $descriptionFields);
+
+            $description = $contentObject->parseFunc(trim($description), null, '< ' . 'lib.parseFunc_jobapplications');
+
 			$googleJobsJSON = [
 				"@context" => "http://schema.org",
 				"@type" => "JobPosting",
 				"datePosted" => $posting->getDatePosted()?->format("c"),
-				"description" => $posting->getCompanyDescription()."<br>".$posting->getJobDescription()."<br>"
-					.$posting->getRoleDescription()."<br>".$posting->getSkillRequirements()
-					."<br>".$posting->getBenefits(),
+				"description" => $description,
 				"jobLocation" => $arrayLocations,
 				"title" => $posting->getTitle(),
 				"employmentType" => $employmentTypes,

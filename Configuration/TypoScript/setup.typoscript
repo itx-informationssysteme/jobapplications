@@ -1,41 +1,41 @@
 plugin.tx_jobapplications {
-	view {
-		templateRootPaths.0 = EXT:{extension.shortExtensionKey}/Resources/Private/Templates/
-		templateRootPaths.1 = {$plugin.tx_jobapplications.view.templateRootPath}
-		partialRootPaths.0 = EXT:jobapplications/Resources/Private/Partials/
-		partialRootPaths.1 = {$plugin.tx_jobapplications.view.partialRootPath}
-		layoutRootPaths.0 = EXT:jobapplications/Resources/Private/Layouts/
-		layoutRootPaths.1 = {$plugin.tx_jobapplications.view.layoutRootPath}
+    view {
+        templateRootPaths.0 = EXT:{extension.shortExtensionKey}/Resources/Private/Templates/
+        templateRootPaths.1 = {$plugin.tx_jobapplications.view.templateRootPath}
+        partialRootPaths.0 = EXT:jobapplications/Resources/Private/Partials/
+        partialRootPaths.1 = {$plugin.tx_jobapplications.view.partialRootPath}
+        layoutRootPaths.0 = EXT:jobapplications/Resources/Private/Layouts/
+        layoutRootPaths.1 = {$plugin.tx_jobapplications.view.layoutRootPath}
 
-		widget.TYPO3\CMS\Fluid\ViewHelpers\Widget\PaginateViewHelper.templateRootPath = EXT:jobapplications/Resources/Private/Templates/
-	}
+        widget.TYPO3\CMS\Fluid\ViewHelpers\Widget\PaginateViewHelper.templateRootPath = EXT:jobapplications/Resources/Private/Templates/
+    }
 
-	persistence {
-		storagePid = {$plugin.tx_jobapplications.persistence.storagePid}
-		#recursive = 1
-	}
+    persistence {
+        storagePid = {$plugin.tx_jobapplications.persistence.storagePid}
+        #recursive = 1
+    }
 
-	features {
-		#skipDefaultArguments = 1
-		# if set to 1, the enable fields are ignored in BE context
-		ignoreAllEnableFieldsInBe = 0
-		# Should be on by default, but can be disabled if all action in the plugin are uncached
-		requireCHashArgumentForActionArguments = 1
-	}
+    features {
+        #skipDefaultArguments = 1
+        # if set to 1, the enable fields are ignored in BE context
+        ignoreAllEnableFieldsInBe = 0
+        # Should be on by default, but can be disabled if all action in the plugin are uncached
+        requireCHashArgumentForActionArguments = 1
+    }
 
-	mvc {
-		#callDefaultActionIfActionCantBeResolved = 1
-	}
+    mvc {
+        #callDefaultActionIfActionCantBeResolved = 1
+    }
 
-	settings {
-		fileStorage = {$plugin.tx_jobapplications.settings.fileStorage}
-		enableGoogleJobs = {$plugin.tx_jobapplications.settings.enableGoogleJobs}
-		emailContentType = {$plugin.tx_jobapplications.settings.emailContentType}
-		emailPrivacyMode = {$plugin.tx_jobapplications.settings.emailPrivacyMode}
-		legacy_upload = {$plugin.tx_jobapplications.settings.legacy_upload}
-		defaultContactMailAddress = {$plugin.tx_jobapplications.settings.defaultContactMailAddress}
-		defaultContactFirstName = {$plugin.tx_jobapplications.settings.defaultContactFirstName}
-		defaultContactLastName = {$plugin.tx_jobapplications.settings.defaultContactLastName}
+    settings {
+        fileStorage = {$plugin.tx_jobapplications.settings.fileStorage}
+        enableGoogleJobs = {$plugin.tx_jobapplications.settings.enableGoogleJobs}
+        emailContentType = {$plugin.tx_jobapplications.settings.emailContentType}
+        emailPrivacyMode = {$plugin.tx_jobapplications.settings.emailPrivacyMode}
+        legacy_upload = {$plugin.tx_jobapplications.settings.legacy_upload}
+        defaultContactMailAddress = {$plugin.tx_jobapplications.settings.defaultContactMailAddress}
+        defaultContactFirstName = {$plugin.tx_jobapplications.settings.defaultContactFirstName}
+        defaultContactLastName = {$plugin.tx_jobapplications.settings.defaultContactLastName}
 
         googleJobs {
             enabled = {$plugin.tx_jobapplications.settings.enableGoogleJobs}
@@ -44,54 +44,60 @@ plugin.tx_jobapplications {
             currency = {$plugin.tx_jobapplications.settings.currency}
         }
 
-		list {
-			ordering {
-				field = date_posted
-				order = descending
-			}
-		}
+        list {
+            ordering {
+                field = date_posted
+                order = descending
+            }
+        }
 
-		filter {
-			repositoryConfiguration {
-				division {
-					relation = division
-					relationType = equals
-				}
+        filter {
+            repositoryConfiguration {
+                division {
+                    relation = division
+                    relationType = equals
+                }
 
-				careerLevel {
-					relation = careerLevel
-					relationType = equals
-				}
+                careerLevel {
+                    relation = careerLevel
+                    relationType = equals
+                }
 
-				employmentType {
-					relation = employmentType
-					relationType = contains
-				}
+                employmentType {
+                    relation = employmentType
+                    relationType = contains
+                }
 
-				locations {
-					relation = locations
-					relationType = contains
-				}
-			}
-		}
-	}
+                locations {
+                    relation = locations
+                    relationType = contains
+                }
+            }
+        }
+    }
+}
+
+lib.parseFunc_jobapplications < lib.parseFunc_RTE
+lib.parseFunc_jobapplications.tags {
+    link.typolink.forceAbsoluteUrl = 1
+    a.typolink.forceAbsoluteUrl = 1
 }
 
 config.tx_extbase.persistence.classes {
-	ITX\Jobapplications\Domain\Model\TtContent {
-		mapping {
-			tableName = tt_content
-		}
-	}
+    ITX\Jobapplications\Domain\Model\TtContent {
+        mapping {
+            tableName = tt_content
+        }
+    }
 }
 
 # Module configuration
 module.tx_jobapplications < plugin.tx_jobapplications
 module.tx_jobapplications {
-	view {
-		layoutRootPaths.0 = EXT:jobapplications/Resources/Private/Layouts/Backend/
-		layoutRootPaths.1 = {$module.tx_jobapplications_backend.view.layoutRootPath}
-	}
+    view {
+        layoutRootPaths.0 = EXT:jobapplications/Resources/Private/Layouts/Backend/
+        layoutRootPaths.1 = {$module.tx_jobapplications_backend.view.layoutRootPath}
+    }
 }
 
 
