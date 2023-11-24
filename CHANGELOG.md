@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.4] - 2023-11-24 Squashed some major bugs
+
 ### Fixed
 
 - Fixed issue where filtering would result in a 404 (#130)
