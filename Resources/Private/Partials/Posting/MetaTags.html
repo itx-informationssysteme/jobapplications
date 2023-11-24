@@ -5,6 +5,7 @@
 <jobs:page.header.meta content="{posting.jobDescription -> f:format.stripTags()}" name="og:description"/>
 <jobs:page.header.meta content="{posting.jobDescription -> f:format.stripTags()}" name="description"></jobs:page.header.meta>
 <jobs:page.header.meta content="{posting.title}" name="og:title"/>
+<jobs:page.header.meta content="{f:uri.action(action: 'show', arguments: {posting : posting}, pageUid: settings.detailViewUid, controller: 'Posting', pluginName: 'DetailView', absolute: 1)}" name="og:url"/>
 <f:if condition="{posting.listViewImage}">
 	<jobs:page.header.meta content="{f:uri.image(image: posting.listViewImage, absolute: 1)}" name="og:image"/>
 </f:if>
