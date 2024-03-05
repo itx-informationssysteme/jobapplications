@@ -42,7 +42,7 @@ class UploadFileUtility
     public function __construct()
     {
         $this->fileTempPath =
-            Environment::getVarPath() . DIRECTORY_SEPARATOR . 'typo3temp' . DIRECTORY_SEPARATOR . 'jobapplications' .
+            Environment::getVarPath() . DIRECTORY_SEPARATOR . 'jobapplications' .
             DIRECTORY_SEPARATOR;
     }
 
