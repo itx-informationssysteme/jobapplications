@@ -1,2 +1,5 @@
+.git* export-ignore
+.editorconfig export-ignore
+phpstan.neon export-ignore
 Resources/Public/Css/Vendor/* linguist-vendored
 Resources/Public/Js/Vendor/* linguist-vendored
