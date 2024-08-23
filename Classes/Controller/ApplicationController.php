@@ -58,6 +58,7 @@
 	use TYPO3\CMS\Core\Resource\ResourceStorageInterface;
 	use TYPO3\CMS\Core\Resource\StorageRepository;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
+	use TYPO3\CMS\Core\Utility\MailUtility;
 	use TYPO3\CMS\Core\Utility\MathUtility;
 	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 	use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
@@ -454,7 +455,10 @@
 				// Prepare and send the message
 				$mail
 					->subject(LocalizationUtility::translate("fe.email.toContactSubject", 'jobapplications', [0 => $currentPosting->getTitle()]))
-					->from(new Address($this->settings["emailSender"], $this->settings["emailSenderName"]))
+					->from(new Address(
+						$this->settings["emailSender"] ?: MailUtility::getSystemFromAddress(),
+						$this->settings["emailSenderName"] ?: MailUtility::getSystemFromName(),
+					))
 					->replyTo(new Address($newApplication->getEmail(), $newApplication->getFirstName()." ".$newApplication->getLastName()))
 					->assignMultiple(['application' => $newApplication, 'settings' => $this->settings, 'currentPosting' => $currentPosting]);
 
@@ -521,7 +525,10 @@
 
 				$mail
 					->subject($subject)
-					->from(new Address($this->settings["emailSender"], $this->settings["emailSenderName"]))
+					->from(new Address(
+						$this->settings["emailSender"] ?: MailUtility::getSystemFromAddress(),
+						$this->settings["emailSenderName"] ?: MailUtility::getSystemFromName(),
+					))
 					->to(new Address($newApplication->getEmail(), $newApplication->getFirstName()." ".$newApplication->getLastName()))
 					->assignMultiple(['application' => $newApplication, 'settings' => $this->settings]);
 
