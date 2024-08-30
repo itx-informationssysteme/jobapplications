@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.5] - 2024-08-30 Bugfix Release
+
 ### Fixed
 
 - Fixed issue in db analyzer where it would say to modify the message field (#145)
