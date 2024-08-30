@@ -1,4 +1,4 @@
-﻿.. ==================================================
+.. ==================================================
 .. FOR YOUR INFORMATION
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
@@ -248,7 +248,3 @@ Generate Statuses
 ~~~~~~~~~~~~~~~~~
 Generates template statuses (see above).
 
-Batch index
-~~~~~~~~~~~
-This is useful when the Google Indexing API implementation was disabled, but postings were created and modified.
-This feature iterates over all existing postings and sends a request to Google for each of them.

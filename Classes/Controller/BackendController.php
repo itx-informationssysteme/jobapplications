@@ -25,10 +25,8 @@
 
 	namespace ITX\Jobapplications\Controller;
 
-	use Psr\Http\Message\ServerRequestInterface;
     use TYPO3\CMS\Backend\Attribute\Controller;
     use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
-    use TYPO3\CMS\Core\Http\RedirectResponse;
     use TYPO3\CMS\Core\Pagination\SimplePagination;
     use TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException;
     use TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException;
@@ -48,11 +46,7 @@
 	use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 	use ITX\Jobapplications\Service\ApplicationFileService;
 	use ITX\Jobapplications\Domain\Model\Contact;
-	use ITX\Jobapplications\Domain\Model\Posting;
-	use ITX\Jobapplications\Domain\Model\Status;
-	use ITX\Jobapplications\Utility\GoogleIndexingApiConnector;
 	use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
-	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Resource\Exception\InsufficientUserPermissionsException;
 
 	/**
@@ -103,11 +97,8 @@
 		 */
 		protected $applicationFileService;
 
-		protected GoogleIndexingApiConnector $connector;
-
-		public function __construct(GoogleIndexingApiConnector $connector, protected readonly ModuleTemplateFactory $moduleTemplateFactory,)
+		public function __construct(protected readonly ModuleTemplateFactory $moduleTemplateFactory,)
 		{
-			$this->connector = $connector;
 		}
 
 		/**
@@ -374,48 +365,6 @@
 				$this->statusRepository->generateStatus('tx_jobapplications_domain_model_status_'.$language.'.sql', 'tx_jobapplications_domain_model_status_mm.sql', $pid, $langUid);
 
 				$this->addFlashMessage('Finished!');
-			}
-
-			if ($this->request->hasArgument('batch_index'))
-			{
-				$postings = $this->postingRepository->findAllIncludingHiddenAndDeleted();
-
-				$removeCounter = 0;
-				$updateCounter = 0;
-				$error_bit = false;
-
-				/** @var Posting $posting */
-				foreach ($postings as $posting)
-				{
-					if ($posting->isHidden() || $posting->isDeleted())
-					{
-						if (!$this->connector->updateGoogleIndex($posting->getUid(), true, $posting))
-						{
-							$error_bit = true;
-						}
-						else
-						{
-							$removeCounter++;
-						}
-					}
-					else if (!$this->connector->updateGoogleIndex($posting->getUid(), false, $posting))
-					{
-						$error_bit = true;
-					}
-					else
-					{
-						$updateCounter++;
-					}
-				}
-				if ($error_bit)
-				{
-					$this->addFlashMessage('Not successful updated/added '.$updateCounter.' and removed '.$removeCounter.' postings', '', FlashMessage::ERROR);
-				}
-				else
-				{
-					$this->addFlashMessage('Done with updating/adding '.$updateCounter.' and removing '.$removeCounter.' postings');
-				}
-
 			}
 
 			$this->view->assign('admin', $GLOBALS['BE_USER']->isAdmin());
