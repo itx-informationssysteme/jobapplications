@@ -1,4 +1,4 @@
-﻿.. include:: ../Includes.txt
+.. include:: ../Includes.txt
 
 
 .. _introduction:
@@ -34,7 +34,6 @@ Manage job postings
 * support for **TYPO3 categories**
 * OpenGraph data automatically populated
 * Structured data for **Google Jobs integration**
-* **Google Indexing API Implementation** for Google Jobs: Sends crawl requests automatically when editing a job posting, so Google Jobs always has the latest data
 
 Application Form
 ----------------

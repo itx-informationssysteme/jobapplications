@@ -28,8 +28,8 @@ plugin.tx_jobapplications {
     }
 
     settings {
-        fileStorage = {$plugin.tx_jobapplications.settings.fileStorage}
         enableGoogleJobs = {$plugin.tx_jobapplications.settings.enableGoogleJobs}
+        fileStorage = {$plugin.tx_jobapplications.settings.fileStorage}
         emailContentType = {$plugin.tx_jobapplications.settings.emailContentType}
         emailPrivacyMode = {$plugin.tx_jobapplications.settings.emailPrivacyMode}
         legacy_upload = {$plugin.tx_jobapplications.settings.legacy_upload}
@@ -38,7 +38,6 @@ plugin.tx_jobapplications {
         defaultContactLastName = {$plugin.tx_jobapplications.settings.defaultContactLastName}
 
         googleJobs {
-            enabled = {$plugin.tx_jobapplications.settings.enableGoogleJobs}
             companyName = {$plugin.tx_jobapplications.settings.companyName}
             logo = {$plugin.tx_jobapplications.settings.logo}
             currency = {$plugin.tx_jobapplications.settings.currency}

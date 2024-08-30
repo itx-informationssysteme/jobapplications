@@ -242,6 +242,8 @@ Here you can enable Google Jobs. The data for it will be automatically generated
 Just make sure you have selected a company name in the typoscript
 configuration as well.
 
+Make sure to also setup the :ref:`_sitemap` to have search engines index the job postings.
+
 Company Name
 ------------
 The company name is used to generate the Google Jobs data. This is required when Google Jobs is enabled.
