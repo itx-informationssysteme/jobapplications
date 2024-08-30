@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed issue in db analyzer where it would say to modify the message field (#145)
+- Fixed development resources being contained in dist archive (#149)
+- Fixed issue there would be an error when no sender email was configured in the plugin, the system email is now used as fallback (#150)
+
 ## [3.0.4] - 2023-11-24 Squashed some major bugs
 
 ### Fixed
