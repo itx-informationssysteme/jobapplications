@@ -5,8 +5,8 @@
 	use ITX\Jobapplications\Domain\Model\Application;
 	use ITX\Jobapplications\Domain\Repository\ApplicationRepository;
 	use ITX\Jobapplications\Service\ApplicationFileService;
-	use TYPO3\CMS\Core\DataHandling\DataHandler;
-	use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
+use TYPO3\CMS\Core\DataHandling\DataHandler;
+use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 
 	/**
 	 * Class TCEmainHook
@@ -23,6 +23,7 @@
 
 		public function __construct()
 		{
+            // NOTE: This has been disabled for now, as there is no normal dependency injection available here
 		}
 
 		/**
@@ -38,6 +39,7 @@
 		 */
 		public function processCmdmap_deleteAction($table, $uid, array $record, &$recordWasDeleted, DataHandler $dataHandler)
 		{
+            return;
 			if ($table === "tx_jobapplications_domain_model_application")
 			{
 				if ($record['hidden'] === 1)
