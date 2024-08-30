@@ -1,4 +1,4 @@
-﻿.. ==================================================
+.. ==================================================
 .. FOR YOUR INFORMATION
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
@@ -230,58 +230,27 @@ Slug behaviour
 Slug behavior:"uniqueInSite": The same slug can be used for postings in different sites.
 Use this setting only if no posting records are shared between sites. "unique" means that the same posting title will lead to different slug names.
 
-Google Indexing API interface
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-(Not available for v12, see why here: `https://github.com/itx-informationssysteme/jobapplications/blob/main/CHANGELOG.md`
-
-This extension implements the Google Indexing API. It provides a possibility for telling Google when a job posting was created, updated
-or deleted. In this extension this happens (when everything is configured correcty) when a posting record is created, updated
-or deleted. The extension connects to the Google API and tells it that something changed to the postings url. Following that
-Google crawls this exact url and looks for the script tag containing the generated json formatted structured data.
-The goal for this is to happen automatically, so the editor doesn't even notices it.
-
-The link for the posting is dynamically generated. The extension will look through the content elements the list view page plugins are placed
-and tries to figure out which the most specifc (measured by category selection) is, and the build the url to the exact detail page.
-
-Make sure that you do not activate this feature before your website is ready for it: Your website should be in a productive state, should use its final url and should be ready for getting indexed by google.
-A posting plugin should be placed somewhere on the website and point to the correct pid. If you activate the feature later on after all postings are already edited, you can start the full indexing mechanism from the backend module.
-
-This function does not trigger when in development environment, if you want it to activate the option in "Trigger Google Indexing API while in develoment environment" in the Extension Configuration.
-
-There is quite a bit of configuration to do though:
-
-#. Enable Google Jobs in the Extension see ("Enable Google Jobs") below.
-#. `Create a Servive Account <https://developers.google.com/search/apis/indexing-api/v3/prereqs>`__ and download the *.json* configuration file including the private key and other data.
-	It should look somewhat like that:
-
-	::
-
-		{
-			"type": "service_account",
-			"project_id": "your-project-id",
-			"private_key_id": "some-id",
-			"private_key": "-----BEGIN PRIVATE KEY-----\n-some-private-key\n-----END PRIVATE KEY-----\n",
-			"client_email": "some-email@appspot.gserviceaccount.com",
-			"client_id": "some-id",
-			"auth_uri": "https://accounts.google.com/o/oauth2/auth",
-			"token_uri": "https://oauth2.googleapis.com/token",
-			"auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-			"client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/some-email%40appspot.gserviceaccount.com"
-		}
-
-#. `Verify site ownership <https://developers.google.com/search/apis/indexing-api/v3/prereqs#verify-site>`__
-#. Save the file somewhere in your project and give a path to the .json file in the Extension Configuration.
-#. Enable the Google Indexing API Extension Setting in the Extension Configuration.
-#. Enable Debug Messages in the Extension Configuration.
-#. Test if you've done everything correcty by saving a posting and waiting for a green flash message.
-   If you were not successful the flash message will contain some information about why it didn't work.
-
-
 Template constants
 ==================
 In the Template Constant Editor the plugin registered a few settings.
 
 Simply select *PLUGIN.TX_JOBS*.
+
+Enable Google Jobs
+------------------
+Here you can enable Google Jobs. The data for it will be automatically generated based on the posting data.
+Just make sure you have selected a company name in the typoscript
+configuration as well.
+
+Make sure to also setup the :ref:`_sitemap` to have search engines index the job postings.
+
+Company Name
+------------
+The company name is used to generate the Google Jobs data. This is required when Google Jobs is enabled.
+
+Logo
+----
+The logo is used to generate the Google Jobs data. This is required when Google Jobs is enabled.
 
 .. _filestorage:
 
@@ -313,13 +282,6 @@ There are email templates, for both the html and text versions.
 Send email without any personal application data (privacy protection)
 ----------------------------------
 To avoid privacy issues, we recommend enabling this feature. When this function is enabled, only information about a new application without personal data is sent as an email.
-
-Enable Google Jobs
-------------------
-Here you can enable Google Jobs. The data for it will be automatically generated based on the posting data.
-Just make sure you have selected a company name in the extension configuration.
-
-You can find the extension configuration in *Settings->Extension Configuration->Configure Extensions->jobapplications*.
 
 .. _tasks:
 

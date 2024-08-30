@@ -13,6 +13,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed development resources being contained in dist archive (#149)
 - Fixed issue there would be an error when no sender email was configured in the plugin, the system email is now used as fallback (#150)
 
+### Removed
+
+- Removed already disabled code for the indexing API integration, in favor of sitemap only setup
+- Removed confusing TypoScript setting settings.googleJobs.enable which had no effect
+
 ## [3.0.4] - 2023-11-24 Squashed some major bugs
 
 ### Fixed
