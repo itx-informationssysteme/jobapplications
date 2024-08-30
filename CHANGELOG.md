@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- Removed indexing API integration, in favor of sitemap setup
+- Removed already disabled code for the indexing API integration, in favor of sitemap only setup
 - Removed confusing TypoScript setting settings.googleJobs.enable which had no effect
 
 ## [3.0.4] - 2023-11-24 Squashed some major bugs
