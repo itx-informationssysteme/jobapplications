@@ -75,7 +75,6 @@ return [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
                 'eval' => 'datetime,int',
-                'default' => time(),
                 'behaviour' => [
                     'allowLanguageSynchronization' => true
                 ]
@@ -119,7 +118,6 @@ return [
                 'renderType' => 'inputDateTime',
                 'size' => 7,
                 'eval' => 'date,required',
-                'default' => time()
             ],
         ],
         'career_level' => [
