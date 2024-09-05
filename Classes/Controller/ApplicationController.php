@@ -483,6 +483,11 @@
 							$mail->attachFromPath($file->getForLocalProcessing(false));
 						}
 					}
+
+					$mail->assignMultiple([
+						'legacyUploadfiles' => $legacyUploadfiles,
+						'multiUploadFiles' => $multiUploadFiles,
+					]);
 				}
 
 				//Figure out who the email will be sent to and how
