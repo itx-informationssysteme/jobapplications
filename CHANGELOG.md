@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Access files in application notification emails (#155)
+
+### Fixed
+
+- Removed faulty posting default date field values (#154)
+
 ## [3.0.5] - 2024-08-30 Bugfix Release
 
 ### Fixed
