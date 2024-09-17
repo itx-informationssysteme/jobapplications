@@ -90,13 +90,3 @@ config.tx_extbase.persistence.classes {
     }
 }
 
-# Module configuration
-module.tx_jobapplications < plugin.tx_jobapplications
-module.tx_jobapplications {
-    view {
-        layoutRootPaths.0 = EXT:jobapplications/Resources/Private/Layouts/Backend/
-        layoutRootPaths.1 = {$module.tx_jobapplications_backend.view.layoutRootPath}
-    }
-}
-
-

@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Removed faulty posting default date field values (#154)
+- Fixed issue where the backend module would error if static TypoScript was not available in page tree (#128)
 
 ## [3.0.5] - 2024-08-30 Bugfix Release
 
