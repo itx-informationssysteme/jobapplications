@@ -1,198 +1,180 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <T3DataStructure>
     <sheets>
         <singleView>
             <ROOT>
-                <TCEforms>
-                    <sheetTitle>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.tab.applicationTitle</sheetTitle>
-                </TCEforms>
+                <sheetTitle>
+                    LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.tab.applicationTitle</sheetTitle>
                 <type>array</type>
                 <el>
                     <settings.successPage>
-                        <TCEforms>
-                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.successPage</label>
-                            <config>
-                                <type>group</type>
-                                <internal_type>db</internal_type>
-                                <allowed>pages</allowed>
-                                <size>1</size>
-                                <maxitems>1</maxitems>
-                                <minitems>0</minitems>
-                                <show_thumbs>1</show_thumbs>
-                                <wizards>
-                                    <suggest>
-                                        <type>suggest</type>
-                                    </suggest>
-                                </wizards>
-                                <eval>required</eval>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.successPage</label>
+                        <config>
+                            <type>group</type>
+                            <internal_type>db</internal_type>
+                            <allowed>pages</allowed>
+                            <size>1</size>
+                            <maxitems>1</maxitems>
+                            <minitems>0</minitems>
+                            <show_thumbs>1</show_thumbs>
+                            <wizards>
+                                <suggest>
+                                    <type>suggest</type>
+                                </suggest>
+                            </wizards>
+                            <eval>required</eval>
+                        </config>
                     </settings.successPage>
                     <settings.pageTitle>
-                        <TCEforms>
-                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.pageTitle</label>
-                            <config>
-                                <type>input</type>
-                                <size>20</size>
-                                <max>80</max>
-                                <eval>trim</eval>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.pageTitle</label>
+                        <config>
+                            <type>input</type>
+                            <size>20</size>
+                            <max>80</max>
+                            <eval>trim</eval>
+                        </config>
                     </settings.pageTitle>
                     <settings.emailSender>
-                        <TCEforms>
-                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.emailSender</label>
-                            <config>
-                                <type>input</type>
-                                <size>20</size>
-                                <max>255</max>
-                                <eval>trim</eval>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.emailSender</label>
+                        <config>
+                            <type>input</type>
+                            <size>20</size>
+                            <max>255</max>
+                            <eval>trim</eval>
+                        </config>
                     </settings.emailSender>
                     <settings.emailSenderName>
-                        <TCEforms>
-                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.emailSenderName</label>
-                            <config>
-                                <type>input</type>
-                                <size>20</size>
-                                <max>255</max>
-                                <eval>trim</eval>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.emailSenderName</label>
+                        <config>
+                            <type>input</type>
+                            <size>20</size>
+                            <max>255</max>
+                            <eval>trim</eval>
+                        </config>
                     </settings.emailSenderName>
                     <settings.sendEmailToContact>
-                        <TCEforms>
-                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToContact</label>
-                            <config>
-                                <type>check</type>
-                                <default>1</default>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToContact</label>
+                        <config>
+                            <type>check</type>
+                            <default>1</default>
+                        </config>
                     </settings.sendEmailToContact>
                     <settings.sendEmailToInternal>
-                        <TCEforms>
-                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToInternal</label>
-                            <config>
-                                <type>input</type>
-                                <size>20</size>
-                                <max>255</max>
-                                <eval>trim</eval>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToInternal</label>
+                        <config>
+                            <type>input</type>
+                            <size>20</size>
+                            <max>255</max>
+                            <eval>trim</eval>
+                        </config>
                     </settings.sendEmailToInternal>
                     <settings.sendEmailToApplicant>
-                        <TCEforms>
-                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToApplicant</label>
-                            <config>
-                                <type>check</type>
-                                <default>0</default>
-                            </config>
-                            <onChange>reload</onChange>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToApplicant</label>
+                        <config>
+                            <type>check</type>
+                            <default>0</default>
+                        </config>
+                        <onChange>reload</onChange>
                     </settings.sendEmailToApplicant>
                     <settings.sendEmailToApplicantSubject>
-                        <TCEforms>
-                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToApplicantSubject</label>
-                            <displayCond>FIELD:settings.sendEmailToApplicant:REQ:true</displayCond>
-                            <config>
-                                <type>input</type>
-                                <size>50</size>
-                                <max>255</max>
-                                <eval>trim,required</eval>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToApplicantSubject</label>
+                        <displayCond>FIELD:settings.sendEmailToApplicant:REQ:true</displayCond>
+                        <config>
+                            <type>input</type>
+                            <size>50</size>
+                            <max>255</max>
+                            <eval>trim,required</eval>
+                        </config>
                     </settings.sendEmailToApplicantSubject>
                     <settings.sendEmailToApplicantText>
-                        <TCEforms>
-                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToApplicantText</label>
-                            <displayCond>FIELD:settings.sendEmailToApplicant:REQ:true</displayCond>
-                            <config>
-                                <type>text</type>
-                                <cols>24</cols>
-                                <rows>3</rows>
-                                <eval>required</eval>
-                                <enableRichtext>1</enableRichtext>
-                                <richtextConfiguration>default</richtextConfiguration>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.sendEmailToApplicantText</label>
+                        <displayCond>FIELD:settings.sendEmailToApplicant:REQ:true</displayCond>
+                        <config>
+                            <type>text</type>
+                            <cols>24</cols>
+                            <rows>3</rows>
+                            <eval>required</eval>
+                            <enableRichtext>1</enableRichtext>
+                            <richtextConfiguration>default</richtextConfiguration>
+                        </config>
                     </settings.sendEmailToApplicantText>
                     <settings.saveApplicationInBackend>
-                        <TCEforms>
-                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.saveApplicationInBackend</label>
-                            <config>
-                                <type>check</type>
-                                <default>1</default>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.saveApplicationInBackend</label>
+                        <config>
+                            <type>check</type>
+                            <default>1</default>
+                        </config>
                     </settings.saveApplicationInBackend>
                     <settings.showSalarayExpectation>
-                        <TCEforms>
-                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.showSalarayExpectation</label>
-                            <config>
-                                <type>check</type>
-                                <default>0</default>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.showSalarayExpectation</label>
+                        <config>
+                            <type>check</type>
+                            <default>0</default>
+                        </config>
                     </settings.showSalarayExpectation>
                     <settings.showEarliestDateOfJoining>
-                        <TCEforms>
-                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.showEarliestDateOfJoining</label>
-                            <config>
-                                <type>check</type>
-                                <default>0</default>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.showEarliestDateOfJoining</label>
+                        <config>
+                            <type>check</type>
+                            <default>0</default>
+                        </config>
                     </settings.showEarliestDateOfJoining>
                     <settings.showMessage>
-                        <TCEforms>
-                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.showMessage</label>
-                            <config>
-                                <type>check</type>
-                                <default>0</default>
-                            </config>
-                            <onChange>reload</onChange>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.showMessage</label>
+                        <config>
+                            <type>check</type>
+                            <default>0</default>
+                        </config>
+                        <onChange>reload</onChange>
                     </settings.showMessage>
                     <settings.messageMaxLength>
-                        <TCEforms>
-                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.messageMaxLength</label>
-                            <displayCond>FIELD:settings.showMessage:REQ:true</displayCond>
-                            <config>
-                                <type>input</type>
-                                <size>10</size>
-                                <eval>trim,int,required</eval>
-                                <range>
-                                    <lower>10</lower>
-                                    <upper>2000</upper>
-                                </range>
-                                <default>100</default>
-                                <slider>
-                                    <step>5</step>
-                                    <width>500</width>
-                                </slider>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.messageMaxLength</label>
+                        <displayCond>FIELD:settings.showMessage:REQ:true</displayCond>
+                        <config>
+                            <type>input</type>
+                            <size>10</size>
+                            <eval>trim,int,required</eval>
+                            <range>
+                                <lower>10</lower>
+                                <upper>2000</upper>
+                            </range>
+                            <default>100</default>
+                            <slider>
+                                <step>5</step>
+                                <width>500</width>
+                            </slider>
+                        </config>
                     </settings.messageMaxLength>
                     <settings.linkPrivacy>
-                        <TCEforms>
-                            <exclude>1</exclude>
-                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.linkPrivacy</label>
-                            <config>
-                                <type>input</type>
-                                <eval>trim</eval>
-                                <renderType>inputLink</renderType>
-                            </config>
-                        </TCEforms>
+                        <exclude>1</exclude>
+                        <label>
+                            LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.linkPrivacy</label>
+                        <config>
+                            <type>input</type>
+                            <eval>trim</eval>
+                            <renderType>inputLink</renderType>
+                        </config>
                     </settings.linkPrivacy>
                     <settings.honeypot>
-                        <TCEforms>
-                            <label>Enable a honeypot for extra spam protection</label>
-                            <config>
-                                <type>check</type>
-                                <default>0</default>
-                            </config>
-                        </TCEforms>
+                        <label>Enable a honeypot for extra spam protection</label>
+                        <config>
+                            <type>check</type>
+                            <default>0</default>
+                        </config>
                     </settings.honeypot>
                 </el>
             </ROOT>

@@ -35,7 +35,6 @@
 	use ITX\Jobapplications\Event\BeforeApplicationPersisted;
 	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
 	use ITX\Jobapplications\Service\ApplicationFileService;
-	use ITX\Jobapplications\Utility\Typo3VersionUtility;
 	use ITX\Jobapplications\Utility\UploadFileUtility;
 	use Psr\Http\Message\ResponseInterface;
 	use Psr\Log\LogLevel;
@@ -46,7 +45,6 @@
     use TYPO3\CMS\Core\Log\LogManager;
 	use TYPO3\CMS\Core\Mail\FluidEmail;
 	use TYPO3\CMS\Core\Mail\Mailer;
-	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
 	use TYPO3\CMS\Core\Resource\Exception\ExistingTargetFileNameException;
 	use TYPO3\CMS\Core\Resource\Exception\ExistingTargetFolderException;
@@ -57,7 +55,8 @@
 	use TYPO3\CMS\Core\Resource\FileInterface;
 	use TYPO3\CMS\Core\Resource\ResourceStorageInterface;
 	use TYPO3\CMS\Core\Resource\StorageRepository;
-	use TYPO3\CMS\Core\Utility\GeneralUtility;
+    use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
+    use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Core\Utility\MailUtility;
 	use TYPO3\CMS\Core\Utility\MathUtility;
 	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -367,7 +366,7 @@
 			// front end check is already covered, this should only block requests avoiding the frontend
 			if (array_key_exists("messageMaxLength", $this->settings) && (strlen($newApplication->getMessage()) > (int)$this->settings['messageMaxLength']))
 			{
-				$this->addFlashMessage("Message too long", "Rejected", FlashMessage::ERROR);
+				$this->addFlashMessage("Message too long", "Rejected", ContextualFeedbackSeverity::ERROR);
 				$this->redirect("new", "Application", null, ["posting" => $posting]);
 			}
 
@@ -726,7 +725,7 @@
 			//Is the honeypot field not empty or was the form filled out extremely fast. If yes it is likely due to a bot. Do not send form redirect to page and display error.
 			if (($newApplication && ($arguments["new_mail"] ?? '') !== '') || ($arguments["timestamp"] != '' && (microtime(as_float: true) - (int)$arguments["timestamp"]) < $minMillisecondsToFillOutForm))
 			{
-				$this->addFlashMessage("That shouldn't have happened, please try again.", "Oops", FlashMessage::ERROR);
+				$this->addFlashMessage("That shouldn't have happened, please try again.", "Oops", ContextualFeedbackSeverity::ERROR);
 				$this->redirect("new", "Application", null, ["posting" => $posting]);
 			}
 		}

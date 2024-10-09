@@ -26,7 +26,6 @@ return function(ContainerConfigurator $configurator, ContainerBuilder $container
 
 		$services->set('dashboard.widget.postingsActive')
 				 ->class(NumberWithIconWidget::class)
-				 ->arg('$view', new Reference('dashboard.views.widget'))
 				 ->arg('$dataProvider', new Reference(PostingsActiveProvider::class))
 				 ->arg('$options', [
 						'title' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.widget.postings_active.title',
@@ -48,7 +47,6 @@ return function(ContainerConfigurator $configurator, ContainerBuilder $container
 		$services->set('dashboard.widget.applicationsPerPostingBarChart')
 				 ->class(BarChartWidget::class)
 				 ->arg('$dataProvider', new Reference(ApplicationsPerPostingBarChartProvider::class))
-				 ->arg('$view', new Reference('dashboard.views.widget'))
 				 ->arg('$buttonProvider', new Reference(BackendModuleButtonProvider::class))
 				 ->tag('dashboard.widget', [
 						'identifier' => 'applicationsPerPostingBarChart',

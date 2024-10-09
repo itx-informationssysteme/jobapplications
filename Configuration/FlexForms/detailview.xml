@@ -1,93 +1,85 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <T3DataStructure>
     <sheets>
         <singleView>
             <ROOT>
-                <TCEforms>
-                    <sheetTitle>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.tab.applicationTitle</sheetTitle>
-                </TCEforms>
+                <sheetTitle>
+                    LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.tab.applicationTitle</sheetTitle>
                 <type>array</type>
                 <el>
                     <settings.applicationsEnabled>
-                        <TCEforms>
-                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.applicationsEnabled</label>
-                            <config>
-                                <type>check</type>
-                                <default>1</default>
-                            </config>
-                            <onChange>reload</onChange>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.applicationsEnabled</label>
+                        <config>
+                            <type>check</type>
+                            <default>1</default>
+                        </config>
+                        <onChange>reload</onChange>
                     </settings.applicationsEnabled>
                     <settings.applicationFormUid>
-                        <TCEforms>
-                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.general.applicationForm</label>
-                            <displayCond>FIELD:settings.applicationsEnabled:REQ:true</displayCond>
-                            <config>
-                                <type>group</type>
-                                <internal_type>db</internal_type>
-                                <allowed>pages</allowed>
-                                <size>1</size>
-                                <maxitems>1</maxitems>
-                                <minitems>0</minitems>
-                                <show_thumbs>1</show_thumbs>
-                                <wizards>
-                                    <suggest>
-                                        <type>suggest</type>
-                                    </suggest>
-                                </wizards>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.general.applicationForm</label>
+                        <displayCond>FIELD:settings.applicationsEnabled:REQ:true</displayCond>
+                        <config>
+                            <type>group</type>
+                            <internal_type>db</internal_type>
+                            <allowed>pages</allowed>
+                            <size>1</size>
+                            <maxitems>1</maxitems>
+                            <minitems>0</minitems>
+                            <show_thumbs>1</show_thumbs>
+                            <wizards>
+                                <suggest>
+                                    <type>suggest</type>
+                                </suggest>
+                            </wizards>
+                        </config>
                     </settings.applicationFormUid>
                     <settings.pageTitle>
-                        <TCEforms>
-                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.pageTitle</label>
-                            <config>
-                                <type>input</type>
-                                <size>20</size>
-                                <max>80</max>
-                                <eval>trim</eval>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.pageTitle</label>
+                        <config>
+                            <type>input</type>
+                            <size>20</size>
+                            <max>80</max>
+                            <eval>trim</eval>
+                        </config>
                     </settings.pageTitle>
                     <settings.showContact>
-                        <TCEforms>
-                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.showContact</label>
-                            <config>
-                                <type>check</type>
-                                <default>1</default>
-                            </config>
-                            <onChange>reload</onChange>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.showContact</label>
+                        <config>
+                            <type>check</type>
+                            <default>1</default>
+                        </config>
+                        <onChange>reload</onChange>
                     </settings.showContact>
                     <settings.showContactPhoto>
-                        <TCEforms>
-                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.showContactPhoto</label>
-                            <displayCond>FIELD:settings.showContact:REQ:true</displayCond>
-                            <config>
-                                <type>check</type>
-                                <default>1</default>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.showContactPhoto</label>
+                        <displayCond>FIELD:settings.showContact:REQ:true</displayCond>
+                        <config>
+                            <type>check</type>
+                            <default>1</default>
+                        </config>
                     </settings.showContactPhoto>
                     <settings.showLocationTitle>
-                        <TCEforms>
-                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.showLocationTitle</label>
-                            <config>
-                                <type>check</type>
-                                <default>1</default>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.showLocationTitle</label>
+                        <config>
+                            <type>check</type>
+                            <default>1</default>
+                        </config>
                     </settings.showLocationTitle>
                     <settings.googleMapsApiKey>
-                        <TCEforms>
-                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.googleMapsApiKey</label>
-                            <config>
-                                <type>input</type>
-                                <size>20</size>
-                                <max>80</max>
-                                <eval>trim</eval>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.googleMapsApiKey</label>
+                        <config>
+                            <type>input</type>
+                            <size>20</size>
+                            <max>80</max>
+                            <eval>trim</eval>
+                        </config>
                     </settings.googleMapsApiKey>
                 </el>
             </ROOT>

@@ -325,102 +325,20 @@ return [
         'detail_view_image' => [
             'exclude' => true,
             'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.detail_view_image',
-            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('detail_view_image',
-                                                                                                  [
-                                                                                                      'appearance' => [
-                                                                                                          'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:media.addFileReference',
-                                                                                                          'showPossibleLocalizationRecords' => true,
-                                                                                                          'showRemovedLocalizationRecords' => true,
-                                                                                                          'showAllLocalizationLink' => true,
-                                                                                                          'showSynchronizationLink' => true
-                                                                                                      ],
-                                                                                                      'maxitems' => 1,
-                                                                                                      'overrideChildTca' => [
-                                                                                                          'types' => [
-                                                                                                              '0' => [
-                                                                                                                  'showitem' => '
-								--palette--;;imageoverlayPalette,
-								--palette--;;filePalette'
-                                                                                                              ],
-                                                                                                              \TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
-                                                                                                                  'showitem' => '
-								--palette--;;imageoverlayPalette,
-								--palette--;;filePalette'
-                                                                                                              ],
-                                                                                                              \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
-                                                                                                                  'showitem' => '
-								--palette--;;imageoverlayPalette,
-								--palette--;;filePalette'
-                                                                                                              ],
-                                                                                                              \TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
-                                                                                                                  'showitem' => '
-								--palette--;;imageoverlayPalette,
-								--palette--;;filePalette'
-                                                                                                              ],
-                                                                                                              \TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
-                                                                                                                  'showitem' => '
-								--palette--;;imageoverlayPalette,
-								--palette--;;filePalette'
-                                                                                                              ],
-                                                                                                              \TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
-                                                                                                                  'showitem' => '
-								--palette--;;imageoverlayPalette,
-								--palette--;;filePalette'
-                                                                                                              ]
-                                                                                                          ]
-                                                                                                      ]
-                                                                                                  ],
-                                                                                                  $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']),
+            'config' => [
+                'type' => 'file',
+                'maxitems' => 1,
+                'allowed' => 'common-image-types',
+            ],
         ],
         'list_view_image' => [
             'exclude' => true,
             'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.list_view_image',
-            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('list_view_image',
-                                                                                                  [
-                                                                                                      'appearance' => [
-                                                                                                          'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:media.addFileReference',
-                                                                                                          'showPossibleLocalizationRecords' => true,
-                                                                                                          'showRemovedLocalizationRecords' => true,
-                                                                                                          'showAllLocalizationLink' => true,
-                                                                                                          'showSynchronizationLink' => true
-                                                                                                      ],
-                                                                                                      'maxitems' => 1,
-                                                                                                      'overrideChildTca' => [
-                                                                                                          'types' => [
-                                                                                                              '0' => [
-                                                                                                                  'showitem' => '
-								--palette--;;imageoverlayPalette,
-								--palette--;;filePalette'
-                                                                                                              ],
-                                                                                                              \TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
-                                                                                                                  'showitem' => '
-								--palette--;;imageoverlayPalette,
-								--palette--;;filePalette'
-                                                                                                              ],
-                                                                                                              \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
-                                                                                                                  'showitem' => '
-								--palette--;;imageoverlayPalette,
-								--palette--;;filePalette'
-                                                                                                              ],
-                                                                                                              \TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
-                                                                                                                  'showitem' => '
-								--palette--;;imageoverlayPalette,
-								--palette--;;filePalette'
-                                                                                                              ],
-                                                                                                              \TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
-                                                                                                                  'showitem' => '
-								--palette--;;imageoverlayPalette,
-								--palette--;;filePalette'
-                                                                                                              ],
-                                                                                                              \TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
-                                                                                                                  'showitem' => '
-								--palette--;;imageoverlayPalette,
-								--palette--;;filePalette'
-                                                                                                              ]
-                                                                                                          ]
-                                                                                                      ]
-                                                                                                  ],
-                                                                                                  $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']),
+            'config' => [
+                'type' => 'file',
+                'maxitems' => 1,
+                'allowed' => 'common-image-types',
+            ],
         ],
         'locations' => [
             'exclude' => true,
