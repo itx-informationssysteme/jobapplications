@@ -279,10 +279,9 @@
 				$this->persistenceManager->persistAll();
 			}
 
-			$this->view->assign('application', $application);
+			$moduleTemplate->assign('application', $application);
 
-            $moduleTemplate->setContent($this->view->render());
-            return $this->htmlResponse($moduleTemplate->renderContent());
+            return $moduleTemplate->renderResponse('Backend/ShowApplication');
 		}
 
 		/**
@@ -320,8 +319,7 @@
 			$this->view->assign('newApps', count($newApps));
 			$this->view->assign('contact', $contact);
 
-            $moduleTemplate->setContent($this->view->render());
-            return $this->htmlResponse($moduleTemplate->renderContent());
+            return $moduleTemplate->renderResponse('Backend/Dashboard');
 		}
 
 		/**
@@ -366,10 +364,9 @@
 				$this->addFlashMessage('Finished!');
 			}
 
-			$this->view->assign('admin', $GLOBALS['BE_USER']->isAdmin());
+			$moduleTemplate->assign('admin', $GLOBALS['BE_USER']->isAdmin());
 
-            $moduleTemplate->setContent($this->view->render());
-            return $this->htmlResponse($moduleTemplate->renderContent());
+            return $moduleTemplate->renderResponse('Backend/Settings');
 		}
 
 		public function injectApplicationRepository(ApplicationRepository $applicationRepository): void
