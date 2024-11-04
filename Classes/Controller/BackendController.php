@@ -193,20 +193,19 @@
 
 			$pagination = new SimplePagination($paginator);
 
-			$this->view->assign('paginator', $paginator);
-			$this->view->assign('pagination', $pagination);
-			$this->view->assign('applications', $paginator->getPaginatedItems());
+			$moduleTemplate->assign('paginator', $paginator);
+			$moduleTemplate->assign('pagination', $pagination);
+			$moduleTemplate->assign('applications', $paginator->getPaginatedItems());
 
-			$this->view->assign('selectedPosting', $selectedPosting);
-			$this->view->assign('archivedSelected', $archivedSelected);
-			$this->view->assign('selectedContact', $selectedContact);
-			$this->view->assign('selectedStatus', $selectedStatus);
-			$this->view->assign('postings', $postingsFilter);
-			$this->view->assign('contacts', $contactsFilter);
-			$this->view->assign('statuses', $statusesFilter);
+			$moduleTemplate->assign('selectedPosting', $selectedPosting);
+			$moduleTemplate->assign('archivedSelected', $archivedSelected);
+			$moduleTemplate->assign('selectedContact', $selectedContact);
+			$moduleTemplate->assign('selectedStatus', $selectedStatus);
+			$moduleTemplate->assign('postings', $postingsFilter);
+			$moduleTemplate->assign('contacts', $contactsFilter);
+			$moduleTemplate->assign('statuses', $statusesFilter);
 
-            $moduleTemplate->setContent($this->view->render());
-            return $this->htmlResponse($moduleTemplate->renderContent());
+            return $moduleTemplate->renderResponse('Backend/ListApplications');
 		}
 
 		/**
