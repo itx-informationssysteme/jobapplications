@@ -67,8 +67,7 @@
 				'exclude' => true,
 				'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
 				'config' => [
-					'type' => 'input',
-					'renderType' => 'inputDateTime',
+					'type' => 'datetime',
 					'eval' => 'datetime,int',
 					'default' => 0,
 					'behaviour' => [
@@ -80,8 +79,7 @@
 				'exclude' => true,
 				'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
 				'config' => [
-					'type' => 'input',
-					'renderType' => 'inputDateTime',
+					'type' => 'datetime',
 					'eval' => 'datetime,int',
 					'default' => 0,
 					'range' => [
@@ -151,7 +149,12 @@
 					'type' => 'select',
 					'renderType' => 'selectSingle',
 					'default' => 0,
-					'items' => [['', 0]],
+					'items' => [
+						[
+							'label' => '', 
+							'value' => 0
+						]
+					],
 					'minitems' => 0,
 					'foreign_table' => 'be_users',
 					'fieldWizard' => [

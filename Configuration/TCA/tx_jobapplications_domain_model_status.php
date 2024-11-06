@@ -76,8 +76,7 @@
 				'exclude' => true,
 				'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
 				'config' => [
-					'type' => 'input',
-					'renderType' => 'inputDateTime',
+					'type' => 'datetime',
 					'eval' => 'datetime,int',
 					'default' => 0,
 					'behaviour' => [
@@ -89,8 +88,7 @@
 				'exclude' => true,
 				'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
 				'config' => [
-					'type' => 'input',
-					'renderType' => 'inputDateTime',
+					'type' => 'datetime',
 					'eval' => 'datetime,int',
 					'default' => 0,
 					'range' => [
@@ -116,7 +114,11 @@
 				'config' => [
 					'type' => 'check',
 					'items' => [
-						['LLL:EXT:lang/locallang_core.xlf:labels.enabled', '']
+						[
+							'label' => 'LLL:EXT:lang/locallang_core.xlf:labels.enabled', 
+							'value' => '',
+							'group' => 'default',	
+						]
 					],
 					'default' => 0,
 				]
@@ -127,7 +129,11 @@
 				'config' => [
 					'type' => 'check',
 					'items' => [
-						['LLL:EXT:lang/locallang_core.xlf:labels.enabled', '']
+						[
+							'label' => 'LLL:EXT:lang/locallang_core.xlf:labels.enabled', 
+							'value' => '',
+							'group'=> 'default',
+						]
 					],
 					'default' => 0,
 				]

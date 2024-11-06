@@ -72,8 +72,7 @@ return [
             'exclude' => true,
             'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.starttime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'eval' => 'datetime,int',
                 'behaviour' => [
                     'allowLanguageSynchronization' => true
@@ -84,8 +83,7 @@ return [
             'exclude' => true,
             'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.valid_through',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'eval' => 'datetime,int',
                 'default' => 0,
                 'behaviour' => [
@@ -106,7 +104,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true
             ],
         ],
         'date_posted' => [
@@ -114,10 +113,10 @@ return [
             'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.date_posted',
             'config' => [
                 'dbType' => 'date',
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 7,
-                'eval' => 'date,required',
+                'eval' => 'date',
+                'required' => true
             ],
         ],
         'career_level' => [
@@ -146,36 +145,44 @@ return [
                 'renderType' => 'selectMultipleSideBySide',
                 'items' => [
                     [
-                        'LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.fulltime',
-                        "fulltime"
+                        'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.fulltime',
+                        'value' => "fulltime",
+                        'group' => 'default'
                     ],
                     [
-                        'LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.parttime',
-                        "parttime"
+                        'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.parttime',
+                        'value' => "parttime",
+                        'group' => 'default',
                     ],
                     [
-                        'LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.contractor',
-                        "contractor"
+                        'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.contractor',
+                        'value' => "contractor",
+                        'group' => 'default',
                     ],
                     [
-                        'LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.temporary',
-                        "temporary"
+                        'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.temporary',
+                        'value' => "temporary",
+                        'group' => 'default',
                     ],
                     [
-                        'LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.intern',
-                        "intern"
+                        'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.intern',
+                        'value' => "intern",
+                        'group' => 'default',
                     ],
                     [
-                        'LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.volunteer',
-                        "volunteer"
+                        'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.volunteer',
+                        'value' => "volunteer",
+                        'group' => 'default',
                     ],
                     [
-                        'LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.perdiem',
-                        "perdiem"
+                        'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.perdiem',
+                        'value' => "perdiem",
+                        'group' => 'default',
                     ],
                     [
-                        'LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.other',
-                        "other"
+                        'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.other',
+                        'value' => "other",
+                        'group' => 'default',
                     ]
                 ],
                 'eval' => ''

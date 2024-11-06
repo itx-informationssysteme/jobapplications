@@ -75,8 +75,7 @@
 				'exclude' => true,
 				'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
 				'config' => [
-					'type' => 'input',
-					'renderType' => 'inputDateTime',
+					'type' => 'datetime',
 					'eval' => 'datetime,int',
 					'default' => 0,
 					'behaviour' => [
@@ -88,8 +87,7 @@
 				'exclude' => true,
 				'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
 				'config' => [
-					'type' => 'input',
-					'renderType' => 'inputDateTime',
+					'type' => 'datetime',
 					'eval' => 'datetime,int',
 					'default' => 0,
 					'range' => [
@@ -108,10 +106,26 @@
 					'type' => 'select',
 					'renderType' => 'selectSingle',
 					'items' => [
-						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.application.selector.chooseMessage', ''],
-						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.application.selector.mr', 'mr'],
-						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.application.selector.mrs', 'mrs'],
-						['LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.application.selector.div', 'div']
+						[
+							'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.application.selector.chooseMessage',
+							'value' => '',
+							'group' => 'default',
+						],
+						[
+							'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.application.selector.mr', 
+							'value' => 'mr',
+							'group' => 'default',
+						],
+						[
+							'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.application.selector.mrs', 
+							'value' => 'mrs',
+							'group' => 'default',
+						],
+						[
+							'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.application.selector.div', 
+							'value' => 'div',
+							'group' => 'default',
+						]
 					],
 					'size' => 1,
 					'maxitems' => 1,
@@ -140,9 +154,9 @@
 				'exclude' => true,
 				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.email',
 				'config' => [
-					'type' => 'input',
+					'type' => 'email',
 					'size' => 30,
-					'eval' => 'nospace,email'
+					'eval' => 'nospace'
 				]
 			],
 			'phone' => [
@@ -176,9 +190,8 @@
 				'exclude' => true,
 				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.address_post_code',
 				'config' => [
-					'type' => 'input',
+					'type' => 'number',
 					'size' => 4,
-					'eval' => 'int'
 				]
 			],
 			'address_city' => [
@@ -213,8 +226,7 @@
 				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_application.earliest_date_of_joining',
 				'config' => [
 					'dbType' => 'date',
-					'type' => 'input',
-					'renderType' => 'inputDateTime',
+					'type' => 'datetime',
 					'size' => 7,
 					'eval' => 'date',
 					'default' => null,
@@ -270,8 +282,8 @@
 				'config' => [
 					'type' => 'check',
 					'items' => [
-						'1' => [
-							'0' => 'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.enabled'
+						[
+							'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.enabled',
 						]
 					],
 					'default' => 0,
@@ -294,8 +306,8 @@
 				'config' => [
 					'type' => 'check',
 					'items' => [
-						'1' => [
-							'0' => 'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.enabled'
+						[
+							'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.enabled',
 						]
 					],
 					'default' => 0,
