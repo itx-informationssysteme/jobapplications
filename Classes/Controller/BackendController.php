@@ -261,7 +261,8 @@
 				$this->applicationRepository->remove($application);
 				$this->applicationFileService->deleteApplicationFolder($this->applicationFileService->getApplicantFolder($application), $fileStorage);
 				$this->persistenceManager->persistAll();
-				$this->redirect('listApplications', 'Backend', 'jobapplications');
+                
+				return $this->redirect('listApplications', 'Backend', 'jobapplications');
 			}
 
 			// Handles status change request
