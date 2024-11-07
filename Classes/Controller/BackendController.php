@@ -25,7 +25,7 @@
 
 	namespace ITX\Jobapplications\Controller;
 
-    use TYPO3\CMS\Backend\Attribute\Controller;
+use TYPO3\CMS\Backend\Attribute\Controller;
     use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
     use TYPO3\CMS\Core\Pagination\SimplePagination;
     use TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException;
@@ -260,7 +260,8 @@
 				$this->applicationRepository->remove($application);
 				$this->applicationFileService->deleteApplicationFolder($this->applicationFileService->getApplicantFolder($application), $fileStorage);
 				$this->persistenceManager->persistAll();
-				$this->redirect('listApplications', 'Backend', 'jobapplications');
+
+				return $this->redirect('listApplications', 'Backend', 'jobapplications');
 			}
 
 			// Handles status change request
@@ -280,7 +281,7 @@
 			}
 
 			$moduleTemplate->assign('application', $application);
-
+			
             return $moduleTemplate->renderResponse('Backend/ShowApplication');
 		}
 
