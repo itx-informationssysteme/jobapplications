@@ -90,3 +90,4 @@ config.tx_extbase.persistence.classes {
     }
 }
 
+module.tx_jobapplications < plugin.tx_jobapplications
