@@ -143,6 +143,7 @@ return [
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
+                'relationship' => 'oneToMany',
                 'items' => [
                     [
                         'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang.xlf:fe.posting.employment.selector.fulltime',
