@@ -723,12 +723,11 @@
 		 */
 		private function checkHoneypot(array $arguments, ?Posting $posting, ?Application $newApplication): ResponseInterface | null
 		{
-			//Is the honeypot field not empty or was the form filled out extremely fast. If yes it is likely due to a bot. Do not send form redirect to page and display error.
 			if (($newApplication && ($arguments["new_mail"] ?? '') !== '')) {
 				// $this->addFlashMessage("That shouldn't have happened, please try again.", "Oops", ContextualFeedbackSeverity::ERROR);
 				return $this->redirect("new", "Application", null, ["posting" => $posting]);
 			}
-
+			
 			return null;
 		}
 
