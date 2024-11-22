@@ -87,7 +87,14 @@
 		 */
 		public function execute($input, $output): int
 		{
+			/*
+			 *	Issue: 	Repositories currently can't be used in TYPO3 v13 inside commands,
+			 * 			unless the ConfigurationManager is loaded in manually. This function
+			 *			does that for us.
+			 *	Link:	https://forge.typo3.org/issues/105616
+			 */
 			$this->configurationLoaderService->initCliEnvironment();
+			
 			$days = $input->getArgument('days') ?? 90;
 			$withStatus = $input->getOption('withStatus') ?? false;
 
