@@ -327,7 +327,11 @@
 
 			if (array_key_exists("honeypot", $this->settings) && $this->settings["honeypot"] === '1')
 			{
-				$this->checkHoneypot($arguments, $posting, $newApplication);
+				$isHoneypotTriggered = $this->checkHoneypot($arguments, $posting, $newApplication);
+				
+				if ($isHoneypotTriggered instanceof ResponseInterface) {
+					return $isHoneypotTriggered;
+				}
 			}
 
 			// Normalize file array -> free choice whether multi or single upload
@@ -716,19 +720,16 @@
          * @param Posting|null     $posting
          * @param Application|null $newApplication
          *
-         * @return void
+		 * @return ResponseInterface|null
          */
-		private function checkHoneypot(array $arguments, ?Posting $posting, ?Application $newApplication): void
+		private function checkHoneypot(array $arguments, ?Posting $posting, ?Application $newApplication): ResponseInterface | null
 		{
-			//Minimal Seconds it should take someone to fill out the form.
-			$minMillisecondsToFillOutForm = 1000;
-
-			//Is the honeypot field not empty or was the form filled out extremely fast. If yes it is likely due to a bot. Do not send form redirect to page and display error.
-			if (($newApplication && ($arguments["new_mail"] ?? '') !== '') || ($arguments["timestamp"] != '' && (microtime(as_float: true) - (int)$arguments["timestamp"]) < $minMillisecondsToFillOutForm))
-			{
-				$this->addFlashMessage("That shouldn't have happened, please try again.", "Oops", FlashMessage::ERROR);
-				$this->redirect("new", "Application", null, ["posting" => $posting]);
+			if (($newApplication && ($arguments["new_mail"] ?? '') !== '')) {
+				// $this->addFlashMessage("That shouldn't have happened, please try again.", "Oops", ContextualFeedbackSeverity::ERROR);
+				return $this->redirect("new", "Application", null, ["posting" => $posting]);
 			}
+			
+			return null;
 		}
 
 		public function injectApplicationRepository(ApplicationRepository $applicationRepository): void
