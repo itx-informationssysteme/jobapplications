@@ -116,7 +116,7 @@
 		 */
 		private function getCategoriesFromSettings(): array
 		{
-			$category_str = $this->settings["categories"];
+			$category_str = $this->settings["categories"] ?? [];
 			return !empty($category_str) ? explode(",", $category_str) : [];
 		}
 
@@ -132,9 +132,9 @@
 			// Plugin selected categories
 			$categories = $this->getCategoriesFromSettings();
 
-			$orderBy = $this->settings['list']['ordering']['field'] ?: 'date_posted';
+			$orderBy = $this->settings['list']['ordering']['field'] ?? 'date_posted';
 			$order = '';
-			switch ($this->settings['list']['ordering']['order'])
+			switch ($this->settings['list']['ordering']['order'] ?? null)
 			{
 				case 'descending':
 					$order = QueryInterface::ORDER_DESCENDING;
@@ -152,7 +152,7 @@
 			}
 
 			// Get repository configuration from typoscript
-			$repositoryConfiguration = $this->settings['filter']['repositoryConfiguration'];
+			$repositoryConfiguration = $this->settings['filter']['repositoryConfiguration'] ?? null;
 			if (!$repositoryConfiguration)
 			{
 				$repositoryConfiguration = [];
@@ -217,7 +217,8 @@
 		 */
 		private function getCachedFilterOptions(array $categories): array
 		{
-			$contentObj = $this->configurationManager->getContentObject();
+            /** @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer $currentContentObject */
+            $contentObj = $this->request->getAttribute('currentContentObject');
 			if ($contentObj === null)
 			{
 				throw new \RuntimeException("Could not retrieve content object. Make sure to call this with a plugin.");

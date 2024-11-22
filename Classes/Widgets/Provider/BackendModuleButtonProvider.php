@@ -53,11 +53,7 @@
 
 			try
 			{
-				$buttonLink = $uriBuilder->buildUriFromRoute('web_JobapplicationsBackend', [
-					'tx_jobapplications_web_jobapplicationsbackend[submit]' => 'Filter',
-					'tx_jobapplications_web_jobapplicationsbackend[action]' => 'listApplications',
-					'tx_jobapplications_web_jobapplicationsbackend[controller]' => 'Backend'
-				]);
+				$buttonLink = $uriBuilder->buildUriFromRoute('jobapplications_backend');
 			}
 			catch (RouteNotFoundException $e)
 			{

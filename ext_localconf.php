@@ -66,15 +66,56 @@ defined('TYPO3') || die('Access denied.');
                         frontend {
                             iconIdentifier = jobapplications-plugin-frontend
                             title = LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_frontend.name
-                            description = LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:tx_jobapplications_frontend.description
+                            description = LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_frontend.description
                             tt_content_defValues {
                                 CType = list
                                 list_type = jobapplications_frontend
                             }
                         }
+
+                        detailview {
+                            iconIdentifier = jobapplications-plugin-frontend
+                            title = LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_detailview.name
+                            description = LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_detailview.description
+                            tt_content_defValues {
+                                CType = list
+                                list_type = jobapplications_detailview
+                            }
+                        }
+
+
+                        contactdisplay {
+                            iconIdentifier = jobapplications-plugin-frontend
+                            title = LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_contactdisplay.name
+                            description = LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_contactdisplay.description
+                            tt_content_defValues {
+                                CType = list
+                                list_type = jobapplications_contactdisplay
+                            }
+                        }
+
+                        successpage {
+                            iconIdentifier = jobapplications-plugin-frontend
+                            title = LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_successpage.name
+                            description = LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_successpage.description
+                            tt_content_defValues {
+                                CType = list
+                                list_type = jobapplications_successpage
+                            }
+                        }
+
+                        applicationform {
+                            iconIdentifier = jobapplications-plugin-frontend
+                            title = LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_applicationform.name
+                            description = LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_applicationform.description
+                            tt_content_defValues {
+                                CType = list
+                                list_type = jobapplications_applicationform
+                            }
+                        }
                     }
-                    	show = *
-                	}
+
+                    show = *
            		}'
 			);
 			\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup(trim('
@@ -111,10 +152,6 @@ defined('TYPO3') || die('Access denied.');
 
 			// FluidMail
 			$GLOBALS['TYPO3_CONF_VARS']['MAIL']['templateRootPaths'][283] = 'EXT:jobapplications/Resources/Private/Templates/Mail';
-
-			// Ajax routes
-			$GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['jobapplications_upload'] = \ITX\Jobapplications\Controller\AjaxController::class.'::uploadAction';
-			$GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['jobapplications_revert'] = \ITX\Jobapplications\Controller\AjaxController::class.'::revertAction';
 
 			// Cache
 			if (!isset($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['jobapplications_cache']) || !is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['jobapplications_cache']))

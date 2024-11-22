@@ -35,7 +35,6 @@
 	use ITX\Jobapplications\Event\BeforeApplicationPersisted;
 	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
 	use ITX\Jobapplications\Service\ApplicationFileService;
-	use ITX\Jobapplications\Utility\Typo3VersionUtility;
 	use ITX\Jobapplications\Utility\UploadFileUtility;
 	use Psr\Http\Message\ResponseInterface;
 	use Psr\Log\LogLevel;
@@ -46,7 +45,6 @@
     use TYPO3\CMS\Core\Log\LogManager;
 	use TYPO3\CMS\Core\Mail\FluidEmail;
 	use TYPO3\CMS\Core\Mail\Mailer;
-	use TYPO3\CMS\Core\Messaging\FlashMessage;
 	use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
 	use TYPO3\CMS\Core\Resource\Exception\ExistingTargetFileNameException;
 	use TYPO3\CMS\Core\Resource\Exception\ExistingTargetFolderException;
@@ -57,7 +55,8 @@
 	use TYPO3\CMS\Core\Resource\FileInterface;
 	use TYPO3\CMS\Core\Resource\ResourceStorageInterface;
 	use TYPO3\CMS\Core\Resource\StorageRepository;
-	use TYPO3\CMS\Core\Utility\GeneralUtility;
+    use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
+    use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Core\Utility\MailUtility;
 	use TYPO3\CMS\Core\Utility\MathUtility;
 	use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -371,7 +370,7 @@
 			// front end check is already covered, this should only block requests avoiding the frontend
 			if (array_key_exists("messageMaxLength", $this->settings) && (strlen($newApplication->getMessage()) > (int)$this->settings['messageMaxLength']))
 			{
-				$this->addFlashMessage("Message too long", "Rejected", FlashMessage::ERROR);
+				$this->addFlashMessage("Message too long", "Rejected", ContextualFeedbackSeverity::ERROR);
 				$this->redirect("new", "Application", null, ["posting" => $posting]);
 			}
 
@@ -715,13 +714,13 @@
 			}
 		}
 
-        /**
-         * @param array            $arguments
-         * @param Posting|null     $posting
-         * @param Application|null $newApplication
-         *
+		/**
+		 * @param array            $arguments
+		 * @param Posting|null     $posting
+		 * @param Application|null $newApplication
+		 *
 		 * @return ResponseInterface|null
-         */
+		 */
 		private function checkHoneypot(array $arguments, ?Posting $posting, ?Application $newApplication): ResponseInterface | null
 		{
 			if (($newApplication && ($arguments["new_mail"] ?? '') !== '')) {

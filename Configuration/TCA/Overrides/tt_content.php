@@ -69,4 +69,3 @@
 		'FILE:EXT:jobapplications/Configuration/FlexForms/successpage.xml'
 	);
 
-	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tt_content.pi_flexform.jobapplications_applicationform.list', 'EXT:jobapplications/Resources/Private/Language/locallang_csh_flexform.xlf');

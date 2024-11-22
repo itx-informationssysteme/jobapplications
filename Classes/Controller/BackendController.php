@@ -25,7 +25,7 @@
 
 	namespace ITX\Jobapplications\Controller;
 
-    use TYPO3\CMS\Backend\Attribute\Controller;
+use TYPO3\CMS\Backend\Attribute\Controller;
     use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
     use TYPO3\CMS\Core\Pagination\SimplePagination;
     use TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException;
@@ -193,20 +193,19 @@
 
 			$pagination = new SimplePagination($paginator);
 
-			$this->view->assign('paginator', $paginator);
-			$this->view->assign('pagination', $pagination);
-			$this->view->assign('applications', $paginator->getPaginatedItems());
+			$moduleTemplate->assign('paginator', $paginator);
+			$moduleTemplate->assign('pagination', $pagination);
+			$moduleTemplate->assign('applications', $paginator->getPaginatedItems());
 
-			$this->view->assign('selectedPosting', $selectedPosting);
-			$this->view->assign('archivedSelected', $archivedSelected);
-			$this->view->assign('selectedContact', $selectedContact);
-			$this->view->assign('selectedStatus', $selectedStatus);
-			$this->view->assign('postings', $postingsFilter);
-			$this->view->assign('contacts', $contactsFilter);
-			$this->view->assign('statuses', $statusesFilter);
+			$moduleTemplate->assign('selectedPosting', $selectedPosting);
+			$moduleTemplate->assign('archivedSelected', $archivedSelected);
+			$moduleTemplate->assign('selectedContact', $selectedContact);
+			$moduleTemplate->assign('selectedStatus', $selectedStatus);
+			$moduleTemplate->assign('postings', $postingsFilter);
+			$moduleTemplate->assign('contacts', $contactsFilter);
+			$moduleTemplate->assign('statuses', $statusesFilter);
 
-            $moduleTemplate->setContent($this->view->render());
-            return $this->htmlResponse($moduleTemplate->renderContent());
+            return $moduleTemplate->renderResponse('Backend/ListApplications');
 		}
 
 		/**
@@ -261,7 +260,7 @@
 				$this->applicationRepository->remove($application);
 				$this->applicationFileService->deleteApplicationFolder($this->applicationFileService->getApplicantFolder($application), $fileStorage);
 				$this->persistenceManager->persistAll();
-                
+
 				return $this->redirect('listApplications', 'Backend', 'jobapplications');
 			}
 
@@ -281,10 +280,9 @@
 				$this->persistenceManager->persistAll();
 			}
 
-			$this->view->assign('application', $application);
-
-            $moduleTemplate->setContent($this->view->render());
-            return $this->htmlResponse($moduleTemplate->renderContent());
+			$moduleTemplate->assign('application', $application);
+			
+            return $moduleTemplate->renderResponse('Backend/ShowApplication');
 		}
 
 		/**
@@ -322,8 +320,7 @@
 			$this->view->assign('newApps', count($newApps));
 			$this->view->assign('contact', $contact);
 
-            $moduleTemplate->setContent($this->view->render());
-            return $this->htmlResponse($moduleTemplate->renderContent());
+            return $moduleTemplate->renderResponse('Backend/Dashboard');
 		}
 
 		/**
@@ -368,10 +365,9 @@
 				$this->addFlashMessage('Finished!');
 			}
 
-			$this->view->assign('admin', $GLOBALS['BE_USER']->isAdmin());
+			$moduleTemplate->assign('admin', $GLOBALS['BE_USER']->isAdmin());
 
-            $moduleTemplate->setContent($this->view->render());
-            return $this->htmlResponse($moduleTemplate->renderContent());
+            return $moduleTemplate->renderResponse('Backend/Settings');
 		}
 
 		public function injectApplicationRepository(ApplicationRepository $applicationRepository): void

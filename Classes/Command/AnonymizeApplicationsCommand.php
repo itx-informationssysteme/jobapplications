@@ -36,6 +36,7 @@
 	use TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException;
 	use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 	use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+	use ITX\Jobapplications\Service\ConfigurationLoaderService;
 
 	/**
 	 * Task for deleting all applications older than a specific amount of time
@@ -49,16 +50,19 @@
 		public int $days = 90;
 		public int $status = 0;
 
+		protected ConfigurationLoaderService $configurationLoaderService;
 		protected PersistenceManager $persistenceManager;
 		protected ApplicationRepository $applicationRepository;
 		protected ApplicationFileService $applicationFileService;
 
-		public function __construct(PersistenceManager     $persistenceManager,
-									ApplicationRepository  $applicationRepository,
-									ApplicationFileService $applicationFileService,
-									LoggerInterface        $logger
+		public function __construct(ConfigurationLoaderService	$configurationLoaderService,
+									PersistenceManager     		$persistenceManager,
+									ApplicationRepository  		$applicationRepository,
+									ApplicationFileService 		$applicationFileService,
+									LoggerInterface        		$logger
 		)
 		{
+			$this->configurationLoaderService = $configurationLoaderService;
 			$this->persistenceManager = $persistenceManager;
 			$this->applicationRepository = $applicationRepository;
 			$this->applicationFileService = $applicationFileService;
@@ -86,6 +90,14 @@
 		 */
 		public function execute($input, $output): int
 		{
+			/*
+			 *	Issue: 	Repositories currently can't be used in TYPO3 v13 inside commands,
+			 * 			unless the ConfigurationManager is loaded in manually. This function
+			 *			does that for us.
+			 *	Link:	https://forge.typo3.org/issues/105616
+			 */
+			$this->configurationLoaderService->initCliEnvironment();
+			
 			$anonymizeChars = "***";
 			$days = $input->getArgument('days') ?? 90;
 			$withStatus = $input->getOption('withStatus') ?? false;

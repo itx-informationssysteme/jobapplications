@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.0.0] - 2024-11-22 v13 Support
+
+### Added
+
+- TYPO3 13 support
+
+### Changed
+
+- Breaking: Filepond uploads are now handled by a different endpoint, check your FileopondConfig.html if you have overridden the template
+
+### Removed
+
+- Dropped support for v12
+
 ## [3.0.6] - 2024-11-22 Bugfix Release
 
 ### Added

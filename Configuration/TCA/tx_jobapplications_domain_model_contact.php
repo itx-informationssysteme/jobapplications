@@ -67,8 +67,7 @@
 				'exclude' => true,
 				'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
 				'config' => [
-					'type' => 'input',
-					'renderType' => 'inputDateTime',
+					'type' => 'datetime',
 					'eval' => 'datetime,int',
 					'default' => 0,
 					'behaviour' => [
@@ -80,8 +79,7 @@
 				'exclude' => true,
 				'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
 				'config' => [
-					'type' => 'input',
-					'renderType' => 'inputDateTime',
+					'type' => 'datetime',
 					'eval' => 'datetime,int',
 					'default' => 0,
 					'range' => [
@@ -139,52 +137,11 @@
 			'photo' => [
 				'exclude' => true,
 				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_contact.photo',
-				'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
-					'photo',
-					[
-						'appearance' => [
-							'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:media.addFileReference',
-							'showPossibleLocalizationRecords' => true,
-							'showRemovedLocalizationRecords' => true,
-							'showAllLocalizationLink' => true,
-							'showSynchronizationLink' => true
-						],
-						'maxitems' => 1,
-						'overrideChildTca' => ['types' => [
-							'0' => [
-								'showitem' => '
-								--palette--;;imageoverlayPalette,
-								--palette--;;filePalette'
-							],
-							\TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
-								'showitem' => '
-								--palette--;;imageoverlayPalette,
-								--palette--;;filePalette'
-							],
-							\TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
-								'showitem' => '
-								--palette--;;imageoverlayPalette,
-								--palette--;;filePalette'
-							],
-							\TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
-								'showitem' => '
-								--palette--;;imageoverlayPalette,
-								--palette--;;filePalette'
-							],
-							\TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
-								'showitem' => '
-								--palette--;;imageoverlayPalette,
-								--palette--;;filePalette'
-							],
-							\TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
-								'showitem' => '
-								--palette--;;imageoverlayPalette,
-								--palette--;;filePalette'
-							]
-						]]
-					],
-					$GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
-				),
+                'config' => [
+                    'type' => 'file',
+                    'maxitems' => 1,
+                    'allowed' => 'common-image-types',
+                ],
 			],
 			"be_user" => [
 				'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_contact.be_user',
@@ -192,7 +149,12 @@
 					'type' => 'select',
 					'renderType' => 'selectSingle',
 					'default' => 0,
-					'items' => [['', 0]],
+					'items' => [
+						[
+							'label' => '', 
+							'value' => 0
+						]
+					],
 					'minitems' => 0,
 					'foreign_table' => 'be_users',
 					'fieldWizard' => [

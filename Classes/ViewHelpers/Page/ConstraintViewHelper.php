@@ -17,8 +17,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  */
 class ConstraintViewHelper extends AbstractViewHelper
 {
-	use CompileWithRenderStatic;
-
 	protected static array $reflectionCache = [];
 
 	public function initializeArguments()
@@ -35,13 +33,11 @@ class ConstraintViewHelper extends AbstractViewHelper
 	 *
 	 * @return array which contains the page and constraints for the pagination template
 	 */
-	public static function renderStatic(array                     $arguments,
-										\Closure                  $renderChildrenClosure,
-										RenderingContextInterface $renderingContext): array
+	public function render()
 	{
-		$page = (string)$arguments["page"];
+		$page = (string)$this->arguments["page"];
 		/** @var Constraint $constraint */
-		$constraintArgument = $arguments["constraint"];
+		$constraintArgument = $this->arguments["constraint"];
 
 		$returnArguments = [
 				"page" => $page,

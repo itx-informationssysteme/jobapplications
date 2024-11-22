@@ -1,42 +1,42 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <T3DataStructure>
     <sheets>
         <singleView>
             <ROOT>
-                <TCEforms>
-                    <sheetTitle>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.title.contactDisplay</sheetTitle>
-                </TCEforms>
+                <sheetTitle>
+                    LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.title.contactDisplay</sheetTitle>
                 <type>array</type>
                 <el>
                     <settings.selectedContacts>
-                        <TCEforms>
-                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.selectedContacts</label>
-                            <exclude>1</exclude>
-                            <config>
-                                <type>select</type>
-                                <foreign_table>tx_jobapplications_domain_model_contact</foreign_table>
-                                <renderType>selectMultipleSideBySide</renderType>
-                                <size>5</size>
-                                <minItems>1</minItems>
-                                <maxItems>999</maxItems>
-                                <foreign_table_where>
-                                    AND (tx_jobapplications_domain_model_contact.sys_language_uid=CAST('###REC_FIELD_sys_language_uid###' AS UNSIGNED) OR tx_jobapplications_domain_model_contact.sys_language_uid = '-1')
-                                    AND tx_jobapplications_domain_model_contact.hidden = 0
-                                    AND tx_jobapplications_domain_model_contact.deleted = 0
-                                </foreign_table_where>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.selectedContacts</label>
+                        <exclude>1</exclude>
+                        <config>
+                            <type>select</type>
+                            <foreign_table>tx_jobapplications_domain_model_contact</foreign_table>
+                            <renderType>selectMultipleSideBySide</renderType>
+                            <size>5</size>
+                            <minItems>1</minItems>
+                            <maxItems>999</maxItems>
+                            <foreign_table_where>
+                                AND
+                                (tx_jobapplications_domain_model_contact.sys_language_uid=CAST('###REC_FIELD_sys_language_uid###'
+                                AS UNSIGNED) OR
+                                tx_jobapplications_domain_model_contact.sys_language_uid = '-1')
+                                AND tx_jobapplications_domain_model_contact.hidden = 0
+                                AND tx_jobapplications_domain_model_contact.deleted = 0
+                            </foreign_table_where>
+                        </config>
                     </settings.selectedContacts>
                     <settings.header>
-                        <TCEforms>
-                            <label>LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.header</label>
-                            <config>
-                                <type>input</type>
-                                <size>20</size>
-                                <max>60</max>
-                                <eval>trim</eval>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:flexform.header</label>
+                        <config>
+                            <type>input</type>
+                            <size>20</size>
+                            <max>60</max>
+                            <eval>trim</eval>
+                        </config>
                     </settings.header>
                 </el>
             </ROOT>

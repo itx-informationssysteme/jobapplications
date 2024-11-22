@@ -5,13 +5,13 @@
 		allowFileTypeValidation     : false,
 		server                      : {
 			process : {
-				url     : 'index.php?eID=jobapplications_upload',
+				url     : '/jobapplications_upload',
 				onerror : (response) => {
 					return response;
 				}
 			},
 			revert  : {
-				url : 'index.php?eID=jobapplications_revert'
+				url : '/jobapplications_revert'
 			},
 			restore : null,
 			load    : null,

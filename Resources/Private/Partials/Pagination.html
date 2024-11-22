@@ -17,7 +17,7 @@
 		</li>
 		<f:for each="{pagination.allPageNumbers}" as="number">
 			<li class="page-item {f:if(condition: '{number} === {paginator.currentPageNumber}', then: 'active')}">
-				<f:link.action class="page-link" action="{action}" arguments="{jobs:page.constraint(page: number, constraint: constraint)}">{number}</f:link.action>
+                <f:link.action class="page-link" action="{action}" arguments="{jobs:page.constraint(page: number, constraint: constraint)}">{number -> f:format.printf()}</f:link.action>
 			</li>
 		</f:for>
 		<li class="page-item {f:if(condition: '{paginator.currentPageNumber} === {pagination.lastPageNumber}', then: 'disabled')}">
