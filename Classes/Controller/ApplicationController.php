@@ -328,7 +328,7 @@
 			if (array_key_exists("honeypot", $this->settings) && $this->settings["honeypot"] === '1')
 			{
 				$isHoneypotTriggered = $this->checkHoneypot($arguments, $posting, $newApplication);
-				
+
 				if ($isHoneypotTriggered instanceof ResponseInterface) {
 					return $isHoneypotTriggered;
 				}
@@ -728,7 +728,7 @@
 				// $this->addFlashMessage("That shouldn't have happened, please try again.", "Oops", ContextualFeedbackSeverity::ERROR);
 				return $this->redirect("new", "Application", null, ["posting" => $posting]);
 			}
-			
+
 			return null;
 		}
 
