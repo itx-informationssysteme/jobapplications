@@ -10,6 +10,7 @@ use ITX\Jobapplications\Widgets\Provider\PostingsActiveProvider;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\DependencyInjection\Reference;
+use TYPO3\CMS\Backend\View\BackendViewFactory;
 use TYPO3\CMS\Dashboard\Dashboard;
 use TYPO3\CMS\Dashboard\Widgets\BarChartWidget;
 use TYPO3\CMS\Dashboard\Widgets\NumberWithIconWidget;
@@ -27,6 +28,7 @@ return function(ContainerConfigurator $configurator, ContainerBuilder $container
 		$services->set('dashboard.widget.postingsActive')
 				 ->class(NumberWithIconWidget::class)
 				 ->arg('$dataProvider', new Reference(PostingsActiveProvider::class))
+                 ->arg('$backendViewFactory', new Reference(BackendViewFactory::class))
 				 ->arg('$options', [
 						'title' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.widget.postings_active.title',
 						'subtitle' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.widget.postings_active.subtitle',
@@ -47,6 +49,7 @@ return function(ContainerConfigurator $configurator, ContainerBuilder $container
 		$services->set('dashboard.widget.applicationsPerPostingBarChart')
 				 ->class(BarChartWidget::class)
 				 ->arg('$dataProvider', new Reference(ApplicationsPerPostingBarChartProvider::class))
+                 ->arg('$backendViewFactory', new Reference(BackendViewFactory::class))
 				 ->arg('$buttonProvider', new Reference(BackendModuleButtonProvider::class))
 				 ->tag('dashboard.widget', [
 						'identifier' => 'applicationsPerPostingBarChart',
