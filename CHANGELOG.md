@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Changed usage of f:image viewhelper in templates to use file references directly (#151)
+
 ## [4.0.0] - 2024-11-22 v13 Support
 
 ### Added

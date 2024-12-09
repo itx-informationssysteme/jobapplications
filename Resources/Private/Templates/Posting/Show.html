@@ -5,7 +5,7 @@
 	<f:render arguments="{posting:posting}" partial="Posting/MetaTags"/>
 	<div class="row">
 		<f:if condition="{posting.detailViewImage}">
-			<f:image class="h-auto w-100 mb-3" src="{posting.detailViewImage.originalResource.publicUrl}"/>
+			<f:image class="h-auto w-100 mb-3" image="{posting.detailViewImage}"/>
 		</f:if>
 		<div class="col">
 			<div class="row">
