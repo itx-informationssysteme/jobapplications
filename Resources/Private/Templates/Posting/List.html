@@ -87,11 +87,13 @@
 								<f:render arguments="{_all}" partial="Posting/ListItem"></f:render>
 							</f:for>
 						</div>
-						<div class="row">
-							<div class="col">
-								<f:render partial="Pagination" arguments="{pagination: pagination, paginator: paginator, action: 'list', constraint: constraint}"></f:render>
+						<f:if condition="{paginator.numberOfPages} > 1">
+							<div class="row">
+								<div class="col">
+									<f:render partial="Pagination" arguments="{pagination: pagination, paginator: paginator, action: 'list', constraint: constraint}"></f:render>
+								</div>
 							</div>
-						</div>
+						</f:if>
 					</f:then>
 					<f:else>
 						<f:comment><!--If filter returns no postings--></f:comment>
