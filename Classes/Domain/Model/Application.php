@@ -1,7 +1,7 @@
 <?php
 
 	namespace ITX\Jobapplications\Domain\Model;
-	
+
 	use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 	use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 	/***************************************************************
@@ -39,7 +39,7 @@
 		 *
 		 * @var string
 		 */
-		protected $salutation = 0;
+		protected $salutation = '';
 
 		/**
 		 * firstName
@@ -188,8 +188,8 @@
 		 * @var bool
 		 */
 		protected $archived = false;
-		
-		
+
+
 		protected bool $anonymized = false;
 
 		/**
@@ -201,8 +201,6 @@
 
 		/**
 		 * Initialize file relation
-		 *
-		 * @return \ITX\Jobapplications\Domain\Model\Application
 		 *
 		 */
 		public function __construct()
@@ -495,7 +493,7 @@
 		 *
 		 * @return void
 		 */
-		public function setPosting(Posting $posting = null)
+		public function setPosting(?Posting $posting = null)
 		{
 			$this->posting = $posting;
 		}

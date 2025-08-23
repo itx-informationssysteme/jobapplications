@@ -25,6 +25,7 @@
 
 	namespace ITX\Jobapplications\Controller;
 
+use ITX\Jobapplications\Domain\Model\Status;
 use TYPO3\CMS\Backend\Attribute\Controller;
     use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
     use TYPO3\CMS\Core\Pagination\SimplePagination;
@@ -267,21 +268,23 @@ use TYPO3\CMS\Backend\Attribute\Controller;
 			// Handles status change request
 			if ($this->request->hasArgument('status'))
 			{
-				/* @var Status $newStatus */
+				/* @var ?Status $newStatus */
 				$newStatus = $this->statusRepository->findByUid($this->request->getArgument('status'));
-				$application->setStatus($newStatus);
-				$this->applicationRepository->update($application);
-				$statusDatabaseOp = true;
+                if ($newStatus !== null) {
+                    $application->setStatus($newStatus);
+                    $this->applicationRepository->update($application);
+                    $statusDatabaseOp = true;
+                }
 			}
 
-			// If we made a databse operation we want to make sure its commited instantly
+			// If we made a database operation we want to make sure its commited instantly
 			if ($statusDatabaseOp)
 			{
 				$this->persistenceManager->persistAll();
 			}
 
 			$moduleTemplate->assign('application', $application);
-			
+
             return $moduleTemplate->renderResponse('Backend/ShowApplication');
 		}
 
