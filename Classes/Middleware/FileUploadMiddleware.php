@@ -17,7 +17,8 @@ class FileUploadMiddleware implements MiddlewareInterface
         ServerRequestInterface $request,
         RequestHandlerInterface $handler,
     ): ResponseInterface {
-        if ($request->getMethod() === 'POST' && $request->getUri()->getPath() == '/jobapplications_upload') {
+        $path = rtrim($request->getUri()->getPath(), '/');
+        if ($request->getMethod() === 'POST' && str_ends_with($path, '/jobapplications-upload')) {
             $response = new HtmlResponse('');
 
             $fileSizeLimit = 0;

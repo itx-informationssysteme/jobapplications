@@ -235,7 +235,11 @@
 		 * @param array  $problems
 		 * @param int    $postingUid
 		 */
-		public function successAction($firstName, $lastName, $salutation, $problems, $postingUid = -1): ResponseInterface
+		public function successAction(string $firstName = '',
+                                      string $lastName = '',
+                                      string $salutation = '',
+                                      array $problems = [],
+                                      int $postingUid = -1): ResponseInterface
 		{
 			$salutationValue = $salutation;
 

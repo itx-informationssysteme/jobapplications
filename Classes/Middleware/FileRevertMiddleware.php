@@ -15,7 +15,8 @@ class FileRevertMiddleware implements MiddlewareInterface
         ServerRequestInterface $request,
         RequestHandlerInterface $handler,
     ): ResponseInterface {
-        if ($request->getMethod() === 'DELETE' && $request->getUri()->getPath() == '/jobapplications_revert') {
+        $path = rtrim($request->getUri()->getPath(), '/');
+        if ($request->getMethod() === 'DELETE' && str_ends_with($path, '/jobapplications-revert')) {
             $response = new HtmlResponse('');
             $body = $request->getBody();
             if (strlen($body) === 23) {
