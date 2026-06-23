@@ -34,7 +34,7 @@
 		/**
 		 * Helper function to generate the folder for an application
 		 *
-		 * @param $applicationObject
+		 * @param Application $applicationObject
 		 *
 		 * @return string
 		 * @throws InvalidFileNameException
@@ -51,9 +51,9 @@
 		/**
 		 * Helper function to get the correct file storage
 		 *
-		 * @param $applicationObject
+		 * @param Application $applicationObject
 		 *
-		 * @return string
+		 * @return ?int
 		 */
 		public function getFileStorage(Application $applicationObject): ?int
 		{
