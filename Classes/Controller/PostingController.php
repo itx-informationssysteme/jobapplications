@@ -21,7 +21,8 @@
 	use TYPO3\CMS\Core\Http\ImmediateResponseException;
 	use TYPO3\CMS\Core\Page\PageRenderer;
 	use TYPO3\CMS\Core\Pagination\SimplePagination;
-	use TYPO3\CMS\Core\Utility\GeneralUtility;
+    use TYPO3\CMS\Core\Routing\PageArguments;
+    use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Core\Utility\MathUtility;
     use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 	use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
@@ -224,11 +225,20 @@
 				throw new \RuntimeException("Could not retrieve content object. Make sure to call this with a plugin.");
 			}
 
-			$pageId = $contentObj->data['pid'];
-			if (!MathUtility::canBeInterpretedAsInteger($pageId))
-			{
-				throw new \RuntimeException("Page id $pageId is not valid.");
-			}
+            // If pid is missing in content object (e.g. when rendered via TypoScript), retrieve it from routing attributes.
+            $pageId = $contentObj->data['pid'] ?? null;
+            if (!MathUtility::canBeInterpretedAsInteger($pageId))
+            {
+                $pageArguments = $this->request->getAttribute('routing');
+                if ($pageArguments instanceof PageArguments) {
+                    $pageId = $pageArguments->getPageId();
+                }
+            }
+
+            if (!MathUtility::canBeInterpretedAsInteger($pageId))
+            {
+                throw new \RuntimeException("Page id $pageId is not valid.");
+            }
 
 			$cacheKey = "filterOptions-$pageId";
 
