@@ -37,6 +37,7 @@
 				enctype="multipart/form-data"
 				id="application-form">
 				<f:render arguments="{_all}" partial="Application/FormFields"/>
+				<f:render partial="Application/AdditionalFormFields" arguments="{_all}" />
 				<div class="row">
 					<div class="col-4">
 						<button class="btn btn-link px-0" id="application-button-back" onclick="window.history.back()">

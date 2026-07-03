@@ -16,6 +16,11 @@ There are a few events provided which mainly happen before postings or applicati
 You can simply find them by taking a look into ITX\Jobapplications\Event. If you think you need more events than are already provided feel free to
 contact us via GitHub or :ref:`E-Mail <start>`.
 
+* `DisplayPostingEvent`: adjust posting data before it is rendered.
+* `ModifyGoogleForJobsDataEvent`: adjust the structured data output for job postings.
+* `BeforeApplicationPersisted`: adjust the application object right before persistence.
+* `BeforeApplicationProcessedEvent`: inspect an incoming application and abort processing with your own response if needed.
+
 Custom Filters
 ==============
 If you want to have custom filters you can do that by performing three steps.
