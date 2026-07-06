@@ -68,7 +68,7 @@
 			$uncategorizedPostings = [];
 			foreach ($arguments['postings'] as $posting)
 			{
-				/** @var $posting Posting */
+				/** @var Posting $posting */
 				$categories = $posting->getCategories()->toArray();
 				$hasCategories = false;
 				foreach ($categories as $category)
@@ -77,7 +77,7 @@
 
 					if (empty($arguments['categoryRestriction']) || in_array((string)$category->getUid(), $arguments['categoryRestriction'], true))
 					{
-						/** @var $category Category */
+						/** @var Category $category */
 						if (!array_key_exists($category->getUid(), $groupCategoriesList))
 						{
 							$groupCategoriesList[$category->getUid()] = $category;

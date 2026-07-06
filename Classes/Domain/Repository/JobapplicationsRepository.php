@@ -45,8 +45,8 @@
 		 * @return \TYPO3\CMS\Core\Database\Query\QueryBuilder
 		 */
 
-		public function buildCategoriesToSQL(array $categories, QueryBuilder $qb)
-		{
+		public function buildCategoriesToSQL(array $categories, QueryBuilder $qb): QueryBuilder
+        {
 			$statement = "";
 			for ($i = 0, $iMax = count($categories); $i < $iMax; $i++)
 			{

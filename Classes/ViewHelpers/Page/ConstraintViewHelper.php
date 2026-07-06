@@ -3,9 +3,7 @@
 namespace ITX\Jobapplications\ViewHelpers\Page;
 
 use ITX\Jobapplications\Domain\Model\Constraint;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * This file is part of the ITX\jobapplications project under GPLv2 or later.
@@ -27,16 +25,11 @@ class ConstraintViewHelper extends AbstractViewHelper
 	}
 
 	/**
-	 * @param array                     $arguments
-	 * @param \Closure                  $renderChildrenClosure
-	 * @param RenderingContextInterface $renderingContext *
-	 *
 	 * @return array which contains the page and constraints for the pagination template
 	 */
-	public function render()
-	{
+	public function render(): array
+    {
 		$page = (string)$this->arguments["page"];
-		/** @var Constraint $constraint */
 		$constraintArgument = $this->arguments["constraint"];
 
 		$returnArguments = [
@@ -46,6 +39,7 @@ class ConstraintViewHelper extends AbstractViewHelper
 		if ($constraintArgument === null) {
 			return $returnArguments;
 		}
+        /** @var Constraint $constraintArgument */
 
 		$properties = self::getReflectedProperties($constraintArgument);
 

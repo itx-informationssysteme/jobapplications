@@ -4,18 +4,17 @@
 
 	use Doctrine\DBAL\Exception;
     use ITX\Jobapplications\Domain\Model\Constraint;
-	use ITX\Jobapplications\Domain\Model\Location;
-	use ITX\Jobapplications\Domain\Model\Posting;
-	use ITX\Jobapplications\Domain\Repository\LocationRepository;
-	use ITX\Jobapplications\Domain\Repository\PostingRepository;
-	use ITX\Jobapplications\Event\DisplayPostingEvent;
-	use ITX\Jobapplications\Event\ModifyGoogleForJobsDataEvent;
-	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
-	use Psr\Http\Message\ResponseInterface;
-	use TYPO3\CMS\Core\Cache\CacheManager;
-	use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
-	use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
-	use TYPO3\CMS\Core\Context\Context;
+    use ITX\Jobapplications\Domain\Model\Location;
+    use ITX\Jobapplications\Domain\Model\Posting;
+    use ITX\Jobapplications\Domain\Repository\LocationRepository;
+    use ITX\Jobapplications\Domain\Repository\PostingRepository;
+    use ITX\Jobapplications\Event\DisplayPostingEvent;
+    use ITX\Jobapplications\Event\ModifyGoogleForJobsDataEvent;
+    use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
+    use Psr\Http\Message\ResponseInterface;
+    use TYPO3\CMS\Core\Cache\CacheManager;
+    use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
+    use TYPO3\CMS\Core\Context\Context;
     use TYPO3\CMS\Core\Context\LanguageAspect;
     use TYPO3\CMS\Core\Error\Http\PageNotFoundException;
 	use TYPO3\CMS\Core\Http\ImmediateResponseException;
@@ -25,11 +24,11 @@
     use TYPO3\CMS\Core\Utility\GeneralUtility;
 	use TYPO3\CMS\Core\Utility\MathUtility;
     use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-	use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
-	use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
-	use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
-	use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-	use TYPO3\CMS\Extbase\Reflection\Exception\UnknownClassException;
+    use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
+    use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
+    use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
+    use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+    use TYPO3\CMS\Extbase\Reflection\Exception\UnknownClassException;
     use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
     use TYPO3\CMS\Frontend\Controller\ErrorController;
     use TYPO3Fluid\Fluid\View\ViewInterface;
@@ -125,7 +124,7 @@
 		 * @throws InvalidQueryException
 		 * @throws UnknownClassException
          */
-		public function listAction(Constraint $constraint = null): ResponseInterface
+		public function listAction(?Constraint $constraint = null): ResponseInterface
 		{
 			$page = $this->request->hasArgument('page') ? (int)$this->request->getArgument('page') : 1;
 			$itemsPerPage = $this->settings['itemsOnPage'] ?? 9;
@@ -192,7 +191,7 @@
 		 *
 		 * @return Constraint
 		 */
-		private function getPreFilteredLocations(Constraint $constraint = null): Constraint
+		private function getPreFilteredLocations(?Constraint $constraint = null): Constraint
 		{
 			$prefilteredLocationsString = (string)($this->settings['prefilteredLocation'] ?? '');
 			$prefilteredLocations = explode(",", $prefilteredLocationsString);
@@ -218,7 +217,7 @@
 		 */
 		private function getCachedFilterOptions(array $categories): array
 		{
-            /** @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer $currentContentObject */
+            /** @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer $contentObj */
             $contentObj = $this->request->getAttribute('currentContentObject');
 			if ($contentObj === null)
 			{
@@ -250,7 +249,7 @@
 			$languageId = $languageAspect->getId();
 
 			// If $entry is false, or language key does not exist it hasn't been cached. Calculate the value and store it in the cache:
-			if (($entry = $cache->get($cacheKey)) === false || !key_exists($languageId, $entry))
+			if (($entry = $cache->get($cacheKey)) === false || !array_key_exists($languageId, $entry))
 			{
 				$entry = $this->getFilterOptions($categories, $languageId);
 
@@ -272,7 +271,7 @@
          * @throws InvalidQueryException
          * @throws Exception
          */
-		public function getFilterOptions(array $categories, $languageId): array
+		public function getFilterOptions(array $categories, int $languageId): array
 		{
 			return [
 				$languageId => [

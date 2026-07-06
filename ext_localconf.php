@@ -32,10 +32,10 @@ defined('TYPO3') || die('Access denied.');
 				'Jobapplications',
 				'ApplicationForm',
 				[
-					ApplicationController::class => 'new, create'
+					ApplicationController::class => 'new,create'
 				],
 				[
-					ApplicationController::class => 'create, new'
+					ApplicationController::class => 'create,new'
 				]
 			);
 

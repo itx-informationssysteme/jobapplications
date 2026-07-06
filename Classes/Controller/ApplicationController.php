@@ -180,7 +180,7 @@
 		 *
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
 		 */
-		public function newAction(Posting $posting = null): ResponseInterface
+		public function newAction(?Posting $posting = null): ResponseInterface
 		{
 			// Getting posting when Detailview and applicationform are on the same page.
 			$parameters = $_GET["tx_jobapplications_detailview"] ?? [];
@@ -235,7 +235,11 @@
 		 * @param array  $problems
 		 * @param int    $postingUid
 		 */
-		public function successAction($firstName, $lastName, $salutation, $problems, $postingUid = -1): ResponseInterface
+		public function successAction(string $firstName = '',
+                                      string $lastName = '',
+                                      string $salutation = '',
+                                      array $problems = [],
+                                      int $postingUid = -1): ResponseInterface
 		{
 			$salutationValue = $salutation;
 
@@ -308,7 +312,7 @@
 		 * @throws InvalidFileNameException
 		 * @throws IllegalObjectTypeException
 		 */
-		public function createAction(Application $newApplication, Posting $posting = null): RedirectResponse
+		public function createAction(Application $newApplication, ?Posting $posting = null): ResponseInterface
         {
 			$problemWithApplicantMail = false;
 			$problemWithNotificationMail = false;
@@ -620,7 +624,7 @@
 					$newApplication, $fileStorage, $fileNamePrefix);
 				$return_files[] = $movedNewFile;
 				$uploadUtility->deleteFolder($fileId);
-
+                /** @var File $movedNewFile */
 				$this->buildRelations($newApplication->getUid(), $movedNewFile->getUid(), $newApplication->getPid(), $fieldName, $i, count($fileIds));
 				$i++;
 			}

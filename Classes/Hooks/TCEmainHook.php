@@ -27,13 +27,11 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 		}
 
 		/**
-		 * @param string      $command
 		 * @param string      $table
-		 * @param             $id
-		 * @param             $value
-		 * @param bool        $commandIsProcessed
+		 * @param             $uid
+		 * @param array       $record
+		 * @param bool        $recordWasDeleted
 		 * @param DataHandler $dataHandler
-		 * @param             $pasteUpdate
 		 *
 		 * @throws \Exception
 		 */
