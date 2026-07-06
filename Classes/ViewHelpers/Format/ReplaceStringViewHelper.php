@@ -15,7 +15,7 @@
 
 	class ReplaceStringViewHelper extends AbstractViewHelper
 	{
-		public function initializeArguments() {
+		public function initializeArguments(): void {
 			parent::initializeArguments();
 			$this->registerArgument('substring', 'string', 'View helper substring ', TRUE);
 			$this->registerArgument('content', 'string', 'View helper content', TRUE);
@@ -27,7 +27,7 @@
 		 *
 		 * @return string
 		 */
-		public function render()
+		public function render(): mixed
 		{
 			return str_replace($this->arguments['substring'], $this->arguments['replacement'], $this->arguments['content']);
 		}

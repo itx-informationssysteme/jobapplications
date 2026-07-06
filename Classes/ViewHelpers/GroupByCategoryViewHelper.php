@@ -24,23 +24,16 @@
 	 */
 	class GroupByCategoryViewHelper extends AbstractViewHelper
 	{
-
-		use CompileWithRenderStatic;
-
 		/**
 		 * @var boolean
 		 */
 		protected $escapeOutput = false;
 
 		/**
-		 * @param array                     $arguments
-		 * @param Closure                   $renderChildrenClosure
-		 * @param RenderingContextInterface $renderingContext
-		 *
 		 * @return string
 		 * @throws ViewHelper\Exception
 		 */
-		public static function renderStatic(array $arguments, Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+		public function render(): string
 		{
 			$templateVariableContainer = $renderingContext->getVariableProvider();
 			if (!isset($arguments['postings']))
@@ -112,7 +105,7 @@
 					$iterationData['index']++;
 					$iterationData['cycle']++;
 				}
-				$output .= $renderChildrenClosure();
+				$output .= $renderChildren();
 				$templateVariableContainer->remove($arguments['groupAs']);
 				$templateVariableContainer->remove($arguments['categoryAs']);
 				if (isset($arguments['key']))
@@ -133,7 +126,7 @@
 		/**
 		 * @return void
 		 */
-		public function initializeArguments()
+		public function initializeArguments(): void
 		{
 			parent::initializeArguments();
 			$this->registerArgument('postings', 'array', 'The postings to group', true);

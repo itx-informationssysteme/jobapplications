@@ -35,7 +35,7 @@
 		 *
 		 * @return void
 		 */
-		public function initializeArguments()
+		public function initializeArguments(): void
 		{
 			parent::initializeArguments();
 			$this->registerTagAttribute('name', 'string', 'Name property of meta tag');
@@ -50,9 +50,9 @@
 		/**
 		 * Render method
 		 *
-		 * @return void
+		 * @return string
 		 */
-		public function render()
+		public function render(): string
 		{
 			$content = $this->arguments['content'];
 			if (!empty($content))
