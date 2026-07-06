@@ -32,6 +32,7 @@
 	use ITX\Jobapplications\Domain\Repository\ApplicationRepository;
 	use ITX\Jobapplications\Domain\Repository\PostingRepository;
 	use ITX\Jobapplications\Domain\Repository\StatusRepository;
+	use ITX\Jobapplications\Event\BeforeApplicationProcessedEvent;
 	use ITX\Jobapplications\Event\BeforeApplicationPersisted;
 	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
 	use ITX\Jobapplications\Service\ApplicationFileService;
@@ -319,6 +320,19 @@
 			$savedInBackend = true;
 
 			$arguments = $this->request->getArguments();
+
+			$event = $this->eventDispatcher->dispatch(
+				new BeforeApplicationProcessedEvent(
+					$newApplication,
+					$posting,
+					$this->request
+				)
+			);
+
+			if ($event->getResponse() instanceof ResponseInterface)
+			{
+				return $event->getResponse();
+			}
 
 			$uploadMode = self::UPLOAD_MODE_NONE;
 
