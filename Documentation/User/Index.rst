@@ -168,8 +168,7 @@ Make sure to open this in a new tab, otherwise all the applicants data will poss
 
 Enable a honeypot for extra spam protection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-With this option a honeypot field and a time validation is added to the form. A honeypot field is a not visible field. If it contains any values, the chances are high that a bot filled out the form.
-The timestamp validation checks how long it took to fill out the form. If it took less than 1 second, it was probably a bot instead of a real user.
+With this option a hidden honeypot field is added to the form. If it contains any values, the chances are high that a bot filled out the form.
 
 Unsolicited application
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
