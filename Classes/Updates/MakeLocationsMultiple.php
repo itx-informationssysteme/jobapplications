@@ -11,7 +11,8 @@
 	 * LICENSE.txt file that was distributed with this source code.
 	 */
 
-	use TYPO3\CMS\Core\Database\ConnectionPool;
+    use Doctrine\DBAL\ParameterType;
+    use TYPO3\CMS\Core\Database\ConnectionPool;
 	use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 	use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 	use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -63,9 +64,9 @@
 												  $queryBuilderPostings->expr()->neq($this->oldFieldName, 0),
 												  $queryBuilderPostings->expr()->eq($this->newFieldName, 0)
 											  )
-											  ->execute();
+											  ->executeQuery();
 
-			while ($record = $statement->fetch())
+			while ($record = $statement->fetchAssociative())
 			{
 				// Create mm entry
 				/** @var QueryBuilder $queryBuilderMm */
@@ -78,7 +79,7 @@
 								'sorting' => 1,
 								'sorting_foreign' => 0
 							 ])
-					->execute();
+					->executeStatement();
 
 				// Update locations field
 				/** @var  QueryBuilder $queryBuilderPostings */
@@ -88,12 +89,12 @@
 									 ->where(
 										 $queryBuilderPostings->expr()->eq(
 											 'uid',
-											 $queryBuilderPostings->createNamedParameter($record['uid'], \PDO::PARAM_INT)
+											 $queryBuilderPostings->createNamedParameter($record['uid'], ParameterType::INTEGER)
 										 )
 									 )
 									 ->set('locations', 1);
 				//$databaseQueries[] = $queryBuilderPostings->getSQL();
-				$queryBuilderPostings->execute();
+				$queryBuilderPostings->executeStatement();
 			}
 
 			return true;
@@ -126,12 +127,12 @@
 		 */
 		protected function checkIfNeeded(): bool
 		{
-			/** @var  $connectionPool ConnectionPool */
+			/** @var ConnectionPool $connectionPool */
 			$connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
 			$connection = $connectionPool->getConnectionForTable($this->tablePosting);
 
 			// Stop if there is no location field
-			$tableColumns = $connection->getSchemaManager()->listTableColumns($this->tablePosting);
+			$tableColumns = $connection->createSchemaManager()->listTableColumns($this->tablePosting);
 			if (!isset($tableColumns[$this->oldFieldName]))
 			{
 				return false;
@@ -147,7 +148,7 @@
 				->where(
 					$queryBuilder->expr()->neq($this->oldFieldName, $queryBuilder->createNamedParameter(0))
 				)
-				->execute()
+				->executeQuery()
 				->fetchOne();
 
 			return $numberOfEntries > 0;
