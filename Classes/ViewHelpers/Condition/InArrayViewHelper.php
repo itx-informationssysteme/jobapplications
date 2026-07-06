@@ -38,9 +38,6 @@
 			{
 				return $this->renderThenChild();
 			}
-			else
-			{
-				return $this->renderElseChild();
-			}
+            return $this->renderElseChild();
 		}
 	}

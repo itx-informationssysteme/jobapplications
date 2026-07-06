@@ -2,7 +2,9 @@
 
 	namespace ITX\Jobapplications\Domain\Repository;
 
-	/***************************************************************
+	use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+
+    /***************************************************************
 	 *  Copyright notice
 	 *
 	 *  (c) 2020

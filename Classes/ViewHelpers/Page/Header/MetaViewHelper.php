@@ -50,10 +50,10 @@
 		/**
 		 * Render method
 		 *
-		 * @return void
+		 * @return string
 		 */
-		public function render()
-		{
+		public function render(): string
+        {
 			$content = $this->arguments['content'];
 			if (!empty($content))
 			{
@@ -81,5 +81,6 @@
 				}
 				$pageRenderer->setMetaTag($type, $name, $content, $properties);
 			}
+            return '';
 		}
 	}

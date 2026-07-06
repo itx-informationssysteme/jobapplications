@@ -1,0 +1,2 @@
+# EXT:jobapplications/Configuration/Sets/Jobapplications/setup.typoscript
+@import 'EXT:jobapplications/Configuration/TypoScript/setup.typoscript'

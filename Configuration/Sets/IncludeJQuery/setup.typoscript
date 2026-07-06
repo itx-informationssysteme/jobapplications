@@ -1,0 +1,1 @@
+page.includeJSLibs.path = {$plugin.tx_jobapplications.jqueryPath}
