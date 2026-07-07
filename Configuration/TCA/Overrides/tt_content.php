@@ -1,71 +1,54 @@
 <?php
-	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-		'Jobapplications',
-		'Frontend',
-		'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:tx_jobapplications_frontend.title'
-	);
 
-	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-		'Jobapplications',
-		'DetailView',
-		'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:tx_jobapplications_detailview.title'
-	);
+declare(strict_types=1);
 
-	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-		'Jobapplications',
-		'ApplicationForm',
-		'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:tx_jobapplications_applicationform.title'
-	);
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
-	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-		'Jobapplications',
-		'ContactDisplay',
-		'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:tx_jobapplications_contactdisplay.title'
-	);
+defined('TYPO3') or die();
 
-	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-		'Jobapplications',
-		'SuccessPage',
-		'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:tx_jobapplications_successpage.title'
-	);
-
-	$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['jobapplications_frontend'] = 'pi_flexform';
-	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-	// plugin signature: <extension key without underscores> '_' <plugin name in lowercase>
-		'jobapplications_frontend',
-		// Flexform configuration schema file
-		'FILE:EXT:jobapplications/Configuration/FlexForms/frontend.xml'
-	);
-
-	$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['jobapplications_detailview'] = 'pi_flexform';
-	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-	// plugin signature: <extension key without underscores> '_' <plugin name in lowercase>
-		'jobapplications_detailview',
-		// Flexform configuration schema file
-		'FILE:EXT:jobapplications/Configuration/FlexForms/detailview.xml'
-	);
-
-	$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['jobapplications_applicationform'] = 'pi_flexform';
-	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-	// plugin signature: <extension key without underscores> '_' <plugin name in lowercase>
-		'jobapplications_applicationform',
-		// Flexform configuration schema file
-		'FILE:EXT:jobapplications/Configuration/FlexForms/applicationform.xml'
-	);
-
-	$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['jobapplications_contactdisplay'] = 'pi_flexform';
-	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-	// plugin signature: <extension key without underscores> '_' <plugin name in lowercase>
-		'jobapplications_contactdisplay',
-		// Flexform configuration schema file
-		'FILE:EXT:jobapplications/Configuration/FlexForms/contactdisplay.xml'
-	);
-
-	$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['jobapplications_successpage'] = 'pi_flexform';
-	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-	// plugin signature: <extension key without underscores> '_' <plugin name in lowercase>
-		'jobapplications_successpage',
-		// Flexform configuration schema file
-		'FILE:EXT:jobapplications/Configuration/FlexForms/successpage.xml'
-	);
+ExtensionUtility::registerPlugin(
+    'Jobapplications',
+    'Frontend',
+    'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:tx_jobapplications_frontend.title',
+    'jobapplications-plugin-icon',
+    'Jobapplications',
+    '',
+    'FILE:EXT:jobapplications/Configuration/FlexForms/frontend.xml'
+);
+ExtensionUtility::registerPlugin(
+    'Jobapplications',
+    'DetailView',
+    'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:tx_jobapplications_detailview.title',
+    'jobapplications-plugin-icon',
+    'Jobapplications',
+    '',
+    'FILE:EXT:jobapplications/Configuration/FlexForms/detailview.xml'
+);
+ExtensionUtility::registerPlugin(
+    'Jobapplications',
+    'ApplicationForm',
+    'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:tx_jobapplications_applicationform.title',
+    'jobapplications-plugin-icon',
+    'Jobapplications',
+    '',
+    'FILE:EXT:jobapplications/Configuration/FlexForms/applicationform.xml'
+);
+ExtensionUtility::registerPlugin(
+    'Jobapplications',
+    'ContactDisplay',
+    'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:tx_jobapplications_contactdisplay.title',
+    'jobapplications-plugin-icon',
+    'Jobapplications',
+    '',
+    'FILE:EXT:jobapplications/Configuration/FlexForms/contactdisplay.xml'
+);
+ExtensionUtility::registerPlugin(
+    'Jobapplications',
+    'SuccessPage',
+    'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:tx_jobapplications_successpage.title',
+    'jobapplications-plugin-icon',
+    'Jobapplications',
+    '',
+    'FILE:EXT:jobapplications/Configuration/FlexForms/successpage.xml'
+);
 
