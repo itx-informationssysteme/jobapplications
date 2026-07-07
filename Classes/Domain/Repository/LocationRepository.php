@@ -36,30 +36,14 @@
 		/**
 		 * Returns all objects of this repository.
 		 *
-		 * @param array|null $categories array
 		 * @param string     $orderBy
 		 * @param string     $order
 		 *
 		 * @return QueryResultInterface|array
-		 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
 		 */
-		public function findAll(?array $categories = null, string $orderBy = "name", string $order = QueryInterface::ORDER_ASCENDING): QueryResultInterface|array
+		public function findAll(string $orderBy = "name", string $order = QueryInterface::ORDER_ASCENDING): QueryResultInterface|array
         {
 			$query = $this->createQuery();
-
-			$andConstraints = [];
-
-			if (!empty($categories))
-			{
-				$andConstraints[] = $query->contains('categories', $categories);
-			}
-
-			if (!empty($andConstraints))
-			{
-				$query->matching(
-					$query->logicalAnd(...$andConstraints)
-				);
-			}
 
 			$query->setOrderings([$orderBy => $order]);
 
