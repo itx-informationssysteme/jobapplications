@@ -480,8 +480,11 @@
 						$this->settings["emailSender"] ?: MailUtility::getSystemFromAddress(),
 						$this->settings["emailSenderName"] ?: MailUtility::getSystemFromName(),
 					))
-					->replyTo(new Address($newApplication->getEmail(), $newApplication->getFirstName()." ".$newApplication->getLastName()))
 					->assignMultiple(['application' => $newApplication, 'settings' => $this->settings, 'currentPosting' => $currentPosting]);
+
+                if($newApplication->getEmail() !== null && $newApplication->getEmail() !== ''){
+                    $mail->replyTo(new Address($newApplication->getEmail(), $newApplication->getFirstName()." ".$newApplication->getLastName()));
+                }
 
 				if (empty($this->settings['emailPrivacyMode']))
 				{
@@ -538,7 +541,7 @@
 			}
 
 			// Now send a mail to the applicant
-			if ($this->settings["sendEmailToApplicant"] === "1")
+			if ($this->settings["sendEmailToApplicant"] === "1" && $newApplication->getEmail() !== null && $newApplication->getEmail() !== "")
 			{
 				$mail = GeneralUtility::makeInstance(FluidEmail::class);
 				$mail->setTemplate('JobsApplicantMail');
