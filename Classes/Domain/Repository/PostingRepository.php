@@ -202,6 +202,79 @@ class PostingRepository extends JobapplicationsRepository
     }
 
     /**
+     * Gets all locations that are actually referenced by postings,
+     * optionally restricted to postings matching the given categories.
+     *
+     * @param array|null $categories
+     * @param int        $languageUid
+     *
+     * @return array
+     * @throws Exception
+     */
+    public function findAllLocations(?array $categories = null, int $languageUid = 0): array
+    {
+        $qb = $this->getQueryBuilder("tx_jobapplications_domain_model_posting");
+        $query = $this->createQuery();
+
+        if (empty($categories)) {
+            $qb->select("tx_jobapplications_postings_locations_mm.uid_foreign AS locationUid")
+               ->groupBy("locationUid")
+               ->from("tx_jobapplications_domain_model_posting")
+               ->join(
+                   "tx_jobapplications_domain_model_posting",
+                   "tx_jobapplications_postings_locations_mm",
+                   "tx_jobapplications_postings_locations_mm",
+                   $qb->expr()->eq(
+                       "tx_jobapplications_domain_model_posting.uid",
+                       "tx_jobapplications_postings_locations_mm.uid_local"
+                   )
+               )
+               ->andWhere($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()))
+               ->andWhere($qb->expr()->eq("sys_language_uid", $languageUid));
+        } else {
+            $qb->select("tx_jobapplications_postings_locations_mm.uid_foreign AS locationUid")
+               ->groupBy("locationUid")
+               ->from("tx_jobapplications_domain_model_posting")
+               ->join(
+                   "tx_jobapplications_domain_model_posting",
+                   "tx_jobapplications_postings_locations_mm",
+                   "tx_jobapplications_postings_locations_mm",
+                   $qb->expr()->eq(
+                       "tx_jobapplications_domain_model_posting.uid",
+                       "tx_jobapplications_postings_locations_mm.uid_local"
+                   )
+               )
+               ->andWhere($qb->expr()->in("pid", $query->getQuerySettings()->getStoragePageIds()))
+               ->andWhere($qb->expr()->eq("sys_language_uid", $languageUid))
+               ->join(
+                   "tx_jobapplications_domain_model_posting",
+                   "sys_category_record_mm",
+                   "sys_category_record_mm",
+                   $qb->expr()->eq(
+                       "tx_jobapplications_domain_model_posting.uid",
+                       "sys_category_record_mm.uid_foreign"
+                   )
+               );
+            $qb = $this->buildCategoriesToSQL($categories, $qb);
+        }
+
+        $result = $qb->executeQuery()->fetchAllAssociative();
+        $locationUids = array_column($result, 'locationUid');
+
+        if (empty($locationUids)) {
+            return [];
+        }
+
+        /** @var LocationRepository $locationRepository */
+        $locationRepository = GeneralUtility::makeInstance(LocationRepository::class);
+        $locationQuery = $locationRepository->createQuery();
+        $locationQuery->matching($locationQuery->in('uid', $locationUids));
+        $locationQuery->setOrderings(['name' => QueryInterface::ORDER_ASCENDING]);
+
+        return $locationQuery->execute()->toArray();
+    }
+
+    /**
      * @param $categories
      *
      * @return array|QueryResultInterface

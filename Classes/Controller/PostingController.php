@@ -278,8 +278,8 @@
 					'division' => $this->postingRepository->findAllDivisions($categories, $languageId),
 					'careerLevel' => $this->postingRepository->findAllCareerLevels($categories, $languageId),
 					'employmentType' => $this->postingRepository->findAllEmploymentTypes($categories, $languageId),
-					'locations' => $this->locationRepository->findAll($categories)->toArray()
-				]
+                    'locations' => $this->postingRepository->findAllLocations($categories, $languageId)
+                ]
 			];
 		}
 
