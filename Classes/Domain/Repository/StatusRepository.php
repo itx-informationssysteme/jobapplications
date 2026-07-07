@@ -78,12 +78,15 @@
 			$file1 = GeneralUtility::getFileAbsFileName('EXT:jobapplications/Resources/Private/Sql/'.$statusFile);
 			$file2 = GeneralUtility::getFileAbsFileName('EXT:jobapplications/Resources/Private/Sql/'.$statusMmFile);
 
-			$queryDropStatus = $this->createQuery();
+            /** @var \TYPO3\CMS\Extbase\Persistence\Generic\Query $queryDropStatus */
+            $queryDropStatus = $this->createQuery();
 			$queryDropStatus->statement('DROP TABLE tx_jobapplications_domain_model_status');
 			$queryDropStatus->execute();
-			$queryDropMM = $this->createQuery();
+
+            /** @var \TYPO3\CMS\Extbase\Persistence\Generic\Query $queryDropMM */
+            $queryDropMM = $this->createQuery();
 			$queryDropMM->statement('DROP TABLE tx_jobapplications_domain_model_status_mm');
-			$queryDropStatus->execute();
+			$queryDropMM->execute();
 
 			$contentStatus = file_get_contents($file1);
 			if ($contentStatus === false)

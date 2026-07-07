@@ -43,6 +43,7 @@ Application Form
 * have four single file upload fields or one multi file upload field
 * privacy agreement checkbox, which links to your privacy agreement page
 * forward the applicant to a success page with a customized message which again supports placeholders for the applicants name
+* provides an event-based entry point before processing, so projects can add their own validation logic
 
 Application Management
 ----------------------

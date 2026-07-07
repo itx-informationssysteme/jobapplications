@@ -32,6 +32,7 @@
 	use ITX\Jobapplications\Domain\Repository\ApplicationRepository;
 	use ITX\Jobapplications\Domain\Repository\PostingRepository;
 	use ITX\Jobapplications\Domain\Repository\StatusRepository;
+	use ITX\Jobapplications\Event\BeforeApplicationProcessedEvent;
 	use ITX\Jobapplications\Event\BeforeApplicationPersisted;
 	use ITX\Jobapplications\PageTitle\JobsPageTitleProvider;
 	use ITX\Jobapplications\Service\ApplicationFileService;
@@ -180,7 +181,7 @@
 		 *
 		 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
 		 */
-		public function newAction(Posting $posting = null): ResponseInterface
+		public function newAction(?Posting $posting = null): ResponseInterface
 		{
 			// Getting posting when Detailview and applicationform are on the same page.
 			$parameters = $_GET["tx_jobapplications_detailview"] ?? [];
@@ -312,13 +313,26 @@
 		 * @throws InvalidFileNameException
 		 * @throws IllegalObjectTypeException
 		 */
-		public function createAction(Application $newApplication, Posting $posting = null): RedirectResponse
+		public function createAction(Application $newApplication, ?Posting $posting = null): ResponseInterface
         {
 			$problemWithApplicantMail = false;
 			$problemWithNotificationMail = false;
 			$savedInBackend = true;
 
 			$arguments = $this->request->getArguments();
+
+			$event = $this->eventDispatcher->dispatch(
+				new BeforeApplicationProcessedEvent(
+					$newApplication,
+					$posting,
+					$this->request
+				)
+			);
+
+			if ($event->getResponse() instanceof ResponseInterface)
+			{
+				return $event->getResponse();
+			}
 
 			$uploadMode = self::UPLOAD_MODE_NONE;
 
@@ -466,8 +480,11 @@
 						$this->settings["emailSender"] ?: MailUtility::getSystemFromAddress(),
 						$this->settings["emailSenderName"] ?: MailUtility::getSystemFromName(),
 					))
-					->replyTo(new Address($newApplication->getEmail(), $newApplication->getFirstName()." ".$newApplication->getLastName()))
 					->assignMultiple(['application' => $newApplication, 'settings' => $this->settings, 'currentPosting' => $currentPosting]);
+
+                if($newApplication->getEmail() !== null && $newApplication->getEmail() !== ''){
+                    $mail->replyTo(new Address($newApplication->getEmail(), $newApplication->getFirstName()." ".$newApplication->getLastName()));
+                }
 
 				if (empty($this->settings['emailPrivacyMode']))
 				{
@@ -524,7 +541,7 @@
 			}
 
 			// Now send a mail to the applicant
-			if ($this->settings["sendEmailToApplicant"] === "1")
+			if ($this->settings["sendEmailToApplicant"] === "1" && $newApplication->getEmail() !== null && $newApplication->getEmail() !== "")
 			{
 				$mail = GeneralUtility::makeInstance(FluidEmail::class);
 				$mail->setTemplate('JobsApplicantMail');
@@ -624,7 +641,7 @@
 					$newApplication, $fileStorage, $fileNamePrefix);
 				$return_files[] = $movedNewFile;
 				$uploadUtility->deleteFolder($fileId);
-
+                /** @var File $movedNewFile */
 				$this->buildRelations($newApplication->getUid(), $movedNewFile->getUid(), $newApplication->getPid(), $fieldName, $i, count($fileIds));
 				$i++;
 			}

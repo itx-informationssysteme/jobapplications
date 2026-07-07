@@ -307,11 +307,11 @@
             </trans-unit>
             <trans-unit id="be.filter.unsolicited" resname="be.filter.unsolicited">
                 <source>Unsolicited applications</source>
-                <target>Initativbewerbungen</target>
+                <target>Initiativbewerbungen</target>
             </trans-unit>
             <trans-unit id="be.filter.unsolicited.single" resname="be.filter.unsolicited.single">
                 <source>Unsolicited application</source>
-                <target>Initativbewerbung</target>
+                <target>Initiativbewerbung</target>
             </trans-unit>
             <trans-unit id="be.widget.postings_active.title" resname="be.widget.postings_active.title">
                 <source>Open positions</source>

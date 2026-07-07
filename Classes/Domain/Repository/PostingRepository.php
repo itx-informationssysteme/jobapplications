@@ -4,10 +4,6 @@ namespace ITX\Jobapplications\Domain\Repository;
 
 use Doctrine\DBAL\Exception;
 use ITX\Jobapplications\Domain\Model\Constraint;
-use ITX\Jobapplications\Domain\Repository\RepoHelpers;
-use TYPO3\CMS\Core\Context\Context;
-use TYPO3\CMS\Core\Context\LanguageAspect;
-use TYPO3\CMS\Core\Utility\DebugUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -63,7 +59,7 @@ class PostingRepository extends JobapplicationsRepository
            ->andWhere($qb->expr()->in('pid', $query->getQuerySettings()->getStoragePageIds()));
 
         $qb = $this->buildCategoriesToSQL($categories, $qb);
-
+        /** @var \TYPO3\CMS\Extbase\Persistence\Generic\Query $query */
         $query->statement($qb->getSQL());
 
         return $query->execute();
@@ -78,7 +74,7 @@ class PostingRepository extends JobapplicationsRepository
      * @return array
      * @throws Exception
      */
-    public function findAllDivisions(array $categories = null, int $languageUid): array
+    public function findAllDivisions(?array $categories = null, int $languageUid = 0): array
     {
         $qb = $this->getQueryBuilder("tx_jobapplications_domain_model_posting");
         $query = $this->createQuery();
@@ -117,7 +113,7 @@ class PostingRepository extends JobapplicationsRepository
      * @return array
      * @throws Exception
      */
-    public function findAllCareerLevels(array $categories = null, int $languageUid): array
+    public function findAllCareerLevels(?array $categories = null, int $languageUid = 0): array
     {
         $qb = $this->getQueryBuilder("tx_jobapplications_domain_model_posting");
 
@@ -157,7 +153,7 @@ class PostingRepository extends JobapplicationsRepository
      * @return array
      * @throws Exception
      */
-    public function findAllEmploymentTypes(array $categories = null, int $languageUid): array
+    public function findAllEmploymentTypes(?array $categories = null, int $languageUid = 0): array
     {
         $qb = $this->getQueryBuilder("tx_jobapplications_domain_model_posting");
 
@@ -229,7 +225,6 @@ class PostingRepository extends JobapplicationsRepository
            ->orderBy('title', QueryInterface::ORDER_ASCENDING);
         $sb = $this->buildCategoriesToSQL($categories, $sb);
 
-        /** @var array $result */
         return $sb->executeQuery()->fetchAllAssociative();
     }
 
@@ -246,7 +241,7 @@ class PostingRepository extends JobapplicationsRepository
      */
     public function findByFilter(array      $categories,
                                  array      $repositoryConfig,
-                                 Constraint $constraint = null,
+                                 ?Constraint $constraint = null,
                                             $orderBy = 'date_posted',
                                             $order = QueryInterface::ORDER_DESCENDING)
     {

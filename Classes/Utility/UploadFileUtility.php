@@ -27,7 +27,6 @@ namespace ITX\Jobapplications\Utility;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Http\UploadedFile;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Form\Domain\Exception\IdentifierNotValidException;
 
 /**
  * Class UploadFileUtility
