@@ -561,46 +561,50 @@ hr {
 }
 
 .status-select {
-	width: auto;
-	margin: 0 !important;
-	display: inline-block;
-	float: left;
+    width: auto;
+    margin: 0 !important;
+    display: inline-block;
+    float: left;
 
-	.spinner {
-		display: none;
-		margin-top: 1px;
-		margin-left: 2px;
-		width: auto;
-		float: left;
-		height: 20px;
-	}
+    .spinner {
+        display: none;
+        margin-top: 1px;
+        margin-left: 2px;
+        width: auto;
+        float: left;
+        height: 20px;
+    }
 
-	.spinner-active {
-		display: block;
-	}
+    .spinner-active {
+        display: block;
+    }
 
-	select {
-		float: left;
-		border: none;
-		margin-top: 2px;
-		margin-left: -3px;
-		background-color: transparent;
-		cursor: pointer;
+    select {
+        float: left;
+        border: none;
+        margin-top: 2px;
+        margin-left: -3px;
+        background-color: transparent;
+        color: var(--typo3-text-color-base, #000);
+        color-scheme: light dark;
+        cursor: pointer;
 
-		&.list {
-			-webkit-appearance: none;
-			-moz-appearance: none;
-			appearance: none;
-		}
+        &.list {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
 
-		option {
-			text-align: right;
-		}
+        option {
+            text-align: right;
+            background-color: var(--typo3-surface-container-high, #333);
+            color: var(--typo3-text-color-base, #fff);
+        }
 
-		&:focus {
-			border: none;
-		}
-	}
+        &:focus {
+            border: none;
+        }
+    }
 }
 
 #show-spinner {
