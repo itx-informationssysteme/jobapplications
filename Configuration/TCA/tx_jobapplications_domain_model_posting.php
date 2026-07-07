@@ -19,7 +19,8 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'title,career_level,division,employment_type,terms_of_employment,company_description,job_description,role_description,skill_requirements,benefits,base_salary,required_documents,company_information',
-        'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/Extension.svg'
+        'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/Extension.svg',
+        'sortby' => 'sorting',
     ],
     'columns' => [
         'sys_language_uid' => [
