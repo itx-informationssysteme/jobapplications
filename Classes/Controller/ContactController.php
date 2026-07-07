@@ -38,22 +38,6 @@
 		protected ContactRepository $contactRepository;
 
 		/**
-		 * Initializes the view before invoking an action method.
-		 *
-		 * Override this method to solve assign variables common for all actions
-		 * or prepare the view in another way before the action is called.
-		 *
-		 * @param ViewInterface $view The view to be initialized
-		 */
-		public function initializeView(ViewInterface $view): void
-        {
-			if (is_object($GLOBALS['TSFE']))
-			{
-				$view->assign('pageData', $GLOBALS['TSFE']->page);
-			}
-		}
-
-		/**
 		 * action list
 		 *
 		 * @return ResponseInterface

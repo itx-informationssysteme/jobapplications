@@ -84,34 +84,6 @@
 		}
 
 		/**
-		 * Initializes the view before invoking an action method.
-		 *
-		 * Override this method to solve assign variables common for all actions
-		 * or prepare the view in another way before the action is called.
-		 *
-		 * @param ViewInterface $view The view to be initialized
-		 */
-		public function initializeView(ViewInterface $view): void
-        {
-			if (is_object($GLOBALS['TSFE']))
-			{
-				$view->assign('pageData', $GLOBALS['TSFE']->page);
-			}
-		}
-
-		/**
-		 * @return void
-		 * @throws InvalidQueryException
-		 * @throws NoSuchArgumentException
-		 */
-		public function initializeListAction() {
-			$propertyMappingConfiguration = $this->arguments->getArgument("constraint")->getPropertyMappingConfiguration();
-			foreach ($this->getCachedFilterOptions($this->getCategoriesFromSettings()) as $index => $property) {
-				$propertyMappingConfiguration->allowProperties($index);
-			}
-		}
-
-		/**
 		 * @return array|string[]
 		 */
 		private function getCategoriesFromSettings(): array
