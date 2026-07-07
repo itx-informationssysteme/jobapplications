@@ -35,17 +35,17 @@
 		 *
 		 * @return void
 		 */
-		public function initializeArguments(): void
-		{
-			parent::initializeArguments();
-			$this->registerTagAttribute('name', 'string', 'Name property of meta tag');
-			$this->registerTagAttribute('http-equiv', 'string', 'Property: http-equiv');
-			$this->registerTagAttribute('property', 'string', 'Property of meta tag');
-			$this->registerTagAttribute('content', 'string', 'Content of meta tag');
-			$this->registerTagAttribute('scheme', 'string', 'Property: scheme');
-			$this->registerTagAttribute('lang', 'string', 'Property: lang');
-			$this->registerTagAttribute('dir', 'string', 'Property: dir');
-		}
+        public function initializeArguments(): void
+        {
+            parent::initializeArguments();
+            $this->registerArgument('name', 'string', 'Name property of meta tag');
+            $this->registerArgument('http-equiv', 'string', 'Property: http-equiv');
+            $this->registerArgument('property', 'string', 'Property of meta tag');
+            $this->registerArgument('content', 'string', 'Content of meta tag');
+            $this->registerArgument('scheme', 'string', 'Property: scheme');
+            $this->registerArgument('lang', 'string', 'Property: lang');
+            $this->registerArgument('dir', 'string', 'Property: dir');
+        }
 
 		/**
 		 * Render method
@@ -81,5 +81,6 @@
 				}
 				$pageRenderer->setMetaTag($type, $name, $content, $properties);
 			}
+            return '';
 		}
 	}

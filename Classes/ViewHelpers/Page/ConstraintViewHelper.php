@@ -27,16 +27,11 @@ class ConstraintViewHelper extends AbstractViewHelper
 	}
 
 	/**
-	 * @param array                     $arguments
-	 * @param \Closure                  $renderChildrenClosure
-	 * @param RenderingContextInterface $renderingContext *
-	 *
 	 * @return array which contains the page and constraints for the pagination template
 	 */
 	public function render(): array
 	{
 		$page = (string)$this->arguments["page"];
-		/** @var Constraint $constraint */
 		$constraintArgument = $this->arguments["constraint"];
 
 		$returnArguments = [

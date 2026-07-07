@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace ITX\Jobapplications\Traits;
 
 /*
@@ -9,41 +12,16 @@ namespace ITX\Jobapplications\Traits;
  */
 
 /**
- * Class TagViewHelperTrait
+ * Trait TagViewHelperTrait
  *
  * Trait implemented by ViewHelpers which require access
  * to functions dealing with tag generation.
  *
- * Has the following main responsibilities:
- *
- * - register additional HTML5-specific attributes for tag
- *   based ViewHelpers
- * - custom rendering method which applies those attributes.
  */
 trait TagViewHelperTrait
 {
-
-    /**
-     * Default implementation to register only the tag
-     * arguments along with universal attributes.
-     *
-     * @return void
-     */
-    public function registerArguments()
+    public function registerArguments(): void
     {
-        $this->registerUniversalTagAttributes();
-    }
-
-    /**
-     * Registers all standard and HTML5 universal attributes.
-     * Should be used inside registerArguments();
-     *
-     * @return void
-     * @api
-     */
-    protected function registerUniversalTagAttributes()
-    {
-        parent::registerUniversalTagAttributes();
         $this->registerArgument(
             'forceClosingTag',
             'boolean',
@@ -58,86 +36,51 @@ trait TagViewHelperTrait
             false,
             false
         );
-        $this->registerTagAttribute(
-            'contenteditable',
-            'string',
-            'Specifies whether the contents of the element are editable.'
-        );
-        $this->registerTagAttribute(
-            'contextmenu',
-            'string',
-            'The value of the id attribute on the menu with which to associate the element as a context menu.'
-        );
-        $this->registerTagAttribute(
-            'draggable',
-            'string',
-            'Specifies whether the element is draggable.'
-        );
-        $this->registerTagAttribute(
-            'dropzone',
-            'string',
-            'Specifies what types of content can be dropped on the element, and instructs the UA about which ' .
-            'actions to take with content when it is dropped on the element.'
-        );
-        $this->registerTagAttribute(
-            'translate',
-            'string',
-            'Specifies whether an element’s attribute values and contents of its children are to be translated ' .
-            'when the page is localized, or whether to leave them unchanged.'
-        );
-        $this->registerTagAttribute(
-            'spellcheck',
-            'string',
-            'Specifies whether the element represents an element whose contents are subject to spell checking and ' .
-            'grammar checking.'
-        );
-        $this->registerTagAttribute(
-            'hidden',
-            'string',
-            'Specifies that the element represents an element that is not yet, or is no longer, relevant.'
-        );
     }
 
     /**
      * Renders the provided tag with the given name and any
      * (additional) attributes not already provided as arguments.
      *
-     * @param string $tagName
-     * @param mixed $content
-     * @param array $attributes
-     * @param array $nonEmptyAttributes
-     * @return string
+     * @param array<string, mixed> $attributes
+     * @param string[] $nonEmptyAttributes
      */
     protected function renderTag(
-        $tagName,
-        $content = null,
+        string $tagName,
+        mixed $content = null,
         array $attributes = [],
         array $nonEmptyAttributes = ['id', 'class']
-    ) {
+    ): string {
         $trimmedContent = trim((string) $content);
-        $forceClosingTag = (boolean) $this->arguments['forceClosingTag'];
-        if (true === empty($trimmedContent) && true === (boolean) $this->arguments['hideIfEmpty']) {
+        $forceClosingTag = (bool) $this->arguments['forceClosingTag'];
+
+        if (empty($trimmedContent) && (bool) $this->arguments['hideIfEmpty']) {
             return '';
         }
-        if ('none' === $tagName || true === empty($tagName)) {
+
+        if ($tagName === 'none' || empty($tagName)) {
             // skip building a tag if special keyword "none" is used, or tag name is empty
             return $trimmedContent;
         }
+
         $this->tag->setTagName($tagName);
         $this->tag->addAttributes($attributes);
         $this->tag->forceClosingTag($forceClosingTag);
-        if (null !== $content) {
+
+        if ($content !== null) {
             $this->tag->setContent($trimmedContent);
         }
+
         // process some attributes differently - if empty, remove the property:
         foreach ($nonEmptyAttributes as $propertyName) {
-            $value = $this->arguments[$propertyName];
-            if (true === empty($value)) {
+            $value = $this->arguments[$propertyName] ?? null;
+            if (empty($value)) {
                 $this->tag->removeAttribute($propertyName);
             } else {
                 $this->tag->addAttribute($propertyName, $value);
             }
         }
+
         return $this->tag->render();
     }
 
@@ -146,29 +89,29 @@ trait TagViewHelperTrait
      * it to the main tag's content depending on 'mode' which can
      * be one of 'none', 'append' or 'prepend'
      *
-     * @param string $tagName
-     * @param array $attributes
-     * @param boolean $forceClosingTag
-     * @param string $mode
-     * @return string
+     * @param array<string, mixed> $attributes
      */
-    protected function renderChildTag($tagName, $attributes = [], $forceClosingTag = false, $mode = 'none')
-    {
+    protected function renderChildTag(
+        string $tagName,
+        array $attributes = [],
+        bool $forceClosingTag = false,
+        string $mode = 'none'
+    ): string {
         $tagBuilder = clone $this->tag;
         $tagBuilder->reset();
         $tagBuilder->setTagName($tagName);
         $tagBuilder->addAttributes($attributes);
         $tagBuilder->forceClosingTag($forceClosingTag);
         $childTag = $tagBuilder->render();
-        if ('append' === $mode || 'prepend' === $mode) {
+
+        if ($mode === 'append' || $mode === 'prepend') {
             $content = $this->tag->getContent();
-            if ('append' === $mode) {
-                $content = $content . $childTag;
-            } else {
-                $content = $childTag . $content;
-            }
+            $content = $mode === 'append'
+                ? $content . $childTag
+                : $childTag . $content;
             $this->tag->setContent($content);
         }
+
         return $childTag;
     }
 }

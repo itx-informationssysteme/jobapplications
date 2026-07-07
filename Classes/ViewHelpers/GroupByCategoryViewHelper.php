@@ -35,23 +35,23 @@
 		 */
 		public function render(): string
 		{
-			$templateVariableContainer = $renderingContext->getVariableProvider();
-			if (!isset($arguments['postings']))
+			$templateVariableContainer = $this->renderingContext->getVariableProvider();
+			if (!isset($this->arguments['postings']))
 			{
 				return '';
 			}
-			if (is_object($arguments['postings']) && !$arguments['postings'] instanceof \Traversable)
+			if (is_object($this->arguments['postings']) && !$this->arguments['postings'] instanceof \Traversable)
 			{
 				throw new Exception('GroupByCategoryViewHelper only supports arrays and objects implementing \Traversable interface', 1248728393);
 			}
 
 			$iterationData = [];
-			if (isset($arguments['iteration']))
+			if (isset($this->arguments['iteration']))
 			{
 				$iterationData = [
 					'index' => 0,
 					'cycle' => 1,
-					'total' => count($arguments['postings'])
+					'total' => count($this->arguments['postings'])
 				];
 			}
 
@@ -59,7 +59,7 @@
 			$groupCategoriesList = [];
 			$groupPostingsList = [];
 			$uncategorizedPostings = [];
-			foreach ($arguments['postings'] as $posting)
+			foreach ($this->arguments['postings'] as $posting)
 			{
 				/** @var Posting $posting */
 				$categories = $posting->getCategories()->toArray();
@@ -68,7 +68,7 @@
 				{
 					$hasCategories = true;
 
-					if (empty($arguments['categoryRestriction']) || in_array((string)$category->getUid(), $arguments['categoryRestriction'], true))
+					if (empty($this->arguments['categoryRestriction']) || in_array((string)$category->getUid(), $this->arguments['categoryRestriction'], true))
 					{
 						/** @var Category $category */
 						if (!array_key_exists($category->getUid(), $groupCategoriesList))
@@ -89,36 +89,36 @@
 			$output = '';
 			foreach ($groupPostingsList as $categoryUid => $postingArray)
 			{
-				$templateVariableContainer->add($arguments['groupAs'], $postingArray);
-				$templateVariableContainer->add($arguments['categoryAs'], $groupCategoriesList[$categoryUid]);
-				if (isset($arguments['key']))
+				$templateVariableContainer->add($this->arguments['groupAs'], $postingArray);
+				$templateVariableContainer->add($this->arguments['categoryAs'], $groupCategoriesList[$categoryUid]);
+				if (isset($this->arguments['key']))
 				{
-					$templateVariableContainer->add($arguments['key'], $categoryUid);
+					$templateVariableContainer->add($this->arguments['key'], $categoryUid);
 				}
-				if (isset($arguments['iteration']))
+				if (isset($this->arguments['iteration']))
 				{
 					$iterationData['isFirst'] = $iterationData['cycle'] === 1;
 					$iterationData['isLast'] = $iterationData['cycle'] === $iterationData['total'];
 					$iterationData['isEven'] = $iterationData['cycle'] % 2 === 0;
 					$iterationData['isOdd'] = !$iterationData['isEven'];
-					$templateVariableContainer->add($arguments['iteration'], $iterationData);
+					$templateVariableContainer->add($this->arguments['iteration'], $iterationData);
 					$iterationData['index']++;
 					$iterationData['cycle']++;
 				}
-				$output .= $renderChildren();
-				$templateVariableContainer->remove($arguments['groupAs']);
-				$templateVariableContainer->remove($arguments['categoryAs']);
-				if (isset($arguments['key']))
+				$output .= $this->render();
+				$templateVariableContainer->remove($this->arguments['groupAs']);
+				$templateVariableContainer->remove($this->arguments['categoryAs']);
+				if (isset($this->arguments['key']))
 				{
-					$templateVariableContainer->remove($arguments['key']);
+					$templateVariableContainer->remove($this->arguments['key']);
 				}
-				if (isset($arguments['iteration']))
+				if (isset($this->arguments['iteration']))
 				{
-					$templateVariableContainer->remove($arguments['iteration']);
+					$templateVariableContainer->remove($this->arguments['iteration']);
 				}
 			}
 
-			$templateVariableContainer->add($arguments['uncategorized'], $uncategorizedPostings);
+			$templateVariableContainer->add($this->arguments['uncategorized'], $uncategorizedPostings);
 
 			return $output;
 		}
