@@ -45,8 +45,8 @@ plugin.tx_jobapplications {
 
         list {
             ordering {
-                field = date_posted
-                order = descending
+                field = sorting
+                order = ascending
             }
         }
 
