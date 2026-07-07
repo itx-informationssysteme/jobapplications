@@ -59,8 +59,6 @@
 		 * email
 		 *
 		 * @var string
-		 * @TYPO3\CMS\Extbase\Annotation\Validate ("EmailAddress")
-		 * @TYPO3\CMS\Extbase\Annotation\Validate ("NotEmpty")
 		 *
 		 */
 		protected $email = '';
