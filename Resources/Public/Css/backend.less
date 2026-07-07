@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
-@color-primary: #E62E29;
-@color-white: #fff;
-@color-black: #000;
-@color-deactivated: #919191;
-@color-grey: rgba(0, 0, 0, 0.13);
-@color-white-hover: #e2e2e2;
+@color-primary: #e62e29;
+@color-white: var(--typo3-surface-container-lowest, #fff);
+@color-black: var(--typo3-text-color-base, #000);
+@color-deactivated: var(--typo3-state-secondary-bg, #919191);
+@color-grey: var(--typo3-component-border-color, rgba(0, 0, 0, 0.13));
+@color-white-hover: var(--typo3-state-default-hover-bg, #e2e2e2);
+@color-dim-surface: var(--typo3-surface-dim, rgba(0, 0, 0, 0.13));
 
 html {
 	box-sizing: border-box;
@@ -23,8 +24,7 @@ div {
 }
 
 .module-body {
-	background-color: #fff;
-
+	background-color: var(--module-bg, #fff);
 }
 
 h1 {
@@ -57,7 +57,7 @@ hr {
 		float: left;
 	}
 
-	input[type="checkbox"] {
+	input[type='checkbox'] {
 		display: block;
 		float: left;
 		margin-top: -1px;
@@ -77,7 +77,10 @@ hr {
 	padding: 1rem 2rem;
 	margin: 0 2rem;
 	border: 2px solid @color-primary;
-	transition: background-color 0.1s, color 0.1s, opacity 0.1s;
+	transition:
+		background-color 0.1s,
+		color 0.1s,
+		opacity 0.1s;
 	text-align: center;
 	font-size: 1.4rem;
 	border-radius: 0.125rem;
@@ -128,12 +131,14 @@ hr {
 					font-weight: 400;
 					font-size: 1.4rem;
 					line-height: 1.5;
-					color: #495057;
-					background-color: @color-white;
+					color: var(--typo3-text-color-base, #495057);
+					background-color: var(--typo3-input-bg, #fff);
 					background-clip: padding-box;
-					border: 1px solid #ced4da;
+					border: 1px solid var(--typo3-component-border-color, #ced4da);
 					border-radius: 0;
-					transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+					transition:
+						border-color 0.15s ease-in-out,
+						box-shadow 0.15s ease-in-out;
 					margin: auto 2rem auto 0;
 				}
 
@@ -159,7 +164,7 @@ hr {
 						padding: 0.5rem;
 						margin-bottom: auto;
 						margin-top: auto;
-						background-color: #eeeeee;
+						background-color: var(--typo3-surface-container-base, #eeeeee);
 					}
 				}
 
@@ -194,9 +199,9 @@ hr {
 				margin-bottom: 1rem;
 				display: inline-block;
 				padding: 2rem;
-				border: solid 1px rgba(0, 0, 0, 0.13);
+				border: solid 1px @color-grey;
 				border-radius: 0.125rem;
-				background-color: #eee;
+				background-color: var(--typo3-surface-container-base, #eee);
 
 				.list-item-container {
 					display: flex;
@@ -210,9 +215,8 @@ hr {
 						margin-bottom: auto;
 					}
 
-					span, a {
+					span {
 						display: inline-block;
-
 					}
 
 					@media only screen and (max-width: 1050px) {
@@ -226,7 +230,7 @@ hr {
 				}
 
 				&.archived {
-					background-color: @color-grey;
+					background-color: @color-dim-surface;
 				}
 			}
 		}
@@ -279,7 +283,6 @@ hr {
 				color: @color-black;
 
 				.status-select {
-
 					margin-top: 0;
 
 					select {
@@ -288,19 +291,23 @@ hr {
 						font-weight: 400;
 						font-size: 1.4rem;
 						line-height: 1.5;
-						color: #495057;
-						background-color: #fff;
+						color: var(--typo3-text-color-base, #495057);
+						background-color: var(--typo3-input-bg, #fff);
 						background-clip: padding-box;
-						border: 1px solid #bbb;
+						border: 1px solid var(--typo3-component-border-color, #bbb);
 						border-radius: 0;
-						transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+						transition:
+							border-color 0.15s ease-in-out,
+							box-shadow 0.15s ease-in-out;
 						margin: auto 2rem auto 0;
 						min-width: 130px;
-						background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23333333' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+						background-image: light-dark(
+							url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23333333' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e"),
+							url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23dddddd' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e")
+						);
 						background-repeat: no-repeat;
 						background-position: right 0.5rem center;
 						background-size: 16px 12px;
-
 					}
 				}
 
@@ -314,7 +321,8 @@ hr {
 				}
 
 				@media only screen and (max-width: 1290px) {
-					.status-select, span {
+					.status-select,
+					span {
 						text-align: left;
 						float: left;
 						width: 60%;
@@ -361,7 +369,6 @@ hr {
 				}
 
 				@media only screen and (max-width: 300px) {
-
 					.status-select {
 						width: 100%;
 
@@ -383,14 +390,14 @@ hr {
 		padding: 5rem;
 		width: 50%;
 		margin: auto;
-		border: solid 1px rgba(0, 0, 0, 0.13);
+		border: solid 1px @color-grey;
 		text-align: center;
 		font-size: 1.4rem;
-		background-color: #eee;
+		background-color: var(--typo3-surface-container-base, #eee);
 		min-width: 300px;
 
 		&.archived {
-			background-color: @color-grey;
+			background-color: @color-dim-surface;
 		}
 
 		.row {
@@ -399,7 +406,6 @@ hr {
 			margin-top: 4px;
 
 			select {
-
 				text-align: left;
 				width: 70px;
 
@@ -528,18 +534,18 @@ hr {
 			margin: 5px;
 		}
 
-		select{
-			border: solid 1px rgba(0,0,0,0.13);
+		select {
+			border: solid 1px @color-grey;
 			font-size: 1.3rem;
 			padding: 5px;
 			margin: 5px;
 
-			option{
+			option {
 				text-align: left;
 			}
 		}
 
-		.status-container{
+		.status-container {
 			display: flex;
 			align-items: center;
 		}
@@ -632,14 +638,14 @@ hr {
 
 		.button-box {
 			display: inline-block;
-			background-color: #0078e6;
-			border: 0.2rem solid #005db3;
+			background-color: var(--typo3-state-primary-bg, #0078e6);
+			border: 0.2rem solid var(--typo3-state-primary-border-color, #005db3);
 			width: 26vh;
 			height: 26vh;
 			padding: 1rem;
 			box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
 			text-align: center;
-			color: @color-white;
+			color: var(--typo3-state-primary-color, #fff);
 			text-decoration: none;
 			font-size: 1.6rem;
 			line-height: 1.5;
@@ -660,7 +666,7 @@ hr {
 				font-size: 1.6rem;
 				cursor: pointer;
 				text-decoration: none;
-				color: @color-white;
+				color: var(--typo3-state-primary-color, #fff);
 				box-shadow: none;
 				line-height: 1.5;
 				transition: 0.3s ease-in-out;
@@ -695,14 +701,13 @@ hr {
 			}
 
 			@media only screen and(max-width: 280px) {
-
 				font-size: 0.9rem;
 			}
 		}
 
 		.settings {
-			background-color: #0078e6;
-			border: 0.2rem solid #005db3;
+			background-color: var(--typo3-state-primary-bg, #0078e6);
+			border: 0.2rem solid var(--typo3-state-primary-border-color, #005db3);
 		}
 
 		@media only screen and(max-width: 680px) {
@@ -723,11 +728,9 @@ hr {
 }
 
 .settings {
-
 	padding: 2rem;
 
 	.middle {
-
 		display: flex;
 		padding: 2rem;
 
@@ -740,8 +743,8 @@ hr {
 			padding: 2rem;
 			width: 45%;
 			margin: 0 5%;
-			border: solid 1px rgba(0, 0, 0, 0.13);
-			background-color: #eee;
+			border: solid 1px @color-grey;
+			background-color: var(--typo3-surface-container-base, #eee);
 			border-radius: 0.125rem;
 
 			p {
@@ -765,18 +768,15 @@ hr {
 					width: 100%;
 
 					input {
-
 					}
 				}
 			}
 
 			@media only screen and (max-width: 1185px) {
-
 				min-width: 300px;
 				.btn {
 					&.btn-primary {
 						margin-top: 10px;
-
 					}
 				}
 			}
@@ -792,7 +792,6 @@ hr {
 				.btn {
 					&.btn-primary {
 						margin-top: 0;
-
 					}
 				}
 			}
@@ -801,7 +800,6 @@ hr {
 				.btn {
 					&.btn-primary {
 						margin-top: 10px;
-
 					}
 				}
 			}
@@ -829,7 +827,7 @@ hr {
 }
 
 .form-select-sm {
-	background-color: #fefefe;
+	background-color: var(--typo3-input-bg, #fefefe);
 	width: 200px;
 	height: 3rem;
 	font-size: 1.4rem;
@@ -844,12 +842,10 @@ hr {
 }
 
 .pagination li a {
-
 	font-size: 1.3rem;
 }
 
 .btn {
-
 	&.btn-primary {
 		font-size: 1.3rem;
 		height: 3rem;
@@ -857,7 +853,8 @@ hr {
 		padding: 0.5rem;
 		margin-bottom: auto;
 		margin-top: auto;
-		background-color: #0078e6;
+		background-color: var(--typo3-state-primary-bg, #0078e6);
+		color: var(--typo3-state-primary-color, #fff);
 	}
 
 	&.btn-critical {
@@ -867,8 +864,7 @@ hr {
 		padding: 0.5rem;
 		margin-bottom: auto;
 		margin-top: auto;
-		color: white;
-		background-color: #c83c3c;
+		color: var(--typo3-state-danger-color, white);
+		background-color: var(--typo3-state-danger-bg, #c83c3c);
 	}
 }
-
