@@ -58,66 +58,7 @@ defined('TYPO3') || die('Access denied.');
 				]
 			);
 
-			// wizards
-			\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-				'mod {
-                wizards.newContentElement.wizardItems.plugins {
-                    elements {
-                        frontend {
-                            iconIdentifier = jobapplications-plugin-frontend
-                            title = LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_frontend.name
-                            description = LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_frontend.description
-                            tt_content_defValues {
-                                CType = list
-                                list_type = jobapplications_frontend
-                            }
-                        }
-
-                        detailview {
-                            iconIdentifier = jobapplications-plugin-frontend
-                            title = LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_detailview.name
-                            description = LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_detailview.description
-                            tt_content_defValues {
-                                CType = list
-                                list_type = jobapplications_detailview
-                            }
-                        }
-
-
-                        contactdisplay {
-                            iconIdentifier = jobapplications-plugin-frontend
-                            title = LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_contactdisplay.name
-                            description = LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_contactdisplay.description
-                            tt_content_defValues {
-                                CType = list
-                                list_type = jobapplications_contactdisplay
-                            }
-                        }
-
-                        successpage {
-                            iconIdentifier = jobapplications-plugin-frontend
-                            title = LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_successpage.name
-                            description = LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_successpage.description
-                            tt_content_defValues {
-                                CType = list
-                                list_type = jobapplications_successpage
-                            }
-                        }
-
-                        applicationform {
-                            iconIdentifier = jobapplications-plugin-frontend
-                            title = LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_applicationform.name
-                            description = LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_applicationform.description
-                            tt_content_defValues {
-                                CType = list
-                                list_type = jobapplications_applicationform
-                            }
-                        }
-                    }
-
-                    show = *
-           		}'
-			);
+			// wizard
 			\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup(trim('
     			config.pageTitleProviders {
         			own {
@@ -127,25 +68,6 @@ defined('TYPO3') || die('Access denied.');
 					}
 				}
 			'));
-			$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
-
-			$iconRegistry->registerIcon(
-				'jobapplications-plugin-frontend',
-				\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-				['source' => 'EXT:jobapplications/Resources/Public/Icons/logo_jobs.svg']
-			);
-
-			$iconRegistry->registerIcon(
-				'jobapplications-plugin-detailview',
-				\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-				['source' => 'EXT:jobapplications/Resources/Public/Icons/logo_jobs.svg']
-			);
-
-			$iconRegistry->registerIcon(
-				'jobapplications-plugin-applicationform',
-				\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-				['source' => 'EXT:jobapplications/Resources/Public/Icons/logo_jobs.svg']
-			);
 
 			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['jobapplications'] = \ITX\Jobapplications\Hooks\TCEmainHook::class;
 			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass']['jobapplications'] = \ITX\Jobapplications\Hooks\TCEmainHook::class;

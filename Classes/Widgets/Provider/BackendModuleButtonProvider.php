@@ -34,7 +34,7 @@
 	 *
 	 * @package ITX\Jobapplications\Widgets\Provider
 	 */
-	class BackendModuleButtonProvider extends ButtonProvider
+	readonly class BackendModuleButtonProvider extends ButtonProvider
 	{
 		/**
 		 * BackendModuleButtonProvider constructor.

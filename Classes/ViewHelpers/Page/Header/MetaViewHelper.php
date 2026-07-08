@@ -35,52 +35,56 @@
 		 *
 		 * @return void
 		 */
-		public function initializeArguments()
-		{
-			parent::initializeArguments();
-			$this->registerTagAttribute('name', 'string', 'Name property of meta tag');
-			$this->registerTagAttribute('http-equiv', 'string', 'Property: http-equiv');
-			$this->registerTagAttribute('property', 'string', 'Property of meta tag');
-			$this->registerTagAttribute('content', 'string', 'Content of meta tag');
-			$this->registerTagAttribute('scheme', 'string', 'Property: scheme');
-			$this->registerTagAttribute('lang', 'string', 'Property: lang');
-			$this->registerTagAttribute('dir', 'string', 'Property: dir');
-		}
+        public function initializeArguments(): void
+        {
+            parent::initializeArguments();
+            $this->registerArgument('name', 'string', 'Name property of meta tag');
+            $this->registerArgument('http-equiv', 'string', 'Property: http-equiv');
+            $this->registerArgument('property', 'string', 'Property of meta tag');
+            $this->registerArgument('content', 'string', 'Content of meta tag');
+            $this->registerArgument('scheme', 'string', 'Property: scheme');
+            $this->registerArgument('lang', 'string', 'Property: lang');
+            $this->registerArgument('dir', 'string', 'Property: dir');
+        }
 
 		/**
 		 * Render method
 		 *
 		 * @return string
 		 */
-		public function render(): string
+        public function render(): string
         {
-			$content = $this->arguments['content'];
-			if (!empty($content))
-			{
-				$pageRenderer = static::getPageRenderer();
+            $content = $this->arguments['content'];
 
-				$properties = [];
-				$type = 'name';
-				$name = $this->tag->getAttribute('name');
-				if (!empty($this->tag->getAttribute('property')))
-				{
-					$type = 'property';
-					$name = $this->tag->getAttribute('property');
-				}
-				elseif (!empty($this->tag->getAttribute('http-equiv')))
-				{
-					$type = 'http-equiv';
-					$name = $this->tag->getAttribute('http-equiv');
-				}
-				foreach (['http-equiv', 'property', 'scheme', 'lang', 'dir'] as $propertyName)
-				{
-					if (!empty($this->tag->getAttribute($propertyName)))
-					{
-						$properties[$propertyName] = $this->tag->getAttribute($propertyName);
-					}
-				}
-				$pageRenderer->setMetaTag($type, $name, $content, $properties);
-			}
+            if (!empty($content)) {
+                $type = 'name';
+                $name = $this->arguments['name'] ?? null;
+
+                if (!empty($this->arguments['property'])) {
+                    $type = 'property';
+                    $name = $this->arguments['property'];
+                } elseif (!empty($this->arguments['http-equiv'])) {
+                    $type = 'http-equiv';
+                    $name = $this->arguments['http-equiv'];
+                }
+
+                if (empty($name)) {
+                    // Nothing usable to register — bail out safely rather than fatal.
+                    return '';
+                }
+
+                $pageRenderer = static::getPageRenderer();
+                $properties = [];
+
+                foreach (['http-equiv', 'property', 'scheme', 'lang', 'dir'] as $propertyName) {
+                    if (!empty($this->arguments[$propertyName])) {
+                        $properties[$propertyName] = $this->arguments[$propertyName];
+                    }
+                }
+
+                $pageRenderer->setMetaTag($type, $name, $content, $properties);
+            }
+
             return '';
-		}
+        }
 	}

@@ -1,56 +1,50 @@
 {
-	"name" : "itx/jobapplications",
-	"type" : "typo3-cms-extension",
-	"description" : "This extension enables you to manage job postings, has an application form for applicants to apply and an Application Managment Backend Module",
-	"license" : "GPL-3.0-or-later",
-	"homepage" : "http://www.itx.de",
-	"authors" : [
+	"name": "itx/jobapplications",
+	"type": "typo3-cms-extension",
+	"description": "This extension enables you to manage job postings, has an application form for applicants to apply and an Application Managment Backend Module",
+	"license": "GPL-3.0-or-later",
+	"homepage": "http://www.itx.de",
+	"authors": [
 		{
-			"name" : "Stefanie D\u00f6ll",
-			"email" : "stefanie.doell@itx.de",
-			"role" : "Developer"
-		},
-		{
-			"name" : "Benjamin Jasper",
-			"email" : "benjamin.jasper@itx.de",
-			"role" : "Developer"
+			"name": "it.x informationssysteme gmbh",
+			"role": "Developer"
 		}
 	],
-	"support" : {
-		"email" : "typo-itx@itx.de",
-		"issues" : "https://github.com/typo3-itx/jobapplications/issues",
-		"docs" : "https://docs.typo3.org/p/itx/jobapplications/main/en-us/"
+	"support": {
+		"email": "support@itx.de",
+		"issues": "https://github.com/typo3-itx/jobapplications/issues",
+		"docs": "https://docs.typo3.org/p/itx/jobapplications/main/en-us/"
 	},
-	"require" : {
-		"php" : ">=8.2",
-		"ext-openssl" : "*",
-		"typo3/cms-core" : "^13"
+	"require": {
+		"php": ">=8.2",
+		"ext-openssl": "*",
+		"typo3/cms-core": "^13.4 || ^14.3"
 	},
-	"require-dev" : {
-		"phpstan/phpstan" : "^1.4",
-		"typo3/cms-scheduler" : "*",
-		"typo3/cms-dashboard" : "*",
-		"typo3/cms-install" : "*"
+	"require-dev": {
+		"phpstan/phpstan": "^1.4",
+		"typo3/cms-scheduler": "*",
+		"typo3/cms-dashboard": "*",
+		"typo3/cms-install": "*"
 	},
-	"suggest" : {
-		"typo3/cms-dashboard" : "*"
+	"suggest": {
+		"typo3/cms-dashboard": "*"
 	},
-	"extra" : {
-		"typo3/cms" : {
-			"extension-key" : "jobapplications"
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "jobapplications"
 		}
 	},
-	"autoload" : {
-		"psr-4" : {
-			"ITX\\Jobapplications\\" : "Classes"
+	"autoload": {
+		"psr-4": {
+			"ITX\\Jobapplications\\": "Classes"
 		}
 	},
-	"autoload-dev" : {
-		"psr-4" : {
-			"ITX\\Jobapplications\\Tests\\" : "Tests"
+	"autoload-dev": {
+		"psr-4": {
+			"ITX\\Jobapplications\\Tests\\": "Tests"
 		}
 	},
-	"replace" : {
-		"typo3-ter/jobapplications" : "self.version"
+	"replace": {
+		"typo3-ter/jobapplications": "self.version"
 	}
 }

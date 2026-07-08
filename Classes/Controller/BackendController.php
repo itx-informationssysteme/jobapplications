@@ -55,7 +55,6 @@ use TYPO3\CMS\Backend\Attribute\Controller;
 	 *
 	 * @package ITX\Jobapplications\Controller
 	 */
-    #[Controller]
 	class BackendController extends ActionController
 	{
 		/**

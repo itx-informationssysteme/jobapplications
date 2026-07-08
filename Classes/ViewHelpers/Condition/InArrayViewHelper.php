@@ -15,7 +15,7 @@
 	class InArrayViewHelper extends AbstractConditionViewHelper
 	{
 
-		public function initializeArguments()
+		public function initializeArguments(): void
 		{
 			parent::initializeArguments();
 			$this->registerArgument('haystack', 'mixed', 'View helper haystack ', true);
@@ -23,7 +23,7 @@
 		}
 
 		// php in_array viewhelper
-		public function render()
+		public function render(): mixed
 		{
 
 			$needle = $this->arguments['needle'];
