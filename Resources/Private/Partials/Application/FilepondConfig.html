@@ -1,26 +1,23 @@
 <html data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 <script>
-	const parts = window.location.pathname.split('/').filter(Boolean);
+    const typo3Base = '<f:uri.page pageUid="1" />';
+    const prefix = typo3Base.length > 1 ? typo3Base.replace(/\/$/, '') : typo3Base;
 
-	const prefix =
-		parts.length > 0 &&
-		/^[a-z]{2}(_|-)[A-Z]{2}$/.test(parts[0])
-			? '/' + parts[0]
-			: '';
-
+    const uploadUrl = prefix === '/' ? '/jobapplications-upload/' : prefix + '/jobapplications-upload/';
+    const revertUrl = prefix === '/' ? '/jobapplications-revert/' : prefix + '/jobapplications-revert/';
 
 	FilePond.registerPlugin(FilePondPluginFileValidateType);
 	FilePond.setOptions({
 		allowFileTypeValidation     : false,
 		server                      : {
 			process : {
-				url: prefix + '/jobapplications-upload/',
+				url: uploadUrl,
 				onerror : (response) => {
 					return response;
 				}
 			},
 			revert  : {
-				url: prefix + '/jobapplications-revert/'
+				url: revertUrl
 			},
 			restore : null,
 			load    : null,
