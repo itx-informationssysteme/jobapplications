@@ -18,7 +18,7 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'title,career_level,division,employment_type,terms_of_employment,company_description,job_description,role_description,skill_requirements,benefits,base_salary,required_documents,company_information',
+        'searchFields' => 'title,career_level,division,employment_type,terms_of_employment,company_description,job_description,role_description,skill_requirements,benefits,base_salary,base_salary_max_value,salary_unit,required_documents,company_information',
         'iconfile' => 'EXT:jobapplications/Resources/Public/Icons/Extension.svg',
         'sortby' => 'sorting',
     ],
@@ -297,6 +297,46 @@ return [
                 'eval' => 'trim'
             ],
         ],
+        'salary_unit' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.salary_unit',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'default' => 'YEAR',
+                'items' => [
+                    [
+                        'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.salary_unit.year',
+                        'value' => 'YEAR',
+                    ],
+                    [
+                        'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.salary_unit.month',
+                        'value' => 'MONTH',
+                    ],
+                    [
+                        'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.salary_unit.week',
+                        'value' => 'WEEK',
+                    ],
+                    [
+                        'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.salary_unit.day',
+                        'value' => 'DAY',
+                    ],
+                    [
+                        'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.salary_unit.hour',
+                        'value' => 'HOUR',
+                    ],
+                ],
+            ],
+        ],
+        'base_salary_max_value' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.base_salary_max_value',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+        ],
         'required_documents' => [
             'exclude' => true,
             'label' => 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_db.xlf:tx_jobapplications_domain_model_posting.required_documents',
@@ -437,7 +477,7 @@ return [
             'showitem' => 'title, division'
         ],
         'circumstances' => [
-            'showitem' => 'base_salary, career_level, --linebreak--, employment_type, terms_of_employment'
+            'showitem' => 'base_salary, base_salary_max_value, salary_unit, career_level, --linebreak--, employment_type, terms_of_employment'
         ],
         'dates' => [
             'showitem' => 'date_posted, starttime ,endtime'

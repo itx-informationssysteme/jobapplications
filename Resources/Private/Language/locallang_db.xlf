@@ -43,7 +43,28 @@
 				<source>Benefits</source>
 			</trans-unit>
 			<trans-unit id="tx_jobapplications_domain_model_posting.base_salary" resname="tx_jobapplications_domain_model_posting.base_salary">
-				<source>Base Salary</source>
+				<source>Base Salary / Minimum Salary</source>
+			</trans-unit>
+			<trans-unit id="tx_jobapplications_domain_model_posting.base_salary_max_value" resname="tx_jobapplications_domain_model_posting.base_salary_max_value">
+				<source>Maximum Salary</source>
+			</trans-unit>
+			<trans-unit id="tx_jobapplications_domain_model_posting.salary_unit" resname="tx_jobapplications_domain_model_posting.salary_unit">
+				<source>Salary Unit</source>
+			</trans-unit>
+			<trans-unit id="tx_jobapplications_domain_model_posting.salary_unit.year" resname="tx_jobapplications_domain_model_posting.salary_unit.year">
+				<source>Year</source>
+			</trans-unit>
+			<trans-unit id="tx_jobapplications_domain_model_posting.salary_unit.month" resname="tx_jobapplications_domain_model_posting.salary_unit.month">
+				<source>Month</source>
+			</trans-unit>
+			<trans-unit id="tx_jobapplications_domain_model_posting.salary_unit.week" resname="tx_jobapplications_domain_model_posting.salary_unit.week">
+				<source>Week</source>
+			</trans-unit>
+			<trans-unit id="tx_jobapplications_domain_model_posting.salary_unit.day" resname="tx_jobapplications_domain_model_posting.salary_unit.day">
+				<source>Day</source>
+			</trans-unit>
+			<trans-unit id="tx_jobapplications_domain_model_posting.salary_unit.hour" resname="tx_jobapplications_domain_model_posting.salary_unit.hour">
+				<source>Hour</source>
 			</trans-unit>
 			<trans-unit id="tx_jobapplications_domain_model_posting.valid_through" resname="tx_jobapplications_domain_model_posting.valid_through">
 				<source>Valid Through</source>

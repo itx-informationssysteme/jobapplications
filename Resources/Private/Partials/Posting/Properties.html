@@ -106,16 +106,22 @@
 				</div>
 			</div>
 		</f:if>
-		<f:if condition="{posting.baseSalary} || {posting.endtime}">
+		<f:if condition="{posting.baseSalary} || {posting.baseSalaryMaxValue} || {posting.endtime}">
 			<div class="row">
-				<f:if condition="{posting.baseSalary}">
+				<f:if condition="{posting.baseSalary} || {posting.baseSalaryMaxValue}">
 					<div class="col-3">
 						<strong>
 							<f:translate key="tx_jobapplications_domain_model_posting.base_salary"/>
 						</strong>
 					</div>
 					<div class="col-3">
-						{posting.baseSalary}
+						<f:if condition="{posting.baseSalary}">
+							<f:then>
+								{posting.baseSalary}<f:if condition="{posting.baseSalaryMaxValue}"> - {posting.baseSalaryMaxValue}</f:if>
+							</f:then>
+							<f:else>{posting.baseSalaryMaxValue}</f:else>
+						</f:if>
+						<f:if condition="{posting.salaryUnit}"> / {posting.salaryUnit}</f:if>
 					</div>
 				</f:if>
 				<f:if condition="{posting.endtime}">
