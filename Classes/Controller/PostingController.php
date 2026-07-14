@@ -276,7 +276,7 @@
 			$titleProvider = GeneralUtility::makeInstance(JobsPageTitleProvider::class);
 
 			// Page-title Templating
-			$title = $this->settings["pageTitle"];
+			$title = $this->settings["pageTitle"] ?? '';
 			if ($title !== "")
 			{
 				$title = str_replace("%postingTitle%", $posting->getTitle(), $title);
@@ -313,7 +313,7 @@
 
 			$companyName = $this->settings['googleJobs']['companyName'] ?? '';
 
-			if (empty($companyName) || $this->settings['enableGoogleJobs'] !== "1")
+			if (empty($companyName) || ($this->settings['enableGoogleJobs'] ?? '0') !== "1")
 			{
 				return;
 			}
@@ -404,7 +404,7 @@
 				"jobLocation" => $arrayLocations,
 				"title" => $posting->getTitle(),
 				"employmentType" => $employmentTypes,
-				"directApply" => $this->settings["applicationsEnabled"] === "1"
+				"directApply" => ($this->settings["applicationsEnabled"] ?? '0') === "1"
 			];
 
 			if ($posting->isHomeoffice())
@@ -422,17 +422,33 @@
 
 			$googleJobsJSON["hiringOrganization"] = $hiringOrganization;
 
-			if (!empty($posting->getBaseSalary()))
+			$baseSalary = $this->normalizeSalaryValue($posting->getBaseSalary());
+			$baseSalaryMaxValue = $this->normalizeSalaryValue($posting->getBaseSalaryMaxValue());
+
+			if ($baseSalary !== null || $baseSalaryMaxValue !== null)
 			{
-				$currency = $this->settings['googleJobs']['currency'] ?: "EUR";
+				$currency = $this->settings['googleJobs']['currency'] ?? "EUR";
+				$currency = $currency !== '' ? $currency : "EUR";
+				$value = [
+					"@type" => "QuantitativeValue",
+					"unitText" => $this->normalizeSalaryUnit($posting->getSalaryUnit())
+				];
+
+				if ($baseSalary !== null)
+				{
+					$value["value"] = $baseSalary;
+					$value["minValue"] = $baseSalary;
+				}
+
+				if ($baseSalaryMaxValue !== null)
+				{
+					$value["maxValue"] = $baseSalaryMaxValue;
+				}
+
 				$googleJobsJSON["baseSalary"] = [
 					"@type" => "MonetaryAmount",
 					"currency" => $currency,
-					"value" => [
-						"@type" => "QuantitativeValue",
-						"value" => preg_replace('/\D/', '', $posting->getBaseSalary()),
-						"unitText" => "YEAR"
-					]
+					"value" => $value
 				];
 			}
 
@@ -445,9 +461,81 @@
 			$event = $this->eventDispatcher->dispatch(new ModifyGoogleForJobsDataEvent($googleJobsJSON, $posting));
 			$googleJobsJSON = $event->getGoogleForJobsData();
 
-			$googleJobs = "<script type=\"application/ld+json\">".json_encode($googleJobsJSON, JSON_THROW_ON_ERROR)."</script>";
+            $googleJobs = '<script type="application/ld+json">' . PHP_EOL
+                . json_encode(
+                    $googleJobsJSON,
+                    JSON_PRETTY_PRINT
+                    | JSON_UNESCAPED_SLASHES
+                    | JSON_UNESCAPED_UNICODE
+                    | JSON_THROW_ON_ERROR
+                )
+                . PHP_EOL . '</script>';
 
 			$this->pageRenderer->addHeaderData($googleJobs);
+		}
+
+		private function normalizeSalaryValue($value): int|float|null
+		{
+			$value = trim((string)$value);
+
+			if ($value === '')
+			{
+				return null;
+			}
+
+			$value = preg_replace('/[^\d,.\-]/', '', $value);
+
+			if ($value === '' || $value === '-')
+			{
+				return null;
+			}
+
+			$lastCommaPosition = strrpos($value, ',');
+			$lastDotPosition = strrpos($value, '.');
+
+			if ($lastCommaPosition !== false && $lastDotPosition !== false)
+			{
+				if ($lastCommaPosition > $lastDotPosition)
+				{
+					$value = str_replace('.', '', $value);
+					$value = str_replace(',', '.', $value);
+				}
+				else
+				{
+					$value = str_replace(',', '', $value);
+				}
+			}
+			elseif ($lastCommaPosition !== false)
+			{
+				$digitsAfterSeparator = strlen($value) - $lastCommaPosition - 1;
+				$value = $digitsAfterSeparator > 0 && $digitsAfterSeparator <= 2
+					? str_replace(',', '.', $value)
+					: str_replace(',', '', $value);
+			}
+			elseif ($lastDotPosition !== false)
+			{
+				$digitsAfterSeparator = strlen($value) - $lastDotPosition - 1;
+				if (substr_count($value, '.') > 1 || $digitsAfterSeparator === 3)
+				{
+					$value = str_replace('.', '', $value);
+				}
+			}
+
+			if (!is_numeric($value) || (float)$value <= 0)
+			{
+				return null;
+			}
+
+			$value = (float)$value;
+
+			return floor($value) === $value ? (int)$value : $value;
+		}
+
+		private function normalizeSalaryUnit($unit): string
+		{
+			$unit = strtoupper(trim((string)$unit));
+
+			return in_array($unit, ['HOUR', 'DAY', 'WEEK', 'MONTH', 'YEAR'], true) ? $unit : 'YEAR';
 		}
 
 		public function injectPostingRepository(PostingRepository $postingRepository): void

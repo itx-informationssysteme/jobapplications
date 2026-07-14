@@ -131,6 +131,20 @@
 		protected $baseSalary = 0;
 
 		/**
+		 * baseSalaryMaxValue
+		 *
+		 * @var string
+		 */
+		protected $baseSalaryMaxValue = '';
+
+		/**
+		 * salaryUnit
+		 *
+		 * @var string
+		 */
+		protected $salaryUnit = 'YEAR';
+
+		/**
 		 * requiredDocuments
 		 *
 		 * @var string
@@ -489,6 +503,51 @@
 		public function setBaseSalary($baseSalary)
 		{
 			$this->baseSalary = $baseSalary;
+		}
+
+
+		/**
+		 * Returns the baseSalaryMaxValue
+		 *
+		 * @return string baseSalaryMaxValue
+		 */
+		public function getBaseSalaryMaxValue()
+		{
+			return $this->baseSalaryMaxValue;
+		}
+
+		/**
+		 * Sets the baseSalaryMaxValue
+		 *
+		 * @param string $baseSalaryMaxValue
+		 *
+		 * @return void
+		 */
+		public function setBaseSalaryMaxValue($baseSalaryMaxValue)
+		{
+			$this->baseSalaryMaxValue = $baseSalaryMaxValue;
+		}
+
+		/**
+		 * Returns the salaryUnit
+		 *
+		 * @return string salaryUnit
+		 */
+		public function getSalaryUnit()
+		{
+			return $this->salaryUnit ?: 'YEAR';
+		}
+
+		/**
+		 * Sets the salaryUnit
+		 *
+		 * @param string $salaryUnit
+		 *
+		 * @return void
+		 */
+		public function setSalaryUnit($salaryUnit)
+		{
+			$this->salaryUnit = $salaryUnit ?: 'YEAR';
 		}
 
 		/**

@@ -181,7 +181,7 @@
 				/** @var JobsPageTitleProvider $titleProvider */
 				$titleProvider = GeneralUtility::makeInstance(JobsPageTitleProvider::class);
 
-				$title = $this->settings["pageTitle"];
+				$title = $this->settings["pageTitle"] ?? '';
 				if (!empty($title))
 				{
 					$title = str_replace("%postingTitle%", $posting->getTitle(), $title);
