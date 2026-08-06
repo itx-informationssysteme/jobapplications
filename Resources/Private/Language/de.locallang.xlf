@@ -60,8 +60,16 @@
                 <target state="translated">Vorteile</target>
             </trans-unit>
             <trans-unit id="tx_jobapplications_domain_model_posting.base_salary" resname="tx_jobapplications_domain_model_posting.base_salary" approved="yes">
-                <source>Base Salary</source>
-                <target state="translated">Grundgehalt</target>
+                <source>Base Salary / Minimum Salary</source>
+                <target state="translated">Grundgehalt / Mindestgehalt</target>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.base_salary_max_value" resname="tx_jobapplications_domain_model_posting.base_salary_max_value" approved="yes">
+                <source>Maximum Salary</source>
+                <target state="translated">Maximalgehalt</target>
+            </trans-unit>
+            <trans-unit id="tx_jobapplications_domain_model_posting.salary_unit" resname="tx_jobapplications_domain_model_posting.salary_unit" approved="yes">
+                <source>Salary Unit</source>
+                <target state="translated">Gehaltseinheit</target>
             </trans-unit>
             <trans-unit id="tx_jobapplications_domain_model_posting.valid_through" resname="tx_jobapplications_domain_model_posting.valid_through" approved="yes">
                 <source>Valid Through</source>

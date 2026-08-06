@@ -28,6 +28,8 @@ plugin.tx_jobapplications {
     }
 
     settings {
+        pageTitle =
+        applicationsEnabled = 0
         enableGoogleJobs = {$plugin.tx_jobapplications.settings.enableGoogleJobs}
         fileStorage = {$plugin.tx_jobapplications.settings.fileStorage}
         emailContentType = {$plugin.tx_jobapplications.settings.emailContentType}

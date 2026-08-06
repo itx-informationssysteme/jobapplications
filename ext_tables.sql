@@ -17,6 +17,8 @@ CREATE TABLE tx_jobapplications_domain_model_posting
 	skill_requirements            text,
 	benefits                      text,
 	base_salary                   varchar(255) DEFAULT '' NOT NULL,
+	base_salary_max_value         varchar(255) DEFAULT '' NOT NULL,
+	salary_unit                   varchar(20)  DEFAULT 'YEAR' NOT NULL,
 	valid_through                 date         DEFAULT NULL,
 	required_documents            text,
 	company_information           text,
