@@ -10,6 +10,7 @@ use ITX\Jobapplications\Widgets\Provider\PostingsActiveProvider;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\DependencyInjection\Reference;
+use TYPO3\CMS\Backend\Module\ModuleProvider;
 use TYPO3\CMS\Backend\View\BackendViewFactory;
 use TYPO3\CMS\Dashboard\Dashboard;
 use TYPO3\CMS\Dashboard\Widgets\BarChartWidget;
@@ -21,7 +22,8 @@ return function(ContainerConfigurator $configurator, ContainerBuilder $container
     if ($containerBuilder->hasDefinition(Dashboard::class)) {
 		$services->set(PostingsActiveProvider::class);
 
-		$services->set(BackendModuleButtonProvider::class)->arg('$target', '');
+		$services->set(BackendModuleButtonProvider::class)
+                 ->arg('$moduleProvider', new Reference(ModuleProvider::class));
 
 		$services->set(ApplicationsPerPostingBarChartProvider::class);
 

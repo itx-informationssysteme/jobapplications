@@ -1,67 +1,45 @@
 <?php
-	/***************************************************************
-	 *  Copyright notice
-	 *
-	 *  (c) 2019
-	 *  All rights reserved
-	 *
-	 *  This script is part of the TYPO3 project. The TYPO3 project is
-	 *  free software; you can redistribute it and/or modify
-	 *  it under the terms of the GNU General Public License as published by
-	 *  the Free Software Foundation; either version 3 of the License, or
-	 *  (at your option) any later version.
-	 *
-	 *  The GNU General Public License can be found at
-	 *  http://www.gnu.org/copyleft/gpl.html.
-	 *
-	 *  This script is distributed in the hope that it will be useful,
-	 *  but WITHOUT ANY WARRANTY; without even the implied warranty of
-	 *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	 *  GNU General Public License for more details.
-	 *
-	 *  This copyright notice MUST APPEAR in all copies of the script!
-	 ***************************************************************/
 
-	namespace ITX\Jobapplications\Widgets\Provider;
+declare(strict_types=1);
 
-	use TYPO3\CMS\Dashboard\Widgets\Provider\ButtonProvider;
-	use TYPO3\CMS\Core\Utility\GeneralUtility;
-	use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
-	use TYPO3\CMS\Backend\Routing\UriBuilder;
+namespace ITX\Jobapplications\Widgets\Provider;
 
-	/**
-	 * Class BackendModuleButtonProvider
-	 *
-	 * @package ITX\Jobapplications\Widgets\Provider
-	 */
-	readonly class BackendModuleButtonProvider extends ButtonProvider
-	{
-		/**
-		 * BackendModuleButtonProvider constructor.
-		 *
-		 * @param string $target
-		 */
-		public function __construct(string $target = '')
-		{
-			if (!$GLOBALS['BE_USER']->check('modules', 'web_JobapplicationsBackend'))
-			{
-				return;
-			}
+use TYPO3\CMS\Backend\Module\ModuleProvider;
+use TYPO3\CMS\Dashboard\Widgets\ButtonProviderInterface;
+use TYPO3\CMS\Dashboard\Widgets\ElementAttributesInterface;
 
-			/** @var UriBuilder $uriBuilder */
-			$uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+final class BackendModuleButtonProvider implements ButtonProviderInterface, ElementAttributesInterface
+{
+    private const MODULE_IDENTIFIER = 'jobapplications_backend';
 
-			try
-			{
-				$buttonLink = $uriBuilder->buildUriFromRoute('jobapplications_backend');
-			}
-			catch (RouteNotFoundException $e)
-			{
-				$buttonLink = null;
-			}
+    public function __construct(private readonly ModuleProvider $moduleProvider) {}
 
-			$buttonText = 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.widget.applications_per_posting.button';
+    public function getTitle(): string
+    {
+        return 'LLL:EXT:jobapplications/Resources/Private/Language/locallang_backend.xlf:be.widget.applications_per_posting.button';
+    }
 
-			parent::__construct($buttonText, $buttonLink, $target);
-		}
-	}
+    public function getLink(): string
+    {
+        return '';
+    }
+
+    public function getTarget(): string
+    {
+        return '';
+    }
+
+    public function getElementAttributes(): array
+    {
+        if (!$this->moduleProvider->accessGranted(self::MODULE_IDENTIFIER, $GLOBALS['BE_USER'])) {
+            return [
+                'hidden' => 'hidden',
+            ];
+        }
+
+        return [
+            'data-dispatch-action' => 'TYPO3.ModuleMenu.showModule',
+            'data-dispatch-args-list' => self::MODULE_IDENTIFIER,
+        ];
+    }
+}
