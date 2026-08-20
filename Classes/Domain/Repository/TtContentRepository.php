@@ -33,18 +33,26 @@
 	{
 		protected $objectType = '\ITX\Jobapplications\Domain\Model\Ttcontent';
 
-		/**
-		 * @param string $listType
-		 *
-		 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-		 */
-		function findByListType(string $listType)
-		{
-			$query = $this->createQuery();
-			$query->getQuerySettings()->setRespectStoragePage(false);
+    /**
+     * @param string $listType
+     *
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findByListType(string $listType)
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
 
-			$query->matching($query->equals("list_type", $listType));
+        $query->matching($query->equals('list_type', $listType));
 
-			return $query->execute();
-		}
-	}
+        return $query->execute();
+    }
+
+    public function findByCType(string $cType)
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+        $query->matching($query->equals('CType', $cType));
+        return $query->execute();
+    }
+}
