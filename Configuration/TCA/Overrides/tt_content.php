@@ -61,5 +61,6 @@ foreach ($flexForms as $pluginSignature => $flexFormPath) {
     ExtensionManagementUtility::addPiFlexFormValue('*', $flexFormPath, $pluginSignature);
     $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
     ExtensionManagementUtility::addToAllTCAtypes('tt_content', 'pi_flexform', $pluginSignature, 'after:subheader');
+    ExtensionManagementUtility::addToAllTCAtypes('tt_content', 'pages', $pluginSignature, 'after:pi_flexform');
 }
 
