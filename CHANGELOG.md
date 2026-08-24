@@ -5,11 +5,71 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [5.1.0] - 2026-08-24 Google Jobs API Release
+
+### Added
+
+- Reimplemented the Google Jobs Indexing API integration
+
+## [5.0.3] - 2026-07-21 Hotfix Release
 
 ### Fixed
 
-- Changed usage of f:image viewhelper in templates to use file references directly (#151)
+- Reenabled the record storage picker in the postings plugin, as it had disappeared in the 5.0 update
+
+## [5.0.2] - 2026-07-19 Bugfix Release
+
+### Fixed
+
+- Fixed an incompatibility between TYPO3 v13 and v14 ( thanks @dahaupt ) ) (#191)
+- Refactored a backend css integration which was causing issues ( thanks @the-andyman ) (#194)
+
+## [5.0.1] - 2026-07-10 Bugfix Release
+
+### Fixed
+
+- Fixed a bug which created issues with fileuploads in the application form (#187)
+
+## [5.0.0] - 2026-07-08 TYPO3 V14 Release
+
+### Added
+
+- Added compatibility with TYPO3 v14 (#176)
+
+### Breaking
+
+- The plugin registration has been changed, so after updating the extension to 5.0.0, your plugins will show as "missing" in the backend.
+- To resolve this, we added an upgrade wizard which migrates the old list type plugins to the new ctype, allowing a seamless transition
+
+## [4.1.1] - 2026-07-07 Sortable Postings
+
+### Added
+
+- Made posting records manually sortable
+
+### Fixed
+
+- Fixed darkmode style of a select in the application view in the backend
+
+## [4.1.0] - 2026-07-07 Darkmode Fix
+
+### Fixed
+
+- Updated Styling so dark mode is now actually usable (#173)
+
+## [4.0.2] - 2026-07-06 Bugfix Release
+
+### Fixed
+
+- Fixed a bug which marked all applications as unsolicited
+- Fixed a translation error in the backend module
+- Fixed a php warning and a small issue in the status repository
+
+## [4.0.1] - 2026-06-19 Bugfix Release
+
+### Fixed
+
+- Fixed a bug where the submit action wouldn't work correctly
 
 ## [4.0.0] - 2024-11-22 v13 Support
 

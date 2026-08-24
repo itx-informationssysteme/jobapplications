@@ -229,6 +229,31 @@ Slug behaviour
 Slug behavior:"uniqueInSite": The same slug can be used for postings in different sites.
 Use this setting only if no posting records are shared between sites. "unique" means that the same posting title will lead to different slug names.
 
+Google
+~~~~~~~
+
+Enable Google Indexing API
+-------------------------
+This enables the google indexing API subsystem. It will create jobs for changed/added/deleted jobs, which then will be processed
+by a schedular task, which sends the index requests to your configured google cloud console
+A starting guide on how to get the google side of this working can be found here https://developers.google.com/search/apis/indexing-api/v3/quickstart
+
+For the feature to work you HAVE to use the ProcessIndexingQueue scheduler task provided by the extension, as adding or deleting jobs only adds them
+to an indexing queue, while the schedular does the actual call to Google
+
+Path to Google service account key
+---------------------------------
+When following the quickstart guide from before, you will have generated an account key in .json format. Place this file somewhere
+non publicly accessible inside your project, and add the path to it here.
+
+Enable in development context
+----------------------------
+Per default the api indexing system is disabled in a dev environment. This toggle turns it on even in dev
+
+Enable debug flash messages
+--------------------------
+Enables flash messages in the backend for indexing attempts/failures
+
 Template constants
 ==================
 In the Template Constant Editor the plugin registered a few settings.

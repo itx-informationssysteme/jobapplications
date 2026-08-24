@@ -24,3 +24,15 @@ services:
                 description: 'This command deletes applications and deletes the application''s files.'
                 # not required, defaults to false
                 hidden: false
+
+    ITX\Jobapplications\Command\ProcessIndexingQueueCommand:
+        tags:
+            -   name: 'console.command'
+                command: 'jobapplications:processindexingqueue'
+                description: 'Processes pending Google Indexing API jobs for job postings.'
+
+    ITX\Jobapplications\Hooks\DataHandlerIndexingHook:
+        public: true
+
+    ITX\Jobapplications\Service\IndexingQueueProcessor:
+        public: true

@@ -5,61 +5,61 @@ use ITX\Jobapplications\Controller\PostingController;
 
 defined('TYPO3') || die('Access denied.');
 
-	call_user_func(
-		function () {
+call_user_func(
+    function () {
 
-			\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-				'Jobapplications',
-				'Frontend',
-				[
-					PostingController::class => 'list'
-				],
-				// non-cacheable actions
-				[
-					PostingController::class => 'list'
-				]
-			);
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+            'Jobapplications',
+            'Frontend',
+            [
+                PostingController::class => 'list',
+            ],
+            // non-cacheable actions
+            [
+                PostingController::class => 'list',
+            ]
+        );
 
-			\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-				'Jobapplications',
-				'DetailView',
-				[
-					PostingController::class => 'show',
-				]
-			);
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+            'Jobapplications',
+            'DetailView',
+            [
+                PostingController::class => 'show',
+            ]
+        );
 
-			\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-				'Jobapplications',
-				'ApplicationForm',
-				[
-					ApplicationController::class => 'new,create'
-				],
-				[
-					ApplicationController::class => 'create,new'
-				]
-			);
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+            'Jobapplications',
+            'ApplicationForm',
+            [
+                ApplicationController::class => 'new,create',
+            ],
+            [
+                ApplicationController::class => 'create,new',
+            ]
+        );
 
-			\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-				'Jobapplications',
-				'ContactDisplay',
-				[
-					\ITX\Jobapplications\Controller\ContactController::class => 'list'
-				]
-			);
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+            'Jobapplications',
+            'ContactDisplay',
+            [
+                \ITX\Jobapplications\Controller\ContactController::class => 'list',
+            ]
+        );
 
-			\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-				'Jobapplications',
-				'SuccessPage',
-				[
-					ApplicationController::class => 'success'
-				],
-				[
-					ApplicationController::class => 'success'
-				]
-			);
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+            'Jobapplications',
+            'SuccessPage',
+            [
+                ApplicationController::class => 'success',
+            ],
+            [
+                ApplicationController::class => 'success',
+            ]
+        );
 
-			// wizard
-			\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup(trim('
+        // wizard
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup(trim('
     			config.pageTitleProviders {
         			own {
             			provider = ITX\Jobapplications\PageTitle\JobsPageTitleProvider
@@ -69,25 +69,37 @@ defined('TYPO3') || die('Access denied.');
 				}
 			'));
 
-			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['jobapplications'] = \ITX\Jobapplications\Hooks\TCEmainHook::class;
-			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass']['jobapplications'] = \ITX\Jobapplications\Hooks\TCEmainHook::class;
+        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['jobapplications'] = \ITX\Jobapplications\Hooks\TCEmainHook::class;
+        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass']['jobapplications'] = \ITX\Jobapplications\Hooks\TCEmainHook::class;
 
-			// FluidMail
-			$GLOBALS['TYPO3_CONF_VARS']['MAIL']['templateRootPaths'][283] = 'EXT:jobapplications/Resources/Private/Templates/Mail';
+        // FluidMail
+        $GLOBALS['TYPO3_CONF_VARS']['MAIL']['templateRootPaths'][283] = 'EXT:jobapplications/Resources/Private/Templates/Mail';
 
-			// Cache
-			if (!isset($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['jobapplications_cache']) || !is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['jobapplications_cache']))
-			{
-				$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['jobapplications_cache'] = [];
-			}
+        // Cache
+        if (!isset($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['jobapplications_cache']) || !is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['jobapplications_cache'])) {
+            $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['jobapplications_cache'] = [];
+        }
 
-            // Filter requests are not cached, so these parameters don't need to influence the cache hash
-            $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = '^tx_jobapplications_frontend[constraint]';
-            $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = '^tx_jobapplications_frontend[__referrer]';
-            $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = '^tx_jobapplications_frontend[__trustedProperties]';
-            $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = 'tx_jobapplications_frontend[submit]';
+        // Filter requests are not cached, so these parameters don't need to influence the cache hash
+        $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = '^tx_jobapplications_frontend[constraint]';
+        $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = '^tx_jobapplications_frontend[__referrer]';
+        $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = '^tx_jobapplications_frontend[__trustedProperties]';
+        $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = 'tx_jobapplications_frontend[submit]';
 
-			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['jobapplications_makeLocationsMultiple']
-				= \ITX\Jobapplications\Updates\MakeLocationsMultiple::class;
-		}
-	);
+        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['jobapplications_makeLocationsMultiple']
+            = \ITX\Jobapplications\Updates\MakeLocationsMultiple::class;
+
+        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['jobapplications_indexing']
+            = \ITX\Jobapplications\Hooks\DataHandlerIndexingHook::class;
+
+        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass']['jobapplications_indexing']
+            = \ITX\Jobapplications\Hooks\DataHandlerIndexingHook::class;
+
+        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\ITX\Jobapplications\Task\ProcessIndexingQueueTask::class] = [
+            'extension' => 'jobapplications',
+            'title' => 'Process Google Indexing Queue',
+            'description' => 'Sends queued job-posting create/update/delete events to the Google Indexing API.',
+            'additionalFields' => \ITX\Jobapplications\Task\ProcessIndexingQueueAdditionalFieldProvider::class,
+        ];
+    }
+);
