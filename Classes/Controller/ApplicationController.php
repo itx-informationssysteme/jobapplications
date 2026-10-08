@@ -373,7 +373,7 @@
 			if (array_key_exists("messageMaxLength", $this->settings) && (strlen($newApplication->getMessage()) > (int)$this->settings['messageMaxLength']))
 			{
 				$this->addFlashMessage("Message too long", "Rejected", ContextualFeedbackSeverity::ERROR);
-				$this->redirect("new", "Application", null, ["posting" => $posting]);
+				return $this->redirect("new", "Application", null, ["posting" => $posting]);
 			}
 
 			if ($posting instanceof Posting)
